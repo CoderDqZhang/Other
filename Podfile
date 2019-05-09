@@ -6,18 +6,27 @@ target 'Touqiu' do
   use_frameworks!
 
   # Pods for Touqiu
+  pod 'YYModel'
+  pod 'YYCache'
+  pod 'YYWebImage'
+  pod 'YYImage'
   pod 'MBProgressHUD'
   pod 'DZNEmptyDataSet'
   pod 'MJRefresh'
-  pod 'YTKKeyValueStore_Swift' #database save
+  pod 'YTKKeyValueStore' #database save
   pod 'Alamofire'
-  pod 'SnapKit'
+  pod 'SnapKit', '~> 5.0.0'
   pod 'SDWebImage'
+  pod 'SKPhotoBrowser'
   pod 'ReactiveSwift'
   pod 'SwifterSwift'
   pod 'IQKeyboardManagerSwift'
   pod 'RAMAnimatedTabBarController'
-  pod 'TYPagerController'
+  pod 'pop'
+  pod 'FDFullscreenPopGesture'
+  pod 'BetterSegmentedControl'
+  pod 'UITableView+FDTemplateLayoutCell'
+  pod 'TYPagerController',:inhibit_warnings => true
 
   target 'TouqiuTests' do
     inherit! :search_paths
