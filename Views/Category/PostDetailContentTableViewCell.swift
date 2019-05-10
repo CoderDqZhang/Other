@@ -7,7 +7,11 @@
 //
 
 import UIKit
-
+enum PostDetailContentTableViewCellButtonType {
+    case like
+    case collect
+}
+typealias PostDetailContentTableViewCellClouse = (_ type:PostDetailContentTableViewCellButtonType) -> Void
 class PostDetailContentTableViewCell: UITableViewCell {
 
     var titleLabel:UILabel!
@@ -18,7 +22,7 @@ class PostDetailContentTableViewCell: UITableViewCell {
     var collectButtonView:UIView!
     var imageContentView:UIView!
     
-    
+    var postDetailContentTableViewCellClouse:PostDetailContentTableViewCellClouse!
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -51,13 +55,15 @@ class PostDetailContentTableViewCell: UITableViewCell {
         self.contentView.addSubview(collectButtonView)
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 34), title: "666", image: UIImage.init(named: "post_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
-            
+            self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
+            self.postDetailContentTableViewCellClouse(.like)
         })
         
         likeButtonView.addSubview(likeButton)
         
         collectButton = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: UIImage.init(named: "post_detail_like")!.size.width + 25, y: 0, width: 34, height: 34), title: "喜欢", image: UIImage.init(named: "post_detail_collect")!, tag: 2, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
-            
+            self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
+            self.postDetailContentTableViewCellClouse(.collect)
         })
         
         collectButtonView.addSubview(collectButton)

@@ -19,11 +19,21 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func tableViewPostDetailUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailUserInfoTableViewCell) {
-        
+        cell.postDetailUserInfoClouse = {
+            print("关注")
+        }
     }
     
     func tableViewPostDetailContentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailContentTableViewCell) {
         cell.cellSetData(title: "齐达内二进宫的预期成绩会是欧冠冠军吗？", content: postData.object(forKey: "contentStrs") as! String, images: postData.object(forKey: "images") as! [String])
+        cell.postDetailContentTableViewCellClouse = { type in
+            switch type {
+            case .like:
+                 print("点赞")
+            default:
+                 print("收藏")
+            }
+        }
     }
     
     func tableViewCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell) {
