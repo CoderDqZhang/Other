@@ -25,6 +25,7 @@ class BaseViewController: UIViewController {
         
         
         self.setUpView()
+        self.bindViewModelLogic()
         self.setUpViewNavigationItem()
         self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
         self.setupBaseViewForDismissKeyboard()
@@ -41,6 +42,8 @@ class BaseViewController: UIViewController {
     
     func setUpViewNavigationItem(){}
     func setUpView(){}
+    
+    func bindViewModelLogic(){}
     
     func setUpTableView(style:UITableView.Style, cells:[AnyClass], controller:UIViewController?){
         tableView = UITableView.init(frame: CGRect.zero, style: style)
@@ -64,7 +67,7 @@ class BaseViewController: UIViewController {
         self.tableView.backgroundColor = App_Theme_F6F6F6_Color
         tableView.keyboardDismissMode = .onDrag
         tableView.snp.makeConstraints { (make) in
-            make.top.equalTo((controller?.view.snp.top)!).offset(IPHONEXs ? -24 : 0)
+            make.top.equalTo((controller?.view.snp.top)!).offset(0)
             make.left.equalTo((controller?.view.snp.left)!).offset(0)
             make.right.equalTo((controller?.view.snp.right)!).offset(0)
             make.bottom.equalTo((controller?.view.snp.bottom)!).offset(0)

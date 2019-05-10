@@ -14,14 +14,18 @@ import UIKit
 let CategoryViewWidth:CGFloat = (SCREENWIDTH - 20 - 24) / 4
 var CategoryViewHeight:CGFloat = CategoryViewWidth * 88 / 83
 let ImageHeith:CGFloat = CategoryViewHeight * (62 / 88)
+
+typealias CategoryViewClouseClick = (_ tag:Int) ->Void
+
 class CategoryView:UIView {
     
     var imageView:UIImageView!
     var titleLabel:UILabel!
+    var categoryViewClouseClick:CategoryViewClouseClick!
     
-    init(imageUrl:String, title:String){
+    init(imageUrl:String, title:String, tag:Int, clouse:@escaping CategoryViewClouseClick){
         super.init(frame: CGRect.init(x: 0, y: 0, width: CategoryViewWidth, height: CategoryViewHeight))
-        
+        self.categoryViewClouseClick = clouse
         self.setShadowWithCornerRadius(corners: 10, shadowColor: App_Theme_B5B5B5_Color!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
         
         imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: CategoryViewWidth, height: ImageHeith))
@@ -40,6 +44,13 @@ class CategoryView:UIView {
         titleLabel.backgroundColor = App_Theme_FFFFFF_Color
         titleLabel.textColor = App_Theme_333333_Color
         self.addSubview(titleLabel)
+        
+        self.isUserInteractionEnabled = true
+        
+        let singleTap = UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer {
+            self.categoryViewClouseClick(tag)
+        }
+        self.addGestureRecognizer(singleTap)
     }
     
     /// 添加圆角和阴影 radius:圆角半径 shadowOpacity: 阴影透明度 (0-1) shadowColor: 阴影颜色
@@ -60,10 +71,12 @@ class CategoryView:UIView {
     }
 }
 
+typealias CategoryTableViewCellClouseClick = (_ tag:Int) ->Void
 
 class CategoryTableViewCell: UITableViewCell {
     
     var contentViews:UIView!
+    var categoryTableViewCellClouseClick:CategoryTableViewCellClouseClick!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -83,7 +96,9 @@ class CategoryTableViewCell: UITableViewCell {
         var urls = ["","","",""]
         var titles = ["足球讨论","足球欧指讨论","篮球讨论","篮球欧指讨论"]
         for index in 0...3{
-            let categoryView = CategoryView.init(imageUrl: urls[index], title: titles[index])
+            let categoryView = CategoryView.init(imageUrl: urls[index], title: titles[index], tag: index) { (tag) in
+                self.categoryTableViewCellClouseClick(tag)
+            }
             categoryView.frame = CGRect.init(x: 10 + CGFloat(CGFloat(index) * (CategoryViewWidth + 8)), y: 5, width: CategoryViewWidth, height: CategoryViewHeight)
             contentViews.addSubview(categoryView)
         }

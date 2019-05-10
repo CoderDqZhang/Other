@@ -16,6 +16,8 @@ class OutFallViewModel: BaseViewModel {
     let translateStrs = ["巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。","巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。","巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。","巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。","巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。","巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。"]
     let images = [[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"]]
     let isTransArray:NSMutableArray = [false,false,false,false,false]
+    
+    
     override init() {
         super.init()
     }
@@ -32,14 +34,16 @@ class OutFallViewModel: BaseViewModel {
         
     }
     
-    func tableViewMCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
+    func tableViewCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
         
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
+        let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section],"translateStrs":translateStrs[indexPath.section],"images":images[indexPath.section]], copyItems: true)
+        (self.controller! as! OutFallViewController).postDetailDataClouse(dicData,.OutFall)
     }
     
+    ///获取内容高度
     func getHeight(_ indexPath:IndexPath, isTrans:Bool) -> CGFloat{
         let stringHeight = self.contentStrs[indexPath.section].height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
         let transHeight = self.translateStrs[indexPath.section].height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
@@ -114,7 +118,7 @@ extension OutFallViewModel: UITableViewDataSource {
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.description(), for: indexPath)
-        self.tableViewMCommentTableViewCellSetData(indexPath, cell: cell as! CommentTableViewCell)
+        self.tableViewCommentTableViewCellSetData(indexPath, cell: cell as! CommentTableViewCell)
         cell.selectionStyle = .none
         return cell
     }

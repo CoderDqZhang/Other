@@ -28,6 +28,14 @@ let IPHONEXs = SCREENHEIGHT == 812.0 ? true : false
 let IPHONEXR = SCREENHEIGHT == 896.0 ? true : false
 let IPHONEXsMax = SCREENHEIGHT == 812.0 ? true : false
 
+
+@available(iOS 11.0, *)
+let INTERFACE_IS_IPHONEX = KWindow.safeAreaInsets.bottom > 0 ? true : false
+@available(iOS 11.0, *)
+let NAV_HEIGHT:CGFloat = INTERFACE_IS_IPHONEX ? 48 : 0
+@available(iOS 11.0, *)
+let TABBAR_HEIGHT:CGFloat = INTERFACE_IS_IPHONEX ? 24 : 0
+
 let IPAD = UIDevice.current.userInterfaceIdiom == .pad ? true : false
 
 let IPHONEWIDTH320 = SCREENWIDTH == 320 ? true:false
@@ -38,6 +46,7 @@ let IPHONEXFRAMEHEIGHT:CGFloat = IPHONEXs ? 24 : 0
 let IPHONEXTABBARHEIGHT:CGFloat = IPHONEXs ? 30 : 0
 
 let KWindow:UIWindow = UIApplication.shared.keyWindow!
+
 
 func isIPhoneXSeries() -> Bool{
     var iPhoneXSeries:Bool = false

@@ -11,13 +11,15 @@ import BetterSegmentedControl
 
 class SegmentViewController: BaseViewController, UIScrollViewDelegate {
 
-    let viewControllers = [NewsViewController(),OutFallViewController()]
+    let newController = NewsViewController()
+    let outFallController = OutFallViewController()
+    var viewControllers:[BaseViewController] = []
+    let segmentViewModel = SegmentViewModel()
     var control:BetterSegmentedControl!
     var scrollerView:UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         self.createSegementController()
         self.createNavigationItem()
@@ -26,18 +28,37 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func createSegementController(){
+        viewControllers = [newController,outFallController]
+
         control = BetterSegmentedControl(
             frame: CGRect(x: 50, y: 0, width: SCREENWIDTH - 100, height: 44),
             segments: LabelSegment.segments(withTitles: ["最新", "出墙"],
                                             normalFont: App_Theme_PinFan_R_16_Font,
-                                            normalTextColor: App_Theme_FFFFFF_Color,
+                                            normalTextColor: App_Theme_5B4D0E_Color,
                                             selectedFont: App_Theme_PinFan_R_16_Font,
-                                            selectedTextColor: App_Theme_D1E7FF_Color),
+                                            selectedTextColor: App_Theme_06070D_Color),
             index: 0,
             options: [.backgroundColor(.clear),
                       .indicatorViewBackgroundColor(.clear)])
         control.addTarget(self, action: #selector(self.controlValueChanged(index:)), for: .valueChanged)
         self.navigationController?.navigationBar.addSubview(control)
+        
+    }
+    
+    override func bindViewModelLogic(){
+        self.bindViewModel(viewModel: segmentViewModel, controller: self)
+        self.newController.postDetailDataClouse = { data, type in
+            self.segmentViewModel.pushPostDetailViewController(data, type)
+        }
+        
+        self.newController.categoryDetailClouse = { data, type in
+            self.segmentViewModel.pushCategoryDetailViewController(data, type)
+        }
+        
+        self.outFallController.postDetailDataClouse = { data, type in
+            self.segmentViewModel.pushPostDetailViewController(data, type)
+        }
+        
     }
     
     func createNavigationItem(){
@@ -45,7 +66,7 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @objc func rightBarItemClick(){
-        NavigationPushView(self, toConroller: PostViewController())
+        segmentViewModel.pushPostVC()
     }
     
     @objc func controlValueChanged(index:Int){
@@ -78,6 +99,8 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         self.control.isHidden = false
+        self.navigationController?.fd_prefersNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

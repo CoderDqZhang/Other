@@ -15,6 +15,8 @@ class OutFallUserInfoView: UIView {
     var translateLabel:UILabel!
     var shareButton:UIButton!
     
+    var likeButton:UIButton!
+    
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
     
     var didMakeConstraints = false
@@ -51,7 +53,6 @@ class OutFallUserInfoView: UIView {
         shareButton.setImage(UIImage.init(named: "share"), for: .normal)
         self.addSubview(shareButton)
         
-        
         self.addSubview(lineLabel)
         
         self.updateConstraints()
@@ -75,11 +76,6 @@ class OutFallUserInfoView: UIView {
                 make.centerY.equalToSuperview()
             }
             
-            shareButton.snp.makeConstraints { (make) in
-                make.right.equalTo(self.snp.right).offset(-16)
-                make.centerY.equalToSuperview()
-            }
-            
             lineLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.userName.snp.right).offset(6)
                 make.centerY.equalToSuperview()
@@ -100,6 +96,8 @@ class OutFallCategoryUserInfoTableViewCell: UITableViewCell {
 
     var userView:OutFallUserInfoView!
     
+    var isCategoryDetail:Bool = false
+    var likeButton:UIButton!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -112,6 +110,8 @@ class OutFallCategoryUserInfoTableViewCell: UITableViewCell {
         self.contentView.addSubview(userView)
         
         userView.createContent(avatar: "", name: "Leiao Messi", translate: "里奥梅西")
+        
+        
         
         self.updateConstraints()
     }

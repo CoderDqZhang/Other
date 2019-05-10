@@ -13,6 +13,8 @@ class HotDetailTableViewCell: UITableViewCell {
     var detailLabel:UILabel!
     var imageLabel:UILabel!
     
+    var numberLabel:UILabel!
+    
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -22,17 +24,26 @@ class HotDetailTableViewCell: UITableViewCell {
     
     func setUpView(){
         detailLabel = UILabel.init()
-        detailLabel.text = "热们讨论"
-        detailLabel.textColor = App_Theme_1B85FD_Color
+        detailLabel.textColor = App_Theme_06070D_Color
         detailLabel.font = App_Theme_PinFan_M_14_Font
         self.contentView.addSubview(detailLabel)
         
+        numberLabel = UILabel.init()
+        numberLabel.textColor = App_Theme_06070D_Color
+        numberLabel.font = App_Theme_PinFan_M_14_Font
+        self.contentView.addSubview(numberLabel)
+        
         imageLabel = UILabel.init()
-        imageLabel.backgroundColor = App_Theme_1B85FD_Color
+        imageLabel.backgroundColor = App_Theme_FFCB00_Color
         imageLabel.cornerRadius = 4
         imageLabel.layer.masksToBounds = true
         self.contentView.addSubview(imageLabel)
         self.updateConstraints()
+    }
+    
+    func cellSetData(detail:String, number:String){
+        detailLabel.text = detail
+        numberLabel.text = number
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,6 +61,10 @@ class HotDetailTableViewCell: UITableViewCell {
             detailLabel.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
                 make.left.equalTo(self.imageLabel.snp.right).offset(7)
+            }
+            numberLabel.snp.makeConstraints { (make) in
+                make.centerY.equalToSuperview()
+                make.left.equalTo(self.detailLabel.snp.right).offset(9)
             }
             didMakeConstraints = true
         }

@@ -10,6 +10,9 @@ import UIKit
 
 class NewsViewController: BaseViewController {
 
+    var postDetailDataClouse:PostDetailDataClouse!
+    var categoryDetailClouse:CategoryDetailDataClouse!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

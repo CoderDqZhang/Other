@@ -32,17 +32,16 @@ extension UIButton {
         self.setImage(sImage, for: .highlighted)
     }
     
-//    func verticalImageAndTitle(spacing:CGFloat) {
-//        let imageSize = self.imageView?.frame.size
-//        var titleSize = self.titleLabel?.frame.size
-//        
-//        let textSize = self.titleLabel?.text?.nsString.size(with: self.titleLabel?.font, constrainedTo: 0)
-//        let frameSize = CGSize.init(width: textSize.width, height: textSize.height)
-//        if (titleSize?.width)! + 0.5 < frameSize.width {
-//            titleSize?.width = frameSize.width
-//        }
-//        let totalHeight = (imageSize?.height)! + (titleSize?.height)! + spacing
-//        self.imageEdgeInsets = UIEdgeInsets(top: -(totalHeight - (imageSize?.height)!), left: 0.0, bottom: 0.0, right: -(titleSize?.width)!)
-//        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(imageSize?.width)!, bottom: -(totalHeight - (titleSize?.height)!), right: 0)
-//    }
+    func verticalImageAndTitle(spacing:CGFloat) {
+        let imageSize = self.imageView?.frame.size
+        var titleSize = self.titleLabel?.frame.size
+        let textSize = self.titleLabel?.text?.nsString.size(with: self.titleLabel?.font, constrainedToWidth: self.bounds.size.width)
+        let frameSize = CGSize.init(width: textSize!.width, height: textSize!.height)
+        if (titleSize?.width)! + 0.5 < frameSize.width {
+            titleSize?.width = frameSize.width
+        }
+        let totalHeight = (imageSize?.height)! + (titleSize?.height)! + spacing
+        self.imageEdgeInsets = UIEdgeInsets(top: -(totalHeight - (imageSize?.height)!), left: 0.0, bottom: 0.0, right: -(titleSize?.width)!)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(imageSize?.width)!, bottom: -(totalHeight - (titleSize?.height)!), right: 0)
+    }
 }
