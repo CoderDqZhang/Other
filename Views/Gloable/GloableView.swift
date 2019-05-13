@@ -134,14 +134,17 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
     }
 }
 
+import IQKeyboardManagerSwift
 
 class CustomViewCommentTextField: UIView,UITextFieldDelegate {
     
     var textField:UITextField!
     var imageButton:AnimationButton!
     var touchClickClouse:TouchClickClouse!
+    var originFrame:CGRect!
     init(frame:CGRect, placeholderString:String, click:@escaping TouchClickClouse) {
         super.init(frame: frame)
+        originFrame = frame
         textField = UITextField.init(frame: CGRect.init(x: 16, y: 7, width: SCREENWIDTH - 16 * 2 , height: 30))
         textField.borderColor = App_Theme_B4B4B4_Color
         textField.addPaddingLeft(17)
@@ -155,22 +158,83 @@ class CustomViewCommentTextField: UIView,UITextFieldDelegate {
         let singTap = UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer {
             click()
         }
-        self.addGestureRecognizer(singTap)
         
+        if #available(iOS 11.0, *) {
+            IQKeyboardManager.shared.keyboardDistanceFromTextField = -TABBAR_HEIGHT
+        } else {
+            // Fallback on earlier versions
+            IQKeyboardManager.shared.keyboardDistanceFromTextField = -20
+        }
+        
+        self.addGestureRecognizer(singTap)
+//        self.registerNotification()
+
+    }
+    
+    //MARK:监听键盘通知
+    func registerNotification(){
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyBoardWillShow(_ :)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyBoardWillHide(_ :)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    @objc func keyBoardWillShow(_ notification:Notification){
+        DispatchQueue.main.async {
+            
+            /*
+             每次键盘发生变化之前，先恢复原来的状态
+             y 是键盘布局的origin.y
+             y2 是登录按钮的origin.y+height
+             如果y>y2，登录按钮没有被遮挡，不需要向上移动；反之，按钮被遮挡，整体需要向上移动一部分
+             */
+//            self.center = CGPoint.init(x: self.frame.size.width, y: self.frame.origin.y)
+//            let user_info = notification.userInfo
+//            let keyboardRect = (user_info?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+//
+//            let y = keyboardRect.origin.y
+//            let y2 = (self.frame.origin.y) + (self.frame.size.height) + 5
+//            let offset_y = y2 > y ? (y2-y):(0)
+//
+//            print(keyboardRect)//896 *
+//            UIView.animate(withDuration: 0.25, animations: {
+//                self.frame = CGRect.init(x: 0, y: 760, width: SCREENWIDTH, height: 44)
+////                self.transform = CGAffineTransform.init(translationX: 0, y: 2)
+//
+//
+//            })
+        }
+    }
+    
+    @objc func keyBoardWillHide(_ notification:Notification){
+        DispatchQueue.main.async {
+//            self.center = CGPoint.init(x: self.frame.size.width/2, y: self.frame.size.height/2)
+        }
+    }
+    
+    //MARK:释放键盘监听通知
+    func releaseNotification(){
+        NotificationCenter.default.removeObserver(self)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.becomeFirstResponder()
-        self.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 44)
+//        self.frame.size = CGSize.init(width: originFrame.size.width, height: 44)
+//        self.frame = CGRect.init(x: 0, y: 760, width: SCREENWIDTH, height: 44)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if #available(iOS 11.0, *) {
-            self.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT)
-        } else {
-            // Fallback on earlier versions
-            self.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 44)
-        }
+//        if #available(iOS 11.0, *) {
+//            self.frame = originFrame
+//        } else {
+//            // Fallback on earlier versions
+//            self.frame = originFrame
+//        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

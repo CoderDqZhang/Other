@@ -32,6 +32,7 @@ class AppleThemeTool {
 
     class func setUpKeyBoardManager() {
         IQKeyboardManager.shared.enable = true
+        
         IQKeyboardManager.shared.enableAutoToolbar = false
 
     }
