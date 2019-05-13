@@ -63,7 +63,7 @@ extension NewsViewModel: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 1 {
-            return 2
+            return 1
         }
         return 5
     }

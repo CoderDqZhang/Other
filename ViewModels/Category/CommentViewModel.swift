@@ -11,58 +11,30 @@ import DZNEmptyDataSet
 
 class CommentViewModel: BaseViewModel {
 
-    var postType:PostType!
-    var categoryData:NSDictionary!
     
-    var isTrans:Bool = false
+    var commentData:NSDictionary!
+    var commentList:[SecondeModel]!
+    
     override init() {
-        
+        super.init()
     }
     
-    func tableViewCommentContentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentContentTableViewCell) {
-        
+    func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
+        if indexPath.section == 0 {
+            cell.cellSetData(images: commentData.object(forKey: "images") as! [String], secondeContents: [], content: commentData.object(forKey: "commet") as! String, isCommentDetail: true)
+        }else{
+            cell.cellSetData(images: [], secondeContents: [], content: commentList[indexPath.section - 1].contentStr, isCommentDetail: false)
+
+        }
     }
     
-    func tableViewOutFallCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:OutFallCategoryContentTableViewCell) {
-        cell.cellSetData(content: categoryData.object(forKey: "contentStrs") as! String, translate: categoryData.object(forKey: "translateStrs") as! String, images: categoryData.object(forKey: "contentStrs") as! [String], isTrans: false, indexPath: indexPath, transButtonClicks: { indexPath in
-            self.isTrans = true
-            self.controller?.tableView.reloadRows(at: [indexPath], with: .automatic)
-        })
-    }
-    
-    func tableViewUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:UserInfoTableViewCell){
-        
-    }
-    
-    func tableViewOutFallCategoryUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:OutFallCategoryUserInfoTableViewCell){
-        
-    }
-    
-    func tableViewCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryContentTableViewCell) {
-        cell.cellSetData(content: categoryData.object(forKey: "contentStrs") as! String, images: self.categoryData.object(forKey: "images") as! [String])
-    }
-    
-    func tableViewMCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
-        
-    }
-    
-    func tableViewCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
-        
+    func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
+        cell.postDetailCommentUserTableViewCellClouse = {
+            
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
-    }
-    
-    ///获取内容高度
-    func getHeight(_ indexPath:IndexPath, isTrans:Bool) -> CGFloat{
-        let stringHeight = (categoryData.object(forKey: "contentStrs") as! String).nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-        let transHeight = (self.categoryData.object(forKey: "contentStrs") as! String).nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-        let imageHeight = (self.categoryData.object(forKey: "images") as! [String]).count > 1 ? contentImageHeight : 0
-        if isTrans {
-            return stringHeight + transHeight + imageHeight + 50
-        }
-        return stringHeight + imageHeight + 50
         
     }
 }
@@ -75,30 +47,31 @@ extension CommentViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+        return 0.001
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.00001
+        if section == 0 {
+            return 5
+        }
+        return 0.001
     }
     
+    // 165 / 375
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            
-            if indexPath.row == 0 {
-                return 52
-            }else{
-                if self.postType == .OutFall {
-                    return self.getHeight(indexPath, isTrans: self.isTrans)
-                }
-                return tableView.fd_heightForCell(withIdentifier: CategoryContentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
-                    (cell as! CategoryContentTableViewCell).cellSetData(content: self.categoryData.object(forKey: "contentStrs") as! String, images: self.categoryData.object(forKey: "images") as! [String])
-                })
-            }
-        default:
-            return 69
+        if indexPath.row == 0 {
+            return 56
         }
+        return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
+            self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell  as! PostDetailCommentTableViewCell)
+        })
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 56
+        }
+        return 150
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -108,48 +81,28 @@ extension CommentViewModel: UITableViewDelegate {
 
 extension CommentViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return commentList.count + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 2
-        }
-        return 10
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            if self.postType == .OutFall{
-                if indexPath.row == 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: OutFallCategoryUserInfoTableViewCell.description(), for: indexPath)
-                    self.tableViewOutFallCategoryUserInfoTableViewCellSetData(indexPath, cell: cell as! OutFallCategoryUserInfoTableViewCell)
-                    cell.selectionStyle = .none
-                    return cell
-                }
-                let cell = tableView.dequeueReusableCell(withIdentifier: OutFallCategoryContentTableViewCell.description(), for: indexPath)
-                self.tableViewOutFallCategoryContentTableViewCellSetData(indexPath, cell: cell as! OutFallCategoryContentTableViewCell)
-                cell.selectionStyle = .none
-                return cell
-            }else{
-                if indexPath.row == 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: UserInfoTableViewCell.description(), for: indexPath)
-                    self.tableViewUserInfoTableViewCellSetData(indexPath, cell: cell as! UserInfoTableViewCell)
-                    cell.selectionStyle = .none
-                    return cell
-                }
-                let cell = tableView.dequeueReusableCell(withIdentifier: CategoryContentTableViewCell.description(), for: indexPath)
-                self.tableViewCategoryContentTableViewCellSetData(indexPath, cell: cell as! CategoryContentTableViewCell)
-                cell.selectionStyle = .none
-                return cell
-            }
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: CommentContentTableViewCell.description(), for: indexPath)
-            self.tableViewCommentContentTableViewCellSetData(indexPath, cell: cell as! CommentContentTableViewCell)
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentUserTableViewCell.description(), for: indexPath)
+            self.tableViewPostDetailCommentUserTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentUserTableViewCell)
             cell.selectionStyle = .none
+            
             return cell
         }
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
+        self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
+        cell.selectionStyle = .none
+        if indexPath.section == 0 {
+            (cell as! PostDetailCommentTableViewCell).lineLabel.isHidden = true
+        }
+        return cell
     }
 }
 
@@ -174,4 +127,3 @@ extension CommentViewModel : DZNEmptyDataSetSource {
         return -64
     }
 }
-

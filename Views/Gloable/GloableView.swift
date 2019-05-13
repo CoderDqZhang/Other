@@ -135,22 +135,49 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
 }
 
 
-class CustomViewCommentTextField: UIView {
+class CustomViewCommentTextField: UIView,UITextFieldDelegate {
     
     var textField:UITextField!
+    var imageButton:AnimationButton!
+    var touchClickClouse:TouchClickClouse!
     init(frame:CGRect, placeholderString:String, click:@escaping TouchClickClouse) {
         super.init(frame: frame)
-        
-        textField = UITextField.init(frame: CGRect.init(x: 16, y: 7, width: SCREENWIDTH - 16 * 2, height: (frame.size.height - 14) / 2))
-        textField.borderStyle = .bezel
+        textField = UITextField.init(frame: CGRect.init(x: 16, y: 7, width: SCREENWIDTH - 16 * 2 , height: 30))
         textField.borderColor = App_Theme_B4B4B4_Color
+        textField.addPaddingLeft(17)
+        textField.placeholderFont = App_Theme_PinFan_R_12_Font!
         textField.setPlaceHolderTextColor(App_Theme_BBBBBB_Color!)
         textField.cornerRadius = 4
         textField.borderWidth = 1
+        textField.delegate = self
         textField.placeholder = placeholderString
         self.addSubview(textField)
+        let singTap = UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer {
+            click()
+        }
+        self.addGestureRecognizer(singTap)
         
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.becomeFirstResponder()
+        self.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 44)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if #available(iOS 11.0, *) {
+            self.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT)
+        } else {
+            // Fallback on earlier versions
+            self.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 44)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

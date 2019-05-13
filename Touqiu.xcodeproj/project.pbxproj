@@ -126,6 +126,8 @@
 		1FE5BF562285623400C9137C /* PostDetailContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF552285623400C9137C /* PostDetailContentTableViewCell.swift */; };
 		1FE5BF592285702100C9137C /* UIButton+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF582285702100C9137C /* UIButton+Block.m */; };
 		1FE5BF5B228583C000C9137C /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF5A228583BF00C9137C /* AnimationView.swift */; };
+		1FE5BF5E228942EF00C9137C /* UITextFieldExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF5D228942EF00C9137C /* UITextFieldExtentions.swift */; };
+		1FE5BF6022894D2700C9137C /* CommentPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF5F22894D2700C9137C /* CommentPostViewController.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -330,6 +332,8 @@
 		1FE5BF572285702100C9137C /* UIButton+Block.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+Block.h"; sourceTree = "<group>"; };
 		1FE5BF582285702100C9137C /* UIButton+Block.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Block.m"; sourceTree = "<group>"; };
 		1FE5BF5A228583BF00C9137C /* AnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
+		1FE5BF5D228942EF00C9137C /* UITextFieldExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtentions.swift; sourceTree = "<group>"; };
+		1FE5BF5F22894D2700C9137C /* CommentPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentPostViewController.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -601,6 +605,7 @@
 			isa = PBXGroup;
 			children = (
 				1FE5BE3B2282864300C9137C /* UIPageControlExtentions.swift */,
+				1FE5BF5D228942EF00C9137C /* UITextFieldExtentions.swift */,
 				1FE5BE3C2282864300C9137C /* UIButton+Extentions.swift */,
 				1FE5BE3E2282864300C9137C /* View+Extntion.swift */,
 				1FE5BE3F2282864300C9137C /* UIViewController+NavigationBar.swift */,
@@ -834,6 +839,7 @@
 				1FE5BF3D228509B900C9137C /* CategoryDetailViewController.swift */,
 				1FE5BF47228528FD00C9137C /* CommentViewController.swift */,
 				1FE5BF49228529B700C9137C /* PostDetailViewController.swift */,
+				1FE5BF5F22894D2700C9137C /* CommentPostViewController.swift */,
 				1FE5BF142282CBE900C9137C /* PostViewController.swift */,
 			);
 			path = Category;
@@ -1290,6 +1296,7 @@
 				1FE5BEEF2282A1CA00C9137C /* SegmentViewController.swift in Sources */,
 				1FE5BE332282863D00C9137C /* ShareTools.swift in Sources */,
 				1FE5BED02282866300C9137C /* yuv420p.fsh.c in Sources */,
+				1FE5BF5E228942EF00C9137C /* UITextFieldExtentions.swift in Sources */,
 				1FE5BECE2282866300C9137C /* renderer.c in Sources */,
 				1FE5BECD2282866300C9137C /* shader.c in Sources */,
 				1FE5BED72282866300C9137C /* RangeSeekSliderDelegate.swift in Sources */,
@@ -1374,6 +1381,7 @@
 				1FE5BE382282863D00C9137C /* Tools.swift in Sources */,
 				1FE5BF54228561F900C9137C /* PostDetailCommentUserTableViewCell.swift in Sources */,
 				1FE5BF152282CBE900C9137C /* PostViewController.swift in Sources */,
+				1FE5BF6022894D2700C9137C /* CommentPostViewController.swift in Sources */,
 				1FE5BE22228285FA00C9137C /* NSString+StringSize.m in Sources */,
 				1FE5BF3E228509B900C9137C /* CategoryDetailViewController.swift in Sources */,
 				1FE5BE492282864300C9137C /* UIImage+Crop.swift in Sources */,

@@ -10,31 +10,28 @@ import UIKit
 
 class CommentViewController: BaseViewController {
 
-    var categoryType:CategoryType!
     var commentData:NSDictionary!
+    var commentList:[SecondeModel]!
+    
     var commentDetailViewModel = CommentViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
     override func setUpView() {
-//        self.bindViewModel(viewModel: categoryDetailViewModel, controller: self)
-//        self.categoryDetailViewModel.categoryType = self.categoryType
-//        self.categoryDetailViewModel.categoryData = self.categoryData
-//        self.setUpTableView(style: .grouped, cells: [CommentContentTableViewCell.self,CommentTableViewCell.self,CategoryContentTableViewCell.self,OutFallCategoryContentTableViewCell.self,OutFallCategoryUserInfoTableViewCell.self,UserInfoTableViewCell.self], controller: self)
-//        
-//        self.setUpRefreshData {
-//            
-//        }
-//        
-//        self.setUpLoadMoreData {
-//            
-//        }
+        self.bindViewModel(viewModel: commentDetailViewModel, controller: self)
+        self.setUpTableView(style: .grouped, cells: [PostDetailCommentUserTableViewCell.self,PostDetailCommentTableViewCell.self], controller: self)
     }
     
-    override func viewControllerSetNavigationItemBack() {
+    override func bindViewModelLogic() {
+        commentDetailViewModel.commentData = commentData
+        commentDetailViewModel.commentList = commentList
+    }
+    
+    override func setUpViewNavigationItem() {
+        self.setNavigationItemBack()
         self.navigationItem.title = "查看回复"
     }
 

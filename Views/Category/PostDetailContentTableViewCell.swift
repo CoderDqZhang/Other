@@ -113,7 +113,7 @@ class PostDetailContentTableViewCell: UITableViewCell {
     func cellSetData(title:String,content:String, images:[String]){
         
         let titleHeight = title.nsString.height(with: App_Theme_PinFan_M_18_Font, constrainedToWidth: SCREENWIDTH - 30)
-        titleLabel.snp.updateConstraints { (make) in
+        titleLabel.snp.makeConstraints { (make) in
             make.size.height.equalTo(titleHeight)
         }
         titleLabel.text = title

@@ -15,6 +15,8 @@ class PostDetailViewModel: BaseViewModel {
     var postData:NSDictionary!
     var commets = ["鲁尼也是一代红魔传送","鲁尼也是一代红魔传送","鲁尼也是一代红魔传送","鲁尼也是一代红魔直接诶时候欧他平时的方式发送到发送到福建省地方就是传送"]
     let testModel = [[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[]]
+    let images = [[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"]]
+    
     override init() {
         super.init()
     }
@@ -38,7 +40,7 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        cell.cellSetData(images: [], secondeContents: testModel[indexPath.section - 2], content: self.commets[indexPath.section - 2])
+        cell.cellSetData(images: images[indexPath.section - 2], secondeContents: testModel[indexPath.section - 2], content: self.commets[indexPath.section - 2], isCommentDetail: false)
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
@@ -52,7 +54,10 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
+        let commentVC = CommentViewController()
+        commentVC.commentData = ["commet":commets[indexPath.section - 2],"images":images[indexPath.section - 2]]
+        commentVC.commentList = self.testModel[indexPath.section - 2]
+        NavigationPushView(self.controller!, toConroller: commentVC)
     }
 }
 
@@ -70,6 +75,8 @@ extension PostDetailViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
             return 5
+        }else if section == 1{
+            return 1
         }
         return 0.001
     }

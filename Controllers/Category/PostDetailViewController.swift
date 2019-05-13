@@ -13,6 +13,9 @@ class PostDetailViewController: BaseViewController {
     var postType:PostType!
     var postData:NSDictionary!
     var postDetailViewModel = PostDetailViewModel()
+    
+    var gloableCommentView:CustomViewCommentTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,14 +28,46 @@ class PostDetailViewController: BaseViewController {
         self.postDetailViewModel.postType = self.postType
         self.postDetailViewModel.postData = self.postData
         self.setUpTableView(style: .grouped, cells: [PostDetailUserInfoTableViewCell.self,PostDetailCommentTableViewCell.self,PostDetailCommentUserTableViewCell.self,PostDetailContentTableViewCell.self,HotDetailTableViewCell.self], controller: self)
-        
+
+        self.updateTableViewConstraints()
+
         self.setUpRefreshData {
-            
+
+        }
+
+        self.setUpLoadMoreData {
+
         }
         
-        self.setUpLoadMoreData {
-            
+        if #available(iOS 11.0, *) {
+            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...", click: {
+                let commentPost = UINavigationController.init(rootViewController: CommentPostViewController())
+                NavigaiontPresentView(self, toController: commentPost)
+            })
+        } else {
+            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: self.tableView.frame.maxY, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...", click: {
+                let commentPost = UINavigationController.init(rootViewController: CommentPostViewController())
+                NavigaiontPresentView(self, toController: commentPost)
+            })
+            // Fallback on earlier versions
         }
+        gloableCommentView.textField.isEnabled = false
+        gloableCommentView.backgroundColor = .white
+        self.view.addSubview(gloableCommentView)
+    }
+    
+    func updateTableViewConstraints() {
+        self.tableView.snp.updateConstraints { (make) in
+            make.bottom.equalTo(self.view.snp.bottom).offset(-44)
+        }
+    }
+    
+    override func setUpViewNavigationItem() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share"), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
+    }
+    
+    @objc func rightBarItemClick(_ sender:UIBarButtonItem) {
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
