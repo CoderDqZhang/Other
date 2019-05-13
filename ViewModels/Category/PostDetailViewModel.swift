@@ -13,8 +13,8 @@ class PostDetailViewModel: BaseViewModel {
 
     var postType:PostType!
     var postData:NSDictionary!
-    var commets = ["鲁尼也是一代红魔传送","鲁尼也是一代红魔传送","鲁尼也是一代红魔传送"]
-    let testModel = [[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[]]
+    var commets = ["鲁尼也是一代红魔传送","鲁尼也是一代红魔传送","鲁尼也是一代红魔传送","鲁尼也是一代红魔直接诶时候欧他平时的方式发送到发送到福建省地方就是传送"]
+    let testModel = [[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[]]
     override init() {
         super.init()
     }
@@ -38,7 +38,7 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        cell.cellSetData(images: [], secondeContents: testModel[indexPath.row], content: self.commets[indexPath.row])
+        cell.cellSetData(images: [], secondeContents: testModel[indexPath.section - 2], content: self.commets[indexPath.section - 2])
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){

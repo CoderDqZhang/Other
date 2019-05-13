@@ -81,7 +81,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
             
             timeLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.avatarImage.snp.right).offset(7)
-                make.top.equalTo(self.userName.snp.bottom).offset(8)
+                make.top.equalTo(self.userName.snp.bottom).offset(1)
             }
             
             likeButton.snp.makeConstraints { (make) in
