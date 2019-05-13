@@ -113,7 +113,7 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
         imageView.image = image
         self.addSubview(imageView)
         
-        label = UILabel.init(frame: CGRect.init(x: 0, y: spacing + image.size.height, width: frame.size.width, height: font.capHeight))
+        label = UILabel.init(frame: CGRect.init(x: 0, y: spacing + image.size.height, width: frame.size.width, height: font.capHeight + 2))
         label.textAlignment = .center
         label.text = title
         label.font = font
@@ -134,3 +134,25 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
     }
 }
 
+
+class CustomViewCommentTextField: UIView {
+    
+    var textField:UITextField!
+    init(frame:CGRect, placeholderString:String, click:@escaping TouchClickClouse) {
+        super.init(frame: frame)
+        
+        textField = UITextField.init(frame: CGRect.init(x: 16, y: 7, width: SCREENWIDTH - 16 * 2, height: (frame.size.height - 14) / 2))
+        textField.borderStyle = .bezel
+        textField.borderColor = App_Theme_B4B4B4_Color
+        textField.setPlaceHolderTextColor(App_Theme_BBBBBB_Color!)
+        textField.cornerRadius = 4
+        textField.borderWidth = 1
+        textField.placeholder = placeholderString
+        self.addSubview(textField)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

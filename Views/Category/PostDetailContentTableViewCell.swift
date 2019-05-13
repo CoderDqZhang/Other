@@ -54,14 +54,14 @@ class PostDetailContentTableViewCell: UITableViewCell {
         collectButtonView = UIView.init()
         self.contentView.addSubview(collectButtonView)
         
-        likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 34), title: "666", image: UIImage.init(named: "post_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
+        likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "post_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
             self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
             self.postDetailContentTableViewCellClouse(.like)
         })
         
         likeButtonView.addSubview(likeButton)
         
-        collectButton = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: UIImage.init(named: "post_detail_like")!.size.width + 25, y: 0, width: 34, height: 34), title: "喜欢", image: UIImage.init(named: "post_detail_collect")!, tag: 2, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
+        collectButton = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: UIImage.init(named: "post_detail_like")!.size.width + 25, y: 0, width: 34, height: 64), title: "喜欢", image: UIImage.init(named: "post_detail_collect")!, tag: 2, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
             self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
             self.postDetailContentTableViewCellClouse(.collect)
         })
@@ -95,14 +95,14 @@ class PostDetailContentTableViewCell: UITableViewCell {
         likeButtonView.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.contentView.snp.centerX).offset(-35)
             make.top.equalTo(self.imageContentView.snp.bottom).offset(17)
-            make.size.equalTo(CGSize.init(width: 43, height: 63))
+            make.size.equalTo(CGSize.init(width: 43, height: 64))
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
         }
         
         collectButtonView.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.contentView.snp.centerX).offset(35)
             make.top.equalTo(self.imageContentView.snp.bottom).offset(17)
-            make.size.equalTo(CGSize.init(width: 43, height: 63))
+            make.size.equalTo(CGSize.init(width: 43, height: 64))
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
         }
         

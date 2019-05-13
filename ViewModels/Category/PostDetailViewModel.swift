@@ -13,7 +13,8 @@ class PostDetailViewModel: BaseViewModel {
 
     var postType:PostType!
     var postData:NSDictionary!
-    var commets = ["","","",""]
+    var commets = ["鲁尼也是一代红魔传送","鲁尼也是一代红魔传送","鲁尼也是一代红魔传送"]
+    let testModel = [[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[]]
     override init() {
         super.init()
     }
@@ -36,16 +37,14 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
-    func tableViewCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell) {
-        
-    }
-    
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        
+        cell.cellSetData(images: [], secondeContents: testModel[indexPath.row], content: self.commets[indexPath.row])
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
-        
+        cell.postDetailCommentUserTableViewCellClouse = {
+            
+        }
     }
     
     func tableViewHotDetailTableViewCellSetData(_ indexPath:IndexPath, cell:HotDetailTableViewCell) {
@@ -88,8 +87,11 @@ extension PostDetailViewModel: UITableViewDelegate {
         case 1:
             return 32
         default:
-            return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
-                self.tableViewPostDetailContentTableViewCellSetData(indexPath, cell: cell as! PostDetailContentTableViewCell)
+            if indexPath.row == 0 {
+                return 56
+            }
+            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
+                self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell  as! PostDetailCommentTableViewCell)
             })
         }
     }
