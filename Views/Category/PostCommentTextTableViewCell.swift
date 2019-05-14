@@ -8,9 +8,11 @@
 
 import UIKit
 
+let MaxTextViewCount = 250
 class PostCommentTextTableViewCell: UITableViewCell {
 
     var textView:YYTextView!
+    var textCountLabel:YYLabel!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -31,6 +33,12 @@ class PostCommentTextTableViewCell: UITableViewCell {
         textView.keyboardType = .default
         textView.returnKeyType = .send
         self.contentView.addSubview(textView)
+        
+        textCountLabel = YYLabel.init()
+        textCountLabel.font = App_Theme_PinFan_M_14_Font
+        textCountLabel.textColor = App_Theme_999999_Color
+        textCountLabel.text = "0/250"
+        self.contentView.addSubview(textCountLabel)
         self.updateConstraints()
     }
     
@@ -46,6 +54,10 @@ class PostCommentTextTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
+            }
+            textCountLabel.snp.makeConstraints { (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
             }
             didMakeConstraints = true
         }
@@ -76,19 +88,17 @@ extension PostCommentTextTableViewCell : YYTextViewDelegate {
             textView.text = ""
             return false
         }
+        if (textView.text.count > MaxTextViewCount) {
+            textView.text = textView.text.nsString.substring(to: MaxTextViewCount)
+        }
         return true
     }
     
     func textViewDidChange(_ textView: YYTextView) {
-//        let fltTextHeight = textView.textLayout!.textBoundingSize.height;
-//        textView.isScrollEnabled = true //必须设置为NO
-//        UIView.animate(withDuration: 0.25, animations: {
-//            self.frame = CGRect.init(x: 0, y: self.keybordFrame.origin.y - (fltTextHeight - self.textViewOriginFrame.size.height), width: self.keybordFrame.size.width, height: fltTextHeight + 14)
-//            textView.height = fltTextHeight
-//        }) { (finished) in
-//
-//        }
-//
+        textCountLabel.text = "\(textView.text.count)/250"
+        if (textView.text.count > MaxTextViewCount) {
+            textView.text = textView.text.nsString.substring(to: MaxTextViewCount)
+        }
         self.updateConstraintsIfNeeded()
     }
     
