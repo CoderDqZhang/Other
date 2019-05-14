@@ -16,26 +16,26 @@ class ScoreViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        if #available(iOS 11.0, *) {
-//            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49 - 60, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:true, click: {
-////                let commentPost = UINavigationController.init(rootViewController: CommentPostViewController())
-////                NavigaiontPresentView(self, toController: commentPost)
-//            }, senderClick: { str in
-//                print(str)
-//            })
-//        } else {
-//            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: self.tableView.frame.maxY, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:true, click: {
-////                let commentPost = UINavigationController.init(rootViewController: CommentPostViewController())
-////                NavigaiontPresentView(self, toController: commentPost)
-//            }, senderClick: { str in
-//                print(str)
-//            })
-//            // Fallback on earlier versions
-//        }
-//        gloableCommentView.backgroundColor = .white
-//        gloableCommentView.textView.isEditable = true
-//        self.view.addSubview(gloableCommentView)
-//        
+        if #available(iOS 11.0, *) {
+            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49 - 60, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
+                let commentPost = UINavigationController.init(rootViewController: CommentPostViewController())
+                NavigaiontPresentView(self, toController: commentPost)
+            }, senderClick: { str in
+                print(str)
+            })
+        } else {
+            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: self.tableView.frame.maxY, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
+                let commentPost = UINavigationController.init(rootViewController: CommentPostViewController())
+                NavigaiontPresentView(self, toController: commentPost)
+            }, senderClick: { str in
+                print(str)
+            })
+            // Fallback on earlier versions
+        }
+        gloableCommentView.backgroundColor = .white
+        gloableCommentView.textView.isEditable = true
+        self.view.addSubview(gloableCommentView)
+//
 //        textView111 = YYTextView.init()
 ////        init(frame: CGRect.init(x: 0, y: 207, width: SCREENWIDTH , height: 30))
 //        textView111.borderColor = App_Theme_B4B4B4_Color

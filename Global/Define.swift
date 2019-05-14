@@ -73,7 +73,7 @@ let TitleLineSpace:Float = 3.0
 
 
 func AppCallViewShow(_ view:UIView, phone:String) {
-    UIAlertController.shwoAlertControl(view.findViewController()!, style: .alert, title: "联系投球电话客服", message: phone, cancel: "取消", doneTitle: "确定", cancelAction: {
+    UIAlertController.showAlertControl(view.findViewController()!, style: .alert, title: "联系投球电话客服", message: phone, cancel: "取消", doneTitle: "确定", cancelAction: {
         
     }, doneAction: {
 //        UIApplication.shared.open(URL.init(string: "tel:\(phone)")!, options: [UIApplication.OpenExternalURLOptionsKey : Any], completionHandler: { (ret) in

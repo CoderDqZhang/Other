@@ -37,6 +37,7 @@ PODS:
   - SwifterSwift/SwiftStdlib (5.0.0)
   - SwifterSwift/UIKit (5.0.0)
   - TYPagerController (2.1.2)
+  - TZImagePickerController (3.2.0)
   - "UITableView+FDTemplateLayoutCell (1.6)"
   - YTKKeyValueStore (0.1.2):
     - FMDB (~> 2.0)
@@ -66,6 +67,7 @@ DEPENDENCIES:
   - SnapKit (~> 5.0.0)
   - SwifterSwift
   - TYPagerController
+  - TZImagePickerController
   - "UITableView+FDTemplateLayoutCell"
   - YTKKeyValueStore
   - YYCache
@@ -92,6 +94,7 @@ SPEC REPOS:
     - SnapKit
     - SwifterSwift
     - TYPagerController
+    - TZImagePickerController
     - "UITableView+FDTemplateLayoutCell"
     - YTKKeyValueStore
     - YYCache
@@ -117,6 +120,7 @@ SPEC CHECKSUMS:
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwifterSwift: 96f90594b370802f01647c2b1229c74a84ffafee
   TYPagerController: 262556ecef99986d26ed77fb1288a198ed42f4af
+  TZImagePickerController: 7850b158d025065b162a1a963d445040b828abc9
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
@@ -125,6 +129,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: e0d5a09b438b45b683f52ae79fe42a96760e23ac
+PODFILE CHECKSUM: cee307aabdafd5a08d2f687393187b1d35c5a5c6
 
 COCOAPODS: 1.6.1

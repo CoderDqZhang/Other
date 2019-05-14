@@ -10,6 +10,7 @@ import UIKit
 
 class CommentPostViewController: BaseViewController {
 
+    let commentPostViewModel =  CommentPostViewModel.init()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,7 +18,8 @@ class CommentPostViewController: BaseViewController {
     }
     
     override func setUpView() {
-        
+        self.bindViewModel(viewModel: commentPostViewModel, controller: self)
+        self.setUpTableView(style: .grouped, cells: [PostCommentTextTableViewCell.self,PostCommentImagesTableViewCell.self], controller: self)
     }
     
     override func setUpViewNavigationItem() {

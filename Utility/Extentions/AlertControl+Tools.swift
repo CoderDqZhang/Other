@@ -19,7 +19,7 @@ extension UIAlertController {
         self.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
     }
     
-    class func shwoAlertControl(_ controller:UIViewController,style:UIAlertController.Style,title:String?,message:String?, cancel:String?, doneTitle:String?, cancelAction: @escaping CancelAction, doneAction:@escaping DoneAction){
+    class func showAlertControl(_ controller:UIViewController,style:UIAlertController.Style,title:String?,message:String?, cancel:String?, doneTitle:String?, cancelAction: @escaping CancelAction, doneAction:@escaping DoneAction){
         var alertControl = UIAlertController()
         if title == nil {
            alertControl = UIAlertController(title: nil, message: message, preferredStyle: style)
