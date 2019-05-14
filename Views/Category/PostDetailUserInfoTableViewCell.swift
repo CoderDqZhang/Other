@@ -13,8 +13,8 @@ typealias PostDetailUserInfoClouse = () ->Void
 class PostDetailUserInfoTableViewCell: UITableViewCell {
 
     var avatarImage:UIImageView!
-    var userName:UILabel!
-    var timeLabel:UILabel!
+    var userName:YYLabel!
+    var timeLabel:YYLabel!
     
     var followButton:UIButton!
     var postDetailUserInfoClouse:PostDetailUserInfoClouse!
@@ -32,14 +32,14 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)
         
-        userName = UILabel.init()
+        userName = YYLabel.init()
         userName.text = "name"
         userName.textColor = App_Theme_2A2F34_Color
         userName.font = App_Theme_PinFan_M_15_Font
         self.addSubview(userName)
         
         
-        timeLabel = UILabel.init()
+        timeLabel = YYLabel.init()
         timeLabel.text = "category"
         timeLabel.textColor = App_Theme_B5B5B5_Color
         timeLabel.font = App_Theme_PinFan_R_12_Font

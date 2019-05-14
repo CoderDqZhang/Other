@@ -13,8 +13,8 @@ typealias PostDetailCommentUserTableViewCellClouse = () ->Void
 class PostDetailCommentUserTableViewCell: UITableViewCell {
 
     var avatarImage:UIImageView!
-    var userName:UILabel!
-    var timeLabel:UILabel!
+    var userName:YYLabel!
+    var timeLabel:YYLabel!
     var likeButton:CustomViewButtonTopImageAndBottomLabel!
     
     var postDetailCommentUserTableViewCellClouse:PostDetailCommentUserTableViewCellClouse!
@@ -34,14 +34,14 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)
         
-        userName = UILabel.init()
+        userName = YYLabel.init()
         userName.text = "中超小迪"
         userName.textColor = App_Theme_666666_Color
         userName.font = App_Theme_PinFan_M_14_Font
         self.addSubview(userName)
         
         
-        timeLabel = UILabel.init()
+        timeLabel = YYLabel.init()
         timeLabel.textColor = App_Theme_B5B5B5_Color
         timeLabel.font = App_Theme_PinFan_L_10_Font
         timeLabel.text = "2019-05-06 17:30"

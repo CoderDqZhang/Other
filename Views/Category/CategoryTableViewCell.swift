@@ -20,7 +20,7 @@ typealias CategoryViewClouseClick = (_ tag:Int) ->Void
 class CategoryView:UIView {
     
     var imageView:UIImageView!
-    var titleLabel:UILabel!
+    var titleLabel:YYLabel!
     var categoryViewClouseClick:CategoryViewClouseClick!
     
     init(imageUrl:String, title:String, tag:Int, clouse:@escaping CategoryViewClouseClick){
@@ -36,7 +36,7 @@ class CategoryView:UIView {
         }
         
         self.addSubview(imageView)
-        titleLabel = UILabel.init(frame: CGRect.init(x: 0, y: ImageHeith, width: CategoryViewWidth, height: CategoryViewHeight - ImageHeith))
+        titleLabel = YYLabel.init(frame: CGRect.init(x: 0, y: ImageHeith, width: CategoryViewWidth, height: CategoryViewHeight - ImageHeith))
         setMutiBorderRoundingCorners(titleLabel, corner: 10, byRoundingCorners: [UIRectCorner.bottomLeft,UIRectCorner.bottomRight])
         titleLabel.text = title
         titleLabel.textAlignment = .center

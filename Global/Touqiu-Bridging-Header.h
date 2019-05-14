@@ -31,6 +31,7 @@
 #import "PresentTransitionAnimated.h"
 #import "NSString+AES.h"
 #import "GTMBase64.h"
+#import "YYText.h"
 #import "UIButton+Block.h"
 
 #import <UMCommon/UMCommon.h>           // 公共组件是所有友盟产品的基础组件，必选

@@ -11,8 +11,8 @@ import UIKit
 class OutFallUserInfoView: UIView {
     
     var avatarImage:UIImageView!
-    var userName:UILabel!
-    var translateLabel:UILabel!
+    var userName:YYLabel!
+    var translateLabel:YYLabel!
     var shareButton:UIButton!
     
     var likeButton:UIButton!
@@ -36,14 +36,14 @@ class OutFallUserInfoView: UIView {
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)
         
-        userName = UILabel.init()
+        userName = YYLabel.init()
         userName.text = name
         userName.textColor = App_Theme_666666_Color
         userName.font = App_Theme_PinFan_M_14_Font
         self.addSubview(userName)
         
         
-        translateLabel = UILabel.init()
+        translateLabel = YYLabel.init()
         translateLabel.text = translate
         translateLabel.textColor = App_Theme_999999_Color
         translateLabel.font = App_Theme_PinFan_L_14_Font

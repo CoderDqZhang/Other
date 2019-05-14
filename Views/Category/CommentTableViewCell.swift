@@ -9,7 +9,7 @@
 import UIKit
 
 class CommentView: UIView {
-    var timeLabel:UILabel!
+    var timeLabel:YYLabel!
     var likeButton:UIButton!
     var commentButtom:UIButton!
     
@@ -20,7 +20,7 @@ class CommentView: UIView {
     }
     
     func crateContent(time:String, like:String, comment:String, status:Int) {
-        timeLabel = UILabel.init()
+        timeLabel = YYLabel.init()
         timeLabel.text = time
         timeLabel.textColor = App_Theme_999999_Color
         timeLabel.font = App_Theme_PinFan_R_12_Font

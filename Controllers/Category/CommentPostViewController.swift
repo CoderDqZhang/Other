@@ -16,6 +16,10 @@ class CommentPostViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func setUpView() {
+        
+    }
+    
     override func setUpViewNavigationItem() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(self.leftButtonClick(_:)))
         self.navigationItem.title = "发表评论"
@@ -24,7 +28,9 @@ class CommentPostViewController: BaseViewController {
 
     
     @objc func leftButtonClick(_ sender:UIBarButtonItem) {
-        
+        self.dismiss(animated: true) {
+            
+        }
     }
     
     @objc func rightButtonClick(_ sender:UIBarButtonItem) {

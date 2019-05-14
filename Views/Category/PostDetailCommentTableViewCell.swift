@@ -24,11 +24,11 @@ let SecondeContentWidth:CGFloat = SCREENWIDTH - 66
 
 class PostDetailCommentTableViewCell: UITableViewCell {
 
-    var contentLabel:UILabel!
+    var contentLabel:YYLabel!
     var imageContentView:UIView!
     var secondeContent:UIView!
     
-    var allCommentLabel:UILabel!
+    var allCommentLabel:YYLabel!
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
     var didMakeConstraints = false
@@ -39,7 +39,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     
     func setUpView(){
         
-        contentLabel = UILabel.init()
+        contentLabel = YYLabel.init()
         contentLabel.numberOfLines = 3
         contentLabel.text = "鲁尼也是一代红魔传说"
         contentLabel.textAlignment = .left
@@ -55,7 +55,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         imageContentView = UIView.init()
         self.contentView.addSubview(imageContentView)
         
-        allCommentLabel = UILabel.init()
+        allCommentLabel = YYLabel.init()
         allCommentLabel.text = "查看全部11条回复"
         allCommentLabel.textColor = App_Theme_666666_Color
         allCommentLabel.font = App_Theme_PinFan_M_10_Font
@@ -218,14 +218,14 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     func createSecondeContentLabel(index:Int, username:String,content:String) -> UIView{
         let contentView = UIView.init(frame: CGRect.init(x: 0, y: 5 + CGFloat(index) * SecondeContentHeight, width: SecondeContentWidth, height: SecondeContentHeight))
         
-        let userName  = UILabel.init()
+        let userName  = YYLabel.init()
         userName.text = "\(username):"
         userName.textAlignment = .left
         userName.font = App_Theme_PinFan_M_10_Font
         userName.textColor = App_Theme_999999_Color
         contentView.addSubview(userName)
         
-        let contentName  = UILabel.init()
+        let contentName  = YYLabel.init()
         contentName.text = content
         contentName.textAlignment = .left
         contentName.font = App_Theme_PinFan_M_10_Font

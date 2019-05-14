@@ -33,8 +33,8 @@ class HUDCustomView: UIView {
         return customView;
     }
     
-    class func setUpLabel(_ frame:CGRect, text:String) -> UILabel{
-        let textLabel = UILabel(frame: CGRect.init(x: 0, y: 0, width: CustomViewWidth - TextLabelMarger * 2, height: frame.size.height))
+    class func setUpLabel(_ frame:CGRect, text:String) -> YYLabel{
+        let textLabel = YYLabel(frame: CGRect.init(x: 0, y: 0, width: CustomViewWidth - TextLabelMarger * 2, height: frame.size.height))
         textLabel.font = CustomViewFont
         textLabel.numberOfLines = 0
         textLabel.textColor = UIColor.white

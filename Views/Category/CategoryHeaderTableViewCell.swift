@@ -12,8 +12,8 @@ class CategoryHeaderTableViewCell: UITableViewCell {
 
     var backImageView:UIImageView!
     var logoImageView:UIImageView!
-    var categoryName:UILabel!
-    var categoryDetailLabel:UILabel!
+    var categoryName:YYLabel!
+    var categoryDetailLabel:YYLabel!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -33,7 +33,7 @@ class CategoryHeaderTableViewCell: UITableViewCell {
         logoImageView.borderWidth = 2
         self.contentView.addSubview(logoImageView)
         
-        categoryName = UILabel.init(frame: CGRect.init(x: 0, y: ImageHeith, width: CategoryViewWidth, height: CategoryViewHeight - ImageHeith))
+        categoryName = YYLabel.init(frame: CGRect.init(x: 0, y: ImageHeith, width: CategoryViewWidth, height: CategoryViewHeight - ImageHeith))
         categoryName.text = "皇家马德里"
         categoryName.textAlignment = .center
         categoryName.font = App_Theme_PinFan_R_18_Font
@@ -42,7 +42,7 @@ class CategoryHeaderTableViewCell: UITableViewCell {
         self.addSubview(categoryName)
         
         
-        categoryDetailLabel = UILabel.init(frame: CGRect.init(x: 0, y: ImageHeith, width: CategoryViewWidth, height: CategoryViewHeight - ImageHeith))
+        categoryDetailLabel = YYLabel.init(frame: CGRect.init(x: 0, y: ImageHeith, width: CategoryViewWidth, height: CategoryViewHeight - ImageHeith))
         categoryDetailLabel.text = "皇家马德里皇家马德里"
         categoryDetailLabel.textAlignment = .center
         categoryDetailLabel.font = App_Theme_PinFan_R_14_Font

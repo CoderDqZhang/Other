@@ -10,10 +10,10 @@ import UIKit
 
 class HotDetailTableViewCell: UITableViewCell {
 
-    var detailLabel:UILabel!
-    var imageLabel:UILabel!
+    var detailLabel:YYLabel!
+    var imageLabel:YYLabel!
     
-    var numberLabel:UILabel!
+    var numberLabel:YYLabel!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -23,17 +23,17 @@ class HotDetailTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        detailLabel = UILabel.init()
+        detailLabel = YYLabel.init()
         detailLabel.textColor = App_Theme_06070D_Color
         detailLabel.font = App_Theme_PinFan_M_14_Font
         self.contentView.addSubview(detailLabel)
         
-        numberLabel = UILabel.init()
+        numberLabel = YYLabel.init()
         numberLabel.textColor = App_Theme_06070D_Color
         numberLabel.font = App_Theme_PinFan_M_14_Font
         self.contentView.addSubview(numberLabel)
         
-        imageLabel = UILabel.init()
+        imageLabel = YYLabel.init()
         imageLabel.backgroundColor = App_Theme_FFCB00_Color
         imageLabel.cornerRadius = 4
         imageLabel.layer.masksToBounds = true

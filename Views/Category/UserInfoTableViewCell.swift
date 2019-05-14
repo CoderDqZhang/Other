@@ -11,8 +11,8 @@ import UIKit
 class UserInfoView: UIView {
     
     var avatarImage:UIImageView!
-    var userName:UILabel!
-    var categoryLabel:UILabel!
+    var userName:YYLabel!
+    var categoryLabel:YYLabel!
     
     var didMakeConstraints = false
     
@@ -31,14 +31,14 @@ class UserInfoView: UIView {
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)
         
-        userName = UILabel.init()
+        userName = YYLabel.init()
         userName.text = name
         userName.textColor = App_Theme_666666_Color
         userName.font = App_Theme_PinFan_M_14_Font
         self.addSubview(userName)
         
         
-        categoryLabel = UILabel.init()
+        categoryLabel = YYLabel.init()
         categoryLabel.text = category
         categoryLabel.textColor = App_Theme_999999_Color
         categoryLabel.font = App_Theme_PinFan_L_14_Font

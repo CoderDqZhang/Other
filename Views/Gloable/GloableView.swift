@@ -10,8 +10,8 @@ import Foundation
 
 class GloableLineLabel: UIView {
     
-    class func createLineLabel(frame:CGRect) -> UILabel{
-        let lable = UILabel.init(frame: frame)
+    class func createLineLabel(frame:CGRect) -> YYLabel{
+        let lable = YYLabel.init(frame: frame)
         lable.backgroundColor = App_Theme_F6F6F6_Color
         return lable
     }
@@ -26,14 +26,14 @@ enum GLoabelNavigaitonBarButtonType {
 }
 typealias GloabelBackButtonClouse = (_ buttonType:GLoabelNavigaitonBarButtonType) ->Void
 class GLoabelNavigaitonBar:UIView {
-    var titleLabel:UILabel!
+    var titleLabel:YYLabel!
     var backButton:UIButton!
     var gloabelBackButtonClouse:GloabelBackButtonClouse!
     
     init(frame: CGRect, title:String, rightButton:UIButton?,  click:@escaping GloabelBackButtonClouse) {
         super.init(frame:frame)
         self.gloabelBackButtonClouse = click
-        titleLabel = UILabel.init()
+        titleLabel = YYLabel.init()
         titleLabel.text = title
         titleLabel.font = App_Theme_PinFan_R_17_Font
         titleLabel.textColor = UIColor.clear
@@ -103,7 +103,7 @@ class GLoabelNavigaitonBar:UIView {
 class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
     
     var imageView:UIImageView!
-    var label:UILabel!
+    var label:YYLabel!
     init(frame:CGRect, title:String, image:UIImage, tag:NSInteger?, titleColor:UIColor,spacing:CGFloat, font:UIFont, click:@escaping TouchClickClouse) {
         super.init(frame: CGRect.zero) {
             click()
@@ -113,7 +113,7 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
         imageView.image = image
         self.addSubview(imageView)
         
-        label = UILabel.init(frame: CGRect.init(x: 0, y: spacing + image.size.height, width: frame.size.width, height: font.capHeight + 2))
+        label = YYLabel.init(frame: CGRect.init(x: 0, y: spacing + image.size.height, width: frame.size.width, height: font.capHeight + 2))
         label.textAlignment = .center
         label.text = title
         label.font = font
@@ -136,39 +136,65 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
 
 import IQKeyboardManagerSwift
 
-class CustomViewCommentTextField: UIView,UITextFieldDelegate {
+let YYTextViewFrameWidht:CGFloat = SCREENWIDTH - 16 * 2
+let YYTextViewFrameMAXHeight:CGFloat = 100
+typealias CustomViewCommentTextFieldSenderClick = (_ str:String) ->Void
+class CustomViewCommentTextField: UIView {
     
-    var textField:UITextField!
+    var textView:YYTextView!
     var imageButton:AnimationButton!
     var touchClickClouse:TouchClickClouse!
     var originFrame:CGRect!
-    init(frame:CGRect, placeholderString:String, click:@escaping TouchClickClouse) {
+    var keybordFrame:CGRect!
+    var textViewOriginFrame:CGRect!
+    var customViewCommentTextFieldSenderClick:CustomViewCommentTextFieldSenderClick!
+    init(frame:CGRect, placeholderString:String, isEdit:Bool, click:@escaping TouchClickClouse, senderClick:@escaping CustomViewCommentTextFieldSenderClick) {
         super.init(frame: frame)
         originFrame = frame
-        textField = UITextField.init(frame: CGRect.init(x: 16, y: 7, width: SCREENWIDTH - 16 * 2 , height: 30))
-        textField.borderColor = App_Theme_B4B4B4_Color
-        textField.addPaddingLeft(17)
-        textField.placeholderFont = App_Theme_PinFan_R_12_Font!
-        textField.setPlaceHolderTextColor(App_Theme_BBBBBB_Color!)
-        textField.cornerRadius = 4
-        textField.borderWidth = 1
-        textField.delegate = self
-        textField.placeholder = placeholderString
-        self.addSubview(textField)
-        let singTap = UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer {
-            click()
+        self.customViewCommentTextFieldSenderClick = senderClick
+        textView = YYTextView.init()
+        textView.borderColor = App_Theme_B4B4B4_Color
+        textView.delegate = self
+        textView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
+        textView.isScrollEnabled = false
+        textView.font = App_Theme_PinFan_R_14_Font
+        textView.placeholderFont = App_Theme_PinFan_R_14_Font
+        textView.placeholderTextColor = App_Theme_BBBBBB_Color
+        textView.textColor = App_Theme_666666_Color
+        textView.placeholderText = placeholderString
+        textView.cornerRadius = 4
+        textView.keyboardType = .default
+        textView.returnKeyType = .send
+        textView.borderWidth = 1
+        self.addSubview(textView)
+        
+        textView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(7)
+            make.left.equalTo(self.snp.left).offset(15)
+            make.right.equalTo(self.snp.right).offset(-15)
+            make.height.equalTo(30)
         }
         
+        if !isEdit {
+            let singTap = UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer {
+                click()
+            }
+            self.addGestureRecognizer(singTap)
+        }
         if #available(iOS 11.0, *) {
             IQKeyboardManager.shared.keyboardDistanceFromTextField = -TABBAR_HEIGHT
         } else {
             // Fallback on earlier versions
             IQKeyboardManager.shared.keyboardDistanceFromTextField = -20
         }
-        
-        self.addGestureRecognizer(singTap)
-//        self.registerNotification()
+        self.registerNotification()
 
+    }
+    
+    func senderClick(){
+        self.textView.endEditing(true)
+        self.releaseNotification()
+        self.customViewCommentTextFieldSenderClick(self.textView.text)
     }
     
     //MARK:监听键盘通知
@@ -193,21 +219,6 @@ class CustomViewCommentTextField: UIView,UITextFieldDelegate {
              y2 是登录按钮的origin.y+height
              如果y>y2，登录按钮没有被遮挡，不需要向上移动；反之，按钮被遮挡，整体需要向上移动一部分
              */
-//            self.center = CGPoint.init(x: self.frame.size.width, y: self.frame.origin.y)
-//            let user_info = notification.userInfo
-//            let keyboardRect = (user_info?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-//
-//            let y = keyboardRect.origin.y
-//            let y2 = (self.frame.origin.y) + (self.frame.size.height) + 5
-//            let offset_y = y2 > y ? (y2-y):(0)
-//
-//            print(keyboardRect)//896 *
-//            UIView.animate(withDuration: 0.25, animations: {
-//                self.frame = CGRect.init(x: 0, y: 760, width: SCREENWIDTH, height: 44)
-////                self.transform = CGAffineTransform.init(translationX: 0, y: 2)
-//
-//
-//            })
         }
     }
     
@@ -222,28 +233,66 @@ class CustomViewCommentTextField: UIView,UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.becomeFirstResponder()
-//        self.frame.size = CGSize.init(width: originFrame.size.width, height: 44)
-//        self.frame = CGRect.init(x: 0, y: 760, width: SCREENWIDTH, height: 44)
-    }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-//        if #available(iOS 11.0, *) {
-//            self.frame = originFrame
-//        } else {
-//            // Fallback on earlier versions
-//            self.frame = originFrame
-//        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
+    @nonobjc
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension CustomViewCommentTextField : YYTextViewDelegate {
+    func textView(_ textView: YYTextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n")
+        {
+            self.senderClick()
+            textView.text = ""
+            return false
+        }
+        return true
+    }
+
+    func textViewDidChange(_ textView: YYTextView) {
+        let fltTextHeight = textView.textLayout!.textBoundingSize.height;
+        textView.isScrollEnabled = true //必须设置为NO
+        UIView.animate(withDuration: 0.25, animations: {
+            self.frame = CGRect.init(x: 0, y: self.keybordFrame.origin.y - (fltTextHeight - self.textViewOriginFrame.size.height), width: self.keybordFrame.size.width, height: fltTextHeight + 14)
+            textView.height = fltTextHeight
+        }) { (finished) in
+            
+        }
+        
+        self.updateConstraintsIfNeeded()
+    }
+
+    func textViewDidBeginEditing(_ textView: YYTextView) {
+        let fltTextHeight = textView.textLayout!.textBoundingSize.height;
+        textView.isScrollEnabled = false //必须设置为NO
+        textViewOriginFrame = textView.frame
+        //这里动画的作用是抵消，YYTextView 内部动画 防止视觉上的跳动。
+        UIView.animate(withDuration: 0.25, animations: {
+            textView.height = fltTextHeight
+        }) { (finished) in
+            
+        }
+        self.height = textView.frame.size.height + 14
+        textView.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(7)
+            make.left.equalTo(self.snp.left).offset(15)
+            make.right.equalTo(self.snp.right).offset(-15)
+            make.bottom.equalTo(self.snp.bottom).offset(-7)
+        }
+        keybordFrame = self.frame
+    }
+
+    func textViewDidEndEditing(_ textView: YYTextView) {
+        textView.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(7)
+            make.left.equalTo(self.snp.left).offset(15)
+            make.right.equalTo(self.snp.right).offset(-15)
+            make.height.equalTo(30)
+        }
+        self.frame = originFrame
+    }
+    
 }

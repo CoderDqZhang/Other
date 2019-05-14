@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import YYText
+
 enum PostDetailContentTableViewCellButtonType {
     case like
     case collect
@@ -14,8 +16,8 @@ enum PostDetailContentTableViewCellButtonType {
 typealias PostDetailContentTableViewCellClouse = (_ type:PostDetailContentTableViewCellButtonType) -> Void
 class PostDetailContentTableViewCell: UITableViewCell {
 
-    var titleLabel:UILabel!
-    var contnetLabel:UILabel!
+    var titleLabel:YYLabel!
+    var contnetLabel:YYLabel!
     var likeButton:CustomViewButtonTopImageAndBottomLabel!
     var collectButton:CustomViewButtonTopImageAndBottomLabel!
     var likeButtonView:UIView!
@@ -31,14 +33,14 @@ class PostDetailContentTableViewCell: UITableViewCell {
     
     func setUpView(){
         
-        titleLabel = UILabel.init()
+        titleLabel = YYLabel.init()
         titleLabel.numberOfLines = 0
         titleLabel.textColor = App_Theme_2A2F34_Color
         titleLabel.font = App_Theme_PinFan_M_18_Font
         
         self.contentView.addSubview(titleLabel)
         
-        contnetLabel = UILabel.init()
+        contnetLabel = YYLabel.init()
         contnetLabel.numberOfLines = 0
         contnetLabel.textColor = App_Theme_2A2F34_Color
         contnetLabel.font = App_Theme_PinFan_M_15_Font

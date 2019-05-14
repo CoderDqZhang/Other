@@ -6,6 +6,7 @@ target 'Touqiu' do
   use_frameworks!
 
   # Pods for Touqiu
+  pod 'YYText'
   pod 'YYModel'
   pod 'YYCache'
   pod 'YYWebImage'
