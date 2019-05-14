@@ -29,6 +29,7 @@ let IPHONEXs = SCREENHEIGHT == 812.0 ? true : false
 let IPHONEXR = SCREENHEIGHT == 896.0 ? true : false
 let IPHONEXsMax = SCREENHEIGHT == 812.0 ? true : false
 
+let SHARE_APPLICATION = UIApplication.shared
 
 @available(iOS 11.0, *)
 let INTERFACE_IS_IPHONEX = KWindow.safeAreaInsets.bottom > 0 ? true : false

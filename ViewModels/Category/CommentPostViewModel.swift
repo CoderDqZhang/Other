@@ -10,36 +10,40 @@ import UIKit
 //with = 375 height = 247
 let CommentTextViewCcale:CGFloat = 247 / 375
 
-class CommentPostViewModel: BaseViewModel {
+class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     
-    var selectImage:[UIImage] = []
+    var selectPhotos:[UIImage] = []
+    var selectAssets:NSMutableArray = NSMutableArray.init()
+    var isSelectOriginalPhoto:Bool!
+    
     override init() {
         super.init()
     }
     
     func tableViewPostCommentImagesTableViewCellSetData(_ indexPath:IndexPath, cell:PostCommentImagesTableViewCell){
-        cell.cellSetData(images: selectImage)
+        cell.cellSetData(images: selectPhotos)
         cell.postCommentImageAddButtonClouse = { btn in
-            let alerController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
-            alerController.addAction(title: "相册", style: .default, isEnabled: true, handler: { (ret) in
-                
-            })
-            alerController.addAction(title: "拍照", style: .default, isEnabled: true, handler: { (ret) in
-                
-            })
-            alerController.addAction(title: "取消", style: .cancel, isEnabled: true, handler: { (ret) in
-                
-            })
-            NavigaiontPresentView(self.controller!, toController: alerController)
+            (self.controller as! CommentPostViewController).setUpAlerViewController()
+        }
+        cell.postCommentImageImageButtonClouse = { tag in
+            (self.controller as! CommentPostViewController).setUpAlerViewController()
         }
     }
     
     func tableViewPostCommentTextTableViewCellSetData(_ indexPath:IndexPath, cell:PostCommentTextTableViewCell) {
+        
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
     }
+    
+    
+    func reloadTableView(){
+        (self.controller as! CommentPostViewController).tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .automatic)
+    }
+    //MARK :UIImagePicker
+    
 }
 
 

@@ -28,7 +28,6 @@ class PostImageSelectView:UIView {
         self.addSubview(imageView)
         
         deleteButton = UIButton.init(type: .custom)
-        deleteButton.backgroundColor = .red
         deleteButton.setImage(UIImage.init(named: "reduceicon"), for: .normal)
         self.addSubview(deleteButton)
         
@@ -51,12 +50,14 @@ class PostImageSelectView:UIView {
 }
 
 typealias PostCommentImageAddButtonClouse = (_ button:UIButton) ->Void
+typealias PostCommentImageImageButtonClouse = (_ tag:Int) ->Void
 class PostCommentImagesTableViewCell: UITableViewCell {
 
     var snapshotView:UIView!
     var photoImage:UIImageView!
     var addButton:AnimationButton!
     var postCommentImageAddButtonClouse:PostCommentImageAddButtonClouse!
+    var postCommentImageImageButtonClouse:PostCommentImageImageButtonClouse!
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -65,7 +66,6 @@ class PostCommentImagesTableViewCell: UITableViewCell {
     
     func setUpView(){
         snapshotView = UIView.init()
-        snapshotView.backgroundColor = .red
         self.contentView.addSubview(snapshotView)
         
         snapshotView.snp.makeConstraints { (make) in
@@ -92,7 +92,14 @@ class PostCommentImagesTableViewCell: UITableViewCell {
             for index in 0...images.count - 1 {
                 let postImageView = PostImageSelectView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (PostImageSelectViewWidth + PostImageSelectViewMargetWidth), y: 0, width: PostImageSelectViewWidth, height: PostImageSelectViewHeight), image: images[index])
                 postImageView.tag = index + 10000
+                let singTap = UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer {
+                    if self.postCommentImageImageButtonClouse != nil {
+                        self.postCommentImageImageButtonClouse(postImageView.tag)
+                    }
+                }
+                postImageView.addGestureRecognizer(singTap)
                 snapshotView.addSubview(postImageView)
+                
             }
             if images.count == 3 {
                 addButton.isHidden = true

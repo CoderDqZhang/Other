@@ -131,6 +131,7 @@
 		1FE5BF62228A5C5700C9137C /* CommentPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF61228A5C5700C9137C /* CommentPostViewModel.swift */; };
 		1FE5BF64228A942500C9137C /* PostCommentTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF63228A942500C9137C /* PostCommentTextTableViewCell.swift */; };
 		1FE5BF66228A943B00C9137C /* PostCommentImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF65228A943B00C9137C /* PostCommentImagesTableViewCell.swift */; };
+		1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BFA5228AC1E200C9137C /* AuthorityManager.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -340,6 +341,7 @@
 		1FE5BF61228A5C5700C9137C /* CommentPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentPostViewModel.swift; sourceTree = "<group>"; };
 		1FE5BF63228A942500C9137C /* PostCommentTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentTextTableViewCell.swift; sourceTree = "<group>"; };
 		1FE5BF65228A943B00C9137C /* PostCommentImagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentImagesTableViewCell.swift; sourceTree = "<group>"; };
+		1FE5BFA5228AC1E200C9137C /* AuthorityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorityManager.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -512,6 +514,7 @@
 				1FE5BDE522817B5F00C9137C /* Define.swift */,
 				1FE5BDE722817B8500C9137C /* RequestURL.swift */,
 				1FE5BDEE2282648D00C9137C /* AppThemeConfig.swift */,
+				1FE5BFA5228AC1E200C9137C /* AuthorityManager.swift */,
 				1FE5BDF0228264F200C9137C /* Font-Color-Config.swift */,
 				1FE5BDE922817BCA00C9137C /* Touqiu-Bridging-Header.h */,
 			);
@@ -1315,6 +1318,7 @@
 				1FE5BED72282866300C9137C /* RangeSeekSliderDelegate.swift in Sources */,
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
 				1FE5BEF12282A20400C9137C /* NewsViewController.swift in Sources */,
+				1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */,
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
 				1FE5BED42282866300C9137C /* IJKSDLGLView.m in Sources */,

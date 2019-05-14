@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import TZImagePickerController
 
 class CommentPostViewController: BaseViewController {
 
     let commentPostViewModel =  CommentPostViewModel.init()
+    var photoPickerVC:TZImagePickerController!
+    
+    var isSelectOriginalPhoto:Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        AuthorityManager.setUpAuthorityManager(controller: self)
         // Do any additional setup after loading the view.
     }
     
@@ -47,5 +52,51 @@ class CommentPostViewController: BaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func setUpAlerViewController(){
+        let alerController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
+        alerController.addAction(title: "相册", style: .default, isEnabled: true, handler: { (ret) in
+            self.setUpImagePicker(sourceType: .photoLibrary)
+        })
+        alerController.addAction(title: "拍照", style: .default, isEnabled: true, handler: { (ret) in
+            self.setUpImagePicker(sourceType: .camera)
+        })
+        alerController.addAction(title: "取消", style: .cancel, isEnabled: true, handler: { (ret) in
+            
+        })
+        NavigaiontPresentView(self, toController: alerController)
+    }
+    
+    func setUpImagePicker(sourceType:UIImagePickerController.SourceType){
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            photoPickerVC = TZImagePickerController.init(maxImagesCount: 3, columnNumber: 1, delegate: self, pushPhotoPickerVc: true)
+            photoPickerVC?.allowTakeVideo = false
+            photoPickerVC?.autoDismiss = true
+            photoPickerVC!.showSelectedIndex = true
+            photoPickerVC?.showPhotoCannotSelectLayer = true
+            photoPickerVC!.sortAscendingByModificationDate = true
+            photoPickerVC.selectedAssets = self.commentPostViewModel.selectAssets
+            NavigaiontPresentView(self, toController: photoPickerVC)
+        }else{
+            print("模拟器中无法打开照相机,请在真机中使用")
+        }
+        
+        
+    }
 }
+
+extension CommentPostViewController : TZImagePickerControllerDelegate {
+    func tz_imagePickerControllerDidCancel(_ picker: TZImagePickerController!) {
+        self.dismiss(animated: true) {
+            
+        }
+    }
+    
+    func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [Any]!, isSelectOriginalPhoto: Bool, infos: [[AnyHashable : Any]]!) {
+        self.commentPostViewModel.selectPhotos = photos
+        self.commentPostViewModel.selectAssets = NSMutableArray.init(array: assets)
+        self.commentPostViewModel.isSelectOriginalPhoto = isSelectOriginalPhoto
+        self.commentPostViewModel.reloadTableView()
+    }
+}
+
