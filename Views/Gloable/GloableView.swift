@@ -296,3 +296,31 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
     }
     
 }
+
+enum KeyboardToobarType:Int {
+    case cancel = 0
+}
+typealias KeyboardToobarClouse = (_ type:KeyboardToobarType) ->Void
+class KeyboardToobar: UIToolbar {
+    
+    var keyboardToobarClouse:KeyboardToobarClouse!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        let cancel = UIBarButtonItem.init(image: UIImage.init(named: "@")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: .plain, target: self, action: #selector(self.backToobarClick))
+        cancel.tag = KeyboardToobarType.cancel.rawValue
+        self.setShadowImage(UIImage.init(), forToolbarPosition: UIBarPosition.any)
+        self.barTintColor = App_Theme_F6F6F6_Color
+        self.setItems([], animated: true)
+    }
+    
+    @objc func backToobarClick(_ sender:UIBarButtonItem){
+        if self.keyboardToobarClouse != nil {
+            self.keyboardToobarClouse(KeyboardToobarType.init(rawValue: sender.tag)!)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

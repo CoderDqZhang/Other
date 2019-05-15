@@ -34,7 +34,6 @@ class AppleThemeTool {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.registerTextFieldViewClass(YYTextView.self, didBeginEditingNotificationName: NSNotification.Name.YYTextViewTextDidBeginEditing.rawValue, didEndEditingNotificationName:NSNotification.Name.YYTextViewTextDidEndEditing.rawValue)
         IQKeyboardManager.shared.enableAutoToolbar = false
-
     }
 }
 

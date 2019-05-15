@@ -13,6 +13,7 @@ class PostCommentTextTableViewCell: UITableViewCell {
 
     var textView:YYTextView!
     var textCountLabel:YYLabel!
+    var textToolbar = KeyboardToobar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 50))
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,6 +33,10 @@ class PostCommentTextTableViewCell: UITableViewCell {
         textView.placeholderText = "在这里发表你的想法..."
         textView.keyboardType = .default
         textView.returnKeyType = .send
+        textView.inputAccessoryView = textToolbar
+        textToolbar.keyboardToobarClouse = { type in
+            
+        }
         self.contentView.addSubview(textView)
         
         textCountLabel = YYLabel.init()

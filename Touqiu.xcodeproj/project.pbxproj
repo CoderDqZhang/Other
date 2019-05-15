@@ -132,6 +132,10 @@
 		1FE5BF64228A942500C9137C /* PostCommentTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF63228A942500C9137C /* PostCommentTextTableViewCell.swift */; };
 		1FE5BF66228A943B00C9137C /* PostCommentImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF65228A943B00C9137C /* PostCommentImagesTableViewCell.swift */; };
 		1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BFA5228AC1E200C9137C /* AuthorityManager.swift */; };
+		1FE5BFA8228BDE9E00C9137C /* TagerUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BFA7228BDE9E00C9137C /* TagerUserTableViewCell.swift */; };
+		1FE5BFAA228BDEC200C9137C /* TargerUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BFA9228BDEC200C9137C /* TargerUserViewController.swift */; };
+		1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BFAB228BDEDC00C9137C /* TargerUserViewModel.swift */; };
+		1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BFAD228BE19A00C9137C /* TargerUserInfoTableViewCell.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -342,6 +346,10 @@
 		1FE5BF63228A942500C9137C /* PostCommentTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentTextTableViewCell.swift; sourceTree = "<group>"; };
 		1FE5BF65228A943B00C9137C /* PostCommentImagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentImagesTableViewCell.swift; sourceTree = "<group>"; };
 		1FE5BFA5228AC1E200C9137C /* AuthorityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorityManager.swift; sourceTree = "<group>"; };
+		1FE5BFA7228BDE9E00C9137C /* TagerUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagerUserTableViewCell.swift; sourceTree = "<group>"; };
+		1FE5BFA9228BDEC200C9137C /* TargerUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargerUserViewController.swift; sourceTree = "<group>"; };
+		1FE5BFAB228BDEDC00C9137C /* TargerUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargerUserViewModel.swift; sourceTree = "<group>"; };
+		1FE5BFAD228BE19A00C9137C /* TargerUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargerUserInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -850,6 +858,7 @@
 				1FE5BF49228529B700C9137C /* PostDetailViewController.swift */,
 				1FE5BF5F22894D2700C9137C /* CommentPostViewController.swift */,
 				1FE5BF142282CBE900C9137C /* PostViewController.swift */,
+				1FE5BFA9228BDEC200C9137C /* TargerUserViewController.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -904,6 +913,8 @@
 				1FE5BF552285623400C9137C /* PostDetailContentTableViewCell.swift */,
 				1FE5BF63228A942500C9137C /* PostCommentTextTableViewCell.swift */,
 				1FE5BF65228A943B00C9137C /* PostCommentImagesTableViewCell.swift */,
+				1FE5BFA7228BDE9E00C9137C /* TagerUserTableViewCell.swift */,
+				1FE5BFAD228BE19A00C9137C /* TargerUserInfoTableViewCell.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -960,6 +971,7 @@
 				1FE5BF45228528A900C9137C /* CommentViewModel.swift */,
 				1FE5BF4B228529EC00C9137C /* PostDetailViewModel.swift */,
 				1FE5BF61228A5C5700C9137C /* CommentPostViewModel.swift */,
+				1FE5BFAB228BDEDC00C9137C /* TargerUserViewModel.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1302,6 +1314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FE5BFAA228BDEC200C9137C /* TargerUserViewController.swift in Sources */,
 				1FE5BF4C228529EC00C9137C /* PostDetailViewModel.swift in Sources */,
 				1FE5BE392282863D00C9137C /* AnimationTools.swift in Sources */,
 				1FE5BF382284286A00C9137C /* GloableView.swift in Sources */,
@@ -1321,10 +1334,12 @@
 				1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */,
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
+				1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */,
 				1FE5BED42282866300C9137C /* IJKSDLGLView.m in Sources */,
 				1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
 				1FE5BF212282D21F00C9137C /* OutFallViewModel.swift in Sources */,
+				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
 				1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */,
 				1FE5BDFD2282750900C9137C /* MineViewController.swift in Sources */,
 				1FE5BF352284206300C9137C /* UserInfoTableViewCell.swift in Sources */,
@@ -1398,6 +1413,7 @@
 				1FE5BF52228561E800C9137C /* PostDetailCommentTableViewCell.swift in Sources */,
 				1FE5BED12282866300C9137C /* yuv420sp.fsh.c in Sources */,
 				1FE5BE1E228285FA00C9137C /* UIViewController+hideExcessLine.m in Sources */,
+				1FE5BFA8228BDE9E00C9137C /* TagerUserTableViewCell.swift in Sources */,
 				1FE5BE382282863D00C9137C /* Tools.swift in Sources */,
 				1FE5BF54228561F900C9137C /* PostDetailCommentUserTableViewCell.swift in Sources */,
 				1FE5BF152282CBE900C9137C /* PostViewController.swift in Sources */,
