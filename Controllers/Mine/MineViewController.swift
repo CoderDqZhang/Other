@@ -10,13 +10,25 @@ import UIKit
 
 class MineViewController: BaseViewController {
 
+    let mineViewModel = MineViewModel.init()
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
+    override func setUpView() {
+        self.bindViewModel(viewModel: mineViewModel, controller: self)
+        self.setUpTableView(style: .grouped, cells: [MineInfoTableViewCell.self, MineToolsTableViewCell.self, AdTableViewCell.self,TitleLableAndDetailLabelDescRight.self], controller: self)
+        self.tableView.backgroundColor = App_Theme_F6F6F6_Color
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.fd_prefersNavigationBarHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+    }
     /*
     // MARK: - Navigation
 

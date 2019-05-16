@@ -139,6 +139,12 @@
 		1FE5BFB0228CF37E00C9137C /* BaseSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BFAF228CF37E00C9137C /* BaseSearchViewController.swift */; };
 		1FE5BFB6228CF47900C9137C /* TargerUserSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BFB5228CF47900C9137C /* TargerUserSearchViewController.swift */; };
 		1FE5BFB8228D0BB600C9137C /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BFB7228D0BB600C9137C /* SearchResultViewModel.swift */; };
+		1FE8DA8B228D6C7300DCED01 /* MineInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DA8A228D6C7300DCED01 /* MineInfoTableViewCell.swift */; };
+		1FE8DA8D228D6C7E00DCED01 /* MineToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DA8C228D6C7E00DCED01 /* MineToolsTableViewCell.swift */; };
+		1FE8DA8F228D6CAC00DCED01 /* InvitationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DA8E228D6CAC00DCED01 /* InvitationTableViewCell.swift */; };
+		1FE8DA91228D6CC400DCED01 /* GloabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DA90228D6CC400DCED01 /* GloabelTableViewCell.swift */; };
+		1FE8DA93228D718A00DCED01 /* AdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DA92228D718A00DCED01 /* AdTableViewCell.swift */; };
+		1FE8DA95228D721900DCED01 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DA94228D721900DCED01 /* MineViewModel.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -356,6 +362,12 @@
 		1FE5BFAF228CF37E00C9137C /* BaseSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseSearchViewController.swift; path = ../Category/BaseSearchViewController.swift; sourceTree = "<group>"; };
 		1FE5BFB5228CF47900C9137C /* TargerUserSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargerUserSearchViewController.swift; sourceTree = "<group>"; };
 		1FE5BFB7228D0BB600C9137C /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
+		1FE8DA8A228D6C7300DCED01 /* MineInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1FE8DA8C228D6C7E00DCED01 /* MineToolsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineToolsTableViewCell.swift; sourceTree = "<group>"; };
+		1FE8DA8E228D6CAC00DCED01 /* InvitationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationTableViewCell.swift; sourceTree = "<group>"; };
+		1FE8DA90228D6CC400DCED01 /* GloabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GloabelTableViewCell.swift; sourceTree = "<group>"; };
+		1FE8DA92228D718A00DCED01 /* AdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdTableViewCell.swift; sourceTree = "<group>"; };
+		1FE8DA94228D721900DCED01 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -930,6 +942,10 @@
 		1FE5BF092282A49E00C9137C /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				1FE8DA8A228D6C7300DCED01 /* MineInfoTableViewCell.swift */,
+				1FE8DA8C228D6C7E00DCED01 /* MineToolsTableViewCell.swift */,
+				1FE8DA92228D718A00DCED01 /* AdTableViewCell.swift */,
+				1FE8DA8E228D6CAC00DCED01 /* InvitationTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -965,6 +981,7 @@
 		1FE5BF0E2282A4C800C9137C /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				1FE8DA94228D721900DCED01 /* MineViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1022,6 +1039,7 @@
 			children = (
 				1FE5BF5A228583BF00C9137C /* AnimationView.swift */,
 				1FE5BF372284286A00C9137C /* GloableView.swift */,
+				1FE8DA90228D6CC400DCED01 /* GloabelTableViewCell.swift */,
 			);
 			path = Gloable;
 			sourceTree = "<group>";
@@ -1339,6 +1357,7 @@
 				1FE5BECD2282866300C9137C /* shader.c in Sources */,
 				1FE5BED72282866300C9137C /* RangeSeekSliderDelegate.swift in Sources */,
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
+				1FE8DA8D228D6C7E00DCED01 /* MineToolsTableViewCell.swift in Sources */,
 				1FE5BEF12282A20400C9137C /* NewsViewController.swift in Sources */,
 				1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */,
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
@@ -1373,6 +1392,7 @@
 				1FE5BE452282864300C9137C /* UIButton+Extentions.swift in Sources */,
 				1FE5BF46228528A900C9137C /* CommentViewModel.swift in Sources */,
 				1FE5BED62282866300C9137C /* ZHPickView.m in Sources */,
+				1FE8DA95228D721900DCED01 /* MineViewModel.swift in Sources */,
 				1FE5BF192282D18D00C9137C /* CategoryContentTableViewCell.swift in Sources */,
 				1FE5BE252282862B00C9137C /* BaseNetWorke.swift in Sources */,
 				1FE5BF62228A5C5700C9137C /* CommentPostViewModel.swift in Sources */,
@@ -1397,6 +1417,7 @@
 				1FE5BE06228282B900C9137C /* BaseViewModel.swift in Sources */,
 				1FE5BF2E2283C22C00C9137C /* NSStringAdditions.m in Sources */,
 				1FE5BF4A228529B700C9137C /* PostDetailViewController.swift in Sources */,
+				1FE8DA8B228D6C7300DCED01 /* MineInfoTableViewCell.swift in Sources */,
 				1FE5BEBF2282866300C9137C /* FLAnimatedImage.m in Sources */,
 				1FE5BED82282866300C9137C /* RangeSeekSlider.swift in Sources */,
 				1FE5BF422285170700C9137C /* CategoryDetailViewModel.swift in Sources */,
@@ -1424,16 +1445,19 @@
 				1FE5BFB6228CF47900C9137C /* TargerUserSearchViewController.swift in Sources */,
 				1FE5BED12282866300C9137C /* yuv420sp.fsh.c in Sources */,
 				1FE5BE1E228285FA00C9137C /* UIViewController+hideExcessLine.m in Sources */,
+				1FE8DA8F228D6CAC00DCED01 /* InvitationTableViewCell.swift in Sources */,
 				1FE5BFA8228BDE9E00C9137C /* TagerUserTableViewCell.swift in Sources */,
 				1FE5BE382282863D00C9137C /* Tools.swift in Sources */,
 				1FE5BFB8228D0BB600C9137C /* SearchResultViewModel.swift in Sources */,
 				1FE5BF54228561F900C9137C /* PostDetailCommentUserTableViewCell.swift in Sources */,
 				1FE5BF152282CBE900C9137C /* PostViewController.swift in Sources */,
+				1FE8DA93228D718A00DCED01 /* AdTableViewCell.swift in Sources */,
 				1FE5BF6022894D2700C9137C /* CommentPostViewController.swift in Sources */,
 				1FE5BE22228285FA00C9137C /* NSString+StringSize.m in Sources */,
 				1FE5BF3E228509B900C9137C /* CategoryDetailViewController.swift in Sources */,
 				1FE5BE492282864300C9137C /* UIImage+Crop.swift in Sources */,
 				1FE5BECA2282866300C9137C /* renderer_rgb.c in Sources */,
+				1FE8DA91228D6CC400DCED01 /* GloabelTableViewCell.swift in Sources */,
 				1FE5BE482282864300C9137C /* UIViewController+NavigationBar.swift in Sources */,
 				1FE5BE1C228285FA00C9137C /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1FE5BE032282752C00C9137C /* ScoreViewController.swift in Sources */,
