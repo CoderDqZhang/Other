@@ -1,58 +1,50 @@
 //
-//  TargerUserViewModel.swift
+//  SearchResultViewModel.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/15.
+//  Created by Zhang on 2019/5/16.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 import DZNEmptyDataSet
 
-class TargerUserViewModel: BaseViewModel {
+class SearchResultViewModel: BaseViewModel {
     
-    let tarInfoTitle = ["最近@的人","","我的关注"]
+    var reslutArray:NSMutableArray!
+    
     override init() {
         super.init()
     }
     
     func tableViewTagerUserTableViewCellSetData(_ indexPath:IndexPath, cell:TagerUserTableViewCell) {
-        
-    }
-    
-    func tableViewTargerUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:TargerUserInfoTableViewCell) {
-        cell.cellSetData(str: tarInfoTitle[indexPath.section])
+        let dic = reslutArray[indexPath.row] as! NSDictionary
+        cell.cellSetData(name: dic.object(forKey: "name") as! String, desc: dic.object(forKey: "desc") as! String)
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        (self.controller as! TargerUserViewController).resultDicNavigationController(["":"","":""])
+        if (self.controller as!  TargerUserSearchViewController).resultDicClouse != nil {
+            (self.controller as!  TargerUserSearchViewController).resultDicClouse(reslutArray[indexPath.row] as! NSDictionary)
+        }
     }
 }
 
 
-extension TargerUserViewModel: UITableViewDelegate {
+extension SearchResultViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.tableViewDidSelect(tableView: tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.0001
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 || section == 2{
-            return 2
-        }else if section == 1 {
-            return 5
-        }
-        return 0.0001
+        return 0.00001
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 || indexPath.section == 2 {
-            return 30
-        }
         return 60
     }
     
@@ -61,43 +53,33 @@ extension TargerUserViewModel: UITableViewDelegate {
     }
 }
 
-extension TargerUserViewModel: UITableViewDataSource {
+extension SearchResultViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 || section == 2{
-            return 1
-        }
-        return 5
+        return reslutArray == nil ? 0 : reslutArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 || indexPath.section == 2  {
-            let cell = tableView.dequeueReusableCell(withIdentifier: TargerUserInfoTableViewCell.description(), for: indexPath)
-            self.tableViewTargerUserInfoTableViewCellSetData(indexPath, cell: cell as! TargerUserInfoTableViewCell)
-            cell.backgroundColor = App_Theme_FFFFFF_Color
-            cell.selectionStyle = .none
-            return cell
-        }
         let cell = tableView.dequeueReusableCell(withIdentifier: TagerUserTableViewCell.description(), for: indexPath)
         self.tableViewTagerUserTableViewCellSetData(indexPath, cell: cell as! TagerUserTableViewCell)
-        cell.backgroundColor = App_Theme_FFFFFF_Color
+        cell.backgroundColor = UIColor.clear
         cell.selectionStyle = .none
         return cell
     }
 }
 
-extension TargerUserViewModel : DZNEmptyDataSetDelegate {
+extension SearchResultViewModel : DZNEmptyDataSetDelegate {
     
 }
 
-extension TargerUserViewModel : DZNEmptyDataSetSource {
+extension SearchResultViewModel : DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let attributed = "暂时还没有数据哦！"
         let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color as Any], range: NSRange.init(location: 0, length: 9))
+        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
         
         return attributedString
     }

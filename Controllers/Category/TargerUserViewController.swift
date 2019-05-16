@@ -8,12 +8,14 @@
 
 import UIKit
 
+typealias TargerUserViewControllerClouse = (_ dic:NSDictionary) ->Void
+
 class TargerUserViewController: BaseViewController {
 
     var targetViewModel = TargerUserViewModel.init()
-    var searchController:UISearchController!
+    var searchController = BaseSearchViewController()
     
-    var searchBar:UISearchController!
+    var targerUserViewControllerClouse:TargerUserViewControllerClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,29 +35,29 @@ class TargerUserViewController: BaseViewController {
     
     func setUpSearchController(){
         // 创建searchResultVC
-        let searchResultVC = UIViewController()
-//        searchResultVC.definesPresentationContext = true
-        // 设置背景颜色为红色
-        searchResultVC.view.backgroundColor = UIColor.red
-        searchController = UISearchController(searchResultsController: searchResultVC)
-        // 设置背景颜色
-        searchController.view.backgroundColor = .red
-        searchController.searchBar.barTintColor = App_Theme_F6F6F6_Color
-        searchController.searchBar.layer.borderColor = App_Theme_F6F6F6_Color?.cgColor
-        searchController.searchBar.backgroundImage = UIImage.init()
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
-        // 默认为YES,设置开始搜索时背景显示与否
-         searchController.dimsBackgroundDuringPresentation = false
-        // 默认为YES,控制搜索时，是否隐藏导航栏
-//         searchController.hidesNavigationBarDuringPresentation = true
-        // 将搜索框视图设置为tableView的tableHeaderView
+        self.definesPresentationContext = true
+        let targerVC = TargerUserSearchViewController()
+        targerVC.resultDicClouse = { dic in
+            print(dic)
+            self.resultDicNavigationController(dic)
+        }
+        searchController = BaseSearchViewController.init(searchResultsController: targerVC)
+        searchController.rootController = self
+        searchController.searchBar.delegate = searchController
+        searchController.setUpView()
         self.tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    func resultDicNavigationController(_ dic:NSDictionary){
+        if self.targerUserViewControllerClouse != nil {
+            self.targerUserViewControllerClouse(dic)
+        }
+        self.navigationController?.popViewController()
     }
 
     /*
     // MARK: - Navigation
-
+xxx
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -65,52 +67,3 @@ class TargerUserViewController: BaseViewController {
 
 }
 
-extension TargerUserViewController : UISearchBarDelegate {
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) // called when text starts editing\
-    {
-        NavigaiontPresentView(self, toController: searchController)
-        searchBar.showsCancelButton = true
-    }
-    // called when text ends editing
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
-        searchBar.showsCancelButton = false
-    }
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) // called when text changes (including clear)
-    {
-        
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) // called when keyboard search button pressed
-    {
-        
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) // called when cancel button pressed
-    {
-        
-    }
-    
-    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) // called when search results button pressed
-    {
-        
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        
-    }
-}
-
-extension TargerUserViewController : UISearchControllerDelegate {
-    func willPresentSearchController(_ searchController: UISearchController) {
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    
-    func didPresentSearchController(_ searchController: UISearchController) {
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    
-    func didDismissSearchController(_ searchController: UISearchController) {
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-}

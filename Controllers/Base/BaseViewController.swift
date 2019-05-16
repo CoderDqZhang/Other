@@ -12,12 +12,17 @@ import MJRefresh
 import DZNEmptyDataSet
 import FDFullscreenPopGesture
 
+typealias SearchResultDicClouse = (_ dic:NSDictionary) -> Void
+
 class BaseViewController: UIViewController {
 
     var tableView:UITableView!
     var viewModel:BaseViewModel?
+    
     var umengPageName:String! = ""
     
+    var resultDicClouse:SearchResultDicClouse!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,6 +49,12 @@ class BaseViewController: UIViewController {
     func setUpView(){}
     
     func bindViewModelLogic(){}
+    
+    func bindViewodelResultData(_ resultData:NSMutableArray){
+        if self.viewModel != nil {
+            self.viewModel!.resultData = resultData
+        }
+    }
     
     func setUpTableView(style:UITableView.Style, cells:[AnyClass], controller:UIViewController?){
         tableView = UITableView.init(frame: CGRect.zero, style: style)
@@ -78,6 +89,9 @@ class BaseViewController: UIViewController {
     
     func bindViewModel(viewModel:BaseViewModel?, controller: BaseViewController?){
         self.viewModel = viewModel
+        if viewModel?.resultData != nil {
+            viewModel?.resultData = self.viewModel?.resultData
+        }
         viewModel?.controller = controller
     }
     

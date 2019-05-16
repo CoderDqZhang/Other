@@ -53,6 +53,11 @@ class TagerUserTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func cellSetData(name:String, desc:String) {
+        userNameLabel.text = name
+        descLabel.text = desc
+    }
+    
     
     override func updateConstraints() {
         if !didMakeConstraints {
