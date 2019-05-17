@@ -92,7 +92,7 @@ class PostCommentImagesTableViewCell: UITableViewCell {
             for index in 0...images.count - 1 {
                 let postImageView = PostImageSelectView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (PostImageSelectViewWidth + PostImageSelectViewMargetWidth), y: 0, width: PostImageSelectViewWidth, height: PostImageSelectViewHeight), image: images[index])
                 postImageView.tag = index + 10000
-                let singTap = UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer {
+                let singTap =  UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer { 
                     if self.postCommentImageImageButtonClouse != nil {
                         self.postCommentImageImageButtonClouse(postImageView.tag)
                     }

@@ -105,7 +105,7 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
     var imageView:UIImageView!
     var label:YYLabel!
     init(frame:CGRect, title:String, image:UIImage, tag:NSInteger?, titleColor:UIColor,spacing:CGFloat, font:UIFont, click:@escaping TouchClickClouse) {
-        super.init(frame: CGRect.zero) {
+        super.init(frame: CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height)) {
             click()
         }
         

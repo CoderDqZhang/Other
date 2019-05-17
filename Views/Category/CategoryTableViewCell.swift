@@ -47,7 +47,7 @@ class CategoryView:UIView {
         
         self.isUserInteractionEnabled = true
         
-        let singleTap = UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer {
+        let singleTap =  UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer { 
             self.categoryViewClouseClick(tag)
         }
         self.addGestureRecognizer(singleTap)

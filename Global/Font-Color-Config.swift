@@ -28,6 +28,8 @@ let App_Theme_B4B4B4_Color = UIColor.init(hexString: "B4B4B4")
 let App_Theme_BBBBBB_Color = UIColor.init(hexString: "BBBBBB")
 let App_Theme_FF7800_Color = UIColor.init(hexString: "FF7800")
 let App_Theme_323442_Color = UIColor.init(hexString: "323442")
+let App_Theme_FFD512_Color = UIColor.init(hexString: "FFD512")
+
 
 
 
@@ -42,6 +44,8 @@ let App_Theme_PinFan_R_15_Font = IPHONE_VERSION > 9 ? UIFont.systemFont(ofSize: 
 let App_Theme_PinFan_R_16_Font = IPHONE_VERSION > 9 ? UIFont.systemFont(ofSize: 16.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 16.0)
 let App_Theme_PinFan_R_17_Font = IPHONE_VERSION > 9 ? UIFont.systemFont(ofSize: 17.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 17.0)
 let App_Theme_PinFan_R_18_Font = IPHONE_VERSION > 9 ? UIFont.systemFont(ofSize: 18.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 18.0)
+let App_Theme_PinFan_R_19_Font = IPHONE_VERSION > 9 ? UIFont.systemFont(ofSize: 18.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 19.0)
+
 
 let App_Theme_PinFan_M_10_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 10.0):UIFont.init(name: ".HelveticaNeueInterface-Bold", size: 10.0)
 let App_Theme_PinFan_M_12_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 12.0):UIFont.init(name: ".HelveticaNeueInterface-Bold", size: 12.0)

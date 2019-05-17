@@ -20,6 +20,7 @@ target 'Touqiu' do
   pod 'SDWebImage'
   pod 'SKPhotoBrowser'
   pod 'ReactiveSwift'
+  pod 'ReactiveCocoa'
   pod 'SwifterSwift'
   pod 'IQKeyboardManagerSwift'
   pod 'RAMAnimatedTabBarController'

@@ -9,6 +9,7 @@
 import Foundation
 import SwifterSwift
 import YYText
+import ReactiveCocoa
 
 let SCREENWIDTH = UIScreen.main.bounds.size.width
 let SCREENHEIGHT = UIScreen.main.bounds.size.height

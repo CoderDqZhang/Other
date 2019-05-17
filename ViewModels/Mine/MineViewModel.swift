@@ -18,11 +18,15 @@ class MineViewModel: BaseViewModel {
     }
     
     func tableViewMineInfoTableViewCellSetData(_ indexPath:IndexPath, cell:MineInfoTableViewCell) {
-    
+        cell.mineInfoTableViewCellClouse = { type in
+            print(type)
+        }
     }
     
     func tableViewMineToolsTableViewCellSetData(_ indexPath:IndexPath, cell:MineToolsTableViewCell) {
-        
+        cell.mineToolsTableViewCellClouse = { type in
+            print(type)
+        }
     }
     
     func tableViewAdTableViewCellSetData(_ indexPath:IndexPath, cell:AdTableViewCell) {
@@ -103,7 +107,7 @@ extension MineViewModel: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: MineInfoTableViewCell.description(), for: indexPath)
             self.tableViewMineInfoTableViewCellSetData(indexPath, cell: cell as! MineInfoTableViewCell)
             cell.selectionStyle = .none
-            cell.contentView.backgroundColor = .clear
+            cell.contentView.backgroundColor = App_Theme_F6F6F6_Color
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: MineToolsTableViewCell.description(), for: indexPath)
