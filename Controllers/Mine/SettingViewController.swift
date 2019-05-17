@@ -1,32 +1,22 @@
 //
-//  TargerUserSearchViewController.swift
+//  SettingViewController.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/16.
+//  Created by Zhang on 2019/5/17.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 
-class TargerUserSearchViewController: BaseViewController {
+class SettingViewController: BaseViewController {
 
-    var serarchViewModel = SearchResultViewModel.init()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
     
-    override func setUpView() {
-        self.bindViewModel(viewModel: serarchViewModel, controller: self)
-        self.setUpTableView(style: .plain, cells: [TagerUserTableViewCell.self], controller: self)
-    }
 
-    
-    func refreshResultData(){
-        serarchViewModel.reslutArray = self.viewModel?.resultData
-        self.tableView.reloadData()
-    }
     /*
     // MARK: - Navigation
 

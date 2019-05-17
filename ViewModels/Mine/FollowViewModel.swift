@@ -11,7 +11,8 @@ import DZNEmptyDataSet
 
 class FollowViewModel: BaseViewModel {
     
-    
+    var reslutArray:NSMutableArray!
+
     override init() {
         super.init()
     }

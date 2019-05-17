@@ -154,6 +154,7 @@
 		1FE8DAA4228EA08100DCED01 /* FollowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAA3228EA08100DCED01 /* FollowViewModel.swift */; };
 		1FE8DAA6228EA91200DCED01 /* ChangeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAA5228EA91200DCED01 /* ChangeInfoViewController.swift */; };
 		1FE8DAA8228EAB6600DCED01 /* ChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAA7228EAB6600DCED01 /* ChangeViewModel.swift */; };
+		1FE8DAAC228EBC9100DCED01 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAAB228EBC9100DCED01 /* SettingViewController.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -387,6 +388,7 @@
 		1FE8DAA3228EA08100DCED01 /* FollowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewModel.swift; sourceTree = "<group>"; };
 		1FE8DAA5228EA91200DCED01 /* ChangeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfoViewController.swift; sourceTree = "<group>"; };
 		1FE8DAA7228EAB6600DCED01 /* ChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewModel.swift; sourceTree = "<group>"; };
+		1FE8DAAB228EBC9100DCED01 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -911,6 +913,7 @@
 				1FE8DA9D228E981B00DCED01 /* FansViewController.swift */,
 				1FE8DA9F228E982800DCED01 /* FollowsViewController.swift */,
 				1FE8DAA5228EA91200DCED01 /* ChangeInfoViewController.swift */,
+				1FE8DAAB228EBC9100DCED01 /* SettingViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1479,6 +1482,7 @@
 				1FE5BECF2282866300C9137C /* yuv444p10le.fsh.c in Sources */,
 				1FE5BF52228561E800C9137C /* PostDetailCommentTableViewCell.swift in Sources */,
 				1FE5BFB6228CF47900C9137C /* TargerUserSearchViewController.swift in Sources */,
+				1FE8DAAC228EBC9100DCED01 /* SettingViewController.swift in Sources */,
 				1FE8DAA0228E982800DCED01 /* FollowsViewController.swift in Sources */,
 				1FE5BED12282866300C9137C /* yuv420sp.fsh.c in Sources */,
 				1FE5BE1E228285FA00C9137C /* UIViewController+hideExcessLine.m in Sources */,
