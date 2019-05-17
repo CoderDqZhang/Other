@@ -328,3 +328,21 @@ class KeyboardToobar: UIToolbar {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+class TableViewHeaderView: UIView {
+    
+    var label:YYLabel!
+    init(frame:CGRect, title:String, isMush:Bool) {
+        super.init(frame: frame)
+        
+        label = YYLabel.init(frame: CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+        label.text = title
+        label.font = App_Theme_PinFan_M_12_Font
+        label.textColor = App_Theme_666666_Color
+        self.addSubview(label)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

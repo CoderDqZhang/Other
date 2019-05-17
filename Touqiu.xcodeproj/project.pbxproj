@@ -155,6 +155,19 @@
 		1FE8DAA6228EA91200DCED01 /* ChangeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAA5228EA91200DCED01 /* ChangeInfoViewController.swift */; };
 		1FE8DAA8228EAB6600DCED01 /* ChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAA7228EAB6600DCED01 /* ChangeViewModel.swift */; };
 		1FE8DAAC228EBC9100DCED01 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAAB228EBC9100DCED01 /* SettingViewController.swift */; };
+		1FE8DAAE228EC7CB00DCED01 /* RealNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAAD228EC7CB00DCED01 /* RealNameViewController.swift */; };
+		1FE8DAB0228EC7D800DCED01 /* SingUpVIPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAAF228EC7D800DCED01 /* SingUpVIPViewController.swift */; };
+		1FE8DAB2228EC7E300DCED01 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAB1228EC7E300DCED01 /* NotificationViewController.swift */; };
+		1FE8DAB4228EC7F200DCED01 /* InviteUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAB3228EC7F200DCED01 /* InviteUserViewController.swift */; };
+		1FE8DAB6228EC89E00DCED01 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAB5228EC89E00DCED01 /* SettingViewModel.swift */; };
+		1FE8DAB8228EC8B100DCED01 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAB7228EC8B100DCED01 /* NotificationViewModel.swift */; };
+		1FE8DABA228EC8BF00DCED01 /* RealNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAB9228EC8BF00DCED01 /* RealNameViewModel.swift */; };
+		1FE8DABC228EC8D100DCED01 /* SigupVIPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DABB228EC8D100DCED01 /* SigupVIPViewModel.swift */; };
+		1FE8DABE228ECABC00DCED01 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DABD228ECABC00DCED01 /* ChangePasswordViewController.swift */; };
+		1FE8DAC0228ECAE800DCED01 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DABF228ECAE800DCED01 /* AboutViewController.swift */; };
+		1FE8DAC2228ECAF400DCED01 /* FeedBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAC1228ECAF400DCED01 /* FeedBackViewController.swift */; };
+		1FE8DAC4228ECD0600DCED01 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAC3228ECD0600DCED01 /* ChangePasswordViewModel.swift */; };
+		1FE8DAC6228ED11900DCED01 /* FeedBackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAC5228ED11900DCED01 /* FeedBackViewModel.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -389,6 +402,19 @@
 		1FE8DAA5228EA91200DCED01 /* ChangeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfoViewController.swift; sourceTree = "<group>"; };
 		1FE8DAA7228EAB6600DCED01 /* ChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewModel.swift; sourceTree = "<group>"; };
 		1FE8DAAB228EBC9100DCED01 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		1FE8DAAD228EC7CB00DCED01 /* RealNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealNameViewController.swift; sourceTree = "<group>"; };
+		1FE8DAAF228EC7D800DCED01 /* SingUpVIPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingUpVIPViewController.swift; sourceTree = "<group>"; };
+		1FE8DAB1228EC7E300DCED01 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		1FE8DAB3228EC7F200DCED01 /* InviteUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserViewController.swift; sourceTree = "<group>"; };
+		1FE8DAB5228EC89E00DCED01 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		1FE8DAB7228EC8B100DCED01 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		1FE8DAB9228EC8BF00DCED01 /* RealNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealNameViewModel.swift; sourceTree = "<group>"; };
+		1FE8DABB228EC8D100DCED01 /* SigupVIPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigupVIPViewModel.swift; sourceTree = "<group>"; };
+		1FE8DABD228ECABC00DCED01 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		1FE8DABF228ECAE800DCED01 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		1FE8DAC1228ECAF400DCED01 /* FeedBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackViewController.swift; sourceTree = "<group>"; };
+		1FE8DAC3228ECD0600DCED01 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
+		1FE8DAC5228ED11900DCED01 /* FeedBackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackViewModel.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -914,6 +940,13 @@
 				1FE8DA9F228E982800DCED01 /* FollowsViewController.swift */,
 				1FE8DAA5228EA91200DCED01 /* ChangeInfoViewController.swift */,
 				1FE8DAAB228EBC9100DCED01 /* SettingViewController.swift */,
+				1FE8DAAD228EC7CB00DCED01 /* RealNameViewController.swift */,
+				1FE8DAAF228EC7D800DCED01 /* SingUpVIPViewController.swift */,
+				1FE8DAB1228EC7E300DCED01 /* NotificationViewController.swift */,
+				1FE8DAB3228EC7F200DCED01 /* InviteUserViewController.swift */,
+				1FE8DABD228ECABC00DCED01 /* ChangePasswordViewController.swift */,
+				1FE8DABF228ECAE800DCED01 /* AboutViewController.swift */,
+				1FE8DAC1228ECAF400DCED01 /* FeedBackViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1014,6 +1047,12 @@
 				1FE8DAA1228EA07500DCED01 /* FansViewModel.swift */,
 				1FE8DAA3228EA08100DCED01 /* FollowViewModel.swift */,
 				1FE8DAA7228EAB6600DCED01 /* ChangeViewModel.swift */,
+				1FE8DAB5228EC89E00DCED01 /* SettingViewModel.swift */,
+				1FE8DAB7228EC8B100DCED01 /* NotificationViewModel.swift */,
+				1FE8DAB9228EC8BF00DCED01 /* RealNameViewModel.swift */,
+				1FE8DABB228EC8D100DCED01 /* SigupVIPViewModel.swift */,
+				1FE8DAC3228ECD0600DCED01 /* ChangePasswordViewModel.swift */,
+				1FE8DAC5228ED11900DCED01 /* FeedBackViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1378,6 +1417,7 @@
 				1FE5BFAA228BDEC200C9137C /* TargerUserViewController.swift in Sources */,
 				1FE5BF4C228529EC00C9137C /* PostDetailViewModel.swift in Sources */,
 				1FE5BE392282863D00C9137C /* AnimationTools.swift in Sources */,
+				1FE8DAAE228EC7CB00DCED01 /* RealNameViewController.swift in Sources */,
 				1FE5BF382284286A00C9137C /* GloableView.swift in Sources */,
 				1FE5BEB52282866300C9137C /* TAAnimatedDotView.m in Sources */,
 				1FE5BECB2282866300C9137C /* renderer_yuv420p.c in Sources */,
@@ -1388,6 +1428,7 @@
 				1FE5BED02282866300C9137C /* yuv420p.fsh.c in Sources */,
 				1FE5BF5E228942EF00C9137C /* UITextFieldExtentions.swift in Sources */,
 				1FE5BECE2282866300C9137C /* renderer.c in Sources */,
+				1FE8DABA228EC8BF00DCED01 /* RealNameViewModel.swift in Sources */,
 				1FE5BECD2282866300C9137C /* shader.c in Sources */,
 				1FE5BED72282866300C9137C /* RangeSeekSliderDelegate.swift in Sources */,
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
@@ -1399,6 +1440,7 @@
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
 				1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */,
 				1FE5BED42282866300C9137C /* IJKSDLGLView.m in Sources */,
+				1FE8DAC6228ED11900DCED01 /* FeedBackViewModel.swift in Sources */,
 				1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
 				1FE5BF212282D21F00C9137C /* OutFallViewModel.swift in Sources */,
@@ -1407,6 +1449,7 @@
 				1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */,
 				1FE5BDFD2282750900C9137C /* MineViewController.swift in Sources */,
 				1FE5BF352284206300C9137C /* UserInfoTableViewCell.swift in Sources */,
+				1FE8DAB8228EC8B100DCED01 /* NotificationViewModel.swift in Sources */,
 				1FE5BF3C228435B000C9137C /* OutFallCategoryContentTableViewCell.swift in Sources */,
 				1FE5BDFF2282751400C9137C /* SquareViewController.swift in Sources */,
 				1FE5BEC12282866300C9137C /* JKDBModel.m in Sources */,
@@ -1415,6 +1458,7 @@
 				1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */,
 				1FE5BF5B228583C000C9137C /* AnimationView.swift in Sources */,
 				1FE5BEB42282866300C9137C /* TAPageControl.m in Sources */,
+				1FE8DAC2228ECAF400DCED01 /* FeedBackViewController.swift in Sources */,
 				1FE5BEB22282866200C9137C /* SDCollectionViewCell.m in Sources */,
 				1FE5BE4C2282864300C9137C /* AlertControl+Tools.swift in Sources */,
 				1FE5BE1F228285FA00C9137C /* UIImage+PureColor.m in Sources */,
@@ -1423,13 +1467,17 @@
 				1FE5BF64228A942500C9137C /* PostCommentTextTableViewCell.swift in Sources */,
 				1FE5BF4022850B3500C9137C /* SegmentViewModel.swift in Sources */,
 				1FE5BE442282864300C9137C /* UIPageControlExtentions.swift in Sources */,
+				1FE8DAB6228EC89E00DCED01 /* SettingViewModel.swift in Sources */,
 				1FE5BED52282866300C9137C /* ijksdl_timer.c in Sources */,
+				1FE8DABC228EC8D100DCED01 /* SigupVIPViewModel.swift in Sources */,
 				1FE5BE452282864300C9137C /* UIButton+Extentions.swift in Sources */,
 				1FE5BF46228528A900C9137C /* CommentViewModel.swift in Sources */,
 				1FE5BED62282866300C9137C /* ZHPickView.m in Sources */,
 				1FE8DA95228D721900DCED01 /* MineViewModel.swift in Sources */,
 				1FE5BF192282D18D00C9137C /* CategoryContentTableViewCell.swift in Sources */,
 				1FE8DAA6228EA91200DCED01 /* ChangeInfoViewController.swift in Sources */,
+				1FE8DAC0228ECAE800DCED01 /* AboutViewController.swift in Sources */,
+				1FE8DAB0228EC7D800DCED01 /* SingUpVIPViewController.swift in Sources */,
 				1FE5BE252282862B00C9137C /* BaseNetWorke.swift in Sources */,
 				1FE8DA98228E8EC500DCED01 /* UIView+ESAddTapGestureRecognizer.m in Sources */,
 				1FE5BF62228A5C5700C9137C /* CommentPostViewModel.swift in Sources */,
@@ -1460,6 +1508,7 @@
 				1FE5BED82282866300C9137C /* RangeSeekSlider.swift in Sources */,
 				1FE5BF422285170700C9137C /* CategoryDetailViewModel.swift in Sources */,
 				1FE5BDFB2282747900C9137C /* BaseViewController.swift in Sources */,
+				1FE8DAC4228ECD0600DCED01 /* ChangePasswordViewModel.swift in Sources */,
 				1FE5BEC02282866300C9137C /* FLAnimatedImageView.m in Sources */,
 				1FE8DAA8228EAB6600DCED01 /* ChangeViewModel.swift in Sources */,
 				1FE5BF332283F60800C9137C /* Conner+Shadows.swift in Sources */,
@@ -1467,6 +1516,7 @@
 				1FE5BE21228285FA00C9137C /* NSString+Utils.m in Sources */,
 				1FE5BDE822817B8500C9137C /* RequestURL.swift in Sources */,
 				1FE5BEC82282866300C9137C /* common.c in Sources */,
+				1FE8DAB4228EC7F200DCED01 /* InviteUserViewController.swift in Sources */,
 				1FE5BE1D228285FA00C9137C /* NSDate+LSCore.m in Sources */,
 				1FE5BE342282863D00C9137C /* UIImageViewManger.swift in Sources */,
 				1FE5BF48228528FD00C9137C /* CommentViewController.swift in Sources */,
@@ -1496,6 +1546,7 @@
 				1FE5BF6022894D2700C9137C /* CommentPostViewController.swift in Sources */,
 				1FE5BE22228285FA00C9137C /* NSString+StringSize.m in Sources */,
 				1FE8DA9C228E95A600DCED01 /* MineInfoViewModel.swift in Sources */,
+				1FE8DABE228ECABC00DCED01 /* ChangePasswordViewController.swift in Sources */,
 				1FE5BF3E228509B900C9137C /* CategoryDetailViewController.swift in Sources */,
 				1FE5BE492282864300C9137C /* UIImage+Crop.swift in Sources */,
 				1FE5BECA2282866300C9137C /* renderer_rgb.c in Sources */,
@@ -1508,6 +1559,7 @@
 				1FE5BE4A2282864300C9137C /* NSTimer.swift in Sources */,
 				1FE5BE352282863D00C9137C /* LocalJsonFile.swift in Sources */,
 				1FE5BEC52282866300C9137C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
+				1FE8DAB2228EC7E300DCED01 /* NotificationViewController.swift in Sources */,
 				1FE5BF272283BB8300C9137C /* GTMBase64.m in Sources */,
 				1FE5BED22282866300C9137C /* rgb.fsh.c in Sources */,
 				1FE5BEC72282866300C9137C /* renderer_yuv444p10le.c in Sources */,

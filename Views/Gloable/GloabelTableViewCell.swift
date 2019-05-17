@@ -266,3 +266,177 @@ class GloabelFansTableViewCell : UITableViewCell {
     }
 }
 
+class GloabelTextFieldTableViewCell : UITableViewCell {
+    
+    var textFiled:UITextField!
+    
+    var didMakeConstraints = false
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        textFiled = UITextField.init()
+        textFiled.textAlignment = .left
+        textFiled.font = App_Theme_PinFan_M_15_Font
+        textFiled.textColor = App_Theme_06070D_Color
+        textFiled.placeholder = ""
+        textFiled.placeholderColor = App_Theme_B5B5B5_Color!
+        textFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
+        self.contentView.addSubview(textFiled)
+        
+        self.updateConstraints()
+    }
+    
+    func cellSetData(placeholder:String){
+        textFiled.placeholder = placeholder
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func updateConstraints() {
+        if !didMakeConstraints {
+            textFiled.snp.makeConstraints { (make) in
+                make.centerY.equalToSuperview()
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+            }
+            
+            didMakeConstraints = true
+        }
+        super.updateConstraints()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+}
+
+class GloabelTextViewTableViewCell : UITableViewCell {
+    
+    var textView:YYTextView!
+    
+    var didMakeConstraints = false
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        textView = YYTextView.init()
+        textView.font = App_Theme_PinFan_M_15_Font
+        textView.backgroundColor = .red
+        textView.textColor = App_Theme_06070D_Color
+        textView.placeholderTextColor = App_Theme_B5B5B5_Color!
+        textView.placeholderFont = App_Theme_PinFan_M_15_Font!
+        self.contentView.addSubview(textView)
+        
+        self.updateConstraints()
+    }
+    
+    func cellSetData(placeholder:String){
+        textView.placeholderText = placeholder
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func updateConstraints() {
+        if !didMakeConstraints {
+            textView.snp.makeConstraints { (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(15)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+            }
+            
+            didMakeConstraints = true
+        }
+        super.updateConstraints()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+}
+
+class GloabelConfirmTableViewCell : UITableViewCell {
+    
+    var anmationButton:AnimationButton!
+    
+    var didMakeConstraints = false
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        anmationButton = AnimationButton.init(type: .custom)
+        anmationButton.setTitle("确定", for: .normal)
+        anmationButton.titleLabel?.font = App_Theme_PinFan_M_15_Font
+        anmationButton.backgroundColor = App_Theme_FFD512_Color
+        anmationButton.cornerRadius = 23.5
+        self.contentView.addSubview(anmationButton)
+        
+        self.updateConstraints()
+    }
+    
+    func cellSetData(title:String){
+        anmationButton.setTitle(title, for: .normal)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func updateConstraints() {
+        if !didMakeConstraints {
+            anmationButton.snp.makeConstraints { (make) in
+                make.top.equalToSuperview()
+                make.bottom.equalToSuperview()
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+            }
+            
+            didMakeConstraints = true
+        }
+        super.updateConstraints()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+}
+
+
+
+
+

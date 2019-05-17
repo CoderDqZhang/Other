@@ -1,5 +1,5 @@
 //
-//  SettingViewController.swift
+//  FeedBackViewController.swift
 //  Touqiu
 //
 //  Created by Zhang on 2019/5/17.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SettingViewController: BaseViewController {
+class FeedBackViewController: BaseViewController {
 
-    var settingViewModel = SettingViewModel.init()
+    let feedBackViewModel = FeedBackViewModel.init()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,12 +19,12 @@ class SettingViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
-        self.navigationItem.title = "设置"
+        self.navigationItem.title = "用户反馈"
     }
     
     override func setUpView() {
-        self.bindViewModel(viewModel: settingViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [TitleLableAndDetailLabelDescRight.self], controller: self)
+        self.bindViewModel(viewModel: feedBackViewModel, controller: self)
+        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldTableViewCell.self,GloabelConfirmTableViewCell.self], controller: self)
         self.view.backgroundColor = App_Theme_F6F6F6_Color
     }
     
@@ -32,7 +32,6 @@ class SettingViewController: BaseViewController {
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
     /*
     // MARK: - Navigation
 

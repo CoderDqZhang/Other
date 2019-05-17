@@ -1,5 +1,5 @@
 //
-//  SettingViewController.swift
+//  ChangePasswordViewController.swift
 //  Touqiu
 //
 //  Created by Zhang on 2019/5/17.
@@ -8,9 +8,10 @@
 
 import UIKit
 
-class SettingViewController: BaseViewController {
+class ChangePasswordViewController: BaseViewController {
 
-    var settingViewModel = SettingViewModel.init()
+    var changePasswordViewModel = ChangePasswordViewModel.init()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,12 +20,12 @@ class SettingViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
-        self.navigationItem.title = "设置"
+        self.navigationItem.title = "修改密码"
     }
     
     override func setUpView() {
-        self.bindViewModel(viewModel: settingViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [TitleLableAndDetailLabelDescRight.self], controller: self)
+        self.bindViewModel(viewModel: changePasswordViewModel, controller: self)
+        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldTableViewCell.self,GloabelConfirmTableViewCell.self], controller: self)
         self.view.backgroundColor = App_Theme_F6F6F6_Color
     }
     

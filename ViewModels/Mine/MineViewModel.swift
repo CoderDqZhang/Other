@@ -51,6 +51,18 @@ class MineViewModel: BaseViewModel {
             if indexPath.row == 0 {
                 NavigationPushView(self.controller!, toConroller: MineInfoViewController())
             }
+        case 3:
+            if indexPath.row == 0 {
+                NavigationPushView(self.controller!, toConroller: RealNameViewController())
+            }else if indexPath.row == 1{
+                NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
+            }else if indexPath.row == 2{
+                NavigationPushView(self.controller!, toConroller: NotificationViewController())
+            }else if indexPath.row == 3{
+                NavigationPushView(self.controller!, toConroller: SettingViewController())
+            }
+        case 4:
+            NavigationPushView(self.controller!, toConroller: InviteUserViewController())
         default:
             break
         }
