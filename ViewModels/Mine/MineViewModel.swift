@@ -20,6 +20,14 @@ class MineViewModel: BaseViewModel {
     func tableViewMineInfoTableViewCellSetData(_ indexPath:IndexPath, cell:MineInfoTableViewCell) {
         cell.mineInfoTableViewCellClouse = { type in
             print(type)
+            switch type {
+            case .fans:
+                NavigationPushView(self.controller!, toConroller: FansViewController())
+            case .follow:
+                NavigationPushView(self.controller!, toConroller: FollowsViewController())
+            default:
+                break
+            }
         }
     }
     
@@ -34,11 +42,18 @@ class MineViewModel: BaseViewModel {
     }
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
-        cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: desc[indexPath.section-3][indexPath.row], isDescHidden: false)
+        cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: desc[indexPath.section-3][indexPath.row], image: nil, isDescHidden: false)
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
+        switch indexPath.section {
+        case 0:
+            if indexPath.row == 0 {
+                NavigationPushView(self.controller!, toConroller: MineInfoViewController())
+            }
+        default:
+            break
+        }
     }
 }
 
@@ -81,7 +96,14 @@ extension MineViewModel: UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+        var alpa:CGFloat = 0
+        if #available(iOS 11.0, *) {
+            alpa = scrollView.contentOffset.y / (SCREENWIDTH * 205 / 375 - 64 - NAV_HEIGHT)
+        } else {
+            alpa = scrollView.contentOffset.y / (SCREENWIDTH * 205 / 375 - 64)
+            // Fallback on earlier versions
+        }
+        (self.controller as! MineViewController).gloableNavigationBar.changeBackGroundColor(transparency: alpa > 1 ? 1 :alpa)
     }
 }
 

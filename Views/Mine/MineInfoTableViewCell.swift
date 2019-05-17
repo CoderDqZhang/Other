@@ -12,6 +12,8 @@ let CentViewWidht:CGFloat = 123
 enum TopUpViewClickType {
     case topUp
     case store
+    case follow
+    case fans
 }
 
 typealias TopUpViewTypeClouse = (_ type:TopUpViewClickType) ->Void
@@ -266,10 +268,13 @@ class MineInfoTableViewCell: UITableViewCell {
         self.contentView.addSubview(descLabel)
         
         followLabel = YYLabel.init()
+        followLabel.addTapGestureRecognizer(withDelegate: self) { (tag) in
+            self.mineInfoTableViewCellClouse(.fans)
+        }
         followLabel.textAlignment = .left
         followLabel.font = App_Theme_PinFan_M_12_Font
         followLabel.textColor = App_Theme_06070D_Color
-        followLabel.text = "关注   66"
+        followLabel.text = "粉丝   66"
         self.contentView.addSubview(followLabel)
         
         lineLabel = YYLabel.init()
@@ -280,7 +285,10 @@ class MineInfoTableViewCell: UITableViewCell {
         attentionsLabel.textAlignment = .left
         attentionsLabel.font = App_Theme_PinFan_M_12_Font
         attentionsLabel.textColor = App_Theme_06070D_Color
-        attentionsLabel.text = "粉丝   666"
+        attentionsLabel.text = "关注   666"
+        attentionsLabel.addTapGestureRecognizer(withDelegate: self) { (tag) in
+            self.mineInfoTableViewCellClouse(.follow)
+        }
         self.contentView.addSubview(attentionsLabel)
         
         daylyButton = AnimationButton.init(type: .custom)
@@ -332,6 +340,12 @@ class MineInfoTableViewCell: UITableViewCell {
                 make.size.equalTo(CGSize.init(width: 62, height: 62))
             }
             
+            vImageView.snp.makeConstraints { (make) in
+                make.size.equalTo(CGSize.init(width: 17, height: 17))
+                make.left.equalTo(self.avatarImageView.snp.left).offset(44)
+                make.top.equalTo(self.avatarImageView.snp.top).offset(45)
+            }
+            
             userNameLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.avatarImageView.snp.right).offset(18)
                 make.top.equalTo(self.avatarImageView.snp.top)
@@ -342,21 +356,21 @@ class MineInfoTableViewCell: UITableViewCell {
                 make.top.equalTo(self.userNameLabel.snp.bottom).offset(0)
             }
             
-            followLabel.snp.makeConstraints { (make) in
+            attentionsLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.avatarImageView.snp.right).offset(18)
                 make.top.equalTo(self.descLabel.snp.bottom).offset(2)
             }
             
             lineLabel.snp.makeConstraints { (make) in
-                make.left.equalTo(self.followLabel.snp.right).offset(12)
+                make.left.equalTo(self.attentionsLabel.snp.right).offset(12)
                 make.top.equalTo(self.descLabel.snp.bottom).offset(5)
                 make.size.equalTo(CGSize.init(width: 1, height: 11))
                 make.width.equalTo(1)
             }
             
-            attentionsLabel.snp.makeConstraints { (make) in
+            followLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.lineLabel.snp.right).offset(12)
-                make.top.equalTo(self.followLabel.snp.top)
+                make.top.equalTo(self.attentionsLabel.snp.top)
             }
             
             daylyButton.snp.makeConstraints { (make) in

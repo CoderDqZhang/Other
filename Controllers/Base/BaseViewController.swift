@@ -28,7 +28,6 @@ class BaseViewController: UIViewController {
         
         self.view.backgroundColor = App_Theme_F6F6F6_Color
         
-        
         self.setUpView()
         self.bindViewModelLogic()
         self.setUpViewNavigationItem()
@@ -59,7 +58,6 @@ class BaseViewController: UIViewController {
     func setUpTableView(style:UITableView.Style, cells:[AnyClass], controller:UIViewController?){
         tableView = UITableView.init(frame: CGRect.zero, style: style)
         for cell in cells{
-            print(cell.description())
             tableView.register(cell.self, forCellReuseIdentifier: "\(cell.description())")
         }
         if #available(iOS 11.0, *) {

@@ -35,7 +35,7 @@ class GLoabelNavigaitonBar:UIView {
         self.gloabelBackButtonClouse = click
         titleLabel = YYLabel.init()
         titleLabel.text = title
-        titleLabel.font = App_Theme_PinFan_R_17_Font
+        titleLabel.font = App_Theme_PinFan_R_18_Font
         titleLabel.textColor = UIColor.clear
         self.addSubview(titleLabel)
         
@@ -78,6 +78,10 @@ class GLoabelNavigaitonBar:UIView {
         }
     }
     
+    func hiddenBackButton(){
+        backButton.isHidden = true
+    }
+    
     @objc func backButtonClick(){
         self.gloabelBackButtonClouse(.backBtn)
     }
@@ -90,9 +94,9 @@ class GLoabelNavigaitonBar:UIView {
         if transparency < 0 {
             titleLabel.textColor = UIColor.clear
         }else{
-            titleLabel.textColor = UIColor.init(hexString: "FFFFFF", transparency: transparency)
+            titleLabel.textColor = UIColor.init(hexString: "06070D", transparency: transparency)
         }
-        self.backgroundColor = UIColor.init(hexString: "1B85FD", transparency: transparency)
+        self.backgroundColor = UIColor.init(hexString: "FFCB00", transparency: transparency)
     }
     
     required init?(coder aDecoder: NSCoder) {
