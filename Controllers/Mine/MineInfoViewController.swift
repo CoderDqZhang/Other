@@ -43,5 +43,49 @@ class MineInfoViewController: BaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func setUpAlerViewController(){
+        let alerController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
+        alerController.addAction(title: "相册", style: .default, isEnabled: true, handler: { (ret) in
+            self.setUpImagePicker(sourceType: .photoLibrary)
+        })
+        alerController.addAction(title: "拍照", style: .default, isEnabled: true, handler: { (ret) in
+            self.setUpImagePicker(sourceType: .camera)
+        })
+        alerController.addAction(title: "取消", style: .cancel, isEnabled: true, handler: { (ret) in
+            
+        })
+        NavigaiontPresentView(self, toController: alerController)
+    }
+    
+    func setUpImagePicker(sourceType:UIImagePickerController.SourceType){
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let photoPickerVC = UIImagePickerController.init()
+            photoPickerVC.sourceType = sourceType
+            photoPickerVC.delegate = self
+            NavigaiontPresentView(self, toController: photoPickerVC)
+        }else{
+            print("模拟器中无法打开照相机,请在真机中使用")
+        }
+    }
+}
 
+extension MineInfoViewController : UINavigationControllerDelegate {
+    
+}
+extension MineInfoViewController : UIImagePickerControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard var selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        print(selectedImage)
+        picker.dismiss(animated: true) {
+            
+        }
+    }
 }

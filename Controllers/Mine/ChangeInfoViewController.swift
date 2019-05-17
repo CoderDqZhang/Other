@@ -138,7 +138,6 @@ class ChangeInfoViewController: BaseViewController {
             detailLable.isHidden = true
             infoLable.isHidden = false
             infoLable.text = "好名称可以让朋友更好的记住你"
-
             self.navigationItem.title = "更改名称"
         default:
             break

@@ -33,7 +33,7 @@ class MineInfoViewModel: BaseViewModel {
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                
+                (self.controller as! MineInfoViewController).setUpAlerViewController()
             }else if indexPath.row == 1 {
                 let changeInfo = ChangeInfoViewController()
                 changeInfo.changeInfoType(text: "", type: .name, placeholder: "更改名称")

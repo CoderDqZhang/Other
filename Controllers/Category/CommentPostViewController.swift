@@ -80,8 +80,6 @@ class CommentPostViewController: BaseViewController {
         }else{
             print("模拟器中无法打开照相机,请在真机中使用")
         }
-        
-        
     }
 }
 
