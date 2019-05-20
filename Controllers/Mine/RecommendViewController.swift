@@ -20,6 +20,14 @@ class RecommendViewController: BaseViewController {
     func initSView() {
         self.bindViewModel(viewModel: recommendViewModel, controller: self)
         self.setUpTableView(style: .grouped, cells: [CategoryContentTableViewCell.self,CommentTableViewCell.self,UserInfoTableViewCell.self], controller: self)
+        
+        self.setUpRefreshData {
+            
+        }
+        
+        self.setUpLoadMoreData {
+            
+        }
     }
     
     

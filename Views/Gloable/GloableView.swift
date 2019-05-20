@@ -57,6 +57,10 @@ class GLoabelNavigaitonBar:UIView {
         
         if rightButton != nil {
             self.rigthButton = rightButton
+            self.rigthButton.cornerRadius = 14
+            self.rigthButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
+            self.rigthButton.layer.masksToBounds = true
+            self.rigthButton.isHidden = true
             rightButton?.addTarget(self, action: #selector(self.rightButtonClick), for: .touchUpInside)
             self.addSubview(rightButton!)
             rightButton?.snp.makeConstraints { (make) in
@@ -65,7 +69,7 @@ class GLoabelNavigaitonBar:UIView {
                 } else {
                     make.centerY.equalTo(self.snp.centerY).offset(10)
                 }
-                make.left.equalTo(self.snp.left).offset(6)
+                make.right.equalTo(self.snp.right).offset(-15)
                 make.size.equalTo(CGSize.init(width: 61, height: 27))
             }
         }

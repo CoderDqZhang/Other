@@ -29,20 +29,23 @@ class OtherMineViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
+        let followButton = AnimationButton.init(type: .custom)
+        followButton.frame = CGRect.init(x: SCREENWIDTH - 100, y: 0, width: 61, height: 27)
         if #available(iOS 11.0, *) {
-            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "个人中心", rightButton: nil, click: { (type) in
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "个人中心", rightButton: followButton, click: { (type) in
                 if type == .backBtn{
                     self.navigationController?.popViewController()
                 }
             })
         } else {
-            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "个人中心", rightButton: nil, click: { (type) in
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "个人中心", rightButton: followButton, click: { (type) in
                 if type == .backBtn{
                     self.navigationController?.popViewController()
                 }
             })
             // Fallback on earlier versions
         }
+        gloableNavigationBar.changeToolsButtonType(followed: false)
         pagingView.pinSectionHeaderVerticalOffset = gloableNavigationBar.height - 64
         self.view.addSubview(gloableNavigationBar)
     }
@@ -55,6 +58,7 @@ class OtherMineViewController: BaseViewController {
             // Fallback on earlier versions
         }
         userHeader = GloabelHeader(frame: userHeaderContainerView.bounds)
+        userHeader.changeToolsButtonType(followed: true)
         userHeaderContainerView.addSubview(userHeader)
         
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
@@ -135,6 +139,8 @@ extension OtherMineViewController: JXPagingViewDelegate {
             alpa = scrollView.contentOffset.y / (tableHeaderViewHeight - 64)
             // Fallback on earlier versions
         }
+        gloableNavigationBar.rigthButton.isHidden = scrollView.contentOffset.y > 80 ? false : true
+
         self.gloableNavigationBar.changeBackGroundColor(transparency: alpa > 1 ? 1 :alpa)
     }
 }
