@@ -269,6 +269,7 @@ class GloabelFansTableViewCell : UITableViewCell {
 class GloabelTextFieldTableViewCell : UITableViewCell {
     
     var textFiled:UITextField!
+    var titleLabel:YYLabel!
     
     var didMakeConstraints = false
     
@@ -278,6 +279,15 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
     }
     
     func setUpView(){
+        titleLabel = YYLabel.init()
+        titleLabel.textAlignment = .left
+        titleLabel.font = App_Theme_PinFan_M_15_Font
+        titleLabel.textColor = App_Theme_06070D_Color
+        titleLabel.text = ""
+        self.contentView.addSubview(titleLabel)
+        
+        
+        
         textFiled = UITextField.init()
         textFiled.textAlignment = .left
         textFiled.font = App_Theme_PinFan_M_15_Font
@@ -290,7 +300,8 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(placeholder:String){
+    func cellSetData(title:String, placeholder:String){
+        titleLabel.text = title
         textFiled.placeholder = placeholder
     }
 
@@ -302,8 +313,14 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
         if !didMakeConstraints {
             textFiled.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
-                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.left.equalTo(self.titleLabel.snp.right).offset(0)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
+            }
+            
+            titleLabel.snp.makeConstraints { (make) in
+                make.centerY.equalToSuperview()
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.width.equalTo(85)
             }
             
             didMakeConstraints = true

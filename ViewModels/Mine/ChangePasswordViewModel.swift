@@ -10,7 +10,7 @@ import UIKit
 
 class ChangePasswordViewModel: BaseViewModel {
     
-    let titles = ["旧密码","新密码","确认密码"]
+    let titles = ["原密码","新密码","确认密码"]
     let placeholders = ["请输入旧密码","请输入新密码","请再次输入密码"]
     override init() {
         super.init()
@@ -18,7 +18,7 @@ class ChangePasswordViewModel: BaseViewModel {
     
     func tableViewGloabelTextFieldTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldTableViewCell) {
         cell.textFiled.textType = .password
-        cell.cellSetData(placeholder: placeholders[indexPath.section])
+        cell.cellSetData(title: titles[indexPath.row], placeholder: placeholders[indexPath.row])
     }
     
     func tableViewGloabelConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelConfirmTableViewCell) {
@@ -39,23 +39,26 @@ extension ChangePasswordViewModel: UITableViewDelegate {
         self.tableViewDidSelect(tableView: tableView, indexPath: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 3 {
-            return nil
-        }
-        return titles[section]
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let gloabelView = TableViewHeaderView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH, height: 30), title: "忘记密码", isMush: false)
+        return gloabelView
     }
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 30
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        
+        return 40
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 62
+        }
         return 47
     }
     
