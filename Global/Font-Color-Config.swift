@@ -30,6 +30,8 @@ let App_Theme_FF7800_Color = UIColor.init(hexString: "FF7800")
 let App_Theme_323442_Color = UIColor.init(hexString: "323442")
 let App_Theme_FFD512_Color = UIColor.init(hexString: "FFD512")
 let App_Theme_FFAC1B_Color = UIColor.init(hexString: "FFAC1B")
+let App_Theme_FF4200_Color = UIColor.init(hexString: "FF4200")
+
 
 
 

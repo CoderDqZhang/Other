@@ -332,14 +332,42 @@ class KeyboardToobar: UIToolbar {
 class TableViewHeaderView: UIView {
     
     var label:YYLabel!
+    var mushLabel:YYLabel!
+    
     init(frame:CGRect, title:String, isMush:Bool) {
         super.init(frame: frame)
         
-        label = YYLabel.init(frame: CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+        label = YYLabel.init(frame: CGRect.zero)
         label.text = title
         label.font = App_Theme_PinFan_M_12_Font
         label.textColor = App_Theme_666666_Color
         self.addSubview(label)
+        
+        if isMush {
+            mushLabel = YYLabel.init(frame: CGRect.zero)
+            mushLabel.text = "*"
+            mushLabel.isHidden = false
+            mushLabel.font = App_Theme_PinFan_M_12_Font
+            mushLabel.textColor = App_Theme_FF4200_Color
+            self.addSubview(mushLabel)
+            mushLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(label.snp.right).offset(0)
+                make.top.equalTo(self.snp.top).offset(9)
+            }
+        }else{
+            if mushLabel != nil {
+                mushLabel.isHidden = true
+            }
+        }
+        
+       
+        
+        label.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left).offset(15)
+            make.centerY.equalToSuperview()
+        }
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

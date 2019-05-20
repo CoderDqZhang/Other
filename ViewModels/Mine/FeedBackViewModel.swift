@@ -21,6 +21,9 @@ class FeedBackViewModel: BaseViewModel {
     }
     
     func tableViewGloabelTextViewTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextViewTableViewCell) {
+        cell.textView.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize.init(width: SCREENWIDTH - 30, height: 170))
+        }
         cell.cellSetData(placeholder: placeholders[indexPath.section])
     }
     
@@ -37,9 +40,8 @@ extension FeedBackViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = YYLabel.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 20))
-        label.text = titles[section]
-        return label
+        let globelHeader = TableViewHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 30), title: titles[section], isMush: true)
+        return globelHeader
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -74,7 +76,7 @@ extension FeedBackViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 3 {
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextViewTableViewCell.description(), for: indexPath)
             self.tableViewGloabelTextViewTableViewCellSetData(indexPath, cell: cell as! GloabelTextViewTableViewCell)
             return cell

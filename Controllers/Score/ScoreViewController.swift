@@ -34,6 +34,16 @@ class ScoreViewController: BaseViewController {
         gloableCommentView.backgroundColor = .white
         gloableCommentView.textView.isEditable = true
         self.view.addSubview(gloableCommentView)
+        
+        
+        let textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 100))
+        
+        textView.font = App_Theme_PinFan_M_15_Font
+        textView.backgroundColor = .red
+        textView.textColor = App_Theme_06070D_Color
+        //        textView.placeholderTextColor = App_Theme_B5B5B5_Color!
+        //        textView.placeholderFont = App_Theme_PinFan_M_15_Font!
+        self.view.addSubview(textView)
 //
 //        textView111 = YYTextView.init()
 ////        init(frame: CGRect.init(x: 0, y: 207, width: SCREENWIDTH , height: 30))

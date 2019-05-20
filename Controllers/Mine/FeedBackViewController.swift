@@ -20,12 +20,17 @@ class FeedBackViewController: BaseViewController {
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
         self.navigationItem.title = "用户反馈"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "提交", style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
     }
     
     override func setUpView() {
         self.bindViewModel(viewModel: feedBackViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldTableViewCell.self,GloabelConfirmTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldTableViewCell.self,GloabelTextViewTableViewCell.self], controller: self)
         self.view.backgroundColor = App_Theme_F6F6F6_Color
+    }
+    
+    @objc func rightBarItemClick(_ sender:UIBarButtonItem){
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

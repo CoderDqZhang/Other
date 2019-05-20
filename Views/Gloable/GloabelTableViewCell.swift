@@ -326,16 +326,18 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
 class GloabelTextViewTableViewCell : UITableViewCell {
     
     var textView:YYTextView!
-    
     var didMakeConstraints = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
+        self.backgroundColor = .red
     }
     
     func setUpView(){
-        textView = YYTextView.init()
+        
+        textView = YYTextView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 100))
+        
         textView.font = App_Theme_PinFan_M_15_Font
         textView.backgroundColor = .red
         textView.textColor = App_Theme_06070D_Color
@@ -356,6 +358,7 @@ class GloabelTextViewTableViewCell : UITableViewCell {
     
     override func updateConstraints() {
         if !didMakeConstraints {
+            
             textView.snp.makeConstraints { (make) in
                 make.top.equalTo(self.contentView.snp.top).offset(15)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(15)
