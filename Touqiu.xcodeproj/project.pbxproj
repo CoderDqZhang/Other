@@ -184,6 +184,8 @@
 		1FE8DAFB2292C1E900DCED01 /* PostSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAFA2292C1E900DCED01 /* PostSegementViewController.swift */; };
 		1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */; };
 		1FE8DAFF2292C4F100DCED01 /* MyCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */; };
+		1FE8DB012292C5DC00DCED01 /* MycollectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB002292C5DC00DCED01 /* MycollectViewController.swift */; };
+		1FE8DB032292C5F300DCED01 /* MyCollectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -447,6 +449,8 @@
 		1FE8DAFA2292C1E900DCED01 /* PostSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSegementViewController.swift; sourceTree = "<group>"; };
 		1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostViewModel.swift; sourceTree = "<group>"; };
 		1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentViewModel.swift; sourceTree = "<group>"; };
+		1FE8DB002292C5DC00DCED01 /* MycollectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MycollectViewController.swift; sourceTree = "<group>"; };
+		1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectViewModel.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -985,6 +989,7 @@
 				1FE8DAFA2292C1E900DCED01 /* PostSegementViewController.swift */,
 				1FE8DAF62292C15C00DCED01 /* MyPostViewController.swift */,
 				1FE8DAF82292C1D200DCED01 /* MyCommentViewController.swift */,
+				1FE8DB002292C5DC00DCED01 /* MycollectViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1097,6 +1102,7 @@
 				1FE8DAF4229293AD00DCED01 /* OtherGuessingViewModel.swift */,
 				1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */,
 				1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */,
+				1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1599,6 +1605,7 @@
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,
 				1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */,
 				1FE5BE4B2282864300C9137C /* UITapGestureRecognizer+Extention.swift in Sources */,
+				1FE8DB012292C5DC00DCED01 /* MycollectViewController.swift in Sources */,
 				1FE5BECC2282866300C9137C /* renderer_yuv420sp.c in Sources */,
 				1FE5BEB72282866300C9137C /* CountDown.m in Sources */,
 				1FE5BED32282866300C9137C /* color.c in Sources */,
@@ -1632,6 +1639,7 @@
 				1FE5BE032282752C00C9137C /* ScoreViewController.swift in Sources */,
 				1FE5BE4A2282864300C9137C /* NSTimer.swift in Sources */,
 				1FE5BE352282863D00C9137C /* LocalJsonFile.swift in Sources */,
+				1FE8DB032292C5F300DCED01 /* MyCollectViewModel.swift in Sources */,
 				1FE5BEC52282866300C9137C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FE8DAB2228EC7E300DCED01 /* NotificationViewController.swift in Sources */,
 				1FE5BF272283BB8300C9137C /* GTMBase64.m in Sources */,

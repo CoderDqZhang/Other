@@ -37,6 +37,8 @@ class MineViewModel: BaseViewModel {
             switch type {
             case .post:
                 NavigationPushView(self.controller!, toConroller: PostSegementViewController())
+            case .collect:
+                NavigationPushView(self.controller!, toConroller: MycollectViewController())
             default:
                 break
             }
