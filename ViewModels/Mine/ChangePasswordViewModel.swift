@@ -40,8 +40,12 @@ extension ChangePasswordViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let gloabelView = TableViewHeaderView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH, height: 30), title: "忘记密码", isMush: false)
-        return gloabelView
+        if section == 0 {
+            let gloabelView = TableViewHeaderView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH, height: 30), title: "忘记密码", isMush: false)
+            return gloabelView
+        }
+        return nil
+        
     }
     
     
@@ -69,19 +73,20 @@ extension ChangePasswordViewModel: UITableViewDelegate {
 
 extension ChangePasswordViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return section == 0 ?  3 : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 3 {
+        if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: GloabelConfirmTableViewCell.description(), for: indexPath)
             self.tableViewGloabelConfirmTableViewCellSetData(indexPath, cell: cell as! GloabelConfirmTableViewCell)
             cell.contentView.backgroundColor = .clear
+            cell.backgroundColor = .clear
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldTableViewCell.description(), for: indexPath)
