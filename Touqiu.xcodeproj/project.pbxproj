@@ -179,6 +179,11 @@
 		1FE8DAF12292933A00DCED01 /* JXPagingListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAED2292933A00DCED01 /* JXPagingListContainerView.swift */; };
 		1FE8DAF32292937000DCED01 /* OtherPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAF22292937000DCED01 /* OtherPostViewModel.swift */; };
 		1FE8DAF5229293AD00DCED01 /* OtherGuessingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAF4229293AD00DCED01 /* OtherGuessingViewModel.swift */; };
+		1FE8DAF72292C15C00DCED01 /* MyPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAF62292C15C00DCED01 /* MyPostViewController.swift */; };
+		1FE8DAF92292C1D200DCED01 /* MyCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAF82292C1D200DCED01 /* MyCommentViewController.swift */; };
+		1FE8DAFB2292C1E900DCED01 /* PostSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAFA2292C1E900DCED01 /* PostSegementViewController.swift */; };
+		1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */; };
+		1FE8DAFF2292C4F100DCED01 /* MyCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -437,6 +442,11 @@
 		1FE8DAED2292933A00DCED01 /* JXPagingListContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListContainerView.swift; sourceTree = "<group>"; };
 		1FE8DAF22292937000DCED01 /* OtherPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPostViewModel.swift; sourceTree = "<group>"; };
 		1FE8DAF4229293AD00DCED01 /* OtherGuessingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherGuessingViewModel.swift; sourceTree = "<group>"; };
+		1FE8DAF62292C15C00DCED01 /* MyPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostViewController.swift; sourceTree = "<group>"; };
+		1FE8DAF82292C1D200DCED01 /* MyCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentViewController.swift; sourceTree = "<group>"; };
+		1FE8DAFA2292C1E900DCED01 /* PostSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSegementViewController.swift; sourceTree = "<group>"; };
+		1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostViewModel.swift; sourceTree = "<group>"; };
+		1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentViewModel.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -972,6 +982,9 @@
 				1FE8DAC1228ECAF400DCED01 /* FeedBackViewController.swift */,
 				1FE8DAD622926AE900DCED01 /* OtherMineViewController.swift */,
 				1FE8DAE32292817400DCED01 /* RecommendViewController.swift */,
+				1FE8DAFA2292C1E900DCED01 /* PostSegementViewController.swift */,
+				1FE8DAF62292C15C00DCED01 /* MyPostViewController.swift */,
+				1FE8DAF82292C1D200DCED01 /* MyCommentViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1082,6 +1095,8 @@
 				1FE8DAE72292830600DCED01 /* RecommendViewModel.swift */,
 				1FE8DAF22292937000DCED01 /* OtherPostViewModel.swift */,
 				1FE8DAF4229293AD00DCED01 /* OtherGuessingViewModel.swift */,
+				1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */,
+				1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1459,6 +1474,7 @@
 			files = (
 				1FE5BFAA228BDEC200C9137C /* TargerUserViewController.swift in Sources */,
 				1FE5BF4C228529EC00C9137C /* PostDetailViewModel.swift in Sources */,
+				1FE8DAFF2292C4F100DCED01 /* MyCommentViewModel.swift in Sources */,
 				1FE5BE392282863D00C9137C /* AnimationTools.swift in Sources */,
 				1FE8DAAE228EC7CB00DCED01 /* RealNameViewController.swift in Sources */,
 				1FE5BF382284286A00C9137C /* GloableView.swift in Sources */,
@@ -1489,6 +1505,7 @@
 				1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
 				1FE5BF212282D21F00C9137C /* OutFallViewModel.swift in Sources */,
+				1FE8DAF92292C1D200DCED01 /* MyCommentViewController.swift in Sources */,
 				1FE5BFB0228CF37E00C9137C /* BaseSearchViewController.swift in Sources */,
 				1FE8DAD522926AA300DCED01 /* OtherMineViewModel.swift in Sources */,
 				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
@@ -1497,6 +1514,7 @@
 				1FE5BF352284206300C9137C /* UserInfoTableViewCell.swift in Sources */,
 				1FE8DAB8228EC8B100DCED01 /* NotificationViewModel.swift in Sources */,
 				1FE5BF3C228435B000C9137C /* OutFallCategoryContentTableViewCell.swift in Sources */,
+				1FE8DAFB2292C1E900DCED01 /* PostSegementViewController.swift in Sources */,
 				1FE5BDFF2282751400C9137C /* SquareViewController.swift in Sources */,
 				1FE5BEC12282866300C9137C /* JKDBModel.m in Sources */,
 				1FE8DAF5229293AD00DCED01 /* OtherGuessingViewModel.swift in Sources */,
@@ -1569,6 +1587,7 @@
 				1FE5BEC92282866300C9137C /* mvp.vsh.c in Sources */,
 				1FE5BE21228285FA00C9137C /* NSString+Utils.m in Sources */,
 				1FE5BDE822817B8500C9137C /* RequestURL.swift in Sources */,
+				1FE8DAF72292C15C00DCED01 /* MyPostViewController.swift in Sources */,
 				1FE5BEC82282866300C9137C /* common.c in Sources */,
 				1FE8DAB4228EC7F200DCED01 /* InviteUserViewController.swift in Sources */,
 				1FE5BE1D228285FA00C9137C /* NSDate+LSCore.m in Sources */,
@@ -1578,6 +1597,7 @@
 				1FE5BF242282E59500C9137C /* NSString+AES.m in Sources */,
 				1FE5BF44228517A700C9137C /* CommentContentTableViewCell.swift in Sources */,
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,
+				1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */,
 				1FE5BE4B2282864300C9137C /* UITapGestureRecognizer+Extention.swift in Sources */,
 				1FE5BECC2282866300C9137C /* renderer_yuv420sp.c in Sources */,
 				1FE5BEB72282866300C9137C /* CountDown.m in Sources */,

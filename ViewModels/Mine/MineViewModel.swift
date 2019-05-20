@@ -34,6 +34,12 @@ class MineViewModel: BaseViewModel {
     func tableViewMineToolsTableViewCellSetData(_ indexPath:IndexPath, cell:MineToolsTableViewCell) {
         cell.mineToolsTableViewCellClouse = { type in
             print(type)
+            switch type {
+            case .post:
+                NavigationPushView(self.controller!, toConroller: PostSegementViewController())
+            default:
+                break
+            }
         }
     }
     
