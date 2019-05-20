@@ -30,6 +30,7 @@ target 'Touqiu' do
   pod 'UITableView+FDTemplateLayoutCell'
   pod 'TYPagerController',:inhibit_warnings => true
   pod 'TZImagePickerController'
+  pod 'JXSegmentedView'
   
   target 'TouqiuTests' do
     inherit! :search_paths

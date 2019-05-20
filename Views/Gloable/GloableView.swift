@@ -28,9 +28,11 @@ typealias GloabelBackButtonClouse = (_ buttonType:GLoabelNavigaitonBarButtonType
 class GLoabelNavigaitonBar:UIView {
     var titleLabel:YYLabel!
     var backButton:UIButton!
+    var rigthButton:AnimationButton!
+    
     var gloabelBackButtonClouse:GloabelBackButtonClouse!
     
-    init(frame: CGRect, title:String, rightButton:UIButton?,  click:@escaping GloabelBackButtonClouse) {
+    init(frame: CGRect, title:String, rightButton:AnimationButton?,  click:@escaping GloabelBackButtonClouse) {
         super.init(frame:frame)
         self.gloabelBackButtonClouse = click
         titleLabel = YYLabel.init()
@@ -54,6 +56,7 @@ class GLoabelNavigaitonBar:UIView {
         self.addSubview(backButton)
         
         if rightButton != nil {
+            self.rigthButton = rightButton
             rightButton?.addTarget(self, action: #selector(self.rightButtonClick), for: .touchUpInside)
             self.addSubview(rightButton!)
             rightButton?.snp.makeConstraints { (make) in
@@ -63,7 +66,7 @@ class GLoabelNavigaitonBar:UIView {
                     make.centerY.equalTo(self.snp.centerY).offset(10)
                 }
                 make.left.equalTo(self.snp.left).offset(6)
-                make.size.equalTo(CGSize.init(width: 40, height: 40))
+                make.size.equalTo(CGSize.init(width: 61, height: 27))
             }
         }
         
@@ -88,6 +91,23 @@ class GLoabelNavigaitonBar:UIView {
     
     @objc func rightButtonClick(){
         self.gloabelBackButtonClouse(.rightBtn)
+    }
+    
+    func changeToolsButtonType(followed:Bool) {
+        if followed {
+            rigthButton.setTitle("已关注", for: .normal)
+            rigthButton.borderColor = App_Theme_FFAC1B_Color
+            rigthButton.backgroundColor = UIColor.clear
+            rigthButton.setTitleColor(App_Theme_FFAC1B_Color, for: .normal)
+            rigthButton.borderWidth = 1
+        }else {
+            rigthButton.setTitle("关注", for: .normal)
+            rigthButton.borderColor = App_Theme_FFAC1B_Color
+            rigthButton.backgroundColor = App_Theme_FFAC1B_Color
+            rigthButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
+            rigthButton.borderWidth = 1
+        }
+        
     }
     
     func changeBackGroundColor(transparency:CGFloat){

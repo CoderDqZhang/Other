@@ -22,6 +22,8 @@ class BaseViewController: UIViewController {
     var umengPageName:String! = ""
     
     var resultDicClouse:SearchResultDicClouse!
+    
+    var listViewDidScrollCallback: ((UIScrollView) -> ())?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,4 +134,26 @@ class BaseViewController: UIViewController {
     }
     */
 
+}
+
+extension BaseViewController: JXPagingViewListViewDelegate {
+    public func listView() -> UIView {
+        return self.view
+    }
+    
+    public func listViewDidScrollCallback(callback: @escaping (UIScrollView) -> ()) {
+        self.listViewDidScrollCallback = callback
+    }
+    
+    public func listScrollView() -> UIScrollView {
+        return self.tableView
+    }
+    
+    public func listDidDisappear() {
+        print("listDidDisappear")
+    }
+    
+    public func listDidAppear() {
+        print("listDidAppear")
+    }
 }
