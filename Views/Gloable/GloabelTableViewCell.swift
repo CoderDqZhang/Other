@@ -323,12 +323,15 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
     }
 }
 
+typealias GloabelTextViewTableViewCellClouse = (_ str:String, _ isEnabel:Bool) ->Void
+
 class GloabelTextViewTableViewCell : UITableViewCell,YYTextViewDelegate {
     
     var textView:YYTextView!
     var detailLabel:YYLabel!
     
     var didMakeConstraints = false
+    var gloabelTextViewTableViewCellClouse:GloabelTextViewTableViewCellClouse!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -400,6 +403,9 @@ class GloabelTextViewTableViewCell : UITableViewCell,YYTextViewDelegate {
         if textView.text.count > 255 {
             textView.text = textView.text.nsString.substring(to: 255)
         }
+        if self.gloabelTextViewTableViewCellClouse != nil {
+            self.gloabelTextViewTableViewCellClouse(textView.text,textView.text.count > 0 ? true : false)
+        }
         return true
     }
 }
@@ -417,13 +423,27 @@ class GloabelConfirmTableViewCell : UITableViewCell {
     
     func setUpView(){
         anmationButton = AnimationButton.init(type: .custom)
+        anmationButton.isEnabled = false
+        anmationButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
         anmationButton.setTitle("确定", for: .normal)
         anmationButton.titleLabel?.font = App_Theme_PinFan_M_15_Font
-        anmationButton.backgroundColor = App_Theme_FFD512_Color
+        anmationButton.backgroundColor = App_Theme_B5B5B5_Color
         anmationButton.cornerRadius = 23.5
         self.contentView.addSubview(anmationButton)
         
         self.updateConstraints()
+    }
+    
+    func changeEnabel(isEnabled:Bool)
+    {
+        anmationButton.isEnabled = isEnabled
+        if isEnabled {
+            anmationButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
+            anmationButton.backgroundColor = App_Theme_B5B5B5_Color
+        }else{
+            anmationButton.setTitleColor(App_Theme_06070D_Color, for: .normal)
+            anmationButton.backgroundColor = App_Theme_FFCB00_Color
+        }
     }
     
     func cellSetData(title:String){

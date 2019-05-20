@@ -20,7 +20,6 @@ class FeedBackViewController: BaseViewController {
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
         self.navigationItem.title = "用户反馈"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "提交", style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
     }
     
     override func setUpView() {

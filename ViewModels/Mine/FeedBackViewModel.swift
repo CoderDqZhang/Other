@@ -11,17 +11,19 @@ import UIKit
 class FeedBackViewModel: BaseViewModel {
     
     let placeholders = "请输入反馈内容"
+    var isEnabel:Bool = false
     override init() {
         super.init()
     }
     
     func tableViewGloabelConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelConfirmTableViewCell) {
-    
+        cell.changeEnabel(isEnabled: self.isEnabel)
     }
     
     func tableViewGloabelTextViewTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextViewTableViewCell) {
-        cell.textView.snp.makeConstraints { (make) in
-            make.size.equalTo(CGSize.init(width: SCREENWIDTH - 30, height: 170))
+        cell.gloabelTextViewTableViewCellClouse = { (text, isEnabel) in
+            self.isEnabel = isEnabel
+            (self.controller as! FeedBackViewController).tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
         }
         cell.cellSetData(placeholder: placeholders)
     }
