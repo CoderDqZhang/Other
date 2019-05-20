@@ -25,7 +25,7 @@ class FeedBackViewController: BaseViewController {
     
     override func setUpView() {
         self.bindViewModel(viewModel: feedBackViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldTableViewCell.self,GloabelTextViewTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [GloabelConfirmTableViewCell.self,GloabelTextViewTableViewCell.self], controller: self)
         self.view.backgroundColor = App_Theme_F6F6F6_Color
     }
     

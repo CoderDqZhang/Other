@@ -323,27 +323,35 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
     }
 }
 
-class GloabelTextViewTableViewCell : UITableViewCell {
+class GloabelTextViewTableViewCell : UITableViewCell,YYTextViewDelegate {
     
     var textView:YYTextView!
+    var detailLabel:YYLabel!
+    
     var didMakeConstraints = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
-        self.backgroundColor = .red
     }
     
     func setUpView(){
         
         textView = YYTextView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 100))
-        
+        textView.delegate = self
         textView.font = App_Theme_PinFan_M_15_Font
-        textView.backgroundColor = .red
         textView.textColor = App_Theme_06070D_Color
         textView.placeholderTextColor = App_Theme_B5B5B5_Color!
         textView.placeholderFont = App_Theme_PinFan_M_15_Font!
         self.contentView.addSubview(textView)
+        
+        
+        detailLabel = YYLabel.init()
+        detailLabel.text = "0/255"
+        detailLabel.textColor = App_Theme_999999_Color
+        detailLabel.font = App_Theme_PinFan_M_14_Font
+        self.contentView.addSubview(detailLabel)
+        
         
         self.updateConstraints()
     }
@@ -366,6 +374,11 @@ class GloabelTextViewTableViewCell : UITableViewCell {
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
             }
             
+            detailLabel.snp.makeConstraints { (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+            }
+            
             didMakeConstraints = true
         }
         super.updateConstraints()
@@ -380,6 +393,14 @@ class GloabelTextViewTableViewCell : UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+    
+    func textView(_ textView: YYTextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        detailLabel.text = "\(textView.text.count)/255"
+        if textView.text.count > 255 {
+            textView.text = textView.text.nsString.substring(to: 255)
+        }
+        return true
     }
 }
 
