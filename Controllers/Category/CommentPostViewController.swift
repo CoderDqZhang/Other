@@ -18,7 +18,6 @@ class CommentPostViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AuthorityManager.setUpAuthorityManager(controller: self)
         // Do any additional setup after loading the view.
     }
     

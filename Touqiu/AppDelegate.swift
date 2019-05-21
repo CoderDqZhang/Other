@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
-        
         let rootVC = MainTabBarController.init()
         self.window?.rootViewController = rootVC
         self.window?.makeKeyAndVisible()

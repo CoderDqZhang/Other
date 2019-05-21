@@ -7,21 +7,52 @@
 //
 
 import UIKit
+import ReactiveCocoa
+import ReactiveSwift
 
 class ChangePasswordViewModel: BaseViewModel {
     
     let titles = ["原密码","新密码","确认密码"]
     let placeholders = ["请输入旧密码","请输入新密码","请再次输入密码"]
+    var oldPasSingle:Signal<Bool, Never>?
+    var newPasSingle:Signal<Bool, Never>?
+    var confirmPasSingle:Signal<Bool, Never>?
+    
     override init() {
         super.init()
     }
     
     func tableViewGloabelTextFieldTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldTableViewCell) {
         cell.textFiled.textType = .password
+        if indexPath.row == 0 {
+            oldPasSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
+                return str.count > 0
+            }
+        }else if indexPath.row == 1 {
+            newPasSingle = cell.textFiled.reactive.continuousTextValues.map { (text) -> Bool in
+                return text.count > 0
+            }
+        }else if indexPath.row == 2 {
+            confirmPasSingle = cell.textFiled.reactive.continuousTextValues.map { (text) -> Bool in
+                return text.count > 0
+            }
+        }
         cell.cellSetData(title: titles[indexPath.row], placeholder: placeholders[indexPath.row])
     }
     
     func tableViewGloabelConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelConfirmTableViewCell) {
+        let ret =  oldPasSingle?.combineLatest(with: newPasSingle!).map({ (old,new) -> Bool in
+            return old && new
+        })
+        
+        ret?.combineLatest(with: confirmPasSingle!).observeValues({ (old,new) in
+            if old && new {
+                cell.changeEnabel(isEnabled: true)
+            }else{
+                cell.changeEnabel(isEnabled: false)
+            }
+        })
+        
         cell.anmationButton.addAction({ (button) in
             
         }, for: .touchUpInside)

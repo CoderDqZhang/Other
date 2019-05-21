@@ -35,6 +35,7 @@ class BaseViewController: UIViewController {
         self.setUpViewNavigationItem()
         self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
         self.setupBaseViewForDismissKeyboard()
+        
         // Do any additional setup after loading the view.
     }
     

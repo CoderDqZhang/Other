@@ -186,6 +186,9 @@
 		1FE8DAFF2292C4F100DCED01 /* MyCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */; };
 		1FE8DB012292C5DC00DCED01 /* MycollectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB002292C5DC00DCED01 /* MycollectViewController.swift */; };
 		1FE8DB032292C5F300DCED01 /* MyCollectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */; };
+		1FE8DB0722938B7400DCED01 /* UploadCartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB0622938B7400DCED01 /* UploadCartTableViewCell.swift */; };
+		1FE8DB0922939BD900DCED01 /* TakeVCartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB0822939BD900DCED01 /* TakeVCartTableViewCell.swift */; };
+		1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB102293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -451,6 +454,9 @@
 		1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentViewModel.swift; sourceTree = "<group>"; };
 		1FE8DB002292C5DC00DCED01 /* MycollectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MycollectViewController.swift; sourceTree = "<group>"; };
 		1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectViewModel.swift; sourceTree = "<group>"; };
+		1FE8DB0622938B7400DCED01 /* UploadCartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadCartTableViewCell.swift; sourceTree = "<group>"; };
+		1FE8DB0822939BD900DCED01 /* TakeVCartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeVCartTableViewCell.swift; sourceTree = "<group>"; };
+		1FE8DB102293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmProtocolTableViewCell.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1050,6 +1056,9 @@
 				1FE8DA8C228D6C7E00DCED01 /* MineToolsTableViewCell.swift */,
 				1FE8DA92228D718A00DCED01 /* AdTableViewCell.swift */,
 				1FE8DA8E228D6CAC00DCED01 /* InvitationTableViewCell.swift */,
+				1FE8DB0622938B7400DCED01 /* UploadCartTableViewCell.swift */,
+				1FE8DB0822939BD900DCED01 /* TakeVCartTableViewCell.swift */,
+				1FE8DB102293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1488,6 +1497,7 @@
 				1FE5BECB2282866300C9137C /* renderer_yuv420p.c in Sources */,
 				1FE5BEB02282866200C9137C /* SDCycleScrollView.m in Sources */,
 				1FE5BDF1228264F200C9137C /* Font-Color-Config.swift in Sources */,
+				1FE8DB0722938B7400DCED01 /* UploadCartTableViewCell.swift in Sources */,
 				1FE5BEEF2282A1CA00C9137C /* SegmentViewController.swift in Sources */,
 				1FE5BE332282863D00C9137C /* ShareTools.swift in Sources */,
 				1FE5BED02282866300C9137C /* yuv420p.fsh.c in Sources */,
@@ -1537,6 +1547,7 @@
 				1FE5BE372282863D00C9137C /* PresentTransitionAnimated.m in Sources */,
 				1FE5BF50228561CB00C9137C /* PostDetailUserInfoTableViewCell.swift in Sources */,
 				1FE5BF64228A942500C9137C /* PostCommentTextTableViewCell.swift in Sources */,
+				1FE8DB0922939BD900DCED01 /* TakeVCartTableViewCell.swift in Sources */,
 				1FE5BF4022850B3500C9137C /* SegmentViewModel.swift in Sources */,
 				1FE5BE442282864300C9137C /* UIPageControlExtentions.swift in Sources */,
 				1FE8DAB6228EC89E00DCED01 /* SettingViewModel.swift in Sources */,
@@ -1600,6 +1611,7 @@
 				1FE5BE342282863D00C9137C /* UIImageViewManger.swift in Sources */,
 				1FE5BF48228528FD00C9137C /* CommentViewController.swift in Sources */,
 				1FE5BEF32282A21600C9137C /* OutFallViewController.swift in Sources */,
+				1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */,
 				1FE5BF242282E59500C9137C /* NSString+AES.m in Sources */,
 				1FE5BF44228517A700C9137C /* CommentContentTableViewCell.swift in Sources */,
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,

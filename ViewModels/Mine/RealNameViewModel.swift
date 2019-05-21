@@ -22,8 +22,9 @@ class RealNameViewModel: BaseViewModel {
     }
     
     func tableViewGloabelConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelConfirmTableViewCell) {
+        cell.anmationButton.setTitle("提交", for: .normal)
         cell.anmationButton.addAction({ (button) in
-            
+        
         }, for: .touchUpInside)
     }
     
@@ -40,10 +41,7 @@ extension RealNameViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 0 {
-            let gloabelView = TableViewHeaderView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH, height: 30), title: "忘记密码", isMush: false)
-            return gloabelView
-        }
+        
         return nil
         
     }

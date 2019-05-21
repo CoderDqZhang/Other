@@ -271,6 +271,8 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
     var textFiled:UITextField!
     var titleLabel:YYLabel!
     
+    var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
+
     var didMakeConstraints = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -297,6 +299,8 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
         textFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
         self.contentView.addSubview(textFiled)
         
+        
+        self.contentView.addSubview(lineLabel)
         self.updateConstraints()
     }
     
@@ -307,6 +311,10 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func hiddenLineLabel(){
+        lineLabel.isHidden = true
     }
     
     override func updateConstraints() {
@@ -321,6 +329,13 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
                 make.centerY.equalToSuperview()
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.width.equalTo(85)
+            }
+            
+            lineLabel.snp.makeConstraints { (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
+                make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: 1))
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             }
             
             didMakeConstraints = true
@@ -456,11 +471,11 @@ class GloabelConfirmTableViewCell : UITableViewCell {
     {
         anmationButton.isEnabled = isEnabled
         if isEnabled {
-            anmationButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
-            anmationButton.backgroundColor = App_Theme_B5B5B5_Color
-        }else{
             anmationButton.setTitleColor(App_Theme_06070D_Color, for: .normal)
             anmationButton.backgroundColor = App_Theme_FFCB00_Color
+        }else{
+            anmationButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
+            anmationButton.backgroundColor = App_Theme_B5B5B5_Color
         }
     }
     

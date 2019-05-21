@@ -34,6 +34,8 @@ class MainTabBarController: UITabBarController {
         
         mineNavigaitonVC.navigationBar.isHidden = true
         self.viewControllers = [scoreNavigaitonVC,categoryNavigaitonVC,squareNavigaitonVC,mineNavigaitonVC]
+        
+        AuthorityManager.setUpAuthorityManager(controller: scoreVC)
         // Do any additional setup after loading the view.
     }
     
