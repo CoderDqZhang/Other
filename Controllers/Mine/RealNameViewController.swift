@@ -10,21 +10,29 @@ import UIKit
 
 class RealNameViewController: BaseViewController {
 
+    var realNameViewMode = RealNameViewModel.init()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    override func setUpViewNavigationItem() {
+        self.setNavigationItemBack()
+        self.navigationItem.title = "实名认证"
     }
-    */
+    
+    override func setUpView() {
+        self.bindViewModel(viewModel: realNameViewMode, controller: self)
+        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldTableViewCell.self,GloabelConfirmTableViewCell.self], controller: self)
+        self.view.backgroundColor = App_Theme_F6F6F6_Color
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.fd_prefersNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 
 }

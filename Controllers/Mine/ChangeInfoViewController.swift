@@ -161,6 +161,7 @@ class ChangeInfoViewController: BaseViewController {
             detailLable.isHidden = false
             infoLable.isHidden = true
             infoLable.text = ""
+            changeText.keyboardType = .default
             changeText.reactive.continuousTextValues.filter({ (str) -> Bool in
                 self.changeText.text = self.detailString
                 return str.count < 16
@@ -170,6 +171,7 @@ class ChangeInfoViewController: BaseViewController {
             
             self.navigationItem.title = "更改简介"
         case .email:
+            changeText.keyboardType = .emailAddress
             detailLable.isHidden = true
             infoLable.isHidden = true
             infoLable.text = ""
@@ -177,6 +179,7 @@ class ChangeInfoViewController: BaseViewController {
         default:
             detailLable.isHidden = true
             infoLable.isHidden = false
+            changeText.keyboardType = .default
             infoLable.text = "好名称可以让朋友更好的记住你"
             self.navigationItem.title = "更改名称"
             break

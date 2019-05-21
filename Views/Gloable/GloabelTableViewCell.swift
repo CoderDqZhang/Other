@@ -436,6 +436,7 @@ class GloabelConfirmTableViewCell : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
+        self.backgroundColor = App_Theme_F6F6F6_Color
     }
     
     func setUpView(){
