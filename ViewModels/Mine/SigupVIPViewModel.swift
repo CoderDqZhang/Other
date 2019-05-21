@@ -19,13 +19,24 @@ class SigupVIPViewModel: BaseViewModel {
     var takeHandImage:UIImage?
     var userNameSingle:Signal<Bool, Never>?
     var cartNumberSingle:Signal<Bool, Never>?
+    var isCheckBool:Bool = false
     
     override init() {
         super.init()
     }
     
     func tableViewConfirmProtocolTableViewCellSetData(_ indexPath:IndexPath, cell:ConfirmProtocolTableViewCell) {
-    
+        cell.checkBox.addAction({ (button) in
+            if button?.tag == 100 {
+                self.isCheckBool = true
+                cell.checkBox.tag = 101
+                cell.checkBox.setBackgroundImage(UIImage.init(named: "check_select"), for: .normal)
+            }else{
+                self.isCheckBool = false
+                cell.checkBox.tag = 100
+                cell.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
+            }
+        }, for: UIControl.Event.touchUpInside)
     }
     
     func tableViewTakeVCartTableViewCellSetData(_ indexPath:IndexPath, cell:TakeVCartTableViewCell) {
@@ -62,7 +73,7 @@ class SigupVIPViewModel: BaseViewModel {
     
     func tableViewGloabelConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelConfirmTableViewCell) {
         userNameSingle?.combineLatest(with: cartNumberSingle!).observeValues({ (username,cart) in
-            if username && cart && self.fontImage != nil && self.backImage != nil && self.takeHandImage != nil {
+            if username && cart && self.fontImage != nil && self.backImage != nil && self.takeHandImage != nil && self.isCheckBool {
                 cell.changeEnabel(isEnabled: true)
             }else{
                 cell.changeEnabel(isEnabled: false)

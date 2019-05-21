@@ -189,6 +189,8 @@
 		1FE8DB0722938B7400DCED01 /* UploadCartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB0622938B7400DCED01 /* UploadCartTableViewCell.swift */; };
 		1FE8DB0922939BD900DCED01 /* TakeVCartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB0822939BD900DCED01 /* TakeVCartTableViewCell.swift */; };
 		1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB102293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift */; };
+		1FE8DB142293DC0000DCED01 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB132293DC0000DCED01 /* LoginViewController.swift */; };
+		1FE8DB172293DC2300DCED01 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB162293DC2300DCED01 /* LoginViewModel.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -457,6 +459,8 @@
 		1FE8DB0622938B7400DCED01 /* UploadCartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadCartTableViewCell.swift; sourceTree = "<group>"; };
 		1FE8DB0822939BD900DCED01 /* TakeVCartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeVCartTableViewCell.swift; sourceTree = "<group>"; };
 		1FE8DB102293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmProtocolTableViewCell.swift; sourceTree = "<group>"; };
+		1FE8DB132293DC0000DCED01 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1FE8DB162293DC2300DCED01 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -572,6 +576,7 @@
 		1FE5BDDF22817B1A00C9137C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1FE8DB122293DBE900DCED01 /* Login */,
 				1FE5BF052282A46500C9137C /* Base */,
 				1FE5BF042282A45900C9137C /* Score */,
 				1FE5BF032282A44C00C9137C /* Square */,
@@ -640,6 +645,7 @@
 		1FE5BDE422817B1A00C9137C /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				1FE8DB152293DC0E00DCED01 /* Login */,
 				1FE5BF0F2282A4CF00C9137C /* Category */,
 				1FE5BF0E2282A4C800C9137C /* Mine */,
 				1FE5BF0D2282A4C200C9137C /* Square */,
@@ -1186,6 +1192,22 @@
 			path = "JXPagingView-Swift";
 			sourceTree = "<group>";
 		};
+		1FE8DB122293DBE900DCED01 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1FE8DB132293DC0000DCED01 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		1FE8DB152293DC0E00DCED01 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1FE8DB162293DC2300DCED01 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		7B4FD7351CEDB453A5856703 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1507,6 +1529,7 @@
 				1FE5BECD2282866300C9137C /* shader.c in Sources */,
 				1FE5BED72282866300C9137C /* RangeSeekSliderDelegate.swift in Sources */,
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
+				1FE8DB172293DC2300DCED01 /* LoginViewModel.swift in Sources */,
 				1FE8DAA4228EA08100DCED01 /* FollowViewModel.swift in Sources */,
 				1FE8DA8D228D6C7E00DCED01 /* MineToolsTableViewCell.swift in Sources */,
 				1FE5BEF12282A20400C9137C /* NewsViewController.swift in Sources */,
@@ -1586,6 +1609,7 @@
 				1FE5BEC22282866300C9137C /* JKDBHelper.m in Sources */,
 				1FE5BE06228282B900C9137C /* BaseViewModel.swift in Sources */,
 				1FE8DA9A228E958700DCED01 /* MineInfoViewController.swift in Sources */,
+				1FE8DB142293DC0000DCED01 /* LoginViewController.swift in Sources */,
 				1FE8DAEF2292933A00DCED01 /* JXPagingView.swift in Sources */,
 				1FE8DAE42292817400DCED01 /* RecommendViewController.swift in Sources */,
 				1FE5BF2E2283C22C00C9137C /* NSStringAdditions.m in Sources */,

@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import ReactiveCocoa
+import ReactiveSwift
+import SwifterSwift
 
 class GloableLineLabel: UIView {
     
@@ -396,5 +399,353 @@ class TableViewHeaderView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+enum LoginButtonType {
+    case login
+    case forgetPas
+    case regise
+    case senderCode
+}
+typealias LoginViewButtonClouse = (_ type:LoginButtonType) ->Void
+
+class LoginView: UIView {
+    
+    var logoImage:UIImageView!
+    
+    var centenView:UIView!
+    
+    var phoneTextField:UITextField!
+    var passwordTextField:UITextField!
+    var codeTextField:UITextField!
+    var rightImageView:UIButton!
+    
+    var isCheckBool:Bool = false
+    
+    var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
+    var lineLabel1 = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
+
+    var loginButton:AnimationButton!
+    
+    var forgetButton:UIButton!
+    var registerButton:UIButton!
+    var loginViewButtonClouse:LoginViewButtonClouse!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = .clear
+        self.setUpView(frame: frame)
+        self.clipsToBounds = false
+    }
+    
+    func setUpView(frame:CGRect){
+        
+        centenView = UIView.init(frame: CGRect.init(x: 0, y: 37.5, width: frame.size.width, height: frame.size.height - 37.5))
+        setMutiBorderRoundingCorners(centenView, corner: 15, byRoundingCorners: [UIRectCorner.topLeft,UIRectCorner.topRight,UIRectCorner.bottomRight,UIRectCorner.bottomLeft])
+        centenView.backgroundColor = UIColor.init(hexString: "FFFFFF", transparency: 0.2)
+        self.addSubview(centenView)
+        
+        logoImage = UIImageView.init()
+        logoImage.cornerRadius = 15
+        logoImage.backgroundColor = .red
+        logoImage.layer.masksToBounds = true
+        self.addSubview(logoImage)
+        
+        phoneTextField = UITextField.init()
+        phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
+        phoneTextField.textColor = App_Theme_FFFFFF_Color
+        phoneTextField.placeholder = "请输入手机号"
+        phoneTextField.placeholderColor = App_Theme_FFFFFF_Color!
+        centenView.addSubview(phoneTextField)
+        
+        
+        let phoneTextFieldSignal = phoneTextField.reactive.continuousTextValues.map { (str) -> Bool in
+            return str.isNumeric && str.count > 0
+        }
+        
+        rightImageView = UIButton.init(type: .custom)
+        rightImageView.setBackgroundImage(UIImage.init(named: "password_hidden"), for: .normal)
+        rightImageView.tag = 100
+        rightImageView.addAction({ (button) in
+            if button?.tag == 100 {
+                self.rightImageView.setBackgroundImage(UIImage.init(named: "password_show"), for: .normal)
+                self.rightImageView.tag = 101
+                self.passwordTextField.isSecureTextEntry = false
+            }else{
+                self.rightImageView.setBackgroundImage(UIImage.init(named: "password_hidden"), for: .normal)
+                self.rightImageView.tag = 100
+                self.passwordTextField.isSecureTextEntry = true
+            }
+        }, for: .touchUpInside)
+        centenView.addSubview(rightImageView)
+        
+        passwordTextField = UITextField.init()
+        passwordTextField.textType = .password
+        passwordTextField.rightView = rightImageView
+        passwordTextField.rightViewMode = .always
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
+        passwordTextField.textColor = App_Theme_FFFFFF_Color
+        passwordTextField.placeholder = "请输入密码"
+        passwordTextField.placeholderColor = App_Theme_FFFFFF_Color!
+        centenView.addSubview(passwordTextField)
+        
+        
+        let passwordTextFieldSignal = passwordTextField.reactive.continuousTextValues.map { (str) -> Bool in
+            return str.count > 0
+        }
+        
+        codeTextField = UITextField.init()
+        codeTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
+        codeTextField.textColor = App_Theme_FFFFFF_Color
+        codeTextField.placeholder = "请输入验证码"
+        codeTextField.placeholderColor = App_Theme_B5B5B5_Color!
+        centenView.addSubview(codeTextField)
+        
+        
+        loginButton = AnimationButton.init(type: .custom)
+        loginButton.isEnabled = false
+        loginButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
+        loginButton.setTitle("登录", for: .normal)
+        loginButton.titleLabel?.font = App_Theme_PinFan_M_15_Font
+        loginButton.backgroundColor = App_Theme_B5B5B5_Color
+        loginButton.cornerRadius = 24
+        loginButton.addAction({ (button) in
+            if self.loginViewButtonClouse != nil {
+                self.loginViewButtonClouse(.login)
+            }
+        }, for: .touchUpInside)
+        centenView.addSubview(loginButton)
+        
+        passwordTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,pas) in
+            if phone && pas && self.isCheckBool {
+                self.changeEnabel(isEnabled: true)
+            }else{
+                self.changeEnabel(isEnabled: false)
+            }
+        }
+        
+        forgetButton = AnimationButton.init(type: .custom)
+        forgetButton.setTitleColor(UIColor.init(hexString: "FFFFFF", transparency: 0.5), for: .normal)
+        forgetButton.setTitle("忘记密码", for: .normal)
+        forgetButton.addAction({ (button) in
+            if self.loginViewButtonClouse != nil {
+                self.loginViewButtonClouse(.forgetPas)
+            }
+        }, for: .touchUpInside)
+        forgetButton.titleLabel?.font = App_Theme_PinFan_M_14_Font
+        centenView.addSubview(forgetButton)
+        
+        registerButton = AnimationButton.init(type: .custom)
+        registerButton.setTitleColor(UIColor.init(hexString: "FFFFFF", transparency: 0.5), for: .normal)
+        registerButton.setTitle("注册账号", for: .normal)
+        registerButton.addAction({ (button) in
+            if self.loginViewButtonClouse != nil {
+                self.loginViewButtonClouse(.regise)
+            }
+        }, for: .touchUpInside)
+        registerButton.titleLabel?.font = App_Theme_PinFan_M_14_Font
+        centenView.addSubview(registerButton)
+        
+        centenView.addSubview(lineLabel)
+        centenView.addSubview(lineLabel1)
+        
+        self.updateConstraints()
+    }
+    
+    
+    func changeEnabel(isEnabled:Bool)
+    {
+        loginButton.isEnabled = isEnabled
+        if isEnabled {
+            loginButton.setTitleColor(App_Theme_06070D_Color, for: .normal)
+            loginButton.backgroundColor = App_Theme_FFCB00_Color
+        }else{
+            loginButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
+            loginButton.backgroundColor = App_Theme_B5B5B5_Color
+        }
+    }
+    
+    override func updateConstraints() {
+        super.updateConstraints()
+        
+        centenView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.top.equalTo(self.snp.top).offset(37.5)
+        }
+        
+        logoImage.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize.init(width: 75, height: 75))
+            make.top.equalTo(self.snp.top).offset(0)
+            make.centerX.equalToSuperview()
+        }
+        
+        phoneTextField.snp.makeConstraints { (make) in
+            make.left.equalTo(centenView.snp.left).offset(24)
+            make.right.equalTo(centenView.snp.right).offset(-24)
+            make.top.equalTo(centenView.snp.top).offset(60)
+        }
+        
+        lineLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(centenView.snp.left).offset(24)
+            make.right.equalTo(centenView.snp.right).offset(-24)
+            make.top.equalTo(self.phoneTextField.snp.bottom).offset(15)
+            make.height.equalTo(1)
+        }
+        
+        passwordTextField.snp.makeConstraints { (make) in
+            make.left.equalTo(centenView.snp.left).offset(24)
+            make.right.equalTo(centenView.snp.right).offset(-24)
+            make.top.equalTo(self.lineLabel.snp.bottom).offset(16)
+        }
+        
+        rightImageView.snp.makeConstraints { (make) in
+            make.right.equalTo(centenView.snp.right).offset(-24)
+            make.top.equalTo(self.phoneTextField.snp.bottom).offset(16)
+            make.size.equalTo(CGSize.init(width: 24, height: 16))
+        }
+        
+        lineLabel1.snp.makeConstraints { (make) in
+            make.left.equalTo(centenView.snp.left).offset(24)
+            make.right.equalTo(centenView.snp.right).offset(-24)
+            make.top.equalTo(self.passwordTextField.snp.bottom).offset(15)
+            make.height.equalTo(1)
+        }
+        
+        loginButton.snp.makeConstraints { (make) in
+            make.left.equalTo(centenView.snp.left).offset(24)
+            make.right.equalTo(centenView.snp.right).offset(-24)
+            make.top.equalTo(self.lineLabel1.snp.bottom).offset(49)
+            make.bottom.equalTo(centenView.snp.bottom).offset(-45)
+            make.size.equalTo(47)
+        }
+        
+        forgetButton.snp.makeConstraints { (make) in
+            make.left.equalTo(loginButton.snp.left).offset(0)
+            make.top.equalTo(self.lineLabel1.snp.bottom).offset(13)
+        }
+        
+        registerButton.snp.makeConstraints { (make) in
+            make.right.equalTo(loginButton.snp.right).offset(0)
+            make.top.equalTo(self.lineLabel1.snp.bottom).offset(13)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+enum GloableThirdLoginType:Int {
+    case wechat = 0
+    case weibo = 1
+    case qq = 2
+}
+
+typealias GloableThirdLoginClouse = (_ type:GloableThirdLoginType)->Void
+let GloableThirdLoginMargin:CGFloat = 40
+let GloableThirdLoginImageWidth:CGFloat = 36
+
+class GloableThirdLogin: UIView {
+    
+    var detailLabel:YYLabel!
+    var centenView:UIView!
+    var gloableThirdLoginClouse:GloableThirdLoginClouse!
+    let images = ["weibo","wechat","qq"]
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        detailLabel = YYLabel.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 20))
+        detailLabel.textAlignment = .center
+        detailLabel.backgroundColor = .clear
+        detailLabel.font = App_Theme_PinFan_M_14_Font
+        detailLabel.textColor = App_Theme_FFFFFF_Color
+        detailLabel.text = "选择其他方式登录"
+        self.addSubview(detailLabel)
+        
+        centenView = UIView.init(frame: CGRect.init(x: (SCREENWIDTH - ( CGFloat(images.count) * GloableThirdLoginImageWidth + CGFloat((CGFloat(images.count) - 1)) * GloableThirdLoginMargin)) / 2, y: detailLabel.frame.maxY + 21, width: CGFloat(images.count) * GloableThirdLoginImageWidth + CGFloat((CGFloat(images.count) - 1)) * GloableThirdLoginMargin, height: GloableThirdLoginImageWidth))
+        self.addSubview(centenView)
+        
+        for index in 0...2{
+            let button = AnimationButton.init(type: .custom)
+            button.tag = GloableThirdLoginType.init(rawValue: index)!.rawValue
+            button.setBackgroundImage(UIImage.init(named: images[index]), for: .normal)
+            button.frame = CGRect.init(x: 0 + (GloableThirdLoginMargin + GloableThirdLoginImageWidth) * CGFloat(index), y: 0, width: GloableThirdLoginImageWidth, height: GloableThirdLoginImageWidth)
+            button.addAction({ (button) in
+                if self.gloableThirdLoginClouse != nil {
+                    self.gloableThirdLoginClouse(GloableThirdLoginType.init(rawValue: button!.tag)!)
+                }
+            }, for: UIControl.Event.touchUpInside)
+            centenView.addSubview(button)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class CofirmProtocolView: UIView {
+    
+    var checkBox:UIButton!
+    var titleLabel:YYLabel!
+    var detailLabel:YYLabel!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setUpView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setUpView(){
+        checkBox = UIButton.init(type: .custom)
+        checkBox.layer.masksToBounds = true
+        checkBox.cornerRadius = 8.5
+        checkBox.tag = 100
+        checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
+        
+        self.addSubview(checkBox)
+        
+        detailLabel = YYLabel.init()
+        detailLabel.textAlignment = .left
+        detailLabel.font = App_Theme_PinFan_M_12_Font
+        detailLabel.textColor = App_Theme_FFFFFF_Color
+        detailLabel.text = "《隐私用户条款约定》"
+        self.addSubview(detailLabel)
+        
+        titleLabel = YYLabel.init()
+        titleLabel.textAlignment = .left
+        titleLabel.font = App_Theme_PinFan_M_12_Font
+        titleLabel.textColor = App_Theme_FFFFFF_Color
+        titleLabel.text = "同意"
+        self.addSubview(titleLabel)
+        self.updateConstraints()
+    }
+    
+    override func updateConstraints() {
+        super.updateConstraints()
+        checkBox.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.snp.centerX).offset(-75)
+            make.centerY.equalToSuperview()
+        }
+        
+        detailLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.titleLabel.snp.right).offset(5)
+            make.centerY.equalToSuperview()
+        }
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.checkBox.snp.right).offset(9)
+            make.centerY.equalToSuperview()
+        }
     }
 }

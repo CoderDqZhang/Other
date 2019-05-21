@@ -26,22 +26,14 @@ class ConfirmProtocolTableViewCell: UITableViewCell {
         checkBox.cornerRadius = 8.5
         checkBox.tag = 100
         checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
-        checkBox.addAction({ (button) in
-            if button?.tag == 100 {
-                self.checkBox.tag = 101
-                self.checkBox.setBackgroundImage(UIImage.init(named: "check_select"), for: .normal)
-            }else{
-                self.checkBox.tag = 100
-                self.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
-            }
-        }, for: UIControl.Event.touchUpInside)
+        
         self.contentView.addSubview(checkBox)
         
         detailLabel = YYLabel.init()
         detailLabel.textAlignment = .left
         detailLabel.font = App_Theme_PinFan_M_12_Font
         detailLabel.textColor = App_Theme_FFAC1B_Color
-        detailLabel.text = "隐私用户条款约定"
+        detailLabel.text = "《隐私用户条款约定》"
         self.contentView.addSubview(detailLabel)
         
         titleLabel = YYLabel.init()
