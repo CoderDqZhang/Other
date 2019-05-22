@@ -10,8 +10,10 @@ import UIKit
 
 class HotDetailTableViewCell: UITableViewCell {
 
-    var detailLabel:UILabel!
-    var imageLabel:UILabel!
+    var detailLabel:YYLabel!
+    var imageLabel:YYLabel!
+    
+    var numberLabel:YYLabel!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -21,18 +23,27 @@ class HotDetailTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        detailLabel = UILabel.init()
-        detailLabel.text = "热们讨论"
-        detailLabel.textColor = App_Theme_1B85FD_Color
+        detailLabel = YYLabel.init()
+        detailLabel.textColor = App_Theme_06070D_Color
         detailLabel.font = App_Theme_PinFan_M_14_Font
         self.contentView.addSubview(detailLabel)
         
-        imageLabel = UILabel.init()
-        imageLabel.backgroundColor = App_Theme_1B85FD_Color
+        numberLabel = YYLabel.init()
+        numberLabel.textColor = App_Theme_06070D_Color
+        numberLabel.font = App_Theme_PinFan_M_14_Font
+        self.contentView.addSubview(numberLabel)
+        
+        imageLabel = YYLabel.init()
+        imageLabel.backgroundColor = App_Theme_FFCB00_Color
         imageLabel.cornerRadius = 4
         imageLabel.layer.masksToBounds = true
         self.contentView.addSubview(imageLabel)
         self.updateConstraints()
+    }
+    
+    func cellSetData(detail:String, number:String){
+        detailLabel.text = detail
+        numberLabel.text = number
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,6 +61,10 @@ class HotDetailTableViewCell: UITableViewCell {
             detailLabel.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
                 make.left.equalTo(self.imageLabel.snp.right).offset(7)
+            }
+            numberLabel.snp.makeConstraints { (make) in
+                make.centerY.equalToSuperview()
+                make.left.equalTo(self.detailLabel.snp.right).offset(9)
             }
             didMakeConstraints = true
         }

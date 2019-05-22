@@ -14,8 +14,8 @@ typealias TransButtonClickClouse = (_ indexPath:IndexPath) -> Void
 
 class OutFallCategoryContentTableViewCell: UITableViewCell {
 
-    var detailLabel:UILabel!
-    var translateDetailLabel:UILabel!
+    var detailLabel:YYLabel!
+    var translateDetailLabel:YYLabel!
     var translateButton:UIButton!
     var imageContentView:UIView!
     var indexPath:IndexPath!
@@ -32,14 +32,14 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
     
     func setUpView(){
         
-        detailLabel = UILabel.init()
+        detailLabel = YYLabel.init()
         detailLabel.numberOfLines = 0
         detailLabel.textColor = App_Theme_666666_Color
         detailLabel.font = App_Theme_PinFan_M_14_Font
         
         self.contentView.addSubview(detailLabel)
         
-        translateDetailLabel = UILabel.init()
+        translateDetailLabel = YYLabel.init()
         translateDetailLabel.numberOfLines = 0
         translateDetailLabel.textColor = App_Theme_666666_Color
         translateDetailLabel.font = App_Theme_PinFan_M_14_Font

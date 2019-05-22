@@ -10,13 +10,55 @@ import UIKit
 
 class MineViewController: BaseViewController {
 
+    let mineViewModel = MineViewModel.init()
+    
+    var gloableNavigationBar:GLoabelNavigaitonBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
+    override func setUpViewNavigationItem() {
+        if #available(iOS 11.0, *) {
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "个人中心", rightButton: nil, click: { (type) in
+                
+            })
+        } else {
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "个人中心", rightButton: nil, click: { (type) in
+                
+            })
+            // Fallback on earlier versions
+        }
+        gloableNavigationBar.hiddenBackButton()
 
+        self.view.addSubview(gloableNavigationBar)
+    }
+    
+    override func setUpView() {
+        self.bindViewModel(viewModel: mineViewModel, controller: self)
+        self.setUpTableView(style: .grouped, cells: [MineInfoTableViewCell.self, MineToolsTableViewCell.self, AdTableViewCell.self,TitleLableAndDetailLabelDescRight.self], controller: self)
+        self.updateTableViewConstraints()
+    }
+    
+    func updateTableViewConstraints() {
+        self.tableView.snp.updateConstraints { (make) in
+            if #available(iOS 11.0, *) {
+                make.top.equalTo(self.view.snp.top).offset(-NAV_HEIGHT/2)
+            } else {
+                make.top.equalTo(self.view.snp.top).offset(0)
+                // Fallback on earlier versions
+            }
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.fd_prefersNavigationBarHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+    }
     /*
     // MARK: - Navigation
 

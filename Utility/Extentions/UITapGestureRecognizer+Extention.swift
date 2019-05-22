@@ -24,7 +24,6 @@ class UITapGestureRecognizerManager: NSObject {
         let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(UITapGestureRecognizerManager.tapSelector))
         singleTap.numberOfTapsRequired = 1
         singleTap.numberOfTouchesRequired = 1
-
         self.tapGestureRecognizerClouse = tapGestureRecognizer
         return singleTap
     }

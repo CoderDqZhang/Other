@@ -11,9 +11,11 @@ import UIKit
 class OutFallUserInfoView: UIView {
     
     var avatarImage:UIImageView!
-    var userName:UILabel!
-    var translateLabel:UILabel!
+    var userName:YYLabel!
+    var translateLabel:YYLabel!
     var shareButton:UIButton!
+    
+    var likeButton:UIButton!
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
     
@@ -34,14 +36,14 @@ class OutFallUserInfoView: UIView {
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)
         
-        userName = UILabel.init()
+        userName = YYLabel.init()
         userName.text = name
         userName.textColor = App_Theme_666666_Color
         userName.font = App_Theme_PinFan_M_14_Font
         self.addSubview(userName)
         
         
-        translateLabel = UILabel.init()
+        translateLabel = YYLabel.init()
         translateLabel.text = translate
         translateLabel.textColor = App_Theme_999999_Color
         translateLabel.font = App_Theme_PinFan_L_14_Font
@@ -50,7 +52,6 @@ class OutFallUserInfoView: UIView {
         shareButton = UIButton.init(type: .custom)
         shareButton.setImage(UIImage.init(named: "share"), for: .normal)
         self.addSubview(shareButton)
-        
         
         self.addSubview(lineLabel)
         
@@ -75,11 +76,6 @@ class OutFallUserInfoView: UIView {
                 make.centerY.equalToSuperview()
             }
             
-            shareButton.snp.makeConstraints { (make) in
-                make.right.equalTo(self.snp.right).offset(-16)
-                make.centerY.equalToSuperview()
-            }
-            
             lineLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.userName.snp.right).offset(6)
                 make.centerY.equalToSuperview()
@@ -100,6 +96,8 @@ class OutFallCategoryUserInfoTableViewCell: UITableViewCell {
 
     var userView:OutFallUserInfoView!
     
+    var isCategoryDetail:Bool = false
+    var likeButton:UIButton!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -112,6 +110,8 @@ class OutFallCategoryUserInfoTableViewCell: UITableViewCell {
         self.contentView.addSubview(userView)
         
         userView.createContent(avatar: "", name: "Leiao Messi", translate: "里奥梅西")
+        
+        
         
         self.updateConstraints()
     }

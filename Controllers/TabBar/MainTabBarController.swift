@@ -32,7 +32,10 @@ class MainTabBarController: UITabBarController {
         let mineNavigaitonVC = UINavigationController.init(rootViewController: mineVC)
         self.setNavigationVC(vc: mineNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "我的")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "我的_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "我的")
         
+        mineNavigaitonVC.navigationBar.isHidden = true
         self.viewControllers = [scoreNavigaitonVC,categoryNavigaitonVC,squareNavigaitonVC,mineNavigaitonVC]
+        
+        AuthorityManager.setUpAuthorityManager(controller: scoreVC)
         // Do any additional setup after loading the view.
     }
     

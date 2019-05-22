@@ -1,0 +1,113 @@
+//
+//  CommentPostViewModel.swift
+//  Touqiu
+//
+//  Created by Zhang on 2019/5/14.
+//  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
+//
+
+import UIKit
+//with = 375 height = 247
+let CommentTextViewCcale:CGFloat = 247 / 375
+
+class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
+    
+    var selectPhotos:[UIImage] = []
+    var selectAssets:NSMutableArray = NSMutableArray.init()
+    var isSelectOriginalPhoto:Bool!
+    
+    override init() {
+        super.init()
+    }
+    
+    func tableViewPostCommentImagesTableViewCellSetData(_ indexPath:IndexPath, cell:PostCommentImagesTableViewCell){
+        cell.cellSetData(images: selectPhotos)
+        cell.postCommentImageAddButtonClouse = { btn in
+            (self.controller as! CommentPostViewController).setUpAlerViewController()
+        }
+        cell.postCommentImageImageButtonClouse = { tag in
+            (self.controller as! CommentPostViewController).setUpAlerViewController()
+        }
+    }
+    
+    func tableViewPostCommentTextTableViewCellSetData(_ indexPath:IndexPath, cell:PostCommentTextTableViewCell) {
+        
+    }
+    
+    func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
+        
+    }
+    
+    
+    func reloadTableView(){
+        (self.controller as! CommentPostViewController).tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .automatic)
+    }
+    //MARK :UIImagePicker
+    
+}
+
+
+extension CommentPostViewModel: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.tableViewDidSelect(tableView: tableView, indexPath: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 5
+    }
+    
+    // 375 / 247
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return SCREENWIDTH * CommentTextViewCcale
+        
+        default:
+            return PostImageSelectViewHeight + 24
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return SCREENWIDTH * CommentTextViewCcale
+            
+        default:
+            return PostImageSelectViewHeight + 24
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+}
+
+extension CommentPostViewModel: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostCommentTextTableViewCell.description(), for: indexPath)
+            self.tableViewPostCommentTextTableViewCellSetData(indexPath, cell: cell as! PostCommentTextTableViewCell)
+            cell.selectionStyle = .none
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostCommentImagesTableViewCell.description(), for: indexPath)
+            self.tableViewPostCommentImagesTableViewCellSetData(indexPath, cell: cell as! PostCommentImagesTableViewCell)
+            cell.selectionStyle = .none
+            return cell
+        }
+    }
+}

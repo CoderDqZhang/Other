@@ -12,22 +12,30 @@ import MJRefresh
 import DZNEmptyDataSet
 import FDFullscreenPopGesture
 
+typealias SearchResultDicClouse = (_ dic:NSDictionary) -> Void
+
 class BaseViewController: UIViewController {
 
     var tableView:UITableView!
     var viewModel:BaseViewModel?
+    
     var umengPageName:String! = ""
     
+    var resultDicClouse:SearchResultDicClouse!
+    
+    var listViewDidScrollCallback: ((UIScrollView) -> ())?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = App_Theme_F6F6F6_Color
         
-        
         self.setUpView()
+        self.bindViewModelLogic()
         self.setUpViewNavigationItem()
         self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
         self.setupBaseViewForDismissKeyboard()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -42,10 +50,17 @@ class BaseViewController: UIViewController {
     func setUpViewNavigationItem(){}
     func setUpView(){}
     
+    func bindViewModelLogic(){}
+    
+    func bindViewodelResultData(_ resultData:NSMutableArray){
+        if self.viewModel != nil {
+            self.viewModel!.resultData = resultData
+        }
+    }
+    
     func setUpTableView(style:UITableView.Style, cells:[AnyClass], controller:UIViewController?){
         tableView = UITableView.init(frame: CGRect.zero, style: style)
         for cell in cells{
-            print(cell.description())
             tableView.register(cell.self, forCellReuseIdentifier: "\(cell.description())")
         }
         if #available(iOS 11.0, *) {
@@ -64,7 +79,7 @@ class BaseViewController: UIViewController {
         self.tableView.backgroundColor = App_Theme_F6F6F6_Color
         tableView.keyboardDismissMode = .onDrag
         tableView.snp.makeConstraints { (make) in
-            make.top.equalTo((controller?.view.snp.top)!).offset(IPHONEXs ? -24 : 0)
+            make.top.equalTo((controller?.view.snp.top)!).offset(0)
             make.left.equalTo((controller?.view.snp.left)!).offset(0)
             make.right.equalTo((controller?.view.snp.right)!).offset(0)
             make.bottom.equalTo((controller?.view.snp.bottom)!).offset(0)
@@ -75,6 +90,9 @@ class BaseViewController: UIViewController {
     
     func bindViewModel(viewModel:BaseViewModel?, controller: BaseViewController?){
         self.viewModel = viewModel
+        if viewModel?.resultData != nil {
+            viewModel?.resultData = self.viewModel?.resultData
+        }
         viewModel?.controller = controller
     }
     
@@ -117,4 +135,26 @@ class BaseViewController: UIViewController {
     }
     */
 
+}
+
+extension BaseViewController: JXPagingViewListViewDelegate {
+    public func listView() -> UIView {
+        return self.view
+    }
+    
+    public func listViewDidScrollCallback(callback: @escaping (UIScrollView) -> ()) {
+        self.listViewDidScrollCallback = callback
+    }
+    
+    public func listScrollView() -> UIScrollView {
+        return self.tableView
+    }
+    
+    public func listDidDisappear() {
+        print("listDidDisappear")
+    }
+    
+    public func listDidAppear() {
+        print("listDidAppear")
+    }
 }

@@ -11,9 +11,12 @@ import UIKit
 class UserInfoView: UIView {
     
     var avatarImage:UIImageView!
-    var userName:UILabel!
-    var categoryLabel:UILabel!
+    var userName:YYLabel!
+    var VImageView:UIImageView!
     
+    var categoryLabel:YYLabel!
+    
+    var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: 1, height: 11))
     var didMakeConstraints = false
     
     override init(frame: CGRect) {
@@ -31,20 +34,36 @@ class UserInfoView: UIView {
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)
         
-        userName = UILabel.init()
+        VImageView = UIImageView.init()
+        VImageView.backgroundColor = UIColor.gray
+        VImageView.isHidden = true
+        VImageView.image = UIImage.init(named: "vicon_")
+        self.addSubview(VImageView)
+        
+        userName = YYLabel.init()
         userName.text = name
         userName.textColor = App_Theme_666666_Color
         userName.font = App_Theme_PinFan_M_14_Font
         self.addSubview(userName)
         
         
-        categoryLabel = UILabel.init()
+        categoryLabel = YYLabel.init()
         categoryLabel.text = category
         categoryLabel.textColor = App_Theme_999999_Color
         categoryLabel.font = App_Theme_PinFan_L_14_Font
         self.addSubview(categoryLabel)
         
+        self.addSubview(lineLabel)
+        
         self.updateConstraints()
+    }
+    
+    func lineHidden(){
+        lineLabel.isHidden = true
+    }
+    
+    func vImageHidden(hidden:Bool) {
+        VImageView.isHidden = hidden
     }
     
     override func updateConstraints() {
@@ -64,6 +83,19 @@ class UserInfoView: UIView {
                 make.left.equalTo(self.userName.snp.right).offset(12)
                 make.centerY.equalToSuperview()
             }
+            
+            lineLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(self.userName.snp.right).offset(5)
+                make.centerY.equalToSuperview()
+                make.size.equalTo(CGSize.init(width: 1, height: 11))
+            }
+            
+            VImageView.snp.makeConstraints { (make) in
+                make.left.equalTo(self.userName.snp.right).offset(0)
+                make.top.equalTo(self.snp.top).offset(15)
+                make.size.equalTo(CGSize.init(width: 11, height: 11))
+            }
+            
             didMakeConstraints = true
         }
         super.updateConstraints()
@@ -92,6 +124,10 @@ class UserInfoTableViewCell: UITableViewCell {
         userView.createContent(avatar: "", name: "中超小迪", category: "足球欧指讨论")
 
         self.updateConstraints()
+    }
+    
+    func cellSetData(){
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

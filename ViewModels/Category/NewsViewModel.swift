@@ -13,16 +13,21 @@ class NewsViewModel: BaseViewModel {
 
     let contentStrs = ["你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？"]
     let images = [[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"]]
+    
+    let categoryType = [CategoryType.BasketBall,CategoryType.FootBall,CategoryType.FootBallEurope,CategoryType.BasketBallEurope]
     override init() {
         super.init()
     }
     
     func tableViewHotDetailTableViewCellSetData(_ indexPath:IndexPath, cell:HotDetailTableViewCell) {
-        
+        cell.cellSetData(detail: "热门讨论", number: "")
     }
     
     func tableViewCategoryTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryTableViewCell) {
-        
+        cell.categoryTableViewCellClouseClick = { tag in
+            let dic = NSDictionary.init(dictionary: ["contentStrs":self.contentStrs[tag],"images":self.images[tag]])
+            (self.controller! as! NewsViewController).categoryDetailClouse(dic,self.categoryType[tag])
+        }
     }
     
     func tableViewCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryContentTableViewCell) {
@@ -38,7 +43,10 @@ class NewsViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
+        if indexPath.row != 0 {
+            let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section - 2],"images":images[indexPath.section - 2]], copyItems: true)
+            (self.controller! as! NewsViewController).postDetailDataClouse(dicData,.OutFall)
+        }
     }
 }
 
@@ -55,7 +63,7 @@ extension NewsViewModel: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 1 {
-            return 2
+            return 1
         }
         return 5
     }

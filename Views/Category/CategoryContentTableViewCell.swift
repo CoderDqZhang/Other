@@ -16,7 +16,7 @@ let contentImageHeight:CGFloat = contentImageWidth * 77 / 108
 
 class CategoryContentTableViewCell: UITableViewCell {
 
-    var detailLabel:UILabel!
+    var detailLabel:YYLabel!
     var imageContentView:UIView!
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 1))
@@ -30,7 +30,7 @@ class CategoryContentTableViewCell: UITableViewCell {
     
     func setUpView(){
         
-        detailLabel = UILabel.init()
+        detailLabel = YYLabel.init()
         detailLabel.numberOfLines = 0
         detailLabel.textColor = App_Theme_666666_Color
         detailLabel.font = App_Theme_PinFan_M_14_Font

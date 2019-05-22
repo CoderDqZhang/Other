@@ -6,6 +6,7 @@ target 'Touqiu' do
   use_frameworks!
 
   # Pods for Touqiu
+  pod 'YYText'
   pod 'YYModel'
   pod 'YYCache'
   pod 'YYWebImage'
@@ -19,6 +20,7 @@ target 'Touqiu' do
   pod 'SDWebImage'
   pod 'SKPhotoBrowser'
   pod 'ReactiveSwift'
+  pod 'ReactiveCocoa'
   pod 'SwifterSwift'
   pod 'IQKeyboardManagerSwift'
   pod 'RAMAnimatedTabBarController'
@@ -27,7 +29,9 @@ target 'Touqiu' do
   pod 'BetterSegmentedControl'
   pod 'UITableView+FDTemplateLayoutCell'
   pod 'TYPagerController',:inhibit_warnings => true
-
+  pod 'TZImagePickerController'
+  pod 'JXSegmentedView'
+  
   target 'TouqiuTests' do
     inherit! :search_paths
     # Pods for testing

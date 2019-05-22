@@ -12,6 +12,7 @@ import DZNEmptyDataSet
 class BaseViewModel: NSObject {
 
     var controller:BaseViewController?
+    var resultData:NSMutableArray!
     
     override init() {
         super.init()
