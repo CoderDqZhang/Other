@@ -32,7 +32,7 @@ class FindPasViewController: BaseViewController {
     }
 
     @objc func rightBarItemClick(){
-        NavigationPushView(self, toConroller: ResetPasViewController())
+        self.findViewModel.forgetNetWork()
     }
     
     /*

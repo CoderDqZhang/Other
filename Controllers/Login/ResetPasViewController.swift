@@ -11,6 +11,9 @@ import UIKit
 class ResetPasViewController: BaseViewController {
 
     let resetViewMode = ResetPasViewModel.init()
+    
+    var phone:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +24,7 @@ class ResetPasViewController: BaseViewController {
         self.navigationItem.title = "设置新密码"
         self.setNavigationItemBack()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "确定", style: .plain, target: self, action: #selector(self.rightBarItemClick))
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
+//        self.navigationItem.rightBarButtonItem?.isEnabled = false
         
         
     }
@@ -29,6 +32,11 @@ class ResetPasViewController: BaseViewController {
     override func setUpView() {
         self.bindViewModel(viewModel: resetViewMode, controller: self)
         self.setUpTableView(style: .grouped, cells: [GloabelTextFieldButtonTableViewCell.self,GloabelTextFieldTableViewCell.self], controller: self)
+    
+    }
+    
+    override func bindViewModelLogic() {
+        resetViewMode.phone = self.phone
     }
     
     @objc func rightBarItemClick(){

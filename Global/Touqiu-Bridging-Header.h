@@ -38,4 +38,6 @@
 #import <UMPush/UMessage.h>
 #import <UMAnalytics/MobClick.h>        // 统计组件
 
+#import <AliyunOSSiOS/OSSService.h>
+
 #endif /* Touqiu_Bridging_Header_h */

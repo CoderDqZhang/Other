@@ -25,7 +25,9 @@ class UMengManager: NSObject {
         UMConfigure.setEncryptEnabled(true)
         //设置点对点
         MobClick.setScenarioType(.E_UM_NORMAL)
-        
+        //设置自动采集模板
+        MobClick.setAutoPageEnabled(true)
+        MobClick.setCrashReportEnabled(true)
 //        if UserInfoModel.isLoggedIn() {
 //            MobClick.profileSignIn(withPUID: UserInfoModel.shareInstance().idField)
 //        }else{

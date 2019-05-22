@@ -26,6 +26,9 @@
 		1F395CB3229521F300781C0C /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395CB2229521F300781C0C /* Photos.framework */; };
 		1F395CB52295230500781C0C /* UMengManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CB42295230500781C0C /* UMengManager.swift */; };
 		1F395CB72295306B00781C0C /* UMengUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CB62295306B00781C0C /* UMengUI.swift */; };
+		1F395CC3229542E000781C0C /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CC2229542E000781C0C /* UserInfoModel.swift */; };
+		1F395CC52295458C00781C0C /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CC42295458C00781C0C /* CacheManager.swift */; };
+		1F395CC72295461000781C0C /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CC62295461000781C0C /* RegisterViewModel.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
 		1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB22281788E00C9137C /* ViewController.swift */; };
 		1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB42281788E00C9137C /* Main.storyboard */; };
@@ -254,6 +257,9 @@
 		1F395CB2229521F300781C0C /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		1F395CB42295230500781C0C /* UMengManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UMengManager.swift; sourceTree = "<group>"; };
 		1F395CB62295306B00781C0C /* UMengUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UMengUI.swift; sourceTree = "<group>"; };
+		1F395CC2229542E000781C0C /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		1F395CC42295458C00781C0C /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		1F395CC62295461000781C0C /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5BDB02281788E00C9137C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE5BDB22281788E00C9137C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -932,19 +938,20 @@
 			children = (
 				1FE5BE302282863D00C9137C /* AnimationTools.swift */,
 				1FE5BE292282863D00C9137C /* AudioPlayManager.swift */,
+				1FE5BF322283F60800C9137C /* Conner+Shadows.swift */,
+				1FE5BF252283BB8300C9137C /* GTMBase64.h */,
+				1FE5BF262283BB8300C9137C /* GTMBase64.m */,
+				1FE5BF282283BBF800C9137C /* GTMDefines.h */,
 				1FE5BE2C2282863D00C9137C /* LocalJsonFile.swift */,
+				1FE5BF2C2283C22C00C9137C /* NSStringAdditions.h */,
+				1FE5BF2D2283C22C00C9137C /* NSStringAdditions.m */,
 				1FE5BE282282863D00C9137C /* PresentTransitionAnimated.h */,
 				1FE5BE2E2282863D00C9137C /* PresentTransitionAnimated.m */,
 				1FE5BE2A2282863D00C9137C /* ShareTools.swift */,
 				1FE5BE2F2282863D00C9137C /* Tools.swift */,
 				1FE5BE2D2282863D00C9137C /* TransitionAnimatedManager.swift */,
 				1FE5BE2B2282863D00C9137C /* UIImageViewManger.swift */,
-				1FE5BF252283BB8300C9137C /* GTMBase64.h */,
-				1FE5BF262283BB8300C9137C /* GTMBase64.m */,
-				1FE5BF282283BBF800C9137C /* GTMDefines.h */,
-				1FE5BF2C2283C22C00C9137C /* NSStringAdditions.h */,
-				1FE5BF2D2283C22C00C9137C /* NSStringAdditions.m */,
-				1FE5BF322283F60800C9137C /* Conner+Shadows.swift */,
+				1F395CC42295458C00781C0C /* CacheManager.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1319,6 +1326,7 @@
 		1FE5BF112282A4EC00C9137C /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				1F395CC2229542E000781C0C /* UserInfoModel.swift */,
 			);
 			name = Mine;
 			path = ViewModels/Mine;
@@ -1379,6 +1387,7 @@
 				1FE8DB162293DC2300DCED01 /* LoginViewModel.swift */,
 				1FE8DB1C2294E4EA00DCED01 /* FindViewModel.swift */,
 				1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */,
+				1F395CC62295461000781C0C /* RegisterViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1554,6 +1563,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Touqiu/Pods-Touqiu-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AliyunOSSiOS/AliyunOSSiOS.framework",
 				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
@@ -1585,6 +1595,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunOSSiOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BetterSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
@@ -1711,6 +1722,7 @@
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
 				1FE8DB172293DC2300DCED01 /* LoginViewModel.swift in Sources */,
 				1FE8DAA4228EA08100DCED01 /* FollowViewModel.swift in Sources */,
+				1F395CC52295458C00781C0C /* CacheManager.swift in Sources */,
 				1FE8DA8D228D6C7E00DCED01 /* MineToolsTableViewCell.swift in Sources */,
 				1FE5BEF12282A20400C9137C /* NewsViewController.swift in Sources */,
 				1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */,
@@ -1769,7 +1781,9 @@
 				1FE8DAC0228ECAE800DCED01 /* AboutViewController.swift in Sources */,
 				1FE8DAB0228EC7D800DCED01 /* SingUpVIPViewController.swift in Sources */,
 				1FE5BE252282862B00C9137C /* BaseNetWorke.swift in Sources */,
+				1F395CC72295461000781C0C /* RegisterViewModel.swift in Sources */,
 				1FE8DA98228E8EC500DCED01 /* UIView+ESAddTapGestureRecognizer.m in Sources */,
+				1F395CC3229542E000781C0C /* UserInfoModel.swift in Sources */,
 				1FE5BF62228A5C5700C9137C /* CommentPostViewModel.swift in Sources */,
 				1FE8DAE82292830600DCED01 /* RecommendViewModel.swift in Sources */,
 				1FE5BF4E22853E9500C9137C /* CategoryHeaderTableViewCell.swift in Sources */,

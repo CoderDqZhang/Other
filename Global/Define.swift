@@ -117,5 +117,14 @@ func MainThreanShowNetWorkError(_ error:AnyObject){
 }
 
 
+let AESKey = "agtoc*xPAj1h8^G9"
+
+
+func AddAESKeyPassword(str:String)->String{
+    return NSString.aes128Encrypt(str, key:AESKey)
+}
 
 let UMengKey = "5ce3c7b5570df31299000416"
+
+let OSS_STS_URL = "oss-cn-hangzhou.aliyuncs.com"
+let OSS_ENDPOINT = "tq-baodian"

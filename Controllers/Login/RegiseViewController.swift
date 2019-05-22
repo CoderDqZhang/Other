@@ -16,6 +16,7 @@ class RegiseViewController: BaseViewController {
     var regisViewCenteView:RegisterView!
     var thirdLogin:GloableThirdLogin!
     var cofirmProtocolView:CofirmProtocolView!
+    var resgisterViewModel = RegisterViewModel.init()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,10 +53,11 @@ class RegiseViewController: BaseViewController {
         regisViewCenteView.registerViewButtonClouse = { type in
             switch type {
             case .login:
-                self.navigationController?.popToRootViewController(animated: true)
+                self.navigationController?.popViewController()
             case .regise:
-                self.navigationController?.popToRootViewController(animated: true)
+                self.resgisterViewModel.resgisterNetWork(phone: self.regisViewCenteView.phoneTextField.text!, password: self.regisViewCenteView.passwordTextField.text!, code: self.regisViewCenteView.codeTextField.text!)
             default:
+                self.resgisterViewModel.sendCodeNetWork(phone: self.regisViewCenteView.phoneTextField.text!)
                 break;
             }
         }

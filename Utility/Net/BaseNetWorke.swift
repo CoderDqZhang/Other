@@ -37,7 +37,7 @@ class BaseNetWorke {
     func getUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.get, url: url, parameters: parameters, success: { (responseObject) in
-                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 0 {
+                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 10000 {
                     subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
                 }else if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 3006  {
                     subscriber.send(error: NSError.init())
@@ -64,7 +64,7 @@ class BaseNetWorke {
     func postUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.post, url: url, parameters: parameters, success: { (responseObject) in
-                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 0 {
+                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 10000 {
                     subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
                 }else{
                     _ = Tools.shareInstance.showMessage(KWindow, msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
@@ -92,7 +92,7 @@ class BaseNetWorke {
     func putUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.put, url: url, parameters: parameters, success: { (responseObject) in
-                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 0 {
+                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 10000 {
                     subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
                 }else{
                     _ = Tools.shareInstance.showMessage(KWindow, msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
@@ -118,7 +118,7 @@ class BaseNetWorke {
     func deleteUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.delete, url: url, parameters: parameters, success: { (responseObject) in
-                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 0 {
+                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 10000 {
                     subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
                 }else{
                     _ = Tools.shareInstance.showMessage(KWindow, msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
@@ -199,21 +199,25 @@ class BaseNetWorke {
             default:
                 methods = HTTPMethod.put
         }
-        let headers:HTTPHeaders? = [:]
+        let headers:HTTPHeaders? = ["sign":"touqiutest"]
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: JSONEncoding.default, headers: headers).responseString(completionHandler: { (response) in
+        Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            print(response)
             if response.result.error != nil{
                 failure(response.result.error! as AnyObject)
             }else{
                 if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
-                    success(div as AnyObject)
+                    print((response.value as! NSDictionary))
+                    if (response.value as! NSDictionary).object(forKey: "code") as! Int == 10000 {
+                        success(response.value as! NSDictionary)
+                    }else{
+                        failure(["message":(response.value as! NSDictionary).object(forKey: "msg") as! String] as AnyObject)
+                    }
                 }else{
                     failure(response.result.value! as AnyObject)
                 }
             }
-        })
+        }
     }
     
     func jsonStringToDic(_ dictionary_temp:String) ->NSDictionary {

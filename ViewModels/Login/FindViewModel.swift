@@ -16,13 +16,15 @@ class FindViewModel: BaseViewModel {
     let placeholders = ["请输入手机号码","请输入验证码"]
     var phoneSingle:Signal<Bool, Never>?
     var codeSingle:Signal<Bool, Never>?
-    
+    var phone:String = ""
+    var code:String = ""
     override init() {
         super.init()
     }
     
     func tableViewGloabelTextFieldTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldTableViewCell) {
         phoneSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
+            self.phone = str
             return str.count > 0
         }
         cell.cellSetData(title: titles[indexPath.row], placeholder: placeholders[indexPath.row])
@@ -30,6 +32,7 @@ class FindViewModel: BaseViewModel {
     
     func tableViewGloabelTextFieldButtonTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldButtonTableViewCell) {
         codeSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
+            self.code = str
             return str.count > 0
         }
         cell.hiddenLineLabel()
@@ -46,6 +49,19 @@ class FindViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    
+    func forgetNetWork(){
+        let parameters = ["phone":self.phone, "code":self.code]
+        BaseNetWorke.sharedInstance.postUrlWithString(ForgetPasswordUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let resetPasVC = ResetPasViewController()
+                resetPasVC.phone = self.phone
+                NavigationPushView(self.controller!, toConroller: resetPasVC)
+
+            }
+        }
     }
 }
 

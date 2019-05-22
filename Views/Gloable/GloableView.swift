@@ -830,13 +830,11 @@ class RegisterView: UIView {
             return str.count > 0
         }
         
-        passwordTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,pas) in
-            if phone && pas && self.isCheckBool {
-                self.changeEnabel(isEnabled: true)
-            }else{
-                self.changeEnabel(isEnabled: false)
-            }
+        let codeSignal =  passwordTextFieldSignal.combineLatest(with: phoneTextFieldSignal).map { (phone,pas) -> Bool in
+            return phone && pas
         }
+        
+        
         codeTextField = UITextField.init()
         codeTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         codeTextField.textColor = App_Theme_FFFFFF_Color
@@ -848,7 +846,7 @@ class RegisterView: UIView {
             return str.count > 0
         }
         
-        codeTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,code) in
+        codeTextFieldSignal.combineLatest(with: codeSignal).observeValues { (phone,code) in
             if phone && code && self.isCheckBool {
                 self.changeEnabel(isEnabled: true)
             }else{
@@ -863,6 +861,9 @@ class RegisterView: UIView {
         senderCode.addAction({ (button) in
             self.count = 15
             self.timeDone()
+            if self.registerViewButtonClouse != nil {
+                self.registerViewButtonClouse(.senderCode)
+            }
         }, for: .touchUpInside)
         self.addSubview(senderCode)
         

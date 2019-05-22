@@ -31,7 +31,8 @@ target 'Touqiu' do
   pod 'TYPagerController',:inhibit_warnings => true
   pod 'TZImagePickerController'
   pod 'JXSegmentedView'
-  
+  pod 'AliyunOSSiOS'
+
   target 'TouqiuTests' do
     inherit! :search_paths
     # Pods for testing

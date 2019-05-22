@@ -12,12 +12,13 @@ import ReactiveSwift
 
 class ResetPasViewModel: BaseViewModel {
     
-    let titles = ["手机号","验证码"]
-    let placeholders = ["请输入手机号码","请输入验证码"]
+    let titles = ["新密码","确认新密码"]
+    let placeholders = ["请输入密码","确认新密码"]
     var passwordSingle:Signal<Bool, Never>?
     var confirmPasSingle:Signal<Bool, Never>?
     var newPas:String!
     var confirmPas:String!
+    var phone:String!
     
     override init() {
         super.init()
@@ -35,13 +36,16 @@ class ResetPasViewModel: BaseViewModel {
                 return str.count > 0
             }
         }
-        self.passwordSingle?.combineLatest(with: self.confirmPasSingle!).observeValues({ (code,phone) in
-            if code && phone {
-                self.controller!.navigationItem.rightBarButtonItem?.isEnabled = true
-            }else{
-                self.controller!.navigationItem.rightBarButtonItem?.isEnabled = false
-            }
-        })
+//        if self.passwordSingle != nil {
+//        self.passwordSingle?.combineLatest(with: self.confirmPasSingle!).observeValues({ (code,phone) in
+//            if code && phone  {
+//                self.controller!.navigationItem.rightBarButtonItem?.isEnabled = true
+//            }else{
+//                self.controller!.navigationItem.rightBarButtonItem?.isEnabled = false
+//            }
+//        })
+//        }
+        
         cell.cellSetData(title: titles[indexPath.row], placeholder: placeholders[indexPath.row])
     }
     
@@ -50,11 +54,20 @@ class ResetPasViewModel: BaseViewModel {
             _ = Tools.shareInstance.showMessage(KWindow, msg: "两次密码不一致", autoHidder: true)
             return
         }
-        self.controller?.navigationController?.popToRootViewController(animated: true)
+        self.resetPasNetWork()
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func resetPasNetWork(){
+        let parameters = ["phone":self.phone, "password":AddAESKeyPassword(str: self.newPas)]
+        BaseNetWorke.sharedInstance.postUrlWithString(SurePasswordUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.controller?.navigationController?.popToRootViewController(animated: true)
+            }
+        }
     }
 }
 

@@ -17,6 +17,7 @@ class LoginViewController: BaseViewController {
     var loginCenteView:LoginView!
     var thirdLogin:GloableThirdLogin!
     var cofirmProtocolView:CofirmProtocolView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,7 +50,7 @@ class LoginViewController: BaseViewController {
     override func setUpView() {
         self.setUpBackImage()
         
-        loginCenteView = LoginView.init(frame:  CGRect.init(x: 23, y: (SCREENHEIGHT - 305) / 2 - 37.5, width: SCREENWIDTH - 46, height: 305 + 37.5), type: .code)
+        loginCenteView = LoginView.init(frame:  CGRect.init(x: 23, y: (SCREENHEIGHT - 305) / 2 - 37.5, width: SCREENWIDTH - 46, height: 305 + 37.5), type: .password)
         loginCenteView.loginViewButtonClouse = { type in
             switch type {
             case .forgetPas:
@@ -57,9 +58,9 @@ class LoginViewController: BaseViewController {
             case .regise:
                 NavigationPushView(self, toConroller: RegiseViewController())
             case .senderCode:
-                break;
+                self.loginViewModel.sendCodeNetWork(phone: self.loginCenteView.phoneTextField.text!)
             default:
-                break;
+                self.loginViewModel.loginPasswordNetWork(phone: self.loginCenteView.phoneTextField.text!, password: self.loginCenteView.passwordTextField.text!)
             }
         }
         self.view.addSubview(loginCenteView)
