@@ -191,6 +191,11 @@
 		1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB102293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift */; };
 		1FE8DB142293DC0000DCED01 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB132293DC0000DCED01 /* LoginViewController.swift */; };
 		1FE8DB172293DC2300DCED01 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB162293DC2300DCED01 /* LoginViewModel.swift */; };
+		1FE8DB192294E18800DCED01 /* FindPasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB182294E18800DCED01 /* FindPasViewController.swift */; };
+		1FE8DB1D2294E4EA00DCED01 /* FindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB1C2294E4EA00DCED01 /* FindViewModel.swift */; };
+		1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */; };
+		1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */; };
+		1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -461,6 +466,11 @@
 		1FE8DB102293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmProtocolTableViewCell.swift; sourceTree = "<group>"; };
 		1FE8DB132293DC0000DCED01 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1FE8DB162293DC2300DCED01 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		1FE8DB182294E18800DCED01 /* FindPasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasViewController.swift; sourceTree = "<group>"; };
+		1FE8DB1C2294E4EA00DCED01 /* FindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewModel.swift; sourceTree = "<group>"; };
+		1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewController.swift; sourceTree = "<group>"; };
+		1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiseViewController.swift; sourceTree = "<group>"; };
+		1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewModel.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1196,6 +1206,9 @@
 			isa = PBXGroup;
 			children = (
 				1FE8DB132293DC0000DCED01 /* LoginViewController.swift */,
+				1FE8DB182294E18800DCED01 /* FindPasViewController.swift */,
+				1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */,
+				1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1204,6 +1217,8 @@
 			isa = PBXGroup;
 			children = (
 				1FE8DB162293DC2300DCED01 /* LoginViewModel.swift */,
+				1FE8DB1C2294E4EA00DCED01 /* FindViewModel.swift */,
+				1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1545,6 +1560,7 @@
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
 				1FE5BF212282D21F00C9137C /* OutFallViewModel.swift in Sources */,
 				1FE8DAF92292C1D200DCED01 /* MyCommentViewController.swift in Sources */,
+				1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */,
 				1FE5BFB0228CF37E00C9137C /* BaseSearchViewController.swift in Sources */,
 				1FE8DAD522926AA300DCED01 /* OtherMineViewModel.swift in Sources */,
 				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
@@ -1560,6 +1576,7 @@
 				1FE5BED92282866300C9137C /* TapticEngine.swift in Sources */,
 				1FE5BF1D2282D1AC00C9137C /* CommentTableViewCell.swift in Sources */,
 				1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */,
+				1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */,
 				1FE5BF5B228583C000C9137C /* AnimationView.swift in Sources */,
 				1FE5BEB42282866300C9137C /* TAPageControl.m in Sources */,
 				1FE8DAC2228ECAF400DCED01 /* FeedBackViewController.swift in Sources */,
@@ -1580,6 +1597,7 @@
 				1FE5BF46228528A900C9137C /* CommentViewModel.swift in Sources */,
 				1FE5BED62282866300C9137C /* ZHPickView.m in Sources */,
 				1FE8DA95228D721900DCED01 /* MineViewModel.swift in Sources */,
+				1FE8DB1D2294E4EA00DCED01 /* FindViewModel.swift in Sources */,
 				1FE5BF192282D18D00C9137C /* CategoryContentTableViewCell.swift in Sources */,
 				1FE8DAA6228EA91200DCED01 /* ChangeInfoViewController.swift in Sources */,
 				1FE8DAC0228ECAE800DCED01 /* AboutViewController.swift in Sources */,
@@ -1619,8 +1637,10 @@
 				1FE5BED82282866300C9137C /* RangeSeekSlider.swift in Sources */,
 				1FE5BF422285170700C9137C /* CategoryDetailViewModel.swift in Sources */,
 				1FE8DAF02292933A00DCED01 /* JXPagingListRefreshView.swift in Sources */,
+				1FE8DB192294E18800DCED01 /* FindPasViewController.swift in Sources */,
 				1FE8DAF32292937000DCED01 /* OtherPostViewModel.swift in Sources */,
 				1FE5BDFB2282747900C9137C /* BaseViewController.swift in Sources */,
+				1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */,
 				1FE8DAC4228ECD0600DCED01 /* ChangePasswordViewModel.swift in Sources */,
 				1FE5BEC02282866300C9137C /* FLAnimatedImageView.m in Sources */,
 				1FE8DAA8228EAB6600DCED01 /* ChangeViewModel.swift in Sources */,

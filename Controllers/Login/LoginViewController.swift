@@ -49,11 +49,29 @@ class LoginViewController: BaseViewController {
     override func setUpView() {
         self.setUpBackImage()
         
-        loginCenteView = LoginView.init(frame: CGRect.init(x: 23, y: (SCREENHEIGHT - 305) / 2 - 37.5, width: SCREENWIDTH - 46, height: 305 + 37.5))
+        loginCenteView = LoginView.init(frame:  CGRect.init(x: 23, y: (SCREENHEIGHT - 305) / 2 - 37.5, width: SCREENWIDTH - 46, height: 305 + 37.5), type: .code)
+        loginCenteView.loginViewButtonClouse = { type in
+            switch type {
+            case .forgetPas:
+                NavigationPushView(self, toConroller: FindPasViewController())
+            case .regise:
+                NavigationPushView(self, toConroller: RegiseViewController())
+            case .senderCode:
+                break;
+            default:
+                break;
+            }
+        }
         self.view.addSubview(loginCenteView)
         
         
         thirdLogin = GloableThirdLogin.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 172, width: SCREENWIDTH, height: 91))
+        thirdLogin.gloableThirdLoginClouse = { type in
+            //消除定时器
+            self.loginCenteView.relaseTimer()
+            
+        }
+        
         self.view.addSubview(thirdLogin)
         
         cofirmProtocolView = CofirmProtocolView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 30, width: SCREENWIDTH, height: 30))

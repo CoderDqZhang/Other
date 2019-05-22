@@ -514,6 +514,137 @@ class GloabelConfirmTableViewCell : UITableViewCell {
 }
 
 
+class GloabelTextFieldButtonTableViewCell : UITableViewCell {
+    
+    var textFiled:UITextField!
+    var senderCode:UIButton!
+    var titleLabel:YYLabel!
+    
+    var time:Timer!
+    var count:Int =  15
+    var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
+    
+    var didMakeConstraints = false
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        titleLabel = YYLabel.init()
+        titleLabel.textAlignment = .left
+        titleLabel.font = App_Theme_PinFan_M_15_Font
+        titleLabel.textColor = App_Theme_06070D_Color
+        titleLabel.text = ""
+        self.contentView.addSubview(titleLabel)
+        
+        senderCode = UIButton.init(type: .custom)
+        senderCode.setTitle("发送验证码", for: .normal)
+        senderCode.titleLabel?.font = App_Theme_PinFan_M_14_Font
+        senderCode.setTitleColor(App_Theme_FFAC1B_Color, for: .normal)
+        senderCode.addAction({ (button) in
+            self.count = 15
+            self.timeDone()
+        }, for: .touchUpInside)
+        self.addSubview(senderCode)
+        
+        textFiled = UITextField.init()
+        textFiled.textAlignment = .left
+        textFiled.font = App_Theme_PinFan_M_15_Font
+        textFiled.textColor = App_Theme_06070D_Color
+        textFiled.placeholder = ""
+        textFiled.placeholderColor = App_Theme_B5B5B5_Color!
+        textFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
+        self.contentView.addSubview(textFiled)
+        
+        
+        self.contentView.addSubview(lineLabel)
+        self.updateConstraints()
+    }
+    
+    func cellSetData(title:String, placeholder:String){
+        titleLabel.text = title
+        textFiled.placeholder = placeholder
+    }
+    
+    func timeDone(){
+        if time == nil {
+            time = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (time) in
+                self.count = self.count - 1
+                if self.count > 0 {
+                    self.senderCode.isEnabled = false
+                    self.senderCode.setTitle("\(self.count)s", for: .normal)
+                }else{
+                    self.senderCode.isEnabled = true
+                    self.senderCode.setTitle("发送验证码", for: .normal)
+                    self.time.fireDate = Date.distantFuture
+                }
+            }
+            time.fire()
+        }else{
+            time.fireDate = Date.init()
+        }
+        
+    }
+    
+    func relaseTimer(){
+        if self.time != nil {
+            self.time.invalidate()
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func hiddenLineLabel(){
+        lineLabel.isHidden = true
+    }
+    
+    override func updateConstraints() {
+        if !didMakeConstraints {
+            textFiled.snp.makeConstraints { (make) in
+                make.centerY.equalToSuperview()
+                make.left.equalTo(self.titleLabel.snp.right).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+            }
+            
+            titleLabel.snp.makeConstraints { (make) in
+                make.centerY.equalToSuperview()
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.width.equalTo(85)
+            }
+            
+            lineLabel.snp.makeConstraints { (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
+                make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: 1))
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+            }
+            
+            
+            senderCode.snp.makeConstraints { (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalToSuperview()
 
+            }
+            
+            didMakeConstraints = true
+        }
+        super.updateConstraints()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+}
 
 

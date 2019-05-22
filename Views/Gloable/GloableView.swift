@@ -408,6 +408,12 @@ enum LoginButtonType {
     case regise
     case senderCode
 }
+
+enum LoginType {
+    case password
+    case code
+}
+
 typealias LoginViewButtonClouse = (_ type:LoginButtonType) ->Void
 
 class LoginView: UIView {
@@ -421,7 +427,13 @@ class LoginView: UIView {
     var codeTextField:UITextField!
     var rightImageView:UIButton!
     
-    var isCheckBool:Bool = false
+    var senderCode:UIButton!
+    
+    var type:LoginType!
+    
+    var time:Timer!
+    
+    var isCheckBool:Bool = true
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
     var lineLabel1 = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
@@ -432,14 +444,17 @@ class LoginView: UIView {
     var registerButton:UIButton!
     var loginViewButtonClouse:LoginViewButtonClouse!
     
-    override init(frame: CGRect) {
+    var count:Int = 15
+    
+    init(frame: CGRect, type:LoginType) {
+        self.type = type
         super.init(frame: frame)
         self.backgroundColor = .clear
-        self.setUpView(frame: frame)
+        self.setUpView(frame: frame, type: type)
         self.clipsToBounds = false
     }
     
-    func setUpView(frame:CGRect){
+    func setUpView(frame:CGRect,type:LoginType){
         
         centenView = UIView.init(frame: CGRect.init(x: 0, y: 37.5, width: frame.size.width, height: frame.size.height - 37.5))
         setMutiBorderRoundingCorners(centenView, corner: 15, byRoundingCorners: [UIRectCorner.topLeft,UIRectCorner.topRight,UIRectCorner.bottomRight,UIRectCorner.bottomLeft])
@@ -480,29 +495,61 @@ class LoginView: UIView {
         }, for: .touchUpInside)
         centenView.addSubview(rightImageView)
         
-        passwordTextField = UITextField.init()
-        passwordTextField.textType = .password
-        passwordTextField.rightView = rightImageView
-        passwordTextField.rightViewMode = .always
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
-        passwordTextField.textColor = App_Theme_FFFFFF_Color
-        passwordTextField.placeholder = "请输入密码"
-        passwordTextField.placeholderColor = App_Theme_FFFFFF_Color!
-        centenView.addSubview(passwordTextField)
-        
-        
-        let passwordTextFieldSignal = passwordTextField.reactive.continuousTextValues.map { (str) -> Bool in
-            return str.count > 0
+        if type == .password {
+            passwordTextField = UITextField.init()
+            passwordTextField.textType = .password
+            passwordTextField.rightView = rightImageView
+            passwordTextField.rightViewMode = .always
+            passwordTextField.isSecureTextEntry = true
+            passwordTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
+            passwordTextField.textColor = App_Theme_FFFFFF_Color
+            passwordTextField.placeholder = "请输入密码"
+            passwordTextField.placeholderColor = App_Theme_FFFFFF_Color!
+            
+            centenView.addSubview(passwordTextField)
+            
+            
+            let passwordTextFieldSignal = passwordTextField.reactive.continuousTextValues.map { (str) -> Bool in
+                return str.count > 0
+            }
+            
+            passwordTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,pas) in
+                if phone && pas && self.isCheckBool {
+                    self.changeEnabel(isEnabled: true)
+                }else{
+                    self.changeEnabel(isEnabled: false)
+                }
+            }
+        }else{
+            codeTextField = UITextField.init()
+            codeTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
+            codeTextField.textColor = App_Theme_FFFFFF_Color
+            codeTextField.placeholder = "请输入验证码"
+            codeTextField.placeholderColor = App_Theme_FFFFFF_Color!
+            centenView.addSubview(codeTextField)
+            
+            let codeTextFieldSignal = codeTextField.reactive.continuousTextValues.map { (str) -> Bool in
+                return str.count > 0
+            }
+            
+            codeTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,code) in
+                if phone && code && self.isCheckBool {
+                    self.changeEnabel(isEnabled: true)
+                }else{
+                    self.changeEnabel(isEnabled: false)
+                }
+            }
+            
+            senderCode = UIButton.init(type: .custom)
+            senderCode.setTitle("发送验证码", for: .normal)
+            senderCode.titleLabel?.font = App_Theme_PinFan_M_14_Font
+            senderCode.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
+            senderCode.addAction({ (button) in
+                self.count = 15
+                self.timeDone()
+            }, for: .touchUpInside)
+            self.addSubview(senderCode)
         }
-        
-        codeTextField = UITextField.init()
-        codeTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
-        codeTextField.textColor = App_Theme_FFFFFF_Color
-        codeTextField.placeholder = "请输入验证码"
-        codeTextField.placeholderColor = App_Theme_B5B5B5_Color!
-        centenView.addSubview(codeTextField)
-        
         
         loginButton = AnimationButton.init(type: .custom)
         loginButton.isEnabled = false
@@ -515,16 +562,11 @@ class LoginView: UIView {
             if self.loginViewButtonClouse != nil {
                 self.loginViewButtonClouse(.login)
             }
+            self.relaseTimer()
         }, for: .touchUpInside)
         centenView.addSubview(loginButton)
         
-        passwordTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,pas) in
-            if phone && pas && self.isCheckBool {
-                self.changeEnabel(isEnabled: true)
-            }else{
-                self.changeEnabel(isEnabled: false)
-            }
-        }
+        
         
         forgetButton = AnimationButton.init(type: .custom)
         forgetButton.setTitleColor(UIColor.init(hexString: "FFFFFF", transparency: 0.5), for: .normal)
@@ -533,6 +575,7 @@ class LoginView: UIView {
             if self.loginViewButtonClouse != nil {
                 self.loginViewButtonClouse(.forgetPas)
             }
+            self.relaseTimer()
         }, for: .touchUpInside)
         forgetButton.titleLabel?.font = App_Theme_PinFan_M_14_Font
         centenView.addSubview(forgetButton)
@@ -544,6 +587,7 @@ class LoginView: UIView {
             if self.loginViewButtonClouse != nil {
                 self.loginViewButtonClouse(.regise)
             }
+            self.relaseTimer()
         }, for: .touchUpInside)
         registerButton.titleLabel?.font = App_Theme_PinFan_M_14_Font
         centenView.addSubview(registerButton)
@@ -552,6 +596,32 @@ class LoginView: UIView {
         centenView.addSubview(lineLabel1)
         
         self.updateConstraints()
+    }
+    
+    func timeDone(){
+        if time == nil {
+            time = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (time) in
+                self.count = self.count - 1
+                if self.count > 0 {
+                    self.senderCode.isEnabled = false
+                    self.senderCode.setTitle("\(self.count)s", for: .normal)
+                }else{
+                    self.senderCode.isEnabled = true
+                    self.senderCode.setTitle("发送验证码", for: .normal)
+                    self.time.fireDate = Date.distantFuture
+                }
+            }
+            time.fire()
+        }else{
+            time.fireDate = Date.init()
+        }
+        
+    }
+    
+    func relaseTimer(){
+        if self.time != nil {
+            self.time.invalidate()
+        }
     }
     
     
@@ -596,23 +666,43 @@ class LoginView: UIView {
             make.height.equalTo(1)
         }
         
-        passwordTextField.snp.makeConstraints { (make) in
-            make.left.equalTo(centenView.snp.left).offset(24)
-            make.right.equalTo(centenView.snp.right).offset(-24)
-            make.top.equalTo(self.lineLabel.snp.bottom).offset(16)
-        }
-        
-        rightImageView.snp.makeConstraints { (make) in
-            make.right.equalTo(centenView.snp.right).offset(-24)
-            make.top.equalTo(self.phoneTextField.snp.bottom).offset(16)
-            make.size.equalTo(CGSize.init(width: 24, height: 16))
-        }
-        
-        lineLabel1.snp.makeConstraints { (make) in
-            make.left.equalTo(centenView.snp.left).offset(24)
-            make.right.equalTo(centenView.snp.right).offset(-24)
-            make.top.equalTo(self.passwordTextField.snp.bottom).offset(15)
-            make.height.equalTo(1)
+        if self.type == .password {
+            passwordTextField.snp.makeConstraints { (make) in
+                make.left.equalTo(centenView.snp.left).offset(24)
+                make.right.equalTo(centenView.snp.right).offset(-24)
+                make.top.equalTo(self.lineLabel.snp.bottom).offset(16)
+            }
+            
+            rightImageView.snp.makeConstraints { (make) in
+                make.right.equalTo(centenView.snp.right).offset(-24)
+                make.top.equalTo(self.phoneTextField.snp.bottom).offset(16)
+                make.size.equalTo(CGSize.init(width: 24, height: 16))
+            }
+            
+            lineLabel1.snp.makeConstraints { (make) in
+                make.left.equalTo(centenView.snp.left).offset(24)
+                make.right.equalTo(centenView.snp.right).offset(-24)
+                make.top.equalTo(self.passwordTextField.snp.bottom).offset(15)
+                make.height.equalTo(1)
+            }
+        }else{
+            codeTextField.snp.makeConstraints { (make) in
+                make.left.equalTo(centenView.snp.left).offset(24)
+                make.right.equalTo(centenView.snp.right).offset(-24)
+                make.top.equalTo(self.lineLabel.snp.bottom).offset(16)
+            }
+            
+            lineLabel1.snp.makeConstraints { (make) in
+                make.left.equalTo(centenView.snp.left).offset(24)
+                make.right.equalTo(centenView.snp.right).offset(-24)
+                make.top.equalTo(self.codeTextField.snp.bottom).offset(15)
+                make.height.equalTo(1)
+            }
+            
+            senderCode.snp.makeConstraints { (make) in
+                make.right.equalTo(centenView.snp.right).offset(-24)
+                make.top.equalTo(self.phoneTextField.snp.bottom).offset(30)
+            }
         }
         
         loginButton.snp.makeConstraints { (make) in
@@ -710,8 +800,8 @@ class CofirmProtocolView: UIView {
         checkBox = UIButton.init(type: .custom)
         checkBox.layer.masksToBounds = true
         checkBox.cornerRadius = 8.5
-        checkBox.tag = 100
-        checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
+        checkBox.tag = 101
+        checkBox.setBackgroundImage(UIImage.init(named: "check_select"), for: .normal)
         
         self.addSubview(checkBox)
         
