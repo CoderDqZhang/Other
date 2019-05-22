@@ -49,6 +49,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        let result = UMSocialManager.default()?.handleOpen(url, sourceApplication: sourceApplication, annotation: annotation)
+        //其他SDK调用
+        if !result! {
+            
+        }
+        return result!
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let result = UMSocialManager.default()?.handleOpen(url, options: options)
+        //其他SDK调用
+        if !result! {
+            
+        }
+        return result!
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        let result = UMSocialManager.default()?.handleOpen(url)
+        //其他SDK调用
+        if !result! {
+            
+        }
+        return result!
+    }
+    
 }
 

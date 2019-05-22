@@ -16,7 +16,6 @@
 //#import "UIImage+PureColor.h"
 #import "SDCycleScrollView.h"
 #import "UITextView+Placeholder.h"
-#import "CountDown.h"
 #import "ZHPickView.h"
 #import "WXApi.h"
 #import "UILabel+ChangeLineSpaceAndWordSpace.h"
@@ -26,8 +25,6 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import "NSDate+LSCore.h"
 #import "NSString+StringSize.h"
-#import "FLAnimatedImage.h"
-#import "FLAnimatedImageView.h"
 #import "PresentTransitionAnimated.h"
 #import "NSString+AES.h"
 #import "GTMBase64.h"
@@ -36,6 +33,9 @@
 #import "UIView+ESAddTapGestureRecognizer.h"
 
 #import <UMCommon/UMCommon.h>           // 公共组件是所有友盟产品的基础组件，必选
+#import <UMShare/UMShare.h>
+#import <UShareUI/UShareUI.h>
+#import <UMPush/UMessage.h>
 #import <UMAnalytics/MobClick.h>        // 统计组件
 
 #endif /* Touqiu_Bridging_Header_h */

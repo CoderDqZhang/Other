@@ -18,8 +18,9 @@ class ScoreViewController: BaseViewController {
 
         if #available(iOS 11.0, *) {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49 - 60, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
-                NavigationPushView(self, toConroller: LoginViewController())
+//                NavigationPushView(self, toConroller: LoginViewController())
 //                NavigaiontPresentView(self, toController: TargerUserViewController())
+                
             }, senderClick: { str in
                 print(str)
             })

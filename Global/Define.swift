@@ -116,3 +116,6 @@ func MainThreanShowNetWorkError(_ error:AnyObject){
     })
 }
 
+
+
+let UMengKey = "5ce3c7b5570df31299000416"
