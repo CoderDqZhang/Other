@@ -63,7 +63,7 @@ class ChangePasswordViewModel: BaseViewModel {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "两次密码不一致", autoHidder: true)
                 return
             }
-            self.changePasswordNet(oldPas: self.oldPassword, newPas: self.newPassword)
+            self.changePasswordNet(oldPas: AddAESKeyPassword(str: self.oldPassword), newPas: AddAESKeyPassword(str: self.newPassword))
         }, for: .touchUpInside)
     }
     
