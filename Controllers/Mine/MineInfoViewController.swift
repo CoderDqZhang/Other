@@ -11,7 +11,7 @@ import UIKit
 class MineInfoViewController: BaseViewController {
 
     let mineInfoViewModel = MineInfoViewModel.init()
-    
+    var userInfo:UserInfoModel!
     override func viewDidLoad() {
         super.viewDidLoad()
         

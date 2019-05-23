@@ -54,7 +54,7 @@ class FindViewModel: BaseViewModel {
     
     func forgetNetWork(){
         let parameters = ["phone":self.phone, "code":self.code]
-        BaseNetWorke.sharedInstance.postUrlWithString(ForgetPasswordUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.sharedInstance.postUrlWithString(UserforgetPasswordUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let resetPasVC = ResetPasViewController()
                 resetPasVC.phone = self.phone

@@ -12,9 +12,12 @@ import UIKit
 class MineInfoViewModel: BaseViewModel {
     
     let titles = [["头像","名称","个人简介","手机号","电子邮箱"],["微信"]]
-    let desc = [["","中超小迪","个人简介","188****8888","888888@qq.com"],["未绑定"]]
+    var userInfo:UserInfoModel!
+    var desc:[[String]]!
     override init() {
         super.init()
+         desc = [["",userInfo.nickname,userInfo.descriptionField,userInfo.phone,userInfo.email],["未绑定"]]
+
     }
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {

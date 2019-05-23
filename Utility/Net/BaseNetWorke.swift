@@ -201,7 +201,11 @@ class BaseNetWorke {
         }
         let headers:HTTPHeaders? = ["sign":"touqiutest"]
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
+        let tempDic = NSMutableDictionary.init(dictionary: (parameters as? [String: Any])!)
+        if CacheManager.getSharedInstance().isLogin() {
+            tempDic.addEntries(from: ["token":CacheManager.getSharedInstance().getUserInfo()?.token ?? ""])
+        }
+        Alamofire.request(url, method: methods , parameters: tempDic as? [String: Any], encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if response.result.error != nil{
                 failure(response.result.error! as AnyObject)

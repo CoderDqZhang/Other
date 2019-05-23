@@ -17,7 +17,7 @@ class RegisterViewModel: BaseViewModel {
     
     func resgisterNetWork(phone:String,password:String,code:String){
         let parameters = ["phone":phone, "password":AddAESKeyPassword(str: password), "code":code]
-        BaseNetWorke.sharedInstance.postUrlWithString(RegisterUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.sharedInstance.postUrlWithString(UserregisterUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if resultDic.value != nil {
                     let userInfo = UserInfoModel.yy_model(with: (resultDic.value as! [AnyHashable : Any]))
@@ -31,7 +31,7 @@ class RegisterViewModel: BaseViewModel {
     
     func sendCodeNetWork(phone:String){
         let parameters = ["phone":phone]
-        BaseNetWorke.sharedInstance.postUrlWithString(SendCodeUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.sharedInstance.postUrlWithString(UsersendCodeUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
 //                let userInfo = UserInfoModel.yy_model(with: (resultDic.value as! [AnyHashable : Any]))
             }

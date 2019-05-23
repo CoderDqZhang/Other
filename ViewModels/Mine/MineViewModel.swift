@@ -12,12 +12,16 @@ import DZNEmptyDataSet
 class MineViewModel: BaseViewModel {
     
     let titles = [["实名认证","专家号申请","消息","设置"],["邀请好友"]]
-    let desc = [["已认证","已认证","",""],["推广标语推广标语"]]
+    var desc:[[String]]!
+    var userInfo:UserInfoModel!
     override init() {
         super.init()
     }
     
     func tableViewMineInfoTableViewCellSetData(_ indexPath:IndexPath, cell:MineInfoTableViewCell) {
+        if userInfo != nil {
+            cell.cellSetData(model: userInfo)
+        }
         cell.mineInfoTableViewCellClouse = { type in
             print(type)
             switch type {
@@ -50,14 +54,18 @@ class MineViewModel: BaseViewModel {
     }
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
-        cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: desc[indexPath.section-3][indexPath.row], image: nil, isDescHidden: false)
+        if self.userInfo != nil {
+            cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: desc[indexPath.section-3][indexPath.row], image: nil, isDescHidden: false)
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                NavigationPushView(self.controller!, toConroller: MineInfoViewController())
+                let mineInfo = MineInfoViewController()
+                mineInfo.userInfo = self.userInfo
+                NavigationPushView(self.controller!, toConroller: mineInfo)
             }
         case 3:
             if indexPath.row == 0 {
@@ -73,6 +81,33 @@ class MineViewModel: BaseViewModel {
             NavigationPushView(self.controller!, toConroller: InviteUserViewController())
         default:
             break
+        }
+    }
+    
+    
+    func getUserInfoNet(userId:String){
+        let parameters = ["userId":userId]
+        BaseNetWorke.sharedInstance.getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
+                CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
+                self.desc = [["",self.userInfo.isMaster == "1" ? "已认证" : "", self.userInfo.isMember == "1" ? "已认证" : "",""],["推广标语推广标语"]]
+
+                self.reloadTableViewData()
+            }
+        }
+    }
+    
+    func getAccountInfoNet(userId:String){
+        let parameters = ["userId":userId]
+        BaseNetWorke.sharedInstance.getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
+                CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
+                self.desc = [["",self.userInfo.isMaster == "1" ? "已认证" : "", self.userInfo.isMember == "1" ? "已认证" : "",""],["推广标语推广标语"]]
+                
+                self.reloadTableViewData()
+            }
         }
     }
 }

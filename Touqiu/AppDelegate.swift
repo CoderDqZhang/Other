@@ -19,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
+        AliPayManager.getSharedInstance().ossSetUp()
+        UMengManager.shareInstance.setUpUMengManger(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        
         let rootVC = MainTabBarController.init()
         self.window?.rootViewController = rootVC
         self.window?.makeKeyAndVisible()

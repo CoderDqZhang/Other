@@ -17,4 +17,8 @@ class BaseViewModel: NSObject {
     override init() {
         super.init()
     }
+    
+    func reloadTableViewData(){
+        self.controller?.tableView.reloadData()
+    }
 }
