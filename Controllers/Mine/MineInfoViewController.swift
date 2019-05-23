@@ -23,6 +23,11 @@ class MineInfoViewController: BaseViewController {
         self.navigationItem.title = "基本资料"
     }
     
+    override func bindViewModelLogic() {
+        self.mineInfoViewModel.userInfo = self.userInfo
+        self.mineInfoViewModel.bindLoginc()
+    }
+    
     override func setUpView() {
         self.bindViewModel(viewModel: mineInfoViewModel, controller: self)
         self.setUpTableView(style: .grouped, cells: [TitleLableAndDetailLabelDescRight.self], controller: self)
@@ -83,7 +88,16 @@ extension MineInfoViewController : UIImagePickerControllerDelegate {
         guard var selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
-        print(selectedImage)
+        DispatchQueue.main.async(execute: {
+            let cell = self.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! TitleLableAndDetailLabelDescRight
+            cell.rightImageView.image = selectedImage
+        })
+
+        AliPayManager.getSharedInstance().uploadFile(images: [selectedImage], type: .user) { (strs) in
+            self.mineInfoViewModel.updateuserInfo(key: "img", value: "/\(strs[0])")
+            self.mineInfoViewModel.userInfo.img = "/\(strs[0])"
+            CacheManager.getSharedInstance().getUserInfo()?.img = "/\(strs[0])"
+        }
         picker.dismiss(animated: true) {
             
         }

@@ -47,12 +47,12 @@ class AliPayManager: NSObject {
         for index in 0...images.count - 1 {
             let date = Date.init()
             let phone:String = (CacheManager.getSharedInstance().getUserInfo()?.id.string)!
-            let imageKey = "\(date.year)/\(date.month)/\(date.day)/\(phone)_\(date.nanosecond)"
+            let imageKey = "\(date.year)/\(date.month)/\(date.day)/\(phone)_\(date.nanosecond).png"
             switch type{
             case .post:
-                put.objectKey = "post/\(imageKey).png"
+                put.objectKey = "post/\(imageKey)"
             default:
-                put.objectKey = "user/\(imageKey).png"
+                put.objectKey = "user/\(imageKey)"
             }
             
             put.uploadingData = images[index].compressedData(quality: 0.75)!
@@ -65,7 +65,12 @@ class AliPayManager: NSObject {
             AliPayManager.getSharedInstance().client.putObject(put).continue({ (task) -> Any? in
                 count = count + 1
                 if (task ).error == nil {
-                    resultStrs.append(imageKey)
+                    switch type{
+                    case .post:
+                        resultStrs.append("post/\(imageKey)")
+                    default:
+                        resultStrs.append("user/\(imageKey)")
+                    }
                     print("upload object success")
                 }else{
                     print("upload object fail:\((task).error ?? "" as! Error)")

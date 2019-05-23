@@ -199,14 +199,19 @@ class BaseNetWorke {
             default:
                 methods = HTTPMethod.put
         }
-        let headers:HTTPHeaders? = ["sign":"touqiutest"]
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let tempDic = NSMutableDictionary.init(dictionary: (parameters as? [String: Any])!)
-        if CacheManager.getSharedInstance().isLogin() {
-            tempDic.addEntries(from: ["token":CacheManager.getSharedInstance().getUserInfo()?.token ?? ""])
+//        let headers:HTTPHeaders?
+//        if CacheManager.getSharedInstance().isLogin() {
+//            headers =
+//        }else{
+//            headers = []
+//        }
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
-        Alamofire.request(url, method: methods , parameters: tempDic as? [String: Any], encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: (["sign":"touqiutest","token":UserDefaults.init().object(forKey: "UserToken") ?? ""] as! HTTPHeaders)).responseJSON { (response) in
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
             if response.result.error != nil{
                 failure(response.result.error! as AnyObject)
             }else{
@@ -218,7 +223,7 @@ class BaseNetWorke {
                         failure(["message":(response.value as! NSDictionary).object(forKey: "msg") as! String] as AnyObject)
                     }
                 }else{
-                    failure(response.result.value! as AnyObject)
+                    failure(["message":(response.result.value! as! NSDictionary).object(forKey: "error")] as AnyObject)
                 }
             }
         }

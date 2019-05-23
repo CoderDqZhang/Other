@@ -9,7 +9,7 @@
 import Foundation
 //http://192.168.0.172:4141/swagger-ui.html
 
-let RootUrl = "http://192.168.0.172:10020/social"
+let RootUrl = "http://192.168.0.172:10020/social/"
 
 let UserforgetPasswordUrl = "\(RootUrl)user/forgetPassword"
 let UserLoginUrl = "\(RootUrl)user/login"

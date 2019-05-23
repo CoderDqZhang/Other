@@ -49,7 +49,7 @@ class LoginViewController: BaseViewController {
     
     override func setUpView() {
         self.setUpBackImage()
-        
+        self.loginViewModel.controller = self
         loginCenteView = LoginView.init(frame:  CGRect.init(x: 23, y: (SCREENHEIGHT - 305) / 2 - 37.5, width: SCREENWIDTH - 46, height: 305 + 37.5), type: .password)
         loginCenteView.loginViewButtonClouse = { type in
             switch type {

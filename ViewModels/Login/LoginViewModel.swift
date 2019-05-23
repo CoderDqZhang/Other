@@ -21,7 +21,8 @@ class LoginViewModel: BaseViewModel {
                 if resultDic.value != nil {
                     let userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                     CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
-                    self.controller?.navigationController?.popToRootViewController(animated: true)
+                    UserDefaults.init().set(userInfo.token, forKey: "UserToken")
+                    (self.controller as! LoginViewController).navigationController?.popToRootViewController(animated: true)
                 }
                 
             }
@@ -35,7 +36,8 @@ class LoginViewModel: BaseViewModel {
                 if resultDic.value != nil {
                     let userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                     CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
-                    self.controller?.navigationController?.popToRootViewController(animated: true)
+                    UserDefaults.init().set(userInfo.token, forKey: "UserToken")
+                    (self.controller as! LoginViewController).navigationController?.popToRootViewController(animated: true)
                 }
                 
             }

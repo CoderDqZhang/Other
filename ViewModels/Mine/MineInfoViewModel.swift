@@ -16,13 +16,15 @@ class MineInfoViewModel: BaseViewModel {
     var desc:[[String]]!
     override init() {
         super.init()
-         desc = [["",userInfo.nickname,userInfo.descriptionField,userInfo.phone,userInfo.email],["未绑定"]]
-
+    }
+    
+    func bindLoginc(){
+        desc = [["",userInfo.nickname,userInfo.descriptionField,userInfo.phone,userInfo.email],[userInfo.openId == "" ? "已绑定" : "未绑定"]]
     }
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
         if indexPath.section == 0 && indexPath.row == 0 {
-            cell.cellSetData(title: titles[indexPath.section][indexPath.row], desc: desc[indexPath.section][indexPath.row], image: "", isDescHidden: false)
+            cell.cellSetData(title: titles[indexPath.section][indexPath.row], desc: desc[indexPath.section][indexPath.row], image: userInfo.img, isDescHidden: false)
         }else{
             cell.cellSetData(title: titles[indexPath.section][indexPath.row], desc: desc[indexPath.section][indexPath.row], image: nil, isDescHidden: false)
         }
@@ -39,20 +41,45 @@ class MineInfoViewModel: BaseViewModel {
                 (self.controller as! MineInfoViewController).setUpAlerViewController()
             }else if indexPath.row == 1 {
                 let changeInfo = ChangeInfoViewController()
+                changeInfo.changeInfoViewControllerClouse = { type,str in
+                    self.updateuserInfo(key: "nickname", value: str)
+                    self.userInfo.nickname = str
+                    CacheManager.getSharedInstance().getUserInfo()?.nickname = str
+                }
                 changeInfo.changeInfoType(text: "", type: .name, placeholder: "更改名称")
                 NavigaiontPresentView(self.controller!, toController: UINavigationController.init(rootViewController: changeInfo))
             }else if indexPath.row == 2{
                 let changeInfo = ChangeInfoViewController()
+                changeInfo.changeInfoViewControllerClouse = { type,str in
+                    self.updateuserInfo(key: "description", value: str)
+                    self.userInfo.descriptionField = str
+                    CacheManager.getSharedInstance().getUserInfo()?.descriptionField = str
+                }
                 changeInfo.changeInfoType(text: "", type: .desc, placeholder: "更改简介")
                 NavigaiontPresentView(self.controller!, toController: UINavigationController.init(rootViewController: changeInfo))
             }else if indexPath.row == 4 {
                 let changeInfo = ChangeInfoViewController()
+                changeInfo.changeInfoViewControllerClouse = { type,str in
+                    self.updateuserInfo(key: "email", value: str)
+                    self.userInfo.email = str
+                    CacheManager.getSharedInstance().getUserInfo()?.email = str
+                }
                 changeInfo.changeInfoType(text: "", type: .email, placeholder: "更改邮箱")
                 NavigaiontPresentView(self.controller!, toController: UINavigationController.init(rootViewController: changeInfo))
             }
             
         default:
             break
+        }
+    }
+    
+    func updateuserInfo(key:String,value:String){
+        let parameters = ["key":key,"value":value]
+        BaseNetWorke.sharedInstance.postUrlWithString(PersonupdateUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.bindLoginc()
+                self.reloadTableViewData()
+            }
         }
     }
 }

@@ -14,14 +14,14 @@ class MineViewModel: BaseViewModel {
     let titles = [["实名认证","专家号申请","消息","设置"],["邀请好友"]]
     var desc:[[String]]!
     var userInfo:UserInfoModel!
+    var accountInfo:AccountInfoModel!
     override init() {
         super.init()
     }
     
     func tableViewMineInfoTableViewCellSetData(_ indexPath:IndexPath, cell:MineInfoTableViewCell) {
-        if userInfo != nil {
-            cell.cellSetData(model: userInfo)
-        }
+        cell.cellSetData(model: userInfo, acount: self.accountInfo)
+        
         cell.mineInfoTableViewCellClouse = { type in
             print(type)
             switch type {
@@ -37,7 +37,9 @@ class MineViewModel: BaseViewModel {
     
     func tableViewMineToolsTableViewCellSetData(_ indexPath:IndexPath, cell:MineToolsTableViewCell) {
         cell.mineToolsTableViewCellClouse = { type in
-            print(type)
+            if CacheManager.getSharedInstance().isLogin() {
+                
+            }
             switch type {
             case .post:
                 NavigationPushView(self.controller!, toConroller: PostSegementViewController())
@@ -60,28 +62,33 @@ class MineViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        switch indexPath.section {
-        case 0:
-            if indexPath.row == 0 {
-                let mineInfo = MineInfoViewController()
-                mineInfo.userInfo = self.userInfo
-                NavigationPushView(self.controller!, toConroller: mineInfo)
+        if CacheManager.getSharedInstance().isLogin() {
+            switch indexPath.section {
+            case 0:
+                if indexPath.row == 0 {
+                    let mineInfo = MineInfoViewController()
+                    mineInfo.userInfo = self.userInfo
+                    NavigationPushView(self.controller!, toConroller: mineInfo)
+                }
+            case 3:
+                if indexPath.row == 0 {
+                    NavigationPushView(self.controller!, toConroller: RealNameViewController())
+                }else if indexPath.row == 1{
+                    NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
+                }else if indexPath.row == 2{
+                    NavigationPushView(self.controller!, toConroller: NotificationViewController())
+                }else if indexPath.row == 3{
+                    NavigationPushView(self.controller!, toConroller: SettingViewController())
+                }
+            case 4:
+                NavigationPushView(self.controller!, toConroller: InviteUserViewController())
+            default:
+                break
             }
-        case 3:
-            if indexPath.row == 0 {
-                NavigationPushView(self.controller!, toConroller: RealNameViewController())
-            }else if indexPath.row == 1{
-                NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
-            }else if indexPath.row == 2{
-                NavigationPushView(self.controller!, toConroller: NotificationViewController())
-            }else if indexPath.row == 3{
-                NavigationPushView(self.controller!, toConroller: SettingViewController())
-            }
-        case 4:
-            NavigationPushView(self.controller!, toConroller: InviteUserViewController())
-        default:
-            break
+        }else{
+            NavigationPushView(self.controller!, toConroller: LoginViewController())
         }
+        
     }
     
     
@@ -92,20 +99,15 @@ class MineViewModel: BaseViewModel {
                 self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
                 self.desc = [["",self.userInfo.isMaster == "1" ? "已认证" : "", self.userInfo.isMember == "1" ? "已认证" : "",""],["推广标语推广标语"]]
-
                 self.reloadTableViewData()
             }
         }
     }
     
     func getAccountInfoNet(userId:String){
-        let parameters = ["userId":userId]
-        BaseNetWorke.sharedInstance.getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.sharedInstance.postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
-                CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
-                self.desc = [["",self.userInfo.isMaster == "1" ? "已认证" : "", self.userInfo.isMember == "1" ? "已认证" : "",""],["推广标语推广标语"]]
-                
+                self.accountInfo = AccountInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 self.reloadTableViewData()
             }
         }
@@ -228,7 +230,7 @@ extension MineViewModel : DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let attributed = "暂时还没有数据哦！"
         let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color], range: NSRange.init(location: 0, length: 9))
+        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
         
         return attributedString
     }

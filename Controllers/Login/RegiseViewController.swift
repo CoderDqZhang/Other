@@ -48,7 +48,7 @@ class RegiseViewController: BaseViewController {
     
     override func setUpView() {
         self.setUpBackImage()
-        
+        self.resgisterViewModel.controller = self
         regisViewCenteView = RegisterView.init(frame:  CGRect.init(x: 23, y: (SCREENHEIGHT - 355) / 2 - 37.5, width: SCREENWIDTH - 46, height: 355 + 37.5))
         regisViewCenteView.registerViewButtonClouse = { type in
             switch type {

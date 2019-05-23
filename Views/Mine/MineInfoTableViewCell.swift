@@ -316,23 +316,29 @@ class MineInfoTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(model:UserInfoModel){
-        userNameLabel.text = model.nickname
-        if model.fansNum > 1000 {
-            followLabel.text = "粉丝 \(model.fansNum.kFormatted)"
-        }else{
-            followLabel.text = "粉丝 \(model.fansNum.string)"
+    func cellSetData(model:UserInfoModel?,acount:AccountInfoModel?){
+        if model != nil {
+            userNameLabel.text = model!.nickname
+            if model!.fansNum > 1000 {
+                followLabel.text = "粉丝 \(model!.fansNum.kFormatted)"
+            }else{
+                followLabel.text = "粉丝 \(model!.fansNum.string)"
+            }
+            if model!.followNum > 1000 {
+                attentionsLabel.text = "关注 \(String(describing: model?.followNum.kFormatted))"
+            }else{
+                attentionsLabel.text = "关注 \(model!.followNum.string)"
+            }
+            descLabel.text = model!.descriptionField == "" ? "还没有个人简介" : model!.descriptionField
+            UIImageViewManger.sd_imageView(url: model!.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
+                self.avatarImageView.image = image
+            }
+            vImageView.isHidden = model!.isMaster == "1" ? false : true
         }
-        if model.followNum > 1000 {
-            attentionsLabel.text = "关注 \(model.followNum.kFormatted)"
-        }else{
-            attentionsLabel.text = "关注 \(model.followNum.string)"
+        if acount != nil {
+            topUpView.updateText(icon: "\((acount?.chargeCoin.double)!)", number: "\((acount?.integral.double)!)")
         }
-        descLabel.text = model.descriptionField == "" ? "还没有个人简介" : model.descriptionField
-        UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
-            self.avatarImageView.image = image
-        }
-        vImageView.isHidden = model.isMaster == "1" ? false : true
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

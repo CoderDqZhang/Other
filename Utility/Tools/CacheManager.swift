@@ -48,6 +48,7 @@ class CacheManager: NSObject {
         if (CacheManager._sharedInstance.userCache?.itemExists(forKey: "userInfo"))! {
             CacheManager._sharedInstance.userCache?.removeItem(forKey: "userInfo")
         }
+        UserDefaults.init().removeObject(forKey: "UserToken")
     }
     
     func isLogin() ->Bool {

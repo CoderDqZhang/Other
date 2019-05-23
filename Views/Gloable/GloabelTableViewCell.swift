@@ -40,6 +40,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         self.contentView.addSubview(descLabel)
         
         rightImageView  = UIImageView.init()
+        rightImageView.cornerRadius = 17
         rightImageView.layer.masksToBounds = true
         self.contentView.addSubview(rightImageView)
         
@@ -50,6 +51,9 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     func cellSetData(title:String, desc:String, image:String?, isDescHidden:Bool){
         titleLabel.text = title
         if image != nil {
+            UIImageViewManger.sd_imageView(url: image!, imageView: rightImageView, placeholderImage: nil) { (image, error, cache, url) in
+                self.rightImageView.image = image
+            }
             descLabel.isHidden = true
         }else{
             descLabel.text = desc
@@ -88,6 +92,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
             
             rightImageView.snp.makeConstraints { (make) in
                 make.right.equalTo(self.contentView.snp.right).offset(-9)
+                make.size.equalTo(CGSize.init(width: 34, height: 34))
                 make.centerY.equalToSuperview()
             }
             

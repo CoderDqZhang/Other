@@ -14,6 +14,8 @@ enum ChangeInfoType{
     case name
 }
 
+typealias ChangeInfoViewControllerClouse = (_ type:ChangeInfoType, _ str:String) ->Void
+
 class ChangeInfoViewController: BaseViewController {
 
     var changeText:UITextField!
@@ -26,6 +28,7 @@ class ChangeInfoViewController: BaseViewController {
     
     var type:ChangeInfoType!
     var detailString:String = ""
+    var changeInfoViewControllerClouse:ChangeInfoViewControllerClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,6 +112,14 @@ class ChangeInfoViewController: BaseViewController {
             
             anmationButton = AnimationButton.init(type: .custom)
             anmationButton.setTitle("确定", for: .normal)
+            anmationButton.addAction({ (button) in
+                if self.changeInfoViewControllerClouse != nil {
+                    self.changeInfoViewControllerClouse(self.type,self.changeText.text!)
+                }
+                self.dismiss(animated: true, completion: {
+                    
+                })
+            }, for: .touchUpInside)
             anmationButton.isEnabled = false
             anmationButton.backgroundColor = App_Theme_FFD512_Color
             anmationButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
