@@ -17,6 +17,8 @@ class SigupVIPViewModel: BaseViewModel {
     var fontImage:UIImage?
     var backImage:UIImage?
     var takeHandImage:UIImage?
+    var username:String = ""
+    var idnumber:String = ""
     var userNameSingle:Signal<Bool, Never>?
     var cartNumberSingle:Signal<Bool, Never>?
     var isCheckBool:Bool = false
@@ -60,10 +62,12 @@ class SigupVIPViewModel: BaseViewModel {
         }
         if indexPath.row == 2 {
             userNameSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
+                self.username = str
                 return str.count > 0
             }
         }else{
             cartNumberSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
+                self.idnumber = str
                 return str.count > 0
             }
         }
@@ -81,12 +85,32 @@ class SigupVIPViewModel: BaseViewModel {
         })
         cell.anmationButton.setTitle("提交", for: .normal)
         cell.anmationButton.addAction({ (button) in
-            
+            self.singUpVipNameNet()
         }, for: .touchUpInside)
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func singUpVipNameNet(){
+        if fontImage == nil || backImage == nil || takeHandImage == nil {
+            _ = Tools.shareInstance.showMessage(KWindow, msg: "请上传图片", autoHidder: true)
+            return
+        }
+        AliPayManager.getSharedInstance().uploadFile(images: [fontImage!,backImage!,takeHandImage!], type: .user) { strs in
+            var imgs = ""
+            for str in strs {
+                imgs = "\(imgs),\(str)"
+            }
+            let parameters = ["username":self.username,"idNumber":self.idnumber,imgs:imgs]
+            BaseNetWorke.sharedInstance.postUrlWithString(PersonnameAuthUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "提交成功，等待审核", autoHidder: true)
+                    self.controller?.navigationController?.popViewController()
+                }
+            }
+        }
     }
 }
 
