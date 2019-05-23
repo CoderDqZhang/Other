@@ -43,7 +43,16 @@ class SettingViewModel: BaseViewModel {
                 NavigationPushView(self.controller!, toConroller: FeedBackViewController())
             }
         default:
+            self.logoutNet()
             break
+        }
+    }
+    
+    func logoutNet(){
+        BaseNetWorke.sharedInstance.postUrlWithString(UserlogoutUrl, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                CacheManager.getSharedInstance().logout()
+            }
         }
     }
 }
