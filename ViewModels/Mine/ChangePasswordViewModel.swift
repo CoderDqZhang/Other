@@ -24,7 +24,7 @@ class ChangePasswordViewModel: BaseViewModel {
         super.init()
     }
     
-    func tableViewGloabelTextFieldTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldTableViewCell) {
+    func tableViewGloabelTextFieldAndTitleTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldAndTitleTableViewCell) {
         cell.textFiled.textType = .password
         if indexPath.row == 0 {
             oldPasSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
@@ -139,8 +139,8 @@ extension ChangePasswordViewModel: UITableViewDataSource {
             cell.backgroundColor = .clear
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldTableViewCell.description(), for: indexPath)
-        self.tableViewGloabelTextFieldTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldTableViewCell)
+        let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldAndTitleTableViewCell.description(), for: indexPath)
+        self.tableViewGloabelTextFieldAndTitleTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldAndTitleTableViewCell)
         return cell
     }
 }

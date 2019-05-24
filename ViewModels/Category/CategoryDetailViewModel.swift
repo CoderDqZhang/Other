@@ -38,7 +38,7 @@ class CategoryDetailViewModel: BaseViewModel {
     }
     
     func tableViewCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryContentTableViewCell) {
-        cell.cellSetData(content: contentStrs[indexPath.section - 1], images: images[indexPath.section - 1])
+//        cell.cellSetData(content: contentStrs[indexPath.section - 1], images: images[indexPath.section - 1])
     }
     
     func tableViewCategoryHeaderTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryHeaderTableViewCell){

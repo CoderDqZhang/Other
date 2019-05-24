@@ -271,7 +271,7 @@ class GloabelFansTableViewCell : UITableViewCell {
     }
 }
 
-class GloabelTextFieldTableViewCell : UITableViewCell {
+class GloabelTextFieldAndTitleTableViewCell : UITableViewCell {
     
     var textFiled:UITextField!
     var titleLabel:YYLabel!
@@ -334,6 +334,79 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
                 make.centerY.equalToSuperview()
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.width.equalTo(85)
+            }
+            
+            lineLabel.snp.makeConstraints { (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
+                make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: 1))
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+            }
+            
+            didMakeConstraints = true
+        }
+        super.updateConstraints()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+}
+
+class GloabelTextFieldTableViewCell : UITableViewCell {
+    
+    var textFiled:UITextField!
+    
+    var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
+    
+    var didMakeConstraints = false
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        
+        textFiled = UITextField.init()
+        textFiled.textAlignment = .left
+        textFiled.font = App_Theme_PinFan_M_15_Font
+        textFiled.textColor = App_Theme_06070D_Color
+        textFiled.placeholder = ""
+        textFiled.placeholderColor = App_Theme_B5B5B5_Color!
+        textFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
+        self.contentView.addSubview(textFiled)
+        
+        
+        self.contentView.addSubview(lineLabel)
+        self.updateConstraints()
+    }
+    
+    func cellSetData(placeholder:String){
+        textFiled.placeholder = placeholder
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func hiddenLineLabel(){
+        lineLabel.isHidden = true
+    }
+    
+    override func updateConstraints() {
+        if !didMakeConstraints {
+            textFiled.snp.makeConstraints { (make) in
+                make.centerY.equalToSuperview()
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             }
             
             lineLabel.snp.makeConstraints { (make) in

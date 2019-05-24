@@ -13,22 +13,25 @@ class NewsViewController: BaseViewController {
     var postDetailDataClouse:PostDetailDataClouse!
     var categoryDetailClouse:CategoryDetailDataClouse!
     
+    let newsViewModel = NewsViewModel.init()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
     override func setUpView(){
-        self.bindViewModel(viewModel: NewsViewModel(), controller: self)
+        self.bindViewModel(viewModel: newsViewModel, controller: self)
         self.setUpTableView(style: .grouped, cells: [CategoryTableViewCell.self,CategoryContentTableViewCell.self,HotDetailTableViewCell.self,CommentTableViewCell.self,UserInfoTableViewCell.self], controller: self)
         
         
         self.setUpRefreshData {
-            self.stopRefresh()
+            self.newsViewModel.page = 0
+            self.newsViewModel.getTribeListNet()
         }
         
         self.setUpLoadMoreData {
-            self.stopLoadMoreData()
+            self.newsViewModel.getTribeListNet()
         }
     }
     

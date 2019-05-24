@@ -31,6 +31,14 @@
 		1F395CC72295461000781C0C /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CC62295461000781C0C /* RegisterViewModel.swift */; };
 		1F395CC922962E5200781C0C /* AliPayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CC822962E5200781C0C /* AliPayManager.swift */; };
 		1F395CCB2296787600781C0C /* AccountInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CCA2296787600781C0C /* AccountInfoModel.swift */; };
+		1F395CCD2296A99E00781C0C /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CCC2296A99E00781C0C /* CategoryModel.swift */; };
+		1F395CCF229783A300781C0C /* TipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CCE229783A300781C0C /* TipModel.swift */; };
+		1F395CD1229786AB00781C0C /* CategoryChoosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD0229786AB00781C0C /* CategoryChoosViewController.swift */; };
+		1F395CD32297871800781C0C /* CategoryChossViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD22297871800781C0C /* CategoryChossViewModel.swift */; };
+		1F395CD522978BFF00781C0C /* CategorySearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD422978BFF00781C0C /* CategorySearchViewModel.swift */; };
+		1F395CD722978DB600781C0C /* CategoryChoosSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD622978DB600781C0C /* CategoryChoosSearchViewController.swift */; };
+		1F395CD922978E7600781C0C /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD822978E7600781C0C /* PostViewModel.swift */; };
+		1F395CDB229797D400781C0C /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CDA229797D400781C0C /* PostModel.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
 		1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB22281788E00C9137C /* ViewController.swift */; };
 		1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB42281788E00C9137C /* Main.storyboard */; };
@@ -264,6 +272,14 @@
 		1F395CC62295461000781C0C /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		1F395CC822962E5200781C0C /* AliPayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliPayManager.swift; sourceTree = "<group>"; };
 		1F395CCA2296787600781C0C /* AccountInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoModel.swift; sourceTree = "<group>"; };
+		1F395CCC2296A99E00781C0C /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
+		1F395CCE229783A300781C0C /* TipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipModel.swift; sourceTree = "<group>"; };
+		1F395CD0229786AB00781C0C /* CategoryChoosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChoosViewController.swift; sourceTree = "<group>"; };
+		1F395CD22297871800781C0C /* CategoryChossViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChossViewModel.swift; sourceTree = "<group>"; };
+		1F395CD422978BFF00781C0C /* CategorySearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySearchViewModel.swift; sourceTree = "<group>"; };
+		1F395CD622978DB600781C0C /* CategoryChoosSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChoosSearchViewController.swift; sourceTree = "<group>"; };
+		1F395CD822978E7600781C0C /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		1F395CDA229797D400781C0C /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5BDB02281788E00C9137C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE5BDB22281788E00C9137C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1158,6 +1174,8 @@
 				1FE5BF142282CBE900C9137C /* PostViewController.swift */,
 				1FE5BFA9228BDEC200C9137C /* TargerUserViewController.swift */,
 				1FE5BFB5228CF47900C9137C /* TargerUserSearchViewController.swift */,
+				1F395CD0229786AB00781C0C /* CategoryChoosViewController.swift */,
+				1F395CD622978DB600781C0C /* CategoryChoosSearchViewController.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1313,9 +1331,12 @@
 				1FE5BF412285170700C9137C /* CategoryDetailViewModel.swift */,
 				1FE5BF45228528A900C9137C /* CommentViewModel.swift */,
 				1FE5BF4B228529EC00C9137C /* PostDetailViewModel.swift */,
+				1F395CD822978E7600781C0C /* PostViewModel.swift */,
 				1FE5BF61228A5C5700C9137C /* CommentPostViewModel.swift */,
 				1FE5BFAB228BDEDC00C9137C /* TargerUserViewModel.swift */,
 				1FE5BFB7228D0BB600C9137C /* SearchResultViewModel.swift */,
+				1F395CD22297871800781C0C /* CategoryChossViewModel.swift */,
+				1F395CD422978BFF00781C0C /* CategorySearchViewModel.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1341,6 +1362,9 @@
 		1FE5BF122282A4EC00C9137C /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1F395CCC2296A99E00781C0C /* CategoryModel.swift */,
+				1F395CCE229783A300781C0C /* TipModel.swift */,
+				1F395CDA229797D400781C0C /* PostModel.swift */,
 			);
 			name = Category;
 			path = ViewModels/Category;
@@ -1732,6 +1756,7 @@
 				1F395CC52295458C00781C0C /* CacheManager.swift in Sources */,
 				1FE8DA8D228D6C7E00DCED01 /* MineToolsTableViewCell.swift in Sources */,
 				1FE5BEF12282A20400C9137C /* NewsViewController.swift in Sources */,
+				1F395CD722978DB600781C0C /* CategoryChoosSearchViewController.swift in Sources */,
 				1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */,
 				1FE8DAF12292933A00DCED01 /* JXPagingListContainerView.swift in Sources */,
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
@@ -1744,7 +1769,9 @@
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
 				1FE5BF212282D21F00C9137C /* OutFallViewModel.swift in Sources */,
 				1FE8DAF92292C1D200DCED01 /* MyCommentViewController.swift in Sources */,
+				1F395CD522978BFF00781C0C /* CategorySearchViewModel.swift in Sources */,
 				1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */,
+				1F395CCD2296A99E00781C0C /* CategoryModel.swift in Sources */,
 				1FE5BFB0228CF37E00C9137C /* BaseSearchViewController.swift in Sources */,
 				1FE8DAD522926AA300DCED01 /* OtherMineViewModel.swift in Sources */,
 				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
@@ -1768,6 +1795,7 @@
 				1FE5BEB22282866200C9137C /* SDCollectionViewCell.m in Sources */,
 				1FE5BE4C2282864300C9137C /* AlertControl+Tools.swift in Sources */,
 				1FE8DAD322926A5500DCED01 /* GloabelHeader.swift in Sources */,
+				1F395CD1229786AB00781C0C /* CategoryChoosViewController.swift in Sources */,
 				1FE5BE1F228285FA00C9137C /* UIImage+PureColor.m in Sources */,
 				1FE5BE372282863D00C9137C /* PresentTransitionAnimated.m in Sources */,
 				1FE5BF50228561CB00C9137C /* PostDetailUserInfoTableViewCell.swift in Sources */,
@@ -1775,6 +1803,7 @@
 				1FE8DB0922939BD900DCED01 /* TakeVCartTableViewCell.swift in Sources */,
 				1FE5BF4022850B3500C9137C /* SegmentViewModel.swift in Sources */,
 				1FE5BE442282864300C9137C /* UIPageControlExtentions.swift in Sources */,
+				1F395CDB229797D400781C0C /* PostModel.swift in Sources */,
 				1FE8DAB6228EC89E00DCED01 /* SettingViewModel.swift in Sources */,
 				1FE5BED52282866300C9137C /* ijksdl_timer.c in Sources */,
 				1FE8DABC228EC8D100DCED01 /* SigupVIPViewModel.swift in Sources */,
@@ -1809,6 +1838,7 @@
 				1FE8DAEE2292933A00DCED01 /* JXPagingMainTableView.swift in Sources */,
 				1FE5BF592285702100C9137C /* UIButton+Block.m in Sources */,
 				1FE5BE322282863D00C9137C /* AudioPlayManager.swift in Sources */,
+				1F395CD32297871800781C0C /* CategoryChossViewModel.swift in Sources */,
 				1FE5BEC62282866300C9137C /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				1FE5BEC42282866300C9137C /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1FE5BE472282864300C9137C /* View+Extntion.swift in Sources */,
@@ -1816,6 +1846,7 @@
 				1FE5BE06228282B900C9137C /* BaseViewModel.swift in Sources */,
 				1FE8DA9A228E958700DCED01 /* MineInfoViewController.swift in Sources */,
 				1FE8DB142293DC0000DCED01 /* LoginViewController.swift in Sources */,
+				1F395CCF229783A300781C0C /* TipModel.swift in Sources */,
 				1FE8DAEF2292933A00DCED01 /* JXPagingView.swift in Sources */,
 				1FE8DAE42292817400DCED01 /* RecommendViewController.swift in Sources */,
 				1FE5BF2E2283C22C00C9137C /* NSStringAdditions.m in Sources */,
@@ -1868,6 +1899,7 @@
 				1FE8DA93228D718A00DCED01 /* AdTableViewCell.swift in Sources */,
 				1FE5BF6022894D2700C9137C /* CommentPostViewController.swift in Sources */,
 				1FE5BE22228285FA00C9137C /* NSString+StringSize.m in Sources */,
+				1F395CD922978E7600781C0C /* PostViewModel.swift in Sources */,
 				1FE8DA9C228E95A600DCED01 /* MineInfoViewModel.swift in Sources */,
 				1FE8DABE228ECABC00DCED01 /* ChangePasswordViewController.swift in Sources */,
 				1FE5BF3E228509B900C9137C /* CategoryDetailViewController.swift in Sources */,

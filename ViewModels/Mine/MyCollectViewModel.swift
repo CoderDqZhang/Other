@@ -20,7 +20,7 @@ class MyCollectViewModel: BaseViewModel {
     
     
     func tableViewCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryContentTableViewCell) {
-        cell.cellSetData(content: contentStrs[indexPath.section], images: images[indexPath.section])
+//        cell.cellSetData(content: contentStrs[indexPath.section], images: images[indexPath.section])
     }
     
     func tableViewUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:UserInfoTableViewCell){

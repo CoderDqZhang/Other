@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import ReactiveCocoa
+import ReactiveSwift
+
 enum AliPayManagerType {
     case user
     case post
@@ -43,7 +46,10 @@ class AliPayManager: NSObject {
         let put = OSSPutObjectRequest.init()
         put.bucketName = OSS_BUCKET_PUBLIC
         var resultStrs:[String] = []
-        var count = 0
+        
+        let count = MutableProperty<Int>(0)
+        
+        
         for index in 0...images.count - 1 {
             let date = Date.init()
             let phone:String = (CacheManager.getSharedInstance().getUserInfo()?.id.string)!
@@ -63,7 +69,7 @@ class AliPayManager: NSObject {
             }
             
             AliPayManager.getSharedInstance().client.putObject(put).continue({ (task) -> Any? in
-                count = count + 1
+                count.value = count.value + 1
                 if (task ).error == nil {
                     switch type{
                     case .post:
@@ -75,13 +81,12 @@ class AliPayManager: NSObject {
                 }else{
                     print("upload object fail:\((task).error ?? "" as! Error)")
                 }
-                if count == images.count {
+                if count.value == images.count {
                     result(resultStrs)
                 }
                 return nil
             }, cancellationToken: nil)
+            
         }
-        
-        
     }
 }

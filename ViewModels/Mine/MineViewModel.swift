@@ -23,14 +23,17 @@ class MineViewModel: BaseViewModel {
         cell.cellSetData(model: userInfo, acount: self.accountInfo)
         
         cell.mineInfoTableViewCellClouse = { type in
-            print(type)
-            switch type {
-            case .fans:
-                NavigationPushView(self.controller!, toConroller: FansViewController())
-            case .follow:
-                NavigationPushView(self.controller!, toConroller: FollowsViewController())
-            default:
-                break
+            if CacheManager.getSharedInstance().isLogin() {
+                switch type {
+                case .fans:
+                    NavigationPushView(self.controller!, toConroller: FansViewController())
+                case .follow:
+                    NavigationPushView(self.controller!, toConroller: FollowsViewController())
+                default:
+                    break
+                }
+            }else{
+                NavigationPushView(self.controller!, toConroller: LoginViewController())
             }
         }
     }
@@ -38,15 +41,16 @@ class MineViewModel: BaseViewModel {
     func tableViewMineToolsTableViewCellSetData(_ indexPath:IndexPath, cell:MineToolsTableViewCell) {
         cell.mineToolsTableViewCellClouse = { type in
             if CacheManager.getSharedInstance().isLogin() {
-                
-            }
-            switch type {
-            case .post:
-                NavigationPushView(self.controller!, toConroller: PostSegementViewController())
-            case .collect:
-                NavigationPushView(self.controller!, toConroller: MycollectViewController())
-            default:
-                break
+                switch type {
+                case .post:
+                    NavigationPushView(self.controller!, toConroller: PostSegementViewController())
+                case .collect:
+                    NavigationPushView(self.controller!, toConroller: MycollectViewController())
+                default:
+                    break
+                }
+            }else{
+                NavigationPushView(self.controller!, toConroller: LoginViewController())
             }
         }
     }

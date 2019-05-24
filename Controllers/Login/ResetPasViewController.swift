@@ -31,7 +31,7 @@ class ResetPasViewController: BaseViewController {
     
     override func setUpView() {
         self.bindViewModel(viewModel: resetViewMode, controller: self)
-        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldButtonTableViewCell.self,GloabelTextFieldTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldButtonTableViewCell.self,GloabelTextFieldAndTitleTableViewCell.self], controller: self)
     
     }
     

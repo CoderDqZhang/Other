@@ -330,6 +330,7 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
 
 enum KeyboardToobarType:Int {
     case cancel = 0
+    case photos = 1
 }
 typealias KeyboardToobarClouse = (_ type:KeyboardToobarType) ->Void
 class KeyboardToobar: UIToolbar {
@@ -342,7 +343,20 @@ class KeyboardToobar: UIToolbar {
         cancel.tag = KeyboardToobarType.cancel.rawValue
         self.setShadowImage(UIImage.init(), forToolbarPosition: UIBarPosition.any)
         self.barTintColor = App_Theme_F6F6F6_Color
-        self.setItems([], animated: true)
+        
+        let photos = UIBarButtonItem.init(image: UIImage.init(named: "photos")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: .plain, target: self, action: #selector(self.photosClick))
+        photos.tag = KeyboardToobarType.photos.rawValue
+        self.setShadowImage(UIImage.init(), forToolbarPosition: UIBarPosition.any)
+        self.barTintColor = App_Theme_F6F6F6_Color
+        self.setItems([cancel,photos], animated: true)
+        
+        
+    }
+    
+    @objc func photosClick(_ sender:UIBarButtonItem){
+        if self.keyboardToobarClouse != nil {
+            self.keyboardToobarClouse(KeyboardToobarType.init(rawValue: sender.tag)!)
+        }
     }
     
     @objc func backToobarClick(_ sender:UIBarButtonItem){

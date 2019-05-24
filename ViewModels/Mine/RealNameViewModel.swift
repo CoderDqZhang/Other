@@ -22,7 +22,7 @@ class RealNameViewModel: BaseViewModel {
         super.init()
     }
     
-    func tableViewGloabelTextFieldTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldTableViewCell) {
+    func tableViewGloabelTextFieldAndTitleTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldAndTitleTableViewCell) {
         cell.textFiled.keyboardType = .default
         if indexPath.row == 0 {
             userNameSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
@@ -121,8 +121,8 @@ extension RealNameViewModel: UITableViewDataSource {
             cell.backgroundColor = .clear
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldTableViewCell.description(), for: indexPath)
-        self.tableViewGloabelTextFieldTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldTableViewCell)
+        let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldAndTitleTableViewCell.description(), for: indexPath)
+        self.tableViewGloabelTextFieldAndTitleTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldAndTitleTableViewCell)
         return cell
     }
 }

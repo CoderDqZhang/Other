@@ -26,6 +26,50 @@ class CacheManager: NSObject {
     
     private override init() {} // 私有化init方法
     
+    
+    func saveNormaltModel(category:CategoryModel){
+        var array = NSMutableArray.init()
+        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "CategoryModels"))! {
+            let item:Data = ((CacheManager._sharedInstance.otherCache?.getItemValue(forKey: "CategoryModels"))!)
+            array =  NSKeyedUnarchiver.unarchiveObject(with: item) as! NSMutableArray
+        }
+        for model in array {
+            if category.id == CategoryModel.init(fromDictionary: model as! [String : Any]).id {
+                return
+            }
+        }
+        array.add(category.toDictionary())
+        
+        CacheManager._sharedInstance.otherCache?.saveItem(withKey: "CategoryModels", value: NSKeyedArchiver.archivedData(withRootObject: array), filename: "CategoryTemp", extendedData: nil)
+    }
+    
+    func getCategoryModels() ->NSMutableArray? {
+        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "CategoryModels"))! {
+            let item:Data = ((CacheManager._sharedInstance.otherCache?.getItemValue(forKey: "CategoryModels"))!)
+            return NSKeyedUnarchiver.unarchiveObject(with: item) as? NSMutableArray
+        }
+        return nil
+    }
+    
+    func savePostModel(postModel:PostModel){
+        CacheManager._sharedInstance.otherCache?.saveItem(withKey: "PostModel", value: NSKeyedArchiver.archivedData(withRootObject: postModel), filename: "PostTemp", extendedData: nil)
+    }
+    
+    func getPostModel() ->PostModel? {
+        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "PostModel"))! == true {
+            let item:Data = ((CacheManager._sharedInstance.otherCache?.getItemValue(forKey: "PostModel"))!)
+            return NSKeyedUnarchiver.unarchiveObject(with: item) as? PostModel
+        }
+        return PostModel.init(fromDictionary: ["":""])
+    }
+    
+    func removePostModel(){
+        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "PostModel"))! {
+            CacheManager._sharedInstance.otherCache?.removeItem(forKey: "PostModel")
+        }
+    }
+    
+    
     func saveUserInfo(userInfo:UserInfoModel){
         CacheManager._sharedInstance.userCache?.saveItem(withKey: "userInfo", value: userInfo.toDictionary().jsonData()!, filename: "UserInfoFile", extendedData: nil)
     }

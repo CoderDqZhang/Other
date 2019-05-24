@@ -30,7 +30,9 @@ class SegmentViewModel: BaseViewModel {
     }
     
     func pushPostVC(){
-        NavigationPushView(self.controller!, toConroller: PostViewController())
+        let postVC = PostViewController()
+        let postNavigationController = UINavigationController.init(rootViewController: postVC)
+        NavigaiontPresentView(self.controller!, toController: postNavigationController)
     }
     
     func pushCategoryDetailViewController(_ data:NSDictionary, _ type:CategoryType){
@@ -46,5 +48,7 @@ class SegmentViewModel: BaseViewModel {
         postDetail.postType = type
         NavigationPushView(self.controller!, toConroller: postDetail)
     }
+    
+    
     
 }

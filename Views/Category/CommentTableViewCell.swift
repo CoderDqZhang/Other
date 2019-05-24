@@ -47,7 +47,7 @@ class CommentView: UIView {
     }
     
     override func updateConstraints() {
-        if !didMakeConstraints {
+        if self.timeLabel != nil {
             timeLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.snp.left).offset(15)
                 make.centerY.equalToSuperview()
@@ -62,8 +62,8 @@ class CommentView: UIView {
                 make.right.equalTo(self.commentButtom.snp.left).offset(-13)
                 make.centerY.equalToSuperview()
             }
-            didMakeConstraints = true
         }
+        
         super.updateConstraints()
     }
     
@@ -96,9 +96,12 @@ class CommentTableViewCell: UITableViewCell {
         commentView = CommentView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 32))
         self.contentView.addSubview(commentView)
         
-        commentView.crateContent(time: "12分钟前", like: "66", comment: "6666", status: 1)
         
         self.updateConstraints()
+    }
+    
+    func cellSetData(model:TipModel){
+        commentView.crateContent(time: model.commentTime, like: model.commentTotal.string, comment: model.commentTotal.string, status: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {

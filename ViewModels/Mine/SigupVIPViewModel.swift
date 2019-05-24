@@ -55,7 +55,7 @@ class SigupVIPViewModel: BaseViewModel {
         }
     }
     
-    func tableViewGloabelTextFieldTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldTableViewCell) {
+    func tableViewGloabelTextFieldAndTitleTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldAndTitleTableViewCell) {
         cell.textFiled.keyboardType = .default
         if indexPath.row == 3 {
             cell.hiddenLineLabel()
@@ -171,8 +171,8 @@ extension SigupVIPViewModel: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             if indexPath.row == 2 || indexPath.row == 3 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldTableViewCell.description(), for: indexPath)
-                self.tableViewGloabelTextFieldTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldTableViewCell)
+                let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldAndTitleTableViewCell.description(), for: indexPath)
+                self.tableViewGloabelTextFieldAndTitleTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldAndTitleTableViewCell)
                 return cell
             }else if indexPath.row == 0{
                 let cell = tableView.dequeueReusableCell(withIdentifier: UploadCartTableViewCell.description(), for: indexPath)
