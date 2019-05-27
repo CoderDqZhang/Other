@@ -44,7 +44,7 @@ class NewsViewModel: BaseViewModel {
     }
     
     func tableViewUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:UserInfoTableViewCell){
-        if self.tipListArray.count > 0 {
+         if self.tipListArray.count > 0  {
             cell.cellSetData(model: TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]))
         }
     }
@@ -57,8 +57,8 @@ class NewsViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.row != 0 {
-//            let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section - 2],"images":images[indexPath.section - 2]], copyItems: true)
-//            (self.controller! as! NewsViewController).postDetailDataClouse(dicData,.OutFall)
+            let dicData:NSDictionary = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]).toDictionary() as NSDictionary
+            (self.controller as! NewsViewController).postDetailDataClouse(dicData,.Hot)
         }
     }
     

@@ -29,8 +29,10 @@ class MineViewModel: BaseViewModel {
                     NavigationPushView(self.controller!, toConroller: FansViewController())
                 case .follow:
                     NavigationPushView(self.controller!, toConroller: FollowsViewController())
+                case .topUp:
+                    NavigationPushView(self.controller!, toConroller: TopUpViewController())
                 default:
-                    break
+                    NavigationPushView(self.controller!, toConroller: StoreViewController())
                 }
             }else{
                 NavigationPushView(self.controller!, toConroller: LoginViewController())
@@ -62,6 +64,8 @@ class MineViewModel: BaseViewModel {
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
         if self.userInfo != nil {
             cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: desc[indexPath.section-3][indexPath.row], image: nil, isDescHidden: false)
+        }else{
+             cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: "", image: nil, isDescHidden: false)
         }
     }
     

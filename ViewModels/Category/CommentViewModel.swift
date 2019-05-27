@@ -13,19 +13,19 @@ class CommentViewModel: BaseViewModel {
 
     
     var commentData:NSDictionary!
-    var commentList:[SecondeModel]!
+    var commentList:[ReplyList]!
     
     override init() {
         super.init()
     }
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        if indexPath.section == 0 {
-            cell.cellSetData(images: commentData.object(forKey: "images") as! [String], secondeContents: [], content: commentData.object(forKey: "commet") as! String, isCommentDetail: true)
-        }else{
-            cell.cellSetData(images: [], secondeContents: [], content: commentList[indexPath.section - 1].contentStr, isCommentDetail: false)
-
-        }
+//        if indexPath.section == 0 {
+//            cell.cellSetData(images: commentData.object(forKey: "images") as! [String], secondeContents: [], content: commentData.object(forKey: "commet") as! String, isCommentDetail: true)
+//        }else{
+//            cell.cellSetData(images: [], secondeContents: [], content: commentList[indexPath.section - 1].contentStr, isCommentDetail: false)
+//
+//        }
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){

@@ -26,17 +26,17 @@ class PostDetailViewController: BaseViewController {
     override func setUpView() {
         self.bindViewModel(viewModel: postDetailViewModel, controller: self)
         self.postDetailViewModel.postType = self.postType
-        self.postDetailViewModel.postData = self.postData
         self.setUpTableView(style: .grouped, cells: [PostDetailUserInfoTableViewCell.self,PostDetailCommentTableViewCell.self,PostDetailCommentUserTableViewCell.self,PostDetailContentTableViewCell.self,HotDetailTableViewCell.self], controller: self)
 
         self.updateTableViewConstraints()
 
         self.setUpRefreshData {
-
+            self.postDetailViewModel.page = 0
+            self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
         }
 
         self.setUpLoadMoreData {
-
+            self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
         }
         
         if #available(iOS 11.0, *) {
@@ -64,6 +64,11 @@ class PostDetailViewController: BaseViewController {
         self.tableView.snp.updateConstraints { (make) in
             make.bottom.equalTo(self.view.snp.bottom).offset(-44)
         }
+    }
+    
+    override func bindViewModelLogic() {
+        self.postDetailViewModel.getTipDetail(id: (self.postData.object(forKey: "id") as! Int).string)
+        self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
     }
     
     override func setUpViewNavigationItem() {

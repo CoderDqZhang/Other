@@ -88,22 +88,14 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     
     func postTirbeNet(){
         if self.selectPhotos.count > 0 {
-            var imgs = ""
-            var count = 0
-            for img in self.selectPhotos {
-                AliPayManager.getSharedInstance().uploadFile(images: [img], type: .post) { strs in
-                    imgs = "\(strs[0]),\(imgs)"
-                    count = count + 1
-                    if count == self.selectPhotos.count {
-                        let parameters = ["content":self.postModel.content!, "title":self.postModel.tribe!, "tribeId":self.postModel.tribe.id.string,"image":imgs] as [String : Any]
-                        BaseNetWorke.sharedInstance.postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
-                            if !resultDic.isCompleted {
-                                _ = Tools.shareInstance.showMessage(KWindow, msg: "发帖成功", autoHidder: true)
-                                self.controller?.dismiss(animated: true, completion: {
-                                    CacheManager.getSharedInstance().removePostModel()
-                                })
-                            }
-                        }
+            AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { strs in
+                let parameters = ["content":self.postModel.content!, "title":self.postModel.tribe!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
+                BaseNetWorke.sharedInstance.postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                    if !resultDic.isCompleted {
+                        _ = Tools.shareInstance.showMessage(KWindow, msg: "发帖成功", autoHidder: true)
+                        self.controller?.dismiss(animated: true, completion: {
+                            CacheManager.getSharedInstance().removePostModel()
+                        })
                     }
                 }
             }

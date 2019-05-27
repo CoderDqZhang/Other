@@ -49,44 +49,59 @@ class AliPayManager: NSObject {
         
         let count = MutableProperty<Int>(0)
         
-        
         for index in 0...images.count - 1 {
-            let date = Date.init()
-            let phone:String = (CacheManager.getSharedInstance().getUserInfo()?.id.string)!
-            let imageKey = "\(date.year)/\(date.month)/\(date.day)/\(phone)_\(date.nanosecond).png"
-            switch type{
-            case .post:
-                put.objectKey = "post/\(imageKey)"
-            default:
-                put.objectKey = "user/\(imageKey)"
-            }
-            
-            put.uploadingData = images[index].compressedData(quality: 0.75)!
-            put.uploadProgress = { (bytesent, totalbytesent,ttalbytesexpected) in
-                print("bytesent:\(bytesent)")
-                print("totalbytesent:\(totalbytesent)")
-                print("ttalbytesexpected:\(ttalbytesexpected)")
-            }
-            
-            AliPayManager.getSharedInstance().client.putObject(put).continue({ (task) -> Any? in
+            AliPayManager.getSharedInstance().uploadFileImage(images: images[index], type: type) { (str) in
                 count.value = count.value + 1
-                if (task ).error == nil {
-                    switch type{
-                    case .post:
-                        resultStrs.append("post/\(imageKey)")
-                    default:
-                        resultStrs.append("user/\(imageKey)")
-                    }
-                    print("upload object success")
-                }else{
-                    print("upload object fail:\((task).error ?? "" as! Error)")
-                }
+                resultStrs.append(str[0])
                 if count.value == images.count {
                     result(resultStrs)
                 }
-                return nil
-            }, cancellationToken: nil)
-            
+            }
         }
     }
+    
+    func uploadFileImage(images:UIImage,type:AliPayManagerType, result:@escaping AliPayManagerSuccess){
+        let put = OSSPutObjectRequest.init()
+        put.bucketName = OSS_BUCKET_PUBLIC
+        var resultStrs:[String] = []
+        
+        let count = MutableProperty<Int>(0)
+        
+        
+        let date = Date.init()
+        let phone:String = (CacheManager.getSharedInstance().getUserInfo()?.id.string)!
+        let imageKey = "\(date.year)/\(date.month)/\(date.day)/\(phone)_\(date.nanosecond).png"
+        switch type{
+        case .post:
+            put.objectKey = "post/\(imageKey)"
+        default:
+            put.objectKey = "user/\(imageKey)"
+        }
+        
+        put.uploadingData = images.compressedData(quality: 0.75)!
+        put.uploadProgress = { (bytesent, totalbytesent,ttalbytesexpected) in
+            print("bytesent:\(bytesent)")
+            print("totalbytesent:\(totalbytesent)")
+            print("ttalbytesexpected:\(ttalbytesexpected)")
+        }
+        
+        AliPayManager.getSharedInstance().client.putObject(put).continue({ (task) -> Any? in
+            count.value = count.value + 1
+            if (task ).error == nil {
+                switch type{
+                case .post:
+                    resultStrs.append("post/\(imageKey)")
+                default:
+                    resultStrs.append("user/\(imageKey)")
+                }
+                print("upload object success")
+            }else{
+                print("upload object fail:\((task).error ?? "" as! Error)")
+            }
+            result(resultStrs)
+            return nil
+        }, cancellationToken: nil)
+    }
+    
+    
 }

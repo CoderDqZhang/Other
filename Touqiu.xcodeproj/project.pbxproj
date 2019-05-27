@@ -39,6 +39,18 @@
 		1F395CD722978DB600781C0C /* CategoryChoosSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD622978DB600781C0C /* CategoryChoosSearchViewController.swift */; };
 		1F395CD922978E7600781C0C /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD822978E7600781C0C /* PostViewModel.swift */; };
 		1F395CDB229797D400781C0C /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CDA229797D400781C0C /* PostModel.swift */; };
+		1F99174C229B74AC00C8FDD5 /* CoinsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */; };
+		1F99174E229B74B900C8FDD5 /* ConinsSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */; };
+		1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */; };
+		1F991752229B784800C8FDD5 /* CoinsDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991751229B784800C8FDD5 /* CoinsDetailTableViewCell.swift */; };
+		1F991754229B92BB00C8FDD5 /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991753229B92BB00C8FDD5 /* StoreViewController.swift */; };
+		1F991756229B944A00C8FDD5 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */; };
+		1F991758229BB41E00C8FDD5 /* AccountCoinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991757229BB41E00C8FDD5 /* AccountCoinsModel.swift */; };
+		1F99175A229BC16D00C8FDD5 /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */; };
+		1F99175C229BC5B100C8FDD5 /* TouUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */; };
+		1F99175E229BDBC400C8FDD5 /* CoinsDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */; };
+		1F991760229BEC0800C8FDD5 /* TipDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175F229BEC0800C8FDD5 /* TipDetailModel.swift */; };
+		1F991762229BF05700C8FDD5 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991761229BF05700C8FDD5 /* CommentModel.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
 		1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB22281788E00C9137C /* ViewController.swift */; };
 		1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB42281788E00C9137C /* Main.storyboard */; };
@@ -280,6 +292,18 @@
 		1F395CD622978DB600781C0C /* CategoryChoosSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChoosSearchViewController.swift; sourceTree = "<group>"; };
 		1F395CD822978E7600781C0C /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		1F395CDA229797D400781C0C /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailViewController.swift; sourceTree = "<group>"; };
+		1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConinsSegementViewController.swift; sourceTree = "<group>"; };
+		1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsViewModel.swift; sourceTree = "<group>"; };
+		1F991751229B784800C8FDD5 /* CoinsDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailTableViewCell.swift; sourceTree = "<group>"; };
+		1F991753229B92BB00C8FDD5 /* StoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
+		1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
+		1F991757229BB41E00C8FDD5 /* AccountCoinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCoinsModel.swift; sourceTree = "<group>"; };
+		1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
+		1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouUpViewModel.swift; sourceTree = "<group>"; };
+		1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailModel.swift; sourceTree = "<group>"; };
+		1F99175F229BEC0800C8FDD5 /* TipDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailModel.swift; sourceTree = "<group>"; };
+		1F991761229BF05700C8FDD5 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5BDB02281788E00C9137C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE5BDB22281788E00C9137C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1202,6 +1226,11 @@
 				1FE8DAF62292C15C00DCED01 /* MyPostViewController.swift */,
 				1FE8DAF82292C1D200DCED01 /* MyCommentViewController.swift */,
 				1FE8DB002292C5DC00DCED01 /* MycollectViewController.swift */,
+				1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */,
+				1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */,
+				1F991753229B92BB00C8FDD5 /* StoreViewController.swift */,
+				1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */,
+				1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1265,6 +1294,7 @@
 				1FE8DB0622938B7400DCED01 /* UploadCartTableViewCell.swift */,
 				1FE8DB0822939BD900DCED01 /* TakeVCartTableViewCell.swift */,
 				1FE8DB102293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift */,
+				1F991751229B784800C8FDD5 /* CoinsDetailTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1318,6 +1348,7 @@
 				1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */,
 				1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */,
 				1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */,
+				1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1354,6 +1385,8 @@
 			children = (
 				1F395CC2229542E000781C0C /* UserInfoModel.swift */,
 				1F395CCA2296787600781C0C /* AccountInfoModel.swift */,
+				1F991757229BB41E00C8FDD5 /* AccountCoinsModel.swift */,
+				1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */,
 			);
 			name = Mine;
 			path = ViewModels/Mine;
@@ -1365,6 +1398,8 @@
 				1F395CCC2296A99E00781C0C /* CategoryModel.swift */,
 				1F395CCE229783A300781C0C /* TipModel.swift */,
 				1F395CDA229797D400781C0C /* PostModel.swift */,
+				1F99175F229BEC0800C8FDD5 /* TipDetailModel.swift */,
+				1F991761229BF05700C8FDD5 /* CommentModel.swift */,
 			);
 			name = Category;
 			path = ViewModels/Category;
@@ -1418,6 +1453,7 @@
 				1FE8DB1C2294E4EA00DCED01 /* FindViewModel.swift */,
 				1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */,
 				1F395CC62295461000781C0C /* RegisterViewModel.swift */,
+				1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1741,9 +1777,11 @@
 				1FE5BEB02282866200C9137C /* SDCycleScrollView.m in Sources */,
 				1FE5BDF1228264F200C9137C /* Font-Color-Config.swift in Sources */,
 				1FE8DB0722938B7400DCED01 /* UploadCartTableViewCell.swift in Sources */,
+				1F99175E229BDBC400C8FDD5 /* CoinsDetailModel.swift in Sources */,
 				1FE5BEEF2282A1CA00C9137C /* SegmentViewController.swift in Sources */,
 				1FE5BE332282863D00C9137C /* ShareTools.swift in Sources */,
 				1FE5BED02282866300C9137C /* yuv420p.fsh.c in Sources */,
+				1F991754229B92BB00C8FDD5 /* StoreViewController.swift in Sources */,
 				1FE5BF5E228942EF00C9137C /* UITextFieldExtentions.swift in Sources */,
 				1FE5BECE2282866300C9137C /* renderer.c in Sources */,
 				1F395CCB2296787600781C0C /* AccountInfoModel.swift in Sources */,
@@ -1773,6 +1811,7 @@
 				1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */,
 				1F395CCD2296A99E00781C0C /* CategoryModel.swift in Sources */,
 				1FE5BFB0228CF37E00C9137C /* BaseSearchViewController.swift in Sources */,
+				1F991758229BB41E00C8FDD5 /* AccountCoinsModel.swift in Sources */,
 				1FE8DAD522926AA300DCED01 /* OtherMineViewModel.swift in Sources */,
 				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
 				1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */,
@@ -1785,6 +1824,7 @@
 				1FE5BEC12282866300C9137C /* JKDBModel.m in Sources */,
 				1FE8DAF5229293AD00DCED01 /* OtherGuessingViewModel.swift in Sources */,
 				1FE5BED92282866300C9137C /* TapticEngine.swift in Sources */,
+				1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */,
 				1F395CB52295230500781C0C /* UMengManager.swift in Sources */,
 				1FE5BF1D2282D1AC00C9137C /* CommentTableViewCell.swift in Sources */,
 				1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */,
@@ -1806,6 +1846,7 @@
 				1F395CDB229797D400781C0C /* PostModel.swift in Sources */,
 				1FE8DAB6228EC89E00DCED01 /* SettingViewModel.swift in Sources */,
 				1FE5BED52282866300C9137C /* ijksdl_timer.c in Sources */,
+				1F991760229BEC0800C8FDD5 /* TipDetailModel.swift in Sources */,
 				1FE8DABC228EC8D100DCED01 /* SigupVIPViewModel.swift in Sources */,
 				1FE5BE452282864300C9137C /* UIButton+Extentions.swift in Sources */,
 				1FE5BF46228528A900C9137C /* CommentViewModel.swift in Sources */,
@@ -1837,6 +1878,7 @@
 				1FE5BF1B2282D1A100C9137C /* HotDetailTableViewCell.swift in Sources */,
 				1FE8DAEE2292933A00DCED01 /* JXPagingMainTableView.swift in Sources */,
 				1FE5BF592285702100C9137C /* UIButton+Block.m in Sources */,
+				1F991756229B944A00C8FDD5 /* WithdrawViewController.swift in Sources */,
 				1FE5BE322282863D00C9137C /* AudioPlayManager.swift in Sources */,
 				1F395CD32297871800781C0C /* CategoryChossViewModel.swift in Sources */,
 				1FE5BEC62282866300C9137C /* UITableView+FDIndexPathHeightCache.m in Sources */,
@@ -1864,6 +1906,7 @@
 				1FE8DAA8228EAB6600DCED01 /* ChangeViewModel.swift in Sources */,
 				1FE5BF332283F60800C9137C /* Conner+Shadows.swift in Sources */,
 				1FE5BEC92282866300C9137C /* mvp.vsh.c in Sources */,
+				1F991752229B784800C8FDD5 /* CoinsDetailTableViewCell.swift in Sources */,
 				1FE5BE21228285FA00C9137C /* NSString+Utils.m in Sources */,
 				1FE5BDE822817B8500C9137C /* RequestURL.swift in Sources */,
 				1FE8DAF72292C15C00DCED01 /* MyPostViewController.swift in Sources */,
@@ -1872,7 +1915,9 @@
 				1FE5BE1D228285FA00C9137C /* NSDate+LSCore.m in Sources */,
 				1FE5BE342282863D00C9137C /* UIImageViewManger.swift in Sources */,
 				1FE5BF48228528FD00C9137C /* CommentViewController.swift in Sources */,
+				1F99174E229B74B900C8FDD5 /* ConinsSegementViewController.swift in Sources */,
 				1FE5BEF32282A21600C9137C /* OutFallViewController.swift in Sources */,
+				1F991762229BF05700C8FDD5 /* CommentModel.swift in Sources */,
 				1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */,
 				1FE5BF242282E59500C9137C /* NSString+AES.m in Sources */,
 				1FE5BF44228517A700C9137C /* CommentContentTableViewCell.swift in Sources */,
@@ -1906,7 +1951,10 @@
 				1FE5BE492282864300C9137C /* UIImage+Crop.swift in Sources */,
 				1FE5BECA2282866300C9137C /* renderer_rgb.c in Sources */,
 				1FE8DA91228D6CC400DCED01 /* GloabelTableViewCell.swift in Sources */,
+				1F99174C229B74AC00C8FDD5 /* CoinsDetailViewController.swift in Sources */,
 				1FE5BE482282864300C9137C /* UIViewController+NavigationBar.swift in Sources */,
+				1F99175C229BC5B100C8FDD5 /* TouUpViewModel.swift in Sources */,
+				1F99175A229BC16D00C8FDD5 /* TopUpViewController.swift in Sources */,
 				1FE8DAA2228EA07500DCED01 /* FansViewModel.swift in Sources */,
 				1FE5BE1C228285FA00C9137C /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1FE8DA9E228E981B00DCED01 /* FansViewController.swift in Sources */,

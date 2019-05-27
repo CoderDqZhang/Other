@@ -8,15 +8,6 @@
 
 import UIKit
 
-class SecondeModel: NSObject {
-    
-    var userNameStr:String!
-    var contentStr:String!
-    init(name:String, content:String) {
-        userNameStr = name
-        contentStr = content
-    }
-}
 let commentImageWidth:CGFloat = (SCREENWIDTH - 60 - 8 * 2) / 3
 let commentImageHeight:CGFloat = commentImageWidth
 let SecondeContentHeight:CGFloat = 18
@@ -98,16 +89,18 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(images:[String],secondeContents:[SecondeModel],content:String, isCommentDetail:Bool){
-        let stringHeight = content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 70)
+    func cellSetData(model:CommentModel, isCommentDetail:Bool){
+        let stringHeight = model.content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 70)
         contentLabel.snp.updateConstraints { (make) in
             make.size.height.equalTo(stringHeight)
         }
-        contentLabel.text = content
+        contentLabel.text = model.content
         
+        let images:[String] = model.img.nsString.components(separatedBy: ",")
         self.setImageContentView(images,isCommentDetail)
+        
         if !isCommentDetail {
-            self.setSecondeCotent(secondeContents: secondeContents)
+            self.setSecondeCotent(secondeContents: model.replyList)
         }
         
         lineLabel.snp.makeConstraints { (make) in
@@ -119,7 +112,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         self.contentView.updateConstraintsIfNeeded()
     }
     
-    func setSecondeCotent(secondeContents:[SecondeModel]){
+    func setSecondeCotent(secondeContents:[ReplyList]){
         switch secondeContents.count {
         case 0:
             secondeContent.isHidden = true
@@ -128,7 +121,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             }
         case 1:
             secondeContent.isHidden = false
-            let detailContent = self.createSecondeContentLabel(index: 0, username: secondeContents[0].userNameStr, content: secondeContents[0].contentStr)
+            let detailContent = self.createSecondeContentLabel(index: 0, username: secondeContents[0].nickname, content: secondeContents[0].content)
             secondeContent.addSubview(detailContent)
             secondeContent.snp.updateConstraints{ (make) in
                 make.height.equalTo(SecondeContentHeight + 10)
@@ -136,7 +129,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         case 2:
             secondeContent.isHidden = false
             for index in 0...secondeContents.count - 1 {
-                let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].userNameStr, content: secondeContents[index].userNameStr)
+                let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].nickname, content: secondeContents[index].content)
                 secondeContent.addSubview(detailContent)
             }
             secondeContent.snp.updateConstraints{ (make) in
@@ -145,7 +138,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         default:
             secondeContent.isHidden = false
             for index in 0...1 {
-                let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].userNameStr, content: secondeContents[index].userNameStr)
+                let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].nickname, content: secondeContents[index].content)
                 secondeContent.addSubview(detailContent)
             }
             secondeContent.snp.updateConstraints{ (make) in

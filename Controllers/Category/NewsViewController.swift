@@ -10,6 +10,7 @@ import UIKit
 
 class NewsViewController: BaseViewController {
 
+    
     var postDetailDataClouse:PostDetailDataClouse!
     var categoryDetailClouse:CategoryDetailDataClouse!
     

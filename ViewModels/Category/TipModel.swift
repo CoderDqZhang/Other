@@ -11,6 +11,7 @@ import UIKit
 class TipModel : NSObject, NSCoding{
     
     var commentTime : String!
+    var createTime : String!
     var commentTotal : Int!
     var content : String!
     var favor : Int!
@@ -21,13 +22,15 @@ class TipModel : NSObject, NSCoding{
     var title : String!
     var tribe : CategoryModel!
     var user : UserInfoModel!
-    
+    var isCollect : Int!
+    var isFork : Int!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
         commentTime = dictionary["commentTime"] as? String
+        createTime = dictionary["createTime"] as? String
         commentTotal = dictionary["commentTotal"] as? Int
         content = dictionary["content"] as? String
         favor = dictionary["favor"] as? Int
@@ -36,6 +39,8 @@ class TipModel : NSObject, NSCoding{
         image = dictionary["image"] as? String
         status = dictionary["status"] as? String
         title = dictionary["title"] as? String
+        isCollect = dictionary["isCollect"] as? Int
+        isFork = dictionary["isFork"] as? Int
         if let tribeData = dictionary["tribe"] as? [String:Any]{
             tribe = CategoryModel(fromDictionary: tribeData)
         }
@@ -53,6 +58,9 @@ class TipModel : NSObject, NSCoding{
         if commentTime != nil{
             dictionary["commentTime"] = commentTime
         }
+        if createTime != nil{
+            dictionary["createTime"] = createTime
+        }
         if commentTotal != nil{
             dictionary["commentTotal"] = commentTotal
         }
@@ -64,6 +72,12 @@ class TipModel : NSObject, NSCoding{
         }
         if fork != nil{
             dictionary["fork"] = fork
+        }
+        if isCollect != nil{
+            dictionary["isCollect"] = isCollect
+        }
+        if isFork != nil{
+            dictionary["isFork"] = isFork
         }
         if id != nil{
             dictionary["id"] = id
@@ -93,6 +107,7 @@ class TipModel : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         commentTime = aDecoder.decodeObject(forKey: "commentTime") as? String
+        createTime = aDecoder.decodeObject(forKey: "createTime") as? String
         commentTotal = aDecoder.decodeObject(forKey: "commentTotal") as? Int
         content = aDecoder.decodeObject(forKey: "content") as? String
         favor = aDecoder.decodeObject(forKey: "favor") as? Int
@@ -101,6 +116,8 @@ class TipModel : NSObject, NSCoding{
         image = aDecoder.decodeObject(forKey: "image") as? String
         status = aDecoder.decodeObject(forKey: "status") as? String
         title = aDecoder.decodeObject(forKey: "title") as? String
+        isCollect = aDecoder.decodeObject(forKey: "isCollect") as? Int
+        isFork = aDecoder.decodeObject(forKey: "isFork") as? Int
         tribe = aDecoder.decodeObject(forKey: "tribe") as? CategoryModel
         user = aDecoder.decodeObject(forKey: "user") as? UserInfoModel
         
@@ -114,6 +131,9 @@ class TipModel : NSObject, NSCoding{
     {
         if commentTime != nil{
             aCoder.encode(commentTime, forKey: "commentTime")
+        }
+        if createTime != nil{
+            aCoder.encode(createTime, forKey: "createTime")
         }
         if commentTotal != nil{
             aCoder.encode(commentTotal, forKey: "commentTotal")
@@ -132,6 +152,12 @@ class TipModel : NSObject, NSCoding{
         }
         if image != nil{
             aCoder.encode(image, forKey: "image")
+        }
+        if isCollect != nil{
+            aCoder.encode(isCollect, forKey: "isCollect")
+        }
+        if isFork != nil{
+            aCoder.encode(isFork, forKey: "isFork")
         }
         if status != nil{
             aCoder.encode(status, forKey: "status")

@@ -27,6 +27,10 @@ class CacheManager: NSObject {
     private override init() {} // 私有化init方法
     
     
+    func getUserId() ->String{
+        return (CacheManager.getSharedInstance().getUserInfo()?.id.string)!
+    }
+    
     func saveNormaltModel(category:CategoryModel){
         var array = NSMutableArray.init()
         if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "CategoryModels"))! {

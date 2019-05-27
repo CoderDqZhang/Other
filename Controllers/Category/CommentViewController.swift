@@ -11,7 +11,7 @@ import UIKit
 class CommentViewController: BaseViewController {
 
     var commentData:NSDictionary!
-    var commentList:[SecondeModel]!
+    var commentList:[ReplyList]!
     
     var commentDetailViewModel = CommentViewModel()
     

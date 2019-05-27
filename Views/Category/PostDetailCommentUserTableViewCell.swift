@@ -48,7 +48,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         self.addSubview(timeLabel)
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "category_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
-            self.likeButton.imageView.image = UIImage.init(named: "category_detail_like_select")
+            
             self.postDetailCommentUserTableViewCellClouse()
         })
         
@@ -62,8 +62,23 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
     }
     
     
-    func cellSetData(){
-        
+    func changeLikeButtonStatus(status:Int) ->UIImage{
+        if status == 0{
+            return UIImage.init(named: "category_detail_like")!
+        }else{
+            return UIImage.init(named: "category_detail_like")!
+        }
+    }
+    
+    func cellSetData(model:CommentModel){
+        UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
+            if error == nil {
+                self.avatarImage.image = image
+            }
+        }
+        userName.text = model.user.nickname
+        timeLabel.text = model.createTime
+        self.likeButton.changeContent(str: model.replyNum.string, image: self.changeLikeButtonStatus(status: model.isFollow))
     }
     
     override func updateConstraints() {

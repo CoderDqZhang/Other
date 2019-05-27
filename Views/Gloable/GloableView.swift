@@ -63,7 +63,6 @@ class GLoabelNavigaitonBar:UIView {
             self.rigthButton.cornerRadius = 14
             self.rigthButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
             self.rigthButton.layer.masksToBounds = true
-            self.rigthButton.isHidden = true
             rightButton?.addTarget(self, action: #selector(self.rightButtonClick), for: .touchUpInside)
             self.addSubview(rightButton!)
             rightButton?.snp.makeConstraints { (make) in
@@ -136,7 +135,7 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
     var imageView:UIImageView!
     var label:YYLabel!
     init(frame:CGRect, title:String, image:UIImage, tag:NSInteger?, titleColor:UIColor,spacing:CGFloat, font:UIFont, click:@escaping TouchClickClouse) {
-        super.init(frame: CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height)) {
+        super.init(frame: CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height),tag: tag!) {
             click()
         }
         
@@ -155,9 +154,13 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
         
     }
     
-    func changeContent(str:String,image:UIImage) {
-        label.text = str
-        imageView.image = image
+    func changeContent(str:String?,image:UIImage?) {
+        if str != nil {
+            label.text = str
+        }
+        if image != nil {
+            imageView.image = image
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

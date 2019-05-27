@@ -33,6 +33,7 @@ class UserInfoModel : NSObject, NSCoding{
     var wbId : String!
     var token: String!
     
+    
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
