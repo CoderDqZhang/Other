@@ -148,7 +148,17 @@ class PostDetailContentTableViewCell: UITableViewCell {
             }
         }
         
-        likeButton.changeContent(str: model.tip.commentTotal.string, image: nil)
+        if model.tip.isFork == 1 {
+            self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
+            self.likeButton.changeContent(str: model.tip.commentTotal.string, image: nil)
+        }else{
+            likeButton.changeContent(str: model.tip.commentTotal.string, image: nil)
+        }
+        
+        if model.tip.isCollect == 1 {
+            self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
+            self.postDetailContentTableViewCellClouse(.collect)
+        }
         
         likeButton.snp.updateConstraints { (make) in
             make.size.equalTo(CGSize.init(width: 47, height: 47))
