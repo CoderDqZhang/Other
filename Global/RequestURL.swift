@@ -38,6 +38,7 @@ let ReplyreplyreplyListUrl = "\(RootUrl)commentReply/replyList"
 let CommentgetPointUrl = "\(RootUrl)common/getPoint"
 let CommentgetRechargeUrl = "\(RootUrl)common/getRecharge"
 let CommentgetTimetUrl = "\(RootUrl)common/getTime"
+let CommentReplyApprovetUrl = "\(RootUrl)commentReply/replyApprove"
 
 let NotifynotifyListUrl = "\(RootUrl)notify/notifyList"
 

@@ -70,7 +70,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         if status == 0{
             return UIImage.init(named: "category_detail_like")!
         }else{
-            return UIImage.init(named: "category_detail_like")!
+            return UIImage.init(named: "loveinred")!
         }
     }
     
@@ -95,7 +95,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         }
         userName.text = model.user.nickname
         timeLabel.text = model.createTime
-        self.likeButton.changeContent(str: model.replyNum.string, image: self.changeLikeButtonStatus(status: model.isFollow))
+        self.likeButton.changeContent(str: model.approveNum.string, image: self.changeLikeButtonStatus(status: model.isFollow))
     }
     
     override func updateConstraints() {

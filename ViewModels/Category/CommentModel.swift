@@ -150,6 +150,7 @@ class ReplyList : NSObject, NSCoding{
     var isFollow : Int!
     var nickname : String!
     var toNickname : String!
+    var userId : Int!
     
     
     /**
@@ -164,6 +165,7 @@ class ReplyList : NSObject, NSCoding{
         isFollow = dictionary["isFollow"] as? Int
         nickname = dictionary["nickname"] as? String
         toNickname = dictionary["toNickname"] as? String
+        userId = dictionary["userId"] as? Int
     }
     
     /**
@@ -196,6 +198,9 @@ class ReplyList : NSObject, NSCoding{
         if toNickname != nil{
             dictionary["toNickname"] = toNickname
         }
+        if userId != nil{
+            dictionary["userId"] = userId
+        }
         return dictionary
     }
     
@@ -213,6 +218,7 @@ class ReplyList : NSObject, NSCoding{
         isFollow = aDecoder.decodeObject(forKey: "isFollow") as? Int
         nickname = aDecoder.decodeObject(forKey: "nickname") as? String
         toNickname = aDecoder.decodeObject(forKey: "toNickname") as? String
+        userId = aDecoder.decodeObject(forKey: "userId") as? Int
         
     }
     
@@ -245,6 +251,9 @@ class ReplyList : NSObject, NSCoding{
         }
         if toNickname != nil{
             aCoder.encode(toNickname, forKey: "toNickname")
+        }
+        if userId != nil{
+            aCoder.encode(userId, forKey: "userId")
         }
         
     }

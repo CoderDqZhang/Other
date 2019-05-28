@@ -61,7 +61,9 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func tableViewHotDetailTableViewCellSetData(_ indexPath:IndexPath, cell:HotDetailTableViewCell) {
-        cell.cellSetData(detail: "全部回复", number: "66")
+        if self.tipDetailModel != nil {
+            cell.cellSetData(detail: "全部回复", number: self.tipDetailModel.commentTotal.string)
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){

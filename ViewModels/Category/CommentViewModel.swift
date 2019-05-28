@@ -35,13 +35,22 @@ class CommentViewModel: BaseViewModel {
         }else{
             cell.cellSetRepliy(model:  ReplyList.init(fromDictionary: replistList[indexPath.section - 1] as! [String : Any]), indexPath: indexPath)
             cell.postDetailCommentUserTableViewCellClouse = { indexPath in
-                    
+                self.likeNet(model: ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any]))
             }
         }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func likeNet(model:ReplyList){
+        let parameters = ["replyId":model.id!.string,"userId":model.userId.string]
+        BaseNetWorke.sharedInstance.postUrlWithString(CommentReplyApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
+            }
+        }
     }
     
     func getReplitList(){
