@@ -96,14 +96,14 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
     }
     
     
-    func cellSetData(model:TipDetailModel){
+    func cellSetData(model:TipModel){
         UIImageViewManger.sd_imageView(url: model.user.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
             if error == nil {
                 self.avatarImage.image = image
             }
         }
         userName.text = model.user.nickname
-        timeLabel.text = model.tip.createTime
+        timeLabel.text = model.createTime
         self.changeFollowStatus(status: model.user.isFollow)
     }
     

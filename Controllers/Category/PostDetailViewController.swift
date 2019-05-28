@@ -31,8 +31,7 @@ class PostDetailViewController: BaseViewController {
         self.updateTableViewConstraints()
 
         self.setUpRefreshData {
-            self.postDetailViewModel.page = 0
-            self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
+            self.refreshData()
         }
 
         self.setUpLoadMoreData {
@@ -41,14 +40,24 @@ class PostDetailViewController: BaseViewController {
         
         if #available(iOS 11.0, *) {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
-                let commentPost = UINavigationController.init(rootViewController: CommentPostViewController())
+                let commentVC = CommentPostViewController()
+                let commentPost = UINavigationController.init(rootViewController: commentVC)
+                commentVC.postData = self.postData
+                commentVC.reloadDataClouse = {
+                    self.refreshData()
+                }
                 NavigaiontPresentView(self, toController: commentPost)
             }, senderClick: { str in
                 
             })
         } else {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: self.tableView.frame.maxY, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
-                let commentPost = UINavigationController.init(rootViewController: CommentPostViewController())
+                let commentVC = CommentPostViewController()
+                let commentPost = UINavigationController.init(rootViewController: commentVC)
+                commentVC.postData = self.postData
+                commentVC.reloadDataClouse = {
+                    self.refreshData()
+                }
                 NavigaiontPresentView(self, toController: commentPost)
             }, senderClick: { str in
                 
@@ -58,6 +67,11 @@ class PostDetailViewController: BaseViewController {
         gloableCommentView.textView.isEditable = false
         gloableCommentView.backgroundColor = .white
         self.view.addSubview(gloableCommentView)
+    }
+    
+    func refreshData(){
+        self.postDetailViewModel.page = 0
+        self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
     }
     
     func updateTableViewConstraints() {

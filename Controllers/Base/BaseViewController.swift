@@ -14,6 +14,8 @@ import FDFullscreenPopGesture
 
 typealias SearchResultDicClouse = (_ dic:NSDictionary) -> Void
 
+typealias ReloadDataClouse = () ->Void
+
 class BaseViewController: UIViewController {
 
     var tableView:UITableView!
@@ -22,6 +24,7 @@ class BaseViewController: UIViewController {
     var umengPageName:String! = ""
     
     var resultDicClouse:SearchResultDicClouse!
+    var reloadDataClouse:ReloadDataClouse!
     
     var listViewDidScrollCallback: ((UIScrollView) -> ())?
 
@@ -102,22 +105,23 @@ class BaseViewController: UIViewController {
     
     func setUpRefreshData(refresh:@escaping MJRefreshComponentRefreshingBlock){
         self.tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
-            
+            refresh()
         })
     }
     
     func stopRefresh(){
-        self.tableView.mj_header.endRefreshing()
+        if self.tableView.mj_header != nil {
+            self.tableView.mj_header.endRefreshing()
+        }
+        if self.tableView.mj_footer != nil {
+            self.tableView.mj_footer.endRefreshing()
+        }
     }
     
     func setUpLoadMoreData(refresh:@escaping MJRefreshComponentRefreshingBlock){
         self.tableView.mj_footer = MJRefreshAutoNormalFooter.init(refreshingBlock: {
             refresh()
         })
-    }
-    
-    func stopLoadMoreData(){
-        self.tableView.mj_footer.endRefreshing()
     }
     
     func getViewModel(){

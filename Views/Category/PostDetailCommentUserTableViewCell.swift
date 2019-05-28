@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias PostDetailCommentUserTableViewCellClouse = () ->Void
+typealias PostDetailCommentUserTableViewCellClouse = (_ indexPath:IndexPath) ->Void
 
 class PostDetailCommentUserTableViewCell: UITableViewCell {
 
@@ -16,6 +16,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
     var userName:YYLabel!
     var timeLabel:YYLabel!
     var likeButton:CustomViewButtonTopImageAndBottomLabel!
+    var indexPath:IndexPath!
     
     var postDetailCommentUserTableViewCellClouse:PostDetailCommentUserTableViewCellClouse!
     
@@ -48,8 +49,11 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         self.addSubview(timeLabel)
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "category_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
-            
-            self.postDetailCommentUserTableViewCellClouse()
+            self.likeButton.imageView.image = UIImage.init(named: "loveinred")
+            self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
+            if self.postDetailCommentUserTableViewCellClouse != nil {
+                self.postDetailCommentUserTableViewCellClouse(self.indexPath)
+            }
         })
         
         self.contentView.addSubview(likeButton)
@@ -70,7 +74,20 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         }
     }
     
-    func cellSetData(model:CommentModel){
+    func cellSetRepliy(model:ReplyList,indexPath:IndexPath){
+        self.indexPath = indexPath
+        UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
+            if error == nil {
+                self.avatarImage.image = image
+            }
+        }
+        userName.text = model.nickname
+        timeLabel.text = model.createTime
+        self.likeButton.changeContent(str: model.followNum.string, image: self.changeLikeButtonStatus(status: model.isFollow))
+    }
+    
+    func cellSetData(model:CommentModel,indexPath:IndexPath){
+        self.indexPath = indexPath
         UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
             if error == nil {
                 self.avatarImage.image = image

@@ -10,10 +10,9 @@ import UIKit
 
 class CommentViewController: BaseViewController {
 
-    var commentData:NSDictionary!
-    var commentList:[ReplyList]!
+    var commentData:CommentModel!
     
-    var commentDetailViewModel = CommentViewModel()
+    var commentDetailViewModel = CommentViewModel.init()
     
     var gloableCommentView:CustomViewCommentTextField!
     
@@ -27,17 +26,29 @@ class CommentViewController: BaseViewController {
         self.setUpTableView(style: .grouped, cells: [PostDetailCommentUserTableViewCell.self,PostDetailCommentTableViewCell.self], controller: self)
         
         
+        self.setUpRefreshData {
+            self.commentDetailViewModel.page = 0
+            self.commentDetailViewModel.getReplitList()
+        }
+        
+        self.setUpLoadMoreData {
+            self.commentDetailViewModel.getReplitList()
+        }
+        
         if #available(iOS 11.0, *) {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49 - 2, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:true, click: {
             }, senderClick: { str in
-                print(str)
+                self.commentDetailViewModel.content = str
             })
         } else {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: self.tableView.frame.maxY, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:true,  click: {
             }, senderClick: { str in
-                print(str)
+                self.commentDetailViewModel.content = str
             })
             // Fallback on earlier versions
+        }
+        gloableCommentView.customViewCommentTextFieldSenderClick = { str in
+            self.commentDetailViewModel.setUpReplit(content: str)
         }
         gloableCommentView.backgroundColor = .white
         self.view.addSubview(gloableCommentView)
@@ -45,7 +56,7 @@ class CommentViewController: BaseViewController {
     
     override func bindViewModelLogic() {
         commentDetailViewModel.commentData = commentData
-        commentDetailViewModel.commentList = commentList
+        commentDetailViewModel.getReplitList()
     }
     
     override func setUpViewNavigationItem() {

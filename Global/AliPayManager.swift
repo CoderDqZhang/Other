@@ -16,7 +16,7 @@ enum AliPayManagerType {
     case comment
 }
 
-typealias AliPayManagerSuccess = (_ images:[String]) ->Void
+typealias AliPayManagerSuccess = (_ images:[String],_ strs:String) ->Void
 
 class AliPayManager: NSObject {
 
@@ -46,15 +46,16 @@ class AliPayManager: NSObject {
         let put = OSSPutObjectRequest.init()
         put.bucketName = OSS_BUCKET_PUBLIC
         var resultStrs:[String] = []
-        
+        var resultString = ""
         let count = MutableProperty<Int>(0)
         
         for index in 0...images.count - 1 {
-            AliPayManager.getSharedInstance().uploadFileImage(images: images[index], type: type) { (str) in
+            AliPayManager.getSharedInstance().uploadFileImage(images: images[index], type: type) { (str, _)  in
                 count.value = count.value + 1
                 resultStrs.append(str[0])
+                resultString = "\(resultString)\(str[0]),"
                 if count.value == images.count {
-                    result(resultStrs)
+                    result(resultStrs,resultString)
                 }
             }
         }
@@ -73,9 +74,9 @@ class AliPayManager: NSObject {
         let imageKey = "\(date.year)/\(date.month)/\(date.day)/\(phone)_\(date.nanosecond).png"
         switch type{
         case .post:
-            put.objectKey = "post/\(imageKey)"
+            put.objectKey = "/post/\(imageKey)"
         default:
-            put.objectKey = "user/\(imageKey)"
+            put.objectKey = "/user/\(imageKey)"
         }
         
         put.uploadingData = images.compressedData(quality: 0.75)!
@@ -90,15 +91,15 @@ class AliPayManager: NSObject {
             if (task ).error == nil {
                 switch type{
                 case .post:
-                    resultStrs.append("post/\(imageKey)")
+                    resultStrs.append("/post/\(imageKey)")
                 default:
-                    resultStrs.append("user/\(imageKey)")
+                    resultStrs.append("/user/\(imageKey)")
                 }
                 print("upload object success")
             }else{
                 print("upload object fail:\((task).error ?? "" as! Error)")
             }
-            result(resultStrs)
+            result(resultStrs,"")
             return nil
         }, cancellationToken: nil)
     }

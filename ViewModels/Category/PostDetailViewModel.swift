@@ -12,7 +12,7 @@ import DZNEmptyDataSet
 class PostDetailViewModel: BaseViewModel {
 
     var postType:PostType!
-    var tipDetailModel:TipDetailModel!
+    var tipDetailModel:TipModel!
     var commentListArray = NSMutableArray.init()
     var page:Int = 0
     override init() {
@@ -24,7 +24,7 @@ class PostDetailViewModel: BaseViewModel {
             cell.cellSetData(model: self.tipDetailModel)
         }
         cell.postDetailUserInfoClouse = {
-            print("关注")
+            self.followNet()
         }
     }
     
@@ -44,18 +44,19 @@ class PostDetailViewModel: BaseViewModel {
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
         if self.commentListArray.count > 0 {
-            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false)
+            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false, isShowRepli: true)
         }
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
         
         if self.commentListArray.count > 0 {
-            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]))
+            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), indexPath: indexPath)
         }
         
-        cell.postDetailCommentUserTableViewCellClouse = {
-            
+        cell.postDetailCommentUserTableViewCellClouse = { indexPath in
+            let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+            self.likeCommentNet(commentId: model.id.string)
         }
     }
     
@@ -64,44 +65,40 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-//        let commentVC = CommentViewController()
-//        commentVC.commentData = ["commet":commets[indexPath.section - 2],"images":images[indexPath.section - 2]]
-//        commentVC.commentList = self.testModel[indexPath.section - 2]
-//        NavigationPushView(self.controller!, toConroller: commentVC)
+        let commentVC = CommentViewController()
+        commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+        NavigationPushView(self.controller!, toConroller: commentVC)
     }
     
     func getTipDetail(id:String){
         let parameters = ["tipId":id]
         BaseNetWorke.sharedInstance.postUrlWithString(TipgetTipDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.tipDetailModel = TipDetailModel.init(fromDictionary: resultDic.value as! [String : Any])
+                self.tipDetailModel = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
                 self.reloadTableViewData()
             }
         }
     }
     
     func getComments(id:String){
-        let parameters = ["page":page.string, "limit":"10", "tipId":"6"]
+        page = page + 1
+        let parameters = ["page":page.string, "limit":"10", "tipId": id]
         BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
                     self.commentListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
                 }else{
+                    self.commentListArray.removeAllObjects()
                     self.commentListArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-                if self.controller?.tableView.mj_header != nil {
-                    self.controller?.stopRefresh()
-                }
-                if self.controller?.tableView.mj_footer != nil {
-                    self.controller?.stopLoadMoreData()
-                }
+                self.controller?.stopRefresh()
             }
         }
     }
     
     func collectNet(){
-        let parameters = ["tipId":self.tipDetailModel.tip.id!.string]
+        let parameters = ["tipId":self.tipDetailModel.id!.string]
         BaseNetWorke.sharedInstance.postUrlWithString(TipcollectTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "收藏成功", autoHidder: true)
@@ -110,7 +107,7 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func likeNet(){
-        let parameters = ["tipId":self.tipDetailModel.tip.id!.string]
+        let parameters = ["tipId":self.tipDetailModel.id!.string]
         BaseNetWorke.sharedInstance.postUrlWithString(TipapproveTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
@@ -118,8 +115,17 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
+    func likeCommentNet(commentId:String){
+        let parameters = ["commentId":commentId]
+        BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
+            }
+        }
+    }
+    
     func followNet(){
-        let parameters = ["tipId":self.tipDetailModel.user.id!.string]
+        let parameters = ["userId":self.tipDetailModel.user.id!.string]
         BaseNetWorke.sharedInstance.postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "关注成功", autoHidder: true)

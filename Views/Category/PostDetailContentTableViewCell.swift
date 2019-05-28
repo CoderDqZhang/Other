@@ -113,21 +113,21 @@ class PostDetailContentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(model:TipDetailModel){
+    func cellSetData(model:TipModel){
         
-        let titleHeight = model.tip.title.nsString.height(with: App_Theme_PinFan_M_18_Font, constrainedToWidth: SCREENWIDTH - 30)
+        let titleHeight = model.title.nsString.height(with: App_Theme_PinFan_M_18_Font, constrainedToWidth: SCREENWIDTH - 30)
         titleLabel.snp.makeConstraints { (make) in
             make.size.height.equalTo(titleHeight)
         }
-        titleLabel.text = model.tip.title
+        titleLabel.text = model.title
         
-        let contentHeight = model.tip.content.nsString.height(with: App_Theme_PinFan_M_15_Font, constrainedToWidth: SCREENWIDTH - 30)
+        let contentHeight = model.content.nsString.height(with: App_Theme_PinFan_M_15_Font, constrainedToWidth: SCREENWIDTH - 30)
         contnetLabel.snp.updateConstraints { (make) in
             make.size.height.equalTo(contentHeight)
         }
-        contnetLabel.text = model.tip.content
+        contnetLabel.text = model.content
         
-        let images = model.tip.image.split(separator: ",")
+        let images = model.image.split(separator: ",")
         
         if images.count > 1 {
             for index in 0...images.count - 1 {
@@ -148,16 +148,15 @@ class PostDetailContentTableViewCell: UITableViewCell {
             }
         }
         
-        if model.tip.isFork == 1 {
+        if model.isFork == 1 {
             self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
-            self.likeButton.changeContent(str: model.tip.commentTotal.string, image: nil)
+            self.likeButton.changeContent(str: model.commentTotal.string, image: nil)
         }else{
-            likeButton.changeContent(str: model.tip.commentTotal.string, image: nil)
+            likeButton.changeContent(str: model.commentTotal.string, image: nil)
         }
         
-        if model.tip.isCollect == 1 {
+        if model.isCollect == 1 {
             self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
-            self.postDetailContentTableViewCellClouse(.collect)
         }
         
         likeButton.snp.updateConstraints { (make) in

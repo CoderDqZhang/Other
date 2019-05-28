@@ -28,7 +28,7 @@ class OutFallViewController: BaseViewController {
         }
         
         self.setUpLoadMoreData {
-            self.stopLoadMoreData()
+            self.stopRefresh()
         }
     }
     

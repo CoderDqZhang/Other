@@ -142,7 +142,6 @@ class CommentModel : NSObject, NSCoding{
 
 class ReplyList : NSObject, NSCoding{
     
-    var approveNum : Int!
     var content : String!
     var createTime : String!
     var followNum : Int!
@@ -150,7 +149,6 @@ class ReplyList : NSObject, NSCoding{
     var img : String!
     var isFollow : Int!
     var nickname : String!
-    var replyNum : Int!
     var toNickname : String!
     
     
@@ -158,7 +156,6 @@ class ReplyList : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        approveNum = dictionary["approveNum"] as? Int
         content = dictionary["content"] as? String
         createTime = dictionary["createTime"] as? String
         followNum = dictionary["followNum"] as? Int
@@ -166,7 +163,6 @@ class ReplyList : NSObject, NSCoding{
         img = dictionary["img"] as? String
         isFollow = dictionary["isFollow"] as? Int
         nickname = dictionary["nickname"] as? String
-        replyNum = dictionary["replyNum"] as? Int
         toNickname = dictionary["toNickname"] as? String
     }
     
@@ -176,9 +172,6 @@ class ReplyList : NSObject, NSCoding{
     func toDictionary() -> [String:Any]
     {
         var dictionary = [String:Any]()
-        if approveNum != nil{
-            dictionary["approveNum"] = approveNum
-        }
         if content != nil{
             dictionary["content"] = content
         }
@@ -200,9 +193,6 @@ class ReplyList : NSObject, NSCoding{
         if nickname != nil{
             dictionary["nickname"] = nickname
         }
-        if replyNum != nil{
-            dictionary["replyNum"] = replyNum
-        }
         if toNickname != nil{
             dictionary["toNickname"] = toNickname
         }
@@ -215,7 +205,6 @@ class ReplyList : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        approveNum = aDecoder.decodeObject(forKey: "approveNum") as? Int
         content = aDecoder.decodeObject(forKey: "content") as? String
         createTime = aDecoder.decodeObject(forKey: "createTime") as? String
         followNum = aDecoder.decodeObject(forKey: "followNum") as? Int
@@ -223,7 +212,6 @@ class ReplyList : NSObject, NSCoding{
         img = aDecoder.decodeObject(forKey: "img") as? String
         isFollow = aDecoder.decodeObject(forKey: "isFollow") as? Int
         nickname = aDecoder.decodeObject(forKey: "nickname") as? String
-        replyNum = aDecoder.decodeObject(forKey: "replyNum") as? Int
         toNickname = aDecoder.decodeObject(forKey: "toNickname") as? String
         
     }
@@ -234,9 +222,6 @@ class ReplyList : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
-        if approveNum != nil{
-            aCoder.encode(approveNum, forKey: "approveNum")
-        }
         if content != nil{
             aCoder.encode(content, forKey: "content")
         }
@@ -257,9 +242,6 @@ class ReplyList : NSObject, NSCoding{
         }
         if nickname != nil{
             aCoder.encode(nickname, forKey: "nickname")
-        }
-        if replyNum != nil{
-            aCoder.encode(replyNum, forKey: "replyNum")
         }
         if toNickname != nil{
             aCoder.encode(toNickname, forKey: "toNickname")

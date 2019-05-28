@@ -85,7 +85,7 @@ extension MineInfoViewController : UIImagePickerControllerDelegate {
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard var selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         DispatchQueue.main.async(execute: {
@@ -93,10 +93,10 @@ extension MineInfoViewController : UIImagePickerControllerDelegate {
             cell.rightImageView.image = selectedImage
         })
 
-        AliPayManager.getSharedInstance().uploadFile(images: [selectedImage], type: .user) { (strs) in
-            self.mineInfoViewModel.updateuserInfo(key: "img", value: "/\(strs[0])")
-            self.mineInfoViewModel.userInfo.img = "/\(strs[0])"
-            CacheManager.getSharedInstance().getUserInfo()?.img = "/\(strs[0])"
+        AliPayManager.getSharedInstance().uploadFile(images: [selectedImage], type: .user) { (imgs,str) in
+            self.mineInfoViewModel.updateuserInfo(key: "img", value: "\(imgs[0])")
+            self.mineInfoViewModel.userInfo.img = "\(imgs[0])"
+            CacheManager.getSharedInstance().getUserInfo()?.img = "\(imgs[0])"
         }
         picker.dismiss(animated: true) {
             

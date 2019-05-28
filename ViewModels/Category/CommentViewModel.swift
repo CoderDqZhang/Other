@@ -12,30 +12,70 @@ import DZNEmptyDataSet
 class CommentViewModel: BaseViewModel {
 
     
-    var commentData:NSDictionary!
-    var commentList:[ReplyList]!
+    var commentData:CommentModel!
+    var replistList = NSMutableArray.init()
+    var page:Int = 0
+    var content:String = ""
     
     override init() {
         super.init()
     }
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-//        if indexPath.section == 0 {
-//            cell.cellSetData(images: commentData.object(forKey: "images") as! [String], secondeContents: [], content: commentData.object(forKey: "commet") as! String, isCommentDetail: true)
-//        }else{
-//            cell.cellSetData(images: [], secondeContents: [], content: commentList[indexPath.section - 1].contentStr, isCommentDetail: false)
-//
-//        }
+        if indexPath.section == 0 {
+            cell.cellSetData(model: self.commentData, isCommentDetail: false, isShowRepli: false)
+        }else{
+            cell.cellSetRepliy(model: ReplyList.init(fromDictionary: replistList[indexPath.section - 1] as! [String : Any]))
+        }
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
-        cell.postDetailCommentUserTableViewCellClouse = {
-            
+        if indexPath.section == 0 {
+            cell.cellSetData(model: self.commentData, indexPath: indexPath)
+        }else{
+            cell.cellSetRepliy(model:  ReplyList.init(fromDictionary: replistList[indexPath.section - 1] as! [String : Any]), indexPath: indexPath)
+            cell.postDetailCommentUserTableViewCellClouse = { indexPath in
+                    
+            }
         }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func getReplitList(){
+        page = page + 1
+        let parameters = ["page":page.string, "limit":"10", "commentId": self.commentData.id.string]
+        BaseNetWorke.sharedInstance.postUrlWithString(ReplyreplyreplyListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.page != 1 {
+                    self.replistList.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                }else{
+                    self.replistList.removeAllObjects()
+                    self.replistList = NSMutableArray.init(array: resultDic.value as! Array)
+                }
+                self.reloadTableViewData()
+                self.controller?.stopRefresh()
+            }
+        }
+    }
+    
+    func setUpReplit(content:String){
+        if content == "" {
+            _ = Tools.shareInstance.showMessage(KWindow, msg: "请输入数据", autoHidder: true)
+            return
+        }
+        let parameters = ["content":content, "toUserId":self.commentData.user.id.string, "commentId":self.commentData.id.string] as [String : Any]
+        BaseNetWorke.sharedInstance.postUrlWithString(ReplyreplyUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "回复成功", autoHidder: true)
+                if self.controller?.reloadDataClouse != nil {
+                    self.controller?.reloadDataClouse()
+                }
+                self.controller?.tableView.mj_header.beginRefreshing()
+            }
+        }
     }
 }
 
@@ -81,7 +121,7 @@ extension CommentViewModel: UITableViewDelegate {
 
 extension CommentViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return commentList.count + 1
+        return replistList.count + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

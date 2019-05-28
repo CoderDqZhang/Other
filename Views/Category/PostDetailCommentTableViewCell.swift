@@ -89,7 +89,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(model:CommentModel, isCommentDetail:Bool){
+    func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool){
         let stringHeight = model.content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 70)
         contentLabel.snp.updateConstraints { (make) in
             make.size.height.equalTo(stringHeight)
@@ -99,10 +99,28 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         let images:[String] = model.img.nsString.components(separatedBy: ",")
         self.setImageContentView(images,isCommentDetail)
         
-        if !isCommentDetail {
+        if isShowRepli {
             self.setSecondeCotent(secondeContents: model.replyList)
         }
         
+        lineLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
+            make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: 1))
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+        }
+        self.contentView.updateConstraintsIfNeeded()
+    }
+    
+    func cellSetRepliy(model:ReplyList) {
+        let stringHeight = model.content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 70)
+        contentLabel.snp.updateConstraints { (make) in
+            make.size.height.equalTo(stringHeight)
+        }
+        contentLabel.text = model.content
+        imageContentView.snp.updateConstraints{ (make) in
+            make.height.equalTo(0.0001)
+        }
         lineLabel.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
             make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: 1))
@@ -157,8 +175,12 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
                     imageView.tag = index + 10000
                     UIImageViewManger.sd_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
-                        let view = self.imageContentView.viewWithTag(index + 10000)
+//                        let view = self.imageContentView.viewWithTag(index + 10000)
                         imageView.frame = CGRect.init(x: 0, y:imageContentHeight, width: SCREENWIDTH - 64, height: (SCREENWIDTH - 64) * (image?.size.height)! / (image?.size.width)!)
+                        imageView.backgroundColor = .red
+                        if error == nil {
+                            imageView.image = image
+                        }
                         if index == images.count - 1 {
                             self.imageContentView.snp.updateConstraints{ (make) in
                                 make.height.equalTo(imageView.frame.maxY)
@@ -172,13 +194,15 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 
             }else{
                 for index in 0...images.count - 1 {
-                    let image = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (commentImageWidth + 11), y: 0, width: commentImageWidth, height: commentImageHeight))
-                    UIImageViewManger.sd_imageView(url: images[index], imageView: image, placeholderImage: nil) { (image, error, cache, url) in
-                        
+                    let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (commentImageWidth + 11), y: 0, width: commentImageWidth, height: commentImageHeight))
+                    UIImageViewManger.sd_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
+                        if error == nil {
+                            imageView.image = image
+                        }
                     }
-                    image.layer.cornerRadius = 5
-                    image.layer.masksToBounds = true
-                    self.imageContentView.addSubview(image)
+                    imageView.layer.cornerRadius = 5
+                    imageView.layer.masksToBounds = true
+                    self.imageContentView.addSubview(imageView)
                 }
                 imageContentView.snp.updateConstraints{ (make) in
                     make.height.equalTo(commentImageHeight)

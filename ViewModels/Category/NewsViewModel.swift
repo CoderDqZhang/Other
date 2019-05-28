@@ -82,12 +82,7 @@ class NewsViewModel: BaseViewModel {
                     self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-                if self.controller?.tableView.mj_header != nil {
-                    self.controller?.stopRefresh()
-                }
-                if self.controller?.tableView.mj_footer != nil {
-                    self.controller?.stopLoadMoreData()
-                }
+                self.controller?.stopRefresh()
             }
         }
     }

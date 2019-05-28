@@ -88,7 +88,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     
     func postTirbeNet(){
         if self.selectPhotos.count > 0 {
-            AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { strs in
+            AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
                 let parameters = ["content":self.postModel.content!, "title":self.postModel.tribe!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
                 BaseNetWorke.sharedInstance.postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
@@ -111,10 +111,6 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                 }
             }
         }
-        
-        
-        
-        
     }
     
     

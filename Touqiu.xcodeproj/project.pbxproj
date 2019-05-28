@@ -49,7 +49,6 @@
 		1F99175A229BC16D00C8FDD5 /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */; };
 		1F99175C229BC5B100C8FDD5 /* TouUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */; };
 		1F99175E229BDBC400C8FDD5 /* CoinsDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */; };
-		1F991760229BEC0800C8FDD5 /* TipDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175F229BEC0800C8FDD5 /* TipDetailModel.swift */; };
 		1F991762229BF05700C8FDD5 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991761229BF05700C8FDD5 /* CommentModel.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
 		1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB22281788E00C9137C /* ViewController.swift */; };
@@ -302,7 +301,6 @@
 		1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
 		1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouUpViewModel.swift; sourceTree = "<group>"; };
 		1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailModel.swift; sourceTree = "<group>"; };
-		1F99175F229BEC0800C8FDD5 /* TipDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailModel.swift; sourceTree = "<group>"; };
 		1F991761229BF05700C8FDD5 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5BDB02281788E00C9137C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1398,7 +1396,6 @@
 				1F395CCC2296A99E00781C0C /* CategoryModel.swift */,
 				1F395CCE229783A300781C0C /* TipModel.swift */,
 				1F395CDA229797D400781C0C /* PostModel.swift */,
-				1F99175F229BEC0800C8FDD5 /* TipDetailModel.swift */,
 				1F991761229BF05700C8FDD5 /* CommentModel.swift */,
 			);
 			name = Category;
@@ -1846,7 +1843,6 @@
 				1F395CDB229797D400781C0C /* PostModel.swift in Sources */,
 				1FE8DAB6228EC89E00DCED01 /* SettingViewModel.swift in Sources */,
 				1FE5BED52282866300C9137C /* ijksdl_timer.c in Sources */,
-				1F991760229BEC0800C8FDD5 /* TipDetailModel.swift in Sources */,
 				1FE8DABC228EC8D100DCED01 /* SigupVIPViewModel.swift in Sources */,
 				1FE5BE452282864300C9137C /* UIButton+Extentions.swift in Sources */,
 				1FE5BF46228528A900C9137C /* CommentViewModel.swift in Sources */,
