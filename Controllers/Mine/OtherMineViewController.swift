@@ -20,6 +20,13 @@ class OtherMineViewController: BaseViewController {
     var tableHeaderViewHeight: CGFloat = 138
     var heightForHeaderInSection: Int = 44
     
+    let recommendVC = RecommendViewController()
+    let otherGuessVC = OtherGuessViewController()
+    let otherPostVC = OtherPostViewController()
+    
+    var postData:NSDictionary!
+    var otherViewModel = OtherMineViewModel.init()
+    
     var gloableNavigationBar:GLoabelNavigaitonBar!
     
     override func viewDidLoad() {
@@ -45,7 +52,9 @@ class OtherMineViewController: BaseViewController {
             })
             // Fallback on earlier versions
         }
-        gloableNavigationBar.changeToolsButtonType(followed: false)
+        gloableNavigationBar.rightButtonClouse = { status in
+            self.otherViewModel.followNet(userId: (self.postData.object(forKey: "id") as! Int).string, status: status)
+        }
         pagingView.pinSectionHeaderVerticalOffset = gloableNavigationBar.height - 64
         self.view.addSubview(gloableNavigationBar)
     }
@@ -58,7 +67,12 @@ class OtherMineViewController: BaseViewController {
             // Fallback on earlier versions
         }
         userHeader = GloabelHeader(frame: userHeaderContainerView.bounds)
+        //设置数据
+        otherViewModel.getUserInfoNet(userId: (postData.object(forKey: "id") as! Int).string)
         userHeader.changeToolsButtonType(followed: true)
+        userHeader.gloabelHeaderClouse = { status in
+            self.otherViewModel.followNet(userId: (self.postData.object(forKey: "id") as! Int).string, status: status)
+        }
         userHeaderContainerView.addSubview(userHeader)
         
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
@@ -88,6 +102,21 @@ class OtherMineViewController: BaseViewController {
         segmentedView.contentScrollView = pagingView.listContainerView.collectionView
     }
 
+    override func bindViewModelLogic() {
+        self.bindViewModel(viewModel: otherViewModel, controller: self)
+        self.recommendVC.postDetailDataClouse = { data, type in
+            self.otherViewModel.pushPostDetailViewController(data, type)
+        }
+        
+        self.otherPostVC.postDetailDataClouse = { data, type in
+            self.otherViewModel.pushPostDetailViewController(data, type)
+        }
+        
+        self.otherGuessVC.postDetailDataClouse = { data, type in
+            self.otherViewModel.pushPostDetailViewController(data, type)
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         pagingView.frame = self.view.bounds
@@ -124,9 +153,17 @@ extension OtherMineViewController: JXPagingViewDelegate {
     }
     
     func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
-        let controller = RecommendViewController.init()
-        controller.initSView()
-        return controller
+        switch index {
+        case 0:
+            recommendVC.initSView(dic: self.postData)
+            return recommendVC
+        case 1:
+            otherPostVC.initSView(dic: self.postData)
+            return otherPostVC
+        default:
+            otherGuessVC.initSView(dic: self.postData)
+            return otherGuessVC
+        }
     }
     
     func mainTableViewDidScroll(_ scrollView: UIScrollView) {

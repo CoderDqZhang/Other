@@ -28,12 +28,17 @@ enum GLoabelNavigaitonBarButtonType {
     case rightBtn
 }
 typealias GloabelBackButtonClouse = (_ buttonType:GLoabelNavigaitonBarButtonType) ->Void
+typealias RightButtonClouse = (_ status:Bool) ->Void
+
 class GLoabelNavigaitonBar:UIView {
     var titleLabel:YYLabel!
     var backButton:UIButton!
     var rigthButton:AnimationButton!
     
+    var isSelect:Bool = false
+    
     var gloabelBackButtonClouse:GloabelBackButtonClouse!
+    var rightButtonClouse:RightButtonClouse!
     
     init(frame: CGRect, title:String, rightButton:AnimationButton?,  click:@escaping GloabelBackButtonClouse) {
         super.init(frame:frame)
@@ -63,6 +68,7 @@ class GLoabelNavigaitonBar:UIView {
             self.rigthButton.cornerRadius = 14
             self.rigthButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
             self.rigthButton.layer.masksToBounds = true
+            self.rigthButton.isHidden = true
             rightButton?.addTarget(self, action: #selector(self.rightButtonClick), for: .touchUpInside)
             self.addSubview(rightButton!)
             rightButton?.snp.makeConstraints { (make) in
@@ -97,9 +103,13 @@ class GLoabelNavigaitonBar:UIView {
     
     @objc func rightButtonClick(){
         self.gloabelBackButtonClouse(.rightBtn)
+        if self.rightButtonClouse != nil {
+            self.rightButtonClouse(self.isSelect)
+        }
     }
     
     func changeToolsButtonType(followed:Bool) {
+        isSelect = followed
         if followed {
             rigthButton.setTitle("已关注", for: .normal)
             rigthButton.borderColor = App_Theme_FFAC1B_Color

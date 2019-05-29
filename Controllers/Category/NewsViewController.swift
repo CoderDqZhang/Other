@@ -11,7 +11,6 @@ import UIKit
 class NewsViewController: BaseViewController {
 
     
-    var postDetailDataClouse:PostDetailDataClouse!
     var categoryDetailClouse:CategoryDetailDataClouse!
     
     let newsViewModel = NewsViewModel.init()

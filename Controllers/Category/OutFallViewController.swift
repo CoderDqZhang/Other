@@ -10,8 +10,6 @@ import UIKit
 
 class OutFallViewController: BaseViewController {
 
-    var postDetailDataClouse:PostDetailDataClouse!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blue

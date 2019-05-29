@@ -47,7 +47,7 @@ class ConinsSegementViewController: BaseViewController {
         segmentedViewDataSource.titleNormalColor = App_Theme_999999_Color!
         segmentedViewDataSource.isTitleColorGradientEnabled = true
         segmentedViewDataSource.isTitleZoomEnabled = false
-        segmentedViewDataSource.reloadData(selectedIndex: 1)
+        segmentedViewDataSource.reloadData(selectedIndex: 0)
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = App_Theme_FFFFFF_Color

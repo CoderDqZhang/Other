@@ -51,6 +51,8 @@
 		1F99175E229BDBC400C8FDD5 /* CoinsDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */; };
 		1F991762229BF05700C8FDD5 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991761229BF05700C8FDD5 /* CommentModel.swift */; };
 		1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */; };
+		1F991775229E6EC300C8FDD5 /* OtherPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */; };
+		1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
 		1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB22281788E00C9137C /* ViewController.swift */; };
 		1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB42281788E00C9137C /* Main.storyboard */; };
@@ -304,6 +306,8 @@
 		1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailModel.swift; sourceTree = "<group>"; };
 		1F991761229BF05700C8FDD5 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansFlowwerModel.swift; sourceTree = "<group>"; };
+		1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPostViewController.swift; sourceTree = "<group>"; };
+		1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherGuessViewController.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5BDB02281788E00C9137C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE5BDB22281788E00C9137C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1222,6 +1226,8 @@
 				1FE8DAC1228ECAF400DCED01 /* FeedBackViewController.swift */,
 				1FE8DAD622926AE900DCED01 /* OtherMineViewController.swift */,
 				1FE8DAE32292817400DCED01 /* RecommendViewController.swift */,
+				1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */,
+				1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */,
 				1FE8DAFA2292C1E900DCED01 /* PostSegementViewController.swift */,
 				1FE8DAF62292C15C00DCED01 /* MyPostViewController.swift */,
 				1FE8DAF82292C1D200DCED01 /* MyCommentViewController.swift */,
@@ -1837,6 +1843,7 @@
 				1FE5BE4C2282864300C9137C /* AlertControl+Tools.swift in Sources */,
 				1FE8DAD322926A5500DCED01 /* GloabelHeader.swift in Sources */,
 				1F395CD1229786AB00781C0C /* CategoryChoosViewController.swift in Sources */,
+				1F991775229E6EC300C8FDD5 /* OtherPostViewController.swift in Sources */,
 				1FE5BE1F228285FA00C9137C /* UIImage+PureColor.m in Sources */,
 				1FE5BE372282863D00C9137C /* PresentTransitionAnimated.m in Sources */,
 				1FE5BF50228561CB00C9137C /* PostDetailUserInfoTableViewCell.swift in Sources */,
@@ -1905,6 +1912,7 @@
 				1FE8DAC4228ECD0600DCED01 /* ChangePasswordViewModel.swift in Sources */,
 				1FE8DAA8228EAB6600DCED01 /* ChangeViewModel.swift in Sources */,
 				1FE5BF332283F60800C9137C /* Conner+Shadows.swift in Sources */,
+				1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */,
 				1FE5BEC92282866300C9137C /* mvp.vsh.c in Sources */,
 				1F991752229B784800C8FDD5 /* CoinsDetailTableViewCell.swift in Sources */,
 				1FE5BE21228285FA00C9137C /* NSString+Utils.m in Sources */,

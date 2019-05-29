@@ -13,6 +13,7 @@ import DZNEmptyDataSet
 import FDFullscreenPopGesture
 
 typealias SearchResultDicClouse = (_ dic:NSDictionary) -> Void
+typealias PostDetailDataClouse =  (_ obj:NSDictionary, _ type:PostType) ->Void
 
 typealias ReloadDataClouse = () ->Void
 
@@ -25,6 +26,7 @@ class BaseViewController: UIViewController {
     
     var resultDicClouse:SearchResultDicClouse!
     var reloadDataClouse:ReloadDataClouse!
+    var postDetailDataClouse:PostDetailDataClouse!
     
     var listViewDidScrollCallback: ((UIScrollView) -> ())?
 

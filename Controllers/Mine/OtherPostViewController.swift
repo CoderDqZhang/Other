@@ -1,25 +1,26 @@
 //
-//  RecommendViewController.swift
+//  OtherPostViewController.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/20.
+//  Created by Zhang on 2019/5/29.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 
-class RecommendViewController: BaseViewController {
+class OtherPostViewController: BaseViewController {
 
-    let recommendViewModel = RecommendViewModel.init()
+    var otherPostViewModel = OtherPostViewModel.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
     
     func initSView(dic:NSDictionary) {
-        self.bindViewModel(viewModel: recommendViewModel, controller: self)
-        self.recommendViewModel.userInfo = UserInfoModel.init(fromDictionary: dic as! [String : Any])
+        self.bindViewModel(viewModel: otherPostViewModel, controller: self)
+        self.otherPostViewModel.userInfo = UserInfoModel.init(fromDictionary: dic as! [String : Any])
         self.setUpTableView(style: .grouped, cells: [CategoryContentTableViewCell.self,CommentTableViewCell.self,UserInfoTableViewCell.self], controller: self)
         
         self.setUpRefreshData {
@@ -29,13 +30,9 @@ class RecommendViewController: BaseViewController {
         self.setUpLoadMoreData {
             
         }
+        self.otherPostViewModel.getMyPostNet()
     }
     
-    
-//    func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
-//        
-//    }
-
     /*
     // MARK: - Navigation
 
@@ -47,4 +44,3 @@ class RecommendViewController: BaseViewController {
     */
 
 }
-

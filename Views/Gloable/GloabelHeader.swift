@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias GloabelHeaderClouse = (_ bool:Bool) ->Void
+
 class GloabelHeader: UIView {
 
     var backImageView:UIImageView!
@@ -19,8 +21,10 @@ class GloabelHeader: UIView {
     var attentionsLabel:YYLabel!
     var lineLabel:YYLabel!
     
+    var isSelect:Bool = false
     var followButton:AnimationButton!
     var mineInfoTableViewCellClouse:MineInfoTableViewCellClouse!
+    var gloabelHeaderClouse:GloabelHeaderClouse!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,7 +86,9 @@ class GloabelHeader: UIView {
         followButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
         followButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
         followButton.addAction({ (button) in
-            
+            if self.gloabelHeaderClouse != nil {
+                self.gloabelHeaderClouse(self.isSelect)
+            }
         }, for: .touchUpInside)
         self.addSubview(followButton)
         
@@ -94,6 +100,7 @@ class GloabelHeader: UIView {
     
     
     func changeToolsButtonType(followed:Bool) {
+        isSelect = followed
         if followed {
             followButton.setTitle("已关注", for: .normal)
             followButton.borderColor = App_Theme_FFAC1B_Color
@@ -108,6 +115,30 @@ class GloabelHeader: UIView {
             followButton.borderWidth = 1
         }
         
+    }
+    
+    func cellSetData(model:UserInfoModel){
+        UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
+            if error == nil {
+                self.avatarImageView.image = image
+            }
+        }
+        
+        userNameLabel.text = model.nickname
+        descLabel.text = model.descriptionField
+        if model.fansNum > 1000 {
+            followLabel.text = "粉丝 \(model.fansNum.kFormatted)"
+        }else{
+            followLabel.text = "粉丝 \(model.fansNum.string)"
+        }
+        if model.followNum > 1000 {
+            attentionsLabel.text = "关注 \(String(describing: model.followNum.kFormatted))"
+        }else{
+            attentionsLabel.text = "关注 \(model.followNum.string)"
+        }
+        descLabel.text = model.descriptionField == "" ? "还没有个人简介" : model.descriptionField
+        vImageView.isHidden = model.isMaster == "1" ? false : true
+        self.changeToolsButtonType(followed: model.isFollow == 1 ? false : true)
     }
     
     override func updateConstraints() {

@@ -11,7 +11,6 @@ import UIKit
 class MyPostViewController: BaseViewController {
 
     let myPostViewModel = MyPostViewModel.init()
-    var postDetailDataClouse:PostDetailDataClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()

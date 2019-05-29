@@ -28,7 +28,10 @@ class FollowViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
+        let dic:NSDictionary = FansFlowwerModel.init(fromDictionary: self.followArray[indexPath.row] as! [String : Any]).toDictionary() as NSDictionary
+        let otherMineVC = OtherMineViewController()
+        otherMineVC.postData = dic
+        NavigationPushView(self.controller!, toConroller: otherMineVC)
     }
     
     func getFllowerNet(){

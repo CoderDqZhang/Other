@@ -1,25 +1,26 @@
 //
-//  RecommendViewController.swift
+//  OtherGuessViewController.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/20.
+//  Created by Zhang on 2019/5/29.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 
-class RecommendViewController: BaseViewController {
+class OtherGuessViewController: BaseViewController {
 
-    let recommendViewModel = RecommendViewModel.init()
+    let otherGuessViewModel = OtherGuessingViewModel.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
     
     func initSView(dic:NSDictionary) {
-        self.bindViewModel(viewModel: recommendViewModel, controller: self)
-        self.recommendViewModel.userInfo = UserInfoModel.init(fromDictionary: dic as! [String : Any])
+        self.bindViewModel(viewModel: otherGuessViewModel, controller: self)
+        self.otherGuessViewModel.userInfo = UserInfoModel.init(fromDictionary: dic as! [String : Any])
         self.setUpTableView(style: .grouped, cells: [CategoryContentTableViewCell.self,CommentTableViewCell.self,UserInfoTableViewCell.self], controller: self)
         
         self.setUpRefreshData {
@@ -30,12 +31,6 @@ class RecommendViewController: BaseViewController {
             
         }
     }
-    
-    
-//    func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
-//        
-//    }
-
     /*
     // MARK: - Navigation
 
@@ -47,4 +42,3 @@ class RecommendViewController: BaseViewController {
     */
 
 }
-

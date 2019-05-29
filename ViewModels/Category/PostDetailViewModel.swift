@@ -84,7 +84,7 @@ class PostDetailViewModel: BaseViewModel {
     
     func getComments(id:String){
         page = page + 1
-        let parameters = ["page":page.string, "limit":"10", "tipId": id]
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "tipId": id]
         BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {

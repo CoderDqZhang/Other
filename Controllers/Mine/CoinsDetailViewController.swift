@@ -33,6 +33,7 @@ class CoinsDetailViewController: BaseViewController {
         self.setUpLoadMoreData {
             self.coinsViewModel.getCoinsDetail()
         }
+        self.coinsViewModel.getCoinsDetail()
     }
     
     /*

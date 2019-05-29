@@ -42,7 +42,10 @@ class FansViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
+        let dic:NSDictionary = FansFlowwerModel.init(fromDictionary: self.fansArray[indexPath.row] as! [String : Any]).toDictionary() as NSDictionary
+        let otherMineVC = OtherMineViewController()
+        otherMineVC.postData = dic
+        NavigationPushView(self.controller!, toConroller: otherMineVC)
     }
 }
 

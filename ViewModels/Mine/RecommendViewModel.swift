@@ -13,6 +13,7 @@ class RecommendViewModel: BaseViewModel {
     
     let contentStrs = ["你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？"]
     let images = [[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"]]
+    var userInfo:UserInfoModel!
     
     override init() {
         super.init()

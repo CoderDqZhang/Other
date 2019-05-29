@@ -16,7 +16,6 @@ class CoinsViewModel: BaseViewModel {
     var page:Int = 0
     override init() {
         super.init()
-        self.getCoinsDetail()
     }
 
     
@@ -30,7 +29,7 @@ class CoinsViewModel: BaseViewModel {
     
     func getCoinsDetail(){
         page = page + 1
-        let parameters = ["page":page.string, "limit":LIMITNUMBER, "type":self.type.hashValue] as [String : Any]
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "type":self.type.rawValue] as [String : Any]
         BaseNetWorke.sharedInstance.postUrlWithString(AccountcoinDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
@@ -61,7 +60,7 @@ extension CoinsViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 47
+        return 62
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -55,7 +55,7 @@ class CommentViewModel: BaseViewModel {
     
     func getReplitList(){
         page = page + 1
-        let parameters = ["page":page.string, "limit":"10", "commentId": self.commentData.id.string]
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "commentId": self.commentData.id.string]
         BaseNetWorke.sharedInstance.postUrlWithString(ReplyreplyreplyListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
