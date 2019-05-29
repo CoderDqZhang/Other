@@ -26,11 +26,15 @@ class MyPostViewModel: BaseViewModel {
     }
     
     func tableViewUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:UserInfoTableViewCell){
-        
+        if self.myPostArray.count > 0 {
+            cell.cellSetData(model: TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]))
+        }
     }
     
     func tableViewMCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
-        
+        if self.myPostArray.count > 0 {
+            cell.cellSetData(model: TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]))
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
@@ -93,7 +97,7 @@ extension MyPostViewModel: UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        (self.controller as! RecommendViewController).listViewDidScrollCallback?(scrollView)
+        (self.controller as! MyPostViewController).listViewDidScrollCallback?(scrollView)
     }
 }
 
