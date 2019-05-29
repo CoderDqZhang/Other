@@ -56,6 +56,7 @@ class FollowsViewController: BaseViewController {
             self.resultDicNavigationController(dic)
         }
         searchController = BaseSearchViewController.init(searchResultsController: targerVC)
+        searchController.searchType = .follows
         searchController.rootController = self
         searchController.searchBar.delegate = searchController
         searchController.setUpView()

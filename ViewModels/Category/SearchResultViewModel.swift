@@ -19,7 +19,7 @@ class SearchResultViewModel: BaseViewModel {
     
     func tableViewTagerUserTableViewCellSetData(_ indexPath:IndexPath, cell:TagerUserTableViewCell) {
         let dic = reslutArray[indexPath.row] as! NSDictionary
-        cell.cellSetData(name: dic.object(forKey: "name") as! String, desc: dic.object(forKey: "desc") as! String)
+        cell.cellSetFansData(model: FansFlowwerModel.init(fromDictionary: dic as! [String : Any]))
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){

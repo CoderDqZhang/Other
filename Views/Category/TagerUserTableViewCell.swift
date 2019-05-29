@@ -63,10 +63,15 @@ class TagerUserTableViewCell: UITableViewCell {
         }
     }
     
-    func cellSetData(name:String, desc:String) {
-        userNameLabel.text = name
-        descLabel.text = desc
+    func cellSetFansData(model:FansFlowwerModel){
+        userNameLabel.text = model.nickname
+        descLabel.text = model.descriptionField
     }
+    
+//    func cellSetData(name:String, desc:String) {
+//        userNameLabel.text = name
+//        descLabel.text = desc
+//    }
     
     
     override func updateConstraints() {

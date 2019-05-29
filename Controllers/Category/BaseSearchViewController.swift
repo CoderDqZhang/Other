@@ -11,6 +11,7 @@ import UIKit
 enum SearchType {
     case category
     case tageruser
+    case follows
 }
 
 class BaseSearchViewController: UISearchController {
@@ -59,14 +60,29 @@ class BaseSearchViewController: UISearchController {
             BaseNetWorke.sharedInstance.postUrlWithString(TribetribeListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     self.resultArray = NSMutableArray.init(array: resultDic.value as! Array)
-                    (self.searchResultsController as! BaseViewController).bindViewodelResultData(self.resultArray)
-                    ((self.searchResultsController as! BaseViewController) as! CategoryChoosSearchViewController).refreshResultData()
+                    if self.resultArray.count > 0 {
+                        (self.searchResultsController as! BaseViewController).bindViewodelResultData(self.resultArray)
+                        ((self.searchResultsController as! BaseViewController) as! CategoryChoosSearchViewController).refreshResultData()
+                    }
                 }
             }
         }else if type == .tageruser{
             
+        }else if type == .follows {
+            //TO DO 加载更多
+            let parameters = ["page":1, "limit":LIMITNUMBER,"userId":CacheManager.getSharedInstance().getUserId(),"search":text] as [String : Any]
+            BaseNetWorke.sharedInstance.postUrlWithString(PersonmyfollowUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    self.resultArray = NSMutableArray.init(array: resultDic.value as! Array)
+
+                    if self.resultArray.count > 0 {
+                        (self.searchResultsController as! BaseViewController).bindViewodelResultData(self.resultArray)
+                        ((self.searchResultsController as! BaseViewController) as! TargerUserSearchViewController).refreshResultData()
+                    }
+                    
+                }
+            }
         }
-        
     }
 }
 
