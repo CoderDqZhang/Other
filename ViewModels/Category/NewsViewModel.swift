@@ -14,7 +14,6 @@ class NewsViewModel: BaseViewModel {
     var categoryArray = NSMutableArray.init()
     var tipListArray = NSMutableArray.init()
     
-    let categoryType = [CategoryType.BasketBall,CategoryType.FootBall,CategoryType.FootBallEurope,CategoryType.BasketBallEurope]
     var page:Int! = 0
     
     override init() {
@@ -31,9 +30,9 @@ class NewsViewModel: BaseViewModel {
         if self.categoryArray.count > 0 {
             cell.cellSetData(models: self.categoryArray)
         }
-        cell.categoryTableViewCellClouseClick = { tag in
-            let dic = NSDictionary.init(dictionary: self.categoryArray[tag] as! [String:Any])
-            (self.controller! as! NewsViewController).categoryDetailClouse(dic,self.categoryType[tag])
+        cell.categoryTableViewCellClouseClick = { category in
+            let dic:NSDictionary = category.toDictionary() as NSDictionary
+            (self.controller! as! NewsViewController).categoryDetailClouse(dic,.BasketBall)
         }
     }
     
@@ -73,7 +72,7 @@ class NewsViewModel: BaseViewModel {
     
     func getTribeListNet(){
         page = page + 1
-        let parameters = ["page":page.string, "limit":"3", "tribeId":"0", "isCollect":"0"]
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":"0", "isCollect":"0"] as [String : Any]
         BaseNetWorke.sharedInstance.postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {

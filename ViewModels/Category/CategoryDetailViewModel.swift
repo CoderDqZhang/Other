@@ -13,12 +13,11 @@ import DZNEmptyDataSet
 class CategoryDetailViewModel: BaseViewModel {
     
     var categoryType:CategoryType!
-    var categoryData:NSDictionary!
+    var categoryData:CategoryModel!
     var categoryHeaderHeight:CGFloat!
+    var tipListArray = NSMutableArray.init()
     
-    let contentStrs = ["你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？"]
-    let images = [[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"]]
-    
+    var page = 0
     override init() {
         super.init()
         if #available(iOS 11.0, *) {
@@ -30,23 +29,45 @@ class CategoryDetailViewModel: BaseViewModel {
     }
     
     func tableViewCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell) {
-        
+        if self.tipListArray.count > 0 {
+            cell.cellSetData(model: TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]))
+        }
     }
     
     func tableViewUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:UserInfoTableViewCell){
-        
+        if self.tipListArray.count > 0  {
+            cell.cellSetData(model: TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]))
+        }
     }
     
     func tableViewCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryContentTableViewCell) {
-//        cell.cellSetData(content: contentStrs[indexPath.section - 1], images: images[indexPath.section - 1])
+        if self.tipListArray.count > 0 {
+            cell.cellSetData(tipmodel: TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]))
+        }
     }
     
     func tableViewCategoryHeaderTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryHeaderTableViewCell){
-        
+        cell.cellSetData(model: self.categoryData)
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func getCategoryNet(){
+        page = page + 1
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":self.categoryData.id.string, "isCollect":"0"] as [String : Any]
+        BaseNetWorke.sharedInstance.postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.page != 1 {
+                    self.tipListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                }else{
+                    self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
+                }
+                self.reloadTableViewData()
+                self.controller?.stopRefresh()
+            }
+        }
     }
 }
 
@@ -114,7 +135,7 @@ extension CategoryDetailViewModel: UITableViewDelegate {
 
 extension CategoryDetailViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return images.count + 1
+        return tipListArray.count + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

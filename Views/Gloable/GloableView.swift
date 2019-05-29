@@ -210,10 +210,12 @@ class CustomViewCommentTextField: UIView {
         }
         
         if !isEdit {
-            let singTap = UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer {
-                click()
+            _  = self.newTapGesture { (gesture) in
+                gesture.numberOfTouchesRequired = 1
+                gesture.numberOfTapsRequired = 1
+                }.whenTaped { (tap) in
+                    click()
             }
-            self.addGestureRecognizer(singTap)
         }
         if #available(iOS 11.0, *) {
             IQKeyboardManager.shared.keyboardDistanceFromTextField = -TABBAR_HEIGHT

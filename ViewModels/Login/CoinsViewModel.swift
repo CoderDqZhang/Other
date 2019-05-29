@@ -30,7 +30,7 @@ class CoinsViewModel: BaseViewModel {
     
     func getCoinsDetail(){
         page = page + 1
-        let parameters = ["page":page.string, "limit":"3", "type":self.type.hashValue] as [String : Any]
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "type":self.type.hashValue] as [String : Any]
         BaseNetWorke.sharedInstance.postUrlWithString(AccountcoinDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {

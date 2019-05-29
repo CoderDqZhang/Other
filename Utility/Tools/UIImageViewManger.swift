@@ -17,6 +17,7 @@ let ImageRootURL = "https://\(OSS_BUCKET_PUBLIC).\(OSS_ENDPOINT)"
 class UIImageViewManger: NSObject {
 
     class func sd_imageView(url:String, imageView:UIImageView,placeholderImage:UIImage?, completedBlock: SDWebImage.SDExternalCompletionBlock? = nil){
+        print("\(ImageRootURL)\(url)")
         imageView.sd_setImage(with: URL.init(string: "\(ImageRootURL)\(url)"), placeholderImage: placeholderImage, options: .retryFailed, completed: completedBlock)
     }
     

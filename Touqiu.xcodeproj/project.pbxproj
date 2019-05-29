@@ -50,6 +50,7 @@
 		1F99175C229BC5B100C8FDD5 /* TouUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */; };
 		1F99175E229BDBC400C8FDD5 /* CoinsDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */; };
 		1F991762229BF05700C8FDD5 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991761229BF05700C8FDD5 /* CommentModel.swift */; };
+		1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
 		1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB22281788E00C9137C /* ViewController.swift */; };
 		1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB42281788E00C9137C /* Main.storyboard */; };
@@ -302,6 +303,7 @@
 		1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouUpViewModel.swift; sourceTree = "<group>"; };
 		1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailModel.swift; sourceTree = "<group>"; };
 		1F991761229BF05700C8FDD5 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansFlowwerModel.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5BDB02281788E00C9137C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE5BDB22281788E00C9137C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1385,6 +1387,7 @@
 				1F395CCA2296787600781C0C /* AccountInfoModel.swift */,
 				1F991757229BB41E00C8FDD5 /* AccountCoinsModel.swift */,
 				1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */,
+				1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */,
 			);
 			name = Mine;
 			path = ViewModels/Mine;
@@ -1802,6 +1805,7 @@
 				1FE8DAC6228ED11900DCED01 /* FeedBackViewModel.swift in Sources */,
 				1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
+				1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */,
 				1FE5BF212282D21F00C9137C /* OutFallViewModel.swift in Sources */,
 				1FE8DAF92292C1D200DCED01 /* MyCommentViewController.swift in Sources */,
 				1F395CD522978BFF00781C0C /* CategorySearchViewModel.swift in Sources */,

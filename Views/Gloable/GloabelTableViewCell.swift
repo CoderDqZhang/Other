@@ -178,13 +178,15 @@ class GloabelFansTableViewCell : UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(title:String, desc:String, image:String?, followed:Bool){
-        titleLabel.text = title
-        UIImageViewManger.sd_downImage(url: image!, placeholderImage: nil) { (image, data, error, bool) in
-            
+    func cellSetData(model:FansFlowwerModel){
+        titleLabel.text = model.nickname
+        UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cache, url) in
+            if error == nil {
+                self.avatarImageView.image = image
+            }
         }
-        self.changeToolsButtonType(followed: followed)
-        descLabel.text = desc
+        self.changeToolsButtonType(followed: model.isFollow == 0 ? true : false)
+        descLabel.text = model.descriptionField
         
     }
     

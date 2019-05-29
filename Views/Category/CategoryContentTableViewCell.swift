@@ -78,7 +78,7 @@ class CategoryContentTableViewCell: UITableViewCell {
         if images.count > 1 {
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                UIImageViewManger.sd_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
+                UIImageViewManger.sd_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
                     if error == nil {
                         imageView.image = image
                     }

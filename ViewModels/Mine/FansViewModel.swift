@@ -11,15 +11,33 @@ import DZNEmptyDataSet
 
 class FansViewModel: BaseViewModel {
     
-    
+    var page = 0
+    var fansArray = NSMutableArray.init()
     override init() {
         super.init()
+        self.getFansNet()
     }
     
     func tableViewGloabelFansTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelFansTableViewCell) {
-        cell.cellSetData(title: "德国主义", desc: "用户个性化对方水电费是否收费是电风扇", image: "", followed: indexPath.row == 1 ? true : false)
+        cell.cellSetData(model: FansFlowwerModel.init(fromDictionary: fansArray[indexPath.row] as! [String : Any]))
         if indexPath.row == 9 {
             cell.lineLableHidden()
+        }
+    }
+    
+    func getFansNet(){
+        page = page + 1
+        let parameters = ["page":page.string, "limit":LIMITNUMBER] as [String : Any]
+        BaseNetWorke.sharedInstance.postUrlWithString(PersonmyFansUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.page != 1 {
+                    self.fansArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                }else{
+                    self.fansArray = NSMutableArray.init(array: resultDic.value as! Array)
+                }
+                self.reloadTableViewData()
+                self.controller?.stopRefresh()
+            }
         }
     }
     
@@ -58,7 +76,7 @@ extension FansViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return fansArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

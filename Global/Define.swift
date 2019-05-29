@@ -50,6 +50,8 @@ let IPHONEXTABBARHEIGHT:CGFloat = IPHONEXs ? 30 : 0
 
 let KWindow:UIWindow = UIApplication.shared.keyWindow!
 
+let LIMITNUMBER:String = "10"
+
 
 func isIPhoneXSeries() -> Bool{
     var iPhoneXSeries:Bool = false
