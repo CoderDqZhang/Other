@@ -34,18 +34,19 @@ class CoinsCountView: UIView {
         coinsLabel.text = "666.66"
         self.addSubview(coinsLabel)
         
-        coinsLabel = YYLabel.init()
-        coinsLabel.textAlignment = .center
-        coinsLabel.font = App_Theme_PinFan_M_24_Font
-        coinsLabel.textColor = App_Theme_06070D_Color
-        coinsLabel.text = "总余额为666666.66M币"
-        self.addSubview(coinsLabel)
+        allCoinsLabel = YYLabel.init()
+        allCoinsLabel.textAlignment = .center
+        allCoinsLabel.font = App_Theme_PinFan_M_24_Font
+        allCoinsLabel.textColor = App_Theme_06070D_Color
+        allCoinsLabel.text = "总余额为666666.66M币"
+        self.addSubview(allCoinsLabel)
         
         self.updateConstraints()
     }
     
-    func viewSetData(model:AccountCoinsModel){
-        //        coinsLabel.text = model.chargeCoin.string
+    func viewSetData(model:AccountInfoModel){
+        coinsLabel.text = model.chargeCoin.string
+        allCoinsLabel.text = model.chargeCoin.string
     }
     
     override func updateConstraints() {
@@ -76,7 +77,7 @@ class CoinsCountView: UIView {
             make.bottom.equalTo(coinsLabel.snp.top).offset(0)
         }
         
-        coinsLabel.snp.makeConstraints { (make) in
+        allCoinsLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.left.equalToSuperview()
             make.right.equalToSuperview()
@@ -98,6 +99,7 @@ class WithdrawViewController: BaseViewController {
     
     var coinsView:CoinsCountView!
     var topUPView:TopUPView!
+    var accountModel:AccountInfoModel!
     
     var warningLabel:YYLabel!
     
@@ -110,23 +112,17 @@ class WithdrawViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
-        let rightButton = AnimationButton.init(type: .custom)
-        rightButton.setTitle("明细", for: .normal)
-        rightButton.frame = CGRect.init(x: 0, y: 0, width: 40, height: 40)
+        
         if #available(iOS 11.0, *) {
-            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "", rightButton: rightButton, click: { (type) in
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "", rightButton: nil, click: { (type) in
                 if type == .backBtn {
                     self.navigationController?.popViewController()
-                }else{
-                    NavigationPushView(self, toConroller: ConinsSegementViewController())
                 }
             })
         } else {
-            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "", rightButton: rightButton, click: { (type) in
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "", rightButton: nil, click: { (type) in
                 if type == .backBtn {
                     self.navigationController?.popViewController()
-                }else{
-                    NavigationPushView(self, toConroller: CoinsDetailViewController())
                 }
             })
             // Fallback on earlier versions
@@ -143,6 +139,7 @@ class WithdrawViewController: BaseViewController {
     }
     
     override func setUpView() {
+        
         scrollerView = UIScrollView.init()
         scrollerView.contentSize = CGSize.init(width: SCREENWIDTH, height: 700)
         scrollerView.backgroundColor = App_Theme_FFFFFF_Color
@@ -162,7 +159,7 @@ class WithdrawViewController: BaseViewController {
             coinsView = CoinsCountView.init(frame: CGRect.init(x: 0, y: -20 , width: SCREENWIDTH, height: 189))
             // Fallback on earlier versions
         }
-        
+        coinsView.viewSetData(model: self.accountModel)
         scrollerView.addSubview(coinsView)
         
         topUPView = TopUPView.init(frame: CGRect.init(x: 0, y: 138, width: SCREENWIDTH, height: 58 + 47 + AnimationTouchViewHeight * 2 + AnimationTouchViewMarginItemY + 60))

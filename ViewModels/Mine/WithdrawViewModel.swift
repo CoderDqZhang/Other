@@ -1,15 +1,15 @@
 //
-//  TouUpViewModel.swift
+//  WithdrawViewModel.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/27.
+//  Created by Zhang on 2019/5/29.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 import DZNEmptyDataSet
 
-class TouUpViewModel: BaseViewModel {
+class WithdrawViewModel: BaseViewModel {
 
     var accountInfo:AccountInfoModel!
     
@@ -22,21 +22,21 @@ class TouUpViewModel: BaseViewModel {
     }
     
     func tableViewTopUpToolsTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpToolsTableViewCell) {
-    
+        
     }
     
     func tableViewTopUpConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpConfirmTableViewCell) {
-    
+        
     }
     
     func tableViewTopUpWarningTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpWarningTableViewCell) {
-    
+        
     }
     
     func tableViewDidSelect( tableView:UITableView,  indexPath:IndexPath){
         
     }
-
+    
     func getAccount(){
         BaseNetWorke.sharedInstance.postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
@@ -58,7 +58,7 @@ class TouUpViewModel: BaseViewModel {
 }
 
 
-extension TouUpViewModel: UITableViewDelegate {
+extension WithdrawViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.tableViewDidSelect(tableView: tableView, indexPath: indexPath)
@@ -97,7 +97,7 @@ extension TouUpViewModel: UITableViewDelegate {
     }
 }
 
-extension TouUpViewModel: UITableViewDataSource {
+extension WithdrawViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
@@ -128,11 +128,11 @@ extension TouUpViewModel: UITableViewDataSource {
     }
 }
 
-extension TouUpViewModel : DZNEmptyDataSetDelegate {
+extension WithdrawViewModel : DZNEmptyDataSetDelegate {
     
 }
 
-extension TouUpViewModel : DZNEmptyDataSetSource {
+extension WithdrawViewModel : DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let attributed = "暂时还没有数据哦！"
         let attributedString = NSMutableAttributedString.init(string: attributed)
@@ -149,3 +149,4 @@ extension TouUpViewModel : DZNEmptyDataSetSource {
         return -64
     }
 }
+

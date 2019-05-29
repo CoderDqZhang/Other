@@ -38,6 +38,10 @@ class OtherMineViewController: BaseViewController {
     override func setUpViewNavigationItem() {
         let followButton = AnimationButton.init(type: .custom)
         followButton.frame = CGRect.init(x: SCREENWIDTH - 100, y: 0, width: 61, height: 27)
+        followButton.cornerRadius = 14
+        followButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
+        followButton.layer.masksToBounds = true
+        followButton.isHidden = true
         if #available(iOS 11.0, *) {
             gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "个人中心", rightButton: followButton, click: { (type) in
                 if type == .backBtn{

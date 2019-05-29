@@ -30,7 +30,9 @@ class MineViewModel: BaseViewModel {
                 case .follow:
                     NavigationPushView(self.controller!, toConroller: FollowsViewController())
                 case .topUp:
-                    NavigationPushView(self.controller!, toConroller: TopUpViewController())
+                    let touUpVC = TopUpViewController()
+                    touUpVC.accountInfo = self.accountInfo
+                    NavigationPushView(self.controller!, toConroller: touUpVC)
                 default:
                     NavigationPushView(self.controller!, toConroller: StoreViewController())
                 }

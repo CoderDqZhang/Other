@@ -57,7 +57,6 @@ class TopUpView: UIView {
         iconLabel.textAlignment = .center
         iconLabel.font = App_Theme_PinFan_R_19_Font
         iconLabel.textColor = App_Theme_06070D_Color
-        iconLabel.text = cion
         centerView.addSubview(iconLabel)
         
         iconLabel.snp.makeConstraints { (make) in
@@ -200,8 +199,16 @@ class TopUpView: UIView {
     }
     
     func updateText(icon:String, number:String) {
-        iconLabel.text = icon
-        numberLabel.text = number
+        if icon.double()! > 10000 {
+            iconLabel.text = icon.double()?.int.kFormatted
+        }else{
+            iconLabel.text = icon
+        }
+        if number.double()! > 10000 {
+            numberLabel.text = number.double()?.int.kFormatted
+        }else{
+            numberLabel.text = number
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -335,8 +342,8 @@ class MineInfoTableViewCell: UITableViewCell {
             }
             vImageView.isHidden = model!.isMaster == "1" ? false : true
         }
-        if acount != nil {
-            topUpView.updateText(icon: "\((acount?.chargeCoin.double)!)", number: "\((acount?.integral.double)!)")
+        if acount?.integral != nil {
+            topUpView.updateText(icon: acount!.chargeCoin.string, number: acount!.integral.string)
         }
         
     }

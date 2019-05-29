@@ -10,38 +10,26 @@ import UIKit
 
 class AccountInfoModel : NSObject, NSCoding{
     
-    var bankNo : String!
-    var bankPhone : String!
-    var chargeCoin : Int!
-    var firstNum : Int!
-    var integral : Int!
+    var chargeCoin : Double!
+    var integral : Double!
     var inviteCode : String!
-    var inviteCoin : Int!
+    var inviteCoin : Double!
     var inviteNo : Int!
-    var recomCoin : Int!
-    var secondNum : Int!
-    var thirdNum : Int!
+    var recomCoin : Double!
     var userId : Int!
-    var zfbNo : String!
     
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        bankNo = dictionary["bankNo"] as? String
-        bankPhone = dictionary["bankPhone"] as? String
-        chargeCoin = dictionary["chargeCoin"] as? Int
-        firstNum = dictionary["firstNum"] as? Int
-        integral = dictionary["integral"] as? Int
+        chargeCoin = dictionary["chargeCoin"] as? Double
+        integral = dictionary["integral"] as? Double
         inviteCode = dictionary["inviteCode"] as? String
-        inviteCoin = dictionary["inviteCoin"] as? Int
+        inviteCoin = dictionary["inviteCoin"] as? Double
         inviteNo = dictionary["inviteNo"] as? Int
-        recomCoin = dictionary["recomCoin"] as? Int
-        secondNum = dictionary["secondNum"] as? Int
-        thirdNum = dictionary["thirdNum"] as? Int
+        recomCoin = dictionary["recomCoin"] as? Double
         userId = dictionary["userId"] as? Int
-        zfbNo = dictionary["zfbNo"] as? String
     }
     
     /**
@@ -50,17 +38,8 @@ class AccountInfoModel : NSObject, NSCoding{
     func toDictionary() -> [String:Any]
     {
         var dictionary = [String:Any]()
-        if bankNo != nil{
-            dictionary["bankNo"] = bankNo
-        }
-        if bankPhone != nil{
-            dictionary["bankPhone"] = bankPhone
-        }
         if chargeCoin != nil{
             dictionary["chargeCoin"] = chargeCoin
-        }
-        if firstNum != nil{
-            dictionary["firstNum"] = firstNum
         }
         if integral != nil{
             dictionary["integral"] = integral
@@ -77,17 +56,8 @@ class AccountInfoModel : NSObject, NSCoding{
         if recomCoin != nil{
             dictionary["recomCoin"] = recomCoin
         }
-        if secondNum != nil{
-            dictionary["secondNum"] = secondNum
-        }
-        if thirdNum != nil{
-            dictionary["thirdNum"] = thirdNum
-        }
         if userId != nil{
             dictionary["userId"] = userId
-        }
-        if zfbNo != nil{
-            dictionary["zfbNo"] = zfbNo
         }
         return dictionary
     }
@@ -98,19 +68,13 @@ class AccountInfoModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        bankNo = aDecoder.decodeObject(forKey: "bankNo") as? String
-        bankPhone = aDecoder.decodeObject(forKey: "bankPhone") as? String
-        chargeCoin = aDecoder.decodeObject(forKey: "chargeCoin") as? Int
-        firstNum = aDecoder.decodeObject(forKey: "firstNum") as? Int
-        integral = aDecoder.decodeObject(forKey: "integral") as? Int
+        chargeCoin = aDecoder.decodeObject(forKey: "chargeCoin") as? Double
+        integral = aDecoder.decodeObject(forKey: "integral") as? Double
         inviteCode = aDecoder.decodeObject(forKey: "inviteCode") as? String
-        inviteCoin = aDecoder.decodeObject(forKey: "inviteCoin") as? Int
+        inviteCoin = aDecoder.decodeObject(forKey: "inviteCoin") as? Double
         inviteNo = aDecoder.decodeObject(forKey: "inviteNo") as? Int
-        recomCoin = aDecoder.decodeObject(forKey: "recomCoin") as? Int
-        secondNum = aDecoder.decodeObject(forKey: "secondNum") as? Int
-        thirdNum = aDecoder.decodeObject(forKey: "thirdNum") as? Int
+        recomCoin = aDecoder.decodeObject(forKey: "recomCoin") as? Double
         userId = aDecoder.decodeObject(forKey: "userId") as? Int
-        zfbNo = aDecoder.decodeObject(forKey: "zfbNo") as? String
         
     }
     
@@ -120,17 +84,8 @@ class AccountInfoModel : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
-        if bankNo != nil{
-            aCoder.encode(bankNo, forKey: "bankNo")
-        }
-        if bankPhone != nil{
-            aCoder.encode(bankPhone, forKey: "bankPhone")
-        }
         if chargeCoin != nil{
             aCoder.encode(chargeCoin, forKey: "chargeCoin")
-        }
-        if firstNum != nil{
-            aCoder.encode(firstNum, forKey: "firstNum")
         }
         if integral != nil{
             aCoder.encode(integral, forKey: "integral")
@@ -147,17 +102,8 @@ class AccountInfoModel : NSObject, NSCoding{
         if recomCoin != nil{
             aCoder.encode(recomCoin, forKey: "recomCoin")
         }
-        if secondNum != nil{
-            aCoder.encode(secondNum, forKey: "secondNum")
-        }
-        if thirdNum != nil{
-            aCoder.encode(thirdNum, forKey: "thirdNum")
-        }
         if userId != nil{
             aCoder.encode(userId, forKey: "userId")
-        }
-        if zfbNo != nil{
-            aCoder.encode(zfbNo, forKey: "zfbNo")
         }
         
     }

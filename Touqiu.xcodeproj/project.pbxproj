@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		15108473677B73C6C74CACF8 /* Pods_TouqiuUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */; };
+		1F1C1B2E229E9FF4008031F4 /* TopUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B2D229E9FF4008031F4 /* TopUpTableViewCell.swift */; };
+		1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B2F229EA01E008031F4 /* TopUpToolsTableViewCell.swift */; };
+		1F1C1B32229EA042008031F4 /* TopUpWarningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */; };
+		1F1C1B34229EA052008031F4 /* TopUpConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */; };
+		1F1C1B36229EA839008031F4 /* WithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */; };
 		1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8122951D4200781C0C /* UMCommonLog.framework */; };
 		1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F395C8222951D4200781C0C /* UMCommonLog.bundle */; };
 		1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8522951D4200781C0C /* UTDID.framework */; };
@@ -260,6 +265,11 @@
 /* Begin PBXFileReference section */
 		0DA723FDBC1D618581E1F82A /* Pods-TouqiuUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.release.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.release.xcconfig"; sourceTree = "<group>"; };
 		18B65AD53AA8FA7FDF790C02 /* Pods-TouqiuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuTests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuTests/Pods-TouqiuTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1F1C1B2D229E9FF4008031F4 /* TopUpTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B2F229EA01E008031F4 /* TopUpToolsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpToolsTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpWarningTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpConfirmTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewModel.swift; sourceTree = "<group>"; };
 		1F395C8122951D4200781C0C /* UMCommonLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommonLog.framework; sourceTree = "<group>"; };
 		1F395C8222951D4200781C0C /* UMCommonLog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMCommonLog.bundle; sourceTree = "<group>"; };
 		1F395C8522951D4200781C0C /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
@@ -1301,6 +1311,10 @@
 				1FE8DB0822939BD900DCED01 /* TakeVCartTableViewCell.swift */,
 				1FE8DB102293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift */,
 				1F991751229B784800C8FDD5 /* CoinsDetailTableViewCell.swift */,
+				1F1C1B2D229E9FF4008031F4 /* TopUpTableViewCell.swift */,
+				1F1C1B2F229EA01E008031F4 /* TopUpToolsTableViewCell.swift */,
+				1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */,
+				1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1355,6 +1369,7 @@
 				1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */,
 				1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */,
 				1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */,
+				1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1805,6 +1820,7 @@
 				1FE8DAF12292933A00DCED01 /* JXPagingListContainerView.swift in Sources */,
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
+				1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */,
 				1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */,
 				1FE5BED42282866300C9137C /* IJKSDLGLView.m in Sources */,
 				1FE8DAD722926AE900DCED01 /* OtherMineViewController.swift in Sources */,
@@ -1838,6 +1854,7 @@
 				1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */,
 				1FE5BF5B228583C000C9137C /* AnimationView.swift in Sources */,
 				1FE5BEB42282866300C9137C /* TAPageControl.m in Sources */,
+				1F1C1B2E229E9FF4008031F4 /* TopUpTableViewCell.swift in Sources */,
 				1FE8DAC2228ECAF400DCED01 /* FeedBackViewController.swift in Sources */,
 				1FE5BEB22282866200C9137C /* SDCollectionViewCell.m in Sources */,
 				1FE5BE4C2282864300C9137C /* AlertControl+Tools.swift in Sources */,
@@ -1847,6 +1864,7 @@
 				1FE5BE1F228285FA00C9137C /* UIImage+PureColor.m in Sources */,
 				1FE5BE372282863D00C9137C /* PresentTransitionAnimated.m in Sources */,
 				1FE5BF50228561CB00C9137C /* PostDetailUserInfoTableViewCell.swift in Sources */,
+				1F1C1B32229EA042008031F4 /* TopUpWarningTableViewCell.swift in Sources */,
 				1FE5BF64228A942500C9137C /* PostCommentTextTableViewCell.swift in Sources */,
 				1FE8DB0922939BD900DCED01 /* TakeVCartTableViewCell.swift in Sources */,
 				1FE5BF4022850B3500C9137C /* SegmentViewModel.swift in Sources */,
@@ -1859,6 +1877,7 @@
 				1FE5BF46228528A900C9137C /* CommentViewModel.swift in Sources */,
 				1FE5BED62282866300C9137C /* ZHPickView.m in Sources */,
 				1FE8DA95228D721900DCED01 /* MineViewModel.swift in Sources */,
+				1F1C1B34229EA052008031F4 /* TopUpConfirmTableViewCell.swift in Sources */,
 				1FE8DB1D2294E4EA00DCED01 /* FindViewModel.swift in Sources */,
 				1FE5BF192282D18D00C9137C /* CategoryContentTableViewCell.swift in Sources */,
 				1FE8DAA6228EA91200DCED01 /* ChangeInfoViewController.swift in Sources */,
@@ -1904,6 +1923,7 @@
 				1FE5BED82282866300C9137C /* RangeSeekSlider.swift in Sources */,
 				1FE5BF422285170700C9137C /* CategoryDetailViewModel.swift in Sources */,
 				1FE8DAF02292933A00DCED01 /* JXPagingListRefreshView.swift in Sources */,
+				1F1C1B36229EA839008031F4 /* WithdrawViewModel.swift in Sources */,
 				1FE8DB192294E18800DCED01 /* FindPasViewController.swift in Sources */,
 				1F395CB72295306B00781C0C /* UMengUI.swift in Sources */,
 				1FE8DAF32292937000DCED01 /* OtherPostViewModel.swift in Sources */,
