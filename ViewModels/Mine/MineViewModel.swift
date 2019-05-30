@@ -30,9 +30,14 @@ class MineViewModel: BaseViewModel {
                 case .follow:
                     NavigationPushView(self.controller!, toConroller: FollowsViewController())
                 case .topUp:
-                    let touUpVC = TopUpViewController()
-                    touUpVC.accountInfo = self.accountInfo
-                    NavigationPushView(self.controller!, toConroller: touUpVC)
+                    if self.userInfo.isMember == "1" {
+                        let touUpVC = TopUpViewController()
+                        touUpVC.accountInfo = self.accountInfo
+                        NavigationPushView(self.controller!, toConroller: touUpVC)
+                    }else{
+                        _ = Tools.shareInstance.showMessage(KWindow, msg: "请先实名认证", autoHidder: true)
+                    }
+                    
                 default:
                     NavigationPushView(self.controller!, toConroller: StoreViewController())
                 }

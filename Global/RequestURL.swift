@@ -28,6 +28,7 @@ let AccountfindPasswordUrl = "\(RootUrl)account/findPassword"
 let AccountgetPointCountUrl = "\(RootUrl)account/getPointCount"
 let AccountpointDetailUrl = "\(RootUrl)account/pointDetail"
 let AccountUsersurePasswordUrl = "\(RootUrl)account/surePassword"
+let AccountFindCashAccountUrl = "\(RootUrl)/account/findCashAccount"
 
 let CommentcommentUrl = "\(RootUrl)comment/comment"
 let CommentcommentApprovetUrl = "\(RootUrl)comment/commentApprove"
@@ -64,3 +65,9 @@ let TribetribeListUrl = "\(RootUrl)tribe/tribeList"
 
 
 let UserFeedBackinsertFeedbackUrl = "\(RootUrl)userFeedback/insertFeedback"
+
+
+func getAliPayBankNameUrl(banNo:String) ->String {
+    return "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=\(banNo)&cardBinCheck=true"
+}
+

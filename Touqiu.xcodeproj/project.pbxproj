@@ -13,6 +13,15 @@
 		1F1C1B32229EA042008031F4 /* TopUpWarningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */; };
 		1F1C1B34229EA052008031F4 /* TopUpConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */; };
 		1F1C1B36229EA839008031F4 /* WithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */; };
+		1F1C1B38229F66EB008031F4 /* WithDrawTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B37229F66EB008031F4 /* WithDrawTypeTableViewCell.swift */; };
+		1F1C1B3A229F6C88008031F4 /* BindDrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B39229F6C88008031F4 /* BindDrawViewModel.swift */; };
+		1F1C1B3C229F6CC4008031F4 /* BindWithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */; };
+		1F1C1B3E229F7FC3008031F4 /* AccountTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */; };
+		1F1C1B40229FA151008031F4 /* BankName.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C1B3F229FA151008031F4 /* BankName.json */; };
+		1F1C1B44229FA3F7008031F4 /* ReadFileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B43229FA3F7008031F4 /* ReadFileDataManager.swift */; };
+		1F1C1B46229FA4A4008031F4 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B45229FA4A4008031F4 /* Config.swift */; };
+		1F1C1B48229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */; };
+		1F1C1B4A229FFAE9008031F4 /* BankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B49229FFAE9008031F4 /* BankModel.swift */; };
 		1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8122951D4200781C0C /* UMCommonLog.framework */; };
 		1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F395C8222951D4200781C0C /* UMCommonLog.bundle */; };
 		1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8522951D4200781C0C /* UTDID.framework */; };
@@ -270,6 +279,15 @@
 		1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpWarningTableViewCell.swift; sourceTree = "<group>"; };
 		1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpConfirmTableViewCell.swift; sourceTree = "<group>"; };
 		1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewModel.swift; sourceTree = "<group>"; };
+		1F1C1B37229F66EB008031F4 /* WithDrawTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithDrawTypeTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B39229F6C88008031F4 /* BindDrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindDrawViewModel.swift; sourceTree = "<group>"; };
+		1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindWithdrawViewController.swift; sourceTree = "<group>"; };
+		1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTypeTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B3F229FA151008031F4 /* BankName.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BankName.json; sourceTree = "<group>"; };
+		1F1C1B43229FA3F7008031F4 /* ReadFileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadFileDataManager.swift; sourceTree = "<group>"; };
+		1F1C1B45229FA4A4008031F4 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithDrawMuchTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B49229FFAE9008031F4 /* BankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankModel.swift; sourceTree = "<group>"; };
 		1F395C8122951D4200781C0C /* UMCommonLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommonLog.framework; sourceTree = "<group>"; };
 		1F395C8222951D4200781C0C /* UMCommonLog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMCommonLog.bundle; sourceTree = "<group>"; };
 		1F395C8522951D4200781C0C /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
@@ -815,6 +833,7 @@
 			children = (
 				1FE5BDB02281788E00C9137C /* AppDelegate.swift */,
 				1FE5BDB22281788E00C9137C /* ViewController.swift */,
+				1F1C1B3F229FA151008031F4 /* BankName.json */,
 				1FE5BDB42281788E00C9137C /* Main.storyboard */,
 				1FE5BDB72281789100C9137C /* Assets.xcassets */,
 				1FE5BDB92281789100C9137C /* LaunchScreen.storyboard */,
@@ -910,9 +929,11 @@
 			isa = PBXGroup;
 			children = (
 				1FE5BDE522817B5F00C9137C /* Define.swift */,
+				1F1C1B45229FA4A4008031F4 /* Config.swift */,
 				1FE5BDE722817B8500C9137C /* RequestURL.swift */,
 				1FE5BDEE2282648D00C9137C /* AppThemeConfig.swift */,
 				1FE5BFA5228AC1E200C9137C /* AuthorityManager.swift */,
+				1F1C1B43229FA3F7008031F4 /* ReadFileDataManager.swift */,
 				1FE5BDF0228264F200C9137C /* Font-Color-Config.swift */,
 				1FE5BDE922817BCA00C9137C /* Touqiu-Bridging-Header.h */,
 				1F395CC822962E5200781C0C /* AliPayManager.swift */,
@@ -1247,6 +1268,7 @@
 				1F991753229B92BB00C8FDD5 /* StoreViewController.swift */,
 				1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */,
 				1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */,
+				1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1315,6 +1337,9 @@
 				1F1C1B2F229EA01E008031F4 /* TopUpToolsTableViewCell.swift */,
 				1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */,
 				1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */,
+				1F1C1B37229F66EB008031F4 /* WithDrawTypeTableViewCell.swift */,
+				1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */,
+				1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1370,6 +1395,7 @@
 				1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */,
 				1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */,
 				1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */,
+				1F1C1B39229F6C88008031F4 /* BindDrawViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1409,6 +1435,7 @@
 				1F991757229BB41E00C8FDD5 /* AccountCoinsModel.swift */,
 				1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */,
 				1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */,
+				1F1C1B49229FFAE9008031F4 /* BankModel.swift */,
 			);
 			name = Mine;
 			path = ViewModels/Mine;
@@ -1615,6 +1642,7 @@
 			files = (
 				1FE5BEEC2282887400C9137C /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				1FE5BDBB2281789100C9137C /* LaunchScreen.storyboard in Resources */,
+				1F1C1B40229FA151008031F4 /* BankName.json in Resources */,
 				1FE5BDB82281789100C9137C /* Assets.xcassets in Resources */,
 				1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */,
 				1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */,
@@ -1827,6 +1855,7 @@
 				1FE8DAC6228ED11900DCED01 /* FeedBackViewModel.swift in Sources */,
 				1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
+				1F1C1B48229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift in Sources */,
 				1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */,
 				1FE5BF212282D21F00C9137C /* OutFallViewModel.swift in Sources */,
 				1FE8DAF92292C1D200DCED01 /* MyCommentViewController.swift in Sources */,
@@ -1842,6 +1871,7 @@
 				1FE5BF352284206300C9137C /* UserInfoTableViewCell.swift in Sources */,
 				1FE8DAB8228EC8B100DCED01 /* NotificationViewModel.swift in Sources */,
 				1FE5BF3C228435B000C9137C /* OutFallCategoryContentTableViewCell.swift in Sources */,
+				1F1C1B46229FA4A4008031F4 /* Config.swift in Sources */,
 				1FE8DAFB2292C1E900DCED01 /* PostSegementViewController.swift in Sources */,
 				1FE5BDFF2282751400C9137C /* SquareViewController.swift in Sources */,
 				1FE5BEC12282866300C9137C /* JKDBModel.m in Sources */,
@@ -1864,9 +1894,11 @@
 				1FE5BE1F228285FA00C9137C /* UIImage+PureColor.m in Sources */,
 				1FE5BE372282863D00C9137C /* PresentTransitionAnimated.m in Sources */,
 				1FE5BF50228561CB00C9137C /* PostDetailUserInfoTableViewCell.swift in Sources */,
+				1F1C1B4A229FFAE9008031F4 /* BankModel.swift in Sources */,
 				1F1C1B32229EA042008031F4 /* TopUpWarningTableViewCell.swift in Sources */,
 				1FE5BF64228A942500C9137C /* PostCommentTextTableViewCell.swift in Sources */,
 				1FE8DB0922939BD900DCED01 /* TakeVCartTableViewCell.swift in Sources */,
+				1F1C1B38229F66EB008031F4 /* WithDrawTypeTableViewCell.swift in Sources */,
 				1FE5BF4022850B3500C9137C /* SegmentViewModel.swift in Sources */,
 				1FE5BE442282864300C9137C /* UIPageControlExtentions.swift in Sources */,
 				1F395CDB229797D400781C0C /* PostModel.swift in Sources */,
@@ -1937,6 +1969,7 @@
 				1F991752229B784800C8FDD5 /* CoinsDetailTableViewCell.swift in Sources */,
 				1FE5BE21228285FA00C9137C /* NSString+Utils.m in Sources */,
 				1FE5BDE822817B8500C9137C /* RequestURL.swift in Sources */,
+				1F1C1B3E229F7FC3008031F4 /* AccountTypeTableViewCell.swift in Sources */,
 				1FE8DAF72292C15C00DCED01 /* MyPostViewController.swift in Sources */,
 				1FE5BEC82282866300C9137C /* common.c in Sources */,
 				1FE8DAB4228EC7F200DCED01 /* InviteUserViewController.swift in Sources */,
@@ -1953,6 +1986,7 @@
 				1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */,
 				1FE5BE4B2282864300C9137C /* UITapGestureRecognizer+Extention.swift in Sources */,
 				1FE8DB012292C5DC00DCED01 /* MycollectViewController.swift in Sources */,
+				1F1C1B3A229F6C88008031F4 /* BindDrawViewModel.swift in Sources */,
 				1FE5BECC2282866300C9137C /* renderer_yuv420sp.c in Sources */,
 				1FE5BED32282866300C9137C /* color.c in Sources */,
 				1FE5BDEF2282648D00C9137C /* AppThemeConfig.swift in Sources */,
@@ -1972,6 +2006,7 @@
 				1FE8DA93228D718A00DCED01 /* AdTableViewCell.swift in Sources */,
 				1FE5BF6022894D2700C9137C /* CommentPostViewController.swift in Sources */,
 				1FE5BE22228285FA00C9137C /* NSString+StringSize.m in Sources */,
+				1F1C1B44229FA3F7008031F4 /* ReadFileDataManager.swift in Sources */,
 				1F395CD922978E7600781C0C /* PostViewModel.swift in Sources */,
 				1FE8DA9C228E95A600DCED01 /* MineInfoViewModel.swift in Sources */,
 				1FE8DABE228ECABC00DCED01 /* ChangePasswordViewController.swift in Sources */,
@@ -1992,6 +2027,7 @@
 				1FE8DB032292C5F300DCED01 /* MyCollectViewModel.swift in Sources */,
 				1FE5BEC52282866300C9137C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FE8DAB2228EC7E300DCED01 /* NotificationViewController.swift in Sources */,
+				1F1C1B3C229F6CC4008031F4 /* BindWithdrawViewController.swift in Sources */,
 				1FE5BF272283BB8300C9137C /* GTMBase64.m in Sources */,
 				1FE5BED22282866300C9137C /* rgb.fsh.c in Sources */,
 				1FE5BEC72282866300C9137C /* renderer_yuv444p10le.c in Sources */,

@@ -64,21 +64,19 @@ class AliPayManager: NSObject {
     func uploadFileImage(images:UIImage,type:AliPayManagerType, result:@escaping AliPayManagerSuccess){
         let put = OSSPutObjectRequest.init()
         put.bucketName = OSS_BUCKET_PUBLIC
-        var resultStrs:[String] = []
-        
-        let count = MutableProperty<Int>(0)
-        
         
         let date = Date.init()
         let phone:String = (CacheManager.getSharedInstance().getUserInfo()?.id.string)!
-        let imageKey = "\(date.year)/\(date.month)/\(date.day)/\(phone)_\(date.nanosecond).png"
+        let imageKey = "\(Date().string(withFormat: "yyyy/MM/dd"))/\(phone)_\(date.nanosecond).png"
+        
+        
+//        let imageKey = "\(date.year)/\(date.month)/\(date.day)/\(phone)_\(date.nanosecond).png"
         switch type{
         case .post:
-            put.objectKey = "/post/\(imageKey)"
+            put.objectKey = "post/\(imageKey)"
         default:
-            put.objectKey = "/user/\(imageKey)"
+            put.objectKey = "user/\(imageKey)"
         }
-        
         put.uploadingData = images.compressedData(quality: 0.75)!
         put.uploadProgress = { (bytesent, totalbytesent,ttalbytesexpected) in
             print("bytesent:\(bytesent)")
@@ -87,19 +85,17 @@ class AliPayManager: NSObject {
         }
         
         AliPayManager.getSharedInstance().client.putObject(put).continue({ (task) -> Any? in
-            count.value = count.value + 1
             if (task ).error == nil {
                 switch type{
                 case .post:
-                    resultStrs.append("/post/\(imageKey)")
+                    result(["/post/\(imageKey)"],"")
                 default:
-                    resultStrs.append("/user/\(imageKey)")
+                    result(["/user/\(imageKey)"],"")
                 }
                 print("upload object success")
             }else{
                 print("upload object fail:\((task).error ?? "" as! Error)")
             }
-            result(resultStrs,"")
             return nil
         }, cancellationToken: nil)
     }

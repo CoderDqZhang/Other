@@ -89,7 +89,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     func postTirbeNet(){
         if self.selectPhotos.count > 0 {
             AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
-                let parameters = ["content":self.postModel.content!, "title":self.postModel.tribe!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
+                let parameters = ["content":self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
                 BaseNetWorke.sharedInstance.postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "发帖成功", autoHidder: true)
@@ -101,7 +101,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             }
             
         }else{
-            let parameters = ["content":self.postModel.content!, "title":self.postModel.tribe!, "tribeId":self.postModel.tribe.id.string,"image":""] as [String : Any]
+            let parameters = ["content":self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":""] as [String : Any]
             BaseNetWorke.sharedInstance.postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     _ = Tools.shareInstance.showMessage(KWindow, msg: "发帖成功", autoHidder: true)

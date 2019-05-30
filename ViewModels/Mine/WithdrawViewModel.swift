@@ -8,25 +8,69 @@
 
 import UIKit
 import DZNEmptyDataSet
+import ReactiveCocoa
+import ReactiveSwift
 
 class WithdrawViewModel: BaseViewModel {
 
     var accountInfo:AccountInfoModel!
+    var bankLiskArray = NSMutableArray.init()
+    var bankModel:BankModel!
+    var cashMoney:Double = 0.00
+    var bindMuchSingle:Signal<Bool, Never>?
     
     override init() {
         super.init()
+        self.getAccountInfoList()
     }
     
     func tableViewTopUpTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpTableViewCell) {
-        cell.cellSetData(model: self.accountInfo)
-    }
-    
-    func tableViewTopUpToolsTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpToolsTableViewCell) {
+        if self.accountInfo != nil {
+            cell.cellSetData(model: self.accountInfo)
+        }
         
     }
     
-    func tableViewTopUpConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpConfirmTableViewCell) {
+    func tableViewWithDrawMuchTableViewCellSetData(_ indexPath:IndexPath, cell:WithDrawMuchTableViewCell) {
+        cell.muchTextFiled.reactive.continuousTextValues.observeValues { (str) in
+            if str.double() != nil {
+                self.cashMoney = str.double()!
+            }
+        }
         
+        bindMuchSingle = cell.muchTextFiled.reactive.continuousTextValues.map({ (str) -> Bool in
+            return str.count > 0
+        })
+        
+        cell.withDrawMuchTableViewAllMuchClouse = {
+            cell.muchTextFiled.text = (self.accountInfo.recomCoin + self.accountInfo.inviteCoin).string
+        }
+    }
+    
+    func tableViewGloabelConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelConfirmTableViewCell) {
+        bindMuchSingle?.observeValues({ (ret) in
+            if ret {
+                cell.changeEnabel(isEnabled: true)
+            }else{
+                cell.changeEnabel(isEnabled: false)
+            }
+        })
+        cell.anmationButton.reactive.controlEvents(.touchUpInside).observeValues { (button) in
+            self.drawUpNet()
+        }
+    }
+    
+    func tableViewWithDrawTypeTableViewCellSetData(_ indexPath:IndexPath, cell:WithDrawTypeTableViewCell) {
+        if bankLiskArray.count == 0 {
+            cell.cellSetData(model: nil)
+        }else{
+            cell.cellSetData(model: BankModel.init(fromDictionary: bankLiskArray[0] as! [String : Any]))
+            self.bankModel = BankModel.init(fromDictionary: bankLiskArray[0] as! [String : Any])
+        }
+    }
+    
+    func tableViewConfirmProtocolTableViewCellSetData(_ indexPath:IndexPath, cell:ConfirmProtocolTableViewCell) {
+    
     }
     
     func tableViewTopUpWarningTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpWarningTableViewCell) {
@@ -47,11 +91,21 @@ class WithdrawViewModel: BaseViewModel {
         }
     }
     
-    func getAccountInfoNet(userId:String){
-        BaseNetWorke.sharedInstance.postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
+    func getAccountInfoList(){
+        BaseNetWorke.sharedInstance.postUrlWithString(AccountFindCashAccountUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.accountInfo = AccountInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
+                self.bankLiskArray = NSMutableArray.init(array: resultDic.value as! Array)
                 self.reloadTableViewData()
+            }
+        }
+    }
+    
+    func drawUpNet(){
+        let parameters = ["cashMoney":self.cashMoney,"accountId":self.bankModel.id.string] as [String : Any]
+        BaseNetWorke.sharedInstance.postUrlWithString(AccountcashUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+//                self.accountInfo = AccountInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
+//                self.reloadTableViewData()
             }
         }
     }
@@ -79,7 +133,14 @@ extension WithdrawViewModel: UITableViewDelegate {
             return 189
         case 1:
             //79/375
-            return AnimationTouchViewHeight * 2 + AnimationTouchViewMarginItemY + 60
+            return 47
+        case 2:
+            //79/375
+            return 127
+        case 3:
+            return 41
+        case 4:
+            return 47
         default:
             return 100
         }
@@ -93,13 +154,13 @@ extension WithdrawViewModel: UITableViewDelegate {
             alpa = scrollView.contentOffset.y / (SCREENWIDTH * 189 / 375 - 64)
             // Fallback on earlier versions
         }
-        (self.controller as! TopUpViewController).gloableNavigationBar.changeBackGroundColor(transparency: alpa > 1 ? 1 :alpa)
+        (self.controller as! WithdrawViewController).gloableNavigationBar.changeBackGroundColor(transparency: alpa > 1 ? 1 :alpa)
     }
 }
 
 extension WithdrawViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 6
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -115,14 +176,29 @@ extension WithdrawViewModel: UITableViewDataSource {
             cell.contentView.backgroundColor = App_Theme_F6F6F6_Color
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TopUpToolsTableViewCell.description(), for: indexPath)
-            self.tableViewTopUpToolsTableViewCellSetData(indexPath, cell: cell as! TopUpToolsTableViewCell)
+            let cell = tableView.dequeueReusableCell(withIdentifier: WithDrawTypeTableViewCell.description(), for: indexPath)
+            self.tableViewWithDrawTypeTableViewCellSetData(indexPath, cell: cell as! WithDrawTypeTableViewCell)
             cell.selectionStyle = .none
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: WithDrawMuchTableViewCell.description(), for: indexPath)
+            self.tableViewWithDrawMuchTableViewCellSetData(indexPath, cell: cell as! WithDrawMuchTableViewCell)
+            return cell
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ConfirmProtocolTableViewCell.description(), for: indexPath)
+            self.tableViewConfirmProtocolTableViewCellSetData(indexPath, cell: cell as! ConfirmProtocolTableViewCell)
+            cell.selectionStyle = .none
+            cell.backgroundColor = App_Theme_F6F6F6_Color
+            return cell
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: GloabelConfirmTableViewCell.description(), for: indexPath)
+            self.tableViewGloabelConfirmTableViewCellSetData(indexPath, cell: cell as! GloabelConfirmTableViewCell)
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: TopUpWarningTableViewCell.description(), for: indexPath)
             self.tableViewTopUpWarningTableViewCellSetData(indexPath, cell: cell as! TopUpWarningTableViewCell)
             cell.selectionStyle = .none
+            cell.backgroundColor = App_Theme_F6F6F6_Color
             return cell
         }
     }
