@@ -10,6 +10,9 @@ import UIKit
 
 class NotificationViewController: BaseViewController {
 
+    let notificationViewModel = NotificationViewModel.init()
+    var types = [NotificationType.system,NotificationType.comment,NotificationType.commentMe,NotificationType.approve]
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +20,21 @@ class NotificationViewController: BaseViewController {
     }
     
 
+    func initSView(type:Int) {
+        self.bindViewModel(viewModel: notificationViewModel, controller: self)
+        notificationViewModel.type = types[type]
+        self.setUpTableView(style: .plain, cells: [NotificationTableViewCell.self], controller: self)
+        
+        self.setUpRefreshData {
+            self.notificationViewModel.page = 0
+            self.notificationViewModel.notificationNet()
+        }
+        
+        self.setUpLoadMoreData {
+            self.notificationViewModel.notificationNet()
+        }
+        self.notificationViewModel.notificationNet()
+    }
     /*
     // MARK: - Navigation
 

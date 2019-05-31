@@ -10,7 +10,14 @@ import UIKit
 
 class NotificationViewModel: BaseViewModel {
 
+    var type:NotificationType!
+    var page = 0
     override init() {
         super.init()
+    }
+    
+    
+    func notificationNet(){
+        
     }
 }

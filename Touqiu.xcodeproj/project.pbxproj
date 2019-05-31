@@ -25,6 +25,8 @@
 		1F1C1B4C22A0B58F008031F4 /* BindBankListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */; };
 		1F1C1B4E22A0B5CB008031F4 /* BankListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */; };
 		1F1C1B5022A0B61B008031F4 /* BankTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */; };
+		1F1C1B5222A0E6C6008031F4 /* MessageSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5122A0E6C6008031F4 /* MessageSegementViewController.swift */; };
+		1F1C1B5422A0E930008031F4 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5322A0E930008031F4 /* NotificationTableViewCell.swift */; };
 		1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8122951D4200781C0C /* UMCommonLog.framework */; };
 		1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F395C8222951D4200781C0C /* UMCommonLog.bundle */; };
 		1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8522951D4200781C0C /* UTDID.framework */; };
@@ -294,6 +296,8 @@
 		1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindBankListViewController.swift; sourceTree = "<group>"; };
 		1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankListViewModel.swift; sourceTree = "<group>"; };
 		1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B5122A0E6C6008031F4 /* MessageSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSegementViewController.swift; sourceTree = "<group>"; };
+		1F1C1B5322A0E930008031F4 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		1F395C8122951D4200781C0C /* UMCommonLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommonLog.framework; sourceTree = "<group>"; };
 		1F395C8222951D4200781C0C /* UMCommonLog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMCommonLog.bundle; sourceTree = "<group>"; };
 		1F395C8522951D4200781C0C /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
@@ -1256,6 +1260,7 @@
 				1FE8DAAB228EBC9100DCED01 /* SettingViewController.swift */,
 				1FE8DAAD228EC7CB00DCED01 /* RealNameViewController.swift */,
 				1FE8DAAF228EC7D800DCED01 /* SingUpVIPViewController.swift */,
+				1F1C1B5122A0E6C6008031F4 /* MessageSegementViewController.swift */,
 				1FE8DAB1228EC7E300DCED01 /* NotificationViewController.swift */,
 				1FE8DAB3228EC7F200DCED01 /* InviteUserViewController.swift */,
 				1FE8DABD228ECABC00DCED01 /* ChangePasswordViewController.swift */,
@@ -1348,6 +1353,7 @@
 				1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */,
 				1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */,
 				1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */,
+				1F1C1B5322A0E930008031F4 /* NotificationTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1865,6 +1871,7 @@
 				1FE8DAD722926AE900DCED01 /* OtherMineViewController.swift in Sources */,
 				1FE8DAC6228ED11900DCED01 /* FeedBackViewModel.swift in Sources */,
 				1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */,
+				1F1C1B5422A0E930008031F4 /* NotificationTableViewCell.swift in Sources */,
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
 				1F1C1B48229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift in Sources */,
 				1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */,
@@ -1994,6 +2001,7 @@
 				1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */,
 				1FE5BF242282E59500C9137C /* NSString+AES.m in Sources */,
 				1FE5BF44228517A700C9137C /* CommentContentTableViewCell.swift in Sources */,
+				1F1C1B5222A0E6C6008031F4 /* MessageSegementViewController.swift in Sources */,
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,
 				1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */,
 				1FE5BE4B2282864300C9137C /* UITapGestureRecognizer+Extention.swift in Sources */,

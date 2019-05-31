@@ -91,7 +91,7 @@ class MineViewModel: BaseViewModel {
                 }else if indexPath.row == 1{
                     NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
                 }else if indexPath.row == 2{
-                    NavigationPushView(self.controller!, toConroller: NotificationViewController())
+                    NavigationPushView(self.controller!, toConroller: MessageSegementViewController())
                 }else if indexPath.row == 3{
                     NavigationPushView(self.controller!, toConroller: SettingViewController())
                 }
