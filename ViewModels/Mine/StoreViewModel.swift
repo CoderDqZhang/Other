@@ -1,18 +1,17 @@
 //
-//  NotificationViewModel.swift
+//  StoreViewModel.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/17.
+//  Created by Zhang on 2019/5/31.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 import DZNEmptyDataSet
 
-class NotificationViewModel: BaseViewModel {
+class StoreViewModel: BaseViewModel {
 
-    var type:NotificationType!
-    
+    var type:StoreDetailTyp!
     var detailArray = NSMutableArray.init()
     var page:Int = 0
     override init() {
@@ -20,18 +19,19 @@ class NotificationViewModel: BaseViewModel {
     }
     
     
-    func tableViewNotificationTableViewCellSetData(_ indexPath:IndexPath, cell:NotificationTableViewCell) {
-        cell.cellSetData(model: NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any]))
+    
+    func tableViewCoinsDetailTableViewCellSetData(_ indexPath:IndexPath, cell:CoinsDetailTableViewCell) {
+        cell.cellSetStoreData(model: StoreModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any]))
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
     }
     
-    func notificationNet(){
+    func getStoreNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "type":self.type.rawValue] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(NotificationDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.sharedInstance.postUrlWithString(AccountpointDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
                     self.detailArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
@@ -43,10 +43,12 @@ class NotificationViewModel: BaseViewModel {
             }
         }
     }
+    
+    
 }
 
 
-extension NotificationViewModel: UITableViewDelegate {
+extension StoreViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.tableViewDidSelect(tableView: tableView, indexPath: indexPath)
@@ -69,7 +71,7 @@ extension NotificationViewModel: UITableViewDelegate {
     }
 }
 
-extension NotificationViewModel: UITableViewDataSource {
+extension StoreViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -80,18 +82,18 @@ extension NotificationViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NotificationTableViewCell.description(), for: indexPath)
-        self.tableViewNotificationTableViewCellSetData(indexPath, cell: cell as! NotificationTableViewCell)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CoinsDetailTableViewCell.description(), for: indexPath)
+        self.tableViewCoinsDetailTableViewCellSetData(indexPath, cell: cell as! CoinsDetailTableViewCell)
         return cell
     }
 }
 
 
-extension NotificationViewModel : DZNEmptyDataSetDelegate {
+extension StoreViewModel : DZNEmptyDataSetDelegate {
     
 }
 
-extension NotificationViewModel : DZNEmptyDataSetSource {
+extension StoreViewModel : DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let attributed = "暂时还没有数据哦！"
         let attributedString = NSMutableAttributedString.init(string: attributed)

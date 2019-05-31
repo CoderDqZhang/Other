@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JXSegmentedView
 
 class NotificationViewController: BaseViewController {
 
@@ -46,3 +47,20 @@ class NotificationViewController: BaseViewController {
     */
 
 }
+
+extension NotificationViewController : JXSegmentedListContainerViewListDelegate {
+    override func listView() -> UIView {
+        return view
+    }
+    
+    override func listDidAppear() {
+        print("listDidAppear")
+    }
+    
+    override func listDidDisappear() {
+        print("listDidDisappear")
+    }
+}
+
+
+

@@ -9,6 +9,8 @@
 import Foundation
 //http://192.168.0.172:4141/swagger-ui.html
 
+//ZKFgTvUb5BXiuD7KK2iuFiOUintS6mLgFi+ukIPiol801JlCola+lkGcFGN886nd
+
 let RootUrl = "http://192.168.0.172:10020/social/"
 
 let UserforgetPasswordUrl = "\(RootUrl)user/forgetPassword"
@@ -63,7 +65,8 @@ let TippublishTipUrl = "\(RootUrl)tip/publishTip"
 let TribesubscribeUrl = "\(RootUrl)tribe/subscribe"
 let TribetribeListUrl = "\(RootUrl)tribe/tribeList"
 
-
+let NotificationDetailUrl = "\(RootUrl)notify/findNotify"
+let NotificationListUrl = "\(RootUrl)notify/notifyList"
 
 let UserFeedBackinsertFeedbackUrl = "\(RootUrl)userFeedback/insertFeedback"
 

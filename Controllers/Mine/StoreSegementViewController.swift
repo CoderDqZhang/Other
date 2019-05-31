@@ -1,31 +1,31 @@
 //
-//  ConinsSegementViewController.swift
+//  StoreSegementViewController.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/27.
+//  Created by Zhang on 2019/5/31.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 import JXSegmentedView
 
-enum CoinsDetailViewControllerType:Int {
+enum StoreDetailTyp:Int {
     case all = 0
-    case waitpay = 1
+    case income = 1
     case pay = 2
-    case income = 3
 }
 
-class ConinsSegementViewController: BaseViewController {
+class StoreSegementViewController: BaseViewController {
 
+   
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
     var listContainerView: JXSegmentedListContainerView!
 
-    let titles = ["全部", "待结算", "支出", "收入"]
+    let titles = ["全部", "收入", "支出"]
     var tableHeaderViewHeight: CGFloat = 138
     var heightForHeaderInSection: Int = 44
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,9 +33,15 @@ class ConinsSegementViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
-        self.navigationItem.title = "账户明细"
+        self.navigationItem.title = "积分明细"
         self.setNavigationItemBack()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "商城", style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
     }
+    
+    @objc func rightBarItemClick(_ sender:UIBarButtonItem){
+        
+    }
+    
     
     override func setUpView() {
         
@@ -85,7 +91,7 @@ class ConinsSegementViewController: BaseViewController {
     
 }
 
-extension ConinsSegementViewController : JXSegmentedViewDelegate {
+extension StoreSegementViewController : JXSegmentedViewDelegate {
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
         //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
         listContainerView.didClickSelectedItem(at: index)
@@ -97,17 +103,15 @@ extension ConinsSegementViewController : JXSegmentedViewDelegate {
     }
 }
 
-extension ConinsSegementViewController: JXSegmentedListContainerViewDataSource {
+extension StoreSegementViewController: JXSegmentedListContainerViewDataSource {
     
     func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
         return titles.count
     }
     
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        let controller = CoinsDetailViewController.init()
+        let controller = StoreViewController.init()
         controller.initSView(type: index)
         return controller
     }
 }
-    
-

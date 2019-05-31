@@ -39,7 +39,7 @@ class MineViewModel: BaseViewModel {
                     }
                     
                 default:
-                    NavigationPushView(self.controller!, toConroller: StoreViewController())
+                    NavigationPushView(self.controller!, toConroller: StoreSegementViewController())
                 }
             }else{
                 NavigationPushView(self.controller!, toConroller: LoginViewController())
