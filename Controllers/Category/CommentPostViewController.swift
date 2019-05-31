@@ -9,12 +9,14 @@
 import UIKit
 import TZImagePickerController
 
+
 class CommentPostViewController: BaseViewController {
 
     let commentPostViewModel =  CommentPostViewModel.init()
     var photoPickerVC:TZImagePickerController!
     
     var isSelectOriginalPhoto:Bool!
+    var postData:NSDictionary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,10 @@ class CommentPostViewController: BaseViewController {
         self.navigationItem.title = "发表评论"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "发表", style: .plain, target: self, action: #selector(self.rightButtonClick(_:)))
     }
+    
+    override func bindViewModelLogic() {
+        self.commentPostViewModel.postData = self.postData
+    }
 
     
     @objc func leftButtonClick(_ sender:UIBarButtonItem) {
@@ -40,7 +46,7 @@ class CommentPostViewController: BaseViewController {
     }
     
     @objc func rightButtonClick(_ sender:UIBarButtonItem) {
-        
+        self.commentPostViewModel.postTCommentNet()
     }
     /*
     // MARK: - Navigation

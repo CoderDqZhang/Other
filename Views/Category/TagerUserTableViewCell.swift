@@ -53,10 +53,25 @@ class TagerUserTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func cellSetData(name:String, desc:String) {
-        userNameLabel.text = name
-        descLabel.text = desc
+    func cellSetCatogyModel(model:CategoryModel){
+        userNameLabel.text = model.tribeName
+        descLabel.text = model.tribeName
+        UIImageViewManger.sd_imageView(url: model.tribeImg, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
+            if error == nil {
+                self.avatarImageView.image = image
+            }
+        }
     }
+    
+    func cellSetFansData(model:FansFlowwerModel){
+        userNameLabel.text = model.nickname
+        descLabel.text = model.descriptionField
+    }
+    
+//    func cellSetData(name:String, desc:String) {
+//        userNameLabel.text = name
+//        descLabel.text = desc
+//    }
     
     
     override func updateConstraints() {

@@ -11,6 +11,7 @@ import UIKit
 class FeedBackViewModel: BaseViewModel {
     
     let placeholders = "请输入反馈内容"
+    var content:String = ""
     var isEnabel:Bool = false
     override init() {
         super.init()
@@ -18,18 +19,34 @@ class FeedBackViewModel: BaseViewModel {
     
     func tableViewGloabelConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelConfirmTableViewCell) {
         cell.changeEnabel(isEnabled: self.isEnabel)
+        cell.anmationButton.addAction({ (button) in
+            self.feedBackNet(content: self.content)
+        }, for: .touchUpInside)
     }
     
     func tableViewGloabelTextViewTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextViewTableViewCell) {
         cell.gloabelTextViewTableViewCellClouse = { (text, isEnabel) in
-            self.isEnabel = isEnabel
-            (self.controller as! FeedBackViewController).tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
+            self.content = text
+            if self.isEnabel != isEnabel {
+                self.isEnabel = isEnabel
+                (self.controller as! FeedBackViewController).tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .automatic)
+            }
         }
         cell.cellSetData(placeholder: placeholders)
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func feedBackNet(content:String){
+        let parameters = ["content":content]
+        BaseNetWorke.sharedInstance.postUrlWithString(UserFeedBackinsertFeedbackUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "反馈成功", autoHidder: true)
+                self.controller!.navigationController?.popViewController()
+            }
+        }
     }
 }
 

@@ -11,12 +11,15 @@ import DZNEmptyDataSet
 
 class NewsViewModel: BaseViewModel {
 
-    let contentStrs = ["你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？"]
-    let images = [[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"]]
+    var categoryArray = NSMutableArray.init()
+    var tipListArray = NSMutableArray.init()
     
-    let categoryType = [CategoryType.BasketBall,CategoryType.FootBall,CategoryType.FootBallEurope,CategoryType.BasketBallEurope]
+    var page:Int! = 0
+    
     override init() {
         super.init()
+        self.getCategoryNet()
+        self.getTribeListNet()
     }
     
     func tableViewHotDetailTableViewCellSetData(_ indexPath:IndexPath, cell:HotDetailTableViewCell) {
@@ -24,28 +27,62 @@ class NewsViewModel: BaseViewModel {
     }
     
     func tableViewCategoryTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryTableViewCell) {
-        cell.categoryTableViewCellClouseClick = { tag in
-            let dic = NSDictionary.init(dictionary: ["contentStrs":self.contentStrs[tag],"images":self.images[tag]])
-            (self.controller! as! NewsViewController).categoryDetailClouse(dic,self.categoryType[tag])
+        if self.categoryArray.count > 0 {
+            cell.cellSetData(models: self.categoryArray)
+        }
+        cell.categoryTableViewCellClouseClick = { category in
+            let dic:NSDictionary = category.toDictionary() as NSDictionary
+            (self.controller! as! NewsViewController).categoryDetailClouse(dic,.BasketBall)
         }
     }
     
     func tableViewCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryContentTableViewCell) {
-        cell.cellSetData(content: contentStrs[indexPath.section - 2], images: images[indexPath.section - 2])
+        if self.tipListArray.count > 0 {
+            cell.cellSetData(tipmodel: TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]))
+        }
     }
     
     func tableViewUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:UserInfoTableViewCell){
-        
+         if self.tipListArray.count > 0  {
+            cell.cellSetData(model: TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]))
+        }
     }
     
     func tableViewMCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
-        
+        if self.tipListArray.count > 0 {
+            cell.cellSetData(model: TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]))
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.row != 0 {
-            let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section - 2],"images":images[indexPath.section - 2]], copyItems: true)
-            (self.controller! as! NewsViewController).postDetailDataClouse(dicData,.OutFall)
+            let dicData:NSDictionary = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]).toDictionary() as NSDictionary
+            (self.controller as! NewsViewController).postDetailDataClouse(dicData,.Hot)
+        }
+    }
+    
+    func getCategoryNet(){
+        BaseNetWorke.sharedInstance.postUrlWithString(TribetribeListUrl, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.categoryArray = NSMutableArray.init(array: resultDic.value as! Array)
+                self.reloadTableViewData()
+            }
+        }
+    }
+    
+    func getTribeListNet(){
+        page = page + 1
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":"0", "isCollect":"0"] as [String : Any]
+        BaseNetWorke.sharedInstance.postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.page != 1 {
+                    self.tipListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                }else{
+                    self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
+                }
+                self.reloadTableViewData()
+                self.controller?.stopRefresh()
+            }
         }
     }
 }
@@ -106,11 +143,12 @@ extension NewsViewModel: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
+    
 }
 
 extension NewsViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return images.count + 2
+        return tipListArray.count + 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

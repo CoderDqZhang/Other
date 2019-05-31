@@ -16,6 +16,9 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     var selectAssets:NSMutableArray = NSMutableArray.init()
     var isSelectOriginalPhoto:Bool!
     
+    var commentContent:String = ""
+    var postData:NSDictionary!
+    
     override init() {
         super.init()
     }
@@ -31,7 +34,9 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     }
     
     func tableViewPostCommentTextTableViewCellSetData(_ indexPath:IndexPath, cell:PostCommentTextTableViewCell) {
-        
+        cell.postCommentTextTableViewCellTextClouse = { str in
+            self.commentContent = str
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
@@ -39,10 +44,48 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     }
     
     
+    func postTCommentNet(){
+        if self.commentContent == "" {
+            _ = Tools.shareInstance.showMessage(KWindow, msg: "请输入内容", autoHidder: true)
+            return
+        }
+        if self.selectPhotos.count > 0 {
+            AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
+                let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":strs] as [String : Any]
+                BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                    if !resultDic.isCompleted {
+                        _ = Tools.shareInstance.showMessage(KWindow, msg: "评论成功", autoHidder: true)
+                        self.controller?.dismiss(animated: true, completion: {
+                            if self.controller?.reloadDataClouse != nil {
+                                self.controller?.reloadDataClouse()
+                            }
+                        })
+                    }
+                }
+            }
+            
+        }else{
+            let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":""] as [String : Any]
+            BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "评论成功", autoHidder: true)
+                    self.controller?.dismiss(animated: true, completion: {
+                        if self.controller?.reloadDataClouse != nil {
+                            self.controller?.reloadDataClouse()
+                        }
+                    })
+                }
+            }
+        }
+        
+        
+        
+        
+    }
+    
     func reloadTableView(){
         (self.controller as! CommentPostViewController).tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .automatic)
     }
-    //MARK :UIImagePicker
     
 }
 

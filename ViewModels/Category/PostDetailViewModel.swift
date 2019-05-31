@@ -12,52 +12,127 @@ import DZNEmptyDataSet
 class PostDetailViewModel: BaseViewModel {
 
     var postType:PostType!
-    var postData:NSDictionary!
-    var commets = ["鲁尼也是一代红魔传送","鲁尼也是一代红魔传送","鲁尼也是一代红魔传送","鲁尼也是一代红魔直接诶时候欧他平时的方式发送到发送到福建省地方就是传送"]
-    let testModel = [[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说"),SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[SecondeModel.init(name: "中超小迪", content: "鲁尼也是一代红魔传说")],[]]
-    let images = [[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"]]
-    
+    var tipDetailModel:TipModel!
+    var commentListArray = NSMutableArray.init()
+    var page:Int = 0
     override init() {
         super.init()
     }
     
     func tableViewPostDetailUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailUserInfoTableViewCell) {
+        if tipDetailModel != nil {
+            cell.cellSetData(model: self.tipDetailModel)
+        }
         cell.postDetailUserInfoClouse = {
-            print("关注")
+            self.followNet()
         }
     }
     
     func tableViewPostDetailContentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailContentTableViewCell) {
-        cell.cellSetData(title: "齐达内二进宫的预期成绩会是欧冠冠军吗？", content: postData.object(forKey: "contentStrs") as! String, images: postData.object(forKey: "images") as! [String])
+        if tipDetailModel != nil {
+            cell.cellSetData(model: self.tipDetailModel)
+        }
         cell.postDetailContentTableViewCellClouse = { type in
             switch type {
             case .like:
-                 print("点赞")
+                self.likeNet()
             default:
-                 print("收藏")
+                 self.collectNet()
             }
         }
     }
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        cell.cellSetData(images: images[indexPath.section - 2], secondeContents: testModel[indexPath.section - 2], content: self.commets[indexPath.section - 2], isCommentDetail: false)
+        if self.commentListArray.count > 0 {
+            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false, isShowRepli: true)
+        }
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
-        cell.postDetailCommentUserTableViewCellClouse = {
-            
+        
+        if self.commentListArray.count > 0 {
+            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), indexPath: indexPath)
+        }
+        
+        cell.postDetailCommentUserTableViewCellClouse = { indexPath in
+            let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+            self.likeCommentNet(commentId: model.id.string)
         }
     }
     
     func tableViewHotDetailTableViewCellSetData(_ indexPath:IndexPath, cell:HotDetailTableViewCell) {
-        cell.cellSetData(detail: "全部回复", number: "66")
+        if self.tipDetailModel != nil {
+            cell.cellSetData(detail: "全部回复", number: self.tipDetailModel.commentTotal.string)
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         let commentVC = CommentViewController()
-        commentVC.commentData = ["commet":commets[indexPath.section - 2],"images":images[indexPath.section - 2]]
-        commentVC.commentList = self.testModel[indexPath.section - 2]
+        commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
         NavigationPushView(self.controller!, toConroller: commentVC)
+    }
+    
+    func getTipDetail(id:String){
+        let parameters = ["tipId":id]
+        BaseNetWorke.sharedInstance.postUrlWithString(TipgetTipDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.tipDetailModel = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
+                self.reloadTableViewData()
+            }
+        }
+    }
+    
+    func getComments(id:String){
+        page = page + 1
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "tipId": id]
+        BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.page != 1 {
+                    self.commentListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                }else{
+                    self.commentListArray.removeAllObjects()
+                    self.commentListArray = NSMutableArray.init(array: resultDic.value as! Array)
+                }
+                self.reloadTableViewData()
+                self.controller?.stopRefresh()
+            }
+        }
+    }
+    
+    func collectNet(){
+        let parameters = ["tipId":self.tipDetailModel.id!.string]
+        BaseNetWorke.sharedInstance.postUrlWithString(TipcollectTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "收藏成功", autoHidder: true)
+            }
+        }
+    }
+    
+    func likeNet(){
+        let parameters = ["tipId":self.tipDetailModel.id!.string]
+        BaseNetWorke.sharedInstance.postUrlWithString(TipapproveTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
+            }
+        }
+    }
+    
+    func likeCommentNet(commentId:String){
+        let parameters = ["commentId":commentId]
+        BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
+            }
+        }
+    }
+    
+    func followNet(){
+        let parameters = ["userId":self.tipDetailModel.user.id!.string]
+        BaseNetWorke.sharedInstance.postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "关注成功", autoHidder: true)
+            }
+        }
     }
 }
 
@@ -91,6 +166,7 @@ extension PostDetailViewModel: UITableViewDelegate {
             return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
                 self.tableViewPostDetailContentTableViewCellSetData(indexPath, cell: cell as! PostDetailContentTableViewCell)
             })
+            
         case 1:
             return 32
         default:
@@ -124,7 +200,7 @@ extension PostDetailViewModel: UITableViewDelegate {
 
 extension PostDetailViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return commets.count + 2
+        return commentListArray.count + 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

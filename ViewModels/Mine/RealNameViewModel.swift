@@ -7,29 +7,63 @@
 //
 
 import UIKit
+import ReactiveCocoa
+import ReactiveSwift
 
 class RealNameViewModel: BaseViewModel {
 
     let titles = ["姓名","身份证"]
     let placeholders = ["请输入你的真实姓名","请填写正确的身份证号码"]
+    var username:String = ""
+    var idnumber:String = ""
+    var userNameSingle:Signal<Bool, Never>?
+    var idNumberSingle:Signal<Bool, Never>?
     override init() {
         super.init()
     }
     
-    func tableViewGloabelTextFieldTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldTableViewCell) {
+    func tableViewGloabelTextFieldAndTitleTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldAndTitleTableViewCell) {
         cell.textFiled.keyboardType = .default
+        if indexPath.row == 0 {
+            userNameSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
+                self.username = str
+                return str.count > 0
+            }
+        }else{
+            idNumberSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
+                self.idnumber = str
+                return str.count > 0
+            }
+        }
         cell.cellSetData(title: titles[indexPath.row], placeholder: placeholders[indexPath.row])
     }
     
     func tableViewGloabelConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelConfirmTableViewCell) {
         cell.anmationButton.setTitle("提交", for: .normal)
+        userNameSingle?.combineLatest(with: idNumberSingle!).observeValues({ (username, idnumber) in
+            if username && idnumber {
+                cell.changeEnabel(isEnabled: true)
+            }else{
+                cell.changeEnabel(isEnabled: false)
+            }
+        })
         cell.anmationButton.addAction({ (button) in
-        
+            self.realNameNet()
         }, for: .touchUpInside)
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func realNameNet(){
+        let parameters = ["username":self.username,"idNumber":self.idnumber]
+        BaseNetWorke.sharedInstance.postUrlWithString(PersonnameAuthUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "提交成功，等待审核", autoHidder: true)
+                self.controller?.navigationController?.popViewController()
+            }
+        }
     }
 }
 
@@ -87,8 +121,8 @@ extension RealNameViewModel: UITableViewDataSource {
             cell.backgroundColor = .clear
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldTableViewCell.description(), for: indexPath)
-        self.tableViewGloabelTextFieldTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldTableViewCell)
+        let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldAndTitleTableViewCell.description(), for: indexPath)
+        self.tableViewGloabelTextFieldAndTitleTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldAndTitleTableViewCell)
         return cell
     }
 }

@@ -16,9 +16,10 @@ typealias TouchClickClouse = () -> Void
 class AnimationTouchView: UIView, UIGestureRecognizerDelegate {
     
     var touchClickClouse:TouchClickClouse!
-    init(frame: CGRect, click:@escaping TouchClickClouse) {
+    init(frame: CGRect,tag:Int, click:@escaping TouchClickClouse) {
         super.init(frame: frame)
         self.touchClickClouse = click
+        self.tag = tag
         let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(self.longPress(longPress:)))
         longPressGestureRecognizer.delegate = self
         longPressGestureRecognizer.minimumPressDuration = 0.0001

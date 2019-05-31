@@ -17,6 +17,8 @@ class SigupVIPViewModel: BaseViewModel {
     var fontImage:UIImage?
     var backImage:UIImage?
     var takeHandImage:UIImage?
+    var username:String = ""
+    var idnumber:String = ""
     var userNameSingle:Signal<Bool, Never>?
     var cartNumberSingle:Signal<Bool, Never>?
     var isCheckBool:Bool = false
@@ -53,17 +55,19 @@ class SigupVIPViewModel: BaseViewModel {
         }
     }
     
-    func tableViewGloabelTextFieldTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldTableViewCell) {
+    func tableViewGloabelTextFieldAndTitleTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldAndTitleTableViewCell) {
         cell.textFiled.keyboardType = .default
         if indexPath.row == 3 {
             cell.hiddenLineLabel()
         }
         if indexPath.row == 2 {
             userNameSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
+                self.username = str
                 return str.count > 0
             }
         }else{
             cartNumberSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
+                self.idnumber = str
                 return str.count > 0
             }
         }
@@ -81,12 +85,28 @@ class SigupVIPViewModel: BaseViewModel {
         })
         cell.anmationButton.setTitle("提交", for: .normal)
         cell.anmationButton.addAction({ (button) in
-            
+            self.singUpVipNameNet()
         }, for: .touchUpInside)
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func singUpVipNameNet(){
+        if fontImage == nil || backImage == nil || takeHandImage == nil {
+            _ = Tools.shareInstance.showMessage(KWindow, msg: "请上传图片", autoHidder: true)
+            return
+        }
+        AliPayManager.getSharedInstance().uploadFile(images: [fontImage!,backImage!,takeHandImage!], type: .user) { imgs,strs  in
+            let parameters = ["username":self.username,"idNumber":self.idnumber,imgs:strs] as [AnyHashable : String]
+            BaseNetWorke.sharedInstance.postUrlWithString(PersonnameAuthUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "提交成功，等待审核", autoHidder: true)
+                    self.controller?.navigationController?.popViewController()
+                }
+            }
+        }
     }
 }
 
@@ -147,8 +167,8 @@ extension SigupVIPViewModel: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             if indexPath.row == 2 || indexPath.row == 3 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldTableViewCell.description(), for: indexPath)
-                self.tableViewGloabelTextFieldTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldTableViewCell)
+                let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldAndTitleTableViewCell.description(), for: indexPath)
+                self.tableViewGloabelTextFieldAndTitleTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldAndTitleTableViewCell)
                 return cell
             }else if indexPath.row == 0{
                 let cell = tableView.dequeueReusableCell(withIdentifier: UploadCartTableViewCell.description(), for: indexPath)

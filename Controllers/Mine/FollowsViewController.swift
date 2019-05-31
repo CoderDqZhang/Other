@@ -31,6 +31,15 @@ class FollowsViewController: BaseViewController {
         self.setUpTableView(style: .grouped, cells: [GloabelFansTableViewCell.self], controller: self)
         self.tableView.backgroundColor = App_Theme_F6F6F6_Color
         self.setUpSearchController()
+        
+        self.setUpRefreshData {
+            self.followViewModel.page = 0
+            self.followViewModel.getFllowerNet()
+        }
+        
+        self.setUpLoadMoreData {
+            self.followViewModel.getFllowerNet()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +56,7 @@ class FollowsViewController: BaseViewController {
             self.resultDicNavigationController(dic)
         }
         searchController = BaseSearchViewController.init(searchResultsController: targerVC)
+        searchController.searchType = .follows
         searchController.rootController = self
         searchController.searchBar.delegate = searchController
         searchController.setUpView()

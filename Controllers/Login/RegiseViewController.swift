@@ -16,6 +16,7 @@ class RegiseViewController: BaseViewController {
     var regisViewCenteView:RegisterView!
     var thirdLogin:GloableThirdLogin!
     var cofirmProtocolView:CofirmProtocolView!
+    var resgisterViewModel = RegisterViewModel.init()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,16 +24,15 @@ class RegiseViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
-        let followButton = AnimationButton.init(type: .custom)
-        followButton.frame = CGRect.init(x: SCREENWIDTH - 100, y: 0, width: 61, height: 27)
+       
         if #available(iOS 11.0, *) {
-            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "注册", rightButton: followButton, click: { (type) in
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "注册", rightButton: nil, click: { (type) in
                 if type == .backBtn{
                     self.navigationController?.popViewController()
                 }
             })
         } else {
-            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "注册", rightButton: followButton, click: { (type) in
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "注册", rightButton: nil, click: { (type) in
                 if type == .backBtn{
                     self.navigationController?.popViewController()
                 }
@@ -41,21 +41,21 @@ class RegiseViewController: BaseViewController {
         }
         gloableNavigationBar.titleLabel.textColor = App_Theme_FFFFFF_Color
         gloableNavigationBar.titleLabel.font = App_Theme_PinFan_M_24_Font
-        gloableNavigationBar.changeToolsButtonType(followed: false)
         self.view.addSubview(gloableNavigationBar)
     }
     
     override func setUpView() {
         self.setUpBackImage()
-        
+        self.resgisterViewModel.controller = self
         regisViewCenteView = RegisterView.init(frame:  CGRect.init(x: 23, y: (SCREENHEIGHT - 355) / 2 - 37.5, width: SCREENWIDTH - 46, height: 355 + 37.5))
         regisViewCenteView.registerViewButtonClouse = { type in
             switch type {
             case .login:
-                self.navigationController?.popToRootViewController(animated: true)
+                self.navigationController?.popViewController()
             case .regise:
-                self.navigationController?.popToRootViewController(animated: true)
+                self.resgisterViewModel.resgisterNetWork(phone: self.regisViewCenteView.phoneTextField.text!, password: self.regisViewCenteView.passwordTextField.text!, code: self.regisViewCenteView.codeTextField.text!)
             default:
+                self.resgisterViewModel.sendCodeNetWork(phone: self.regisViewCenteView.phoneTextField.text!)
                 break;
             }
         }

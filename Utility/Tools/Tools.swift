@@ -101,7 +101,7 @@ class Tools: NSObject {
     func showErrorMessage(_ errorDic:AnyObject) ->MBProgressHUD? {
         if (errorDic is NSDictionary) {
             if (errorDic as! NSDictionary).object(forKey: "message") != nil {
-                return self.showMessage(KWindow, msg:(errorDic as! NSDictionary).object(forKey: "message") as! String , autoHidder: true)
+                return  self.showMessage(KWindow, msg: (errorDic as! NSDictionary).object(forKey: "message") as? String ?? "出现错误", autoHidder: true)
             }else{
                 return self.showMessage(KWindow, msg:"网络服务错误" , autoHidder: true)
             }

@@ -28,11 +28,11 @@ class FindPasViewController: BaseViewController {
     
     override func setUpView() {
         self.bindViewModel(viewModel: findViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldButtonTableViewCell.self,GloabelTextFieldTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldButtonTableViewCell.self,GloabelTextFieldAndTitleTableViewCell.self], controller: self)
     }
 
     @objc func rightBarItemClick(){
-        NavigationPushView(self, toConroller: ResetPasViewController())
+        self.findViewModel.forgetNetWork()
     }
     
     /*

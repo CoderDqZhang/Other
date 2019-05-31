@@ -11,30 +11,54 @@ import DZNEmptyDataSet
 
 class MyPostViewModel: BaseViewModel {
     
-    let contentStrs = ["你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？"]
-    let images = [[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"]]
-    
+    var myPostArray = NSMutableArray.init()
+    var page:Int = 0
     override init() {
         super.init()
+        self.getMyPostNet()
     }
     
     
     func tableViewCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryContentTableViewCell) {
-        cell.cellSetData(content: contentStrs[indexPath.section], images: images[indexPath.section])
+        if self.myPostArray.count > 0 {
+            cell.cellSetData(tipmodel: TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]))
+        }
     }
     
     func tableViewUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:UserInfoTableViewCell){
-        
+        if self.myPostArray.count > 0 {
+            cell.cellSetData(model: TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]))
+        }
     }
     
     func tableViewMCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
-        
+        if self.myPostArray.count > 0 {
+            cell.cellSetData(model: TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]))
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        if indexPath.row != 0 {
-            let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section],"images":images[indexPath.section]], copyItems: true)
-            (self.controller! as! NewsViewController).postDetailDataClouse(dicData,.OutFall)
+        let dicData:NSDictionary = TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
+        let postDetail = PostDetailViewController()
+        postDetail.postData = dicData
+        postDetail.postType = .Hot
+        NavigationPushView(self.controller!, toConroller: postDetail)
+    }
+    
+    
+    func getMyPostNet(){
+        page = page + 1
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":"0", "isCollect":"0","userId":CacheManager.getSharedInstance().getUserId()] as [String : Any]
+        BaseNetWorke.sharedInstance.postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.page != 1 {
+                    self.myPostArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                }else{
+                    self.myPostArray = NSMutableArray.init(array: resultDic.value as! Array)
+                }
+                self.reloadTableViewData()
+                self.controller?.stopRefresh()
+            }
         }
     }
 }
@@ -76,13 +100,13 @@ extension MyPostViewModel: UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        (self.controller as! RecommendViewController).listViewDidScrollCallback?(scrollView)
+        (self.controller as! MyPostViewController).listViewDidScrollCallback?(scrollView)
     }
 }
 
 extension MyPostViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return contentStrs.count
+        return self.myPostArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

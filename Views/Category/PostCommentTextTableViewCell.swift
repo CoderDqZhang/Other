@@ -9,12 +9,15 @@
 import UIKit
 
 let MaxTextViewCount = 250
+typealias PostCommentTextTableViewCellTextClouse = (_ str:String) ->Void
+
 class PostCommentTextTableViewCell: UITableViewCell {
 
     var textView:YYTextView!
     var textCountLabel:YYLabel!
     var textToolbar = KeyboardToobar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 50))
-    
+    var postCommentTextTableViewCellTextClouse:PostCommentTextTableViewCellTextClouse!
+    var keyboardToobarClouse:KeyboardToobarClouse!
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,7 +38,9 @@ class PostCommentTextTableViewCell: UITableViewCell {
         textView.returnKeyType = .send
         textView.inputAccessoryView = textToolbar
         textToolbar.keyboardToobarClouse = { type in
-            
+            if self.keyboardToobarClouse != nil {
+                self.keyboardToobarClouse(type)
+            }
         }
         self.contentView.addSubview(textView)
         
@@ -96,6 +101,9 @@ extension PostCommentTextTableViewCell : YYTextViewDelegate {
         if (textView.text.count > MaxTextViewCount) {
             textView.text = textView.text.nsString.substring(to: MaxTextViewCount)
         }
+        if self.postCommentTextTableViewCellTextClouse != nil {
+            self.postCommentTextTableViewCellTextClouse(textView.text)
+        }
         return true
     }
     
@@ -105,36 +113,6 @@ extension PostCommentTextTableViewCell : YYTextViewDelegate {
             textView.text = textView.text.nsString.substring(to: MaxTextViewCount)
         }
         self.updateConstraintsIfNeeded()
-    }
-    
-    func textViewDidBeginEditing(_ textView: YYTextView) {
-//        let fltTextHeight = textView.textLayout!.textBoundingSize.height;
-//        textView.isScrollEnabled = false //必须设置为NO
-//        textViewOriginFrame = textView.frame
-//        //这里动画的作用是抵消，YYTextView 内部动画 防止视觉上的跳动。
-//        UIView.animate(withDuration: 0.25, animations: {
-//            textView.height = fltTextHeight
-//        }) { (finished) in
-//
-//        }
-//        self.height = textView.frame.size.height + 14
-//        textView.snp.remakeConstraints { (make) in
-//            make.top.equalTo(self.snp.top).offset(7)
-//            make.left.equalTo(self.snp.left).offset(15)
-//            make.right.equalTo(self.snp.right).offset(-15)
-//            make.bottom.equalTo(self.snp.bottom).offset(-7)
-//        }
-//        keybordFrame = self.frame
-    }
-    
-    func textViewDidEndEditing(_ textView: YYTextView) {
-//        textView.snp.remakeConstraints { (make) in
-//            make.top.equalTo(self.snp.top).offset(7)
-//            make.left.equalTo(self.snp.left).offset(15)
-//            make.right.equalTo(self.snp.right).offset(-15)
-//            make.height.equalTo(30)
-//        }
-//        self.frame = originFrame
     }
     
 }

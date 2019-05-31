@@ -23,13 +23,13 @@ class CategoryDetailViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         if #available(iOS 11.0, *) {
-            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "皇家马德里", rightButton: nil, click: { (type) in
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: categoryData.object(forKey: "tribeName") as! String, rightButton: nil, click: { (type) in
                 if type == .backBtn {
                     self.navigationController?.popViewController()
                 }
             })
         } else {
-            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "皇家马德里", rightButton: nil, click: { (type) in
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: categoryData.object(forKey: "tribeName") as! String, rightButton: nil, click: { (type) in
                 if type == .backBtn {
                     self.navigationController?.popViewController()
                 }
@@ -47,6 +47,11 @@ class CategoryDetailViewController: BaseViewController {
         self.setUpLoadMoreData {
             
         }
+    }
+    
+    override func bindViewModelLogic() {
+        self.categoryViewModel.categoryData = CategoryModel.init(fromDictionary: self.categoryData as! [String : Any])
+        self.categoryViewModel.getCategoryNet()
     }
     
     func updateTableViewConstraints() {

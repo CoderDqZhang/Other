@@ -28,7 +28,9 @@ class UserInfoView: UIView {
         avatarImage = UIImageView.init()
         avatarImage.backgroundColor = UIColor.gray
         UIImageViewManger.sd_imageView(url: avatar, imageView: avatarImage, placeholderImage: nil) { (image, error, type, url) in
-            
+            if error == nil {
+                self.avatarImage.image = image
+            }
         }
         avatarImage.layer.cornerRadius = 11
         avatarImage.layer.masksToBounds = true
@@ -121,13 +123,12 @@ class UserInfoTableViewCell: UITableViewCell {
         userView = UserInfoView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 52))
         self.contentView.addSubview(userView)
         
-        userView.createContent(avatar: "", name: "中超小迪", category: "足球欧指讨论")
 
         self.updateConstraints()
     }
     
-    func cellSetData(){
-        
+    func cellSetData(model:TipModel){
+        userView.createContent(avatar: model.user.img, name: model.user.nickname, category: model.tribe.tribeName)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -8,15 +8,6 @@
 
 import UIKit
 
-class SecondeModel: NSObject {
-    
-    var userNameStr:String!
-    var contentStr:String!
-    init(name:String, content:String) {
-        userNameStr = name
-        contentStr = content
-    }
-}
 let commentImageWidth:CGFloat = (SCREENWIDTH - 60 - 8 * 2) / 3
 let commentImageHeight:CGFloat = commentImageWidth
 let SecondeContentHeight:CGFloat = 18
@@ -98,16 +89,18 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(images:[String],secondeContents:[SecondeModel],content:String, isCommentDetail:Bool){
-        let stringHeight = content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 70)
+    func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool){
+        let stringHeight = model.content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 70)
         contentLabel.snp.updateConstraints { (make) in
             make.size.height.equalTo(stringHeight)
         }
-        contentLabel.text = content
+        contentLabel.text = model.content
         
+        let images:[String] = model.img.nsString.components(separatedBy: ",")
         self.setImageContentView(images,isCommentDetail)
-        if !isCommentDetail {
-            self.setSecondeCotent(secondeContents: secondeContents)
+        
+        if isShowRepli {
+            self.setSecondeCotent(secondeContents: model.replyList)
         }
         
         lineLabel.snp.makeConstraints { (make) in
@@ -119,7 +112,25 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         self.contentView.updateConstraintsIfNeeded()
     }
     
-    func setSecondeCotent(secondeContents:[SecondeModel]){
+    func cellSetRepliy(model:ReplyList) {
+        let stringHeight = model.content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 70)
+        contentLabel.snp.updateConstraints { (make) in
+            make.size.height.equalTo(stringHeight)
+        }
+        contentLabel.text = model.content
+        imageContentView.snp.updateConstraints{ (make) in
+            make.height.equalTo(0.0001)
+        }
+        lineLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
+            make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: 1))
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+        }
+        self.contentView.updateConstraintsIfNeeded()
+    }
+    
+    func setSecondeCotent(secondeContents:[ReplyList]){
         switch secondeContents.count {
         case 0:
             secondeContent.isHidden = true
@@ -128,7 +139,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             }
         case 1:
             secondeContent.isHidden = false
-            let detailContent = self.createSecondeContentLabel(index: 0, username: secondeContents[0].userNameStr, content: secondeContents[0].contentStr)
+            let detailContent = self.createSecondeContentLabel(index: 0, username: secondeContents[0].nickname, content: secondeContents[0].content)
             secondeContent.addSubview(detailContent)
             secondeContent.snp.updateConstraints{ (make) in
                 make.height.equalTo(SecondeContentHeight + 10)
@@ -136,7 +147,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         case 2:
             secondeContent.isHidden = false
             for index in 0...secondeContents.count - 1 {
-                let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].userNameStr, content: secondeContents[index].userNameStr)
+                let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].nickname, content: secondeContents[index].content)
                 secondeContent.addSubview(detailContent)
             }
             secondeContent.snp.updateConstraints{ (make) in
@@ -145,7 +156,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         default:
             secondeContent.isHidden = false
             for index in 0...1 {
-                let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].userNameStr, content: secondeContents[index].userNameStr)
+                let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].nickname, content: secondeContents[index].content)
                 secondeContent.addSubview(detailContent)
             }
             secondeContent.snp.updateConstraints{ (make) in
@@ -164,8 +175,12 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
                     imageView.tag = index + 10000
                     UIImageViewManger.sd_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
-                        let view = self.imageContentView.viewWithTag(index + 10000)
+//                        let view = self.imageContentView.viewWithTag(index + 10000)
                         imageView.frame = CGRect.init(x: 0, y:imageContentHeight, width: SCREENWIDTH - 64, height: (SCREENWIDTH - 64) * (image?.size.height)! / (image?.size.width)!)
+                        imageView.backgroundColor = .red
+                        if error == nil {
+                            imageView.image = image
+                        }
                         if index == images.count - 1 {
                             self.imageContentView.snp.updateConstraints{ (make) in
                                 make.height.equalTo(imageView.frame.maxY)
@@ -179,13 +194,15 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 
             }else{
                 for index in 0...images.count - 1 {
-                    let image = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (commentImageWidth + 11), y: 0, width: commentImageWidth, height: commentImageHeight))
-                    UIImageViewManger.sd_imageView(url: images[index], imageView: image, placeholderImage: nil) { (image, error, cache, url) in
-                        
+                    let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (commentImageWidth + 11), y: 0, width: commentImageWidth, height: commentImageHeight))
+                    UIImageViewManger.sd_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
+                        if error == nil {
+                            imageView.image = image
+                        }
                     }
-                    image.layer.cornerRadius = 5
-                    image.layer.masksToBounds = true
-                    self.imageContentView.addSubview(image)
+                    imageView.layer.cornerRadius = 5
+                    imageView.layer.masksToBounds = true
+                    self.imageContentView.addSubview(imageView)
                 }
                 imageContentView.snp.updateConstraints{ (make) in
                     make.height.equalTo(commentImageHeight)

@@ -8,15 +8,25 @@
 
 import UIKit
 
+enum SearchType {
+    case category
+    case tageruser
+    case follows
+}
 
 class BaseSearchViewController: UISearchController {
 
     var rootController:BaseViewController!
     var originArray = NSMutableArray.init()
     var searchArray = NSMutableArray.init()
+    var resultArray = NSMutableArray.init()
+    
     var resultDic:NSDictionary!
     
-
+    var models = [CategoryModel]()
+    
+    var searchType:SearchType!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -42,11 +52,37 @@ class BaseSearchViewController: UISearchController {
         
     }
     
-    func setSarchResultData(_ text:String) {
+    //更新搜索成功数据
+    func setSarchResultData(_ text:String, _ type:SearchType) {
+        
+        if type == .category {
+            let parameters = ["search":text]
+            BaseNetWorke.sharedInstance.postUrlWithString(TribetribeListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    self.resultArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    if self.resultArray.count > 0 {
+                        (self.searchResultsController as! BaseViewController).bindViewodelResultData(self.resultArray)
+                        ((self.searchResultsController as! BaseViewController) as! CategoryChoosSearchViewController).refreshResultData()
+                    }
+                }
+            }
+        }else if type == .tageruser{
+            
+        }else if type == .follows {
+            //TO DO 加载更多
+            let parameters = ["page":1, "limit":LIMITNUMBER,"userId":CacheManager.getSharedInstance().getUserId(),"search":text] as [String : Any]
+            BaseNetWorke.sharedInstance.postUrlWithString(PersonmyfollowUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    self.resultArray = NSMutableArray.init(array: resultDic.value as! Array)
 
-        let dic = NSMutableArray.init(array: [["name":"这是一个测试数据啦","desc":"lalalala"],["name":"这是一个测试数据啦","desc":"lalalala"],["name":"这是一个测试数据啦","desc":"lalalala"],["name":"这是一个测试数据啦","desc":"lalalala"],])
-        (self.searchResultsController as! BaseViewController).bindViewodelResultData(dic)
-        ((self.searchResultsController as! BaseViewController) as! TargerUserSearchViewController).refreshResultData()
+                    if self.resultArray.count > 0 {
+                        (self.searchResultsController as! BaseViewController).bindViewodelResultData(self.resultArray)
+                        ((self.searchResultsController as! BaseViewController) as! TargerUserSearchViewController).refreshResultData()
+                    }
+                    
+                }
+            }
+        }
     }
 }
 
@@ -65,7 +101,7 @@ extension BaseSearchViewController : UISearchBarDelegate {
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) // called when text changes (including clear)
     {
-        self.setSarchResultData(searchText)
+        self.setSarchResultData(searchText,searchType)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) // called when keyboard search button pressed

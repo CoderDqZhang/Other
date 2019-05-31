@@ -20,7 +20,6 @@ enum CategoryType {
     case FootBallEurope //足球
 }
 //点击ftableViewCell数据返回
-typealias PostDetailDataClouse =  (_ obj:NSDictionary, _ type:PostType) ->Void
 typealias CategoryDetailDataClouse =  (_ obj:NSDictionary, _ type:CategoryType) ->Void
 
 class SegmentViewModel: BaseViewModel {
@@ -30,7 +29,9 @@ class SegmentViewModel: BaseViewModel {
     }
     
     func pushPostVC(){
-        NavigationPushView(self.controller!, toConroller: PostViewController())
+        let postVC = PostViewController()
+        let postNavigationController = UINavigationController.init(rootViewController: postVC)
+        NavigaiontPresentView(self.controller!, toController: postNavigationController)
     }
     
     func pushCategoryDetailViewController(_ data:NSDictionary, _ type:CategoryType){
@@ -46,5 +47,4 @@ class SegmentViewModel: BaseViewModel {
         postDetail.postType = type
         NavigationPushView(self.controller!, toConroller: postDetail)
     }
-    
 }

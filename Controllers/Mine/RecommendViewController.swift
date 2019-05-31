@@ -17,8 +17,9 @@ class RecommendViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
-    func initSView() {
+    func initSView(dic:NSDictionary) {
         self.bindViewModel(viewModel: recommendViewModel, controller: self)
+        self.recommendViewModel.userInfo = UserInfoModel.init(fromDictionary: dic as! [String : Any])
         self.setUpTableView(style: .grouped, cells: [CategoryContentTableViewCell.self,CommentTableViewCell.self,UserInfoTableViewCell.self], controller: self)
         
         self.setUpRefreshData {

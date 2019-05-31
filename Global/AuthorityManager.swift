@@ -14,29 +14,29 @@ import MapKit
 class AuthorityManager: NSObject, CLLocationManagerDelegate {
 
     class func setUpAuthorityManager(controller:BaseViewController?){
-        AuthorityManager.checkAudioStatus(controller: controller)
+//        AuthorityManager.checkAudioStatus(controller: controller)
         AuthorityManager.checkVideoStatus(controller: controller)
         AuthorityManager.checkPhotoStauts(controller: controller)
     }
     
     //获取麦克风权限
-    class func checkAudioStatus(controller:BaseViewController?){
-        let authorizate = AVCaptureDevice.authorizationStatus(for: .audio)
-        switch authorizate {
-        case .denied:
-            UIAlertController.showAlertControl(controller!, style: .alert, title: "请允许使用麦克风", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
-                
-            }, doneAction: {
-                SHARE_APPLICATION.openURL(URL.init(string: UIApplication.openSettingsURLString)!)
-            })
-//        case .authorized:
-        case .notDetermined:
-            AVAudioSession.sharedInstance().requestRecordPermission { (ret) in
-            }
-        default:
-            break;
-        }
-    }
+//    class func checkAudioStatus(controller:BaseViewController?){
+//        let authorizate = AVCaptureDevice.authorizationStatus(for: .audio)
+//        switch authorizate {
+//        case .denied:
+//            UIAlertController.showAlertControl(controller!, style: .alert, title: "请允许使用麦克风", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
+//                
+//            }, doneAction: {
+//                SHARE_APPLICATION.openURL(URL.init(string: UIApplication.openSettingsURLString)!)
+//            })
+////        case .authorized:
+//        case .notDetermined:
+//            AVAudioSession.sharedInstance().requestRecordPermission { (ret) in
+//            }
+//        default:
+//            break;
+//        }
+//    }
     
     //获取照相机权限
     class func checkVideoStatus(controller:BaseViewController?){

@@ -19,6 +19,8 @@ class GloableLineLabel: UIView {
         return lable
     }
     
+    
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -28,12 +30,17 @@ enum GLoabelNavigaitonBarButtonType {
     case rightBtn
 }
 typealias GloabelBackButtonClouse = (_ buttonType:GLoabelNavigaitonBarButtonType) ->Void
+typealias RightButtonClouse = (_ status:Bool) ->Void
+
 class GLoabelNavigaitonBar:UIView {
     var titleLabel:YYLabel!
     var backButton:UIButton!
     var rigthButton:AnimationButton!
     
+    var isSelect:Bool = false
+    
     var gloabelBackButtonClouse:GloabelBackButtonClouse!
+    var rightButtonClouse:RightButtonClouse!
     
     init(frame: CGRect, title:String, rightButton:AnimationButton?,  click:@escaping GloabelBackButtonClouse) {
         super.init(frame:frame)
@@ -60,10 +67,6 @@ class GLoabelNavigaitonBar:UIView {
         
         if rightButton != nil {
             self.rigthButton = rightButton
-            self.rigthButton.cornerRadius = 14
-            self.rigthButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
-            self.rigthButton.layer.masksToBounds = true
-            self.rigthButton.isHidden = true
             rightButton?.addTarget(self, action: #selector(self.rightButtonClick), for: .touchUpInside)
             self.addSubview(rightButton!)
             rightButton?.snp.makeConstraints { (make) in
@@ -98,9 +101,13 @@ class GLoabelNavigaitonBar:UIView {
     
     @objc func rightButtonClick(){
         self.gloabelBackButtonClouse(.rightBtn)
+        if self.rightButtonClouse != nil {
+            self.rightButtonClouse(self.isSelect)
+        }
     }
     
     func changeToolsButtonType(followed:Bool) {
+        isSelect = followed
         if followed {
             rigthButton.setTitle("已关注", for: .normal)
             rigthButton.borderColor = App_Theme_FFAC1B_Color
@@ -136,7 +143,7 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
     var imageView:UIImageView!
     var label:YYLabel!
     init(frame:CGRect, title:String, image:UIImage, tag:NSInteger?, titleColor:UIColor,spacing:CGFloat, font:UIFont, click:@escaping TouchClickClouse) {
-        super.init(frame: CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height)) {
+        super.init(frame: CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height),tag: tag!) {
             click()
         }
         
@@ -155,9 +162,13 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
         
     }
     
-    func changeContent(str:String,image:UIImage) {
-        label.text = str
-        imageView.image = image
+    func changeContent(str:String?,image:UIImage?) {
+        if str != nil {
+            label.text = str
+        }
+        if image != nil {
+            imageView.image = image
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -207,10 +218,12 @@ class CustomViewCommentTextField: UIView {
         }
         
         if !isEdit {
-            let singTap = UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer {
-                click()
+            _  = self.newTapGesture { (gesture) in
+                gesture.numberOfTouchesRequired = 1
+                gesture.numberOfTapsRequired = 1
+                }.whenTaped { (tap) in
+                    click()
             }
-            self.addGestureRecognizer(singTap)
         }
         if #available(iOS 11.0, *) {
             IQKeyboardManager.shared.keyboardDistanceFromTextField = -TABBAR_HEIGHT
@@ -330,6 +343,7 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
 
 enum KeyboardToobarType:Int {
     case cancel = 0
+    case photos = 1
 }
 typealias KeyboardToobarClouse = (_ type:KeyboardToobarType) ->Void
 class KeyboardToobar: UIToolbar {
@@ -342,7 +356,20 @@ class KeyboardToobar: UIToolbar {
         cancel.tag = KeyboardToobarType.cancel.rawValue
         self.setShadowImage(UIImage.init(), forToolbarPosition: UIBarPosition.any)
         self.barTintColor = App_Theme_F6F6F6_Color
-        self.setItems([], animated: true)
+        
+        let photos = UIBarButtonItem.init(image: UIImage.init(named: "photos")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: .plain, target: self, action: #selector(self.photosClick))
+        photos.tag = KeyboardToobarType.photos.rawValue
+        self.setShadowImage(UIImage.init(), forToolbarPosition: UIBarPosition.any)
+        self.barTintColor = App_Theme_F6F6F6_Color
+        self.setItems([cancel,photos], animated: true)
+        
+        
+    }
+    
+    @objc func photosClick(_ sender:UIBarButtonItem){
+        if self.keyboardToobarClouse != nil {
+            self.keyboardToobarClouse(KeyboardToobarType.init(rawValue: sender.tag)!)
+        }
     }
     
     @objc func backToobarClick(_ sender:UIBarButtonItem){
@@ -830,13 +857,11 @@ class RegisterView: UIView {
             return str.count > 0
         }
         
-        passwordTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,pas) in
-            if phone && pas && self.isCheckBool {
-                self.changeEnabel(isEnabled: true)
-            }else{
-                self.changeEnabel(isEnabled: false)
-            }
+        let codeSignal =  passwordTextFieldSignal.combineLatest(with: phoneTextFieldSignal).map { (phone,pas) -> Bool in
+            return phone && pas
         }
+        
+        
         codeTextField = UITextField.init()
         codeTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         codeTextField.textColor = App_Theme_FFFFFF_Color
@@ -848,7 +873,7 @@ class RegisterView: UIView {
             return str.count > 0
         }
         
-        codeTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,code) in
+        codeTextFieldSignal.combineLatest(with: codeSignal).observeValues { (phone,code) in
             if phone && code && self.isCheckBool {
                 self.changeEnabel(isEnabled: true)
             }else{
@@ -863,6 +888,9 @@ class RegisterView: UIView {
         senderCode.addAction({ (button) in
             self.count = 15
             self.timeDone()
+            if self.registerViewButtonClouse != nil {
+                self.registerViewButtonClouse(.senderCode)
+            }
         }, for: .touchUpInside)
         self.addSubview(senderCode)
         

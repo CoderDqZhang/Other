@@ -57,7 +57,6 @@ class TopUpView: UIView {
         iconLabel.textAlignment = .center
         iconLabel.font = App_Theme_PinFan_R_19_Font
         iconLabel.textColor = App_Theme_06070D_Color
-        iconLabel.text = cion
         centerView.addSubview(iconLabel)
         
         iconLabel.snp.makeConstraints { (make) in
@@ -200,8 +199,16 @@ class TopUpView: UIView {
     }
     
     func updateText(icon:String, number:String) {
-        iconLabel.text = icon
-        numberLabel.text = number
+        if icon.double()! > 10000 {
+            iconLabel.text = icon.double()?.int.kFormatted
+        }else{
+            iconLabel.text = icon
+        }
+        if number.double()! > 10000 {
+            numberLabel.text = number.double()?.int.kFormatted
+        }else{
+            numberLabel.text = number
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -244,7 +251,6 @@ class MineInfoTableViewCell: UITableViewCell {
         self.contentView.addSubview(backImageView)
         
         avatarImageView = UIImageView.init()
-        avatarImageView.backgroundColor = .red
         avatarImageView.cornerRadius = 31
         avatarImageView.layer.masksToBounds = true
         self.contentView.addSubview(avatarImageView)
@@ -317,12 +323,33 @@ class MineInfoTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func cellSetData(model:UserInfoModel?,acount:AccountInfoModel?){
+        if model != nil {
+            userNameLabel.text = model!.nickname
+            if model!.fansNum > 1000 {
+                followLabel.text = "粉丝 \(model!.fansNum.kFormatted)"
+            }else{
+                followLabel.text = "粉丝 \(model!.fansNum.string)"
+            }
+            if model!.followNum > 1000 {
+                attentionsLabel.text = "关注 \(String(describing: model?.followNum.kFormatted))"
+            }else{
+                attentionsLabel.text = "关注 \(model!.followNum.string)"
+            }
+            descLabel.text = model!.descriptionField == "" ? "还没有个人简介" : model!.descriptionField
+            UIImageViewManger.sd_imageView(url: model!.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
+                self.avatarImageView.image = image
+            }
+            vImageView.isHidden = model!.isMaster == "1" ? false : true
+        }
+        if acount?.integral != nil {
+            topUpView.updateText(icon: acount!.chargeCoin.string, number: acount!.integral.string)
+        }
+        
     }
     
-    func cellSetData(){
-        
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func updateConstraints() {

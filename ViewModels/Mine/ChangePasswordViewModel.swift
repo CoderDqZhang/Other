@@ -17,23 +17,28 @@ class ChangePasswordViewModel: BaseViewModel {
     var oldPasSingle:Signal<Bool, Never>?
     var newPasSingle:Signal<Bool, Never>?
     var confirmPasSingle:Signal<Bool, Never>?
-    
+    var oldPassword:String = ""
+    var newPassword:String = ""
+    var confirmPassword:String = ""
     override init() {
         super.init()
     }
     
-    func tableViewGloabelTextFieldTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldTableViewCell) {
+    func tableViewGloabelTextFieldAndTitleTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldAndTitleTableViewCell) {
         cell.textFiled.textType = .password
         if indexPath.row == 0 {
             oldPasSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
+                self.oldPassword = str
                 return str.count > 0
             }
         }else if indexPath.row == 1 {
             newPasSingle = cell.textFiled.reactive.continuousTextValues.map { (text) -> Bool in
+                self.newPassword = text
                 return text.count > 0
             }
         }else if indexPath.row == 2 {
             confirmPasSingle = cell.textFiled.reactive.continuousTextValues.map { (text) -> Bool in
+                self.confirmPassword = text
                 return text.count > 0
             }
         }
@@ -54,12 +59,26 @@ class ChangePasswordViewModel: BaseViewModel {
         })
         
         cell.anmationButton.addAction({ (button) in
-            
+            if self.confirmPassword != self.newPassword {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "两次密码不一致", autoHidder: true)
+                return
+            }
+            self.changePasswordNet(oldPas: AddAESKeyPassword(str: self.oldPassword), newPas: AddAESKeyPassword(str: self.newPassword))
         }, for: .touchUpInside)
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func changePasswordNet(oldPas:String,newPas:String){
+        let parameters = ["oldPassword":oldPas,"password":newPas]
+        BaseNetWorke.sharedInstance.postUrlWithString(SurePasswordUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "修改成功", autoHidder: true)
+                self.controller!.navigationController?.popViewController()
+            }
+        }
     }
 }
 
@@ -120,8 +139,8 @@ extension ChangePasswordViewModel: UITableViewDataSource {
             cell.backgroundColor = .clear
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldTableViewCell.description(), for: indexPath)
-        self.tableViewGloabelTextFieldTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldTableViewCell)
+        let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldAndTitleTableViewCell.description(), for: indexPath)
+        self.tableViewGloabelTextFieldAndTitleTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldAndTitleTableViewCell)
         return cell
     }
 }

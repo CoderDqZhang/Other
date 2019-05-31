@@ -58,6 +58,7 @@ class PostDetailContentTableViewCell: UITableViewCell {
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "post_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
             self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
+            self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
             self.postDetailContentTableViewCellClouse(.like)
         })
         
@@ -112,24 +113,26 @@ class PostDetailContentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(title:String,content:String, images:[String]){
+    func cellSetData(model:TipModel){
         
-        let titleHeight = title.nsString.height(with: App_Theme_PinFan_M_18_Font, constrainedToWidth: SCREENWIDTH - 30)
+        let titleHeight = model.title.nsString.height(with: App_Theme_PinFan_M_18_Font, constrainedToWidth: SCREENWIDTH - 30)
         titleLabel.snp.makeConstraints { (make) in
             make.size.height.equalTo(titleHeight)
         }
-        titleLabel.text = title
+        titleLabel.text = model.title
         
-        let contentHeight = content.nsString.height(with: App_Theme_PinFan_M_15_Font, constrainedToWidth: SCREENWIDTH - 30)
+        let contentHeight = model.content.nsString.height(with: App_Theme_PinFan_M_15_Font, constrainedToWidth: SCREENWIDTH - 30)
         contnetLabel.snp.updateConstraints { (make) in
             make.size.height.equalTo(contentHeight)
         }
-        contnetLabel.text = content
+        contnetLabel.text = model.content
+        
+        let images = model.image.split(separator: ",")
         
         if images.count > 1 {
             for index in 0...images.count - 1 {
                 let image = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                UIImageViewManger.sd_imageView(url: images[index], imageView: image, placeholderImage: nil) { (image, error, cache, url) in
+                UIImageViewManger.sd_imageView(url: String(images[index]), imageView: image, placeholderImage: nil) { (image, error, cache, url) in
                     
                 }
                 image.layer.cornerRadius = 5
@@ -143,6 +146,17 @@ class PostDetailContentTableViewCell: UITableViewCell {
             imageContentView.snp.updateConstraints{ (make) in
                 make.height.equalTo(0.0001)
             }
+        }
+        
+        if model.isFork == 1 {
+            self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
+            self.likeButton.changeContent(str: model.commentTotal.string, image: nil)
+        }else{
+            likeButton.changeContent(str: model.commentTotal.string, image: nil)
+        }
+        
+        if model.isCollect == 1 {
+            self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
         }
         
         likeButton.snp.updateConstraints { (make) in

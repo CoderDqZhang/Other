@@ -11,7 +11,7 @@ import UIKit
 class MineInfoViewController: BaseViewController {
 
     let mineInfoViewModel = MineInfoViewModel.init()
-    
+    var userInfo:UserInfoModel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +21,11 @@ class MineInfoViewController: BaseViewController {
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
         self.navigationItem.title = "基本资料"
+    }
+    
+    override func bindViewModelLogic() {
+        self.mineInfoViewModel.userInfo = self.userInfo
+        self.mineInfoViewModel.bindLoginc()
     }
     
     override func setUpView() {
@@ -80,10 +85,19 @@ extension MineInfoViewController : UIImagePickerControllerDelegate {
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard var selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
-        print(selectedImage)
+        DispatchQueue.main.async(execute: {
+            let cell = self.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! TitleLableAndDetailLabelDescRight
+            cell.rightImageView.image = selectedImage
+        })
+
+        AliPayManager.getSharedInstance().uploadFile(images: [selectedImage], type: .user) { (imgs,str) in
+            self.mineInfoViewModel.updateuserInfo(key: "img", value: "\(imgs[0])")
+            self.mineInfoViewModel.userInfo.img = "\(imgs[0])"
+            CacheManager.getSharedInstance().getUserInfo()?.img = "\(imgs[0])"
+        }
         picker.dismiss(animated: true) {
             
         }

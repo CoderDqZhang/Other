@@ -25,14 +25,17 @@ class CategoryView:UIView {
     
     init(imageUrl:String, title:String, tag:Int, clouse:@escaping CategoryViewClouseClick){
         super.init(frame: CGRect.init(x: 0, y: 0, width: CategoryViewWidth, height: CategoryViewHeight))
-        self.categoryViewClouseClick = clouse
+        self.tag = tag
+//        self.categoryViewClouseClick = clouse
         self.setShadowWithCornerRadius(corners: 10, shadowColor: App_Theme_B5B5B5_Color!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
         
         imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: CategoryViewWidth, height: ImageHeith))
         setMutiBorderRoundingCorners(imageView, corner: 10, byRoundingCorners: [UIRectCorner.topLeft,UIRectCorner.topRight])
         imageView.backgroundColor = .gray
-        UIImageViewManger.sd_downImage(url: imageUrl, placeholderImage: nil) { (image, date, error, ret) in
-            
+        UIImageViewManger.sd_imageView(url: imageUrl, imageView: imageView, placeholderImage: nil) { (image, error, cacheType, url) in
+            if error != nil {
+                self.imageView.image = image
+            }
         }
         
         self.addSubview(imageView)
@@ -47,10 +50,12 @@ class CategoryView:UIView {
         
         self.isUserInteractionEnabled = true
         
-        let singleTap =  UITapGestureRecognizerManager.shareInstance.initTapGestureRecognizer { 
-            self.categoryViewClouseClick(tag)
+        _  = self.newTapGesture { (gesture) in
+            gesture.numberOfTouchesRequired = 1
+            gesture.numberOfTapsRequired = 1
+            }.whenTaped { (tap) in
+               self.categoryViewClouseClick(self.tag)
         }
-        self.addGestureRecognizer(singleTap)
     }
     
     /// 添加圆角和阴影 radius:圆角半径 shadowOpacity: 阴影透明度 (0-1) shadowColor: 阴影颜色
@@ -71,13 +76,13 @@ class CategoryView:UIView {
     }
 }
 
-typealias CategoryTableViewCellClouseClick = (_ tag:Int) ->Void
+typealias CategoryTableViewCellClouseClick = (_ tag:CategoryModel) ->Void
 
 class CategoryTableViewCell: UITableViewCell {
     
     var contentViews:UIView!
     var categoryTableViewCellClouseClick:CategoryTableViewCellClouseClick!
-    
+    var models:NSMutableArray!
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -88,20 +93,32 @@ class CategoryTableViewCell: UITableViewCell {
     func setUpView(){
         contentViews = UIView.init(frame: CGRect.init(x: 0, y: 5, width: SCREENWIDTH, height: CategoryViewHeight))
         self.contentView.addSubview(contentViews)
-        self.cellSetData()
         self.updateConstraints()
     }
     
-    func cellSetData(){
-        var urls = ["","","",""]
-        var titles = ["足球讨论","足球欧指讨论","篮球讨论","篮球欧指讨论"]
-        for index in 0...3{
-            let categoryView = CategoryView.init(imageUrl: urls[index], title: titles[index], tag: index) { (tag) in
-                self.categoryTableViewCellClouseClick(tag)
+    func cellSetData(models:NSMutableArray){
+        self.models = models
+        for index in 0...models.count - 1 {
+            let category = CategoryModel.init(fromDictionary: (models[index] as! NSDictionary) as! [String : Any])
+            let categoryView = CategoryView.init(imageUrl: category.tribeImg, title: category.tribeName, tag: index) { (tag) in
+                
             }
+            categoryView.isUserInteractionEnabled = true
+            _  = categoryView.newTapGesture { (gesture) in
+                gesture.numberOfTouchesRequired = 1
+                gesture.numberOfTapsRequired = 1
+                }.whenTaped(handler: { (tap) in
+                    let category = CategoryModel.init(fromDictionary: (self.models[tap.view!.tag - 100] as! NSDictionary) as! [String : Any])
+                    self.categoryTableViewCellClouseClick(category)
+                })
+            categoryView.categoryViewClouseClick = { tag in
+                print(tag)
+            }
+            categoryView.tag = index + 100
             categoryView.frame = CGRect.init(x: 10 + CGFloat(CGFloat(index) * (CategoryViewWidth + 8)), y: 5, width: CategoryViewWidth, height: CategoryViewHeight)
             contentViews.addSubview(categoryView)
         }
+        self.needsUpdateConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {

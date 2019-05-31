@@ -26,6 +26,15 @@ class FansViewController: BaseViewController {
         self.bindViewModel(viewModel: fansViewModel, controller: self)
         self.setUpTableView(style: .grouped, cells: [GloabelFansTableViewCell.self], controller: self)
         self.tableView.backgroundColor = App_Theme_F6F6F6_Color
+        
+        self.setUpRefreshData {
+            self.fansViewModel.page = 0
+            self.fansViewModel.getFansNet()
+        }
+        
+        self.setUpLoadMoreData {
+            self.fansViewModel.getFansNet()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

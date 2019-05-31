@@ -22,15 +22,15 @@ class MyPostViewController: BaseViewController {
         self.setUpTableView(style: .grouped, cells: [CategoryContentTableViewCell.self,CommentTableViewCell.self,UserInfoTableViewCell.self], controller: self)
         
         self.setUpRefreshData {
-            
+            self.myPostViewModel.page = 0
+            self.myPostViewModel.getMyPostNet()
         }
         
         self.setUpLoadMoreData {
-            
+            self.myPostViewModel.getMyPostNet()
         }
     }
     
-
     /*
     // MARK: - Navigation
 

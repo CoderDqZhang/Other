@@ -51,6 +51,7 @@ let IPHONEXTABBARHEIGHT:CGFloat = IPHONEXs ? 30 : 0
 let KWindow:UIWindow = UIApplication.shared.keyWindow!
 
 
+
 func isIPhoneXSeries() -> Bool{
     var iPhoneXSeries:Bool = false
     if UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.phone {
@@ -115,4 +116,10 @@ func MainThreanShowNetWorkError(_ error:AnyObject){
         _ = Tools.shareInstance.showNetWorkError(error)
     })
 }
+
+func AddAESKeyPassword(str:String)->String{
+    return NSString.aes128Encrypt(str, key:AESKey)
+}
+
+
 

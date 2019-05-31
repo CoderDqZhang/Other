@@ -8,6 +8,68 @@
 
 /* Begin PBXBuildFile section */
 		15108473677B73C6C74CACF8 /* Pods_TouqiuUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */; };
+		1F1C1B2E229E9FF4008031F4 /* TopUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B2D229E9FF4008031F4 /* TopUpTableViewCell.swift */; };
+		1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B2F229EA01E008031F4 /* TopUpToolsTableViewCell.swift */; };
+		1F1C1B32229EA042008031F4 /* TopUpWarningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */; };
+		1F1C1B34229EA052008031F4 /* TopUpConfirmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */; };
+		1F1C1B36229EA839008031F4 /* WithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */; };
+		1F1C1B38229F66EB008031F4 /* WithDrawTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B37229F66EB008031F4 /* WithDrawTypeTableViewCell.swift */; };
+		1F1C1B3A229F6C88008031F4 /* BindDrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B39229F6C88008031F4 /* BindDrawViewModel.swift */; };
+		1F1C1B3C229F6CC4008031F4 /* BindWithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */; };
+		1F1C1B3E229F7FC3008031F4 /* AccountTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */; };
+		1F1C1B40229FA151008031F4 /* BankName.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F1C1B3F229FA151008031F4 /* BankName.json */; };
+		1F1C1B44229FA3F7008031F4 /* ReadFileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B43229FA3F7008031F4 /* ReadFileDataManager.swift */; };
+		1F1C1B46229FA4A4008031F4 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B45229FA4A4008031F4 /* Config.swift */; };
+		1F1C1B48229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */; };
+		1F1C1B4A229FFAE9008031F4 /* BankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B49229FFAE9008031F4 /* BankModel.swift */; };
+		1F1C1B4C22A0B58F008031F4 /* BindBankListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */; };
+		1F1C1B4E22A0B5CB008031F4 /* BankListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */; };
+		1F1C1B5022A0B61B008031F4 /* BankTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */; };
+		1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8122951D4200781C0C /* UMCommonLog.framework */; };
+		1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F395C8222951D4200781C0C /* UMCommonLog.bundle */; };
+		1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8522951D4200781C0C /* UTDID.framework */; };
+		1F395CA422951D4200781C0C /* SecurityEnvSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8622951D4200781C0C /* SecurityEnvSDK.framework */; };
+		1F395CA522951D4200781C0C /* UMPush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8922951D4200781C0C /* UMPush.framework */; };
+		1F395CA622951D4200781C0C /* UMCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8D22951D4200781C0C /* UMCommon.framework */; };
+		1F395CA722951D4200781C0C /* UMAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C9022951D4200781C0C /* UMAnalytics.framework */; };
+		1F395CA822951D4200781C0C /* UMSocialSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F395C9422951D4200781C0C /* UMSocialSDKResources.bundle */; };
+		1F395CA922951D4200781C0C /* UShareUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C9522951D4200781C0C /* UShareUI.framework */; };
+		1F395CAA22951D4200781C0C /* UMShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C9622951D4200781C0C /* UMShare.framework */; };
+		1F395CAB22951D4200781C0C /* libSocialWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C9922951D4200781C0C /* libSocialWeChat.a */; };
+		1F395CAC22951D4200781C0C /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C9C22951D4200781C0C /* libSocialSina.a */; };
+		1F395CAD22951D4200781C0C /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395CA022951D4200781C0C /* libSocialQQ.a */; };
+		1F395CAF22951EA400781C0C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395CAE22951EA400781C0C /* libsqlite3.tbd */; };
+		1F395CB122951EB400781C0C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395CB022951EB400781C0C /* CoreGraphics.framework */; };
+		1F395CB3229521F300781C0C /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395CB2229521F300781C0C /* Photos.framework */; };
+		1F395CB52295230500781C0C /* UMengManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CB42295230500781C0C /* UMengManager.swift */; };
+		1F395CB72295306B00781C0C /* UMengUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CB62295306B00781C0C /* UMengUI.swift */; };
+		1F395CC3229542E000781C0C /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CC2229542E000781C0C /* UserInfoModel.swift */; };
+		1F395CC52295458C00781C0C /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CC42295458C00781C0C /* CacheManager.swift */; };
+		1F395CC72295461000781C0C /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CC62295461000781C0C /* RegisterViewModel.swift */; };
+		1F395CC922962E5200781C0C /* AliPayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CC822962E5200781C0C /* AliPayManager.swift */; };
+		1F395CCB2296787600781C0C /* AccountInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CCA2296787600781C0C /* AccountInfoModel.swift */; };
+		1F395CCD2296A99E00781C0C /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CCC2296A99E00781C0C /* CategoryModel.swift */; };
+		1F395CCF229783A300781C0C /* TipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CCE229783A300781C0C /* TipModel.swift */; };
+		1F395CD1229786AB00781C0C /* CategoryChoosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD0229786AB00781C0C /* CategoryChoosViewController.swift */; };
+		1F395CD32297871800781C0C /* CategoryChossViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD22297871800781C0C /* CategoryChossViewModel.swift */; };
+		1F395CD522978BFF00781C0C /* CategorySearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD422978BFF00781C0C /* CategorySearchViewModel.swift */; };
+		1F395CD722978DB600781C0C /* CategoryChoosSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD622978DB600781C0C /* CategoryChoosSearchViewController.swift */; };
+		1F395CD922978E7600781C0C /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD822978E7600781C0C /* PostViewModel.swift */; };
+		1F395CDB229797D400781C0C /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CDA229797D400781C0C /* PostModel.swift */; };
+		1F99174C229B74AC00C8FDD5 /* CoinsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */; };
+		1F99174E229B74B900C8FDD5 /* ConinsSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */; };
+		1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */; };
+		1F991752229B784800C8FDD5 /* CoinsDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991751229B784800C8FDD5 /* CoinsDetailTableViewCell.swift */; };
+		1F991754229B92BB00C8FDD5 /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991753229B92BB00C8FDD5 /* StoreViewController.swift */; };
+		1F991756229B944A00C8FDD5 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */; };
+		1F991758229BB41E00C8FDD5 /* AccountCoinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991757229BB41E00C8FDD5 /* AccountCoinsModel.swift */; };
+		1F99175A229BC16D00C8FDD5 /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */; };
+		1F99175C229BC5B100C8FDD5 /* TouUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */; };
+		1F99175E229BDBC400C8FDD5 /* CoinsDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */; };
+		1F991762229BF05700C8FDD5 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991761229BF05700C8FDD5 /* CommentModel.swift */; };
+		1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */; };
+		1F991775229E6EC300C8FDD5 /* OtherPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */; };
+		1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
 		1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB22281788E00C9137C /* ViewController.swift */; };
 		1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB42281788E00C9137C /* Main.storyboard */; };
@@ -58,9 +120,6 @@
 		1FE5BEB42282866300C9137C /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE572282866100C9137C /* TAPageControl.m */; };
 		1FE5BEB52282866300C9137C /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE582282866100C9137C /* TAAnimatedDotView.m */; };
 		1FE5BEB62282866300C9137C /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE592282866100C9137C /* TAAbstractDotView.m */; };
-		1FE5BEB72282866300C9137C /* CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE5F2282866100C9137C /* CountDown.m */; };
-		1FE5BEBF2282866300C9137C /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE702282866100C9137C /* FLAnimatedImage.m */; };
-		1FE5BEC02282866300C9137C /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE712282866100C9137C /* FLAnimatedImageView.m */; };
 		1FE5BEC12282866300C9137C /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE752282866200C9137C /* JKDBModel.m */; };
 		1FE5BEC22282866300C9137C /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE762282866200C9137C /* JKDBHelper.m */; };
 		1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE7C2282866200C9137C /* UITableView+FDTemplateLayoutCell.m */; };
@@ -86,8 +145,6 @@
 		1FE5BED72282866300C9137C /* RangeSeekSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BEAD2282866200C9137C /* RangeSeekSliderDelegate.swift */; };
 		1FE5BED82282866300C9137C /* RangeSeekSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BEAE2282866200C9137C /* RangeSeekSlider.swift */; };
 		1FE5BED92282866300C9137C /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BEAF2282866200C9137C /* TapticEngine.swift */; };
-		1FE5BEDF2282867400C9137C /* UMCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE5BEDC2282867400C9137C /* UMCommon.framework */; };
-		1FE5BEE02282867400C9137C /* UMAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE5BEDE2282867400C9137C /* UMAnalytics.framework */; };
 		1FE5BEE72282868200C9137C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BEE42282868200C9137C /* README.txt */; };
 		1FE5BEE82282868200C9137C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE5BEE62282868200C9137C /* libWeChatSDK.a */; };
 		1FE5BEEC2282887400C9137C /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BEEA2282887400C9137C /* TencentOpenApi_IOS_Bundle.bundle */; };
@@ -220,6 +277,71 @@
 /* Begin PBXFileReference section */
 		0DA723FDBC1D618581E1F82A /* Pods-TouqiuUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.release.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.release.xcconfig"; sourceTree = "<group>"; };
 		18B65AD53AA8FA7FDF790C02 /* Pods-TouqiuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuTests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuTests/Pods-TouqiuTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1F1C1B2D229E9FF4008031F4 /* TopUpTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B2F229EA01E008031F4 /* TopUpToolsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpToolsTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpWarningTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpConfirmTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewModel.swift; sourceTree = "<group>"; };
+		1F1C1B37229F66EB008031F4 /* WithDrawTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithDrawTypeTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B39229F6C88008031F4 /* BindDrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindDrawViewModel.swift; sourceTree = "<group>"; };
+		1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindWithdrawViewController.swift; sourceTree = "<group>"; };
+		1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTypeTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B3F229FA151008031F4 /* BankName.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BankName.json; sourceTree = "<group>"; };
+		1F1C1B43229FA3F7008031F4 /* ReadFileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadFileDataManager.swift; sourceTree = "<group>"; };
+		1F1C1B45229FA4A4008031F4 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithDrawMuchTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B49229FFAE9008031F4 /* BankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankModel.swift; sourceTree = "<group>"; };
+		1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindBankListViewController.swift; sourceTree = "<group>"; };
+		1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankListViewModel.swift; sourceTree = "<group>"; };
+		1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTableViewCell.swift; sourceTree = "<group>"; };
+		1F395C8122951D4200781C0C /* UMCommonLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommonLog.framework; sourceTree = "<group>"; };
+		1F395C8222951D4200781C0C /* UMCommonLog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMCommonLog.bundle; sourceTree = "<group>"; };
+		1F395C8522951D4200781C0C /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
+		1F395C8622951D4200781C0C /* SecurityEnvSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SecurityEnvSDK.framework; sourceTree = "<group>"; };
+		1F395C8922951D4200781C0C /* UMPush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMPush.framework; sourceTree = "<group>"; };
+		1F395C8D22951D4200781C0C /* UMCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommon.framework; sourceTree = "<group>"; };
+		1F395C9022951D4200781C0C /* UMAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMAnalytics.framework; sourceTree = "<group>"; };
+		1F395C9422951D4200781C0C /* UMSocialSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResources.bundle; sourceTree = "<group>"; };
+		1F395C9522951D4200781C0C /* UShareUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UShareUI.framework; sourceTree = "<group>"; };
+		1F395C9622951D4200781C0C /* UMShare.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMShare.framework; sourceTree = "<group>"; };
+		1F395C9922951D4200781C0C /* libSocialWeChat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialWeChat.a; sourceTree = "<group>"; };
+		1F395C9A22951D4200781C0C /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWechatHandler.h; sourceTree = "<group>"; };
+		1F395C9C22951D4200781C0C /* libSocialSina.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialSina.a; sourceTree = "<group>"; };
+		1F395C9D22951D4200781C0C /* UMSocialSinaHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSinaHandler.h; sourceTree = "<group>"; };
+		1F395C9F22951D4200781C0C /* UMSocialQQHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialQQHandler.h; sourceTree = "<group>"; };
+		1F395CA022951D4200781C0C /* libSocialQQ.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialQQ.a; sourceTree = "<group>"; };
+		1F395CAE22951EA400781C0C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		1F395CB022951EB400781C0C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1F395CB2229521F300781C0C /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		1F395CB42295230500781C0C /* UMengManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UMengManager.swift; sourceTree = "<group>"; };
+		1F395CB62295306B00781C0C /* UMengUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UMengUI.swift; sourceTree = "<group>"; };
+		1F395CC2229542E000781C0C /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		1F395CC42295458C00781C0C /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		1F395CC62295461000781C0C /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		1F395CC822962E5200781C0C /* AliPayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliPayManager.swift; sourceTree = "<group>"; };
+		1F395CCA2296787600781C0C /* AccountInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoModel.swift; sourceTree = "<group>"; };
+		1F395CCC2296A99E00781C0C /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
+		1F395CCE229783A300781C0C /* TipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipModel.swift; sourceTree = "<group>"; };
+		1F395CD0229786AB00781C0C /* CategoryChoosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChoosViewController.swift; sourceTree = "<group>"; };
+		1F395CD22297871800781C0C /* CategoryChossViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChossViewModel.swift; sourceTree = "<group>"; };
+		1F395CD422978BFF00781C0C /* CategorySearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySearchViewModel.swift; sourceTree = "<group>"; };
+		1F395CD622978DB600781C0C /* CategoryChoosSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChoosSearchViewController.swift; sourceTree = "<group>"; };
+		1F395CD822978E7600781C0C /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		1F395CDA229797D400781C0C /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailViewController.swift; sourceTree = "<group>"; };
+		1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConinsSegementViewController.swift; sourceTree = "<group>"; };
+		1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsViewModel.swift; sourceTree = "<group>"; };
+		1F991751229B784800C8FDD5 /* CoinsDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailTableViewCell.swift; sourceTree = "<group>"; };
+		1F991753229B92BB00C8FDD5 /* StoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
+		1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
+		1F991757229BB41E00C8FDD5 /* AccountCoinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCoinsModel.swift; sourceTree = "<group>"; };
+		1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
+		1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouUpViewModel.swift; sourceTree = "<group>"; };
+		1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailModel.swift; sourceTree = "<group>"; };
+		1F991761229BF05700C8FDD5 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansFlowwerModel.swift; sourceTree = "<group>"; };
+		1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPostViewController.swift; sourceTree = "<group>"; };
+		1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherGuessViewController.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5BDB02281788E00C9137C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE5BDB22281788E00C9137C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -294,12 +416,6 @@
 		1FE5BE5A2282866100C9137C /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
 		1FE5BE5B2282866100C9137C /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
 		1FE5BE5C2282866100C9137C /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
-		1FE5BE5E2282866100C9137C /* CountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDown.h; sourceTree = "<group>"; };
-		1FE5BE5F2282866100C9137C /* CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDown.m; sourceTree = "<group>"; };
-		1FE5BE702282866100C9137C /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
-		1FE5BE712282866100C9137C /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
-		1FE5BE722282866100C9137C /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
-		1FE5BE732282866100C9137C /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
 		1FE5BE752282866200C9137C /* JKDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBModel.m; sourceTree = "<group>"; };
 		1FE5BE762282866200C9137C /* JKDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBHelper.m; sourceTree = "<group>"; };
 		1FE5BE772282866200C9137C /* JKDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBModel.h; sourceTree = "<group>"; };
@@ -351,8 +467,6 @@
 		1FE5BEAD2282866200C9137C /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
 		1FE5BEAE2282866200C9137C /* RangeSeekSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSeekSlider.swift; sourceTree = "<group>"; };
 		1FE5BEAF2282866200C9137C /* TapticEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
-		1FE5BEDC2282867400C9137C /* UMCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommon.framework; sourceTree = "<group>"; };
-		1FE5BEDE2282867400C9137C /* UMAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMAnalytics.framework; sourceTree = "<group>"; };
 		1FE5BEE22282868200C9137C /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		1FE5BEE32282868200C9137C /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		1FE5BEE42282868200C9137C /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
@@ -485,11 +599,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F395CB3229521F300781C0C /* Photos.framework in Frameworks */,
+				1F395CB122951EB400781C0C /* CoreGraphics.framework in Frameworks */,
+				1F395CAF22951EA400781C0C /* libsqlite3.tbd in Frameworks */,
+				1F395CAC22951D4200781C0C /* libSocialSina.a in Frameworks */,
+				1F395CA522951D4200781C0C /* UMPush.framework in Frameworks */,
+				1F395CAA22951D4200781C0C /* UMShare.framework in Frameworks */,
+				1F395CA622951D4200781C0C /* UMCommon.framework in Frameworks */,
 				1FE5BEED2282887400C9137C /* TencentOpenAPI.framework in Frameworks */,
 				23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */,
-				1FE5BEDF2282867400C9137C /* UMCommon.framework in Frameworks */,
+				1F395CA922951D4200781C0C /* UShareUI.framework in Frameworks */,
+				1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */,
+				1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */,
 				1FE5BEE82282868200C9137C /* libWeChatSDK.a in Frameworks */,
-				1FE5BEE02282867400C9137C /* UMAnalytics.framework in Frameworks */,
+				1F395CA422951D4200781C0C /* SecurityEnvSDK.framework in Frameworks */,
+				1F395CAB22951D4200781C0C /* libSocialWeChat.a in Frameworks */,
+				1F395CAD22951D4200781C0C /* libSocialQQ.a in Frameworks */,
+				1F395CA722951D4200781C0C /* UMAnalytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +638,173 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F395C7E22951D4200781C0C /* UMeng */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C7F22951D4200781C0C /* umcommonlog */,
+				1F395C8322951D4200781C0C /* thirdparties */,
+				1F395C8722951D4200781C0C /* push */,
+				1F395C8A22951D4200781C0C /* common */,
+				1F395C8E22951D4200781C0C /* analytics */,
+				1F395C9122951D4200781C0C /* share */,
+			);
+			path = UMeng;
+			sourceTree = "<group>";
+		};
+		1F395C7F22951D4200781C0C /* umcommonlog */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C8022951D4200781C0C /* umcommonlog_ios_1.0.0 */,
+			);
+			path = umcommonlog;
+			sourceTree = "<group>";
+		};
+		1F395C8022951D4200781C0C /* umcommonlog_ios_1.0.0 */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C8122951D4200781C0C /* UMCommonLog.framework */,
+				1F395C8222951D4200781C0C /* UMCommonLog.bundle */,
+			);
+			path = umcommonlog_ios_1.0.0;
+			sourceTree = "<group>";
+		};
+		1F395C8322951D4200781C0C /* thirdparties */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C8422951D4200781C0C /* thirdparties_ios_1.0.5 */,
+			);
+			path = thirdparties;
+			sourceTree = "<group>";
+		};
+		1F395C8422951D4200781C0C /* thirdparties_ios_1.0.5 */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C8522951D4200781C0C /* UTDID.framework */,
+				1F395C8622951D4200781C0C /* SecurityEnvSDK.framework */,
+			);
+			path = thirdparties_ios_1.0.5;
+			sourceTree = "<group>";
+		};
+		1F395C8722951D4200781C0C /* push */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C8822951D4200781C0C /* push_ios_3.2.4 */,
+			);
+			path = push;
+			sourceTree = "<group>";
+		};
+		1F395C8822951D4200781C0C /* push_ios_3.2.4 */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C8922951D4200781C0C /* UMPush.framework */,
+			);
+			path = push_ios_3.2.4;
+			sourceTree = "<group>";
+		};
+		1F395C8A22951D4200781C0C /* common */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C8B22951D4200781C0C /* common_ios_2.0.1 */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		1F395C8B22951D4200781C0C /* common_ios_2.0.1 */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C8C22951D4200781C0C /* normal */,
+			);
+			path = common_ios_2.0.1;
+			sourceTree = "<group>";
+		};
+		1F395C8C22951D4200781C0C /* normal */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C8D22951D4200781C0C /* UMCommon.framework */,
+			);
+			path = normal;
+			sourceTree = "<group>";
+		};
+		1F395C8E22951D4200781C0C /* analytics */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C8F22951D4200781C0C /* analytics_ios_6.0.3 */,
+			);
+			path = analytics;
+			sourceTree = "<group>";
+		};
+		1F395C8F22951D4200781C0C /* analytics_ios_6.0.3 */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C9022951D4200781C0C /* UMAnalytics.framework */,
+			);
+			path = analytics_ios_6.0.3;
+			sourceTree = "<group>";
+		};
+		1F395C9122951D4200781C0C /* share */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C9222951D4200781C0C /* share_ios_6.9.5 */,
+			);
+			path = share;
+			sourceTree = "<group>";
+		};
+		1F395C9222951D4200781C0C /* share_ios_6.9.5 */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C9322951D4200781C0C /* UMSocialUI */,
+				1F395C9622951D4200781C0C /* UMShare.framework */,
+				1F395C9722951D4200781C0C /* SocialLibraries */,
+			);
+			path = share_ios_6.9.5;
+			sourceTree = "<group>";
+		};
+		1F395C9322951D4200781C0C /* UMSocialUI */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C9422951D4200781C0C /* UMSocialSDKResources.bundle */,
+				1F395C9522951D4200781C0C /* UShareUI.framework */,
+			);
+			path = UMSocialUI;
+			sourceTree = "<group>";
+		};
+		1F395C9722951D4200781C0C /* SocialLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C9822951D4200781C0C /* WeChat */,
+				1F395C9B22951D4200781C0C /* Sina */,
+				1F395C9E22951D4200781C0C /* QQ */,
+			);
+			path = SocialLibraries;
+			sourceTree = "<group>";
+		};
+		1F395C9822951D4200781C0C /* WeChat */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C9922951D4200781C0C /* libSocialWeChat.a */,
+				1F395C9A22951D4200781C0C /* UMSocialWechatHandler.h */,
+			);
+			path = WeChat;
+			sourceTree = "<group>";
+		};
+		1F395C9B22951D4200781C0C /* Sina */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C9C22951D4200781C0C /* libSocialSina.a */,
+				1F395C9D22951D4200781C0C /* UMSocialSinaHandler.h */,
+			);
+			path = Sina;
+			sourceTree = "<group>";
+		};
+		1F395C9E22951D4200781C0C /* QQ */ = {
+			isa = PBXGroup;
+			children = (
+				1F395C9F22951D4200781C0C /* UMSocialQQHandler.h */,
+				1F395CA022951D4200781C0C /* libSocialQQ.a */,
+			);
+			path = QQ;
+			sourceTree = "<group>";
+		};
 		1FE5BDA42281788E00C9137C = {
 			isa = PBXGroup;
 			children = (
@@ -546,6 +839,7 @@
 			children = (
 				1FE5BDB02281788E00C9137C /* AppDelegate.swift */,
 				1FE5BDB22281788E00C9137C /* ViewController.swift */,
+				1F1C1B3F229FA151008031F4 /* BankName.json */,
 				1FE5BDB42281788E00C9137C /* Main.storyboard */,
 				1FE5BDB72281789100C9137C /* Assets.xcassets */,
 				1FE5BDB92281789100C9137C /* LaunchScreen.storyboard */,
@@ -624,12 +918,10 @@
 		1FE5BDE222817B1A00C9137C /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				1F395C7E22951D4200781C0C /* UMeng */,
 				1FE5BEE92282887400C9137C /* QQ */,
 				1FE5BEE12282868200C9137C /* SDKExport */,
-				1FE5BEDA2282867400C9137C /* Umeng */,
-				1FE5BE5D2282866100C9137C /* CountDown */,
 				1FE5BE742282866200C9137C /* DBModel */,
-				1FE5BE6F2282866100C9137C /* FLAnimation */,
 				1FE5BE822282866200C9137C /* ijksdl */,
 				1FE5BEAC2282866200C9137C /* RangeSeekSlider */,
 				1FE5BE4D2282866100C9137C /* SDCycleScrollView */,
@@ -643,11 +935,16 @@
 			isa = PBXGroup;
 			children = (
 				1FE5BDE522817B5F00C9137C /* Define.swift */,
+				1F1C1B45229FA4A4008031F4 /* Config.swift */,
 				1FE5BDE722817B8500C9137C /* RequestURL.swift */,
 				1FE5BDEE2282648D00C9137C /* AppThemeConfig.swift */,
 				1FE5BFA5228AC1E200C9137C /* AuthorityManager.swift */,
+				1F1C1B43229FA3F7008031F4 /* ReadFileDataManager.swift */,
 				1FE5BDF0228264F200C9137C /* Font-Color-Config.swift */,
 				1FE5BDE922817BCA00C9137C /* Touqiu-Bridging-Header.h */,
+				1F395CC822962E5200781C0C /* AliPayManager.swift */,
+				1F395CB42295230500781C0C /* UMengManager.swift */,
+				1F395CB62295306B00781C0C /* UMengUI.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -727,19 +1024,20 @@
 			children = (
 				1FE5BE302282863D00C9137C /* AnimationTools.swift */,
 				1FE5BE292282863D00C9137C /* AudioPlayManager.swift */,
+				1FE5BF322283F60800C9137C /* Conner+Shadows.swift */,
+				1FE5BF252283BB8300C9137C /* GTMBase64.h */,
+				1FE5BF262283BB8300C9137C /* GTMBase64.m */,
+				1FE5BF282283BBF800C9137C /* GTMDefines.h */,
 				1FE5BE2C2282863D00C9137C /* LocalJsonFile.swift */,
+				1FE5BF2C2283C22C00C9137C /* NSStringAdditions.h */,
+				1FE5BF2D2283C22C00C9137C /* NSStringAdditions.m */,
 				1FE5BE282282863D00C9137C /* PresentTransitionAnimated.h */,
 				1FE5BE2E2282863D00C9137C /* PresentTransitionAnimated.m */,
 				1FE5BE2A2282863D00C9137C /* ShareTools.swift */,
 				1FE5BE2F2282863D00C9137C /* Tools.swift */,
 				1FE5BE2D2282863D00C9137C /* TransitionAnimatedManager.swift */,
 				1FE5BE2B2282863D00C9137C /* UIImageViewManger.swift */,
-				1FE5BF252283BB8300C9137C /* GTMBase64.h */,
-				1FE5BF262283BB8300C9137C /* GTMBase64.m */,
-				1FE5BF282283BBF800C9137C /* GTMDefines.h */,
-				1FE5BF2C2283C22C00C9137C /* NSStringAdditions.h */,
-				1FE5BF2D2283C22C00C9137C /* NSStringAdditions.m */,
-				1FE5BF322283F60800C9137C /* Conner+Shadows.swift */,
+				1F395CC42295458C00781C0C /* CacheManager.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -787,26 +1085,6 @@
 				1FE5BE5C2282866100C9137C /* TAPageControl.h */,
 			);
 			path = PageControl;
-			sourceTree = "<group>";
-		};
-		1FE5BE5D2282866100C9137C /* CountDown */ = {
-			isa = PBXGroup;
-			children = (
-				1FE5BE5E2282866100C9137C /* CountDown.h */,
-				1FE5BE5F2282866100C9137C /* CountDown.m */,
-			);
-			path = CountDown;
-			sourceTree = "<group>";
-		};
-		1FE5BE6F2282866100C9137C /* FLAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				1FE5BE702282866100C9137C /* FLAnimatedImage.m */,
-				1FE5BE712282866100C9137C /* FLAnimatedImageView.m */,
-				1FE5BE722282866100C9137C /* FLAnimatedImage.h */,
-				1FE5BE732282866100C9137C /* FLAnimatedImageView.h */,
-			);
-			path = FLAnimation;
 			sourceTree = "<group>";
 		};
 		1FE5BE742282866200C9137C /* DBModel */ = {
@@ -927,31 +1205,6 @@
 			path = RangeSeekSlider;
 			sourceTree = "<group>";
 		};
-		1FE5BEDA2282867400C9137C /* Umeng */ = {
-			isa = PBXGroup;
-			children = (
-				1FE5BEDB2282867400C9137C /* common */,
-				1FE5BEDD2282867400C9137C /* analytics */,
-			);
-			path = Umeng;
-			sourceTree = "<group>";
-		};
-		1FE5BEDB2282867400C9137C /* common */ = {
-			isa = PBXGroup;
-			children = (
-				1FE5BEDC2282867400C9137C /* UMCommon.framework */,
-			);
-			path = common;
-			sourceTree = "<group>";
-		};
-		1FE5BEDD2282867400C9137C /* analytics */ = {
-			isa = PBXGroup;
-			children = (
-				1FE5BEDE2282867400C9137C /* UMAnalytics.framework */,
-			);
-			path = analytics;
-			sourceTree = "<group>";
-		};
 		1FE5BEE12282868200C9137C /* SDKExport */ = {
 			isa = PBXGroup;
 			children = (
@@ -986,6 +1239,8 @@
 				1FE5BF142282CBE900C9137C /* PostViewController.swift */,
 				1FE5BFA9228BDEC200C9137C /* TargerUserViewController.swift */,
 				1FE5BFB5228CF47900C9137C /* TargerUserSearchViewController.swift */,
+				1F395CD0229786AB00781C0C /* CategoryChoosViewController.swift */,
+				1F395CD622978DB600781C0C /* CategoryChoosSearchViewController.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1008,10 +1263,19 @@
 				1FE8DAC1228ECAF400DCED01 /* FeedBackViewController.swift */,
 				1FE8DAD622926AE900DCED01 /* OtherMineViewController.swift */,
 				1FE8DAE32292817400DCED01 /* RecommendViewController.swift */,
+				1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */,
+				1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */,
 				1FE8DAFA2292C1E900DCED01 /* PostSegementViewController.swift */,
 				1FE8DAF62292C15C00DCED01 /* MyPostViewController.swift */,
 				1FE8DAF82292C1D200DCED01 /* MyCommentViewController.swift */,
 				1FE8DB002292C5DC00DCED01 /* MycollectViewController.swift */,
+				1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */,
+				1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */,
+				1F991753229B92BB00C8FDD5 /* StoreViewController.swift */,
+				1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */,
+				1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */,
+				1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */,
+				1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1075,6 +1339,15 @@
 				1FE8DB0622938B7400DCED01 /* UploadCartTableViewCell.swift */,
 				1FE8DB0822939BD900DCED01 /* TakeVCartTableViewCell.swift */,
 				1FE8DB102293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift */,
+				1F991751229B784800C8FDD5 /* CoinsDetailTableViewCell.swift */,
+				1F1C1B2D229E9FF4008031F4 /* TopUpTableViewCell.swift */,
+				1F1C1B2F229EA01E008031F4 /* TopUpToolsTableViewCell.swift */,
+				1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */,
+				1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */,
+				1F1C1B37229F66EB008031F4 /* WithDrawTypeTableViewCell.swift */,
+				1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */,
+				1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */,
+				1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1128,6 +1401,10 @@
 				1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */,
 				1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */,
 				1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */,
+				1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */,
+				1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */,
+				1F1C1B39229F6C88008031F4 /* BindDrawViewModel.swift */,
+				1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1141,9 +1418,12 @@
 				1FE5BF412285170700C9137C /* CategoryDetailViewModel.swift */,
 				1FE5BF45228528A900C9137C /* CommentViewModel.swift */,
 				1FE5BF4B228529EC00C9137C /* PostDetailViewModel.swift */,
+				1F395CD822978E7600781C0C /* PostViewModel.swift */,
 				1FE5BF61228A5C5700C9137C /* CommentPostViewModel.swift */,
 				1FE5BFAB228BDEDC00C9137C /* TargerUserViewModel.swift */,
 				1FE5BFB7228D0BB600C9137C /* SearchResultViewModel.swift */,
+				1F395CD22297871800781C0C /* CategoryChossViewModel.swift */,
+				1F395CD422978BFF00781C0C /* CategorySearchViewModel.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1159,6 +1439,12 @@
 		1FE5BF112282A4EC00C9137C /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				1F395CC2229542E000781C0C /* UserInfoModel.swift */,
+				1F395CCA2296787600781C0C /* AccountInfoModel.swift */,
+				1F991757229BB41E00C8FDD5 /* AccountCoinsModel.swift */,
+				1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */,
+				1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */,
+				1F1C1B49229FFAE9008031F4 /* BankModel.swift */,
 			);
 			name = Mine;
 			path = ViewModels/Mine;
@@ -1167,6 +1453,10 @@
 		1FE5BF122282A4EC00C9137C /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1F395CCC2296A99E00781C0C /* CategoryModel.swift */,
+				1F395CCE229783A300781C0C /* TipModel.swift */,
+				1F395CDA229797D400781C0C /* PostModel.swift */,
+				1F991761229BF05700C8FDD5 /* CommentModel.swift */,
 			);
 			name = Category;
 			path = ViewModels/Category;
@@ -1219,6 +1509,8 @@
 				1FE8DB162293DC2300DCED01 /* LoginViewModel.swift */,
 				1FE8DB1C2294E4EA00DCED01 /* FindViewModel.swift */,
 				1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */,
+				1F395CC62295461000781C0C /* RegisterViewModel.swift */,
+				1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1239,6 +1531,9 @@
 		C424FA459BEA2F3AC2707CC5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F395CB2229521F300781C0C /* Photos.framework */,
+				1F395CB022951EB400781C0C /* CoreGraphics.framework */,
+				1F395CAE22951EA400781C0C /* libsqlite3.tbd */,
 				CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */,
 				F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */,
 				B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */,
@@ -1356,8 +1651,11 @@
 			files = (
 				1FE5BEEC2282887400C9137C /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				1FE5BDBB2281789100C9137C /* LaunchScreen.storyboard in Resources */,
+				1F1C1B40229FA151008031F4 /* BankName.json in Resources */,
 				1FE5BDB82281789100C9137C /* Assets.xcassets in Resources */,
+				1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */,
 				1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */,
+				1F395CA822951D4200781C0C /* UMSocialSDKResources.bundle in Resources */,
 				1FE5BEE72282868200C9137C /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1389,6 +1687,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Touqiu/Pods-Touqiu-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AliyunOSSiOS/AliyunOSSiOS.framework",
 				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
@@ -1420,6 +1719,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunOSSiOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BetterSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
@@ -1535,33 +1835,46 @@
 				1FE5BEB02282866200C9137C /* SDCycleScrollView.m in Sources */,
 				1FE5BDF1228264F200C9137C /* Font-Color-Config.swift in Sources */,
 				1FE8DB0722938B7400DCED01 /* UploadCartTableViewCell.swift in Sources */,
+				1F99175E229BDBC400C8FDD5 /* CoinsDetailModel.swift in Sources */,
 				1FE5BEEF2282A1CA00C9137C /* SegmentViewController.swift in Sources */,
 				1FE5BE332282863D00C9137C /* ShareTools.swift in Sources */,
 				1FE5BED02282866300C9137C /* yuv420p.fsh.c in Sources */,
+				1F991754229B92BB00C8FDD5 /* StoreViewController.swift in Sources */,
 				1FE5BF5E228942EF00C9137C /* UITextFieldExtentions.swift in Sources */,
 				1FE5BECE2282866300C9137C /* renderer.c in Sources */,
+				1F395CCB2296787600781C0C /* AccountInfoModel.swift in Sources */,
 				1FE8DABA228EC8BF00DCED01 /* RealNameViewModel.swift in Sources */,
 				1FE5BECD2282866300C9137C /* shader.c in Sources */,
+				1F1C1B4C22A0B58F008031F4 /* BindBankListViewController.swift in Sources */,
 				1FE5BED72282866300C9137C /* RangeSeekSliderDelegate.swift in Sources */,
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
 				1FE8DB172293DC2300DCED01 /* LoginViewModel.swift in Sources */,
 				1FE8DAA4228EA08100DCED01 /* FollowViewModel.swift in Sources */,
+				1F395CC52295458C00781C0C /* CacheManager.swift in Sources */,
 				1FE8DA8D228D6C7E00DCED01 /* MineToolsTableViewCell.swift in Sources */,
+				1F1C1B4E22A0B5CB008031F4 /* BankListViewModel.swift in Sources */,
 				1FE5BEF12282A20400C9137C /* NewsViewController.swift in Sources */,
+				1F395CD722978DB600781C0C /* CategoryChoosSearchViewController.swift in Sources */,
 				1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */,
 				1FE8DAF12292933A00DCED01 /* JXPagingListContainerView.swift in Sources */,
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
+				1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */,
 				1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */,
 				1FE5BED42282866300C9137C /* IJKSDLGLView.m in Sources */,
 				1FE8DAD722926AE900DCED01 /* OtherMineViewController.swift in Sources */,
 				1FE8DAC6228ED11900DCED01 /* FeedBackViewModel.swift in Sources */,
 				1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
+				1F1C1B48229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift in Sources */,
+				1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */,
 				1FE5BF212282D21F00C9137C /* OutFallViewModel.swift in Sources */,
 				1FE8DAF92292C1D200DCED01 /* MyCommentViewController.swift in Sources */,
+				1F395CD522978BFF00781C0C /* CategorySearchViewModel.swift in Sources */,
 				1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */,
+				1F395CCD2296A99E00781C0C /* CategoryModel.swift in Sources */,
 				1FE5BFB0228CF37E00C9137C /* BaseSearchViewController.swift in Sources */,
+				1F991758229BB41E00C8FDD5 /* AccountCoinsModel.swift in Sources */,
 				1FE8DAD522926AA300DCED01 /* OtherMineViewModel.swift in Sources */,
 				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
 				1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */,
@@ -1569,27 +1882,37 @@
 				1FE5BF352284206300C9137C /* UserInfoTableViewCell.swift in Sources */,
 				1FE8DAB8228EC8B100DCED01 /* NotificationViewModel.swift in Sources */,
 				1FE5BF3C228435B000C9137C /* OutFallCategoryContentTableViewCell.swift in Sources */,
+				1F1C1B46229FA4A4008031F4 /* Config.swift in Sources */,
 				1FE8DAFB2292C1E900DCED01 /* PostSegementViewController.swift in Sources */,
 				1FE5BDFF2282751400C9137C /* SquareViewController.swift in Sources */,
 				1FE5BEC12282866300C9137C /* JKDBModel.m in Sources */,
 				1FE8DAF5229293AD00DCED01 /* OtherGuessingViewModel.swift in Sources */,
 				1FE5BED92282866300C9137C /* TapticEngine.swift in Sources */,
+				1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */,
+				1F395CB52295230500781C0C /* UMengManager.swift in Sources */,
 				1FE5BF1D2282D1AC00C9137C /* CommentTableViewCell.swift in Sources */,
 				1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */,
 				1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */,
 				1FE5BF5B228583C000C9137C /* AnimationView.swift in Sources */,
 				1FE5BEB42282866300C9137C /* TAPageControl.m in Sources */,
+				1F1C1B2E229E9FF4008031F4 /* TopUpTableViewCell.swift in Sources */,
 				1FE8DAC2228ECAF400DCED01 /* FeedBackViewController.swift in Sources */,
 				1FE5BEB22282866200C9137C /* SDCollectionViewCell.m in Sources */,
 				1FE5BE4C2282864300C9137C /* AlertControl+Tools.swift in Sources */,
 				1FE8DAD322926A5500DCED01 /* GloabelHeader.swift in Sources */,
+				1F395CD1229786AB00781C0C /* CategoryChoosViewController.swift in Sources */,
+				1F991775229E6EC300C8FDD5 /* OtherPostViewController.swift in Sources */,
 				1FE5BE1F228285FA00C9137C /* UIImage+PureColor.m in Sources */,
 				1FE5BE372282863D00C9137C /* PresentTransitionAnimated.m in Sources */,
 				1FE5BF50228561CB00C9137C /* PostDetailUserInfoTableViewCell.swift in Sources */,
+				1F1C1B4A229FFAE9008031F4 /* BankModel.swift in Sources */,
+				1F1C1B32229EA042008031F4 /* TopUpWarningTableViewCell.swift in Sources */,
 				1FE5BF64228A942500C9137C /* PostCommentTextTableViewCell.swift in Sources */,
 				1FE8DB0922939BD900DCED01 /* TakeVCartTableViewCell.swift in Sources */,
+				1F1C1B38229F66EB008031F4 /* WithDrawTypeTableViewCell.swift in Sources */,
 				1FE5BF4022850B3500C9137C /* SegmentViewModel.swift in Sources */,
 				1FE5BE442282864300C9137C /* UIPageControlExtentions.swift in Sources */,
+				1F395CDB229797D400781C0C /* PostModel.swift in Sources */,
 				1FE8DAB6228EC89E00DCED01 /* SettingViewModel.swift in Sources */,
 				1FE5BED52282866300C9137C /* ijksdl_timer.c in Sources */,
 				1FE8DABC228EC8D100DCED01 /* SigupVIPViewModel.swift in Sources */,
@@ -1597,13 +1920,17 @@
 				1FE5BF46228528A900C9137C /* CommentViewModel.swift in Sources */,
 				1FE5BED62282866300C9137C /* ZHPickView.m in Sources */,
 				1FE8DA95228D721900DCED01 /* MineViewModel.swift in Sources */,
+				1F1C1B34229EA052008031F4 /* TopUpConfirmTableViewCell.swift in Sources */,
 				1FE8DB1D2294E4EA00DCED01 /* FindViewModel.swift in Sources */,
 				1FE5BF192282D18D00C9137C /* CategoryContentTableViewCell.swift in Sources */,
 				1FE8DAA6228EA91200DCED01 /* ChangeInfoViewController.swift in Sources */,
 				1FE8DAC0228ECAE800DCED01 /* AboutViewController.swift in Sources */,
+				1F1C1B5022A0B61B008031F4 /* BankTableViewCell.swift in Sources */,
 				1FE8DAB0228EC7D800DCED01 /* SingUpVIPViewController.swift in Sources */,
 				1FE5BE252282862B00C9137C /* BaseNetWorke.swift in Sources */,
+				1F395CC72295461000781C0C /* RegisterViewModel.swift in Sources */,
 				1FE8DA98228E8EC500DCED01 /* UIView+ESAddTapGestureRecognizer.m in Sources */,
+				1F395CC3229542E000781C0C /* UserInfoModel.swift in Sources */,
 				1FE5BF62228A5C5700C9137C /* CommentPostViewModel.swift in Sources */,
 				1FE8DAE82292830600DCED01 /* RecommendViewModel.swift in Sources */,
 				1FE5BF4E22853E9500C9137C /* CategoryHeaderTableViewCell.swift in Sources */,
@@ -1617,10 +1944,13 @@
 				1FE5BEB62282866300C9137C /* TAAbstractDotView.m in Sources */,
 				1FE5BE20228285FA00C9137C /* UIViewController+DismissKeyboard.m in Sources */,
 				1FE5BF562285623400C9137C /* PostDetailContentTableViewCell.swift in Sources */,
+				1F395CC922962E5200781C0C /* AliPayManager.swift in Sources */,
 				1FE5BF1B2282D1A100C9137C /* HotDetailTableViewCell.swift in Sources */,
 				1FE8DAEE2292933A00DCED01 /* JXPagingMainTableView.swift in Sources */,
 				1FE5BF592285702100C9137C /* UIButton+Block.m in Sources */,
+				1F991756229B944A00C8FDD5 /* WithdrawViewController.swift in Sources */,
 				1FE5BE322282863D00C9137C /* AudioPlayManager.swift in Sources */,
+				1F395CD32297871800781C0C /* CategoryChossViewModel.swift in Sources */,
 				1FE5BEC62282866300C9137C /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				1FE5BEC42282866300C9137C /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1FE5BE472282864300C9137C /* View+Extntion.swift in Sources */,
@@ -1628,33 +1958,39 @@
 				1FE5BE06228282B900C9137C /* BaseViewModel.swift in Sources */,
 				1FE8DA9A228E958700DCED01 /* MineInfoViewController.swift in Sources */,
 				1FE8DB142293DC0000DCED01 /* LoginViewController.swift in Sources */,
+				1F395CCF229783A300781C0C /* TipModel.swift in Sources */,
 				1FE8DAEF2292933A00DCED01 /* JXPagingView.swift in Sources */,
 				1FE8DAE42292817400DCED01 /* RecommendViewController.swift in Sources */,
 				1FE5BF2E2283C22C00C9137C /* NSStringAdditions.m in Sources */,
 				1FE5BF4A228529B700C9137C /* PostDetailViewController.swift in Sources */,
 				1FE8DA8B228D6C7300DCED01 /* MineInfoTableViewCell.swift in Sources */,
-				1FE5BEBF2282866300C9137C /* FLAnimatedImage.m in Sources */,
 				1FE5BED82282866300C9137C /* RangeSeekSlider.swift in Sources */,
 				1FE5BF422285170700C9137C /* CategoryDetailViewModel.swift in Sources */,
 				1FE8DAF02292933A00DCED01 /* JXPagingListRefreshView.swift in Sources */,
+				1F1C1B36229EA839008031F4 /* WithdrawViewModel.swift in Sources */,
 				1FE8DB192294E18800DCED01 /* FindPasViewController.swift in Sources */,
+				1F395CB72295306B00781C0C /* UMengUI.swift in Sources */,
 				1FE8DAF32292937000DCED01 /* OtherPostViewModel.swift in Sources */,
 				1FE5BDFB2282747900C9137C /* BaseViewController.swift in Sources */,
 				1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */,
 				1FE8DAC4228ECD0600DCED01 /* ChangePasswordViewModel.swift in Sources */,
-				1FE5BEC02282866300C9137C /* FLAnimatedImageView.m in Sources */,
 				1FE8DAA8228EAB6600DCED01 /* ChangeViewModel.swift in Sources */,
 				1FE5BF332283F60800C9137C /* Conner+Shadows.swift in Sources */,
+				1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */,
 				1FE5BEC92282866300C9137C /* mvp.vsh.c in Sources */,
+				1F991752229B784800C8FDD5 /* CoinsDetailTableViewCell.swift in Sources */,
 				1FE5BE21228285FA00C9137C /* NSString+Utils.m in Sources */,
 				1FE5BDE822817B8500C9137C /* RequestURL.swift in Sources */,
+				1F1C1B3E229F7FC3008031F4 /* AccountTypeTableViewCell.swift in Sources */,
 				1FE8DAF72292C15C00DCED01 /* MyPostViewController.swift in Sources */,
 				1FE5BEC82282866300C9137C /* common.c in Sources */,
 				1FE8DAB4228EC7F200DCED01 /* InviteUserViewController.swift in Sources */,
 				1FE5BE1D228285FA00C9137C /* NSDate+LSCore.m in Sources */,
 				1FE5BE342282863D00C9137C /* UIImageViewManger.swift in Sources */,
 				1FE5BF48228528FD00C9137C /* CommentViewController.swift in Sources */,
+				1F99174E229B74B900C8FDD5 /* ConinsSegementViewController.swift in Sources */,
 				1FE5BEF32282A21600C9137C /* OutFallViewController.swift in Sources */,
+				1F991762229BF05700C8FDD5 /* CommentModel.swift in Sources */,
 				1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */,
 				1FE5BF242282E59500C9137C /* NSString+AES.m in Sources */,
 				1FE5BF44228517A700C9137C /* CommentContentTableViewCell.swift in Sources */,
@@ -1662,8 +1998,8 @@
 				1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */,
 				1FE5BE4B2282864300C9137C /* UITapGestureRecognizer+Extention.swift in Sources */,
 				1FE8DB012292C5DC00DCED01 /* MycollectViewController.swift in Sources */,
+				1F1C1B3A229F6C88008031F4 /* BindDrawViewModel.swift in Sources */,
 				1FE5BECC2282866300C9137C /* renderer_yuv420sp.c in Sources */,
-				1FE5BEB72282866300C9137C /* CountDown.m in Sources */,
 				1FE5BED32282866300C9137C /* color.c in Sources */,
 				1FE5BDEF2282648D00C9137C /* AppThemeConfig.swift in Sources */,
 				1FE5BECF2282866300C9137C /* yuv444p10le.fsh.c in Sources */,
@@ -1682,13 +2018,18 @@
 				1FE8DA93228D718A00DCED01 /* AdTableViewCell.swift in Sources */,
 				1FE5BF6022894D2700C9137C /* CommentPostViewController.swift in Sources */,
 				1FE5BE22228285FA00C9137C /* NSString+StringSize.m in Sources */,
+				1F1C1B44229FA3F7008031F4 /* ReadFileDataManager.swift in Sources */,
+				1F395CD922978E7600781C0C /* PostViewModel.swift in Sources */,
 				1FE8DA9C228E95A600DCED01 /* MineInfoViewModel.swift in Sources */,
 				1FE8DABE228ECABC00DCED01 /* ChangePasswordViewController.swift in Sources */,
 				1FE5BF3E228509B900C9137C /* CategoryDetailViewController.swift in Sources */,
 				1FE5BE492282864300C9137C /* UIImage+Crop.swift in Sources */,
 				1FE5BECA2282866300C9137C /* renderer_rgb.c in Sources */,
 				1FE8DA91228D6CC400DCED01 /* GloabelTableViewCell.swift in Sources */,
+				1F99174C229B74AC00C8FDD5 /* CoinsDetailViewController.swift in Sources */,
 				1FE5BE482282864300C9137C /* UIViewController+NavigationBar.swift in Sources */,
+				1F99175C229BC5B100C8FDD5 /* TouUpViewModel.swift in Sources */,
+				1F99175A229BC16D00C8FDD5 /* TopUpViewController.swift in Sources */,
 				1FE8DAA2228EA07500DCED01 /* FansViewModel.swift in Sources */,
 				1FE5BE1C228285FA00C9137C /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1FE8DA9E228E981B00DCED01 /* FansViewController.swift in Sources */,
@@ -1698,6 +2039,7 @@
 				1FE8DB032292C5F300DCED01 /* MyCollectViewModel.swift in Sources */,
 				1FE5BEC52282866300C9137C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FE8DAB2228EC7E300DCED01 /* NotificationViewController.swift in Sources */,
+				1F1C1B3C229F6CC4008031F4 /* BindWithdrawViewController.swift in Sources */,
 				1FE5BF272283BB8300C9137C /* GTMBase64.m in Sources */,
 				1FE5BED22282866300C9137C /* rgb.fsh.c in Sources */,
 				1FE5BEC72282866300C9137C /* renderer_yuv444p10le.c in Sources */,
@@ -1884,6 +2226,13 @@
 					"$(PROJECT_DIR)/Libs/Umeng/common",
 					"$(PROJECT_DIR)/Libs/Umeng/analytics",
 					"$(PROJECT_DIR)/Libs/QQ",
+					"$(PROJECT_DIR)/Libs/UMeng/umcommonlog/umcommonlog_ios_1.0.0",
+					"$(PROJECT_DIR)/Libs/UMeng/thirdparties/thirdparties_ios_1.0.5",
+					"$(PROJECT_DIR)/Libs/UMeng/push/push_ios_3.2.4",
+					"$(PROJECT_DIR)/Libs/UMeng/common/common_ios_2.0.1/normal",
+					"$(PROJECT_DIR)/Libs/UMeng/analytics/analytics_ios_6.0.3",
+					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5/UMSocialUI",
+					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5",
 				);
 				INFOPLIST_FILE = Touqiu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1894,8 +2243,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Libs/SDKExport",
+					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5/SocialLibraries/QQ",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.touqiu.touqiu;
+				OTHER_LIBTOOLFLAGS = "-Objc";
+				PRODUCT_BUNDLE_IDENTIFIER = com..touqiu.baodian;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Global/Touqiu-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1916,6 +2269,13 @@
 					"$(PROJECT_DIR)/Libs/Umeng/common",
 					"$(PROJECT_DIR)/Libs/Umeng/analytics",
 					"$(PROJECT_DIR)/Libs/QQ",
+					"$(PROJECT_DIR)/Libs/UMeng/umcommonlog/umcommonlog_ios_1.0.0",
+					"$(PROJECT_DIR)/Libs/UMeng/thirdparties/thirdparties_ios_1.0.5",
+					"$(PROJECT_DIR)/Libs/UMeng/push/push_ios_3.2.4",
+					"$(PROJECT_DIR)/Libs/UMeng/common/common_ios_2.0.1/normal",
+					"$(PROJECT_DIR)/Libs/UMeng/analytics/analytics_ios_6.0.3",
+					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5/UMSocialUI",
+					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5",
 				);
 				INFOPLIST_FILE = Touqiu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1926,8 +2286,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Libs/SDKExport",
+					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5/SocialLibraries/QQ",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.touqiu.touqiu;
+				OTHER_LIBTOOLFLAGS = "-Objc";
+				PRODUCT_BUNDLE_IDENTIFIER = com..touqiu.baodian;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Global/Touqiu-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

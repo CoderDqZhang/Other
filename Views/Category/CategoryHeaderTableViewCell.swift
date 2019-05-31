@@ -23,22 +23,20 @@ class CategoryHeaderTableViewCell: UITableViewCell {
     
     func setUpView(){
         backImageView = UIImageView.init()
-        backImageView.backgroundColor = .gray
         self.contentView.addSubview(backImageView)
         
         logoImageView = UIImageView.init()
-        logoImageView.backgroundColor = .blue
         logoImageView.layer.cornerRadius = 26
         logoImageView.borderColor = App_Theme_F6F6F6_Color
         logoImageView.borderWidth = 2
+        logoImageView.layer.masksToBounds = true
         self.contentView.addSubview(logoImageView)
         
         categoryName = YYLabel.init(frame: CGRect.init(x: 0, y: ImageHeith, width: CategoryViewWidth, height: CategoryViewHeight - ImageHeith))
         categoryName.text = "皇家马德里"
         categoryName.textAlignment = .center
         categoryName.font = App_Theme_PinFan_R_18_Font
-        categoryName.backgroundColor = App_Theme_FFFFFF_Color
-        categoryName.textColor = App_Theme_333333_Color
+        categoryName.textColor = App_Theme_FFFFFF_Color
         self.addSubview(categoryName)
         
         
@@ -46,8 +44,7 @@ class CategoryHeaderTableViewCell: UITableViewCell {
         categoryDetailLabel.text = "皇家马德里皇家马德里"
         categoryDetailLabel.textAlignment = .center
         categoryDetailLabel.font = App_Theme_PinFan_R_14_Font
-        categoryDetailLabel.backgroundColor = App_Theme_FFFFFF_Color
-        categoryDetailLabel.textColor = App_Theme_333333_Color
+        categoryDetailLabel.textColor = App_Theme_FFFFFF_Color
         self.addSubview(categoryDetailLabel)
         
         self.updateConstraints()
@@ -57,6 +54,18 @@ class CategoryHeaderTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func cellSetData(model:CategoryModel){
+        
+        UIImageViewManger.sd_imageView(url: model.tribeImg.nsString.replacingOccurrences(of: " ", with: ""), imageView: logoImageView, placeholderImage: nil) { (image, error, cache, url) in
+            if error == nil {
+                self.logoImageView.image = image
+                self.backImageView.image = image
+                self.backImageView.blur(withStyle: UIBlurEffect.Style.light)
+            }
+        }
+        categoryName.text = model.tribeName
+        categoryDetailLabel.text = model.descriptionField
+    }
     
     override func updateConstraints() {
         if !didMakeConstraints {
@@ -81,11 +90,15 @@ class CategoryHeaderTableViewCell: UITableViewCell {
             categoryName.snp.makeConstraints { (make) in
                 make.top.equalTo(self.logoImageView.snp.bottom).offset(9)
                 make.centerX.equalToSuperview()
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
             }
             
             categoryDetailLabel.snp.makeConstraints { (make) in
                 make.top.equalTo(self.categoryName.snp.bottom).offset(6)
                 make.centerX.equalToSuperview()
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
             }
             
             didMakeConstraints = true

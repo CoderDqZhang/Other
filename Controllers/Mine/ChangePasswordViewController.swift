@@ -25,7 +25,7 @@ class ChangePasswordViewController: BaseViewController {
     
     override func setUpView() {
         self.bindViewModel(viewModel: changePasswordViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldTableViewCell.self,GloabelConfirmTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [GloabelTextFieldAndTitleTableViewCell.self,GloabelConfirmTableViewCell.self], controller: self)
         self.view.backgroundColor = App_Theme_F6F6F6_Color
     }
     

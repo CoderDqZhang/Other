@@ -10,6 +10,8 @@ import UIKit
 
 class OtherGuessingViewModel: BaseViewModel {
 
+    var userInfo:UserInfoModel!
+    
     override init() {
         super.init()
     }
