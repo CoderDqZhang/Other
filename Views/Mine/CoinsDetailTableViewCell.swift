@@ -46,7 +46,7 @@ class CoinsDetailTableViewCell: UITableViewCell {
         
         
         numberLabel = YYLabel.init()
-        numberLabel.textAlignment = .right
+        numberLabel.textAlignment = .center
         numberLabel.font = App_Theme_PinFan_R_21_Font
         numberLabel.textColor = App_Theme_06070D_Color
         numberLabel.text = ""
@@ -76,23 +76,24 @@ class CoinsDetailTableViewCell: UITableViewCell {
                 make.size.equalTo(CGSize.init(width: 34, height: 34))
             }
             
+            numberLabel.snp.makeConstraints { (make) in
+                make.centerY.equalToSuperview()
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.width.equalTo(70).priority(1000)
+            }
+            
             titleLabel.snp.makeConstraints { (make) in
                 make.top.equalTo(self.contentView.snp.top).offset(17)
                 make.left.equalTo(self.conisImageView.snp.right).offset(11)
-                make.right.lessThanOrEqualTo(self.contentView.snp.right).offset(-50)
+                make.right.equalTo(self.numberLabel.snp.left).offset(-15)
             }
             
             timeLabel.snp.makeConstraints { (make) in
                 make.top.equalTo(self.titleLabel.snp.bottom).offset(1)
                 make.left.equalTo(self.conisImageView.snp.right).offset(11)
-                make.right.lessThanOrEqualTo(self.contentView.snp.right).offset(-50)
             }
             
-            numberLabel.snp.makeConstraints { (make) in
-                make.centerY.equalToSuperview()
-                make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.width.equalTo(100)
-            }
+            
             
             lineLabel.snp.makeConstraints { (make) in
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)

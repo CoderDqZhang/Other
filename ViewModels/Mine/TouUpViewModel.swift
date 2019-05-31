@@ -34,7 +34,9 @@ class TouUpViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect( tableView:UITableView,  indexPath:IndexPath){
-        
+        if indexPath.section == 1 {
+            NavigationPushView(self.controller!, toConroller: WithdrawViewController())
+        }
     }
 
     func getAccount(){

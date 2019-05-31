@@ -126,7 +126,7 @@ class CoinsView: UIView {
     }
     
     func viewSetData(model:AccountInfoModel){
-        coinsLabel.text = model.chargeCoin.string
+        coinsLabel.text = String(format: "%.2f", (model.chargeCoin + model.inviteCoin + model.recomCoin))
     }
     
     override func updateConstraints() {
