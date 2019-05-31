@@ -36,17 +36,18 @@ class CoinsCountView: UIView {
         
         allCoinsLabel = YYLabel.init()
         allCoinsLabel.textAlignment = .center
-        allCoinsLabel.font = App_Theme_PinFan_M_24_Font
+        allCoinsLabel.font = App_Theme_PinFan_R_14_Font
         allCoinsLabel.textColor = App_Theme_06070D_Color
-        allCoinsLabel.text = "总余额为666666.66M币"
         self.addSubview(allCoinsLabel)
         
         self.updateConstraints()
     }
     
     func viewSetData(model:AccountInfoModel){
-        coinsLabel.text = model.chargeCoin.string
-        allCoinsLabel.text = model.chargeCoin.string
+        let coins = (model.inviteCoin + model.recomCoin)
+        let allCoins = (model.chargeCoin + model.inviteCoin + model.recomCoin)
+        coinsLabel.text =  String(format: "%.2f", coins)
+        allCoinsLabel.text = "总余额为\(String(format: "%.2f", allCoins))M币"
     }
     
     override func updateConstraints() {
@@ -60,12 +61,7 @@ class CoinsCountView: UIView {
         
         coinsLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            if #available(iOS 11.0, *) {
-                make.centerY.equalTo(self.snp.centerY).offset(24)
-            } else {
-                make.centerY.equalTo(self.snp.centerY).offset(0)
-                // Fallback on earlier versions
-            }
+            make.bottom.equalTo(self.allCoinsLabel.snp.top).offset(-5)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
@@ -81,7 +77,7 @@ class CoinsCountView: UIView {
             make.centerX.equalToSuperview()
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalTo(coinsLabel.snp.bottom).offset(0)
+            make.bottom.equalTo(self.snp.bottom).offset(-20)
         }
     }
     
@@ -197,8 +193,8 @@ class TopUpTableViewCell: UITableViewCell {
     
     func cellSetsData(model:AccountInfoModel){
         coinsallCountView = CoinsCountView.init(frame: CGRect.init(x: 0, y: 0 , width: SCREENWIDTH, height: 189))
-        coinsView.viewSetData(model: model)
-        self.contentView.addSubview(coinsView)
+        coinsallCountView.viewSetData(model: model)
+        self.contentView.addSubview(coinsallCountView)
     }
     
     required init?(coder aDecoder: NSCoder) {

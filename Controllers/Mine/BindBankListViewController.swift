@@ -9,12 +9,14 @@
 import UIKit
 
 typealias BindBankListViewControllerDeleteClouse = (_ dic:NSDictionary) ->Void
+typealias BindBankListViewControllerAddClouse = (_ dic:NSDictionary) ->Void
 
 class BindBankListViewController: BaseViewController {
 
     var bankListk:NSMutableArray!
     let bankListViewModel = BankListViewModel.init()
     var bindBankListViewControllerDeleteClouse:BindBankListViewControllerDeleteClouse!
+    var bindBankListViewControllerAddClouse:BindBankListViewControllerAddClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +33,9 @@ class BindBankListViewController: BaseViewController {
     @objc func rightBarItemClick(_ sender:UIBarButtonItem){
         let bindWithVC = BindWithdrawViewController()
         bindWithVC.postDetailDataClouse = { (dic,type) in
-            self.bankListk.add(dic)
+            if self.bindBankListViewControllerAddClouse != nil {
+                self.bindBankListViewControllerAddClouse(dic)
+            }
             self.bankListViewModel.reloadTableViewData()
         }
         NavigationPushView(self, toConroller: bindWithVC)

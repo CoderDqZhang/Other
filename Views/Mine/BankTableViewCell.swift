@@ -14,6 +14,8 @@ class BankTableViewCell: UITableViewCell {
     var tittleLabel:YYLabel!
     var bankName:YYLabel!
     
+    var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 1))
+
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,6 +41,7 @@ class BankTableViewCell: UITableViewCell {
         bankName.text = ""
         self.contentView.addSubview(bankName)
         
+        self.contentView.addSubview(lineLabel)
         
         self.updateConstraints()
     }
@@ -68,6 +71,7 @@ class BankTableViewCell: UITableViewCell {
                 make.left.equalTo(self.leftImage.snp.right).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
             }
+            bankName.text = ""
         }
     }
     
@@ -83,6 +87,14 @@ class BankTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.size.equalTo(CGSize.init(width: 25, height: 25))
             }
+            
+            lineLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
+                make.size.height.equalTo(1)
+            }
+            
             didMakeConstraints = true
         }
         super.updateConstraints()

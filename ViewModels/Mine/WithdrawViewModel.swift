@@ -19,6 +19,8 @@ class WithdrawViewModel: BaseViewModel {
     var cashMoney:Double = 0.00
     var bindMuchSingle:Signal<Bool, Never>?
     
+    var isCheckBool:Bool = false
+    
     override init() {
         super.init()
         self.getAccountInfoList()
@@ -26,7 +28,7 @@ class WithdrawViewModel: BaseViewModel {
     
     func tableViewTopUpTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpTableViewCell) {
         if self.accountInfo != nil {
-            cell.cellSetData(model: self.accountInfo)
+            cell.cellSetsData(model: self.accountInfo)
         }
         
     }
@@ -72,7 +74,17 @@ class WithdrawViewModel: BaseViewModel {
     }
     
     func tableViewConfirmProtocolTableViewCellSetData(_ indexPath:IndexPath, cell:ConfirmProtocolTableViewCell) {
-    
+        cell.checkBox.addAction({ (button) in
+            if button?.tag == 100 {
+                self.isCheckBool = true
+                cell.checkBox.tag = 101
+                cell.checkBox.setBackgroundImage(UIImage.init(named: "check_select"), for: .normal)
+            }else{
+                self.isCheckBool = false
+                cell.checkBox.tag = 100
+                cell.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
+            }
+        }, for: UIControl.Event.touchUpInside)
     }
     
     func tableViewTopUpWarningTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpWarningTableViewCell) {
@@ -90,6 +102,9 @@ class WithdrawViewModel: BaseViewModel {
                 }
                 bindWithVC.bindBankListViewControllerDeleteClouse = { dic in
                     self.bankLiskArray.remove(dic)
+                }
+                bindWithVC.bindBankListViewControllerAddClouse = { dic in
+                    self.bankLiskArray.add(dic)
                 }
                 NavigationPushView(self.controller!, toConroller: bindWithVC)
             }else{

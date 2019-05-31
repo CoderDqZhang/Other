@@ -26,6 +26,19 @@ class BankListViewModel: BaseViewModel {
             self.controller?.navigationController?.popViewController()
         }
     }
+    
+    func deleteAccount(indexPath:IndexPath){
+        let parameters = ["id":((self.bankListk[indexPath.row] as! NSDictionary).object(forKey: "id") as! Int).string]
+        BaseNetWorke.sharedInstance.postUrlWithString(AccountDeleteAccountUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if (self.controller as! BindBankListViewController).bindBankListViewControllerDeleteClouse != nil {
+                    (self.controller as! BindBankListViewController).bindBankListViewControllerDeleteClouse(self.bankListk[indexPath.row] as! NSDictionary)
+                }
+                self.reloadTableViewData()
+            }
+        }
+        
+    }
 }
 
 
@@ -49,6 +62,17 @@ extension BankListViewModel: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let rowAction = UITableViewRowAction.init(style: .default, title: "删除") { (action, indexPath) in
+            self.deleteAccount(indexPath: indexPath)
+        }
+        return [rowAction]
     }
 }
 
