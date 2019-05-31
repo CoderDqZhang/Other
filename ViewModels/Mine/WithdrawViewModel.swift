@@ -64,8 +64,10 @@ class WithdrawViewModel: BaseViewModel {
         if bankLiskArray.count == 0 {
             cell.cellSetData(model: nil)
         }else{
-            cell.cellSetData(model: BankModel.init(fromDictionary: bankLiskArray[0] as! [String : Any]))
-            self.bankModel = BankModel.init(fromDictionary: bankLiskArray[0] as! [String : Any])
+            if self.bankModel == nil {
+                self.bankModel = BankModel.init(fromDictionary: bankLiskArray[0] as! [String : Any])
+            }
+            cell.cellSetData(model: self.bankModel)
         }
     }
     
@@ -78,7 +80,28 @@ class WithdrawViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect( tableView:UITableView,  indexPath:IndexPath){
-        
+        if indexPath.section == 1 {
+            if self.bankLiskArray.count > 0 {
+                let bindWithVC = BindBankListViewController()
+                bindWithVC.bankListk = self.bankLiskArray
+                bindWithVC.postDetailDataClouse = { dic,type in
+                    self.bankModel = BankModel.init(fromDictionary: dic as! [String : Any])
+                    self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .automatic)
+                }
+                bindWithVC.bindBankListViewControllerDeleteClouse = { dic in
+                    self.bankLiskArray.remove(dic)
+                }
+                NavigationPushView(self.controller!, toConroller: bindWithVC)
+            }else{
+                let bindWithVC = BindWithdrawViewController()
+                bindWithVC.postDetailDataClouse = { dic,type in
+                    self.bankLiskArray.add(dic)
+                    self.bankModel = BankModel.init(fromDictionary: dic as! [String : Any])
+                    self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .automatic)
+                }
+                NavigationPushView(self.controller!, toConroller: bindWithVC)
+            }
+        }
     }
     
     func getAccount(){
@@ -104,8 +127,7 @@ class WithdrawViewModel: BaseViewModel {
         let parameters = ["cashMoney":self.cashMoney,"accountId":self.bankModel.id.string] as [String : Any]
         BaseNetWorke.sharedInstance.postUrlWithString(AccountcashUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-//                self.accountInfo = AccountInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
-//                self.reloadTableViewData()
+                self.controller?.navigationController?.popViewController()
             }
         }
     }

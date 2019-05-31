@@ -31,9 +31,9 @@ class WithDrawTypeTableViewCell: UITableViewCell {
         self.contentView.addSubview(titleLabel)
         
         descLabel = YYLabel.init()
-        descLabel.textAlignment = .right
+        descLabel.textAlignment = .center
         descLabel.font = App_Theme_PinFan_R_12_Font
-        descLabel.textColor = App_Theme_FF7800_Color
+        descLabel.textColor = App_Theme_06070D_Color
         descLabel.text = ""
         self.contentView.addSubview(descLabel)
         
@@ -55,6 +55,9 @@ class WithDrawTypeTableViewCell: UITableViewCell {
             }else{
                 descLabel.text = model?.account
                 descImageView.image = UIImage.init(named: "alipay")
+            }
+            descLabel.snp.makeConstraints { (make) in
+                make.width.equalTo((model?.account.nsString.width(with: App_Theme_PinFan_R_12_Font, constrainedToHeight: 15))!)
             }
         }
     }
@@ -83,7 +86,6 @@ class WithDrawTypeTableViewCell: UITableViewCell {
             
             descLabel.snp.makeConstraints { (make) in
                 make.right.equalTo(self.contentView.snp.right).offset(-9)
-                make.width.equalTo(200)
                 make.centerY.equalToSuperview()
             }
             

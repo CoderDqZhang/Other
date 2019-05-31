@@ -22,6 +22,9 @@
 		1F1C1B46229FA4A4008031F4 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B45229FA4A4008031F4 /* Config.swift */; };
 		1F1C1B48229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */; };
 		1F1C1B4A229FFAE9008031F4 /* BankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B49229FFAE9008031F4 /* BankModel.swift */; };
+		1F1C1B4C22A0B58F008031F4 /* BindBankListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */; };
+		1F1C1B4E22A0B5CB008031F4 /* BankListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */; };
+		1F1C1B5022A0B61B008031F4 /* BankTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */; };
 		1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8122951D4200781C0C /* UMCommonLog.framework */; };
 		1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F395C8222951D4200781C0C /* UMCommonLog.bundle */; };
 		1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8522951D4200781C0C /* UTDID.framework */; };
@@ -288,6 +291,9 @@
 		1F1C1B45229FA4A4008031F4 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithDrawMuchTableViewCell.swift; sourceTree = "<group>"; };
 		1F1C1B49229FFAE9008031F4 /* BankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankModel.swift; sourceTree = "<group>"; };
+		1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindBankListViewController.swift; sourceTree = "<group>"; };
+		1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankListViewModel.swift; sourceTree = "<group>"; };
+		1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTableViewCell.swift; sourceTree = "<group>"; };
 		1F395C8122951D4200781C0C /* UMCommonLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommonLog.framework; sourceTree = "<group>"; };
 		1F395C8222951D4200781C0C /* UMCommonLog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMCommonLog.bundle; sourceTree = "<group>"; };
 		1F395C8522951D4200781C0C /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
@@ -1269,6 +1275,7 @@
 				1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */,
 				1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */,
 				1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */,
+				1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1340,6 +1347,7 @@
 				1F1C1B37229F66EB008031F4 /* WithDrawTypeTableViewCell.swift */,
 				1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */,
 				1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */,
+				1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1396,6 +1404,7 @@
 				1F99175B229BC5B100C8FDD5 /* TouUpViewModel.swift */,
 				1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */,
 				1F1C1B39229F6C88008031F4 /* BindDrawViewModel.swift */,
+				1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1836,12 +1845,14 @@
 				1F395CCB2296787600781C0C /* AccountInfoModel.swift in Sources */,
 				1FE8DABA228EC8BF00DCED01 /* RealNameViewModel.swift in Sources */,
 				1FE5BECD2282866300C9137C /* shader.c in Sources */,
+				1F1C1B4C22A0B58F008031F4 /* BindBankListViewController.swift in Sources */,
 				1FE5BED72282866300C9137C /* RangeSeekSliderDelegate.swift in Sources */,
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
 				1FE8DB172293DC2300DCED01 /* LoginViewModel.swift in Sources */,
 				1FE8DAA4228EA08100DCED01 /* FollowViewModel.swift in Sources */,
 				1F395CC52295458C00781C0C /* CacheManager.swift in Sources */,
 				1FE8DA8D228D6C7E00DCED01 /* MineToolsTableViewCell.swift in Sources */,
+				1F1C1B4E22A0B5CB008031F4 /* BankListViewModel.swift in Sources */,
 				1FE5BEF12282A20400C9137C /* NewsViewController.swift in Sources */,
 				1F395CD722978DB600781C0C /* CategoryChoosSearchViewController.swift in Sources */,
 				1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */,
@@ -1914,6 +1925,7 @@
 				1FE5BF192282D18D00C9137C /* CategoryContentTableViewCell.swift in Sources */,
 				1FE8DAA6228EA91200DCED01 /* ChangeInfoViewController.swift in Sources */,
 				1FE8DAC0228ECAE800DCED01 /* AboutViewController.swift in Sources */,
+				1F1C1B5022A0B61B008031F4 /* BankTableViewCell.swift in Sources */,
 				1FE8DAB0228EC7D800DCED01 /* SingUpVIPViewController.swift in Sources */,
 				1FE5BE252282862B00C9137C /* BaseNetWorke.swift in Sources */,
 				1F395CC72295461000781C0C /* RegisterViewModel.swift in Sources */,
