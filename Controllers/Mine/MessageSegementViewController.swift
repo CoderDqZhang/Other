@@ -18,13 +18,15 @@ enum NotificationType:Int {
 
 class MessageSegementViewController: BaseViewController {
 
-    var segmentedViewDataSource: JXSegmentedTitleDataSource!
+    var segmentedViewDataSource: JXSegmentedDotDataSource!
     var segmentedView: JXSegmentedView!
     var listContainerView: JXSegmentedListContainerView!
 
     let titles = ["系统", "评论", "@我的", "点赞"]
     var tableHeaderViewHeight: CGFloat = 138
     var heightForHeaderInSection: Int = 44
+    
+    let dotStates = [false, true, true, true]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +42,13 @@ class MessageSegementViewController: BaseViewController {
     override func setUpView() {
         
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
-        segmentedViewDataSource = JXSegmentedTitleDataSource()
+        segmentedViewDataSource = JXSegmentedDotDataSource()
         segmentedViewDataSource.titles = titles
         segmentedViewDataSource.titleSelectedColor = App_Theme_06070D_Color!
         segmentedViewDataSource.titleNormalColor = App_Theme_999999_Color!
-        segmentedViewDataSource.isTitleColorGradientEnabled = true
         segmentedViewDataSource.isTitleZoomEnabled = false
+        segmentedViewDataSource.isTitleColorGradientEnabled = true
+        segmentedViewDataSource.dotStates = self.dotStates
         segmentedViewDataSource.reloadData(selectedIndex: 0)
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
@@ -81,8 +84,15 @@ class MessageSegementViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        //处于第一个item的时候，才允许屏幕边缘手势返回
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = (self.segmentedView.selectedIndex == 0)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //离开页面的时候，需要恢复屏幕边缘手势，不能影响其他页面
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
 }
 
 extension MessageSegementViewController : JXSegmentedViewDelegate {
