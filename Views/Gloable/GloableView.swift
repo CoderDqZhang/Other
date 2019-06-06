@@ -151,7 +151,7 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
         imageView.image = image
         self.addSubview(imageView)
         
-        label = YYLabel.init(frame: CGRect.init(x: 0, y: spacing + image.size.height, width: frame.size.width, height: font.capHeight + 2))
+        label = YYLabel.init(frame: CGRect.init(x: 0, y: spacing + image.size.height, width: frame.size.width, height: font.capHeight + 5))
         label.textAlignment = .center
         label.text = title
         label.font = font

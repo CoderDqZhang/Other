@@ -39,6 +39,7 @@ class FollowViewModel: BaseViewModel {
         let parameters = ["page":page.string, "limit":LIMITNUMBER,"userId":CacheManager.getSharedInstance().getUserId()] as [String : Any]
         BaseNetWorke.sharedInstance.postUrlWithString(PersonmyfollowUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 if self.page != 1 {
                     self.followArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
                 }else{

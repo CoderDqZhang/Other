@@ -32,6 +32,7 @@ class CoinsViewModel: BaseViewModel {
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "type":self.type.rawValue] as [String : Any]
         BaseNetWorke.sharedInstance.postUrlWithString(AccountcoinDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 if self.page != 1 {
                     self.detailArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
                 }else{

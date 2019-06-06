@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JXSegmentedView
 
 class NewsViewController: BaseViewController {
 
@@ -20,7 +21,7 @@ class NewsViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func setUpView(){
+    func initSView(type:Int) {
         self.bindViewModel(viewModel: newsViewModel, controller: self)
         self.setUpTableView(style: .grouped, cells: [CategoryTableViewCell.self,CategoryContentTableViewCell.self,HotDetailTableViewCell.self,CommentTableViewCell.self,UserInfoTableViewCell.self], controller: self)
         
@@ -46,4 +47,18 @@ class NewsViewController: BaseViewController {
     }
     */
 
+}
+
+extension NewsViewController : JXSegmentedListContainerViewListDelegate {
+    override func listView() -> UIView {
+        return view
+    }
+    
+    override func listDidAppear() {
+        print("listDidAppear")
+    }
+    
+    override func listDidDisappear() {
+        print("listDidDisappear")
+    }
 }

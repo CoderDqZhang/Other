@@ -58,6 +58,7 @@ class CommentViewModel: BaseViewModel {
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "commentId": self.commentData.id.string]
         BaseNetWorke.sharedInstance.postUrlWithString(ReplyreplyreplyListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 if self.page != 1 {
                     self.replistList.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
                 }else{

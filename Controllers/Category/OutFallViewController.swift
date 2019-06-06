@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JXSegmentedView
 
 class OutFallViewController: BaseViewController {
 
@@ -17,6 +18,10 @@ class OutFallViewController: BaseViewController {
     }
     
     override func setUpView(){
+        
+    }
+    
+    func initSView(type:Int) {
         self.bindViewModel(viewModel: OutFallViewModel(), controller: self)
         self.setUpTableView(style: .grouped, cells: [CommentTableViewCell.self,OutFallCategoryContentTableViewCell.self,OutFallCategoryUserInfoTableViewCell.self], controller: self)
         
@@ -41,4 +46,18 @@ class OutFallViewController: BaseViewController {
     }
     */
 
+}
+
+extension OutFallViewController : JXSegmentedListContainerViewListDelegate {
+    override func listView() -> UIView {
+        return view
+    }
+    
+    override func listDidAppear() {
+        print("listDidAppear")
+    }
+    
+    override func listDidDisappear() {
+        print("listDidDisappear")
+    }
 }

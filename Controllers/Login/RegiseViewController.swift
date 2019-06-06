@@ -28,13 +28,13 @@ class RegiseViewController: BaseViewController {
         if #available(iOS 11.0, *) {
             gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "注册", rightButton: nil, click: { (type) in
                 if type == .backBtn{
-                    self.navigationController?.popViewController()
+                    self.navigationController?.popToRootViewController(animated: true)
                 }
             })
         } else {
             gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "注册", rightButton: nil, click: { (type) in
                 if type == .backBtn{
-                    self.navigationController?.popViewController()
+                    self.navigationController?.popToRootViewController(animated: true)
                 }
             })
             // Fallback on earlier versions

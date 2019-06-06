@@ -57,16 +57,27 @@ class PostDetailContentTableViewCell: UITableViewCell {
         self.contentView.addSubview(collectButtonView)
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "post_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
-            self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
-            self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
-            self.postDetailContentTableViewCellClouse(.like)
+            if self.likeButton.imageView.image == UIImage.init(named: "post_detail_like_select") {
+                self.likeButton.imageView.image = UIImage.init(named: "post_detail_like")
+                self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
+                self.postDetailContentTableViewCellClouse(.like)
+            }else{
+                self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
+                self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
+                self.postDetailContentTableViewCellClouse(.like)
+            }
         })
         
         likeButtonView.addSubview(likeButton)
         
-        collectButton = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: UIImage.init(named: "post_detail_like")!.size.width + 25, y: 0, width: 34, height: 64), title: "喜欢", image: UIImage.init(named: "post_detail_collect")!, tag: 2, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
-            self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
-            self.postDetailContentTableViewCellClouse(.collect)
+        collectButton = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: UIImage.init(named: "post_detail_like")!.size.width + 25, y: 0, width: 34, height: 74), title: "喜欢", image: UIImage.init(named: "post_detail_collect")!, tag: 2, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
+            if self.collectButton.imageView.image == UIImage.init(named: "post_detail_collect_select"){
+                self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect")
+                self.postDetailContentTableViewCellClouse(.collect)
+            }else{
+                self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
+                self.postDetailContentTableViewCellClouse(.collect)
+            }
         })
         
         collectButtonView.addSubview(collectButton)
@@ -157,6 +168,8 @@ class PostDetailContentTableViewCell: UITableViewCell {
         
         if model.isCollect == 1 {
             self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
+        }else{
+            self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect")
         }
         
         likeButton.snp.updateConstraints { (make) in

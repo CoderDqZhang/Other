@@ -84,7 +84,7 @@ class CommentView: UIView {
 class CommentTableViewCell: UITableViewCell {
 
     var commentView:CommentView!
-    
+    var model:TipModel!
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -95,13 +95,15 @@ class CommentTableViewCell: UITableViewCell {
     func setUpView(){
         commentView = CommentView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 32))
         self.contentView.addSubview(commentView)
-        
-        
+
         self.updateConstraints()
     }
     
     func cellSetData(model:TipModel){
-        commentView.crateContent(time: model.commentTime, like: model.favor.string, comment: model.commentTotal.string, status: 0)
+        if self.model == nil {
+            self.model = model
+            commentView.crateContent(time: model.commentTime, like: model.favor.string, comment: model.commentTotal.string, status: 0)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

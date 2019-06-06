@@ -8,6 +8,7 @@
 
 import UIKit
 import DZNEmptyDataSet
+import MJRefresh
 
 class BaseViewModel: NSObject {
 
@@ -20,5 +21,12 @@ class BaseViewModel: NSObject {
     
     func reloadTableViewData(){
         self.controller?.tableView.reloadData()
+    }
+    
+    func hiddenMJLoadMoreData(resultData:Any){
+        if (resultData as! Array<Any>).capacity < LIMITNUMBER.int! {
+            self.controller?.tableView.mj_footer.endRefreshingWithNoMoreData()
+//            self.controller?.tableView.mj_footer.isHidden = true
+        }
     }
 }

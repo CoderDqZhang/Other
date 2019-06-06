@@ -87,6 +87,7 @@ class PostDetailViewModel: BaseViewModel {
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "tipId": id]
         BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 if self.page != 1 {
                     self.commentListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
                 }else{
@@ -103,7 +104,7 @@ class PostDetailViewModel: BaseViewModel {
         let parameters = ["tipId":self.tipDetailModel.id!.string]
         BaseNetWorke.sharedInstance.postUrlWithString(TipcollectTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "收藏成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }
         }
     }
@@ -112,7 +113,7 @@ class PostDetailViewModel: BaseViewModel {
         let parameters = ["tipId":self.tipDetailModel.id!.string]
         BaseNetWorke.sharedInstance.postUrlWithString(TipapproveTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }
         }
     }
@@ -121,7 +122,7 @@ class PostDetailViewModel: BaseViewModel {
         let parameters = ["commentId":commentId]
         BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }
         }
     }
@@ -130,7 +131,7 @@ class PostDetailViewModel: BaseViewModel {
         let parameters = ["userId":self.tipDetailModel.user.id!.string]
         BaseNetWorke.sharedInstance.postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "关注成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }
         }
     }
