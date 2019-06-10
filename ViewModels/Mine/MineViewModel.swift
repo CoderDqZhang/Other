@@ -122,21 +122,25 @@ class MineViewModel: BaseViewModel {
     
     func getUserInfoNet(userId:String){
         let parameters = ["userId":userId]
-        BaseNetWorke.sharedInstance.getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
                 self.desc = [[self.userInfo.isMaster == "1" ? "已认证" : "点击实名认证", self.userInfo.isMember == "1" ? "已认证" : "审核中","",""],["推广标语推广标语"]]
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func getAccountInfoNet(userId:String){
-        BaseNetWorke.sharedInstance.postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.accountInfo = AccountInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

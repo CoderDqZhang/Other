@@ -28,6 +28,7 @@ class NewsViewController: BaseViewController {
         
         self.setUpRefreshData {
             self.newsViewModel.page = 0
+            self.newsViewModel.getCategoryNet()
             self.newsViewModel.getTribeListNet()
         }
         

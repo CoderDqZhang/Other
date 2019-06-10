@@ -114,10 +114,10 @@ class BaseViewController: UIViewController {
     }
     
     func stopRefresh(){
-        if self.tableView.mj_header != nil {
+        if self.tableView != nil && self.tableView.mj_header != nil {
             self.tableView.mj_header.endRefreshing()
         }
-        if self.tableView.mj_footer != nil {
+        if self.tableView != nil && self.tableView.mj_footer != nil {
             self.tableView.mj_footer.endRefreshing()
         }
     }

@@ -90,24 +90,28 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
         if self.selectPhotos.count > 0 {
             AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
                 let parameters = ["content":self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
-                BaseNetWorke.sharedInstance.postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "发帖成功", autoHidder: true)
                         self.controller?.dismiss(animated: true, completion: {
                             CacheManager.getSharedInstance().removePostModel()
                         })
+                    }else{
+                        self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                     }
                 }
             }
             
         }else{
             let parameters = ["content":self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":""] as [String : Any]
-            BaseNetWorke.sharedInstance.postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     _ = Tools.shareInstance.showMessage(KWindow, msg: "发帖成功", autoHidder: true)
                     self.controller?.dismiss(animated: true, completion: {
                         CacheManager.getSharedInstance().removePostModel()
                     })
+                }else{
+                    self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 }
             }
         }

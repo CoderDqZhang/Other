@@ -24,20 +24,24 @@ class LoadConfigManger: NSObject {
     }
     
     func loadConfigUrl(){
-        BaseNetWorke.sharedInstance.getUrlWithString(CommentgetTimetUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().getUrlWithString(CommentgetTimetUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let model = ConfigModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveConfigModel(category: model)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func loadUnreadUrl(){
-        BaseNetWorke.sharedInstance.postUrlWithString(NotifyUnreadUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(NotifyUnreadUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let model = UnreadMessageModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUnreadModel(category: model)
                 (KWindow.rootViewController as! MainTabBarController).upateUnreadMessage()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

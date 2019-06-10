@@ -29,12 +29,14 @@ class BankListViewModel: BaseViewModel {
     
     func deleteAccount(indexPath:IndexPath){
         let parameters = ["id":((self.bankListk[indexPath.row] as! NSDictionary).object(forKey: "id") as! Int).string]
-        BaseNetWorke.sharedInstance.postUrlWithString(AccountDeleteAccountUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(AccountDeleteAccountUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if (self.controller as! BindBankListViewController).bindBankListViewControllerDeleteClouse != nil {
                     (self.controller as! BindBankListViewController).bindBankListViewControllerDeleteClouse(self.bankListk[indexPath.row] as! NSDictionary)
                 }
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
         

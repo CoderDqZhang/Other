@@ -46,7 +46,7 @@ class CommentViewModel: BaseViewModel {
     
     func likeNet(model:ReplyList){
         let parameters = ["replyId":model.id!.string,"userId":model.userId.string]
-        BaseNetWorke.sharedInstance.postUrlWithString(CommentReplyApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(CommentReplyApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
             }
@@ -56,7 +56,7 @@ class CommentViewModel: BaseViewModel {
     func getReplitList(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "commentId": self.commentData.id.string]
-        BaseNetWorke.sharedInstance.postUrlWithString(ReplyreplyreplyListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyreplyListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 if self.page != 1 {
@@ -66,7 +66,6 @@ class CommentViewModel: BaseViewModel {
                     self.replistList = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-                self.controller?.stopRefresh()
             }
         }
     }
@@ -77,7 +76,7 @@ class CommentViewModel: BaseViewModel {
             return
         }
         let parameters = ["content":content, "toUserId":self.commentData.user.id.string, "commentId":self.commentData.id.string] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(ReplyreplyUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "回复成功", autoHidder: true)
                 if self.controller?.reloadDataClouse != nil {

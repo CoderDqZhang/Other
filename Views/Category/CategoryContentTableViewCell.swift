@@ -70,11 +70,11 @@ class CategoryContentTableViewCell: UITableViewCell {
     func cellSetData(tipmodel:TipModel){
         if self.model == nil {
             self.model = tipmodel
-            let stringHeight = tipmodel.content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
+            let stringHeight = tipmodel.title.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
             detailLabel.snp.updateConstraints { (make) in
                 make.height.equalTo(stringHeight)
             }
-            detailLabel.text = tipmodel.content
+            detailLabel.text = tipmodel.title
             let images = tipmodel.image.split(separator: ",")
             
             if images.count > 1 {

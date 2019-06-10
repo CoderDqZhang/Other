@@ -120,29 +120,35 @@ class WithdrawViewModel: BaseViewModel {
     }
     
     func getAccount(){
-        BaseNetWorke.sharedInstance.postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let model = AccountInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 self.accountInfo = model
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func getAccountInfoList(){
-        BaseNetWorke.sharedInstance.postUrlWithString(AccountFindCashAccountUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(AccountFindCashAccountUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.bankLiskArray = NSMutableArray.init(array: resultDic.value as! Array)
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func drawUpNet(){
         let parameters = ["cashMoney":self.cashMoney,"accountId":self.bankModel.id.string] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(AccountcashUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(AccountcashUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.controller?.navigationController?.popViewController()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

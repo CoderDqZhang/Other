@@ -28,16 +28,16 @@ class FansViewModel: BaseViewModel {
     func getFansNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(PersonmyFansUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(PersonmyFansUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 if self.page != 1 {
                     self.fansArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
                 }else{
                     self.fansArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-                self.controller?.stopRefresh()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

@@ -34,36 +34,7 @@ class PostDetailContentTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        
-        
-//        contnetLabel = YYLabel.init()
-//        contnetLabel.numberOfLines = 0
-//        contnetLabel.textColor = App_Theme_666666_Color
-//        contnetLabel.font = App_Theme_PinFan_M_14_Font
-//
-//        self.contentView.addSubview(contnetLabel)
-//
-//        imageContentView = UIView.init()
-//        self.contentView.addSubview(imageContentView)
-//
-//        contnetLabel.snp.makeConstraints { (make) in
-//            make.left.equalTo(self.contentView.snp.left).offset(15)
-//            make.right.equalTo(self.contentView.snp.right).offset(-15)
-//            make.top.equalTo(self.contentView.snp.top).offset(0)
-//            make.height.equalTo(17)
-//        }
-//
-//        imageContentView.snp.makeConstraints { (make) in
-//            make.left.equalTo(self.contentView.snp.left).offset(15)
-//            make.right.equalTo(self.contentView.snp.right).offset(-15)
-//            make.top.equalTo(self.contnetLabel.snp.bottom).offset(8)
-//            make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
-//            make.height.equalTo(0.001)
-//        }
-//
-//        self.updateConstraints()
-        
-        
+    
         titleLabel = YYLabel.init()
         titleLabel.numberOfLines = 0
         titleLabel.textColor = App_Theme_2A2F34_Color
@@ -73,7 +44,6 @@ class PostDetailContentTableViewCell: UITableViewCell {
         
         contnetLabel = YYLabel.init()
         contnetLabel.numberOfLines = 0
-        contnetLabel.backgroundColor = .red
         contnetLabel.textColor = App_Theme_2A2F34_Color
         contnetLabel.font = App_Theme_PinFan_M_15_Font
         
@@ -102,7 +72,7 @@ class PostDetailContentTableViewCell: UITableViewCell {
         
         likeButtonView.addSubview(likeButton)
         
-        collectButton = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: UIImage.init(named: "post_detail_like")!.size.width + 25, y: 0, width: 34, height: 74), title: "喜欢", image: UIImage.init(named: "post_detail_collect")!, tag: 2, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
+        collectButton = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: UIImage.init(named: "post_detail_like")!.size.width + 25, y: 0, width: 34, height: 74), title: "收藏", image: UIImage.init(named: "post_detail_collect")!, tag: 2, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
             if self.collectButton.imageView.image == UIImage.init(named: "post_detail_collect_select"){
                 self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect")
                 self.postDetailContentTableViewCellClouse(.collect)
@@ -118,49 +88,16 @@ class PostDetailContentTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:TipModel){
-        
-//        if self.model == nil {
-//            self.model = model
-//            let stringHeight = model.content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-//            contnetLabel.snp.updateConstraints { (make) in
-//                make.height.equalTo(stringHeight)
-//            }
-//            contnetLabel.text = model.content
-//            let images = model.image.split(separator: ",")
-//
-//            if images.count > 1 {
-//                for index in 0...images.count - 1 {
-//                    let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-//                    UIImageViewManger.sd_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
-//                        if error == nil {
-//                            imageView.image = image
-//                        }
-//                    }
-//                    imageView.layer.cornerRadius = 5
-//                    imageView.layer.masksToBounds = true
-//                    self.imageContentView.addSubview(imageView)
-//                }
-//                imageContentView.snp.updateConstraints{ (make) in
-//                    make.height.equalTo(contentImageHeight)
-//                }
-//            }else{
-//                imageContentView.snp.updateConstraints{ (make) in
-//                    make.height.equalTo(0.0001)
-//                }
-//            }
-//            self.contentView.updateConstraintsIfNeeded()
-//        }
-        
-        
+    
         let titleHeight = model.title.nsString.height(with: App_Theme_PinFan_M_18_Font, constrainedToWidth: SCREENWIDTH - 30)
         titleLabel.snp.makeConstraints { (make) in
-            make.size.height.equalTo(titleHeight)
+            make.height.equalTo(titleHeight)
         }
         titleLabel.text = model.title
 
         let contentHeight = model.content.nsString.height(with: App_Theme_PinFan_M_15_Font, constrainedToWidth: SCREENWIDTH - 30)
         contnetLabel.snp.updateConstraints { (make) in
-            make.size.height.equalTo(contentHeight)
+            make.height.equalTo(contentHeight)
         }
         contnetLabel.text = model.content
 
@@ -198,14 +135,6 @@ class PostDetailContentTableViewCell: UITableViewCell {
             self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect")
         }
 
-        likeButton.snp.updateConstraints { (make) in
-            make.size.equalTo(CGSize.init(width: 47, height: 47))
-        }
-
-        collectButton.snp.updateConstraints { (make) in
-            make.size.equalTo(CGSize.init(width: 47, height: 47))
-        }
-
         self.contentView.updateConstraintsIfNeeded()
         
     }
@@ -221,21 +150,21 @@ class PostDetailContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(0)
-                make.size.height.equalTo(18)
+                make.height.equalTo(18)
             }
             
             contnetLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
-                make.size.height.equalTo(15)
+                make.height.equalTo(15)
             }
             
             imageContentView.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contnetLabel.snp.bottom).offset(25)
-                make.size.height.equalTo(0.001)
+                make.height.equalTo(0.001)
             }
             
             likeButtonView.snp.makeConstraints { (make) in
