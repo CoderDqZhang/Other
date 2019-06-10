@@ -63,15 +63,22 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     }
     
     func setNumberText(str:String){
-        descLabel.text = str
+        var showStr = str
+        if str.int! > 99 {
+            showStr = "99+"
+        }
+        descLabel.text = showStr
+        descLabel.textAlignment = .center
         descLabel.backgroundColor = App_Theme_F65449_Color
         descLabel.textColor = App_Theme_FFFFFF_Color
         descLabel.layer.cornerRadius = 7
         descLabel.font = App_Theme_PinFan_R_12_Font
         
-        let strHeight = str.nsString.width(with: App_Theme_PinFan_R_12_Font, constrainedToHeight: 14)
+        let strHeight = showStr.nsString.width(with: App_Theme_PinFan_R_12_Font, constrainedToHeight: 14)
         descLabel.snp.remakeConstraints({ (make) in
-            make.size.equalTo(CGSize.init(width: strHeight + 20, height: 14))
+            make.right.equalTo(self.contentView.snp.right).offset(-9)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: strHeight + 8, height: 14))
         })
     }
     

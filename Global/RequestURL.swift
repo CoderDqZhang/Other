@@ -47,6 +47,8 @@ let CommentgetTimetUrl = "\(RootUrl)common/getTime"
 let CommentReplyApprovetUrl = "\(RootUrl)commentReply/replyApprove"
 
 let NotifynotifyListUrl = "\(RootUrl)notify/notifyList"
+let NotifyUnreadUrl = "\(RootUrl)notify/unreadNotify"
+
 
 let PersonapplyMasterUrl = "\(RootUrl)person/applyMaster"
 let PersonfindRecentUrl = "\(RootUrl)person/findRecent"

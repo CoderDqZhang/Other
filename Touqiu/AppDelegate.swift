@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
+        //加载配置
+        LoadConfigManger.getSharedInstance().setUp()
         AliPayManager.getSharedInstance().ossSetUp()
         UMengManager.shareInstance.setUpUMengManger(application, didFinishLaunchingWithOptions: launchOptions)
         

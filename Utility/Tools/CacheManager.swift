@@ -102,4 +102,29 @@ class CacheManager: NSObject {
     func isLogin() ->Bool {
         return (CacheManager._sharedInstance.userCache?.itemExists(forKey: "userInfo"))!
     }
+    
+    
+    func saveConfigModel(category:ConfigModel){
+         CacheManager._sharedInstance.otherCache?.saveItem(withKey: "ConfigModel", value: NSKeyedArchiver.archivedData(withRootObject: category), filename: "ConfigModel", extendedData: nil)
+    }
+    
+    func getConfigModel() ->ConfigModel?{
+        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "ConfigModel"))! {
+            let item:Data = ((CacheManager._sharedInstance.otherCache?.getItemValue(forKey: "ConfigModel"))!)
+            return NSKeyedUnarchiver.unarchiveObject(with: item) as? ConfigModel
+        }
+        return nil
+    }
+    
+    func saveUnreadModel(category:UnreadMessageModel){
+        CacheManager._sharedInstance.otherCache?.saveItem(withKey: "UnreadMessageModel", value: NSKeyedArchiver.archivedData(withRootObject: category), filename: "UnreadMessageModel", extendedData: nil)
+    }
+    
+    func getUnreadModel() ->UnreadMessageModel?{
+        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "UnreadMessageModel"))! {
+            let item:Data = ((CacheManager._sharedInstance.otherCache?.getItemValue(forKey: "UnreadMessageModel"))!)
+            return NSKeyedUnarchiver.unarchiveObject(with: item) as? UnreadMessageModel
+        }
+        return nil
+    }
 }

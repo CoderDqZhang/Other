@@ -15,7 +15,7 @@ class MainTabBarController: UITabBarController {
     let segmentVC = SegmentViewController()
     let squareVC = SquareViewController()
     let mineVC = MineViewController()
-    
+    var mineNavigaitonVC : UINavigationController!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,8 +29,11 @@ class MainTabBarController: UITabBarController {
         self.setNavigationVC(vc: categoryNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "部落")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "部落_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "部落")
         let squareNavigaitonVC = UINavigationController.init(rootViewController: squareVC)
         self.setNavigationVC(vc: squareNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "广场")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "广场_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "广场")
-        let mineNavigaitonVC = UINavigationController.init(rootViewController: mineVC)
+        
+        mineNavigaitonVC = UINavigationController.init(rootViewController: mineVC)
         self.setNavigationVC(vc: mineNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "我的")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "我的_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "我的")
+        
+
         
         mineNavigaitonVC.navigationBar.isHidden = true
         self.viewControllers = [scoreNavigaitonVC,categoryNavigaitonVC,squareNavigaitonVC,mineNavigaitonVC]
@@ -45,6 +48,17 @@ class MainTabBarController: UITabBarController {
         vc.tabBarItem =  UITabBarItem.init(title: toobarTitle, image: normalImage, selectedImage: selectImage)
     }
     
+    
+    func upateUnreadMessage(){
+        if CacheManager.getSharedInstance().getUnreadModel() != nil {
+            if CacheManager.getSharedInstance().getUnreadModel()!.unread > 99 {
+                mineNavigaitonVC.tabBarItem.badgeValue = CacheManager.getSharedInstance().getUnreadModel()!.unread.string
+
+            }else{
+                mineNavigaitonVC.tabBarItem.badgeValue = "99+"
+            }
+        }
+    }
 
     /*
     // MARK: - Navigation

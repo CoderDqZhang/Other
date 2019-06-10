@@ -259,6 +259,9 @@
 		1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */; };
 		1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */; };
 		1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */; };
+		1FF1E51922AE08EB00BB9A50 /* LoadConfigManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */; };
+		1FF1E51C22AE0AEF00BB9A50 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */; };
+		1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -597,6 +600,9 @@
 		1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewController.swift; sourceTree = "<group>"; };
 		1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiseViewController.swift; sourceTree = "<group>"; };
 		1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewModel.swift; sourceTree = "<group>"; };
+		1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadConfigManger.swift; sourceTree = "<group>"; };
+		1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
+		1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadMessageModel.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -881,6 +887,7 @@
 		1FE5BDDE22817B1A00C9137C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1FF1E51A22AE0A6D00BB9A50 /* Config */,
 				1FE5BF122282A4EC00C9137C /* Category */,
 				1FE5BF112282A4EC00C9137C /* Mine */,
 				1FE5BF102282A4EC00C9137C /* Score */,
@@ -948,6 +955,7 @@
 			children = (
 				1FE5BDE522817B5F00C9137C /* Define.swift */,
 				1F1C1B45229FA4A4008031F4 /* Config.swift */,
+				1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */,
 				1FE5BDE722817B8500C9137C /* RequestURL.swift */,
 				1FE5BDEE2282648D00C9137C /* AppThemeConfig.swift */,
 				1FE5BFA5228AC1E200C9137C /* AuthorityManager.swift */,
@@ -1533,6 +1541,15 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		1FF1E51A22AE0A6D00BB9A50 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */,
+				1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		7B4FD7351CEDB453A5856703 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1967,6 +1984,7 @@
 				1FE5BF592285702100C9137C /* UIButton+Block.m in Sources */,
 				1F991756229B944A00C8FDD5 /* WithdrawViewController.swift in Sources */,
 				1FE5BE322282863D00C9137C /* AudioPlayManager.swift in Sources */,
+				1FF1E51922AE08EB00BB9A50 /* LoadConfigManger.swift in Sources */,
 				1F395CD32297871800781C0C /* CategoryChossViewModel.swift in Sources */,
 				1FE5BEC62282866300C9137C /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				1FE5BEC42282866300C9137C /* UITableView+FDKeyedHeightCache.m in Sources */,
@@ -2002,6 +2020,7 @@
 				1FE5BDE822817B8500C9137C /* RequestURL.swift in Sources */,
 				1F1C1B3E229F7FC3008031F4 /* AccountTypeTableViewCell.swift in Sources */,
 				1FE8DAF72292C15C00DCED01 /* MyPostViewController.swift in Sources */,
+				1FF1E51C22AE0AEF00BB9A50 /* ConfigModel.swift in Sources */,
 				1FE5BEC82282866300C9137C /* common.c in Sources */,
 				1FE8DAB4228EC7F200DCED01 /* InviteUserViewController.swift in Sources */,
 				1FE5BE1D228285FA00C9137C /* NSDate+LSCore.m in Sources */,
@@ -2058,6 +2077,7 @@
 				1FE5BE032282752C00C9137C /* ScoreViewController.swift in Sources */,
 				1FE5BE4A2282864300C9137C /* NSTimer.swift in Sources */,
 				1FE5BE352282863D00C9137C /* LocalJsonFile.swift in Sources */,
+				1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */,
 				1FE8DB032292C5F300DCED01 /* MyCollectViewModel.swift in Sources */,
 				1FE5BEC52282866300C9137C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FE8DAB2228EC7E300DCED01 /* NotificationViewController.swift in Sources */,
