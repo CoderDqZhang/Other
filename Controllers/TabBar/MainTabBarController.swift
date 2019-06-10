@@ -51,11 +51,9 @@ class MainTabBarController: UITabBarController {
     
     func upateUnreadMessage(){
         if CacheManager.getSharedInstance().getUnreadModel() != nil {
-            if CacheManager.getSharedInstance().getUnreadModel()!.unread > 99 {
-                mineNavigaitonVC.tabBarItem.badgeValue = CacheManager.getSharedInstance().getUnreadModel()!.unread.string
+            if CacheManager.getSharedInstance().getUnreadModel()!.unread > 0 {
+                mineNavigaitonVC.tabBarController?.tabBar.showBadgeOnItemIndex(index: 4)
 
-            }else{
-                mineNavigaitonVC.tabBarItem.badgeValue = "99+"
             }
         }
     }

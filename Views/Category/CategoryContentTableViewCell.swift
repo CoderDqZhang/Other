@@ -44,7 +44,7 @@ class CategoryContentTableViewCell: UITableViewCell {
             make.left.equalTo(self.contentView.snp.left).offset(15)
             make.right.equalTo(self.contentView.snp.right).offset(-15)
             make.top.equalTo(self.contentView.snp.top).offset(0)
-//            make.height.equalTo(17)
+            make.height.equalTo(17)
         }
         
         imageContentView.snp.makeConstraints { (make) in
@@ -70,11 +70,11 @@ class CategoryContentTableViewCell: UITableViewCell {
     func cellSetData(tipmodel:TipModel){
         if self.model == nil {
             self.model = tipmodel
-            let stringHeight = tipmodel.title.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-//            detailLabel.snp.updateConstraints { (make) in
-//                make.height.equalTo(stringHeight)
-//            }
-            detailLabel.text = tipmodel.title
+            let stringHeight = tipmodel.content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
+            detailLabel.snp.updateConstraints { (make) in
+                make.height.equalTo(stringHeight)
+            }
+            detailLabel.text = tipmodel.content
             let images = tipmodel.image.split(separator: ",")
             
             if images.count > 1 {

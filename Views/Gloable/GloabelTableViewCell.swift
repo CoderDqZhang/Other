@@ -14,6 +14,8 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     
     var titleLabel:YYLabel!
     var descLabel:YYLabel!
+    var numberLabel:YYLabel!
+    
     var rightImageView:UIImageView!
 
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
@@ -59,7 +61,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
             descLabel.text = desc
             self.descLabel.isHidden = isDescHidden
         }
-        
+
     }
     
     func setNumberText(str:String){
@@ -67,15 +69,17 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         if str.int! > 99 {
             showStr = "99+"
         }
-        descLabel.text = showStr
-        descLabel.textAlignment = .center
-        descLabel.backgroundColor = App_Theme_F65449_Color
-        descLabel.textColor = App_Theme_FFFFFF_Color
-        descLabel.layer.cornerRadius = 7
-        descLabel.font = App_Theme_PinFan_R_12_Font
+        numberLabel = YYLabel.init()
+        numberLabel.textAlignment = .center
+        numberLabel.text = showStr
+        self.contentView.addSubview(numberLabel)
+        numberLabel.backgroundColor = App_Theme_F65449_Color
+        numberLabel.textColor = App_Theme_FFFFFF_Color
+        numberLabel.layer.cornerRadius = 7
+        numberLabel.font = App_Theme_PinFan_R_12_Font
         
         let strHeight = showStr.nsString.width(with: App_Theme_PinFan_R_12_Font, constrainedToHeight: 14)
-        descLabel.snp.remakeConstraints({ (make) in
+        numberLabel.snp.makeConstraints({ (make) in
             make.right.equalTo(self.contentView.snp.right).offset(-9)
             make.centerY.equalToSuperview()
             make.size.equalTo(CGSize.init(width: strHeight + 8, height: 14))

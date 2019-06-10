@@ -262,6 +262,7 @@
 		1FF1E51922AE08EB00BB9A50 /* LoadConfigManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */; };
 		1FF1E51C22AE0AEF00BB9A50 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */; };
 		1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */; };
+		1FF1E52022AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51F22AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -603,6 +604,7 @@
 		1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadConfigManger.swift; sourceTree = "<group>"; };
 		1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadMessageModel.swift; sourceTree = "<group>"; };
+		1FF1E51F22AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITabarBadgeExtentions.swift; path = ../../ViewModels/Category/UITabarBadgeExtentions.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1065,6 +1067,7 @@
 		1FE5BE3A2282864300C9137C /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				1FF1E51F22AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift */,
 				1FE5BE3B2282864300C9137C /* UIPageControlExtentions.swift */,
 				1FE5BF5D228942EF00C9137C /* UITextFieldExtentions.swift */,
 				1FE5BE3C2282864300C9137C /* UIButton+Extentions.swift */,
@@ -1883,6 +1886,7 @@
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
 				1FE8DB172293DC2300DCED01 /* LoginViewModel.swift in Sources */,
 				1FE8DAA4228EA08100DCED01 /* FollowViewModel.swift in Sources */,
+				1FF1E52022AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift in Sources */,
 				1F395CC52295458C00781C0C /* CacheManager.swift in Sources */,
 				1FE8DA8D228D6C7E00DCED01 /* MineToolsTableViewCell.swift in Sources */,
 				1F1C1B4E22A0B5CB008031F4 /* BankListViewModel.swift in Sources */,

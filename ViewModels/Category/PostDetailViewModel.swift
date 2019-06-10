@@ -164,7 +164,7 @@ extension PostDetailViewModel: UITableViewDelegate {
             if indexPath.row == 0 {
                 return 60
             }
-            return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
+            return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), configuration: { (cell) in
                 self.tableViewPostDetailContentTableViewCellSetData(indexPath, cell: cell as! PostDetailContentTableViewCell)
             })
             
