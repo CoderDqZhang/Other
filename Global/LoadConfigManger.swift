@@ -28,8 +28,6 @@ class LoadConfigManger: NSObject {
             if !resultDic.isCompleted {
                 let model = ConfigModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveConfigModel(category: model)
-            }else{
-                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
@@ -40,8 +38,6 @@ class LoadConfigManger: NSObject {
                 let model = UnreadMessageModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUnreadModel(category: model)
                 (KWindow.rootViewController as! MainTabBarController).upateUnreadMessage()
-            }else{
-                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
