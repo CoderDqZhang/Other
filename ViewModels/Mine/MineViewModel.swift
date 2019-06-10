@@ -9,6 +9,7 @@
 import UIKit
 import DZNEmptyDataSet
 
+
 class MineViewModel: BaseViewModel {
     
     let titles = [["实名认证","专家号申请","消息","设置"],["邀请好友"]]
@@ -71,6 +72,13 @@ class MineViewModel: BaseViewModel {
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
         if self.userInfo != nil {
             cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: desc[indexPath.section-3][indexPath.row], image: nil, isDescHidden: false)
+            if indexPath.row == 1 {
+                cell.updateDescFontAndColor(App_Theme_999999_Color!, App_Theme_PinFan_R_12_Font!)
+            }else if indexPath.row == 0{
+                cell.updateDescFontAndColor(App_Theme_FF7800_Color!, App_Theme_PinFan_R_12_Font!)
+            }else{
+                cell.setNumberText(str: "12")
+            }
         }else{
              cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: "", image: nil, isDescHidden: false)
         }
@@ -93,7 +101,12 @@ class MineViewModel: BaseViewModel {
                 }else if indexPath.row == 2{
                     NavigationPushView(self.controller!, toConroller: MessageSegementViewController())
                 }else if indexPath.row == 3{
-                    NavigationPushView(self.controller!, toConroller: SettingViewController())
+                    let settinVC = SettingViewController()
+                    settinVC.logoutClouse = {
+                        self.userInfo = nil
+                        self.reloadTableViewData()
+                    }
+                    NavigationPushView(self.controller!, toConroller: settinVC)
                 }
             case 4:
                 NavigationPushView(self.controller!, toConroller: InviteUserViewController())
@@ -113,7 +126,7 @@ class MineViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
-                self.desc = [["",self.userInfo.isMaster == "1" ? "已认证" : "", self.userInfo.isMember == "1" ? "已认证" : "",""],["推广标语推广标语"]]
+                self.desc = [[self.userInfo.isMaster == "1" ? "已认证" : "点击实名认证", self.userInfo.isMember == "1" ? "已认证" : "审核中","",""],["推广标语推广标语"]]
                 self.reloadTableViewData()
             }
         }

@@ -62,6 +62,19 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         
     }
     
+    func setNumberText(str:String){
+        descLabel.text = str
+        descLabel.backgroundColor = App_Theme_F65449_Color
+        descLabel.textColor = App_Theme_FFFFFF_Color
+        descLabel.layer.cornerRadius = 7
+        descLabel.font = App_Theme_PinFan_R_12_Font
+        
+        let strHeight = str.nsString.width(with: App_Theme_PinFan_R_12_Font, constrainedToHeight: 14)
+        descLabel.snp.remakeConstraints({ (make) in
+            make.size.equalTo(CGSize.init(width: strHeight + 20, height: 14))
+        })
+    }
+    
     func updateDescFontAndColor(_ color:UIColor,_ font:UIFont){
         descLabel.textColor = color
         descLabel.font = font

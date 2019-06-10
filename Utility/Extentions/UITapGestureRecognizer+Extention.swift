@@ -131,7 +131,7 @@ class NewGestureAction<T: UIGestureRecognizer> {
     
     /// Tap手势用
     func whenTaped(handler: @escaping TapGestureHandler) {
-        endedHandler = handler as! (T) -> Void
+        endedHandler = handler as? (T) -> Void
     }
     
     @objc func tapAction(gesture: UITapGestureRecognizer) {

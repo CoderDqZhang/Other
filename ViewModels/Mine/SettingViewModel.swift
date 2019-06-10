@@ -52,6 +52,10 @@ class SettingViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.postUrlWithString(UserlogoutUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 CacheManager.getSharedInstance().logout()
+                if (self.controller as! SettingViewController).logoutClouse != nil {
+                    (self.controller as! SettingViewController).logoutClouse()
+                    self.controller?.navigationController?.popViewController()
+                }
             }
         }
     }

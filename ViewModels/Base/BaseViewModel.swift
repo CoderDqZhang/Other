@@ -26,7 +26,7 @@ class BaseViewModel: NSObject {
     func hiddenMJLoadMoreData(resultData:Any){
         if (resultData as! Array<Any>).capacity < LIMITNUMBER.int! {
             self.controller?.tableView.mj_footer.endRefreshingWithNoMoreData()
-//            self.controller?.tableView.mj_footer.isHidden = true
+            self.controller?.tableView.mj_footer.state = .noMoreData
         }
     }
 }
