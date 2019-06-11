@@ -21,7 +21,22 @@ class NotificationViewModel: BaseViewModel {
     
     
     func tableViewNotificationTableViewCellSetData(_ indexPath:IndexPath, cell:NotificationTableViewCell) {
-        cell.cellSetData(model: NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any]))
+        cell.cellSetData(model: NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any]), indexPath: indexPath)
+        cell.notificationTableViewCellClouse = { indexPath in
+            let alerController = UIAlertController.init(title: "操作", message: "", preferredStyle: .actionSheet)
+            alerController.addAction(title: "标记已读", style: .default, isEnabled: true, handler: { (read) in
+                self.notificationStatusNet(indexPath: indexPath)
+            })
+            alerController.addAction(title: "删除消息", style: .default, isEnabled: true, handler: { (read) in
+                self.deleteNotificationNet(indexPath: indexPath)
+            })
+            alerController.addAction(title: "取消", style: .cancel, isEnabled: true, handler: { (cancel) in
+                alerController.dismiss(animated: true, completion: {
+                    
+                })
+            })
+            NavigaiontPresentView(self.controller!, toController: alerController)
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
@@ -38,6 +53,33 @@ class NotificationViewModel: BaseViewModel {
                 }else{
                     self.detailArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
+                self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func notificationStatusNet(indexPath:IndexPath){
+        let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any])
+        let parameters = ["id":messageModel.id.string] as [String : Any]
+        BaseNetWorke.getSharedInstance().postUrlWithString(NotifyAlertStatusUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "标记成功", autoHidder: true)
+                self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func deleteNotificationNet(indexPath:IndexPath){
+        let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any])
+        let parameters = ["id":messageModel.id.string] as [String : Any]
+        BaseNetWorke.getSharedInstance().postUrlWithString(NotifyAlertDeleteUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "删除成功", autoHidder: true)
+                self.detailArray.removeObject(at: indexPath.row)
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

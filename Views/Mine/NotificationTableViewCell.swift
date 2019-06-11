@@ -8,12 +8,16 @@
 
 import UIKit
 
+typealias NotificationTableViewCellClouse = (_ indexPath:IndexPath) ->Void
+
 class NotificationTableViewCell: UITableViewCell {
 
     var conisImageView:UIImageView!
     var titleLabel:YYLabel!
     var timeLabel:YYLabel!
     var descLabel:YYLabel!
+    var indexPath:IndexPath!
+    var notificationTableViewCellClouse:NotificationTableViewCellClouse!
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
 
@@ -60,7 +64,15 @@ class NotificationTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func cellSetData(model:NotificaitonModel){
+    func cellSetData(model:NotificaitonModel, indexPath:IndexPath){
+        _ = self.newLongpressGesture().whenBegan { (re) in
+            print("长按点击")
+            }.whenEnded { (re) in
+                if self.notificationTableViewCellClouse != nil {
+                    self.notificationTableViewCellClouse(indexPath)
+                }
+        }
+        self.indexPath = indexPath
         titleLabel.text = model.title
         timeLabel.text = model.createTime
         descLabel.text = model.descriptionField

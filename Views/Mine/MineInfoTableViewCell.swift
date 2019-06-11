@@ -14,6 +14,7 @@ enum TopUpViewClickType {
     case store
     case follow
     case fans
+    case daily
 }
 
 typealias TopUpViewTypeClouse = (_ type:TopUpViewClickType) ->Void
@@ -302,7 +303,7 @@ class MineInfoTableViewCell: UITableViewCell {
         daylyButton.setBackgroundImage(UIImage.init(named: "dayliy"), for: .normal)
         daylyButton.setTitle("每日任务", for: .normal)
         daylyButton.addAction { (button) in
-            
+            self.mineInfoTableViewCellClouse(.daily)
         }
         self.contentView.addSubview(daylyButton)
         

@@ -266,6 +266,9 @@
 		1FF1E52422AF45F600BB9A50 /* InveterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */; };
 		1FF1E52622AF4C7D00BB9A50 /* InviteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52522AF4C7D00BB9A50 /* InviteModel.swift */; };
 		1FF1E52822AF52F000BB9A50 /* InviteRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */; };
+		1FF1E52A22AF55F700BB9A50 /* DailyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52922AF55F700BB9A50 /* DailyViewController.swift */; };
+		1FF1E52C22AF567400BB9A50 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52B22AF567400BB9A50 /* DailyViewModel.swift */; };
+		1FF1E52F22AF85E500BB9A50 /* UIImage+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52E22AF85E500BB9A50 /* UIImage+Text.m */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -611,6 +614,10 @@
 		1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InveterViewModel.swift; sourceTree = "<group>"; };
 		1FF1E52522AF4C7D00BB9A50 /* InviteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteModel.swift; sourceTree = "<group>"; };
 		1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteRuleViewController.swift; sourceTree = "<group>"; };
+		1FF1E52922AF55F700BB9A50 /* DailyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewController.swift; sourceTree = "<group>"; };
+		1FF1E52B22AF567400BB9A50 /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
+		1FF1E52D22AF85E500BB9A50 /* UIImage+Text.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Text.h"; sourceTree = "<group>"; };
+		1FF1E52E22AF85E500BB9A50 /* UIImage+Text.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Text.m"; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1035,6 +1042,8 @@
 				1FE5BF582285702100C9137C /* UIButton+Block.m */,
 				1FE8DA96228E8EC500DCED01 /* UIView+ESAddTapGestureRecognizer.h */,
 				1FE8DA97228E8EC500DCED01 /* UIView+ESAddTapGestureRecognizer.m */,
+				1FF1E52D22AF85E500BB9A50 /* UIImage+Text.h */,
+				1FF1E52E22AF85E500BB9A50 /* UIImage+Text.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1288,6 +1297,7 @@
 				1F1C1B5122A0E6C6008031F4 /* MessageSegementViewController.swift */,
 				1FE8DAB1228EC7E300DCED01 /* NotificationViewController.swift */,
 				1FE8DAB3228EC7F200DCED01 /* InviteUserViewController.swift */,
+				1FF1E52922AF55F700BB9A50 /* DailyViewController.swift */,
 				1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */,
 				1FE8DABD228ECABC00DCED01 /* ChangePasswordViewController.swift */,
 				1FE8DABF228ECAE800DCED01 /* AboutViewController.swift */,
@@ -1440,6 +1450,7 @@
 				1F1C1B39229F6C88008031F4 /* BindDrawViewModel.swift */,
 				1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */,
 				1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */,
+				1FF1E52B22AF567400BB9A50 /* DailyViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2021,6 +2032,7 @@
 				1FE8DAF02292933A00DCED01 /* JXPagingListRefreshView.swift in Sources */,
 				1F1C1B36229EA839008031F4 /* WithdrawViewModel.swift in Sources */,
 				1FE8DB192294E18800DCED01 /* FindPasViewController.swift in Sources */,
+				1FF1E52C22AF567400BB9A50 /* DailyViewModel.swift in Sources */,
 				1F395CB72295306B00781C0C /* UMengUI.swift in Sources */,
 				1FE8DAF32292937000DCED01 /* OtherPostViewModel.swift in Sources */,
 				1FE5BDFB2282747900C9137C /* BaseViewController.swift in Sources */,
@@ -2048,6 +2060,7 @@
 				1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */,
 				1FE5BF242282E59500C9137C /* NSString+AES.m in Sources */,
 				1FE5BF44228517A700C9137C /* CommentContentTableViewCell.swift in Sources */,
+				1FF1E52A22AF55F700BB9A50 /* DailyViewController.swift in Sources */,
 				1F1C1B5222A0E6C6008031F4 /* MessageSegementViewController.swift in Sources */,
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,
 				1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */,
@@ -2094,6 +2107,7 @@
 				1FE5BE4A2282864300C9137C /* NSTimer.swift in Sources */,
 				1FE5BE352282863D00C9137C /* LocalJsonFile.swift in Sources */,
 				1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */,
+				1FF1E52F22AF85E500BB9A50 /* UIImage+Text.m in Sources */,
 				1FE8DB032292C5F300DCED01 /* MyCollectViewModel.swift in Sources */,
 				1FE5BEC52282866300C9137C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FE8DAB2228EC7E300DCED01 /* NotificationViewController.swift in Sources */,

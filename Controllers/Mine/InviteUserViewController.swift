@@ -42,7 +42,7 @@ class InviteUserViewController: BaseViewController {
         }
         
         gloableNavigationBar.rightButtonClouse = { status in
-//            self.inverUserViewModel.followNet(userId: (self.postData.object(forKey: "id") as! Int).string, status: status)
+            NavigationPushView(self, toConroller: InviteRuleViewController())
         }
         self.view.addSubview(gloableNavigationBar)
     }

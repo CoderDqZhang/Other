@@ -38,7 +38,8 @@ class MineViewModel: BaseViewModel {
                     }else{
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "请先实名认证", autoHidder: true)
                     }
-                    
+                case.daily:
+                    NavigationPushView(self.controller!, toConroller: DailyViewController())
                 default:
                     NavigationPushView(self.controller!, toConroller: StoreSegementViewController())
                 }

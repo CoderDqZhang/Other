@@ -48,7 +48,8 @@ let CommentReplyApprovetUrl = "\(RootUrl)commentReply/replyApprove"
 
 let NotifynotifyListUrl = "\(RootUrl)notify/notifyList"
 let NotifyUnreadUrl = "\(RootUrl)notify/unreadNotify"
-
+let NotifyAlertStatusUrl = "\(RootUrl)notify/alterStatus"
+let NotifyAlertDeleteUrl = "\(RootUrl)notify/deleteNotify"
 
 let PersonapplyMasterUrl = "\(RootUrl)person/applyMaster"
 let PersonfindRecentUrl = "\(RootUrl)person/findRecent"

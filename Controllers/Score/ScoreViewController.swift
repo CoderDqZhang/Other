@@ -23,13 +23,13 @@ class ScoreViewController: BaseViewController {
         
         if #available(iOS 11.0, *) {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49 - 60, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
-                NavigationPushView(self, toConroller: WithdrawViewController())
+                NavigationPushView(self, toConroller: DailyViewController())
             }, senderClick: { str in
                 print(str)
             })
         } else {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: self.tableView.frame.maxY, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
-                NavigationPushView(self, toConroller: TargerUserViewController())
+                NavigationPushView(self, toConroller: DailyViewController())
             }, senderClick: { str in
                 print(str)
             })
