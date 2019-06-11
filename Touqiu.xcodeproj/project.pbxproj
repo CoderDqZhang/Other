@@ -263,6 +263,9 @@
 		1FF1E51C22AE0AEF00BB9A50 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */; };
 		1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */; };
 		1FF1E52022AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51F22AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift */; };
+		1FF1E52422AF45F600BB9A50 /* InveterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */; };
+		1FF1E52622AF4C7D00BB9A50 /* InviteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52522AF4C7D00BB9A50 /* InviteModel.swift */; };
+		1FF1E52822AF52F000BB9A50 /* InviteRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -605,6 +608,9 @@
 		1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadMessageModel.swift; sourceTree = "<group>"; };
 		1FF1E51F22AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITabarBadgeExtentions.swift; path = ../../ViewModels/Category/UITabarBadgeExtentions.swift; sourceTree = "<group>"; };
+		1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InveterViewModel.swift; sourceTree = "<group>"; };
+		1FF1E52522AF4C7D00BB9A50 /* InviteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteModel.swift; sourceTree = "<group>"; };
+		1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteRuleViewController.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1282,6 +1288,7 @@
 				1F1C1B5122A0E6C6008031F4 /* MessageSegementViewController.swift */,
 				1FE8DAB1228EC7E300DCED01 /* NotificationViewController.swift */,
 				1FE8DAB3228EC7F200DCED01 /* InviteUserViewController.swift */,
+				1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */,
 				1FE8DABD228ECABC00DCED01 /* ChangePasswordViewController.swift */,
 				1FE8DABF228ECAE800DCED01 /* AboutViewController.swift */,
 				1FE8DAC1228ECAF400DCED01 /* FeedBackViewController.swift */,
@@ -1432,6 +1439,7 @@
 				1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */,
 				1F1C1B39229F6C88008031F4 /* BindDrawViewModel.swift */,
 				1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */,
+				1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1474,6 +1482,7 @@
 				1F1C1B49229FFAE9008031F4 /* BankModel.swift */,
 				1F1C1B5922A1000F008031F4 /* StoreModel.swift */,
 				1F1C1B5B22A10245008031F4 /* NotificaitonModel.swift */,
+				1FF1E52522AF4C7D00BB9A50 /* InviteModel.swift */,
 			);
 			name = Mine;
 			path = ViewModels/Mine;
@@ -1867,6 +1876,7 @@
 				1FE8DAAE228EC7CB00DCED01 /* RealNameViewController.swift in Sources */,
 				1FE5BF382284286A00C9137C /* GloableView.swift in Sources */,
 				1FE5BEB52282866300C9137C /* TAAnimatedDotView.m in Sources */,
+				1FF1E52822AF52F000BB9A50 /* InviteRuleViewController.swift in Sources */,
 				1FE5BECB2282866300C9137C /* renderer_yuv420p.c in Sources */,
 				1FE5BEB02282866200C9137C /* SDCycleScrollView.m in Sources */,
 				1FE5BDF1228264F200C9137C /* Font-Color-Config.swift in Sources */,
@@ -1898,6 +1908,7 @@
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
 				1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */,
 				1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */,
+				1FF1E52422AF45F600BB9A50 /* InveterViewModel.swift in Sources */,
 				1FE5BED42282866300C9137C /* IJKSDLGLView.m in Sources */,
 				1FE8DAD722926AE900DCED01 /* OtherMineViewController.swift in Sources */,
 				1FE8DAC6228ED11900DCED01 /* FeedBackViewModel.swift in Sources */,
@@ -1928,6 +1939,7 @@
 				1FE5BED92282866300C9137C /* TapticEngine.swift in Sources */,
 				1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */,
 				1F395CB52295230500781C0C /* UMengManager.swift in Sources */,
+				1FF1E52622AF4C7D00BB9A50 /* InviteModel.swift in Sources */,
 				1FE5BF1D2282D1AC00C9137C /* CommentTableViewCell.swift in Sources */,
 				1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */,
 				1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */,
