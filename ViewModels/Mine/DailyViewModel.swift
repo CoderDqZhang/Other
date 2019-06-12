@@ -10,6 +10,7 @@ import UIKit
 
 class DailyViewModel: BaseViewModel {
 
+    var model:DailyModel!
     override init() {
         super.init()
         self.getDailyStatus()
@@ -18,8 +19,8 @@ class DailyViewModel: BaseViewModel {
     func getDailyStatus(){
         BaseNetWorke.getSharedInstance().postUrlWithString(PersonsignStatusInUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
-                let model = DailyModel.init(fromDictionary: resultDic.value as! [String : Any])
-                (self.controller as! DailyViewController).updateDailyModel(model: model)
+                self.model = DailyModel.init(fromDictionary: resultDic.value as! [String : Any])
+                (self.controller as! DailyViewController).updateDailyModel(model: self.model)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
@@ -30,7 +31,9 @@ class DailyViewModel: BaseViewModel {
     func getDailyNet(){
         BaseNetWorke.getSharedInstance().getUrlWithString(PersonsignInUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
-                
+                self.model.signIn = self.model.signIn + 1
+                self.model.status = 1
+                (self.controller as! DailyViewController).updateDailyModel(model: self.model)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
