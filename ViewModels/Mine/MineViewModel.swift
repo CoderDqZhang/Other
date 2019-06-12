@@ -78,7 +78,7 @@ class MineViewModel: BaseViewModel {
             }else if indexPath.row == 0{
                 cell.updateDescFontAndColor(App_Theme_FF7800_Color!, App_Theme_PinFan_R_12_Font!)
             }else if indexPath.row == 2{
-                cell.setNumberText(str: CacheManager.getSharedInstance().getUnreadModel()!.unread.string)
+                cell.setNumberText(str: CacheManager.getSharedInstance().getUnreadModel()!.allunread.string)
             }
         }else{
              cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: "", image: nil, isDescHidden: false)

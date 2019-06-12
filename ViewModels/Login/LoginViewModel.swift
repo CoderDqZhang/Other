@@ -23,6 +23,8 @@ class LoginViewModel: BaseViewModel {
                     CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
                     UserDefaults.init().set(userInfo.token, forKey: "UserToken")
                     (self.controller as! LoginViewController).navigationController?.popToRootViewController(animated: true)
+                    //登录成功后读取未读消息数量
+                    LoadConfigManger.getSharedInstance().loadUnreadUrl()
                 }
                 
             }else{
@@ -40,6 +42,8 @@ class LoginViewModel: BaseViewModel {
                     CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
                     UserDefaults.init().set(userInfo.token, forKey: "UserToken")
                     (self.controller as! LoginViewController).navigationController?.popToRootViewController(animated: true)
+                    //登录成功后读取未读消息数量
+                    LoadConfigManger.getSharedInstance().loadUnreadUrl()
                 }
                 
             }else{

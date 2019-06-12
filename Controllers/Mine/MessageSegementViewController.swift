@@ -25,8 +25,8 @@ class MessageSegementViewController: BaseViewController {
     let titles = ["系统", "评论", "@我的", "点赞"]
     var tableHeaderViewHeight: CGFloat = 138
     var heightForHeaderInSection: Int = 44
-    
-    let dotStates = [false, true, true, true]
+    let unreadModel:UnreadMessageModel = CacheManager.getSharedInstance().getUnreadModel()!
+    var dotStates:[Bool]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +41,7 @@ class MessageSegementViewController: BaseViewController {
     
     override func setUpView() {
         
+        dotStates = [unreadModel.violation > 0 ? true : false, unreadModel.commentMine > 0 ? true : false,unreadModel.atMine > 0 ? true : false,unreadModel.approveMine > 0 ? true : false,]
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
         segmentedViewDataSource = JXSegmentedDotDataSource()
         segmentedViewDataSource.titles = titles
@@ -76,6 +77,39 @@ class MessageSegementViewController: BaseViewController {
         segmentedView.contentScrollView = listContainerView.scrollView
     }
     
+    func realoadSegementView(index:Int){
+        switch index {
+        case NotificationType.system.rawValue:
+            if unreadModel.violation == 0{
+                //先更新数据源的数据
+                segmentedViewDataSource.dotStates[index] = false
+                //再调用reloadItem(at: index)
+                segmentedView.reloadItem(at: index)
+            }
+        case NotificationType.comment.rawValue:
+            if unreadModel.commentMine == 0{
+                //先更新数据源的数据
+                segmentedViewDataSource.dotStates[index] = false
+                //再调用reloadItem(at: index)
+                segmentedView.reloadItem(at: index)
+            }
+        case NotificationType.approve.rawValue:
+            if unreadModel.approveMine == 0{
+                //先更新数据源的数据
+                segmentedViewDataSource.dotStates[index] = false
+                //再调用reloadItem(at: index)
+                segmentedView.reloadItem(at: index)
+            }
+        default:
+            if unreadModel.atMine == 0{
+                //先更新数据源的数据
+                segmentedViewDataSource.dotStates[index] = false
+                //再调用reloadItem(at: index)
+                segmentedView.reloadItem(at: index)
+            }
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         listContainerView.frame = CGRect(x: 0, y: 50, width: view.bounds.size.width, height: view.bounds.size.height - 50)
@@ -98,6 +132,7 @@ class MessageSegementViewController: BaseViewController {
 extension MessageSegementViewController : JXSegmentedViewDelegate {
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
         //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
+        self.realoadSegementView(index: index)
         listContainerView.didClickSelectedItem(at: index)
     }
     
@@ -115,7 +150,11 @@ extension MessageSegementViewController: JXSegmentedListContainerViewDataSource 
     
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
         let controller = NotificationViewController.init()
+        controller.unreadModel = self.unreadModel
         controller.initSView(type: index)
+        controller.notificationViewControllerReloadClouse = { index in
+            self.realoadSegementView(index: index)
+        }
         return controller
     }
 }

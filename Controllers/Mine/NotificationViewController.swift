@@ -9,11 +9,16 @@
 import UIKit
 import JXSegmentedView
 
+typealias NotificationViewControllerReloadClouse = (_ index:Int) ->Void
+
 class NotificationViewController: BaseViewController {
 
     let notificationViewModel = NotificationViewModel.init()
     var types = [NotificationType.system,NotificationType.comment,NotificationType.commentMe,NotificationType.approve]
-
+    var unreadModel:UnreadMessageModel!
+    
+    var notificationViewControllerReloadClouse:NotificationViewControllerReloadClouse!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +40,10 @@ class NotificationViewController: BaseViewController {
             self.notificationViewModel.notificationNet()
         }
         self.notificationViewModel.notificationNet()
+    }
+    
+    override func bindViewModelLogic() {
+        self.notificationViewModel.unreadModel = self.unreadModel
     }
     /*
     // MARK: - Navigation

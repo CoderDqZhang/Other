@@ -33,11 +33,14 @@ class LoadConfigManger: NSObject {
     }
     
     func loadUnreadUrl(){
-        BaseNetWorke.getSharedInstance().postUrlWithString(NotifyUnreadUrl, parameters: nil).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                let model = UnreadMessageModel.init(fromDictionary: resultDic.value as! [String : Any])
-                CacheManager.getSharedInstance().saveUnreadModel(category: model)
-                (KWindow.rootViewController as! MainTabBarController).upateUnreadMessage()
+        if CacheManager.getSharedInstance().isLogin() {
+            let parameters = ["type":"0"]
+            BaseNetWorke.getSharedInstance().postUrlWithString(NotifyUnreadUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    let model = UnreadMessageModel.init(fromDictionary: resultDic.value as! [String : Any])
+                    CacheManager.getSharedInstance().saveUnreadModel(category: model)
+                    (KWindow.rootViewController as! MainTabBarController).upateUnreadMessage()
+                }
             }
         }
     }

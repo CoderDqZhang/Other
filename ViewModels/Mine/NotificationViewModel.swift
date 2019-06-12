@@ -12,6 +12,7 @@ import DZNEmptyDataSet
 class NotificationViewModel: BaseViewModel {
 
     var type:NotificationType!
+    var unreadModel:UnreadMessageModel!
     
     var detailArray = NSMutableArray.init()
     var page:Int = 0
@@ -65,6 +66,7 @@ class NotificationViewModel: BaseViewModel {
         let parameters = ["id":messageModel.id.string] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(NotifyAlertStatusUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                self.updateUnreadNumber()
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "标记成功", autoHidder: true)
                 self.reloadTableViewData()
             }else{
@@ -78,6 +80,7 @@ class NotificationViewModel: BaseViewModel {
         let parameters = ["id":messageModel.id.string] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(NotifyAlertDeleteUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                self.updateUnreadNumber()
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "删除成功", autoHidder: true)
                 self.detailArray.removeObject(at: indexPath.row)
                 self.reloadTableViewData()
@@ -85,6 +88,23 @@ class NotificationViewModel: BaseViewModel {
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
+    }
+    
+    func updateUnreadNumber(){
+        switch self.type! {
+        case NotificationType.system:
+            unreadModel.violation = unreadModel.violation - 1
+        case NotificationType.approve:
+            unreadModel.approveMine = unreadModel.approveMine - 1
+        case NotificationType.comment:
+            unreadModel.commentMine = unreadModel.commentMine - 1
+        default:
+            unreadModel.atMine = unreadModel.atMine - 1
+        }
+        if (self.controller! as! NotificationViewController).notificationViewControllerReloadClouse != nil {
+            (self.controller! as! NotificationViewController).notificationViewControllerReloadClouse(self.type!.rawValue)
+        }
+        CacheManager.getSharedInstance().saveUnreadModel(category: self.unreadModel)
     }
 }
 

@@ -10,14 +10,22 @@ import UIKit
 
 class UnreadMessageModel : NSObject, NSCoding{
     
-    var unread : Int!
+    var approveMine : Int!
+    var atMine : Int!
+    var commentMine : Int!
+    var violation : Int!
+    var allunread : Int!
     
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        unread = dictionary["unread"] as? Int
+        approveMine = dictionary["approveMine"] as? Int
+        atMine = dictionary["atMine"] as? Int
+        commentMine = dictionary["commentMine"] as? Int
+        violation = dictionary["violation"] as? Int
+        allunread = approveMine + atMine + commentMine + violation
     }
     
     /**
@@ -26,8 +34,20 @@ class UnreadMessageModel : NSObject, NSCoding{
     func toDictionary() -> [String:Any]
     {
         var dictionary = [String:Any]()
-        if unread != nil{
-            dictionary["unread"] = unread
+        if approveMine != nil{
+            dictionary["approveMine"] = approveMine
+        }
+        if atMine != nil{
+            dictionary["atMine"] = atMine
+        }
+        if commentMine != nil{
+            dictionary["commentMine"] = commentMine
+        }
+        if violation != nil{
+            dictionary["violation"] = violation
+        }
+        if allunread != nil{
+            dictionary["allunread"] = allunread
         }
         return dictionary
     }
@@ -38,7 +58,11 @@ class UnreadMessageModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        unread = aDecoder.decodeObject(forKey: "unread") as? Int
+        approveMine = aDecoder.decodeObject(forKey: "approveMine") as? Int
+        atMine = aDecoder.decodeObject(forKey: "atMine") as? Int
+        commentMine = aDecoder.decodeObject(forKey: "commentMine") as? Int
+        violation = aDecoder.decodeObject(forKey: "violation") as? Int
+        allunread = aDecoder.decodeObject(forKey: "allunread") as? Int
         
     }
     
@@ -48,8 +72,20 @@ class UnreadMessageModel : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
-        if unread != nil{
-            aCoder.encode(unread, forKey: "unread")
+        if approveMine != nil{
+            aCoder.encode(approveMine, forKey: "approveMine")
+        }
+        if atMine != nil{
+            aCoder.encode(atMine, forKey: "atMine")
+        }
+        if commentMine != nil{
+            aCoder.encode(commentMine, forKey: "commentMine")
+        }
+        if violation != nil{
+            aCoder.encode(violation, forKey: "violation")
+        }
+        if allunread != nil{
+            aCoder.encode(allunread, forKey: "allunread")
         }
         
     }
