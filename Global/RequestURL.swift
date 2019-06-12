@@ -58,6 +58,7 @@ let PersonmyFansUrl = "\(RootUrl)person/myFans"
 let PersonmyfollowUrl = "\(RootUrl)person/myfollow"
 let PersonnameAuthUrl = "\(RootUrl)person/nameAuth"
 let PersonsignInUrl = "\(RootUrl)person/signIn"
+let PersonsignStatusInUrl = "\(RootUrl)person/signInStatus"
 let PersonupdateFollowUrl = "\(RootUrl)person/updateFollow"
 let PersonupdateUserUrl = "\(RootUrl)person/updateUser"
 

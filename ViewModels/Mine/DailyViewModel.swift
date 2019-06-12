@@ -12,7 +12,19 @@ class DailyViewModel: BaseViewModel {
 
     override init() {
         super.init()
-        self.getDailyNet()
+        self.getDailyStatus()
+    }
+    
+    func getDailyStatus(){
+        BaseNetWorke.getSharedInstance().postUrlWithString(PersonsignStatusInUrl, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let model = DailyModel.init(fromDictionary: resultDic.value as! [String : Any])
+                (self.controller as! DailyViewController).updateDailyModel(model: model)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+        
     }
     
     func getDailyNet(){
