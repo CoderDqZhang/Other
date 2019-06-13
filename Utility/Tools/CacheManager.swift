@@ -80,8 +80,8 @@ class CacheManager: NSObject {
     
     func getUserInfo() ->UserInfoModel? {
         if CacheManager._sharedInstance.isLogin() {
-            let item:Data = ((CacheManager._sharedInstance.userCache?.getItemValue(forKey: "userInfo"))!)
             do {
+                let item:Data = try ((CacheManager._sharedInstance.userCache?.getItemValue(forKey: "userInfo"))!)
                 return UserInfoModel.init(fromDictionary: try item.jsonObject() as! [String : Any])
             }catch{
                 return nil
@@ -100,7 +100,7 @@ class CacheManager: NSObject {
     }
     
     func isLogin() ->Bool {
-        return (CacheManager._sharedInstance.userCache?.itemExists(forKey: "userInfo"))!
+        return (CacheManager._sharedInstance.userCache?.itemExists(forKey: "userInfo"))! 
     }
     
     

@@ -127,7 +127,7 @@ class MineViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
-                self.desc = [[self.userInfo.isMaster == "1" ? "已认证" : "点击实名认证", self.userInfo.isMember == "1" ? "已认证" : "审核中","",""],["推广标语推广标语"]]
+                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证", self.userInfo.isMaster == "1" ? "已认证" : self.userInfo.isMaster == "2" ? "审核中" : "点击申请","",""],["推广标语推广标语"]]
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

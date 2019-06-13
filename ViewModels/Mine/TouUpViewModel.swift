@@ -8,6 +8,7 @@
 
 import UIKit
 import DZNEmptyDataSet
+import ReactiveCocoa
 
 class TouUpViewModel: BaseViewModel {
 
@@ -19,6 +20,7 @@ class TouUpViewModel: BaseViewModel {
     
     func tableViewTopUpTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpTableViewCell) {
         cell.cellSetData(model: self.accountInfo)
+        
     }
     
     func tableViewTopUpToolsTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpToolsTableViewCell) {
@@ -34,7 +36,7 @@ class TouUpViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect( tableView:UITableView,  indexPath:IndexPath){
-        if indexPath.section == 1 {
+        if indexPath.section == 0 {
             NavigationPushView(self.controller!, toConroller: WithdrawViewController())
         }
     }

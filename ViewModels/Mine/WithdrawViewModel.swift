@@ -45,7 +45,7 @@ class WithdrawViewModel: BaseViewModel {
         })
         
         cell.withDrawMuchTableViewAllMuchClouse = {
-            cell.muchTextFiled.text = (self.accountInfo.recomCoin + self.accountInfo.inviteCoin).string
+            cell.muchTextFiled.text = String(format: "%.2f", (self.accountInfo.recomCoin + self.accountInfo.inviteCoin))
         }
     }
     
