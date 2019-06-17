@@ -97,28 +97,30 @@ class CategoryTableViewCell: UITableViewCell {
     }
     
     func cellSetData(models:NSMutableArray){
-        self.models = models
-        for index in 0...models.count - 1 {
-            let category = CategoryModel.init(fromDictionary: (models[index] as! NSDictionary) as! [String : Any])
-            let categoryView = CategoryView.init(imageUrl: category.tribeImg, title: category.tribeName, tag: index) { (tag) in
-                
+        if self.models == nil {
+            self.models = models
+            for index in 0...models.count - 1 {
+                let category = CategoryModel.init(fromDictionary: (models[index] as! NSDictionary) as! [String : Any])
+                let categoryView = CategoryView.init(imageUrl: category.tribeImg, title: category.tribeName, tag: index) { (tag) in
+                    
+                }
+                categoryView.isUserInteractionEnabled = true
+                _  = categoryView.newTapGesture { (gesture) in
+                    gesture.numberOfTouchesRequired = 1
+                    gesture.numberOfTapsRequired = 1
+                    }.whenTaped(handler: { (tap) in
+                        let category = CategoryModel.init(fromDictionary: (self.models[tap.view!.tag - 100] as! NSDictionary) as! [String : Any])
+                        self.categoryTableViewCellClouseClick(category)
+                    })
+                categoryView.categoryViewClouseClick = { tag in
+                    print(tag)
+                }
+                categoryView.tag = index + 100
+                categoryView.frame = CGRect.init(x: 10 + CGFloat(CGFloat(index) * (CategoryViewWidth + 8)), y: 5, width: CategoryViewWidth, height: CategoryViewHeight)
+                contentViews.addSubview(categoryView)
             }
-            categoryView.isUserInteractionEnabled = true
-            _  = categoryView.newTapGesture { (gesture) in
-                gesture.numberOfTouchesRequired = 1
-                gesture.numberOfTapsRequired = 1
-                }.whenTaped(handler: { (tap) in
-                    let category = CategoryModel.init(fromDictionary: (self.models[tap.view!.tag - 100] as! NSDictionary) as! [String : Any])
-                    self.categoryTableViewCellClouseClick(category)
-                })
-            categoryView.categoryViewClouseClick = { tag in
-                print(tag)
-            }
-            categoryView.tag = index + 100
-            categoryView.frame = CGRect.init(x: 10 + CGFloat(CGFloat(index) * (CategoryViewWidth + 8)), y: 5, width: CategoryViewWidth, height: CategoryViewHeight)
-            contentViews.addSubview(categoryView)
+            self.needsUpdateConstraints()
         }
-        self.needsUpdateConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {

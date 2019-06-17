@@ -9,7 +9,11 @@
 import Foundation
 //http://192.168.0.172:4141/swagger-ui.html
 
-let RootUrl = "http://192.168.0.172:10020/social/"
+//ZKFgTvUb5BXiuD7KK2iuFiOUintS6mLgFi+ukIPiol801JlCola+lkGcFGN886nd
+//ZKFgTvUb5BXiuD7KK2iuFtphhrg2uQu1kTJ0q4cnRothrdDXMpq+CNSo2UaDlDuI
+
+let RootUrl = "http://192.168.0.155:10020/social/"
+//let RootUrl = "http://192.168.0.172:10020/social/"
 
 let UserforgetPasswordUrl = "\(RootUrl)user/forgetPassword"
 let UserLoginUrl = "\(RootUrl)user/login"
@@ -43,6 +47,9 @@ let CommentgetTimetUrl = "\(RootUrl)common/getTime"
 let CommentReplyApprovetUrl = "\(RootUrl)commentReply/replyApprove"
 
 let NotifynotifyListUrl = "\(RootUrl)notify/notifyList"
+let NotifyUnreadUrl = "\(RootUrl)notify/unreadNotify"
+let NotifyAlertStatusUrl = "\(RootUrl)notify/alterStatus"
+let NotifyAlertDeleteUrl = "\(RootUrl)notify/deleteNotify"
 
 let PersonapplyMasterUrl = "\(RootUrl)person/applyMaster"
 let PersonfindRecentUrl = "\(RootUrl)person/findRecent"
@@ -51,6 +58,7 @@ let PersonmyFansUrl = "\(RootUrl)person/myFans"
 let PersonmyfollowUrl = "\(RootUrl)person/myfollow"
 let PersonnameAuthUrl = "\(RootUrl)person/nameAuth"
 let PersonsignInUrl = "\(RootUrl)person/signIn"
+let PersonsignStatusInUrl = "\(RootUrl)person/signInStatus"
 let PersonupdateFollowUrl = "\(RootUrl)person/updateFollow"
 let PersonupdateUserUrl = "\(RootUrl)person/updateUser"
 
@@ -63,7 +71,8 @@ let TippublishTipUrl = "\(RootUrl)tip/publishTip"
 let TribesubscribeUrl = "\(RootUrl)tribe/subscribe"
 let TribetribeListUrl = "\(RootUrl)tribe/tribeList"
 
-
+let NotificationDetailUrl = "\(RootUrl)notify/findNotify"
+let NotificationListUrl = "\(RootUrl)notify/notifyList"
 
 let UserFeedBackinsertFeedbackUrl = "\(RootUrl)userFeedback/insertFeedback"
 

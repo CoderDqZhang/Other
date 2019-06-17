@@ -47,11 +47,13 @@ class CategoryChossViewModel: BaseViewModel {
     }
     
     func getCategoryNet(){
-        BaseNetWorke.sharedInstance.postUrlWithString(TribetribeListUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(TribetribeListUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.categoryArray = NSMutableArray.init(array: resultDic.value as! Array)
                 (self.controller as! CategoryChoosViewController).searchController.originArray = self.categoryArray
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

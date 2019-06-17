@@ -7,10 +7,11 @@
 //
 
 import UIKit
-
+typealias LogoutClouse = () ->Void
 class SettingViewController: BaseViewController {
 
     var settingViewModel = SettingViewModel.init()
+    var logoutClouse:LogoutClouse!
     override func viewDidLoad() {
         super.viewDidLoad()
 

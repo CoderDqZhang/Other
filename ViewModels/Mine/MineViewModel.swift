@@ -9,6 +9,7 @@
 import UIKit
 import DZNEmptyDataSet
 
+
 class MineViewModel: BaseViewModel {
     
     let titles = [["实名认证","专家号申请","消息","设置"],["邀请好友"]]
@@ -37,9 +38,10 @@ class MineViewModel: BaseViewModel {
                     }else{
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "请先实名认证", autoHidder: true)
                     }
-                    
+                case.daily:
+                    NavigationPushView(self.controller!, toConroller: DailyViewController())
                 default:
-                    NavigationPushView(self.controller!, toConroller: StoreViewController())
+                    NavigationPushView(self.controller!, toConroller: StoreSegementViewController())
                 }
             }else{
                 NavigationPushView(self.controller!, toConroller: LoginViewController())
@@ -71,6 +73,13 @@ class MineViewModel: BaseViewModel {
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
         if self.userInfo != nil {
             cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: desc[indexPath.section-3][indexPath.row], image: nil, isDescHidden: false)
+            if indexPath.row == 1 {
+                cell.updateDescFontAndColor(App_Theme_999999_Color!, App_Theme_PinFan_R_12_Font!)
+            }else if indexPath.row == 0{
+                cell.updateDescFontAndColor(App_Theme_FF7800_Color!, App_Theme_PinFan_R_12_Font!)
+            }else if indexPath.row == 2{
+                cell.setNumberText(str: CacheManager.getSharedInstance().getUnreadModel()!.allunread.string)
+            }
         }else{
              cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: "", image: nil, isDescHidden: false)
         }
@@ -91,9 +100,14 @@ class MineViewModel: BaseViewModel {
                 }else if indexPath.row == 1{
                     NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
                 }else if indexPath.row == 2{
-                    NavigationPushView(self.controller!, toConroller: NotificationViewController())
+                    NavigationPushView(self.controller!, toConroller: MessageSegementViewController())
                 }else if indexPath.row == 3{
-                    NavigationPushView(self.controller!, toConroller: SettingViewController())
+                    let settinVC = SettingViewController()
+                    settinVC.logoutClouse = {
+                        self.userInfo = nil
+                        self.reloadTableViewData()
+                    }
+                    NavigationPushView(self.controller!, toConroller: settinVC)
                 }
             case 4:
                 NavigationPushView(self.controller!, toConroller: InviteUserViewController())
@@ -109,21 +123,25 @@ class MineViewModel: BaseViewModel {
     
     func getUserInfoNet(userId:String){
         let parameters = ["userId":userId]
-        BaseNetWorke.sharedInstance.getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
-                self.desc = [["",self.userInfo.isMaster == "1" ? "已认证" : "", self.userInfo.isMember == "1" ? "已认证" : "",""],["推广标语推广标语"]]
+                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证", self.userInfo.isMaster == "1" ? "已认证" : self.userInfo.isMaster == "2" ? "审核中" : "点击申请","",""],["推广标语推广标语"]]
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func getAccountInfoNet(userId:String){
-        BaseNetWorke.sharedInstance.postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.accountInfo = AccountInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

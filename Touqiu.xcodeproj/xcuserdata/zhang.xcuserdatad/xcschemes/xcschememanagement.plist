@@ -7,7 +7,29 @@
 		<key>Touqiu.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>29</integer>
+=======
+			<integer>5</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>1FE5BDAC2281788E00C9137C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1FE5BDC02281789100C9137C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1FE5BDCB2281789100C9137C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
 		</dict>
 	</dict>
 </dict>

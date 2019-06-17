@@ -52,7 +52,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
         if self.selectPhotos.count > 0 {
             AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
                 let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":strs] as [String : Any]
-                BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "评论成功", autoHidder: true)
                         self.controller?.dismiss(animated: true, completion: {
@@ -60,13 +60,15 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                                 self.controller?.reloadDataClouse()
                             }
                         })
+                    }else{
+                        self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                     }
                 }
             }
             
         }else{
             let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":""] as [String : Any]
-            BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     _ = Tools.shareInstance.showMessage(KWindow, msg: "评论成功", autoHidder: true)
                     self.controller?.dismiss(animated: true, completion: {
@@ -74,6 +76,8 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                             self.controller?.reloadDataClouse()
                         }
                     })
+                }else{
+                    self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 }
             }
         }

@@ -48,7 +48,7 @@ class OtherPostViewModel: BaseViewModel {
     func getMyPostNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":"0", "isCollect":"0","userId":userInfo.id.string] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
                     self.postArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
@@ -56,7 +56,8 @@ class OtherPostViewModel: BaseViewModel {
                     self.postArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-                self.controller?.stopRefresh()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

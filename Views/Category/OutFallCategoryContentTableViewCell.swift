@@ -57,42 +57,7 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
         imageContentView = UIView.init()
         self.contentView.addSubview(imageContentView)
         
-        
-        detailLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView.snp.left).offset(15)
-            make.right.equalTo(self.contentView.snp.right).offset(-15)
-            make.top.equalTo(self.contentView.snp.top).offset(0)
-            make.size.height.equalTo(20)
-        }
-        
-        translateButton.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView.snp.left).offset(15)
-            make.top.equalTo(self.detailLabel.snp.bottom).offset(8)
-        }
-        
-        translateDetailLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView.snp.left).offset(15)
-            make.right.equalTo(self.contentView.snp.right).offset(-15)
-            make.top.equalTo(self.translateButton.snp.bottom).offset(9)
-            make.size.height.equalTo(0.0001)
-        }
-        
-        imageContentView.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView.snp.left).offset(15)
-            make.right.equalTo(self.contentView.snp.right).offset(-15)
-            make.top.equalTo(self.translateDetailLabel.snp.bottom).offset(9)
-            make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
-            make.size.height.equalTo(0.001)
-        }
-        
         self.contentView.addSubview(lineLabel)
-        
-        lineLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView.snp.left).offset(15)
-            make.right.equalTo(self.contentView.snp.right).offset(-15)
-            make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
-            make.size.height.equalTo(1)
-        }
         
         self.updateConstraints()
     }
@@ -101,7 +66,7 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
         
         let stringHeight = content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
         detailLabel.snp.updateConstraints { (make) in
-            make.size.height.equalTo(stringHeight)
+            make.height.equalTo(stringHeight)
         }
         detailLabel.text = content
         self.indexPath = indexPath
@@ -134,14 +99,14 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
         if isTrans {
             let stringHeight = self.translateDetailLabel.text!.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
             translateDetailLabel.snp.updateConstraints { (make) in
-                make.size.height.equalTo(stringHeight)
+                make.height.equalTo(stringHeight)
             }
             translateButton.isEnabled = false
             translateButton.setTitle("已翻译", for: .normal)
             translateButton.setTitleColor(App_Theme_999999_Color, for: .normal)
         }else{
             translateDetailLabel.snp.updateConstraints { (make) in
-                make.size.height.equalTo(0.0001)
+                make.height.equalTo(0.0001)
             }
         }
         
@@ -161,6 +126,39 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !didMakeConstraints {
             
+            detailLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.height.equalTo(20)
+            }
+            
+            translateButton.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.detailLabel.snp.bottom).offset(8)
+            }
+            
+            translateDetailLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.translateButton.snp.bottom).offset(9)
+                make.height.equalTo(0.0001)
+            }
+            
+            imageContentView.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.translateDetailLabel.snp.bottom).offset(9)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
+                make.height.equalTo(0.001)
+            }
+            
+            lineLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
+                make.height.equalTo(1)
+            }
             didMakeConstraints = true
         }
         super.updateConstraints()

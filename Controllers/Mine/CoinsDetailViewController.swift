@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JXSegmentedView
 
 class CoinsDetailViewController: BaseViewController {
 
@@ -46,4 +47,18 @@ class CoinsDetailViewController: BaseViewController {
     }
     */
 
+}
+
+extension CoinsDetailViewController : JXSegmentedListContainerViewListDelegate {
+    override func listView() -> UIView {
+        return view
+    }
+    
+    override func listDidAppear() {
+        print("listDidAppear")
+    }
+    
+    override func listDidDisappear() {
+        print("listDidDisappear")
+    }
 }

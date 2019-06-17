@@ -25,6 +25,12 @@
 		1F1C1B4C22A0B58F008031F4 /* BindBankListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */; };
 		1F1C1B4E22A0B5CB008031F4 /* BankListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */; };
 		1F1C1B5022A0B61B008031F4 /* BankTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */; };
+		1F1C1B5222A0E6C6008031F4 /* MessageSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5122A0E6C6008031F4 /* MessageSegementViewController.swift */; };
+		1F1C1B5422A0E930008031F4 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5322A0E930008031F4 /* NotificationTableViewCell.swift */; };
+		1F1C1B5622A0F56D008031F4 /* StoreSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5522A0F56D008031F4 /* StoreSegementViewController.swift */; };
+		1F1C1B5822A0F651008031F4 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5722A0F651008031F4 /* StoreViewModel.swift */; };
+		1F1C1B5A22A1000F008031F4 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5922A1000F008031F4 /* StoreModel.swift */; };
+		1F1C1B5C22A10245008031F4 /* NotificaitonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5B22A10245008031F4 /* NotificaitonModel.swift */; };
 		1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8122951D4200781C0C /* UMCommonLog.framework */; };
 		1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F395C8222951D4200781C0C /* UMCommonLog.bundle */; };
 		1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8522951D4200781C0C /* UTDID.framework */; };
@@ -253,6 +259,18 @@
 		1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */; };
 		1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */; };
 		1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */; };
+		1FF1E51922AE08EB00BB9A50 /* LoadConfigManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */; };
+		1FF1E51C22AE0AEF00BB9A50 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */; };
+		1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */; };
+		1FF1E52022AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51F22AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift */; };
+		1FF1E52422AF45F600BB9A50 /* InveterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */; };
+		1FF1E52622AF4C7D00BB9A50 /* InviteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52522AF4C7D00BB9A50 /* InviteModel.swift */; };
+		1FF1E52822AF52F000BB9A50 /* InviteRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */; };
+		1FF1E52A22AF55F700BB9A50 /* DailyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52922AF55F700BB9A50 /* DailyViewController.swift */; };
+		1FF1E52C22AF567400BB9A50 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52B22AF567400BB9A50 /* DailyViewModel.swift */; };
+		1FF1E52F22AF85E500BB9A50 /* UIImage+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52E22AF85E500BB9A50 /* UIImage+Text.m */; };
+		1FF1E53122B0D95700BB9A50 /* DailyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53022B0D95700BB9A50 /* DailyModel.swift */; };
+		1FF1E53322B782E800BB9A50 /* PostSegementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53222B782E700BB9A50 /* PostSegementViewModel.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -294,6 +312,12 @@
 		1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindBankListViewController.swift; sourceTree = "<group>"; };
 		1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankListViewModel.swift; sourceTree = "<group>"; };
 		1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B5122A0E6C6008031F4 /* MessageSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSegementViewController.swift; sourceTree = "<group>"; };
+		1F1C1B5322A0E930008031F4 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		1F1C1B5522A0F56D008031F4 /* StoreSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSegementViewController.swift; sourceTree = "<group>"; };
+		1F1C1B5722A0F651008031F4 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
+		1F1C1B5922A1000F008031F4 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
+		1F1C1B5B22A10245008031F4 /* NotificaitonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificaitonModel.swift; sourceTree = "<group>"; };
 		1F395C8122951D4200781C0C /* UMCommonLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommonLog.framework; sourceTree = "<group>"; };
 		1F395C8222951D4200781C0C /* UMCommonLog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMCommonLog.bundle; sourceTree = "<group>"; };
 		1F395C8522951D4200781C0C /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
@@ -585,6 +609,19 @@
 		1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewController.swift; sourceTree = "<group>"; };
 		1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiseViewController.swift; sourceTree = "<group>"; };
 		1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewModel.swift; sourceTree = "<group>"; };
+		1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadConfigManger.swift; sourceTree = "<group>"; };
+		1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
+		1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadMessageModel.swift; sourceTree = "<group>"; };
+		1FF1E51F22AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITabarBadgeExtentions.swift; path = ../../ViewModels/Category/UITabarBadgeExtentions.swift; sourceTree = "<group>"; };
+		1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InveterViewModel.swift; sourceTree = "<group>"; };
+		1FF1E52522AF4C7D00BB9A50 /* InviteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteModel.swift; sourceTree = "<group>"; };
+		1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteRuleViewController.swift; sourceTree = "<group>"; };
+		1FF1E52922AF55F700BB9A50 /* DailyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewController.swift; sourceTree = "<group>"; };
+		1FF1E52B22AF567400BB9A50 /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
+		1FF1E52D22AF85E500BB9A50 /* UIImage+Text.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Text.h"; sourceTree = "<group>"; };
+		1FF1E52E22AF85E500BB9A50 /* UIImage+Text.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Text.m"; sourceTree = "<group>"; };
+		1FF1E53022B0D95700BB9A50 /* DailyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyModel.swift; sourceTree = "<group>"; };
+		1FF1E53222B782E700BB9A50 /* PostSegementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSegementViewModel.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -869,6 +906,7 @@
 		1FE5BDDE22817B1A00C9137C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1FF1E51A22AE0A6D00BB9A50 /* Config */,
 				1FE5BF122282A4EC00C9137C /* Category */,
 				1FE5BF112282A4EC00C9137C /* Mine */,
 				1FE5BF102282A4EC00C9137C /* Score */,
@@ -936,6 +974,7 @@
 			children = (
 				1FE5BDE522817B5F00C9137C /* Define.swift */,
 				1F1C1B45229FA4A4008031F4 /* Config.swift */,
+				1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */,
 				1FE5BDE722817B8500C9137C /* RequestURL.swift */,
 				1FE5BDEE2282648D00C9137C /* AppThemeConfig.swift */,
 				1FE5BFA5228AC1E200C9137C /* AuthorityManager.swift */,
@@ -1007,6 +1046,8 @@
 				1FE5BF582285702100C9137C /* UIButton+Block.m */,
 				1FE8DA96228E8EC500DCED01 /* UIView+ESAddTapGestureRecognizer.h */,
 				1FE8DA97228E8EC500DCED01 /* UIView+ESAddTapGestureRecognizer.m */,
+				1FF1E52D22AF85E500BB9A50 /* UIImage+Text.h */,
+				1FF1E52E22AF85E500BB9A50 /* UIImage+Text.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1045,6 +1086,7 @@
 		1FE5BE3A2282864300C9137C /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				1FF1E51F22AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift */,
 				1FE5BE3B2282864300C9137C /* UIPageControlExtentions.swift */,
 				1FE5BF5D228942EF00C9137C /* UITextFieldExtentions.swift */,
 				1FE5BE3C2282864300C9137C /* UIButton+Extentions.swift */,
@@ -1256,8 +1298,11 @@
 				1FE8DAAB228EBC9100DCED01 /* SettingViewController.swift */,
 				1FE8DAAD228EC7CB00DCED01 /* RealNameViewController.swift */,
 				1FE8DAAF228EC7D800DCED01 /* SingUpVIPViewController.swift */,
+				1F1C1B5122A0E6C6008031F4 /* MessageSegementViewController.swift */,
 				1FE8DAB1228EC7E300DCED01 /* NotificationViewController.swift */,
 				1FE8DAB3228EC7F200DCED01 /* InviteUserViewController.swift */,
+				1FF1E52922AF55F700BB9A50 /* DailyViewController.swift */,
+				1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */,
 				1FE8DABD228ECABC00DCED01 /* ChangePasswordViewController.swift */,
 				1FE8DABF228ECAE800DCED01 /* AboutViewController.swift */,
 				1FE8DAC1228ECAF400DCED01 /* FeedBackViewController.swift */,
@@ -1271,6 +1316,7 @@
 				1FE8DB002292C5DC00DCED01 /* MycollectViewController.swift */,
 				1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */,
 				1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */,
+				1F1C1B5522A0F56D008031F4 /* StoreSegementViewController.swift */,
 				1F991753229B92BB00C8FDD5 /* StoreViewController.swift */,
 				1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */,
 				1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */,
@@ -1348,6 +1394,7 @@
 				1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */,
 				1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */,
 				1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */,
+				1F1C1B5322A0E930008031F4 /* NotificationTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1392,12 +1439,14 @@
 				1FE8DAB7228EC8B100DCED01 /* NotificationViewModel.swift */,
 				1FE8DAB9228EC8BF00DCED01 /* RealNameViewModel.swift */,
 				1FE8DABB228EC8D100DCED01 /* SigupVIPViewModel.swift */,
+				1F1C1B5722A0F651008031F4 /* StoreViewModel.swift */,
 				1FE8DAC3228ECD0600DCED01 /* ChangePasswordViewModel.swift */,
 				1FE8DAC5228ED11900DCED01 /* FeedBackViewModel.swift */,
 				1FE8DAD422926AA300DCED01 /* OtherMineViewModel.swift */,
 				1FE8DAE72292830600DCED01 /* RecommendViewModel.swift */,
 				1FE8DAF22292937000DCED01 /* OtherPostViewModel.swift */,
 				1FE8DAF4229293AD00DCED01 /* OtherGuessingViewModel.swift */,
+				1FF1E53222B782E700BB9A50 /* PostSegementViewModel.swift */,
 				1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */,
 				1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */,
 				1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */,
@@ -1405,6 +1454,8 @@
 				1F1C1B35229EA839008031F4 /* WithdrawViewModel.swift */,
 				1F1C1B39229F6C88008031F4 /* BindDrawViewModel.swift */,
 				1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */,
+				1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */,
+				1FF1E52B22AF567400BB9A50 /* DailyViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1445,6 +1496,10 @@
 				1F99175D229BDBC400C8FDD5 /* CoinsDetailModel.swift */,
 				1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */,
 				1F1C1B49229FFAE9008031F4 /* BankModel.swift */,
+				1F1C1B5922A1000F008031F4 /* StoreModel.swift */,
+				1F1C1B5B22A10245008031F4 /* NotificaitonModel.swift */,
+				1FF1E52522AF4C7D00BB9A50 /* InviteModel.swift */,
+				1FF1E53022B0D95700BB9A50 /* DailyModel.swift */,
 			);
 			name = Mine;
 			path = ViewModels/Mine;
@@ -1513,6 +1568,15 @@
 				1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		1FF1E51A22AE0A6D00BB9A50 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */,
+				1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		7B4FD7351CEDB453A5856703 /* Pods */ = {
@@ -1688,7 +1752,6 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Touqiu/Pods-Touqiu-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AliyunOSSiOS/AliyunOSSiOS.framework",
-				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
@@ -1720,7 +1783,6 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunOSSiOS.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BetterSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
@@ -1831,6 +1893,7 @@
 				1FE8DAAE228EC7CB00DCED01 /* RealNameViewController.swift in Sources */,
 				1FE5BF382284286A00C9137C /* GloableView.swift in Sources */,
 				1FE5BEB52282866300C9137C /* TAAnimatedDotView.m in Sources */,
+				1FF1E52822AF52F000BB9A50 /* InviteRuleViewController.swift in Sources */,
 				1FE5BECB2282866300C9137C /* renderer_yuv420p.c in Sources */,
 				1FE5BEB02282866200C9137C /* SDCycleScrollView.m in Sources */,
 				1FE5BDF1228264F200C9137C /* Font-Color-Config.swift in Sources */,
@@ -1850,6 +1913,7 @@
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
 				1FE8DB172293DC2300DCED01 /* LoginViewModel.swift in Sources */,
 				1FE8DAA4228EA08100DCED01 /* FollowViewModel.swift in Sources */,
+				1FF1E52022AE2EDE00BB9A50 /* UITabarBadgeExtentions.swift in Sources */,
 				1F395CC52295458C00781C0C /* CacheManager.swift in Sources */,
 				1FE8DA8D228D6C7E00DCED01 /* MineToolsTableViewCell.swift in Sources */,
 				1F1C1B4E22A0B5CB008031F4 /* BankListViewModel.swift in Sources */,
@@ -1861,10 +1925,12 @@
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
 				1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */,
 				1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */,
+				1FF1E52422AF45F600BB9A50 /* InveterViewModel.swift in Sources */,
 				1FE5BED42282866300C9137C /* IJKSDLGLView.m in Sources */,
 				1FE8DAD722926AE900DCED01 /* OtherMineViewController.swift in Sources */,
 				1FE8DAC6228ED11900DCED01 /* FeedBackViewModel.swift in Sources */,
 				1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */,
+				1F1C1B5422A0E930008031F4 /* NotificationTableViewCell.swift in Sources */,
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
 				1F1C1B48229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift in Sources */,
 				1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */,
@@ -1890,10 +1956,12 @@
 				1FE5BED92282866300C9137C /* TapticEngine.swift in Sources */,
 				1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */,
 				1F395CB52295230500781C0C /* UMengManager.swift in Sources */,
+				1FF1E52622AF4C7D00BB9A50 /* InviteModel.swift in Sources */,
 				1FE5BF1D2282D1AC00C9137C /* CommentTableViewCell.swift in Sources */,
 				1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */,
 				1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */,
 				1FE5BF5B228583C000C9137C /* AnimationView.swift in Sources */,
+				1FF1E53122B0D95700BB9A50 /* DailyModel.swift in Sources */,
 				1FE5BEB42282866300C9137C /* TAPageControl.m in Sources */,
 				1F1C1B2E229E9FF4008031F4 /* TopUpTableViewCell.swift in Sources */,
 				1FE8DAC2228ECAF400DCED01 /* FeedBackViewController.swift in Sources */,
@@ -1950,6 +2018,7 @@
 				1FE5BF592285702100C9137C /* UIButton+Block.m in Sources */,
 				1F991756229B944A00C8FDD5 /* WithdrawViewController.swift in Sources */,
 				1FE5BE322282863D00C9137C /* AudioPlayManager.swift in Sources */,
+				1FF1E51922AE08EB00BB9A50 /* LoadConfigManger.swift in Sources */,
 				1F395CD32297871800781C0C /* CategoryChossViewModel.swift in Sources */,
 				1FE5BEC62282866300C9137C /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				1FE5BEC42282866300C9137C /* UITableView+FDKeyedHeightCache.m in Sources */,
@@ -1960,6 +2029,7 @@
 				1FE8DB142293DC0000DCED01 /* LoginViewController.swift in Sources */,
 				1F395CCF229783A300781C0C /* TipModel.swift in Sources */,
 				1FE8DAEF2292933A00DCED01 /* JXPagingView.swift in Sources */,
+				1F1C1B5A22A1000F008031F4 /* StoreModel.swift in Sources */,
 				1FE8DAE42292817400DCED01 /* RecommendViewController.swift in Sources */,
 				1FE5BF2E2283C22C00C9137C /* NSStringAdditions.m in Sources */,
 				1FE5BF4A228529B700C9137C /* PostDetailViewController.swift in Sources */,
@@ -1969,10 +2039,12 @@
 				1FE8DAF02292933A00DCED01 /* JXPagingListRefreshView.swift in Sources */,
 				1F1C1B36229EA839008031F4 /* WithdrawViewModel.swift in Sources */,
 				1FE8DB192294E18800DCED01 /* FindPasViewController.swift in Sources */,
+				1FF1E52C22AF567400BB9A50 /* DailyViewModel.swift in Sources */,
 				1F395CB72295306B00781C0C /* UMengUI.swift in Sources */,
 				1FE8DAF32292937000DCED01 /* OtherPostViewModel.swift in Sources */,
 				1FE5BDFB2282747900C9137C /* BaseViewController.swift in Sources */,
 				1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */,
+				1F1C1B5622A0F56D008031F4 /* StoreSegementViewController.swift in Sources */,
 				1FE8DAC4228ECD0600DCED01 /* ChangePasswordViewModel.swift in Sources */,
 				1FE8DAA8228EAB6600DCED01 /* ChangeViewModel.swift in Sources */,
 				1FE5BF332283F60800C9137C /* Conner+Shadows.swift in Sources */,
@@ -1983,6 +2055,7 @@
 				1FE5BDE822817B8500C9137C /* RequestURL.swift in Sources */,
 				1F1C1B3E229F7FC3008031F4 /* AccountTypeTableViewCell.swift in Sources */,
 				1FE8DAF72292C15C00DCED01 /* MyPostViewController.swift in Sources */,
+				1FF1E51C22AE0AEF00BB9A50 /* ConfigModel.swift in Sources */,
 				1FE5BEC82282866300C9137C /* common.c in Sources */,
 				1FE8DAB4228EC7F200DCED01 /* InviteUserViewController.swift in Sources */,
 				1FE5BE1D228285FA00C9137C /* NSDate+LSCore.m in Sources */,
@@ -1994,8 +2067,11 @@
 				1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */,
 				1FE5BF242282E59500C9137C /* NSString+AES.m in Sources */,
 				1FE5BF44228517A700C9137C /* CommentContentTableViewCell.swift in Sources */,
+				1FF1E52A22AF55F700BB9A50 /* DailyViewController.swift in Sources */,
+				1F1C1B5222A0E6C6008031F4 /* MessageSegementViewController.swift in Sources */,
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,
 				1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */,
+				1FF1E53322B782E800BB9A50 /* PostSegementViewModel.swift in Sources */,
 				1FE5BE4B2282864300C9137C /* UITapGestureRecognizer+Extention.swift in Sources */,
 				1FE8DB012292C5DC00DCED01 /* MycollectViewController.swift in Sources */,
 				1F1C1B3A229F6C88008031F4 /* BindDrawViewModel.swift in Sources */,
@@ -2023,12 +2099,14 @@
 				1FE8DA9C228E95A600DCED01 /* MineInfoViewModel.swift in Sources */,
 				1FE8DABE228ECABC00DCED01 /* ChangePasswordViewController.swift in Sources */,
 				1FE5BF3E228509B900C9137C /* CategoryDetailViewController.swift in Sources */,
+				1F1C1B5822A0F651008031F4 /* StoreViewModel.swift in Sources */,
 				1FE5BE492282864300C9137C /* UIImage+Crop.swift in Sources */,
 				1FE5BECA2282866300C9137C /* renderer_rgb.c in Sources */,
 				1FE8DA91228D6CC400DCED01 /* GloabelTableViewCell.swift in Sources */,
 				1F99174C229B74AC00C8FDD5 /* CoinsDetailViewController.swift in Sources */,
 				1FE5BE482282864300C9137C /* UIViewController+NavigationBar.swift in Sources */,
 				1F99175C229BC5B100C8FDD5 /* TouUpViewModel.swift in Sources */,
+				1F1C1B5C22A10245008031F4 /* NotificaitonModel.swift in Sources */,
 				1F99175A229BC16D00C8FDD5 /* TopUpViewController.swift in Sources */,
 				1FE8DAA2228EA07500DCED01 /* FansViewModel.swift in Sources */,
 				1FE5BE1C228285FA00C9137C /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
@@ -2036,6 +2114,8 @@
 				1FE5BE032282752C00C9137C /* ScoreViewController.swift in Sources */,
 				1FE5BE4A2282864300C9137C /* NSTimer.swift in Sources */,
 				1FE5BE352282863D00C9137C /* LocalJsonFile.swift in Sources */,
+				1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */,
+				1FF1E52F22AF85E500BB9A50 /* UIImage+Text.m in Sources */,
 				1FE8DB032292C5F300DCED01 /* MyCollectViewModel.swift in Sources */,
 				1FE5BEC52282866300C9137C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FE8DAB2228EC7E300DCED01 /* NotificationViewController.swift in Sources */,

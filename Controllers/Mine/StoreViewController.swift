@@ -7,24 +7,50 @@
 //
 
 import UIKit
+import JXSegmentedView
 
 class StoreViewController: BaseViewController {
 
+    let storeViewModel = StoreViewModel.init()
+    
+    let notificationViewModel = NotificationViewModel.init()
+    var types = [StoreDetailTyp.all,StoreDetailTyp.income,StoreDetailTyp.pay]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func initSView(type:Int) {
+        self.bindViewModel(viewModel: storeViewModel, controller: self)
+        storeViewModel.type = types[type]
+        self.setUpTableView(style: .plain, cells: [CoinsDetailTableViewCell.self], controller: self)
+        
+        self.setUpRefreshData {
+            self.storeViewModel.page = 0
+            self.storeViewModel.getStoreNet()
+        }
+        
+        self.setUpLoadMoreData {
+            self.storeViewModel.getStoreNet()
+        }
+        self.storeViewModel.getStoreNet()
     }
-    */
 
+}
+
+extension StoreViewController : JXSegmentedListContainerViewListDelegate {
+    override func listView() -> UIView {
+        return view
+    }
+    
+    override func listDidAppear() {
+        print("listDidAppear")
+    }
+    
+    override func listDidDisappear() {
+        print("listDidDisappear")
+    }
 }

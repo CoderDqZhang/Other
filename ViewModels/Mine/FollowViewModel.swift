@@ -37,7 +37,7 @@ class FollowViewModel: BaseViewModel {
     func getFllowerNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER,"userId":CacheManager.getSharedInstance().getUserId()] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(PersonmyfollowUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(PersonmyfollowUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
                     self.followArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
@@ -45,7 +45,8 @@ class FollowViewModel: BaseViewModel {
                     self.followArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-                self.controller?.stopRefresh()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

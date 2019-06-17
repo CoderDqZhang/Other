@@ -51,13 +51,16 @@ class CategoryDetailViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
+        let postDetailVC = PostDetailViewController()
+        postDetailVC.postData = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]).toDictionary() as NSDictionary
+        postDetailVC.postType = .Hot
+        NavigationPushView(self.controller!, toConroller: postDetailVC)
     }
     
     func getCategoryNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":self.categoryData.id.string, "isCollect":"0"] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
                     self.tipListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
@@ -65,7 +68,8 @@ class CategoryDetailViewModel: BaseViewModel {
                     self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-                self.controller?.stopRefresh()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

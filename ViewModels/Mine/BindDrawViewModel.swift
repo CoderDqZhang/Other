@@ -156,7 +156,7 @@ class BindDrawViewModel: BaseViewModel {
     
     func getBankNameNet(){
         let url = getAliPayBankNameUrl(banNo: self.bindModel.bankNo)
-        BaseNetWorke.sharedInstance.aliPayBankName(url: url, success: { (resultDic) in
+        BaseNetWorke.getSharedInstance().aliPayBankName(url: url, success: { (resultDic) in
             if ReadFileDataManager.getSharedInstance().getBankNameDic() != nil {
                 let bankCode = (resultDic as! NSDictionary).object(forKey: "bank")
                 if bankCode != nil {
@@ -174,16 +174,18 @@ class BindDrawViewModel: BaseViewModel {
     }
     
     func phoneCodeNetWork(){
-        BaseNetWorke.sharedInstance.postUrlWithString(UsersendCodeUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(UsersendCodeUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "发送验证码成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func bindBank(){
         let parameters = ["bankName":self.type == .bank ? self.bindModel.bankName! : self.bindModel.bankUserName!, "type":self.bindModel.type!, "code":self.bindModel.code!,"bankNo":self.bindModel.bankNo!] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(AccountbindAccountUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(AccountbindAccountUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "绑定成功", autoHidder: true)
                 if self.controller?.postDetailDataClouse != nil {
@@ -191,6 +193,8 @@ class BindDrawViewModel: BaseViewModel {
                     self.controller?.postDetailDataClouse(resultDic.value as! NSDictionary, .Hot)
                 }
                 self.controller?.navigationController?.popViewController()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

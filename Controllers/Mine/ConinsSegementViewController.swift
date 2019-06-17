@@ -18,11 +18,10 @@ enum CoinsDetailViewControllerType:Int {
 
 class ConinsSegementViewController: BaseViewController {
 
-    var pagingView:JXPagingView!
-    var userHeader:GloabelHeader!
-    var userHeaderContainerView: UIView!
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
+    var listContainerView: JXSegmentedListContainerView!
+
     let titles = ["全部", "待结算", "支出", "收入"]
     var tableHeaderViewHeight: CGFloat = 138
     var heightForHeaderInSection: Int = 44
@@ -60,16 +59,23 @@ class ConinsSegementViewController: BaseViewController {
         lineView.indicatorWidth = 26
         segmentedView.indicators = [lineView]
         
-        pagingView = JXPagingView(delegate: self)
+        segmentedView.delegate = self
         
-        self.view.addSubview(pagingView)
         
-        segmentedView.contentScrollView = pagingView.listContainerView.collectionView
+        self.view.addSubview(segmentedView)
+        
+        //5、初始化JXSegmentedListContainerView
+        listContainerView = JXSegmentedListContainerView(dataSource: self)
+        listContainerView.didAppearPercent = 0.9
+        view.addSubview(listContainerView)
+        
+        //6、将listContainerView.scrollView和segmentedView.contentScrollView进行关联
+        segmentedView.contentScrollView = listContainerView.scrollView
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        pagingView.frame = self.view.bounds
+        listContainerView.frame = CGRect(x: 0, y: 50, width: view.bounds.size.width, height: view.bounds.size.height - 50)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,36 +85,29 @@ class ConinsSegementViewController: BaseViewController {
     
 }
 
+extension ConinsSegementViewController : JXSegmentedViewDelegate {
+    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
+        //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
+        listContainerView.didClickSelectedItem(at: index)
+    }
+    
+    func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {
+        //传递scrollingFrom事件给listContainerView，必须调用！！！
+        listContainerView.segmentedViewScrolling(from: leftIndex, to: rightIndex, percent: percent, selectedIndex: segmentedView.selectedIndex)
+    }
+}
 
-extension ConinsSegementViewController: JXPagingViewDelegate {
+extension ConinsSegementViewController: JXSegmentedListContainerViewDataSource {
     
-    func tableHeaderViewHeight(in pagingView: JXPagingView) -> Int {
-        return Int(tableHeaderViewHeight)
-    }
-    
-    func tableHeaderView(in pagingView: JXPagingView) -> UIView {
-        return UIView.init()
-    }
-    
-    func heightForPinSectionHeader(in pagingView: JXPagingView) -> Int {
-        return heightForHeaderInSection
-    }
-    
-    func viewForPinSectionHeader(in pagingView: JXPagingView) -> UIView {
-        return segmentedView
-    }
-    
-    func numberOfLists(in pagingView: JXPagingView) -> Int {
+    func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
         return titles.count
     }
     
-    func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
+    func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
         let controller = CoinsDetailViewController.init()
         controller.initSView(type: index)
         return controller
     }
-    
-    func mainTableViewDidScroll(_ scrollView: UIScrollView) {
-        userHeader?.scrollViewDidScroll(contentOffsetY: scrollView.contentOffset.y)
-    }
 }
+    
+

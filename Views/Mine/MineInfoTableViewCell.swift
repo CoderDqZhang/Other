@@ -14,6 +14,7 @@ enum TopUpViewClickType {
     case store
     case follow
     case fans
+    case daily
 }
 
 typealias TopUpViewTypeClouse = (_ type:TopUpViewClickType) ->Void
@@ -87,9 +88,8 @@ class TopUpView: UIView {
         
         topUpLabel.snp.makeConstraints { (make) in
             make.right.equalToSuperview()
-            make.left.equalTo(iconLabel.snp.right).offset(9)
-            make.width.equalTo(30)
             make.centerY.equalToSuperview()
+            make.left.equalTo(iconLabel.snp.right).offset(9)
         }
         
         let backGroundLabel = YYLabel.init()
@@ -97,10 +97,10 @@ class TopUpView: UIView {
         centerView.addSubview(backGroundLabel)
         
         backGroundLabel.snp.makeConstraints { (make) in
-            make.right.equalTo(centerView.snp.right).offset(2)
-            make.left.equalTo(topUpLabel.snp.left).offset(0)
             make.top.equalTo(topUpLabel.snp.bottom).offset(0)
-            make.size.equalTo(CGSize.init(width: 30, height: 3))
+            make.left.equalTo(topUpLabel.snp.left).offset(0)
+            make.right.equalTo(topUpLabel.snp.right).offset(0)
+            make.height.equalTo(3)
         }
         
         centerView.snp.makeConstraints { (make) in
@@ -167,7 +167,6 @@ class TopUpView: UIView {
         storeLabel.snp.makeConstraints { (make) in
             make.right.equalToSuperview()
             make.left.equalTo(numberLabel.snp.right).offset(9)
-            make.width.equalTo(30)
             make.centerY.equalToSuperview()
         }
         
@@ -176,10 +175,10 @@ class TopUpView: UIView {
         centerView.addSubview(backGroundLabel1)
         
         backGroundLabel1.snp.makeConstraints { (make) in
-            make.right.equalTo(centerView.snp.right).offset(2)
+            make.right.equalTo(storeLabel.snp.right).offset(0)
             make.left.equalTo(storeLabel.snp.left).offset(0)
             make.top.equalTo(storeLabel.snp.bottom).offset(0)
-            make.size.equalTo(CGSize.init(width: 30, height: 3))
+            make.height.equalTo(3)
         }
         
         centerView.snp.makeConstraints { (make) in
@@ -304,7 +303,7 @@ class MineInfoTableViewCell: UITableViewCell {
         daylyButton.setBackgroundImage(UIImage.init(named: "dayliy"), for: .normal)
         daylyButton.setTitle("每日任务", for: .normal)
         daylyButton.addAction { (button) in
-            
+            self.mineInfoTableViewCellClouse(.daily)
         }
         self.contentView.addSubview(daylyButton)
         

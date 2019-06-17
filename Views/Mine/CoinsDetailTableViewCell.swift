@@ -67,6 +67,12 @@ class CoinsDetailTableViewCell: UITableViewCell {
         numberLabel.text = "\((model.type == "0" ? "-" : "+")) \(model.coin.string)"
     }
     
+    func cellSetStoreData(model:StoreModel){
+        titleLabel.text = model.descriptionField
+        timeLabel.text = model.createTime
+        numberLabel.text = "\((model.type == "0" ? "-\(model.outPoint.string)" : "+\(model.inPoint.string)"))"
+    }
+    
     
     override func updateConstraints() {
         if !didMakeConstraints {

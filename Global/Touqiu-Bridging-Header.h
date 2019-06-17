@@ -40,4 +40,6 @@
 
 #import <AliyunOSSiOS/OSSService.h>
 
+#import "UIImage+Text.h"
+
 #endif /* Touqiu_Bridging_Header_h */

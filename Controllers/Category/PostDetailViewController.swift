@@ -18,8 +18,6 @@ class PostDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.setNavigationItemBack()
         // Do any additional setup after loading the view.
     }
     
@@ -86,7 +84,9 @@ class PostDetailViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share"), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
+        self.setNavigationItemBack()
+        self.navigationItem.title = ((self.postData.object(forKey: "tribe") as! NSDictionary).object(forKey: "tribeName") as! String)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
     }
     
     @objc func rightBarItemClick(_ sender:UIBarButtonItem) {

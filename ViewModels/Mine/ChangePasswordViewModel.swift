@@ -73,10 +73,12 @@ class ChangePasswordViewModel: BaseViewModel {
     
     func changePasswordNet(oldPas:String,newPas:String){
         let parameters = ["oldPassword":oldPas,"password":newPas]
-        BaseNetWorke.sharedInstance.postUrlWithString(SurePasswordUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(SurePasswordUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "修改成功", autoHidder: true)
                 self.controller!.navigationController?.popViewController()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

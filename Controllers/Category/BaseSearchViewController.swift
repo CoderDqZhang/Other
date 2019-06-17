@@ -57,7 +57,7 @@ class BaseSearchViewController: UISearchController {
         
         if type == .category {
             let parameters = ["search":text]
-            BaseNetWorke.sharedInstance.postUrlWithString(TribetribeListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            BaseNetWorke.getSharedInstance().postUrlWithString(TribetribeListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     self.resultArray = NSMutableArray.init(array: resultDic.value as! Array)
                     if self.resultArray.count > 0 {
@@ -71,7 +71,7 @@ class BaseSearchViewController: UISearchController {
         }else if type == .follows {
             //TO DO 加载更多
             let parameters = ["page":1, "limit":LIMITNUMBER,"userId":CacheManager.getSharedInstance().getUserId(),"search":text] as [String : Any]
-            BaseNetWorke.sharedInstance.postUrlWithString(PersonmyfollowUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            BaseNetWorke.getSharedInstance().postUrlWithString(PersonmyfollowUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     self.resultArray = NSMutableArray.init(array: resultDic.value as! Array)
 
