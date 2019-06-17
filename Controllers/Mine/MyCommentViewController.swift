@@ -22,11 +22,12 @@ class MyCommentViewController: BaseViewController {
         self.setUpTableView(style: .grouped, cells: [CategoryContentTableViewCell.self,CommentTableViewCell.self,UserInfoTableViewCell.self], controller: self)
         
         self.setUpRefreshData {
-            
+            self.myCommendViewModel.page = 0
+            self.myCommendViewModel.getMyCommentNet()
         }
         
         self.setUpLoadMoreData {
-            
+            self.myCommendViewModel.getMyCommentNet()
         }
     }
     

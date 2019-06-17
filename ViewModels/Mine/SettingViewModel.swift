@@ -49,9 +49,15 @@ class SettingViewModel: BaseViewModel {
     }
     
     func logoutNet(){
-        BaseNetWorke.sharedInstance.postUrlWithString(UserlogoutUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(UserlogoutUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 CacheManager.getSharedInstance().logout()
+                if (self.controller as! SettingViewController).logoutClouse != nil {
+                    (self.controller as! SettingViewController).logoutClouse()
+                    self.controller?.navigationController?.popViewController()
+                }
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

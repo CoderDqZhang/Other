@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MineViewController: BaseViewController {
 
     let mineViewModel = MineViewModel.init()
@@ -74,3 +75,4 @@ class MineViewController: BaseViewController {
     */
 
 }
+

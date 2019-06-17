@@ -51,10 +51,12 @@ class AuthorityManager: NSObject, CLLocationManagerDelegate {
 //        case .restricted:
 //            print()
         case .denied:
-            UIAlertController.showAlertControl(controller!, style: .alert, title: "获取相机权限", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
+            UIAlertController.showAlertControl(controller!, style: .alert, title: "获取相机权限", message: "需要相机权限", cancel: "取消", doneTitle: "确定", cancelAction: {
                 
             }, doneAction: {
-                SHARE_APPLICATION.openURL(URL.init(string: UIApplication.openSettingsURLString)!)
+                SHARE_APPLICATION.open(URL.init(string: UIApplication.openSettingsURLString)!, options: [UIApplication.OpenExternalURLOptionsKey.init(rawValue: "true"):true], completionHandler: { (ret) in
+                    
+                })
             })
 //        case .authorized:
         default:
@@ -75,11 +77,12 @@ class AuthorityManager: NSObject, CLLocationManagerDelegate {
                 
             })
         case .restricted:
-            UIAlertController.showAlertControl(controller!, style: .alert, title: "获取相册权限", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
+            UIAlertController.showAlertControl(controller!, style: .alert, title: "获取相册权限", message: "需要相册权限", cancel: "取消", doneTitle: "确定", cancelAction: {
                 
             }, doneAction: {
-                SHARE_APPLICATION.openURL(URL.init(string: UIApplication.openSettingsURLString)!)
-            })
+                SHARE_APPLICATION.open(URL.init(string: UIApplication.openSettingsURLString)!, options: [UIApplication.OpenExternalURLOptionsKey.init(rawValue: "true"):true], completionHandler: { (ret) in
+                    
+                })            })
         default:
             break;
         }

@@ -40,7 +40,9 @@ class BaseViewController: UIViewController {
         self.setUpViewNavigationItem()
         self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
         self.setupBaseViewForDismissKeyboard()
-        
+        //处于第一个Item 允许返回
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+
         // Do any additional setup after loading the view.
     }
     
@@ -112,10 +114,10 @@ class BaseViewController: UIViewController {
     }
     
     func stopRefresh(){
-        if self.tableView.mj_header != nil {
+        if self.tableView != nil && self.tableView.mj_header != nil {
             self.tableView.mj_header.endRefreshing()
         }
-        if self.tableView.mj_footer != nil {
+        if self.tableView != nil && self.tableView.mj_footer != nil {
             self.tableView.mj_footer.endRefreshing()
         }
     }
@@ -164,3 +166,12 @@ extension BaseViewController: JXPagingViewListViewDelegate {
         print("listDidAppear")
     }
 }
+
+//处于第一个Item 允许返回
+extension BaseViewController : UIGestureRecognizerDelegate{
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
+}
+

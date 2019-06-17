@@ -21,12 +21,20 @@ enum HttpRequestType {
     case put
 }
 
-class BaseNetWorke {
-    fileprivate init() {
+class BaseNetWorke : SessionManager {
     
+    private static let _sharedInstance = BaseNetWorke()
+    var sessionManager:SessionManager!
+    class func getSharedInstance() -> BaseNetWorke {
+        return _sharedInstance
     }
     
-    static let sharedInstance = BaseNetWorke()
+    private init() {
+        super.init()
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 10
+        sessionManager = Alamofire.SessionManager.init(configuration: configuration, delegate: self.delegate, serverTrustPolicyManager: nil)
+    } // 私有化init方法
     //加一个特使标识，首页请求失败
     /// getRequest
     /// - parameter url:        输入URL
@@ -39,10 +47,8 @@ class BaseNetWorke {
             self.httpRequest(.get, url: url, parameters: parameters, success: { (responseObject) in
                 if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 10000 {
                     subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
-                }else if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 3006  {
-                    subscriber.send(error: NSError.init())
-                }else{
-                     _ = Tools.shareInstance.showMessage(KWindow, msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
+                }else {
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
                 }
                 subscriber.sendCompleted()
             }, failure: { (responseError) in
@@ -208,7 +214,8 @@ class BaseNetWorke {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
-        Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: (["sign":"touqiutest","token":UserDefaults.init().object(forKey: "UserToken") ?? ""] as! HTTPHeaders)).responseJSON { (response) in
+        
+        sessionManager.request(url, method: methods , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: (["sign":"touqiutest","token":UserDefaults.init().object(forKey: "UserToken") ?? ""] as! HTTPHeaders)).responseJSON { (response) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
@@ -258,3 +265,4 @@ class BaseNetWorke {
         
     }
 }
+

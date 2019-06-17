@@ -10,33 +10,59 @@ import UIKit
 import DZNEmptyDataSet
 
 class MyCommentViewModel: BaseViewModel {
+
+    var myCommentArray:NSMutableArray!
     
-    let contentStrs = ["你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？","你认为今年的中超冠军会是谁？"]
-    let images = [[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"]]
-    
+    var page = 0
     override init() {
         super.init()
+        self.getMyCommentNet()
     }
     
     
     func tableViewCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryContentTableViewCell) {
-//        cell.cellSetData(content: contentStrs[indexPath.section], images: images[indexPath.section])
+        if myCommentArray != nil {
+//            cell.cellSetData(tipmodel: TipModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]))
+        }
     }
     
     func tableViewUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:UserInfoTableViewCell){
-        
+        if myCommentArray != nil {
+//            cell.cellSetData(model: TipModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]))
+        }
     }
     
     func tableViewMCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
-        
+        if myCommentArray != nil {
+//            cell.cellSetData(model: TipModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]))
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.row != 0 {
-            let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section],"images":images[indexPath.section]], copyItems: true)
-            (self.controller! as! NewsViewController).postDetailDataClouse(dicData,.OutFall)
+            let dicData:NSDictionary = TipModel.init(fromDictionary: self.myCommentArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
+            (self.controller as! MyCommentViewController).postDetailDataClouse(dicData,.Hot)
         }
     }
+    
+    func getMyCommentNet(){
+        page = page + 1
+        let parameters = ["page":page.string, "limit":LIMITNUMBER,] as [String : Any]
+        BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.page != 1 {
+                    self.myCommentArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                }else{
+                    self.myCommentArray = NSMutableArray.init(array: resultDic.value as! Array)
+                }
+                self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    
 }
 
 
@@ -82,7 +108,7 @@ extension MyCommentViewModel: UITableViewDelegate {
 
 extension MyCommentViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return contentStrs.count
+        return myCommentArray == nil ? 0 : myCommentArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -39,8 +39,8 @@ class OutFallViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section],"translateStrs":translateStrs[indexPath.section],"images":images[indexPath.section]], copyItems: true)
-        (self.controller! as! OutFallViewController).postDetailDataClouse(dicData,.OutFall)
+//        let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section],"translateStrs":translateStrs[indexPath.section],"images":images[indexPath.section]], copyItems: true)
+//        (self.controller! as! OutFallViewController).postDetailDataClouse(dicData,.OutFall)
     }
     
     ///获取内容高度

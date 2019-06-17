@@ -7,42 +7,70 @@
 //
 
 import UIKit
-import BetterSegmentedControl
+import JXSegmentedView
 
 class SegmentViewController: BaseViewController, UIScrollViewDelegate {
 
-    let newController = NewsViewController()
-    let outFallController = OutFallViewController()
-    var viewControllers:[BaseViewController] = []
-    let segmentViewModel = SegmentViewModel()
-    var control:BetterSegmentedControl!
-    var scrollerView:UIScrollView!
+    
+    let titles = ["最新", "出墙"]
+    let segmentViewModel = SegmentViewModel.init()
+    let newController = NewsViewController.init()
+    let outFallController = OutFallViewController.init()
+
+    
+    var segmentedViewDataSource: JXSegmentedTitleDataSource!
+    var segmentedView: JXSegmentedView!
+    var listContainerView: JXSegmentedListContainerView!
+    
+    var tableHeaderViewHeight: CGFloat = 138
+    var heightForHeaderInSection: Int = 44
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.createSegementController()
         self.createNavigationItem()
-        self.createScrollerView()
         // Do any additional setup after loading the view.
     }
     
     func createSegementController(){
-        viewControllers = [newController,outFallController]
-
-        control = BetterSegmentedControl(
-            frame: CGRect(x: 50, y: 0, width: SCREENWIDTH - 100, height: 44),
-            segments: LabelSegment.segments(withTitles: ["最新", "出墙"],
-                                            normalFont: App_Theme_PinFan_R_16_Font,
-                                            normalTextColor: App_Theme_5B4D0E_Color,
-                                            selectedFont: App_Theme_PinFan_R_16_Font,
-                                            selectedTextColor: App_Theme_06070D_Color),
-            index: 0,
-            options: [.backgroundColor(.clear),
-                      .indicatorViewBackgroundColor(.clear)])
-        control.addTarget(self, action: #selector(self.controlValueChanged(index:)), for: .valueChanged)
-        self.navigationController?.navigationBar.addSubview(control)
         
+        //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
+        segmentedViewDataSource = JXSegmentedTitleDataSource()
+        segmentedViewDataSource.titles = titles
+        segmentedViewDataSource.titleSelectedColor = App_Theme_06070D_Color!
+        segmentedViewDataSource.titleNormalColor = App_Theme_B4B4B4_Color!
+        segmentedViewDataSource.titleSelectedFont = App_Theme_PinFan_R_16_Font
+        segmentedViewDataSource.titleNormalFont = App_Theme_PinFan_R_16_Font!
+        segmentedViewDataSource.isTitleColorGradientEnabled = true
+        segmentedViewDataSource.isTitleZoomEnabled = false
+        segmentedViewDataSource.reloadData(selectedIndex: 0)
+        
+        segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
+        segmentedView.backgroundColor = .clear
+        segmentedView.contentEdgeInsetRight = 72
+        segmentedView.contentEdgeInsetLeft = 112
+        segmentedView.defaultSelectedIndex = 0
+        segmentedView.dataSource = segmentedViewDataSource
+        segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
+        
+        let lineView = JXSegmentedIndicatorLineView()
+        lineView.indicatorColor = App_Theme_FFD512_Color!
+        lineView.indicatorWidth = 26
+        segmentedView.indicators = [lineView]
+        
+        segmentedView.delegate = self
+        
+        
+        self.view.addSubview(segmentedView)
+        
+        //5、初始化JXSegmentedListContainerView
+        listContainerView = JXSegmentedListContainerView(dataSource: self)
+        listContainerView.didAppearPercent = 0.9
+        view.addSubview(listContainerView)
+        
+        //6、将listContainerView.scrollView和segmentedView.contentScrollView进行关联
+        segmentedView.contentScrollView = listContainerView.scrollView
     }
     
     override func bindViewModelLogic(){
@@ -63,33 +91,11 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     
     func createNavigationItem(){
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "发表")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.rightBarItemClick))
+        self.navigationItem.titleView = self.segmentedView
     }
     
     @objc func rightBarItemClick(){
         segmentViewModel.pushPostVC()
-    }
-    
-    @objc func controlValueChanged(index:Int){
-        self.scrollerView.setContentOffset(CGPoint.init(x: CGFloat(self.control.index) * SCREENWIDTH, y: 0), animated: true)
-    }
-    
-    func createScrollerView(){
-        
-        scrollerView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64 - 100))
-        scrollerView.backgroundColor = UIColor.red
-        scrollerView.bounces = false
-        scrollerView.isPagingEnabled = true
-        scrollerView.showsHorizontalScrollIndicator = false
-        scrollerView.showsVerticalScrollIndicator = false
-        scrollerView.delegate = self
-        scrollerView.contentSize = CGSize.init(width: SCREENWIDTH * CGFloat(viewControllers.count), height: SCREENHEIGHT)
-        self.view.addSubview(scrollerView)
-        var index:CGFloat = 0
-        for vc in viewControllers {
-            vc.view.frame = CGRect.init(x: 0 + index * SCREENWIDTH, y: 0, width: SCREENWIDTH, height: scrollerView.bounds.size.height)
-            scrollerView.addSubview(vc.view)
-            index = index + 1
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -98,15 +104,20 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.control.isHidden = false
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.control.isHidden = true
     }
     
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        segmentedView.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 50)
+        listContainerView.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height - 50)
+    }
     
     /*
      // MARK: - Navigation
@@ -119,13 +130,32 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     
 }
 
-extension SegmentViewController{
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+extension SegmentViewController : JXSegmentedViewDelegate {
+    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
+        //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
+        listContainerView.didClickSelectedItem(at: index)
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.control.setIndex(UInt(scrollView.contentOffset.x/SCREENWIDTH))
+    func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {
+        //传递scrollingFrom事件给listContainerView，必须调用！！！
+        listContainerView.segmentedViewScrolling(from: leftIndex, to: rightIndex, percent: percent, selectedIndex: segmentedView.selectedIndex)
+    }
+}
+
+extension SegmentViewController: JXSegmentedListContainerViewDataSource {
+    
+    func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
+        return titles.count
+    }
+    
+    func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
+        if index == 0 {
+            newController.initSView(type: index)
+            return newController
+        }else{
+            outFallController.initSView(type: index)
+            return outFallController
+        }
+        
     }
 }

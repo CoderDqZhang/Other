@@ -75,10 +75,12 @@ class MineInfoViewModel: BaseViewModel {
     
     func updateuserInfo(key:String,value:String){
         let parameters = ["key":key,"value":value]
-        BaseNetWorke.sharedInstance.postUrlWithString(PersonupdateUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(PersonupdateUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.bindLoginc()
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

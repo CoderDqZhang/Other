@@ -8,6 +8,7 @@
 
 import UIKit
 import DZNEmptyDataSet
+import ReactiveCocoa
 
 class TouUpViewModel: BaseViewModel {
 
@@ -19,6 +20,7 @@ class TouUpViewModel: BaseViewModel {
     
     func tableViewTopUpTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpTableViewCell) {
         cell.cellSetData(model: self.accountInfo)
+        
     }
     
     func tableViewTopUpToolsTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpToolsTableViewCell) {
@@ -34,26 +36,30 @@ class TouUpViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect( tableView:UITableView,  indexPath:IndexPath){
-        if indexPath.section == 1 {
+        if indexPath.section == 0 {
             NavigationPushView(self.controller!, toConroller: WithdrawViewController())
         }
     }
 
     func getAccount(){
-        BaseNetWorke.sharedInstance.postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let model = AccountInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 self.accountInfo = model
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func getAccountInfoNet(userId:String){
-        BaseNetWorke.sharedInstance.postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.accountInfo = AccountInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

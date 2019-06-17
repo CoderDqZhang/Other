@@ -37,7 +37,7 @@ class PostViewController: BaseViewController {
     @objc func leftButtonClick(_ sender:UIBarButtonItem) {
         UIAlertController.showAlertControl(self, style: .alert, title: "是否保存此次编辑?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
             self.dismiss(animated: true) {
-                
+                CacheManager.getSharedInstance().removePostModel()
             }
         }, doneAction: {
             self.dismiss(animated: true) {

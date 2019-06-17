@@ -26,7 +26,6 @@ target 'Touqiu' do
   pod 'RAMAnimatedTabBarController'
   pod 'pop'
   pod 'FDFullscreenPopGesture'
-  pod 'BetterSegmentedControl'
   pod 'UITableView+FDTemplateLayoutCell'
   pod 'TYPagerController',:inhibit_warnings => true
   pod 'TZImagePickerController'

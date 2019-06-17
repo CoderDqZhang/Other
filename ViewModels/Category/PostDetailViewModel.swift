@@ -74,10 +74,12 @@ class PostDetailViewModel: BaseViewModel {
     
     func getTipDetail(id:String){
         let parameters = ["tipId":id]
-        BaseNetWorke.sharedInstance.postUrlWithString(TipgetTipDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.tipDetailModel = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
@@ -85,7 +87,7 @@ class PostDetailViewModel: BaseViewModel {
     func getComments(id:String){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "tipId": id]
-        BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
                     self.commentListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
@@ -93,44 +95,54 @@ class PostDetailViewModel: BaseViewModel {
                     self.commentListArray.removeAllObjects()
                     self.commentListArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
+//                self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .automatic)
                 self.reloadTableViewData()
-                self.controller?.stopRefresh()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func collectNet(){
         let parameters = ["tipId":self.tipDetailModel.id!.string]
-        BaseNetWorke.sharedInstance.postUrlWithString(TipcollectTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(TipcollectTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "收藏成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func likeNet(){
         let parameters = ["tipId":self.tipDetailModel.id!.string]
-        BaseNetWorke.sharedInstance.postUrlWithString(TipapproveTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(TipapproveTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func likeCommentNet(commentId:String){
         let parameters = ["commentId":commentId]
-        BaseNetWorke.sharedInstance.postUrlWithString(CommentcommentApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
     func followNet(){
         let parameters = ["userId":self.tipDetailModel.user.id!.string]
-        BaseNetWorke.sharedInstance.postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "关注成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
@@ -163,7 +175,7 @@ extension PostDetailViewModel: UITableViewDelegate {
             if indexPath.row == 0 {
                 return 60
             }
-            return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
+            return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), configuration: { (cell) in
                 self.tableViewPostDetailContentTableViewCellSetData(indexPath, cell: cell as! PostDetailContentTableViewCell)
             })
             
@@ -173,7 +185,7 @@ extension PostDetailViewModel: UITableViewDelegate {
             if indexPath.row == 0 {
                 return 56
             }
-            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
+            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), configuration: { (cell) in
                 self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell  as! PostDetailCommentTableViewCell)
             })
         }

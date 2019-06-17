@@ -18,7 +18,7 @@ class CategoryContentTableViewCell: UITableViewCell {
 
     var detailLabel:YYLabel!
     var imageContentView:UIView!
-    
+    var model:TipModel!
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 1))
     
     var didMakeConstraints = false
@@ -44,7 +44,7 @@ class CategoryContentTableViewCell: UITableViewCell {
             make.left.equalTo(self.contentView.snp.left).offset(15)
             make.right.equalTo(self.contentView.snp.right).offset(-15)
             make.top.equalTo(self.contentView.snp.top).offset(0)
-            make.size.height.equalTo(20)
+            make.height.equalTo(17)
         }
         
         imageContentView.snp.makeConstraints { (make) in
@@ -52,7 +52,7 @@ class CategoryContentTableViewCell: UITableViewCell {
             make.right.equalTo(self.contentView.snp.right).offset(-15)
             make.top.equalTo(self.detailLabel.snp.bottom).offset(8)
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
-            make.size.height.equalTo(0.001)
+            make.height.equalTo(0.001)
         }
         
         self.contentView.addSubview(lineLabel)
@@ -61,7 +61,7 @@ class CategoryContentTableViewCell: UITableViewCell {
             make.left.equalTo(self.contentView.snp.left).offset(15)
             make.right.equalTo(self.contentView.snp.right).offset(-15)
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
-            make.size.height.equalTo(1)
+            make.height.equalTo(1)
         }
         
         self.updateConstraints()
@@ -70,11 +70,11 @@ class CategoryContentTableViewCell: UITableViewCell {
     func cellSetData(tipmodel:TipModel){
         let stringHeight = tipmodel.title.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
         detailLabel.snp.updateConstraints { (make) in
-            make.size.height.equalTo(stringHeight)
+            make.height.equalTo(stringHeight)
         }
         detailLabel.text = tipmodel.title
         let images = tipmodel.image.split(separator: ",")
-
+        
         if images.count > 1 {
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
@@ -95,10 +95,8 @@ class CategoryContentTableViewCell: UITableViewCell {
                 make.height.equalTo(0.0001)
             }
         }
-        
-        
-
         self.contentView.updateConstraintsIfNeeded()
+        
 
     }
     

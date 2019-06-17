@@ -6,6 +6,7 @@
 	<dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
@@ -13,14 +14,24 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+=======
+			<key>isShown</key>
+			<false/>
 		</dict>
-		<key>BetterSegmentedControl.xcscheme</key>
+		<key>AliyunOSSiOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+>>>>>>> 76d0a394efaaabd89fdd87b7a9c14edef82a75f7
+		</dict>
+		<key>BetterSegmentedControl.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>30</integer>
 		</dict>
 		<key>DZNEmptyDataSet.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
@@ -153,6 +164,275 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>12</integer>
+=======
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>2</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>FDFullscreenPopGesture.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>3</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>FMDB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>4</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>IQKeyboardManagerSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>5</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>JXSegmentedView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>6</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>7</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>8</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>Pods-Touqiu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>9</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>Pods-TouqiuTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>10</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>Pods-TouqiuUITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>11</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>RAMAnimatedTabBarController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>13</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>ReactiveCocoa.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>14</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>ReactiveSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>15</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>16</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>SKPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>17</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>SnapKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>18</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>SwifterSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>19</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>TYPagerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>20</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>TZImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>21</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>UITableView+FDTemplateLayoutCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>22</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>YTKKeyValueStore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>23</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>YYCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>24</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>YYImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>25</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>YYModel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>26</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>YYText.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>27</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>YYWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>28</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+		</dict>
+		<key>pop.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+<<<<<<< HEAD
+			<key>orderHint</key>
+			<integer>12</integer>
+=======
+>>>>>>> b39ccef55bed68865fb5eed5d76b6a631aa3d573
+>>>>>>> 76d0a394efaaabd89fdd87b7a9c14edef82a75f7
 		</dict>
 	</dict>
 </dict>

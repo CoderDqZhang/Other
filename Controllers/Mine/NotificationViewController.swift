@@ -7,9 +7,18 @@
 //
 
 import UIKit
+import JXSegmentedView
+
+typealias NotificationViewControllerReloadClouse = (_ index:Int) ->Void
 
 class NotificationViewController: BaseViewController {
 
+    let notificationViewModel = NotificationViewModel.init()
+    var types = [NotificationType.system,NotificationType.comment,NotificationType.commentMe,NotificationType.approve]
+    var unreadModel:UnreadMessageModel!
+    
+    var notificationViewControllerReloadClouse:NotificationViewControllerReloadClouse!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +26,25 @@ class NotificationViewController: BaseViewController {
     }
     
 
+    func initSView(type:Int) {
+        self.bindViewModel(viewModel: notificationViewModel, controller: self)
+        notificationViewModel.type = types[type]
+        self.setUpTableView(style: .plain, cells: [NotificationTableViewCell.self], controller: self)
+        
+        self.setUpRefreshData {
+            self.notificationViewModel.page = 0
+            self.notificationViewModel.notificationNet()
+        }
+        
+        self.setUpLoadMoreData {
+            self.notificationViewModel.notificationNet()
+        }
+        self.notificationViewModel.notificationNet()
+    }
+    
+    override func bindViewModelLogic() {
+        self.notificationViewModel.unreadModel = self.unreadModel
+    }
     /*
     // MARK: - Navigation
 
@@ -28,3 +56,20 @@ class NotificationViewController: BaseViewController {
     */
 
 }
+
+extension NotificationViewController : JXSegmentedListContainerViewListDelegate {
+    override func listView() -> UIView {
+        return view
+    }
+    
+    override func listDidAppear() {
+        print("listDidAppear")
+    }
+    
+    override func listDidDisappear() {
+        print("listDidDisappear")
+    }
+}
+
+
+

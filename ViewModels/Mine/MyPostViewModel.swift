@@ -38,18 +38,17 @@ class MyPostViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        let dicData:NSDictionary = TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
-        let postDetail = PostDetailViewController()
-        postDetail.postData = dicData
-        postDetail.postType = .Hot
-        NavigationPushView(self.controller!, toConroller: postDetail)
+        if indexPath.row != 0 {
+            let dicData:NSDictionary = TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
+            (self.controller as! MyPostViewController).postDetailDataClouse(dicData,.Hot)
+        }
     }
     
     
     func getMyPostNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":"0", "isCollect":"0","userId":CacheManager.getSharedInstance().getUserId()] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
                     self.myPostArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
@@ -57,7 +56,8 @@ class MyPostViewModel: BaseViewModel {
                     self.myPostArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-                self.controller?.stopRefresh()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

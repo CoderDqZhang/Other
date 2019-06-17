@@ -16,6 +16,12 @@ class PostSegementViewController: BaseViewController {
     var segmentedView: JXSegmentedView!
     let titles = ["我的帖子", "我的评论"]
     var heightForHeaderInSection: Int = 44
+    
+    let segmentViewModel = PostSegementViewModel.init()
+    
+    let postVC = MyPostViewController.init()
+    let commentVC = MyCommentViewController.init()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,6 +60,19 @@ class PostSegementViewController: BaseViewController {
         self.view.addSubview(pagingView)
         
         segmentedView.contentScrollView = pagingView.listContainerView.collectionView
+    }
+    
+    
+    override func bindViewModelLogic(){
+        self.bindViewModel(viewModel: segmentViewModel, controller: self)
+        self.postVC.postDetailDataClouse = { data, type in
+            self.segmentViewModel.pushPostDetailViewController(data, type)
+        }
+        
+        self.commentVC.postDetailDataClouse = { data, type in
+            self.segmentViewModel.pushPostDetailViewController(data, type)
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -96,13 +115,11 @@ extension PostSegementViewController: JXPagingViewDelegate {
     
     func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
         if index == 0 {
-            let controller = MyPostViewController.init()
-            controller.initSView()
-            return controller
+            postVC.initSView()
+            return postVC
         }else{
-            let controller = MyCommentViewController.init()
-            controller.initSView()
-            return controller
+            commentVC.initSView()
+            return commentVC
         }
     }
     
