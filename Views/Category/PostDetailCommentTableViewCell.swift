@@ -225,7 +225,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             secondeContent.snp.remakeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(44)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.top.equalTo(self.contentLabel.snp.bottom).offset(8)
+                make.top.equalTo(self.imageContentView.snp.bottom).offset(8)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-17)
                 make.size.height.equalTo(0.001)
             }

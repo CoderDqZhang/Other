@@ -68,37 +68,34 @@ class CategoryContentTableViewCell: UITableViewCell {
     }
     
     func cellSetData(tipmodel:TipModel){
-        if self.model == nil {
-            self.model = tipmodel
-            let stringHeight = tipmodel.title.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-            detailLabel.snp.updateConstraints { (make) in
-                make.height.equalTo(stringHeight)
-            }
-            detailLabel.text = tipmodel.title
-            let images = tipmodel.image.split(separator: ",")
-            
-            if images.count > 1 {
-                for index in 0...images.count - 1 {
-                    let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                    UIImageViewManger.sd_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
-                        if error == nil {
-                            imageView.image = image
-                        }
-                    }
-                    imageView.layer.cornerRadius = 5
-                    imageView.layer.masksToBounds = true
-                    self.imageContentView.addSubview(imageView)
-                }
-                imageContentView.snp.updateConstraints{ (make) in
-                    make.height.equalTo(contentImageHeight)
-                }
-            }else{
-                imageContentView.snp.updateConstraints{ (make) in
-                    make.height.equalTo(0.0001)
-                }
-            }
-            self.contentView.updateConstraintsIfNeeded()
+        let stringHeight = tipmodel.title.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
+        detailLabel.snp.updateConstraints { (make) in
+            make.height.equalTo(stringHeight)
         }
+        detailLabel.text = tipmodel.title
+        let images = tipmodel.image.split(separator: ",")
+        
+        if images.count > 1 {
+            for index in 0...images.count - 1 {
+                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
+                UIImageViewManger.sd_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
+                    if error == nil {
+                        imageView.image = image
+                    }
+                }
+                imageView.layer.cornerRadius = 5
+                imageView.layer.masksToBounds = true
+                self.imageContentView.addSubview(imageView)
+            }
+            imageContentView.snp.updateConstraints{ (make) in
+                make.height.equalTo(contentImageHeight)
+            }
+        }else{
+            imageContentView.snp.updateConstraints{ (make) in
+                make.height.equalTo(0.0001)
+            }
+        }
+        self.contentView.updateConstraintsIfNeeded()
         
 
     }

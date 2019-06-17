@@ -51,7 +51,10 @@ class CategoryDetailViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
+        let postDetailVC = PostDetailViewController()
+        postDetailVC.postData = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]).toDictionary() as NSDictionary
+        postDetailVC.postType = .Hot
+        NavigationPushView(self.controller!, toConroller: postDetailVC)
     }
     
     func getCategoryNet(){

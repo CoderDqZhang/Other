@@ -270,6 +270,7 @@
 		1FF1E52C22AF567400BB9A50 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52B22AF567400BB9A50 /* DailyViewModel.swift */; };
 		1FF1E52F22AF85E500BB9A50 /* UIImage+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E52E22AF85E500BB9A50 /* UIImage+Text.m */; };
 		1FF1E53122B0D95700BB9A50 /* DailyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53022B0D95700BB9A50 /* DailyModel.swift */; };
+		1FF1E53322B782E800BB9A50 /* PostSegementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53222B782E700BB9A50 /* PostSegementViewModel.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -620,6 +621,7 @@
 		1FF1E52D22AF85E500BB9A50 /* UIImage+Text.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Text.h"; sourceTree = "<group>"; };
 		1FF1E52E22AF85E500BB9A50 /* UIImage+Text.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Text.m"; sourceTree = "<group>"; };
 		1FF1E53022B0D95700BB9A50 /* DailyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyModel.swift; sourceTree = "<group>"; };
+		1FF1E53222B782E700BB9A50 /* PostSegementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSegementViewModel.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1444,6 +1446,7 @@
 				1FE8DAE72292830600DCED01 /* RecommendViewModel.swift */,
 				1FE8DAF22292937000DCED01 /* OtherPostViewModel.swift */,
 				1FE8DAF4229293AD00DCED01 /* OtherGuessingViewModel.swift */,
+				1FF1E53222B782E700BB9A50 /* PostSegementViewModel.swift */,
 				1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */,
 				1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */,
 				1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */,
@@ -2068,6 +2071,7 @@
 				1F1C1B5222A0E6C6008031F4 /* MessageSegementViewController.swift in Sources */,
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,
 				1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */,
+				1FF1E53322B782E800BB9A50 /* PostSegementViewModel.swift in Sources */,
 				1FE5BE4B2282864300C9137C /* UITapGestureRecognizer+Extention.swift in Sources */,
 				1FE8DB012292C5DC00DCED01 /* MycollectViewController.swift in Sources */,
 				1F1C1B3A229F6C88008031F4 /* BindDrawViewModel.swift in Sources */,

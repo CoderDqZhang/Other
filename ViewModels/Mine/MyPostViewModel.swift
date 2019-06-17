@@ -38,11 +38,10 @@ class MyPostViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        let dicData:NSDictionary = TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
-        let postDetail = PostDetailViewController()
-        postDetail.postData = dicData
-        postDetail.postType = .Hot
-        NavigationPushView(self.controller!, toConroller: postDetail)
+        if indexPath.row != 0 {
+            let dicData:NSDictionary = TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
+            (self.controller as! MyPostViewController).postDetailDataClouse(dicData,.Hot)
+        }
     }
     
     

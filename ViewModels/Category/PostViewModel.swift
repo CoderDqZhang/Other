@@ -40,14 +40,6 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
         cell.postCommentTextTableViewCellTextClouse = { (str) in
             self.postModel.content = str
         }
-        
-//        cell.keyboardToobarClouse = { type in
-//            if type == .cancel {
-//                
-//            }else{
-//                (self.controller as! PostViewController).setUpAlerViewController()
-//            }
-//        }
     }
     
     func tableViewGloabelTextFieldTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldTableViewCell) {

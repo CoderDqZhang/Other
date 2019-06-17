@@ -95,6 +95,7 @@ class PostDetailViewModel: BaseViewModel {
                     self.commentListArray.removeAllObjects()
                     self.commentListArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
+//                self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .automatic)
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -184,7 +185,7 @@ extension PostDetailViewModel: UITableViewDelegate {
             if indexPath.row == 0 {
                 return 56
             }
-            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
+            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), configuration: { (cell) in
                 self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell  as! PostDetailCommentTableViewCell)
             })
         }
