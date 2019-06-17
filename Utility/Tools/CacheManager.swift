@@ -16,8 +16,8 @@ class CacheManager: NSObject {
     
     private static let _sharedInstance = CacheManager()
     
-    var userCache = YYKVStorage.init(path: kEncodeUserCachesDirectory, type: YYKVStorageType.file)
-    var otherCache = YYKVStorage.init(path: kEncodedObjectPath, type: YYKVStorageType.file)
+    var userCache = YYDiskCache.init(path: kEncodeUserCachesDirectory)
+    var otherCache = YYDiskCache.init(path: kEncodedObjectPath)
     
     class func getSharedInstance() -> CacheManager {
         
@@ -33,9 +33,9 @@ class CacheManager: NSObject {
     
     func saveNormaltModel(category:CategoryModel){
         var array = NSMutableArray.init()
-        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "CategoryModels"))! {
-            let item:Data = ((CacheManager._sharedInstance.otherCache?.getItemValue(forKey: "CategoryModels"))!)
-            array =  NSKeyedUnarchiver.unarchiveObject(with: item) as! NSMutableArray
+        if (CacheManager.getSharedInstance().otherCache?.containsObject(forKey: "CategoryModels"))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "CategoryModels"))!
+            array = NSMutableArray.init(array: item as! [Any])
         }
         for model in array {
             if category.id == CategoryModel.init(fromDictionary: model as! [String : Any]).id {
@@ -43,87 +43,84 @@ class CacheManager: NSObject {
             }
         }
         array.add(category.toDictionary())
-        
-        CacheManager._sharedInstance.otherCache?.saveItem(withKey: "CategoryModels", value: NSKeyedArchiver.archivedData(withRootObject: array), filename: "CategoryTemp", extendedData: nil)
+        CacheManager._sharedInstance.otherCache?.setObject(array, forKey: "CategoryModels")
     }
     
     func getCategoryModels() ->NSMutableArray? {
-        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "CategoryModels"))! {
-            let item:Data = ((CacheManager._sharedInstance.otherCache?.getItemValue(forKey: "CategoryModels"))!)
-            return NSKeyedUnarchiver.unarchiveObject(with: item) as? NSMutableArray
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "CategoryModels"))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "CategoryModels"))!
+            return item as? NSMutableArray
         }
         return nil
     }
     
     func savePostModel(postModel:PostModel){
-        CacheManager._sharedInstance.otherCache?.saveItem(withKey: "PostModel", value: NSKeyedArchiver.archivedData(withRootObject: postModel), filename: "PostTemp", extendedData: nil)
+        CacheManager._sharedInstance.otherCache?.setObject(postModel, forKey: "PostModel")
     }
     
     func getPostModel() ->PostModel? {
-        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "PostModel"))! == true {
-            let item:Data = ((CacheManager._sharedInstance.otherCache?.getItemValue(forKey: "PostModel"))!)
-            return NSKeyedUnarchiver.unarchiveObject(with: item) as? PostModel
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "PostModel"))! == true {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "PostModel"))!
+            return NSKeyedUnarchiver.unarchiveObject(with: item as! Data) as? PostModel
         }
-        return PostModel.init(fromDictionary: ["":""])
+        return nil
     }
     
     func removePostModel(){
-        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "PostModel"))! {
-            CacheManager._sharedInstance.otherCache?.removeItem(forKey: "PostModel")
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "PostModel"))! {
+            CacheManager._sharedInstance.otherCache?.removeObject(forKey: "PostModel")
         }
     }
     
     
     func saveUserInfo(userInfo:UserInfoModel){
-        CacheManager._sharedInstance.userCache?.saveItem(withKey: "userInfo", value: userInfo.toDictionary().jsonData()!, filename: "UserInfoFile", extendedData: nil)
+        CacheManager._sharedInstance.otherCache?.setObject(userInfo, forKey: "userInfo")
     }
     
     func getUserInfo() ->UserInfoModel? {
-        if CacheManager._sharedInstance.isLogin() {
-            do {
-                let item:Data = try ((CacheManager._sharedInstance.userCache?.getItemValue(forKey: "userInfo"))!)
-                return UserInfoModel.init(fromDictionary: try item.jsonObject() as! [String : Any])
-            }catch{
-                return nil
-            }
-        }else{
-            return nil
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "userInfo"))! == true {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "userInfo"))!
+            return item as? UserInfoModel
         }
-        
+        return nil
     }
     
     func logout(){
-        if (CacheManager._sharedInstance.userCache?.itemExists(forKey: "userInfo"))! {
-            CacheManager._sharedInstance.userCache?.removeItem(forKey: "userInfo")
+        if (CacheManager._sharedInstance.userCache?.containsObject(forKey: "userInfo"))! {
+            CacheManager._sharedInstance.userCache?.removeObject(forKey: "userInfo")
         }
         UserDefaults.init().removeObject(forKey: "UserToken")
     }
     
     func isLogin() ->Bool {
-        return (CacheManager._sharedInstance.userCache?.itemExists(forKey: "userInfo"))! 
+        if UserDefaults.init().object(forKey: "UserToken") == nil ||  (CacheManager._sharedInstance.userCache?.containsObject(forKey: "userInfo")) == nil{
+            CacheManager._sharedInstance.logout()
+            return false
+        }
+        return true
     }
     
     
     func saveConfigModel(category:ConfigModel){
-         CacheManager._sharedInstance.otherCache?.saveItem(withKey: "ConfigModel", value: NSKeyedArchiver.archivedData(withRootObject: category), filename: "ConfigModel", extendedData: nil)
+        CacheManager._sharedInstance.otherCache?.setObject(category, forKey: "ConfigModel")
     }
     
     func getConfigModel() ->ConfigModel?{
-        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "ConfigModel"))! {
-            let item:Data = ((CacheManager._sharedInstance.otherCache?.getItemValue(forKey: "ConfigModel"))!)
-            return NSKeyedUnarchiver.unarchiveObject(with: item) as? ConfigModel
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "ConfigModel"))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "ConfigModel"))!
+            return item as? ConfigModel
         }
         return nil
     }
     
     func saveUnreadModel(category:UnreadMessageModel){
-        CacheManager._sharedInstance.otherCache?.saveItem(withKey: "UnreadMessageModel", value: NSKeyedArchiver.archivedData(withRootObject: category), filename: "UnreadMessageModel", extendedData: nil)
+         CacheManager._sharedInstance.otherCache?.setObject(category, forKey: "UnreadMessageModel")
     }
     
     func getUnreadModel() ->UnreadMessageModel?{
-        if (CacheManager._sharedInstance.otherCache?.itemExists(forKey: "UnreadMessageModel"))! {
-            let item:Data = ((CacheManager._sharedInstance.otherCache?.getItemValue(forKey: "UnreadMessageModel"))!)
-            return NSKeyedUnarchiver.unarchiveObject(with: item) as? UnreadMessageModel
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "UnreadMessageModel"))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "UnreadMessageModel"))!
+            return item as? UnreadMessageModel
         }
         return nil
     }
