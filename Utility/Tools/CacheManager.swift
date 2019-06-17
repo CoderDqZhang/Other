@@ -61,7 +61,7 @@ class CacheManager: NSObject {
     func getPostModel() ->PostModel? {
         if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "PostModel"))! == true {
             let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "PostModel"))!
-            return NSKeyedUnarchiver.unarchiveObject(with: item as! Data) as? PostModel
+            return item as? PostModel
         }
         return nil
     }
