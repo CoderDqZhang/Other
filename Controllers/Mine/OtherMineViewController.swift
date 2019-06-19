@@ -9,6 +9,8 @@
 import UIKit
 import JXSegmentedView
 
+typealias OtherMineViewControlerReloadFansButtonClouse = (_ status:Bool) ->Void
+
 class OtherMineViewController: BaseViewController {
 
     var pagingView:JXPagingView!
@@ -28,6 +30,8 @@ class OtherMineViewController: BaseViewController {
     var otherViewModel = OtherMineViewModel.init()
     
     var gloableNavigationBar:GLoabelNavigaitonBar!
+    
+    var otherMineViewControlerReloadFansButtonClouse:OtherMineViewControlerReloadFansButtonClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +80,18 @@ class OtherMineViewController: BaseViewController {
         userHeader.changeToolsButtonType(followed: true)
         userHeader.gloabelHeaderClouse = { status in
             self.otherViewModel.followNet(userId: (self.postData.object(forKey: "id") as! Int).string, status: status)
+        }
+        userHeader.mineInfoTableViewCellClouse = { type in
+            switch type {
+            case .fans:
+                let fansVC = FansViewController()
+                fansVC.userId = (self.postData.object(forKey: "id") as! Int).string
+                NavigationPushView(self, toConroller: fansVC)
+            default:
+                let followsVC = FollowsViewController()
+                followsVC.userId = (self.postData.object(forKey: "id") as! Int).string
+                NavigationPushView(self, toConroller: followsVC)
+            }
         }
         userHeaderContainerView.addSubview(userHeader)
         

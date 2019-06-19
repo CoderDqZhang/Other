@@ -107,7 +107,10 @@ class PostDetailContentTableViewCell: UITableViewCell {
         contnetLabel.text = model.content
 
         let images = model.image.split(separator: ",")
-        let browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithUrl(urls: images, selectPageIndex: 0)
+        var browser:SKPhotoBrowser? = nil
+        if images.count > 1 {
+            browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithUrl(urls: images, selectPageIndex: 0)
+        }
         if images.count > 1 {
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
@@ -123,7 +126,9 @@ class PostDetailContentTableViewCell: UITableViewCell {
                     gesture.numberOfTouchesRequired = 1
                     }.whenTaped(handler: { (tap) in
                         if self.postDetailContentTableViewCellImageClickClouse != nil {
-                            self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser)
+                            if browser != nil {
+                                self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
+                            }
                         }
                     })
                 imageView.layer.cornerRadius = 5

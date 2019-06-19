@@ -20,7 +20,9 @@ class TouUpViewModel: BaseViewModel {
     
     func tableViewTopUpTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpTableViewCell) {
         cell.cellSetData(model: self.accountInfo)
-        
+        cell.topUpTableViewCellClouse = {
+            NavigationPushView(self.controller!, toConroller: WithdrawViewController())
+        }
     }
     
     func tableViewTopUpToolsTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpToolsTableViewCell) {

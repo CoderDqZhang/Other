@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias ChangeFansFollowButtonStatusClouse = (_ status:Bool) ->Void
+
 class PostDetailViewController: BaseViewController {
 
     var postType:PostType!
@@ -15,6 +17,8 @@ class PostDetailViewController: BaseViewController {
     var postDetailViewModel = PostDetailViewModel()
     
     var gloableCommentView:CustomViewCommentTextField!
+    
+    var changeFansFollowButtonStatusClouse:ChangeFansFollowButtonStatusClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()

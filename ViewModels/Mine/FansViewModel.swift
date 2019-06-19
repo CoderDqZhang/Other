@@ -13,21 +13,41 @@ class FansViewModel: BaseViewModel {
     
     var page = 0
     var fansArray = NSMutableArray.init()
+    var userId:String?
     override init() {
         super.init()
-        self.getFansNet()
     }
     
     func tableViewGloabelFansTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelFansTableViewCell) {
-        cell.cellSetData(model: FansFlowwerModel.init(fromDictionary: fansArray[indexPath.row] as! [String : Any]))
+        cell.cellSetData(model: FansFlowwerModel.init(fromDictionary: fansArray[indexPath.row] as! [String : Any]), indexPath: indexPath)
         if indexPath.row == 9 {
             cell.lineLableHidden()
         }
+        cell.gloabelFansTableViewCellClouse = { type, indexPath in
+            self.followNet(type: type, indexPath: indexPath)
+        }
     }
     
-    func getFansNet(){
+    func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
+        let dic:NSDictionary = FansFlowwerModel.init(fromDictionary: self.fansArray[indexPath.row] as! [String : Any]).toDictionary() as NSDictionary
+        let otherMineVC = OtherMineViewController()
+        otherMineVC.postData = dic
+        otherMineVC.otherMineViewControlerReloadFansButtonClouse = { status in
+            self.page = 0
+            self.getFansNet(userId: self.userId)
+        }
+        NavigationPushView(self.controller!, toConroller: otherMineVC)
+    }
+    
+    func getFansNet(userId:String?){
         page = page + 1
-        let parameters = ["page":page.string, "limit":LIMITNUMBER] as [String : Any]
+        var parameters:[String : Any]?
+        if userId == nil {
+            parameters = ["page":page.string, "limit":LIMITNUMBER] as [String : Any]
+        }else{
+            parameters = ["page":page.string, "limit":LIMITNUMBER,"userId":userId!] as [String : Any]
+
+        }
         BaseNetWorke.getSharedInstance().postUrlWithString(PersonmyFansUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
@@ -42,11 +62,24 @@ class FansViewModel: BaseViewModel {
         }
     }
     
-    func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        let dic:NSDictionary = FansFlowwerModel.init(fromDictionary: self.fansArray[indexPath.row] as! [String : Any]).toDictionary() as NSDictionary
-        let otherMineVC = OtherMineViewController()
-        otherMineVC.postData = dic
-        NavigationPushView(self.controller!, toConroller: otherMineVC)
+    func followNet(type:GloabelButtonType, indexPath:IndexPath){
+        let model = FansFlowwerModel.init(fromDictionary: fansArray[indexPath.row] as! [String : Any])
+        let parameters = ["userId":model.id!.string]
+        BaseNetWorke.getSharedInstance().postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+                if type == .select {
+                    self.reloadTalbeViewData(indexPath: indexPath)
+                }
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func reloadTalbeViewData(indexPath:IndexPath){
+//        self.fansArray.removeObject(at: indexPath.row)
+//        self.controller?.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 

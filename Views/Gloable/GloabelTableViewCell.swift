@@ -144,6 +144,13 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     }
 }
 
+enum GloabelButtonType:Int {
+    case select = 1
+    case unselect = 0
+}
+
+typealias GloabelFansTableViewCellClouse = (_ type:GloabelButtonType, _ indexPath:IndexPath) ->Void
+
 class GloabelFansTableViewCell : UITableViewCell {
     
     
@@ -152,8 +159,11 @@ class GloabelFansTableViewCell : UITableViewCell {
     var avatarImageView:UIImageView!
     var vImageView:UIImageView!
     
+    var indexPath:IndexPath!
+    
     var toolsButton:AnimationButton!
     
+    var gloabelFansTableViewCellClouse:GloabelFansTableViewCellClouse!
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
     var didMakeConstraints = false
@@ -196,25 +206,28 @@ class GloabelFansTableViewCell : UITableViewCell {
         toolsButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
         toolsButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
         toolsButton.addAction({ (button) in
-            
+            if self.gloabelFansTableViewCellClouse != nil {
+                self.gloabelFansTableViewCellClouse(GloabelButtonType.init(rawValue: self.toolsButton.tag)!, self.indexPath)
+            }
         }, for: .touchUpInside)
         self.contentView.addSubview(toolsButton)
         self.updateConstraints()
     }
     
-    func cellSetData(model:FansFlowwerModel){
+    func cellSetData(model:FansFlowwerModel, indexPath:IndexPath){
         titleLabel.text = model.nickname
+        self.indexPath = indexPath
         UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cache, url) in
             if error == nil {
                 self.avatarImageView.image = image
             }
         }
-        self.changeToolsButtonType(followed: model.isFollow == 0 ? true : false)
+        self.changeToolsButtonType(followed: model.isFollow == 1 ? true : false)
         descLabel.text = model.descriptionField
-        
     }
     
     func changeToolsButtonType(followed:Bool) {
+        self.toolsButton.tag = followed == true ? 1 : 0
         if followed {
             toolsButton.setTitle("已关注", for: .normal)
             toolsButton.borderColor = App_Theme_FFAC1B_Color

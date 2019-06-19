@@ -23,8 +23,8 @@ class PostDetailViewModel: BaseViewModel {
         if tipDetailModel != nil {
             cell.cellSetData(model: self.tipDetailModel)
         }
-        cell.postDetailUserInfoClouse = {
-            self.followNet()
+        cell.postDetailUserInfoClouse = { type in
+            self.followNet(status: type == GloabelButtonType.select ? true : false)
         }
     }
     
@@ -150,11 +150,14 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
-    func followNet(){
+    func followNet(status:Bool){
         let parameters = ["userId":self.tipDetailModel.user.id!.string]
         BaseNetWorke.getSharedInstance().postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+                if (self.controller as! PostDetailViewController).changeFansFollowButtonStatusClouse != nil {
+                    (self.controller as! PostDetailViewController).changeFansFollowButtonStatusClouse(status)
+                }
+                _ = Tools.shareInstance.showMessage(KWindow, msg: status == true ? "关注成功" : "取消关注成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
