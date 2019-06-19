@@ -101,6 +101,7 @@ class NotificationViewModel: BaseViewModel {
         default:
             unreadModel.atMine = unreadModel.atMine - 1
         }
+        self.unreadModel.allunread = unreadModel.atMine + unreadModel.approveMine + unreadModel.commentMine + unreadModel.violation
         if (self.controller! as! NotificationViewController).notificationViewControllerReloadClouse != nil {
             (self.controller! as! NotificationViewController).notificationViewControllerReloadClouse(self.type!.rawValue)
         }
