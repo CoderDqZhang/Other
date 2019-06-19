@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SKPhotoBrowser
 
 let AESKey = "agtoc*xPAj1h8^G9"
 
@@ -28,4 +29,19 @@ let OSS_RESUMABLE_UPLOADKEY: String = "resumable"
 let OSS_CALLBACK_URL: String = "http://oss-demo.aliyuncs.com:23450"
 let OSS_CNAME_URL: String = "http://www.cnametest.com/"
 let OSS_STSTOKEN_URL: String = "http://*.*.*.*.****/sts/getsts"
+
+
+let CACHEMANAGERCATEGORYMODELS = "CategoryModels"
+let CACHEMANAPSOTMODEL = "PostModel"
+let CACHEMANAUSERINFO = "userInfo"
+let CACHEMANAUSERTOKEN = "UserToken"
+let CACHEMANACONFIGMODEL = "ConfigModel"
+let CACHEMANAUNREADMESSAGEMODEL = "UnreadMessageModel"
+
+
+
+let holderImage = UIImage.init(named: "")
+
+
+
 

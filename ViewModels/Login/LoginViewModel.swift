@@ -21,7 +21,7 @@ class LoginViewModel: BaseViewModel {
                 if resultDic.value != nil {
                     let userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                     CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
-                    UserDefaults.init().set(userInfo.token, forKey: "UserToken")
+                    UserDefaults.init().set(userInfo.token, forKey: CACHEMANAUSERTOKEN)
                     (self.controller as! LoginViewController).navigationController?.popToRootViewController(animated: true)
                     //登录成功后读取未读消息数量
                     LoadConfigManger.getSharedInstance().loadUnreadUrl()
@@ -40,7 +40,7 @@ class LoginViewModel: BaseViewModel {
                 if resultDic.value != nil {
                     let userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                     CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
-                    UserDefaults.init().set(userInfo.token, forKey: "UserToken")
+                    UserDefaults.init().set(userInfo.token, forKey: CACHEMANAUSERTOKEN)
                     (self.controller as! LoginViewController).navigationController?.popToRootViewController(animated: true)
                     //登录成功后读取未读消息数量
                     LoadConfigManger.getSharedInstance().loadUnreadUrl()

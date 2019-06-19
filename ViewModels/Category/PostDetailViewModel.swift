@@ -35,10 +35,22 @@ class PostDetailViewModel: BaseViewModel {
         cell.postDetailContentTableViewCellClouse = { type in
             switch type {
             case .like:
-                self.likeNet()
+                if CacheManager.getSharedInstance().isLogin() {
+                    self.likeNet()
+                }else{
+                    NavigationPushView(self.controller!, toConroller: LoginViewController())
+                }
             default:
-                 self.collectNet()
+                if CacheManager.getSharedInstance().isLogin() {
+                    self.collectNet()
+                }else{
+                    NavigationPushView(self.controller!, toConroller: LoginViewController())
+                }
             }
+        }
+        
+        cell.postDetailContentTableViewCellImageClickClouse = { tag,browser in
+            NavigaiontPresentView(self.controller!, toController: browser)
         }
     }
     
@@ -67,9 +79,11 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        let commentVC = CommentViewController()
-        commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
-        NavigationPushView(self.controller!, toConroller: commentVC)
+        if indexPath.section != 0 {
+            let commentVC = CommentViewController()
+            commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+            NavigationPushView(self.controller!, toConroller: commentVC)
+        }
     }
     
     func getTipDetail(id:String){

@@ -29,9 +29,13 @@ class SegmentViewModel: BaseViewModel {
     }
     
     func pushPostVC(){
-        let postVC = PostViewController()
-        let postNavigationController = UINavigationController.init(rootViewController: postVC)
-        NavigaiontPresentView(self.controller!, toController: postNavigationController)
+        if CacheManager.getSharedInstance().isLogin() {
+            let postVC = PostViewController()
+            let postNavigationController = UINavigationController.init(rootViewController: postVC)
+            NavigaiontPresentView(self.controller!, toController: postNavigationController)
+        }else{
+            NavigationPushView(self.controller!, toConroller: LoginViewController())
+        }
     }
     
     func pushCategoryDetailViewController(_ data:NSDictionary, _ type:CategoryType){
