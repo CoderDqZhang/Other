@@ -273,6 +273,7 @@
 		1FF1E53322B782E800BB9A50 /* PostSegementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53222B782E700BB9A50 /* PostSegementViewModel.swift */; };
 		1FF1E53522B8E89700BB9A50 /* SKPhotoBrowserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53422B8E89700BB9A50 /* SKPhotoBrowserManager.swift */; };
 		1FF1E53722BA136600BB9A50 /* ErrorCodeTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53622BA136500BB9A50 /* ErrorCodeTools.swift */; };
+		1FF1E53922BB70AE00BB9A50 /* PointsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53822BB70AD00BB9A50 /* PointsModel.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -626,6 +627,7 @@
 		1FF1E53222B782E700BB9A50 /* PostSegementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSegementViewModel.swift; sourceTree = "<group>"; };
 		1FF1E53422B8E89700BB9A50 /* SKPhotoBrowserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhotoBrowserManager.swift; sourceTree = "<group>"; };
 		1FF1E53622BA136500BB9A50 /* ErrorCodeTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ErrorCodeTools.swift; path = ../../Global/ErrorCodeTools.swift; sourceTree = "<group>"; };
+		1FF1E53822BB70AD00BB9A50 /* PointsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsModel.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1506,6 +1508,7 @@
 				1F1C1B5B22A10245008031F4 /* NotificaitonModel.swift */,
 				1FF1E52522AF4C7D00BB9A50 /* InviteModel.swift */,
 				1FF1E53022B0D95700BB9A50 /* DailyModel.swift */,
+				1FF1E53822BB70AD00BB9A50 /* PointsModel.swift */,
 			);
 			name = Mine;
 			path = ViewModels/Mine;
@@ -2078,6 +2081,7 @@
 				1F1C1B5222A0E6C6008031F4 /* MessageSegementViewController.swift in Sources */,
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,
 				1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */,
+				1FF1E53922BB70AE00BB9A50 /* PointsModel.swift in Sources */,
 				1FF1E53322B782E800BB9A50 /* PostSegementViewModel.swift in Sources */,
 				1FE5BE4B2282864300C9137C /* UITapGestureRecognizer+Extention.swift in Sources */,
 				1FE8DB012292C5DC00DCED01 /* MycollectViewController.swift in Sources */,

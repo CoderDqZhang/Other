@@ -323,26 +323,34 @@ class MineInfoTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:UserInfoModel?,acount:AccountInfoModel?){
-        if model != nil {
-            userNameLabel.text = model!.nickname
-            if model!.fansNum > 1000 {
-                followLabel.text = "粉丝 \(model!.fansNum.kFormatted)"
-            }else{
-                followLabel.text = "粉丝 \(model!.fansNum.string)"
-            }
-            if model!.followNum > 1000 {
-                attentionsLabel.text = "关注 \(String(describing: model?.followNum.kFormatted))"
-            }else{
-                attentionsLabel.text = "关注 \(model!.followNum.string)"
-            }
-            descLabel.text = model!.descriptionField == "" ? "还没有个人简介" : model!.descriptionField
-            UIImageViewManger.sd_imageView(url: model!.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
-                self.avatarImageView.image = image
-            }
-            vImageView.isHidden = model!.isMaster == "1" ? false : true
+        var showModel = model
+        if showModel == nil {
+            showModel = getNoLoginUserModel()
         }
-        if acount?.integral != nil {
-            topUpView.updateText(icon: acount!.chargeCoin.string, number: acount!.integral.string)
+        userNameLabel.text = showModel!.nickname
+        if showModel!.fansNum > 1000 {
+            followLabel.text = "粉丝 \(showModel!.fansNum.kFormatted)"
+        }else{
+            followLabel.text = "粉丝 \(showModel!.fansNum.string)"
+        }
+        if showModel!.followNum > 1000 {
+            attentionsLabel.text = "关注 \(String(describing: showModel?.followNum.kFormatted))"
+        }else{
+            attentionsLabel.text = "关注 \(showModel!.followNum.string)"
+        }
+        descLabel.text = showModel!.descriptionField == "" ? "还没有个人简介" : showModel!.descriptionField
+        UIImageViewManger.sd_imageView(url: showModel!.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
+            self.avatarImageView.image = image
+        }
+        
+        var showAccountModel = acount
+        if showAccountModel == nil {
+            showAccountModel = getNologinAccountModel()
+        }
+        
+        vImageView.isHidden = showModel!.isMaster == "1" ? false : true
+        if showAccountModel?.integral != nil {
+            topUpView.updateText(icon: showAccountModel!.chargeCoin.string, number: showAccountModel!.integral.string)
         }
         
     }

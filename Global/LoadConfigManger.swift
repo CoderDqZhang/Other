@@ -21,6 +21,7 @@ class LoadConfigManger: NSObject {
     func setUp(){
         self.loadConfigUrl()
         self.loadUnreadUrl()
+        self.loadPointdUrl()
     }
     
     func loadConfigUrl(){
@@ -40,6 +41,17 @@ class LoadConfigManger: NSObject {
                     let model = UnreadMessageModel.init(fromDictionary: resultDic.value as! [String : Any])
                     CacheManager.getSharedInstance().saveUnreadModel(category: model)
                     (KWindow.rootViewController as! MainTabBarController).upateUnreadMessage()
+                }
+            }
+        }
+    }
+    
+    func loadPointdUrl(){
+        if CacheManager.getSharedInstance().isLogin() {
+            BaseNetWorke.getSharedInstance().getUrlWithString(CommentgetPointUrl, parameters: nil).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    let model = NSMutableArray.init(array: resultDic.value as! Array)
+                    CacheManager.getSharedInstance().savePointModel(point: model)
                 }
             }
         }

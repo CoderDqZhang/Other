@@ -127,4 +127,16 @@ class CacheManager: NSObject {
         }
         return nil
     }
+    
+    func savePointModel(point:NSMutableArray){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: CACHEMANAPointModel)
+    }
+    
+    func getPointModel() ->NSMutableArray?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: CACHEMANAPointModel))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANAPointModel))!
+            return item as? NSMutableArray
+        }
+        return nil
+    }
 }

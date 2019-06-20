@@ -12,7 +12,8 @@ class DailyModel : NSObject, NSCoding{
     
     var signIn : Int!
     var status : Int!
-    
+    var points : String = "0"
+    var maxPoint : Float = 0
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values

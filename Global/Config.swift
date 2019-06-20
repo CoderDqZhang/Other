@@ -37,10 +37,48 @@ let CACHEMANAUSERINFO = "userInfo"
 let CACHEMANAUSERTOKEN = "UserToken"
 let CACHEMANACONFIGMODEL = "ConfigModel"
 let CACHEMANAUNREADMESSAGEMODEL = "UnreadMessageModel"
+let CACHEMANAPointModel = "PointModel"
 
 
 
 let holderImage = UIImage.init(named: "")
+
+
+func getNoLoginUserModel()->UserInfoModel{
+    let userInfo = UserInfoModel.init(fromDictionary: ["id": 8,
+                                                       "img": "/user/2019/5/27/8_716837048.png",
+                                                       "nickname": "请先登录",
+                                                       "description": "还未登录",
+                                                       "phone": "",
+                                                       "sex": "0",
+                                                       "openId": "",
+                                                       "qqId": "",
+                                                       "wbId": "",
+                                                       "email": "",
+                                                       "lastLoginTime": "",
+                                                       "username": "",
+                                                       "signIn": 4,
+                                                       "idNumber": "",
+                                                       "isMember": "",
+                                                       "isMaster": "0",
+                                                       "isFollow": 0,
+                                                       "followNum": 0,
+                                                       "fansNum": 0])
+    return userInfo
+}
+
+func getNologinAccountModel() ->AccountInfoModel {
+    let accountModel = AccountInfoModel.init(fromDictionary: [
+        "userId": 8,
+        "inviteCode": "ZO4AC5",
+        "inviteNo": 0,
+        "inviteCoin": 0.00,
+        "integral": 0.00,
+        "chargeCoin": 0.00,
+        "recomCoin": 0.00
+        ])
+    return accountModel
+}
 
 
 

@@ -65,6 +65,11 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     }
     
     func setNumberText(str:String){
+        if str.int!  == 0 {
+            numberLabel.isHidden = true
+        }else{
+            numberLabel.isHidden = false
+        }
         var showStr = str
         if str.int! > 99 {
             showStr = "99+"

@@ -55,32 +55,35 @@ class DailyViewController: BaseViewController {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-        
-        let backImage = UIImageView.init()
-        let image = UIImage.init(named: "signin")
-        backImage.image = image
-        backImage.backgroundColor = .blue
-        scrollowView.addSubview(backImage)
-        let imageHeight = SCREENWIDTH * (image?.size.height)! / (image?.size.width)!
-        backImage.snp.makeConstraints { (make) in
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
             if #available(iOS 11.0, *) {
                 make.top.equalTo(-NAV_HEIGHT)
             } else {
                 make.top.equalTo(-44)
                 // Fallback on earlier versions
             }
+            make.bottom.equalToSuperview()
+        }
+        
+        let backImage = UIImageView.init()
+        let image = UIImage.init(named: "signin")
+        backImage.image = image
+        backImage.isUserInteractionEnabled = true
+        backImage.backgroundColor = .blue
+        scrollowView.addSubview(backImage)
+        let imageHeight = SCREENWIDTH * (image?.size.height)! / (image?.size.width)!
+        backImage.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalToSuperview()
             make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: imageHeight))
         }
         
         
         let inveterView = UIView.init()
-        inveterView.backgroundColor = .clear
+        inveterView.backgroundColor = .brown
         inveterView.tag = 1000
-        self.view.addSubview(inveterView)
+        inveterView.isUserInteractionEnabled = true
+        scrollowView.addSubview(inveterView)
         inveterView.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
@@ -102,7 +105,7 @@ class DailyViewController: BaseViewController {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.top.equalTo(inveterView.snp.top).offset(0)
+            make.top.equalTo(inveterView.snp.top).offset(10)
         }
         
         
@@ -111,7 +114,8 @@ class DailyViewController: BaseViewController {
         inveterBtn.reactive.controlEvents(.touchUpInside).observeValues { (button) in
             self.dailyViewModel.getDailyNet()
         }
-        inveterView.addSubview(inveterBtn)
+        
+        scrollowView.addSubview(inveterBtn)
         inveterView.bringSubviewToFront(inveterBtn)
         
         inveterBtn.snp.makeConstraints { (make) in
@@ -120,13 +124,13 @@ class DailyViewController: BaseViewController {
             make.bottom.equalTo(backImage.snp.bottom).offset(-40)
         }
         
-        let numberView = self.createDailyNumber(frame: CGRect.init(x: 15, y: backImage.frame.maxY - 20, width: SCREENWIDTH - 30, height: 115))
+        let numberView = self.createDailyNumber(frame: CGRect.init(x: 15, y: backImage.frame.maxY, width: SCREENWIDTH - 30, height: 115))
         inveterView.addSubview(numberView)
         
         numberView.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: SCREENWIDTH - 30, height: 115))
             make.centerX.equalToSuperview()
-            make.top.equalTo(inveterBtn.snp.bottom).offset(5)
+            make.top.equalTo(inveterBtn.snp.bottom).offset(15)
         }
         
     }
@@ -183,6 +187,7 @@ class DailyViewController: BaseViewController {
         slidView = UISlider.init(frame: CGRect.init(x: 15, y: 69, width: frame.size.width - 30, height: 4))
         slidView.maximumValue = 70
         slidView.minimumValue = 0
+        slidView.isEnabled = false
         slidView.value = 50
         slidView.minimumTrackTintColor = App_Theme_E34D31_Color
         slidView.maximumTrackTintColor = App_Theme_EDEDED_Color
@@ -320,10 +325,12 @@ class DailyViewController: BaseViewController {
             inveterBtn.setTitle("今日已签到", for: .normal)
             inveterBtn.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
             inveterBtn.titleLabel?.font = App_Theme_PinFan_M_21_Font
+        }else{
+            inveterBtn.isEnabled = true
         }
         
         let image = UIImage.init(color: App_Theme_FFD512_Color!, size: CGSize.init(width: 23, height: 23))
-        let textImage = UIImage.circleImage(withName:   UIImage.init(text: (model.signIn * 10).string, textFont: 10, textColor: App_Theme_FFFFFF_Color!, textFrame: CGRect.init(x: 5, y: 5, width: 23, height: 23), originImage: image, imageLocationViewFrame: CGRect.init(x: 0, y: 0, width: 23, height: 23)), borderWidth: 1, borderColor: UIColor.clear)
+        let textImage = UIImage.circleImage(withName:   UIImage.init(text: model.points, textFont: 10, textColor: App_Theme_FFFFFF_Color!, textFrame: CGRect.init(x: 5, y: 5, width: 23, height: 23), originImage: image, imageLocationViewFrame: CGRect.init(x: 0, y: 0, width: 23, height: 23)), borderWidth: 1, borderColor: UIColor.clear)
         slidView.setThumbImage(textImage, for: .normal)
         slidView.value = (model.signIn * 10).float
         

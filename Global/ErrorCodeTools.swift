@@ -59,6 +59,7 @@ class ErrorCodeTools: NSObject {
     private override init() {} // 私有化init方法
     
     func errorCode(responseObject:NSDictionary, fail:FailureClouse, sucess:SuccessClouse){
+        print(responseObject.object(forKey: "data") as AnyObject)
         switch responseObject.object(forKey: "code") as! Int {
         case ErrorCode.SUCCESS.rawValue:
             sucess(responseObject.object(forKey: "data") as AnyObject)
