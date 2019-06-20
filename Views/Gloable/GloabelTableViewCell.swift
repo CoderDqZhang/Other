@@ -65,30 +65,34 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     }
     
     func setNumberText(str:String){
+        
+        var showStr = str
+        if str.int! > 99 {
+            showStr = "99+"
+        }
+        if numberLabel == nil {
+            numberLabel = YYLabel.init()
+            numberLabel.textAlignment = .center
+            numberLabel.text = showStr
+            self.contentView.addSubview(numberLabel)
+            numberLabel.backgroundColor = App_Theme_F65449_Color
+            numberLabel.textColor = App_Theme_FFFFFF_Color
+            numberLabel.layer.cornerRadius = 7
+            numberLabel.font = App_Theme_PinFan_R_12_Font
+            
+            let strHeight = showStr.nsString.width(with: App_Theme_PinFan_R_12_Font, constrainedToHeight: 14)
+            numberLabel.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-9)
+                make.centerY.equalToSuperview()
+                make.size.equalTo(CGSize.init(width: strHeight + 8, height: 14))
+            })
+        }
+        
         if str.int!  == 0 {
             numberLabel.isHidden = true
         }else{
             numberLabel.isHidden = false
         }
-        var showStr = str
-        if str.int! > 99 {
-            showStr = "99+"
-        }
-        numberLabel = YYLabel.init()
-        numberLabel.textAlignment = .center
-        numberLabel.text = showStr
-        self.contentView.addSubview(numberLabel)
-        numberLabel.backgroundColor = App_Theme_F65449_Color
-        numberLabel.textColor = App_Theme_FFFFFF_Color
-        numberLabel.layer.cornerRadius = 7
-        numberLabel.font = App_Theme_PinFan_R_12_Font
-        
-        let strHeight = showStr.nsString.width(with: App_Theme_PinFan_R_12_Font, constrainedToHeight: 14)
-        numberLabel.snp.makeConstraints({ (make) in
-            make.right.equalTo(self.contentView.snp.right).offset(-9)
-            make.centerY.equalToSuperview()
-            make.size.equalTo(CGSize.init(width: strHeight + 8, height: 14))
-        })
     }
     
     func updateDescFontAndColor(_ color:UIColor,_ font:UIFont){

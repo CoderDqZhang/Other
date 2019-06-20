@@ -57,6 +57,9 @@ class MineViewController: BaseViewController {
         if CacheManager.getSharedInstance().isLogin() {
             self.mineViewModel.getUserInfoNet(userId: CacheManager.getSharedInstance().getUserInfo()!.id.string)
             self.mineViewModel.getAccountInfoNet(userId: CacheManager.getSharedInstance().getUserInfo()!.id.string)
+        }else{
+            self.mineViewModel.userInfo = nil
+            self.mineViewModel.accountInfo = nil
         }
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
