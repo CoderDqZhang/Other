@@ -20,7 +20,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/FollowViewModel.swift"
-            timestampString = "582721636.77946"
+            timestampString = "582724140.865817"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
@@ -36,7 +36,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Gloable/GloabelHeader.swift"
-            timestampString = "582721636.7798541"
+            timestampString = "582724140.866213"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "145"
@@ -52,7 +52,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/OtherMineViewModel.swift"
-            timestampString = "582721636.780838"
+            timestampString = "582724140.86657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "20"
@@ -100,7 +100,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/OtherPostViewModel.swift"
-            timestampString = "582721636.781307"
+            timestampString = "582724140.86816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
@@ -116,7 +116,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/OtherPostViewModel.swift"
-            timestampString = "582721636.781672"
+            timestampString = "582724140.868528"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
@@ -164,7 +164,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Utility/Net/BaseNetWorke.swift"
-            timestampString = "582721636.7817611"
+            timestampString = "582724140.8686039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "226"
@@ -176,11 +176,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Utility/Net/BaseNetWorke.swift"
-            timestampString = "582721636.782045"
+            timestampString = "582724140.8688591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "225"
@@ -196,7 +196,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Login/LoginViewModel.swift"
-            timestampString = "582721636.782123"
+            timestampString = "582724140.868932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
@@ -240,11 +240,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Utility/Net/BaseNetWorke.swift"
-            timestampString = "582721636.782396"
+            timestampString = "582724140.8691601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "219"
@@ -253,34 +253,34 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #2 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in Touqiu.BaseNetWorke.httpRequest(_: Touqiu.HttpRequestType, url: Swift.String, parameters: Swift.Optional&lt;Swift.AnyObject&gt;, success: (Swift.AnyObject) -&gt; (), failure: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Utility/Net/BaseNetWorke.swift"
-                  timestampString = "582721335.925871"
+                  timestampString = "582723469.912918"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "219"
                   endingLineNumber = "219"
-                  offsetFromSymbolStart = "280">
+                  offsetFromSymbolStart = "317">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 () -&gt; () in closure #2 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in Touqiu.BaseNetWorke.httpRequest(_: Touqiu.HttpRequestType, url: Swift.String, parameters: Swift.Optional&lt;Swift.AnyObject&gt;, success: (Swift.AnyObject) -&gt; (), failure: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Utility/Net/BaseNetWorke.swift"
-                  timestampString = "582721335.929692"
+                  timestampString = "582723469.914553"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "220"
                   endingLineNumber = "220"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "8">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -292,7 +292,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/MineViewController.swift"
-            timestampString = "582721636.782493"
+            timestampString = "582724140.869257"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
@@ -304,11 +304,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Utility/Net/BaseNetWorke.swift"
-            timestampString = "582721636.7827359"
+            timestampString = "582724140.86966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "228"
@@ -320,11 +320,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Utility/Net/BaseNetWorke.swift"
-            timestampString = "582721636.7828"
+            timestampString = "582724140.8697619"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "218"
@@ -333,34 +333,34 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "No"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Touqiu.BaseNetWorke.httpRequest(_: Touqiu.HttpRequestType, url: Swift.String, parameters: Swift.Optional&lt;Swift.AnyObject&gt;, success: (Swift.AnyObject) -&gt; (), failure: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Utility/Net/BaseNetWorke.swift"
-                  timestampString = "582720875.297248"
+                  timestampString = "582724142.02698"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "218"
                   endingLineNumber = "218"
-                  offsetFromSymbolStart = "751">
+                  offsetFromSymbolStart = "660">
                </Location>
                <Location
-                  shouldBeEnabled = "No"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #2 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in Touqiu.BaseNetWorke.httpRequest(_: Touqiu.HttpRequestType, url: Swift.String, parameters: Swift.Optional&lt;Swift.AnyObject&gt;, success: (Swift.AnyObject) -&gt; (), failure: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Utility/Net/BaseNetWorke.swift"
-                  timestampString = "582720875.299418"
+                  timestampString = "582724142.031633"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "219"
                   endingLineNumber = "219"
-                  offsetFromSymbolStart = "317">
+                  offsetFromSymbolStart = "280">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -368,137 +368,137 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/ErrorCodeTools.swift"
-            timestampString = "582721636.782853"
+            timestampString = "582724140.869826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "errorCode(responseObject:fail:sucess:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Touqiu.ErrorCodeTools.errorCode(responseObject: __C.NSDictionary, fail: (Swift.AnyObject) -&gt; (), sucess: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Global/ErrorCodeTools.swift"
-                  timestampString = "582721316.107975"
+                  timestampString = "582723841.139415"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "588">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "770">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Touqiu.ErrorCodeTools.errorCode(responseObject: __C.NSDictionary, fail: (Swift.AnyObject) -&gt; (), sucess: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Global/ErrorCodeTools.swift"
-                  timestampString = "582721316.113048"
+                  timestampString = "582723841.143294"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "972">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "1248">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Touqiu.ErrorCodeTools.errorCode(responseObject: __C.NSDictionary, fail: (Swift.AnyObject) -&gt; (), sucess: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Global/ErrorCodeTools.swift"
-                  timestampString = "582721316.1150531"
+                  timestampString = "582723841.1470619"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "1256">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "1657">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Touqiu.ErrorCodeTools.errorCode(responseObject: __C.NSDictionary, fail: (Swift.AnyObject) -&gt; (), sucess: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Global/ErrorCodeTools.swift"
-                  timestampString = "582721316.11773"
+                  timestampString = "582723841.153993"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "1820">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "2363">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Touqiu.ErrorCodeTools.errorCode(responseObject: __C.NSDictionary, fail: (Swift.AnyObject) -&gt; (), sucess: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Global/ErrorCodeTools.swift"
-                  timestampString = "582721316.119851"
+                  timestampString = "582723841.158532"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "2384">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "3074">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Touqiu.ErrorCodeTools.errorCode(responseObject: __C.NSDictionary, fail: (Swift.AnyObject) -&gt; (), sucess: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Global/ErrorCodeTools.swift"
-                  timestampString = "582721316.122411"
+                  timestampString = "582723841.160954"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "3020">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "3850">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Touqiu.ErrorCodeTools.errorCode(responseObject: __C.NSDictionary, fail: (Swift.AnyObject) -&gt; (), sucess: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Global/ErrorCodeTools.swift"
-                  timestampString = "582721316.124568"
+                  timestampString = "582723841.162846"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "3584">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "4561">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Touqiu.ErrorCodeTools.errorCode(responseObject: __C.NSDictionary, fail: (Swift.AnyObject) -&gt; (), sucess: (Swift.AnyObject) -&gt; ()) -&gt; ()"
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Global/ErrorCodeTools.swift"
-                  timestampString = "582721316.128827"
+                  timestampString = "582723841.164941"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "4148">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "5272">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -510,7 +510,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Utility/Net/BaseNetWorke.swift"
-            timestampString = "582721636.784128"
+            timestampString = "582724140.870193"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "250"
@@ -526,7 +526,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Utility/Net/BaseNetWorke.swift"
-            timestampString = "582721636.784276"
+            timestampString = "582724140.870302"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "248"
@@ -542,7 +542,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Utility/Net/BaseNetWorke.swift"
-            timestampString = "582721636.784382"
+            timestampString = "582724140.8703769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "245"

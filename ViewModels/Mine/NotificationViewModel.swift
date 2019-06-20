@@ -47,7 +47,7 @@ class NotificationViewModel: BaseViewModel {
     func notificationNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "type":self.type.rawValue] as [String : Any]
-        BaseNetWorke.getSharedInstance().postUrlWithString(NotificationDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(NotificationListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
                     self.detailArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
