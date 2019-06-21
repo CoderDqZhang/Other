@@ -105,6 +105,7 @@ class ErrorCodeTools: NSObject {
             break
         case ErrorCode.UNAUTHENTICATED.rawValue:
 //            sucess(responseObject)
+            CacheManager.getSharedInstance().logout()
             _ = Tools.shareInstance.showMessage(KWindow, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
             break
         case ErrorCode.UNAUTHENTICATED.rawValue:

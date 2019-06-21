@@ -44,6 +44,7 @@ let CACHEMANAPointModel = "PointModel"
 let holderImage = UIImage.init(named: "")
 
 
+
 func getNoLoginUserModel()->UserInfoModel{
     let userInfo = UserInfoModel.init(fromDictionary: ["id": 8,
                                                        "img": "/user/2019/5/27/8_716837048.png",

@@ -11,7 +11,8 @@ import YYImage
 import YYWebImage
 
 class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
-    var selectPhotos:[UIImage] = []
+    
+    var selectPhotos:NSMutableArray = NSMutableArray.init()
     var selectAssets:NSMutableArray = NSMutableArray.init()
     var isSelectOriginalPhoto:Bool!
     var contentText = NSMutableAttributedString.init()
@@ -28,7 +29,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             (self.controller as! PostViewController).setUpAlerViewController()
         }
         cell.postCommentImageImageButtonClouse = { tag in
-            (self.controller as! PostViewController).setUpAlerViewController()
+            (self.controller as! PostViewController).setUpPrewImagePickerBrowser(index: tag)
         }
     }
     

@@ -42,7 +42,7 @@ class AliPayManager: NSObject {
         client = OSSClient.init(endpoint: OSS_ENDPOINT, credentialProvider: credential!)
     }
     
-    func uploadFile(images:[UIImage],type:AliPayManagerType, result:@escaping AliPayManagerSuccess){
+    func uploadFile(images:NSMutableArray,type:AliPayManagerType, result:@escaping AliPayManagerSuccess){
         let put = OSSPutObjectRequest.init()
         put.bucketName = OSS_BUCKET_PUBLIC
         var resultStrs:[String] = []
@@ -50,7 +50,7 @@ class AliPayManager: NSObject {
         let count = MutableProperty<Int>(0)
         
         for index in 0...images.count - 1 {
-            AliPayManager.getSharedInstance().uploadFileImage(images: images[index], type: type) { (str, _)  in
+            AliPayManager.getSharedInstance().uploadFileImage(images: images[index] as! UIImage, type: type) { (str, _)  in
                 count.value = count.value + 1
                 resultStrs.append(str[0])
                 resultString = "\(resultString)\(str[0]),"
