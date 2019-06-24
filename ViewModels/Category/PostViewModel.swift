@@ -121,9 +121,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
 //        }
 //        self.reloadTableViewData()
         (self.controller as! PostViewController).tableView.reloadRows(at: [IndexPath.init(row: 0, section: 3)], with: .automatic)
-    }
-    //MARK :UIImagePicker
-    
+    }    
 }
 
 

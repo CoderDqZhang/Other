@@ -17,6 +17,9 @@ class NotificationTableViewCell: UITableViewCell {
     var timeLabel:YYLabel!
     var descLabel:YYLabel!
     var indexPath:IndexPath!
+    
+    var isUnread:YYLabel!
+    
     var notificationTableViewCellClouse:NotificationTableViewCellClouse!
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
@@ -48,6 +51,11 @@ class NotificationTableViewCell: UITableViewCell {
         descLabel.text = ""
         self.contentView.addSubview(descLabel)
         
+        isUnread = YYLabel.init()
+        isUnread.backgroundColor = App_Theme_FF584F_Color
+        isUnread.cornerRadius = 4
+        isUnread.layer.masksToBounds = true
+        self.contentView.addSubview(isUnread)
         
         timeLabel = YYLabel.init()
         timeLabel.textAlignment = .center
@@ -76,6 +84,7 @@ class NotificationTableViewCell: UITableViewCell {
         titleLabel.text = model.title
         timeLabel.text = model.createTime
         descLabel.text = model.descriptionField
+        isUnread.isHidden = model.status == "1" ? true : false
     }
     
     override func updateConstraints() {
@@ -103,7 +112,11 @@ class NotificationTableViewCell: UITableViewCell {
                 make.left.equalTo(self.conisImageView.snp.right).offset(11)
             }
             
-            
+            isUnread.snp.makeConstraints { (make) in
+                make.top.top.equalTo(self.contentView.snp.top).offset(11)
+                make.left.equalTo(self.conisImageView.snp.right).offset(8)
+                make.size.equalTo(CGSize.init(width: 8, height: 8))
+            }
             
             lineLabel.snp.makeConstraints { (make) in
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
