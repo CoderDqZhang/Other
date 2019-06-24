@@ -66,8 +66,38 @@ class CategoryDetailViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.setUpCategoryPostView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.removeCategoryPostView()
+    }
+    
+    func removeCategoryPostView(){
+        KWindow.viewWithTag(10000)?.removeFromSuperview()
+    }
+    
+    
+    func setUpCategoryPostView(){
+        let categoryPostView = AnimationButton.init(type: .custom)
+        categoryPostView.tag = 10000
+        categoryPostView.setImage(UIImage.init(named: "category_post"), for: .normal)
+        categoryPostView.reactive.controlEvents(.touchUpInside).observeValues { (button) in
+            let categoryVC = PostViewController()
+            categoryVC.bindCategoryModel(tribe: CategoryModel.init(fromDictionary: self.categoryData as! [String : Any]))
+            NavigaiontPresentView(self, toController: UINavigationController.init(rootViewController: categoryVC))
+        }
+        KWindow.addSubview(categoryPostView)
+        
+        categoryPostView.snp.makeConstraints { (make) in
+            make.right.equalTo(KWindow.snp.right).offset(-15)
+            make.bottom.equalTo(KWindow.snp.bottom).offset(-86)
+            make.size.equalTo(CGSize.init(width: 44, height: 44))
+        }
     }
     /*
     // MARK: - Navigation
