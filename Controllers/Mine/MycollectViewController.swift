@@ -31,6 +31,11 @@ class MycollectViewController: BaseViewController {
             self.myCollectViewModel.getMyCollectNet()
         }
     }
+    
+    override func setUpViewNavigationItem() {
+        self.setNavigationItemBack()
+        self.navigationItem.title = "我的收藏"
+    }
     /*
     // MARK: - Navigation
 

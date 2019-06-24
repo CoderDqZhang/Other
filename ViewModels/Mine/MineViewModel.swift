@@ -107,9 +107,15 @@ class MineViewModel: BaseViewModel {
                     }
                     NavigationPushView(self.controller!, toConroller: RealNameViewController())
                 }else if indexPath.row == 1{
-                    if self.userInfo != nil && (self.userInfo!.isMaster != "1") {
-                        _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经是大神用户", autoHidder: true)
-                        return
+                    if self.userInfo != nil  {
+                        if (self.userInfo!.isMaster == "1"){
+                            _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经是大神用户", autoHidder: true)
+                            return
+                        }
+                        if (self.userInfo!.isMaster == "2") {
+                            _ = Tools.shareInstance.showMessage(KWindow, msg: "正在审核中", autoHidder: true)
+                            return
+                        }
                     }
                     NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
                 }else if indexPath.row == 2{
