@@ -79,7 +79,7 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        if indexPath.section != 0 {
+        if indexPath.section != 0 && indexPath.section != 1 {
             let commentVC = CommentViewController()
             commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
             NavigationPushView(self.controller!, toConroller: commentVC)
