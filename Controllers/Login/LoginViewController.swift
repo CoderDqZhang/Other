@@ -76,10 +76,12 @@ class LoginViewController: BaseViewController {
         cofirmProtocolView = CofirmProtocolView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 30, width: SCREENWIDTH, height: 30))
         cofirmProtocolView.checkBox.addAction({ (button) in
             if button?.tag == 100 {
+                self.loginCenteView.isCheckBoolProperty.value = true
                 self.loginCenteView.isCheckBool = true
                 self.cofirmProtocolView.checkBox.tag = 101
                 self.cofirmProtocolView.checkBox.setBackgroundImage(UIImage.init(named: "check_select"), for: .normal)
             }else{
+                self.loginCenteView.isCheckBoolProperty.value = false
                 self.loginCenteView.isCheckBool = false
                 self.cofirmProtocolView.checkBox.tag = 100
                 self.cofirmProtocolView.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)

@@ -471,6 +471,9 @@ class LoginView: UIView {
     var registerButton:UIButton!
     var loginViewButtonClouse:LoginViewButtonClouse!
     
+    var isCheckBoolProperty = MutableProperty<Bool>(false)
+
+    
     var count:Int = 15
     
     init(frame: CGRect, type:LoginType) {
@@ -495,6 +498,7 @@ class LoginView: UIView {
         self.addSubview(logoImage)
         
         phoneTextField = UITextField.init()
+        phoneTextField.keyboardType = .namePhonePad
         phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         phoneTextField.textColor = App_Theme_FFFFFF_Color
         phoneTextField.placeholder = "请输入手机号"
@@ -540,7 +544,15 @@ class LoginView: UIView {
                 return str.count > 0
             }
             
-            passwordTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,pas) in
+            let confirmSignal = self.isCheckBoolProperty.signal.map { (ret) -> Bool in
+                return ret
+            }
+            
+            let combineLatest = confirmSignal.combineLatest(with: passwordTextFieldSignal).map { (ret,ret1) -> Bool in
+                return ret && ret1
+            }
+            
+            combineLatest.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,pas) in
                 if phone && pas && self.isCheckBool {
                     self.changeEnabel(isEnabled: true)
                 }else{
@@ -814,6 +826,7 @@ class RegisterView: UIView {
         self.addSubview(logoImage)
         
         phoneTextField = UITextField.init()
+        phoneTextField.keyboardType = .namePhonePad
         phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         phoneTextField.textColor = App_Theme_FFFFFF_Color
         phoneTextField.placeholder = "请输入手机号"

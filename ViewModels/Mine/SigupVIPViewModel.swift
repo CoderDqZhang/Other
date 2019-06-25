@@ -21,6 +21,9 @@ class SigupVIPViewModel: BaseViewModel {
     var idnumber:String = ""
     var userNameSingle:Signal<Bool, Never>?
     var cartNumberSingle:Signal<Bool, Never>?
+    
+    var isCheckBoolProperty = MutableProperty<Bool>(false)
+    
     var isCheckBool:Bool = false
     
     override init() {
@@ -30,10 +33,12 @@ class SigupVIPViewModel: BaseViewModel {
     func tableViewConfirmProtocolTableViewCellSetData(_ indexPath:IndexPath, cell:ConfirmProtocolTableViewCell) {
         cell.checkBox.addAction({ (button) in
             if button?.tag == 100 {
+                self.isCheckBoolProperty.value = true
                 self.isCheckBool = true
                 cell.checkBox.tag = 101
                 cell.checkBox.setBackgroundImage(UIImage.init(named: "check_select"), for: .normal)
             }else{
+                self.isCheckBoolProperty.value = false
                 self.isCheckBool = false
                 cell.checkBox.tag = 100
                 cell.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
@@ -76,8 +81,11 @@ class SigupVIPViewModel: BaseViewModel {
     }
     
     func tableViewGloabelConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelConfirmTableViewCell) {
-        userNameSingle?.combineLatest(with: cartNumberSingle!).observeValues({ (username,cart) in
-            if username && cart && self.fontImage != nil && self.backImage != nil && self.takeHandImage != nil && self.isCheckBool {
+        let conmBind =  isCheckBoolProperty.signal.combineLatest(with: userNameSingle!).map { (ret, ret1) -> Bool in
+            return ret && ret1
+        }
+        conmBind.combineLatest(with: cartNumberSingle!).observeValues({ (username,cart) in
+            if username && cart && self.fontImage != nil && self.backImage != nil && self.takeHandImage != nil {
                 cell.changeEnabel(isEnabled: true)
             }else{
                 cell.changeEnabel(isEnabled: false)
