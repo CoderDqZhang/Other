@@ -8,12 +8,15 @@
 
 import UIKit
 import YYText
+import SKPhotoBrowser
 
 enum PostDetailContentTableViewCellButtonType {
     case like
     case collect
 }
-typealias PostDetailContentTableViewCellClouse = (_ type:PostDetailContentTableViewCellButtonType) -> Void
+typealias PostDetailContentTableViewCellClouse = (_ type:PostDetailContentTableViewCellButtonType, _ status:ToolsStatus) -> Void
+typealias PostDetailContentTableViewCellImageClickClouse = (_ tag:Int, _ photoBrowser:SKPhotoBrowser) ->Void
+
 class PostDetailContentTableViewCell: UITableViewCell {
 
     var titleLabel:YYLabel!
@@ -27,6 +30,8 @@ class PostDetailContentTableViewCell: UITableViewCell {
     var model:TipModel!
     
     var postDetailContentTableViewCellClouse:PostDetailContentTableViewCellClouse!
+    var postDetailContentTableViewCellImageClickClouse:PostDetailContentTableViewCellImageClickClouse!
+    
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -62,11 +67,11 @@ class PostDetailContentTableViewCell: UITableViewCell {
             if self.likeButton.imageView.image == UIImage.init(named: "post_detail_like_select") {
                 self.likeButton.imageView.image = UIImage.init(named: "post_detail_like")
                 self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
-                self.postDetailContentTableViewCellClouse(.like)
+                self.postDetailContentTableViewCellClouse(.like, .delete)
             }else{
                 self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
                 self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
-                self.postDetailContentTableViewCellClouse(.like)
+                self.postDetailContentTableViewCellClouse(.like, .add)
             }
         })
         
@@ -75,10 +80,10 @@ class PostDetailContentTableViewCell: UITableViewCell {
         collectButton = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: UIImage.init(named: "post_detail_like")!.size.width + 25, y: 0, width: 34, height: 74), title: "收藏", image: UIImage.init(named: "post_detail_collect")!, tag: 2, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
             if self.collectButton.imageView.image == UIImage.init(named: "post_detail_collect_select"){
                 self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect")
-                self.postDetailContentTableViewCellClouse(.collect)
+                self.postDetailContentTableViewCellClouse(.collect, .delete)
             }else{
                 self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
-                self.postDetailContentTableViewCellClouse(.collect)
+                self.postDetailContentTableViewCellClouse(.collect, .add)
             }
         })
         
@@ -102,21 +107,40 @@ class PostDetailContentTableViewCell: UITableViewCell {
         contnetLabel.text = model.content
 
         let images = model.image.split(separator: ",")
-
+        var browser:SKPhotoBrowser? = nil
+        if images.count > 1 {
+            browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithUrl(urls: images, selectPageIndex: 0)
+        }
         if images.count > 1 {
             for index in 0...images.count - 1 {
-                let image = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                UIImageViewManger.sd_imageView(url: String(images[index]), imageView: image, placeholderImage: nil) { (image, error, cache, url) in
-
+                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
+                UIImageViewManger.sd_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
+                    if error == nil {
+                        imageView.image = image
+                    }
                 }
-                image.layer.cornerRadius = 5
-                image.layer.masksToBounds = true
-                self.imageContentView.addSubview(image)
+                imageView.tag = index + 1000
+                imageView.isUserInteractionEnabled = true
+                _ = imageView.newTapGesture { (gesture) in
+                    gesture.numberOfTapsRequired = 1
+                    gesture.numberOfTouchesRequired = 1
+                    }.whenTaped(handler: { (tap) in
+                        if self.postDetailContentTableViewCellImageClickClouse != nil {
+                            if browser != nil {
+                                self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
+                            }
+                        }
+                    })
+                imageView.layer.cornerRadius = 5
+                imageView.layer.masksToBounds = true
+                self.imageContentView.addSubview(imageView)
             }
+            imageContentView.isHidden = false
             imageContentView.snp.updateConstraints{ (make) in
                 make.height.equalTo(contentImageHeight)
             }
         }else{
+            imageContentView.isHidden = true
             imageContentView.snp.updateConstraints{ (make) in
                 make.height.equalTo(0.0001)
             }

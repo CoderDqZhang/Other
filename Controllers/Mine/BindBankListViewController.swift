@@ -32,7 +32,7 @@ class BindBankListViewController: BaseViewController {
     
     @objc func rightBarItemClick(_ sender:UIBarButtonItem){
         let bindWithVC = BindWithdrawViewController()
-        bindWithVC.postDetailDataClouse = { (dic,type) in
+        bindWithVC.postDetailDataClouse = { (dic,type,indexPath) in
             if self.bindBankListViewControllerAddClouse != nil {
                 self.bindBankListViewControllerAddClouse(dic)
             }

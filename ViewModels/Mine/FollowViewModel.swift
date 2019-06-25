@@ -14,16 +14,20 @@ class FollowViewModel: BaseViewModel {
     var reslutArray:NSMutableArray!
     var followArray = NSMutableArray.init()
     
+    var userId:String?
+    
     var page = 0
     override init() {
         super.init()
-        self.getFllowerNet()
     }
     
     func tableViewGloabelFansTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelFansTableViewCell) {
-        cell.cellSetData(model: FansFlowwerModel.init(fromDictionary: self.followArray[indexPath.row] as! [String : Any]))
+        cell.cellSetData(model: FansFlowwerModel.init(fromDictionary: self.followArray[indexPath.row] as! [String : Any]), indexPath: indexPath)
         if indexPath.row == 9 {
             cell.lineLableHidden()
+        }
+        cell.gloabelFansTableViewCellClouse = { type, indexPath in
+            self.followNet(type: type, indexPath: indexPath)
         }
     }
     
@@ -31,12 +35,22 @@ class FollowViewModel: BaseViewModel {
         let dic:NSDictionary = FansFlowwerModel.init(fromDictionary: self.followArray[indexPath.row] as! [String : Any]).toDictionary() as NSDictionary
         let otherMineVC = OtherMineViewController()
         otherMineVC.postData = dic
+        otherMineVC.otherMineViewControlerReloadFansButtonClouse = { status in
+            self.page = 0
+            self.getFllowerNet(userId: self.userId)
+        }
         NavigationPushView(self.controller!, toConroller: otherMineVC)
     }
     
-    func getFllowerNet(){
+    func getFllowerNet(userId:String?){
         page = page + 1
-        let parameters = ["page":page.string, "limit":LIMITNUMBER,"userId":CacheManager.getSharedInstance().getUserId()] as [String : Any]
+        var parameters:[String : Any]?
+        if userId == nil {
+            parameters = ["page":page.string, "limit":LIMITNUMBER] as [String : Any]
+        }else{
+            parameters = ["page":page.string, "limit":LIMITNUMBER,"userId":userId!] as [String : Any]
+            
+        }
         BaseNetWorke.getSharedInstance().postUrlWithString(PersonmyfollowUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
@@ -49,6 +63,26 @@ class FollowViewModel: BaseViewModel {
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
+    }
+    
+    func followNet(type:GloabelButtonType, indexPath:IndexPath){
+        let model = FansFlowwerModel.init(fromDictionary: followArray[indexPath.row] as! [String : Any])
+        let parameters = ["userId":model.id!.string]
+        BaseNetWorke.getSharedInstance().postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+                if type == .select {
+                    self.reloadTalbeViewData(indexPath: indexPath)
+                }
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func reloadTalbeViewData(indexPath:IndexPath){
+        //        self.fansArray.removeObject(at: indexPath.row)
+        //        self.controller?.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 

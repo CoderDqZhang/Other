@@ -96,7 +96,7 @@ class WithdrawViewModel: BaseViewModel {
             if self.bankLiskArray.count > 0 {
                 let bindWithVC = BindBankListViewController()
                 bindWithVC.bankListk = self.bankLiskArray
-                bindWithVC.postDetailDataClouse = { dic,type in
+                bindWithVC.postDetailDataClouse = { dic,type, indexPath in
                     self.bankModel = BankModel.init(fromDictionary: dic as! [String : Any])
                     self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .automatic)
                 }
@@ -109,7 +109,7 @@ class WithdrawViewModel: BaseViewModel {
                 NavigationPushView(self.controller!, toConroller: bindWithVC)
             }else{
                 let bindWithVC = BindWithdrawViewController()
-                bindWithVC.postDetailDataClouse = { dic,type in
+                bindWithVC.postDetailDataClouse = { dic,type, indexPath in
                     self.bankLiskArray.add(dic)
                     self.bankModel = BankModel.init(fromDictionary: dic as! [String : Any])
                     self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .automatic)

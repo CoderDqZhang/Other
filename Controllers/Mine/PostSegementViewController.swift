@@ -11,9 +11,10 @@ import JXSegmentedView
 
 class PostSegementViewController: BaseViewController {
 
-    var pagingView:JXPagingView!
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
+    var listContainerView: JXSegmentedListContainerView!
+    
     let titles = ["我的帖子", "我的评论"]
     var heightForHeaderInSection: Int = 44
     
@@ -42,7 +43,7 @@ class PostSegementViewController: BaseViewController {
         segmentedViewDataSource.titleNormalColor = App_Theme_999999_Color!
         segmentedViewDataSource.isTitleColorGradientEnabled = true
         segmentedViewDataSource.isTitleZoomEnabled = false
-        segmentedViewDataSource.reloadData(selectedIndex: 1)
+        segmentedViewDataSource.reloadData(selectedIndex: 0)
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = App_Theme_FFFFFF_Color
@@ -55,21 +56,27 @@ class PostSegementViewController: BaseViewController {
         lineView.indicatorWidth = 26
         segmentedView.indicators = [lineView]
         
-        pagingView = JXPagingView(delegate: self)
+        segmentedView.delegate = self
         
-        self.view.addSubview(pagingView)
         
-        segmentedView.contentScrollView = pagingView.listContainerView.collectionView
+        self.view.addSubview(segmentedView)
+        
+        //5、初始化JXSegmentedListContainerView
+        listContainerView = JXSegmentedListContainerView(dataSource: self)
+        listContainerView.didAppearPercent = 0.9
+        view.addSubview(listContainerView)
+        
+        //6、将listContainerView.scrollView和segmentedView.contentScrollVi
     }
     
     
     override func bindViewModelLogic(){
         self.bindViewModel(viewModel: segmentViewModel, controller: self)
-        self.postVC.postDetailDataClouse = { data, type in
+        self.postVC.postDetailDataClouse = { data, type, indexPath in
             self.segmentViewModel.pushPostDetailViewController(data, type)
         }
         
-        self.commentVC.postDetailDataClouse = { data, type in
+        self.commentVC.postDetailDataClouse = { data, type, indexPath in
             self.segmentViewModel.pushPostDetailViewController(data, type)
         }
         
@@ -77,7 +84,7 @@ class PostSegementViewController: BaseViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        pagingView.frame = self.view.bounds
+        listContainerView.frame = CGRect(x: 0, y: 50, width: view.bounds.size.width, height: view.bounds.size.height - 50)
     }
 
     /*
@@ -92,39 +99,30 @@ class PostSegementViewController: BaseViewController {
 
 }
 
-extension PostSegementViewController: JXPagingViewDelegate {
-    func tableHeaderView(in pagingView: JXPagingView) -> UIView {
-        return UIView.init()
+
+extension PostSegementViewController : JXSegmentedViewDelegate {
+    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
+        //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
+        listContainerView.didClickSelectedItem(at: index)
     }
     
-    func tableHeaderViewHeight(in pagingView: JXPagingView) -> Int {
-        return 0
+    func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {
+        //传递scrollingFrom事件给listContainerView，必须调用！！！
+        listContainerView.segmentedViewScrolling(from: leftIndex, to: rightIndex, percent: percent, selectedIndex: segmentedView.selectedIndex)
     }
+}
+
+extension PostSegementViewController: JXSegmentedListContainerViewDataSource {
     
-    func heightForPinSectionHeader(in pagingView: JXPagingView) -> Int {
-        return heightForHeaderInSection
-    }
-    
-    func viewForPinSectionHeader(in pagingView: JXPagingView) -> UIView {
-        return segmentedView
-    }
-    
-    func numberOfLists(in pagingView: JXPagingView) -> Int {
+    func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
         return titles.count
     }
     
-    func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
-        if index == 0 {
-            postVC.initSView()
-            return postVC
-        }else{
-            commentVC.initSView()
-            return commentVC
-        }
-    }
-    
-    func mainTableViewDidScroll(_ scrollView: UIScrollView) {
-        
+    func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
+        let controller = NotificationViewController.init()
+        controller.initSView(type: index)
+        return controller
     }
 }
+
 

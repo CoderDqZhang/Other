@@ -14,6 +14,7 @@ class FollowsViewController: BaseViewController {
     var targerUserViewControllerClouse:TargerUserViewControllerClouse!
     
     var searchController = BaseSearchViewController()
+    var userId:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +35,18 @@ class FollowsViewController: BaseViewController {
         
         self.setUpRefreshData {
             self.followViewModel.page = 0
-            self.followViewModel.getFllowerNet()
+            self.followViewModel.getFllowerNet(userId: self.userId)
         }
         
         self.setUpLoadMoreData {
-            self.followViewModel.getFllowerNet()
+            self.followViewModel.getFllowerNet(userId: self.userId)
         }
+    }
+    
+    override func bindViewModelLogic() {
+        self.followViewModel.userId = self.userId
+        self.followViewModel.getFllowerNet(userId: self.userId)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -41,13 +41,13 @@ class OtherPostViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         let dicData:NSDictionary = TipModel.init(fromDictionary: self.postArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
-        (self.controller as! OtherPostViewController).postDetailDataClouse(dicData,.Hot)
+        (self.controller as! OtherPostViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
     }
     
     
     func getMyPostNet(){
         page = page + 1
-        let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":"0", "isCollect":"0","userId":userInfo.id.string] as [String : Any]
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "userId":userInfo.id.string] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {

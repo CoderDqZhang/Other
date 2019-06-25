@@ -29,9 +29,13 @@ class SegmentViewModel: BaseViewModel {
     }
     
     func pushPostVC(){
-        let postVC = PostViewController()
-        let postNavigationController = UINavigationController.init(rootViewController: postVC)
-        NavigaiontPresentView(self.controller!, toController: postNavigationController)
+        if CacheManager.getSharedInstance().isLogin() {
+            let postVC = PostViewController()
+            let postNavigationController = UINavigationController.init(rootViewController: postVC)
+            NavigaiontPresentView(self.controller!, toController: postNavigationController)
+        }else{
+            NavigationPushView(self.controller!, toConroller: LoginViewController())
+        }
     }
     
     func pushCategoryDetailViewController(_ data:NSDictionary, _ type:CategoryType){
@@ -41,8 +45,24 @@ class SegmentViewModel: BaseViewModel {
         NavigationPushView(self.controller!, toConroller: categoryDetail)
     }
     
-    func pushPostDetailViewController(_ data:NSDictionary, _ type:PostType) {
+    func pushPostDetailViewController(_ data:NSMutableDictionary, _ type:PostType, _ indexPath:IndexPath) {
         let postDetail = PostDetailViewController()
+        postDetail.changeAllCommentAndLikeNumberClouse = { type, status in
+            if type == .comment {
+                if status == .add {
+                    data["commentTotal"] = data["commentTotal"] as! Int + 1
+                }else{
+                    data["commentTotal"] = data["commentTotal"] as! Int - 1
+                }
+            }else{
+                if status == .add {
+                    data["favor"] = data["favor"] as! Int + 1
+                }else{
+                    data["favor"] = data["favor"] as! Int - 1
+                }
+            }
+            (self.controller as! SegmentViewController).changeCommentAndLikeNumber(data,indexPath)
+        }
         postDetail.postData = data
         postDetail.postType = type
         NavigationPushView(self.controller!, toConroller: postDetail)

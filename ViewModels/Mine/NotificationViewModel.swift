@@ -22,7 +22,7 @@ class NotificationViewModel: BaseViewModel {
     
     
     func tableViewNotificationTableViewCellSetData(_ indexPath:IndexPath, cell:NotificationTableViewCell) {
-        cell.cellSetData(model: NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any]), indexPath: indexPath)
+        cell.cellSetData(model: NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any]), indexPath: indexPath)
         cell.notificationTableViewCellClouse = { indexPath in
             let alerController = UIAlertController.init(title: "操作", message: "", preferredStyle: .actionSheet)
             alerController.addAction(title: "标记已读", style: .default, isEnabled: true, handler: { (read) in
@@ -47,7 +47,7 @@ class NotificationViewModel: BaseViewModel {
     func notificationNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "type":self.type.rawValue] as [String : Any]
-        BaseNetWorke.getSharedInstance().postUrlWithString(NotificationDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(NotificationListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
                     self.detailArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
@@ -62,11 +62,13 @@ class NotificationViewModel: BaseViewModel {
     }
     
     func notificationStatusNet(indexPath:IndexPath){
-        let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any])
+        let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any])
         let parameters = ["id":messageModel.id.string] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(NotifyAlertStatusUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.updateUnreadNumber()
+                messageModel.status = "1"
+                self.detailArray.replaceObject(at: indexPath.row, with: messageModel.toDictionary())
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "标记成功", autoHidder: true)
                 self.reloadTableViewData()
             }else{
@@ -76,11 +78,13 @@ class NotificationViewModel: BaseViewModel {
     }
     
     func deleteNotificationNet(indexPath:IndexPath){
-        let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any])
+        let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any])
         let parameters = ["id":messageModel.id.string] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(NotifyAlertDeleteUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.updateUnreadNumber()
+                messageModel.status = "1"
+                self.detailArray.replaceObject(at: indexPath.row, with: messageModel.toDictionary())
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "删除成功", autoHidder: true)
                 self.detailArray.removeObject(at: indexPath.row)
                 self.reloadTableViewData()
@@ -101,6 +105,8 @@ class NotificationViewModel: BaseViewModel {
         default:
             unreadModel.atMine = unreadModel.atMine - 1
         }
+        
+        self.unreadModel.allunread = unreadModel.atMine + unreadModel.approveMine + unreadModel.commentMine + unreadModel.violation
         if (self.controller! as! NotificationViewController).notificationViewControllerReloadClouse != nil {
             (self.controller! as! NotificationViewController).notificationViewControllerReloadClouse(self.type!.rawValue)
         }
@@ -120,7 +126,7 @@ extension NotificationViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 8
+        return 0.0001
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

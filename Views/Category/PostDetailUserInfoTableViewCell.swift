@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias PostDetailUserInfoClouse = () ->Void
+typealias PostDetailUserInfoClouse = (_ type:GloabelButtonType) ->Void
 
 class PostDetailUserInfoTableViewCell: UITableViewCell {
 
@@ -54,10 +54,9 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
         followButton.layer.cornerRadius = 10
         followButton.layer.masksToBounds = true
         followButton.addAction({ (btn) in
-            self.changeFollowStatus(status: 1)
-            //to do
             if self.postDetailUserInfoClouse != nil {
-                self.postDetailUserInfoClouse()
+                self.changeFollowStatus(status: self.followButton.tag == 0 ? true : false)
+                self.postDetailUserInfoClouse(GloabelButtonType.init(rawValue: self.followButton.tag)!)
             }
         }, for: .touchUpInside)
         followButton.setImage(UIImage.init(named: "follow"), for: .normal)
@@ -74,8 +73,17 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func changeFollowStatus(status:Int){
-        if status == 0 {
+    func changeFollowStatus(status:Bool) {
+        self.followButton.tag = status == true ? 1 : 0
+        if status {
+            self.followButton.backgroundColor = UIColor.clear
+            self.followButton.setImage(nil, for: .normal)
+            self.followButton.borderWidth = 1.0
+            self.followButton.setTitleColor(App_Theme_FFA544_Color, for: .normal)
+            self.followButton.borderColor = App_Theme_FFA544_Color
+            self.followButton.setTitle("已关注", for: .normal)
+            
+        }else {
             self.followButton.backgroundColor = UIColor.clear
             self.followButton.setImage(nil, for: .normal)
             self.followButton.borderWidth = 0.0001
@@ -83,18 +91,9 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
             self.followButton.backgroundColor = App_Theme_FFCB00_Color
             self.followButton.setImage(UIImage.init(named: "follow"), for: .normal)
             self.followButton.setTitle("关注", for: .normal)
-        }else{
-            self.followButton.backgroundColor = UIColor.clear
-            self.followButton.setImage(nil, for: .normal)
-            self.followButton.borderWidth = 1.0
-            self.followButton.isEnabled = false
-            self.followButton.setTitleColor(App_Theme_FFA544_Color, for: .normal)
-            self.followButton.borderColor = App_Theme_FFA544_Color
-            self.followButton.setTitle("已关注", for: .normal)
         }
         
     }
-    
     
     func cellSetData(model:TipModel){
         UIImageViewManger.sd_imageView(url: model.user.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
@@ -104,7 +103,7 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
         }
         userName.text = model.user.nickname
         timeLabel.text = model.createTime
-        self.changeFollowStatus(status: model.user.isFollow)
+        self.changeFollowStatus(status: model.user.isFollow == 1 ? true : false)
     }
     
     override func updateConstraints() {

@@ -87,17 +87,17 @@ class PostCommentImagesTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(images:[UIImage]){
+    func cellSetData(images:NSMutableArray){
         if images.count > 0 {
             for index in 0...images.count - 1 {
-                let postImageView = PostImageSelectView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (PostImageSelectViewWidth + PostImageSelectViewMargetWidth), y: 0, width: PostImageSelectViewWidth, height: PostImageSelectViewHeight), image: images[index])
+                let postImageView = PostImageSelectView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (PostImageSelectViewWidth + PostImageSelectViewMargetWidth), y: 0, width: PostImageSelectViewWidth, height: PostImageSelectViewHeight), image: images[index] as! UIImage)
                 postImageView.tag = index + 10000
                 _  = postImageView.newTapGesture { (gesture) in
                     gesture.numberOfTouchesRequired = 1
                     gesture.numberOfTapsRequired = 1
                     }.whenTaped { (tap) in
                         if self.postCommentImageImageButtonClouse != nil {
-                            self.postCommentImageImageButtonClouse(postImageView.tag)
+                            self.postCommentImageImageButtonClouse(postImageView.tag - 10000)
                         }
                 }
                 snapshotView.addSubview(postImageView)

@@ -20,29 +20,37 @@ class CommentView: UIView {
     }
     
     func crateContent(time:String, like:String, comment:String, status:Int) {
-        timeLabel = YYLabel.init()
+        if timeLabel == nil {
+            timeLabel = YYLabel.init()
+            timeLabel.textColor = App_Theme_999999_Color
+            timeLabel.font = App_Theme_PinFan_R_12_Font
+            self.addSubview(timeLabel)
+        }
         timeLabel.text = time
-        timeLabel.textColor = App_Theme_999999_Color
-        timeLabel.font = App_Theme_PinFan_R_12_Font
-        self.addSubview(timeLabel)
+
         
-        
-        likeButton = UIButton.init(type: .custom)
-        likeButton.setTitleColor(App_Theme_B5B5B5_Color, for: .normal)
+        if likeButton == nil {
+            likeButton = UIButton.init(type: .custom)
+            likeButton.setTitleColor(App_Theme_B5B5B5_Color, for: .normal)
+            likeButton.titleLabel?.font = App_Theme_PinFan_R_12_Font
+            likeButton.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -6, bottom: 0, right: 0)
+            self.addSubview(likeButton)
+
+        }
         likeButton.setTitle(like, for: .normal)
-        likeButton.titleLabel?.font = App_Theme_PinFan_R_12_Font
-        likeButton.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -6, bottom: 0, right: 0)
+
         self.changeLikeButtonStatus(status: status)
-        self.addSubview(likeButton)
         
-        commentButtom = UIButton.init(type: .custom)
-        commentButtom.setTitleColor(App_Theme_B5B5B5_Color, for: .normal)
-        commentButtom.titleLabel?.font = App_Theme_PinFan_R_12_Font
-        commentButtom.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -6, bottom: 0, right: 0)
-        commentButtom.setTitle(like, for: .normal)
-        commentButtom.setImage(UIImage.init(named: "comment"), for: .normal)
-        self.addSubview(commentButtom)
-        
+        if commentButtom == nil {
+            commentButtom = UIButton.init(type: .custom)
+            commentButtom.setTitleColor(App_Theme_B5B5B5_Color, for: .normal)
+            commentButtom.titleLabel?.font = App_Theme_PinFan_R_12_Font
+            commentButtom.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -6, bottom: 0, right: 0)
+            commentButtom.setImage(UIImage.init(named: "comment"), for: .normal)
+            self.addSubview(commentButtom)
+        }
+        commentButtom.setTitle(comment, for: .normal)
+
         self.updateConstraints()
     }
     
@@ -100,10 +108,7 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:TipModel){
-        if self.model == nil {
-            self.model = model
-            commentView.crateContent(time: model.commentTime, like: model.favor.string, comment: model.commentTotal.string, status: 0)
-        }
+        commentView.crateContent(time: model.commentTime, like: model.favor.string, comment: model.commentTotal.string, status: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {

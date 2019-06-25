@@ -62,6 +62,18 @@ class MyCollectViewModel: BaseViewModel {
             }
         }
     }
+    
+    func removeCollectNet(indexPath:IndexPath){
+        let model = TipModel.init(fromDictionary: self.myCollectArray[indexPath.section] as! [String : Any])
+        let parameters = ["tipId":model.id!.string]
+        BaseNetWorke.getSharedInstance().postUrlWithString(TipcollectTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "取消收藏成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
 }
 
 
@@ -77,6 +89,24 @@ extension MyCollectViewModel: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if indexPath.row == 1 {
+            return .delete
+        }else{
+            return .none
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            self.removeCollectNet(indexPath: indexPath)
+            self.myCollectArray.removeObject(at: indexPath.section)
+            tableView.deleteSections(NSIndexSet.init(index: indexPath.section) as IndexSet, with: .automatic)
+            tableView.endUpdates()
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -101,7 +131,7 @@ extension MyCollectViewModel: UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        (self.controller as! RecommendViewController).listViewDidScrollCallback?(scrollView)
+        (self.controller as! MycollectViewController).listViewDidScrollCallback?(scrollView)
     }
 }
 
