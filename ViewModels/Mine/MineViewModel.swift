@@ -14,6 +14,7 @@ class MineViewModel: BaseViewModel {
     
     let titles = [["实名认证","专家号申请","消息","设置"],["邀请好友"]]
     var desc:[[String]]!
+    
     var userInfo:UserInfoModel!
     var accountInfo:AccountInfoModel!
     override init() {
@@ -78,7 +79,11 @@ class MineViewModel: BaseViewModel {
             }else if indexPath.row == 0{
                 cell.updateDescFontAndColor(App_Theme_FF7800_Color!, App_Theme_PinFan_R_12_Font!)
             }else if indexPath.row == 2{
-                cell.setNumberText(str: CacheManager.getSharedInstance().getUnreadModel()!.allunread.string)
+                if self.userInfo == nil {
+                    cell.setNumberText(str: "0")
+                }else{
+                    cell.setNumberText(str: CacheManager.getSharedInstance().getUnreadModel()!.allunread.string)
+                }
             }
         }else{
              cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: "", image: nil, isDescHidden: false)
@@ -96,8 +101,22 @@ class MineViewModel: BaseViewModel {
                 }
             case 3:
                 if indexPath.row == 0 {
+                    if self.userInfo != nil && (self.userInfo!.isMember != "1") {
+                        _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经实名认证了", autoHidder: true)
+                        return
+                    }
                     NavigationPushView(self.controller!, toConroller: RealNameViewController())
                 }else if indexPath.row == 1{
+                    if self.userInfo != nil  {
+                        if (self.userInfo!.isMaster == "1"){
+                            _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经是大神用户", autoHidder: true)
+                            return
+                        }
+                        if (self.userInfo!.isMaster == "2") {
+                            _ = Tools.shareInstance.showMessage(KWindow, msg: "正在审核中", autoHidder: true)
+                            return
+                        }
+                    }
                     NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
                 }else if indexPath.row == 2{
                     NavigationPushView(self.controller!, toConroller: MessageSegementViewController())
@@ -105,6 +124,9 @@ class MineViewModel: BaseViewModel {
                     let settinVC = SettingViewController()
                     settinVC.logoutClouse = {
                         self.userInfo = nil
+                        self.accountInfo = nil
+                        self.desc = [["","","",""],[""]]
+                        CacheManager.getSharedInstance().logout()
                         self.reloadTableViewData()
                     }
                     NavigationPushView(self.controller!, toConroller: settinVC)

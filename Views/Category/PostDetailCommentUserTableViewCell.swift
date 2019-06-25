@@ -49,8 +49,14 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         self.addSubview(timeLabel)
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "category_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
-            self.likeButton.imageView.image = UIImage.init(named: "loveinred")
-            self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
+            if UIImage.init(named: "loveinred") == self.likeButton.imageView.image {
+                self.likeButton.imageView.image = UIImage.init(named: "category_detail_like")
+                self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
+            }else{
+                self.likeButton.imageView.image = UIImage.init(named: "loveinred")
+                self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
+            }
+            
             if self.postDetailCommentUserTableViewCellClouse != nil {
                 self.postDetailCommentUserTableViewCellClouse(self.indexPath)
             }

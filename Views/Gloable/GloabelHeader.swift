@@ -59,7 +59,9 @@ class GloabelHeader: UIView {
         
         followLabel = YYLabel.init()
         followLabel.addTapGestureRecognizer(withDelegate: self) { (tag) in
-            self.mineInfoTableViewCellClouse(.fans)
+            if self.mineInfoTableViewCellClouse != nil {
+                self.mineInfoTableViewCellClouse(.fans)
+            }
         }
         followLabel.textAlignment = .left
         followLabel.font = App_Theme_PinFan_M_12_Font
@@ -77,7 +79,9 @@ class GloabelHeader: UIView {
         attentionsLabel.textColor = App_Theme_06070D_Color
         attentionsLabel.text = "关注   666"
         attentionsLabel.addTapGestureRecognizer(withDelegate: self) { (tag) in
-            self.mineInfoTableViewCellClouse(.follow)
+            if self.mineInfoTableViewCellClouse != nil {
+                self.mineInfoTableViewCellClouse(.follow)
+            }
         }
         
         
@@ -138,7 +142,7 @@ class GloabelHeader: UIView {
         }
         descLabel.text = model.descriptionField == "" ? "还没有个人简介" : model.descriptionField
         vImageView.isHidden = model.isMaster == "1" ? false : true
-        self.changeToolsButtonType(followed: model.isFollow == 1 ? false : true)
+        self.changeToolsButtonType(followed: model.isFollow == 0 ? false : true)
     }
     
     override func updateConstraints() {

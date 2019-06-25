@@ -45,11 +45,11 @@ class BaseNetWorke : SessionManager {
     func getUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.get, url: url, parameters: parameters, success: { (responseObject) in
-                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 10000 {
-                    subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
-                }else {
-                    _ = Tools.shareInstance.showMessage(KWindow, msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
-                }
+                ErrorCodeTools.getSharedInstance().errorCode(responseObject: (responseObject as! NSDictionary), fail: { (failer) in
+                    
+                }, sucess: { (dic) in
+                    subscriber.send(value: dic)
+                })
                 subscriber.sendCompleted()
             }, failure: { (responseError) in
                 if responseError is NSDictionary {
@@ -70,11 +70,11 @@ class BaseNetWorke : SessionManager {
     func postUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.post, url: url, parameters: parameters, success: { (responseObject) in
-                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 10000 {
-                    subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
-                }else{
-                    _ = Tools.shareInstance.showMessage(KWindow, msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
-                }
+                ErrorCodeTools.getSharedInstance().errorCode(responseObject: (responseObject as! NSDictionary), fail: { (failer) in
+                    
+                }, sucess: { (dic) in
+                    subscriber.send(value: dic)
+                })
                 subscriber.sendCompleted()
                 }, failure: { (responseError) in
                     if responseError is NSDictionary {
@@ -98,11 +98,11 @@ class BaseNetWorke : SessionManager {
     func putUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.put, url: url, parameters: parameters, success: { (responseObject) in
-                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 10000 {
-                    subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
-                }else{
-                    _ = Tools.shareInstance.showMessage(KWindow, msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
-                }
+                ErrorCodeTools.getSharedInstance().errorCode(responseObject: (responseObject as! NSDictionary), fail: { (failer) in
+                    
+                }, sucess: { (dic) in
+                    subscriber.send(value: dic)
+                })
                 subscriber.sendCompleted()
                 }, failure: { (responseError) in
                     if responseError is NSDictionary {
@@ -124,11 +124,11 @@ class BaseNetWorke : SessionManager {
     func deleteUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.delete, url: url, parameters: parameters, success: { (responseObject) in
-                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 10000 {
-                    subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
-                }else{
-                    _ = Tools.shareInstance.showMessage(KWindow, msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
-                }
+                ErrorCodeTools.getSharedInstance().errorCode(responseObject: (responseObject as! NSDictionary), fail: { (failer) in
+                    
+                }, sucess: { (dic) in
+                    subscriber.send(value: dic)
+                })
                 subscriber.sendCompleted()
                 }, failure: { (responseError) in
                     if responseError is NSDictionary {
@@ -215,7 +215,7 @@ class BaseNetWorke : SessionManager {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
         
-        sessionManager.request(url, method: methods , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: (["sign":"touqiutest","token":UserDefaults.init().object(forKey: "UserToken") ?? ""] as! HTTPHeaders)).responseJSON { (response) in
+        sessionManager.request(url, method: methods , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: (["sign":"touqiutest","token":UserDefaults.init().object(forKey: CACHEMANAUSERTOKEN) ?? ""] as! HTTPHeaders)).responseJSON { (response) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
@@ -223,12 +223,7 @@ class BaseNetWorke : SessionManager {
                 failure(response.result.error! as AnyObject)
             }else{
                 if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
-                    print((response.value as! NSDictionary))
-                    if (response.value as! NSDictionary).object(forKey: "code") as! Int == 10000 {
-                        success(response.value as! NSDictionary)
-                    }else{
-                        failure(["message":(response.value as! NSDictionary).object(forKey: "msg") as! String] as AnyObject)
-                    }
+                    success(response.value as! NSDictionary)
                 }else{
                     failure(["message":(response.result.value! as! NSDictionary).object(forKey: "error")] as AnyObject)
                 }

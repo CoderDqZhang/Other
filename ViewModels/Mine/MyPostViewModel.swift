@@ -40,7 +40,7 @@ class MyPostViewModel: BaseViewModel {
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.row != 0 {
             let dicData:NSDictionary = TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
-            (self.controller as! MyPostViewController).postDetailDataClouse(dicData,.Hot)
+            (self.controller as! MyPostViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
         }
     }
     

@@ -33,8 +33,8 @@ class CacheManager: NSObject {
     
     func saveNormaltModel(category:CategoryModel){
         var array = NSMutableArray.init()
-        if (CacheManager.getSharedInstance().otherCache?.containsObject(forKey: "CategoryModels"))! {
-            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "CategoryModels"))!
+        if (CacheManager.getSharedInstance().otherCache?.containsObject(forKey: CACHEMANAGERCATEGORYMODELS))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANAGERCATEGORYMODELS))!
             array = NSMutableArray.init(array: item as! [Any])
         }
         for model in array {
@@ -43,57 +43,60 @@ class CacheManager: NSObject {
             }
         }
         array.add(category.toDictionary())
-        CacheManager._sharedInstance.otherCache?.setObject(array, forKey: "CategoryModels")
+        if array.count > 4 {
+            array.removeObject(at: 0)
+        }
+        CacheManager._sharedInstance.otherCache?.setObject(array, forKey: CACHEMANAGERCATEGORYMODELS)
     }
     
     func getCategoryModels() ->NSMutableArray? {
-        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "CategoryModels"))! {
-            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "CategoryModels"))!
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: CACHEMANAGERCATEGORYMODELS))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANAGERCATEGORYMODELS))!
             return item as? NSMutableArray
         }
         return nil
     }
     
     func savePostModel(postModel:PostModel){
-        CacheManager._sharedInstance.otherCache?.setObject(postModel, forKey: "PostModel")
+        CacheManager._sharedInstance.otherCache?.setObject(postModel, forKey: CACHEMANAPSOTMODEL)
     }
     
     func getPostModel() ->PostModel? {
-        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "PostModel"))! == true {
-            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "PostModel"))!
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: CACHEMANAPSOTMODEL))! == true {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANAPSOTMODEL))!
             return item as? PostModel
         }
         return nil
     }
     
     func removePostModel(){
-        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "PostModel"))! {
-            CacheManager._sharedInstance.otherCache?.removeObject(forKey: "PostModel")
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: CACHEMANAPSOTMODEL))! {
+            CacheManager._sharedInstance.otherCache?.removeObject(forKey: CACHEMANAPSOTMODEL)
         }
     }
     
     
     func saveUserInfo(userInfo:UserInfoModel){
-        CacheManager._sharedInstance.otherCache?.setObject(userInfo, forKey: "userInfo")
+        CacheManager._sharedInstance.userCache?.setObject(userInfo, forKey: CACHEMANAUSERINFO)
     }
     
     func getUserInfo() ->UserInfoModel? {
-        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "userInfo"))! == true {
-            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "userInfo"))!
+        if (CacheManager._sharedInstance.userCache?.containsObject(forKey: CACHEMANAUSERINFO))! == true {
+            let item = (CacheManager._sharedInstance.userCache?.object(forKey: CACHEMANAUSERINFO))!
             return item as? UserInfoModel
         }
         return nil
     }
     
     func logout(){
-        if (CacheManager._sharedInstance.userCache?.containsObject(forKey: "userInfo"))! {
-            CacheManager._sharedInstance.userCache?.removeObject(forKey: "userInfo")
+        if (CacheManager._sharedInstance.userCache?.containsObject(forKey: CACHEMANAUSERINFO))! {
+            CacheManager._sharedInstance.userCache?.removeObject(forKey: CACHEMANAUSERINFO)
         }
-        UserDefaults.init().removeObject(forKey: "UserToken")
+        UserDefaults.init().removeObject(forKey: CACHEMANAUSERTOKEN)
     }
     
     func isLogin() ->Bool {
-        if UserDefaults.init().object(forKey: "UserToken") == nil ||  (CacheManager._sharedInstance.userCache?.containsObject(forKey: "userInfo")) == nil{
+        if UserDefaults.init().object(forKey: CACHEMANAUSERTOKEN) == nil ||  (CacheManager._sharedInstance.userCache?.containsObject(forKey: CACHEMANAUSERINFO)) == nil{
             CacheManager._sharedInstance.logout()
             return false
         }
@@ -102,25 +105,37 @@ class CacheManager: NSObject {
     
     
     func saveConfigModel(category:ConfigModel){
-        CacheManager._sharedInstance.otherCache?.setObject(category, forKey: "ConfigModel")
+        CacheManager._sharedInstance.otherCache?.setObject(category, forKey: CACHEMANAUSERTOKEN)
     }
     
     func getConfigModel() ->ConfigModel?{
-        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "ConfigModel"))! {
-            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "ConfigModel"))!
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: CACHEMANAUSERTOKEN))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANAUSERTOKEN))!
             return item as? ConfigModel
         }
         return nil
     }
     
     func saveUnreadModel(category:UnreadMessageModel){
-         CacheManager._sharedInstance.otherCache?.setObject(category, forKey: "UnreadMessageModel")
+         CacheManager._sharedInstance.otherCache?.setObject(category, forKey: CACHEMANAUNREADMESSAGEMODEL)
     }
     
     func getUnreadModel() ->UnreadMessageModel?{
-        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: "UnreadMessageModel"))! {
-            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: "UnreadMessageModel"))!
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: CACHEMANAUNREADMESSAGEMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANAUNREADMESSAGEMODEL))!
             return item as? UnreadMessageModel
+        }
+        return nil
+    }
+    
+    func savePointModel(point:NSMutableArray){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: CACHEMANAPointModel)
+    }
+    
+    func getPointModel() ->NSMutableArray?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: CACHEMANAPointModel))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANAPointModel))!
+            return item as? NSMutableArray
         }
         return nil
     }

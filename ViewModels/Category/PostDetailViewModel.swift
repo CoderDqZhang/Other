@@ -23,8 +23,8 @@ class PostDetailViewModel: BaseViewModel {
         if tipDetailModel != nil {
             cell.cellSetData(model: self.tipDetailModel)
         }
-        cell.postDetailUserInfoClouse = {
-            self.followNet()
+        cell.postDetailUserInfoClouse = { type in
+            self.followNet(status: type == GloabelButtonType.select ? true : false)
         }
     }
     
@@ -32,13 +32,25 @@ class PostDetailViewModel: BaseViewModel {
         if tipDetailModel != nil {
             cell.cellSetData(model: self.tipDetailModel)
         }
-        cell.postDetailContentTableViewCellClouse = { type in
+        cell.postDetailContentTableViewCellClouse = { type, status in
             switch type {
             case .like:
-                self.likeNet()
+                if CacheManager.getSharedInstance().isLogin() {
+                    self.likeNet(status)
+                }else{
+                    NavigationPushView(self.controller!, toConroller: LoginViewController())
+                }
             default:
-                 self.collectNet()
+                if CacheManager.getSharedInstance().isLogin() {
+                    self.collectNet()
+                }else{
+                    NavigationPushView(self.controller!, toConroller: LoginViewController())
+                }
             }
+        }
+        
+        cell.postDetailContentTableViewCellImageClickClouse = { tag,browser in
+            NavigaiontPresentView(self.controller!, toController: browser)
         }
     }
     
@@ -67,9 +79,11 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        let commentVC = CommentViewController()
-        commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
-        NavigationPushView(self.controller!, toConroller: commentVC)
+        if indexPath.section != 0 && indexPath.section != 1 {
+            let commentVC = CommentViewController()
+            commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+            NavigationPushView(self.controller!, toConroller: commentVC)
+        }
     }
     
     func getTipDetail(id:String){
@@ -114,10 +128,13 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
-    func likeNet(){
+    func likeNet(_ status:ToolsStatus){
         let parameters = ["tipId":self.tipDetailModel.id!.string]
         BaseNetWorke.getSharedInstance().postUrlWithString(TipapproveTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                if (self.controller! as! PostDetailViewController).changeAllCommentAndLikeNumberClouse != nil {
+                    (self.controller! as! PostDetailViewController).changeAllCommentAndLikeNumberClouse(.like, status)
+                }
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -136,11 +153,14 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
-    func followNet(){
+    func followNet(status:Bool){
         let parameters = ["userId":self.tipDetailModel.user.id!.string]
         BaseNetWorke.getSharedInstance().postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+                if (self.controller as! PostDetailViewController).changeFansFollowButtonStatusClouse != nil {
+                    (self.controller as! PostDetailViewController).changeFansFollowButtonStatusClouse(status)
+                }
+                _ = Tools.shareInstance.showMessage(KWindow, msg: status == true ? "关注成功" : "取消关注成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }

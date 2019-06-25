@@ -169,11 +169,14 @@ class CoinsView: UIView {
     }
 }
 
+typealias TopUpTableViewCellClouse = () ->Void
 
 class TopUpTableViewCell: UITableViewCell {
 
     var coinsView:CoinsView!
     var coinsallCountView:CoinsCountView!
+    
+    var topUpTableViewCellClouse:TopUpTableViewCellClouse!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -188,6 +191,11 @@ class TopUpTableViewCell: UITableViewCell {
     func cellSetData(model:AccountInfoModel){
         coinsView = CoinsView.init(frame: CGRect.init(x: 0, y: 0 , width: SCREENWIDTH, height: 189))
         coinsView.viewSetData(model: model)
+        coinsView.withDrawButton.addAction({ (button) in
+            if self.topUpTableViewCellClouse != nil {
+                self.topUpTableViewCellClouse()
+            }
+        }, for: .touchUpInside)
         self.contentView.addSubview(coinsView)
     }
     

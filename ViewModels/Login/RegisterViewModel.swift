@@ -20,8 +20,9 @@ class RegisterViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(UserregisterUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if resultDic.value != nil {
-                    let userInfo = UserInfoModel.yy_model(with: (resultDic.value as! [AnyHashable : Any]))
-                    CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo!)
+                    let userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
+                    CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
+                    UserDefaults.init().set(userInfo.token, forKey: CACHEMANAUSERTOKEN)
                     self.controller?.navigationController?.popToRootViewController(animated: true)
                 }
                 
@@ -35,7 +36,10 @@ class RegisterViewModel: BaseViewModel {
         let parameters = ["phone":phone]
         BaseNetWorke.getSharedInstance().postUrlWithString(UsersendCodeUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-//                let userInfo = UserInfoModel.yy_model(with: (resultDic.value as! [AnyHashable : Any]))
+                let userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
+                CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
+                UserDefaults.init().set(userInfo.token, forKey: CACHEMANAUSERTOKEN)
+                self.controller?.navigationController?.popToRootViewController(animated: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }

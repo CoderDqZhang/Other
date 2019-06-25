@@ -14,11 +14,21 @@ typealias ImageDownLoadImageCompletionBlock = (_ image:UIImage?, _ data:Data?,  
 
 let ImageRootURL = "https://\(OSS_BUCKET_PUBLIC).\(OSS_ENDPOINT)"
 
+
+let normalImage = UIImage.init(named: "")
+
+//func getholderImage(size:CGSize) ->UIImage{
+//    UIImageViewManger.sd_downImage(url: "", placeholderImage: nil) { (image, data, error, ret) in
+//        return image
+//    }
+//    return normalImage!
+//}
+
+
 class UIImageViewManger: NSObject {
 
     class func sd_imageView(url:String, imageView:UIImageView,placeholderImage:UIImage?, completedBlock: SDWebImage.SDExternalCompletionBlock? = nil){
-        print("\(ImageRootURL)\(url)")
-        imageView.sd_setImage(with: URL.init(string: "\(ImageRootURL)\(url)"), placeholderImage: placeholderImage, options: .retryFailed, completed: completedBlock)
+        imageView.sd_setImage(with: URL.init(string: UIImageViewManger.appendImageUrl(url: url)), placeholderImage: placeholderImage == nil ? holderImage : placeholderImage, options: .retryFailed, completed: completedBlock)
     }
     
     class func sd_downImage(url:String, placeholderImage:UIImage?, completedBlock: SDWebImage.SDWebImageDownloaderCompletedBlock? = nil) {
@@ -26,6 +36,8 @@ class UIImageViewManger: NSObject {
         }, completed: completedBlock)
     }
     
-    
+    class func appendImageUrl(url:String) ->String{
+        return "\(ImageRootURL)\(url)"
+    }
     
 }

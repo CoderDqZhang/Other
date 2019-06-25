@@ -70,7 +70,7 @@ class CoinsDetailTableViewCell: UITableViewCell {
     func cellSetStoreData(model:StoreModel){
         titleLabel.text = model.descriptionField
         timeLabel.text = model.createTime
-        numberLabel.text = "\((model.type == "0" ? "-\(model.outPoint.string)" : "+\(model.inPoint.string)"))"
+        numberLabel.text = "\((model.type == "0" ? "-\(model.point.string)" : "+\(model.point.string)"))"
     }
     
     

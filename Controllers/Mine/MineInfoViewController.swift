@@ -81,7 +81,9 @@ extension MineInfoViewController : UINavigationControllerDelegate {
 extension MineInfoViewController : UIImagePickerControllerDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
+        self.dismiss(animated: true) {
+            
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

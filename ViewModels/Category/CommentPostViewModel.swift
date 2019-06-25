@@ -12,7 +12,7 @@ let CommentTextViewCcale:CGFloat = 247 / 375
 
 class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     
-    var selectPhotos:[UIImage] = []
+    var selectPhotos:NSMutableArray = NSMutableArray.init()
     var selectAssets:NSMutableArray = NSMutableArray.init()
     var isSelectOriginalPhoto:Bool!
     
@@ -29,7 +29,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             (self.controller as! CommentPostViewController).setUpAlerViewController()
         }
         cell.postCommentImageImageButtonClouse = { tag in
-            (self.controller as! CommentPostViewController).setUpAlerViewController()
+            (self.controller as! CommentPostViewController).setUpPrewImagePickerBrowser(index: tag)
         }
     }
     

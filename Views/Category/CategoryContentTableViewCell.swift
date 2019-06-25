@@ -87,10 +87,12 @@ class CategoryContentTableViewCell: UITableViewCell {
                 imageView.layer.masksToBounds = true
                 self.imageContentView.addSubview(imageView)
             }
+            imageContentView.isHidden = false
             imageContentView.snp.updateConstraints{ (make) in
                 make.height.equalTo(contentImageHeight)
             }
         }else{
+            imageContentView.isHidden = true
             imageContentView.snp.updateConstraints{ (make) in
                 make.height.equalTo(0.0001)
             }

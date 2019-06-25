@@ -11,6 +11,7 @@ import UIKit
 class FansViewController: BaseViewController {
 
     let fansViewModel = FansViewModel.init()
+    var userId:String?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,12 +30,17 @@ class FansViewController: BaseViewController {
         
         self.setUpRefreshData {
             self.fansViewModel.page = 0
-            self.fansViewModel.getFansNet()
+            self.fansViewModel.getFansNet(userId: self.userId)
         }
         
         self.setUpLoadMoreData {
-            self.fansViewModel.getFansNet()
+            self.fansViewModel.getFansNet(userId: self.userId)
         }
+    }
+    
+    override func bindViewModelLogic() {
+        self.fansViewModel.userId = self.userId
+        self.fansViewModel.getFansNet(userId: self.userId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
