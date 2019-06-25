@@ -74,10 +74,12 @@ class RegiseViewController: BaseViewController {
         cofirmProtocolView = CofirmProtocolView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 30, width: SCREENWIDTH, height: 30))
         cofirmProtocolView.checkBox.addAction({ (button) in
             if button?.tag == 100 {
+                self.regisViewCenteView.isCheckBoolProperty.value = true
                 self.regisViewCenteView.isCheckBool = true
                 self.cofirmProtocolView.checkBox.tag = 101
                 self.cofirmProtocolView.checkBox.setBackgroundImage(UIImage.init(named: "check_select"), for: .normal)
             }else{
+                self.regisViewCenteView.isCheckBoolProperty.value = false
                 self.regisViewCenteView.isCheckBool = false
                 self.cofirmProtocolView.checkBox.tag = 100
                 self.cofirmProtocolView.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)

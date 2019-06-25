@@ -571,8 +571,16 @@ class LoginView: UIView {
                 return str.count > 0
             }
             
-            codeTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,code) in
-                if phone && code && self.isCheckBool {
+            let confirmSignal = self.isCheckBoolProperty.signal.map { (ret) -> Bool in
+                return ret
+            }
+            
+            let combineLatest = confirmSignal.combineLatest(with: codeTextFieldSignal).map { (ret,ret1) -> Bool in
+                return ret && ret1
+            }
+            
+            combineLatest.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,code) in
+                if phone && code {
                     self.changeEnabel(isEnabled: true)
                 }else{
                     self.changeEnabel(isEnabled: false)
@@ -803,6 +811,8 @@ class RegisterView: UIView {
     var loginButton:UIButton!
     var registerViewButtonClouse:RegisterViewButtonClouse!
     
+    var isCheckBoolProperty = MutableProperty<Bool>(false)
+    
     var count:Int = 15
     
     override init(frame: CGRect) {
@@ -886,8 +896,16 @@ class RegisterView: UIView {
             return str.count > 0
         }
         
-        codeTextFieldSignal.combineLatest(with: codeSignal).observeValues { (phone,code) in
-            if phone && code && self.isCheckBool {
+        let confirmSignal = self.isCheckBoolProperty.signal.map { (ret) -> Bool in
+            return ret
+        }
+        
+        let combineLatest = confirmSignal.combineLatest(with: codeTextFieldSignal).map { (ret,ret1) -> Bool in
+            return ret && ret1
+        }
+        
+        combineLatest.combineLatest(with: codeSignal).observeValues { (phone,code) in
+            if phone && code {
                 self.changeEnabel(isEnabled: true)
             }else{
                 self.changeEnabel(isEnabled: false)
