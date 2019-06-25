@@ -19,7 +19,7 @@ class DailyModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        signIn = dictionary["SignIn"] as? Int
+        signIn = dictionary["signIn"] as? Int
         status = dictionary["status"] as? Int
     }
     
@@ -30,7 +30,7 @@ class DailyModel : NSObject, NSCoding{
     {
         var dictionary = [String:Any]()
         if signIn != nil{
-            dictionary["SignIn"] = signIn
+            dictionary["signIn"] = signIn
         }
         if status != nil{
             dictionary["status"] = status
@@ -44,7 +44,7 @@ class DailyModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        signIn = aDecoder.decodeObject(forKey: "SignIn") as? Int
+        signIn = aDecoder.decodeObject(forKey: "signIn") as? Int
         status = aDecoder.decodeObject(forKey: "status") as? Int
         
     }
@@ -56,7 +56,7 @@ class DailyModel : NSObject, NSCoding{
     @objc func encode(with aCoder: NSCoder)
     {
         if signIn != nil{
-            aCoder.encode(signIn, forKey: "SignIn")
+            aCoder.encode(signIn, forKey: "signIn")
         }
         if status != nil{
             aCoder.encode(status, forKey: "status")
