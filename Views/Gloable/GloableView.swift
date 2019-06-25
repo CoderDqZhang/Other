@@ -553,7 +553,7 @@ class LoginView: UIView {
             }
             
             combineLatest.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,pas) in
-                if phone && pas && self.isCheckBool {
+                if phone && pas  {
                     self.changeEnabel(isEnabled: true)
                 }else{
                     self.changeEnabel(isEnabled: false)
