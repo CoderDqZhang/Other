@@ -31,6 +31,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
         cell.postCommentImageImageButtonClouse = { tag in
             (self.controller as! CommentPostViewController).setUpPrewImagePickerBrowser(index: tag)
         }
+        
     }
     
     func tableViewPostCommentTextTableViewCellSetData(_ indexPath:IndexPath, cell:PostCommentTextTableViewCell) {

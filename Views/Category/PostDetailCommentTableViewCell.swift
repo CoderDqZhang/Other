@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SKPhotoBrowser
 
 let commentImageWidth:CGFloat = (SCREENWIDTH - 60 - 8 * 2) / 3
 let commentImageHeight:CGFloat = commentImageWidth
@@ -23,6 +24,9 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
     var didMakeConstraints = false
+    
+    var postDetailContentTableViewCellImageClickClouse:PostDetailContentTableViewCellImageClickClouse!
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
@@ -193,6 +197,10 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 }
                 
             }else{
+                var browser:SKPhotoBrowser? = nil
+                if images.count > 1 {
+                    browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
+                }
                 for index in 0...images.count - 1 {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (commentImageWidth + 11), y: 0, width: commentImageWidth, height: commentImageHeight))
                     UIImageViewManger.sd_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
@@ -200,6 +208,18 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                             imageView.image = image
                         }
                     }
+                    imageView.tag = index + 1000
+                    imageView.isUserInteractionEnabled = true
+                    _ = imageView.newTapGesture { (gesture) in
+                        gesture.numberOfTapsRequired = 1
+                        gesture.numberOfTouchesRequired = 1
+                        }.whenTaped(handler: { (tap) in
+                            if self.postDetailContentTableViewCellImageClickClouse != nil {
+                                if browser != nil {
+                                    self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
+                                }
+                            }
+                        })
                     imageView.layer.cornerRadius = 5
                     imageView.layer.masksToBounds = true
                     self.imageContentView.addSubview(imageView)

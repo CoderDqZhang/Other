@@ -50,6 +50,20 @@ class SKPhotoBrowserManager: NSObject {
         return browser
     }
     
+    func setUpBrowserWithStrUrl(urls:[String],selectPageIndex:Int?) -> SKPhotoBrowser{
+        var images = [SKPhoto]()
+        
+        for url in urls{
+            let photo = SKPhoto.photoWithImageURL(UIImageViewManger.appendImageUrl(url: url), holder: holderImage)
+            images.append(photo)
+        }
+        
+        // 2. create PhotoBrowser Instance, and present from your viewController.
+        let browser = SKPhotoBrowser(photos: images)
+        browser.initializePageIndex(selectPageIndex == nil ? 0: selectPageIndex!)
+        return browser
+    }
+    
     func config(){
         SKPhotoBrowserOptions.displayStatusbar = false                              // all tool bar will be hidden
         SKPhotoBrowserOptions.displayCounterLabel = false                         // counter label will be hidden

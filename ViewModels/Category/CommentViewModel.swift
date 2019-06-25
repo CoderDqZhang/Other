@@ -27,6 +27,9 @@ class CommentViewModel: BaseViewModel {
         }else{
             cell.cellSetRepliy(model: ReplyList.init(fromDictionary: replistList[indexPath.section - 1] as! [String : Any]))
         }
+        cell.postDetailContentTableViewCellImageClickClouse = { tag,browser in
+            NavigaiontPresentView(self.controller!, toController: browser)
+        }
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
