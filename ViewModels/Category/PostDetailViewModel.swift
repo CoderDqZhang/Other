@@ -32,11 +32,11 @@ class PostDetailViewModel: BaseViewModel {
         if tipDetailModel != nil {
             cell.cellSetData(model: self.tipDetailModel)
         }
-        cell.postDetailContentTableViewCellClouse = { type in
+        cell.postDetailContentTableViewCellClouse = { type, status in
             switch type {
             case .like:
                 if CacheManager.getSharedInstance().isLogin() {
-                    self.likeNet()
+                    self.likeNet(status)
                 }else{
                     NavigationPushView(self.controller!, toConroller: LoginViewController())
                 }
@@ -128,10 +128,13 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
-    func likeNet(){
+    func likeNet(_ status:ToolsStatus){
         let parameters = ["tipId":self.tipDetailModel.id!.string]
         BaseNetWorke.getSharedInstance().postUrlWithString(TipapproveTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                if (self.controller! as! PostDetailViewController).changeAllCommentAndLikeNumberClouse != nil {
+                    (self.controller! as! PostDetailViewController).changeAllCommentAndLikeNumberClouse(.like, status)
+                }
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

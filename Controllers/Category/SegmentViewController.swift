@@ -75,18 +75,22 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     
     override func bindViewModelLogic(){
         self.bindViewModel(viewModel: segmentViewModel, controller: self)
-        self.newController.postDetailDataClouse = { data, type in
-            self.segmentViewModel.pushPostDetailViewController(data, type)
+        self.newController.postDetailDataClouse = { data, type, indexPath in
+            self.segmentViewModel.pushPostDetailViewController(data, type, indexPath!)
         }
         
         self.newController.categoryDetailClouse = { data, type in
             self.segmentViewModel.pushCategoryDetailViewController(data, type)
         }
         
-        self.outFallController.postDetailDataClouse = { data, type in
-            self.segmentViewModel.pushPostDetailViewController(data, type)
+        self.outFallController.postDetailDataClouse = { data, type, indexPath in
+            self.segmentViewModel.pushPostDetailViewController(data, type, indexPath!)
         }
         
+    }
+    
+    func changeCommentAndLikeNumber(_ data:NSDictionary,_ indexPath:IndexPath){
+        newController.changeCommentAndLikeNumber(data, indexPath)
     }
     
     func createNavigationItem(){

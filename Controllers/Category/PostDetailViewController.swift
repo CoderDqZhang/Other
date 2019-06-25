@@ -8,7 +8,19 @@
 
 import UIKit
 
+enum ToatalNumber {
+    case comment
+    case like
+}
+
+enum ToolsStatus {
+    case add
+    case delete
+}
+
 typealias ChangeFansFollowButtonStatusClouse = (_ status:Bool) ->Void
+
+typealias ChangeAllCommentAndLikeNumberClouse = (_ type:ToatalNumber, _ status:ToolsStatus) ->Void
 
 class PostDetailViewController: BaseViewController {
 
@@ -19,6 +31,7 @@ class PostDetailViewController: BaseViewController {
     var gloableCommentView:CustomViewCommentTextField!
     
     var changeFansFollowButtonStatusClouse:ChangeFansFollowButtonStatusClouse!
+    var changeAllCommentAndLikeNumberClouse:ChangeAllCommentAndLikeNumberClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +73,9 @@ class PostDetailViewController: BaseViewController {
                 commentVC.reloadDataClouse = {
                     self.refreshData()
                 }
+                if self.changeAllCommentAndLikeNumberClouse != nil {
+                    self.changeAllCommentAndLikeNumberClouse(.comment, .add)
+                }
                 NavigaiontPresentView(self, toController: commentPost)
             }, senderClick: { str in
                 
@@ -73,6 +89,7 @@ class PostDetailViewController: BaseViewController {
     
     func refreshData(){
         self.postDetailViewModel.page = 0
+        self.postDetailViewModel.tipDetailModel.commentTotal = self.postDetailViewModel.tipDetailModel.commentTotal + 1
         self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
     }
     

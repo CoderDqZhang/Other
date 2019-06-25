@@ -22,7 +22,7 @@ class BankListViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if self.controller?.postDetailDataClouse != nil {
-            self.controller?.postDetailDataClouse(bankListk![indexPath.row] as! NSDictionary,.Hot)
+            self.controller?.postDetailDataClouse(bankListk![indexPath.row] as! NSDictionary,.Hot, indexPath)
             self.controller?.navigationController?.popViewController()
         }
     }

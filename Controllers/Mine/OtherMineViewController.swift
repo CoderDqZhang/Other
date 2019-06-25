@@ -124,15 +124,15 @@ class OtherMineViewController: BaseViewController {
 
     override func bindViewModelLogic() {
         self.bindViewModel(viewModel: otherViewModel, controller: self)
-        self.recommendVC.postDetailDataClouse = { data, type in
+        self.recommendVC.postDetailDataClouse = { data, type, indexPath in
             self.otherViewModel.pushPostDetailViewController(data, type)
         }
         
-        self.otherPostVC.postDetailDataClouse = { data, type in
+        self.otherPostVC.postDetailDataClouse = { data, type, indexPath in
             self.otherViewModel.pushPostDetailViewController(data, type)
         }
         
-        self.otherGuessVC.postDetailDataClouse = { data, type in
+        self.otherGuessVC.postDetailDataClouse = { data, type, indexPath in
             self.otherViewModel.pushPostDetailViewController(data, type)
         }
     }

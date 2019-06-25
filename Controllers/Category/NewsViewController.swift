@@ -37,6 +37,9 @@ class NewsViewController: BaseViewController {
         }
     }
     
+    func changeCommentAndLikeNumber(_ data:NSDictionary,_ indexPath:IndexPath){
+        self.newsViewModel.tipListArray.replaceObject(at: indexPath.section - 2, with: data)
+    }
 
     /*
     // MARK: - Navigation

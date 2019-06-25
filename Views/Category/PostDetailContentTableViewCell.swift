@@ -14,7 +14,7 @@ enum PostDetailContentTableViewCellButtonType {
     case like
     case collect
 }
-typealias PostDetailContentTableViewCellClouse = (_ type:PostDetailContentTableViewCellButtonType) -> Void
+typealias PostDetailContentTableViewCellClouse = (_ type:PostDetailContentTableViewCellButtonType, _ status:ToolsStatus) -> Void
 typealias PostDetailContentTableViewCellImageClickClouse = (_ tag:Int, _ photoBrowser:SKPhotoBrowser) ->Void
 
 class PostDetailContentTableViewCell: UITableViewCell {
@@ -67,11 +67,11 @@ class PostDetailContentTableViewCell: UITableViewCell {
             if self.likeButton.imageView.image == UIImage.init(named: "post_detail_like_select") {
                 self.likeButton.imageView.image = UIImage.init(named: "post_detail_like")
                 self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
-                self.postDetailContentTableViewCellClouse(.like)
+                self.postDetailContentTableViewCellClouse(.like, .delete)
             }else{
                 self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
                 self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
-                self.postDetailContentTableViewCellClouse(.like)
+                self.postDetailContentTableViewCellClouse(.like, .add)
             }
         })
         
@@ -80,10 +80,10 @@ class PostDetailContentTableViewCell: UITableViewCell {
         collectButton = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: UIImage.init(named: "post_detail_like")!.size.width + 25, y: 0, width: 34, height: 74), title: "收藏", image: UIImage.init(named: "post_detail_collect")!, tag: 2, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
             if self.collectButton.imageView.image == UIImage.init(named: "post_detail_collect_select"){
                 self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect")
-                self.postDetailContentTableViewCellClouse(.collect)
+                self.postDetailContentTableViewCellClouse(.collect, .delete)
             }else{
                 self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
-                self.postDetailContentTableViewCellClouse(.collect)
+                self.postDetailContentTableViewCellClouse(.collect, .add)
             }
         })
         
