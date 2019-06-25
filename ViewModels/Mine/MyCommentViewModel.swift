@@ -41,7 +41,7 @@ class MyCommentViewModel: BaseViewModel {
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.row != 0 {
             let dicData:NSDictionary = TipModel.init(fromDictionary: self.myCommentArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
-            (self.controller as! MyCommentViewController).postDetailDataClouse(dicData,.Hot, indexPath)
+            (self.controller as! MyCommentViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
         }
     }
     

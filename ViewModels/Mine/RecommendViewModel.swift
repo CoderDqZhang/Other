@@ -35,7 +35,7 @@ class RecommendViewModel: BaseViewModel {
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.row != 0 {
             let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section],"images":images[indexPath.section]], copyItems: true)
-            (self.controller! as! NewsViewController).postDetailDataClouse(dicData,.OutFall, indexPath)
+            (self.controller! as! NewsViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.OutFall, indexPath)
         }
     }
 }

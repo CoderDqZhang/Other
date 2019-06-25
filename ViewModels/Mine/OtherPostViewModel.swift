@@ -41,7 +41,7 @@ class OtherPostViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         let dicData:NSDictionary = TipModel.init(fromDictionary: self.postArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
-        (self.controller as! OtherPostViewController).postDetailDataClouse(dicData,.Hot, indexPath)
+        (self.controller as! OtherPostViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
     }
     
     

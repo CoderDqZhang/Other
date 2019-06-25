@@ -57,7 +57,7 @@ class NewsViewModel: BaseViewModel {
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.row != 0 {
             let dicData:NSDictionary = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]).toDictionary() as NSDictionary
-            (self.controller as! NewsViewController).postDetailDataClouse(dicData,.Hot,indexPath)
+            (self.controller as! NewsViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot,indexPath)
         }
     }
     

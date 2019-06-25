@@ -13,7 +13,7 @@ import DZNEmptyDataSet
 import FDFullscreenPopGesture
 
 typealias SearchResultDicClouse = (_ dic:NSDictionary) -> Void
-typealias PostDetailDataClouse =  (_ obj:NSDictionary, _ type:PostType, _ indexPath:IndexPath?) ->Void
+typealias PostDetailDataClouse =  (_ obj:NSMutableDictionary, _ type:PostType, _ indexPath:IndexPath?) ->Void
 
 typealias ReloadDataClouse = () ->Void
 

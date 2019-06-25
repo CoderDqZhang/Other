@@ -189,8 +189,7 @@ class BindDrawViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "绑定成功", autoHidder: true)
                 if self.controller?.postDetailDataClouse != nil {
-//                    let model = BankModel.init(fromDictionary: resultDic.value as! [String : Any])
-                    self.controller?.postDetailDataClouse(resultDic.value as! NSDictionary, .Hot,nil)
+                    self.controller?.postDetailDataClouse(NSMutableDictionary.init(dictionary: resultDic.value as! NSDictionary), .Hot,nil)
                 }
                 self.controller?.navigationController?.popViewController()
             }else{

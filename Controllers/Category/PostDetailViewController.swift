@@ -59,6 +59,9 @@ class PostDetailViewController: BaseViewController {
                 let commentPost = UINavigationController.init(rootViewController: commentVC)
                 commentVC.postData = self.postData
                 commentVC.reloadDataClouse = {
+                    if self.changeAllCommentAndLikeNumberClouse != nil {
+                        self.changeAllCommentAndLikeNumberClouse(.comment, .add)
+                    }
                     self.refreshData()
                 }
                 NavigaiontPresentView(self, toController: commentPost)

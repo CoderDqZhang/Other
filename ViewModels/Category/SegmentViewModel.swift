@@ -45,24 +45,23 @@ class SegmentViewModel: BaseViewModel {
         NavigationPushView(self.controller!, toConroller: categoryDetail)
     }
     
-    func pushPostDetailViewController(_ data:NSDictionary, _ type:PostType, _ indexPath:IndexPath) {
+    func pushPostDetailViewController(_ data:NSMutableDictionary, _ type:PostType, _ indexPath:IndexPath) {
         let postDetail = PostDetailViewController()
         postDetail.changeAllCommentAndLikeNumberClouse = { type, status in
-            let changeDic = NSMutableDictionary.init(dictionary: data)
             if type == .comment {
                 if status == .add {
-                    changeDic["commentTotal"] = changeDic["commentTotal"] as! Int + 1
+                    data["commentTotal"] = data["commentTotal"] as! Int + 1
                 }else{
-                    changeDic["commentTotal"] = changeDic["commentTotal"] as! Int - 1
+                    data["commentTotal"] = data["commentTotal"] as! Int - 1
                 }
             }else{
                 if status == .add {
-                    changeDic["fork"] = changeDic["fork"] as! Int + 1
+                    data["favor"] = data["favor"] as! Int + 1
                 }else{
-                    changeDic["fork"] = changeDic["fork"] as! Int - 1
+                    data["favor"] = data["favor"] as! Int - 1
                 }
             }
-            (self.controller as! SegmentViewController).changeCommentAndLikeNumber(changeDic,indexPath)
+            (self.controller as! SegmentViewController).changeCommentAndLikeNumber(data,indexPath)
         }
         postDetail.postData = data
         postDetail.postType = type
