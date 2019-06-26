@@ -57,10 +57,12 @@ class CategoryHeaderTableViewCell: UITableViewCell {
     func cellSetData(model:CategoryModel){
         
         UIImageViewManger.sd_imageView(url: model.tribeImg.nsString.replacingOccurrences(of: " ", with: ""), imageView: logoImageView, placeholderImage: nil) { (image, error, cache, url) in
+            
             if error == nil {
-                self.logoImageView.image = image
-                self.backImageView.image = image
+                self.logoImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 52, height: 52))
+                self.backImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: self.contentView.size.width, height: self.contentView.size.height))
                 self.backImageView.blur(withStyle: UIBlurEffect.Style.light)
+
             }
         }
         categoryName.text = model.tribeName

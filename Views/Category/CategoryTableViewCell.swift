@@ -19,27 +19,24 @@ typealias CategoryViewClouseClick = (_ tag:Int) ->Void
 
 class CategoryView:UIView {
     
-    var imageView:UIImageView!
-    var titleLabel:YYLabel!
     var categoryViewClouseClick:CategoryViewClouseClick!
     
     init(imageUrl:String, title:String, tag:Int, clouse:@escaping CategoryViewClouseClick){
         super.init(frame: CGRect.init(x: 0, y: 0, width: CategoryViewWidth, height: CategoryViewHeight))
         self.tag = tag
-//        self.categoryViewClouseClick = clouse
         self.setShadowWithCornerRadius(corners: 10, shadowColor: App_Theme_B5B5B5_Color!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
         
-        imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: CategoryViewWidth, height: ImageHeith))
+        let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: CategoryViewWidth, height: ImageHeith))
         setMutiBorderRoundingCorners(imageView, corner: 10, byRoundingCorners: [UIRectCorner.topLeft,UIRectCorner.topRight])
         imageView.backgroundColor = .gray
         UIImageViewManger.sd_imageView(url: imageUrl, imageView: imageView, placeholderImage: nil) { (image, error, cacheType, url) in
-            if error != nil {
-                self.imageView.image = image
+            if error == nil {
+                imageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: CategoryViewWidth, height: ImageHeith))
             }
         }
         
         self.addSubview(imageView)
-        titleLabel = YYLabel.init(frame: CGRect.init(x: 0, y: ImageHeith, width: CategoryViewWidth, height: CategoryViewHeight - ImageHeith))
+        let titleLabel = YYLabel.init(frame: CGRect.init(x: 0, y: ImageHeith, width: CategoryViewWidth, height: CategoryViewHeight - ImageHeith))
         setMutiBorderRoundingCorners(titleLabel, corner: 10, byRoundingCorners: [UIRectCorner.bottomLeft,UIRectCorner.bottomRight])
         titleLabel.text = title
         titleLabel.textAlignment = .center
@@ -47,15 +44,6 @@ class CategoryView:UIView {
         titleLabel.backgroundColor = App_Theme_FFFFFF_Color
         titleLabel.textColor = App_Theme_333333_Color
         self.addSubview(titleLabel)
-        
-        self.isUserInteractionEnabled = true
-        
-        _  = self.newTapGesture { (gesture) in
-            gesture.numberOfTouchesRequired = 1
-            gesture.numberOfTapsRequired = 1
-            }.whenTaped { (tap) in
-               self.categoryViewClouseClick(self.tag)
-        }
     }
     
     /// 添加圆角和阴影 radius:圆角半径 shadowOpacity: 阴影透明度 (0-1) shadowColor: 阴影颜色
@@ -97,9 +85,8 @@ class CategoryTableViewCell: UITableViewCell {
     }
     
     func cellSetData(models:NSMutableArray){
-        if self.models == nil {
-            self.models = models
-            for index in 0...models.count - 1 {
+        for index in 0...models.count - 1 {
+            if contentView.viewWithTag(index + 100) == nil {
                 let category = CategoryModel.init(fromDictionary: (models[index] as! NSDictionary) as! [String : Any])
                 let categoryView = CategoryView.init(imageUrl: category.tribeImg, title: category.tribeName, tag: index) { (tag) in
                     
@@ -110,17 +97,16 @@ class CategoryTableViewCell: UITableViewCell {
                     gesture.numberOfTapsRequired = 1
                     }.whenTaped(handler: { (tap) in
                         let category = CategoryModel.init(fromDictionary: (self.models[tap.view!.tag - 100] as! NSDictionary) as! [String : Any])
-                        self.categoryTableViewCellClouseClick(category)
+                        if self.categoryTableViewCellClouseClick != nil {
+                            self.categoryTableViewCellClouseClick(category)
+                        }
                     })
-                categoryView.categoryViewClouseClick = { tag in
-                    print(tag)
-                }
                 categoryView.tag = index + 100
                 categoryView.frame = CGRect.init(x: 10 + CGFloat(CGFloat(index) * (CategoryViewWidth + 8)), y: 5, width: CategoryViewWidth, height: CategoryViewHeight)
                 contentViews.addSubview(categoryView)
             }
-            self.needsUpdateConstraints()
         }
+        self.needsUpdateConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {

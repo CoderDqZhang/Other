@@ -124,8 +124,9 @@ class GloabelHeader: UIView {
     func cellSetData(model:UserInfoModel){
         UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
             if error == nil {
-                self.avatarImageView.image = image
+                self.avatarImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 62, height: 62))
             }
+            
         }
         
         userNameLabel.text = model.nickname

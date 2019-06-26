@@ -29,7 +29,7 @@ class UserInfoView: UIView {
         avatarImage.backgroundColor = UIColor.gray
         UIImageViewManger.sd_imageView(url: avatar, imageView: avatarImage, placeholderImage: nil) { (image, error, type, url) in
             if error == nil {
-                self.avatarImage.image = image
+                self.avatarImage.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 22, height: 22))
             }
         }
         avatarImage.layer.cornerRadius = 11

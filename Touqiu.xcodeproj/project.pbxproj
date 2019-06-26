@@ -277,6 +277,7 @@
 		1FF1E53B22C21D8000BB9A50 /* OutFallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53A22C21D7F00BB9A50 /* OutFallModel.swift */; };
 		1FF1E53D22C2243900BB9A50 /* TransModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53C22C2243900BB9A50 /* TransModel.swift */; };
 		1FF1E53F22C3162000BB9A50 /* YYLaoutTextHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */; };
+		1FF1E54122C3627200BB9A50 /* UIImageMaxCrope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -634,6 +635,7 @@
 		1FF1E53A22C21D7F00BB9A50 /* OutFallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutFallModel.swift; sourceTree = "<group>"; };
 		1FF1E53C22C2243900BB9A50 /* TransModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransModel.swift; sourceTree = "<group>"; };
 		1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYLaoutTextHeight.swift; sourceTree = "<group>"; };
+		1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageMaxCrope.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1094,6 +1096,7 @@
 				1F395CC42295458C00781C0C /* CacheManager.swift */,
 				1FF1E53422B8E89700BB9A50 /* SKPhotoBrowserManager.swift */,
 				1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */,
+				1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1960,6 +1963,7 @@
 				1F395CCD2296A99E00781C0C /* CategoryModel.swift in Sources */,
 				1FE5BFB0228CF37E00C9137C /* BaseSearchViewController.swift in Sources */,
 				1F991758229BB41E00C8FDD5 /* AccountCoinsModel.swift in Sources */,
+				1FF1E54122C3627200BB9A50 /* UIImageMaxCrope.swift in Sources */,
 				1FE8DAD522926AA300DCED01 /* OtherMineViewModel.swift in Sources */,
 				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
 				1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */,

@@ -75,13 +75,15 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
         if images.count > 1 {
             imageContentView.isHidden = false
             for index in 0...images.count - 1 {
-                let image = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                UIImageViewManger.sd_imageView(url: String(images[index]), imageView: image, placeholderImage: nil) { (image, error, cache, url) in
-                    
+                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
+                UIImageViewManger.sd_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
+                    if error == nil {
+                        imageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: contentImageWidth, height: contentImageHeight))
+                    }
                 }
-                image.layer.cornerRadius = 5
-                image.layer.masksToBounds = true
-                self.imageContentView.addSubview(image)
+                imageView.layer.cornerRadius = 5
+                imageView.layer.masksToBounds = true
+                self.imageContentView.addSubview(imageView)
             }
             imageContentView.snp.updateConstraints{ (make) in
                 make.height.equalTo(contentImageHeight)

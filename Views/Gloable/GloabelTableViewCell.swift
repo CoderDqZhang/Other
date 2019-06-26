@@ -54,7 +54,9 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         titleLabel.text = title
         if image != nil {
             UIImageViewManger.sd_imageView(url: image!, imageView: rightImageView, placeholderImage: nil) { (image, error, cache, url) in
-                self.rightImageView.image = image
+                if error == nil {
+                    self.rightImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 34, height: 34))
+                }
             }
             descLabel.isHidden = true
         }else{
@@ -228,7 +230,7 @@ class GloabelFansTableViewCell : UITableViewCell {
         self.indexPath = indexPath
         UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cache, url) in
             if error == nil {
-                self.avatarImageView.image = image
+                self.avatarImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 34, height: 34))
             }
         }
         self.changeToolsButtonType(followed: model.isFollow == 1 ? true : false)

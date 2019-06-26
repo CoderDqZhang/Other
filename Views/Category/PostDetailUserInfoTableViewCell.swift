@@ -97,8 +97,9 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
     
     func cellSetData(model:TipModel){
         UIImageViewManger.sd_imageView(url: model.user.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
+            
             if error == nil {
-                self.avatarImage.image = image
+                self.avatarImage.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 34, height: 34))
             }
         }
         userName.text = model.user.nickname

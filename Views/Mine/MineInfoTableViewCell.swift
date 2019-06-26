@@ -340,7 +340,9 @@ class MineInfoTableViewCell: UITableViewCell {
         }
         descLabel.text = showModel!.descriptionField == "" ? "还没有个人简介" : showModel!.descriptionField
         UIImageViewManger.sd_imageView(url: showModel!.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
-            self.avatarImageView.image = image
+            if error == nil {
+                self.avatarImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 62, height: 62))
+            }
         }
         
         var showAccountModel = acount

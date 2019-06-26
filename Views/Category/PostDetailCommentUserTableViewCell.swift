@@ -84,7 +84,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         self.indexPath = indexPath
         UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
             if error == nil {
-                self.avatarImage.image = image
+                self.avatarImage.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 22, height: 22))
             }
         }
         userName.text = model.nickname
@@ -96,7 +96,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         self.indexPath = indexPath
         UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
             if error == nil {
-                self.avatarImage.image = image
+                self.avatarImage.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 22, height: 22))
             }
         }
         userName.text = model.user.nickname

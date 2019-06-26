@@ -190,7 +190,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                         imageView.frame = CGRect.init(x: 0, y:imageContentHeight, width: SCREENWIDTH - 64, height: (SCREENWIDTH - 64) * (image?.size.height)! / (image?.size.width)!)
                         imageView.backgroundColor = .red
                         if error == nil {
-                            imageView.image = image
+                            imageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: SCREENWIDTH - 64, height: SCREENWIDTH - 64))
                         }
                         if index == images.count - 1 {
                             self.imageContentView.snp.updateConstraints{ (make) in
@@ -212,7 +212,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (commentImageWidth + 11), y: 0, width: commentImageWidth, height: commentImageHeight))
                     UIImageViewManger.sd_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
                         if error == nil {
-                            imageView.image = image
+                            imageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: commentImageWidth, height: commentImageHeight))
                         }
                     }
                     imageView.tag = index + 1000
