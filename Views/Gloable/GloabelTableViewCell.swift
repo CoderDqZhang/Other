@@ -87,7 +87,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
                 make.size.equalTo(CGSize.init(width: strHeight + 8, height: 14))
             })
         }
-        
+        numberLabel.text = showStr
         if str.int!  == 0 {
             numberLabel.isHidden = true
         }else{
