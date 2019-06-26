@@ -60,14 +60,13 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             make.left.equalTo(self.contentView.snp.left).offset(45)
             make.right.equalTo(self.contentView.snp.right).offset(-15)
             make.top.equalTo(self.contentView.snp.top).offset(0)
-            make.size.height.equalTo(20)
         }
         
         imageContentView.snp.makeConstraints { (make) in
             make.left.equalTo(self.contentView.snp.left).offset(44)
             make.right.equalTo(self.contentView.snp.right).offset(-15)
             make.top.equalTo(self.contentLabel.snp.bottom).offset(8)
-            make.size.height.equalTo(0.001)
+            make.height.equalTo(contentImageHeight)
         }
         
         secondeContent.snp.makeConstraints { (make) in
@@ -75,7 +74,6 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             make.right.equalTo(self.contentView.snp.right).offset(-15)
             make.top.equalTo(self.imageContentView.snp.bottom).offset(8)
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-17)
-            make.size.height.equalTo(0.001)
         }
         
         allCommentLabel.snp.makeConstraints { (make) in
@@ -94,11 +92,8 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool){
-        let stringHeight = model.content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 70)
-        contentLabel.snp.updateConstraints { (make) in
-            make.size.height.equalTo(stringHeight)
-        }
-        contentLabel.text = model.content
+        
+        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
         
         let images:[String] = model.img.nsString.components(separatedBy: ",")
         self.setImageContentView(images,isCommentDetail)
@@ -117,11 +112,9 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     }
     
     func cellSetRepliy(model:ReplyList) {
-        let stringHeight = model.content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 70)
-        contentLabel.snp.updateConstraints { (make) in
-            make.size.height.equalTo(stringHeight)
-        }
-        contentLabel.text = model.content
+        
+        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
+
         imageContentView.snp.updateConstraints{ (make) in
             make.height.equalTo(0.0001)
         }
@@ -135,6 +128,16 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     }
     
     func setSecondeCotent(secondeContents:[ReplyList]){
+        allCommentLabel.text = "查看全部\(secondeContents.count)回复"
+        secondeContent.removeSubviews()
+        secondeContent.addSubview(allCommentLabel)
+        allCommentLabel.snp.remakeConstraints { (make) in
+            make.left.equalTo(secondeContent.snp.left).offset(0)
+            make.right.equalTo(secondeContent.snp.right).offset(0)
+            make.bottom.equalTo(secondeContent.snp.bottom).offset(-9)
+        }
+        allCommentLabel.isHidden = true
+
         switch secondeContents.count {
         case 0:
             secondeContent.isHidden = true
@@ -143,7 +146,9 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             }
         case 1:
             secondeContent.isHidden = false
+            
             let detailContent = self.createSecondeContentLabel(index: 0, username: secondeContents[0].nickname, content: secondeContents[0].content)
+            detailContent.tag = 10000
             secondeContent.addSubview(detailContent)
             secondeContent.snp.updateConstraints{ (make) in
                 make.height.equalTo(SecondeContentHeight + 10)
@@ -152,21 +157,23 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             secondeContent.isHidden = false
             for index in 0...secondeContents.count - 1 {
                 let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].nickname, content: secondeContents[index].content)
+                detailContent.tag = index + 10000
                 secondeContent.addSubview(detailContent)
             }
             secondeContent.snp.updateConstraints{ (make) in
                 make.height.equalTo(2 * SecondeContentHeight + 10)
             }
+            
         default:
             secondeContent.isHidden = false
             for index in 0...1 {
                 let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].nickname, content: secondeContents[index].content)
+                detailContent.tag = index + 10000
                 secondeContent.addSubview(detailContent)
             }
             secondeContent.snp.updateConstraints{ (make) in
                 make.height.equalTo(3 * SecondeContentHeight + 10)
             }
-            
             allCommentLabel.isHidden = false
         }
     }
@@ -254,7 +261,6 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     
     func createSecondeContentLabel(index:Int, username:String,content:String) -> UIView{
         let contentView = UIView.init(frame: CGRect.init(x: 0, y: 5 + CGFloat(index) * SecondeContentHeight, width: SecondeContentWidth, height: SecondeContentHeight))
-        
         let userName  = YYLabel.init()
         userName.text = "\(username):"
         userName.textAlignment = .left

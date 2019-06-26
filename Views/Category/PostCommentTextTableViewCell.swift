@@ -36,7 +36,6 @@ class PostCommentTextTableViewCell: UITableViewCell {
         textView.placeholderText = "在这里发表你的想法..."
         textView.keyboardType = .default
         textView.returnKeyType = .send
-        textView.inputAccessoryView = textToolbar
         textToolbar.keyboardToobarClouse = { type in
             if self.keyboardToobarClouse != nil {
                 self.keyboardToobarClouse(type)
@@ -74,10 +73,6 @@ class PostCommentTextTableViewCell: UITableViewCell {
         super.updateConstraints()
     }
     
-    func senderClick(){
-        
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -92,17 +87,12 @@ class PostCommentTextTableViewCell: UITableViewCell {
 
 extension PostCommentTextTableViewCell : YYTextViewDelegate {
     func textView(_ textView: YYTextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if (text == "\n")
-        {
-            self.senderClick()
-            textView.text = ""
-            return false
-        }
+
         if (textView.text.count > MaxTextViewCount) {
             textView.text = textView.text.nsString.substring(to: MaxTextViewCount)
         }
         if self.postCommentTextTableViewCellTextClouse != nil {
-            self.postCommentTextTableViewCellTextClouse(textView.text)
+            self.postCommentTextTableViewCellTextClouse("\(String(describing: textView.text!))\(text)")
         }
         return true
     }

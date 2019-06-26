@@ -26,7 +26,7 @@ class PostDetailViewController: BaseViewController {
 
     var postType:PostType!
     var postData:NSDictionary!
-    var postDetailViewModel = PostDetailViewModel()
+    var postDetailViewModel = PostDetailViewModel.init()
     
     var gloableCommentView:CustomViewCommentTextField!
     
@@ -54,22 +54,24 @@ class PostDetailViewController: BaseViewController {
         }
         
         if #available(iOS 11.0, *) {
-            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
+            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 44 - TABBAR_HEIGHT, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
                 let commentVC = CommentPostViewController()
                 let commentPost = UINavigationController.init(rootViewController: commentVC)
                 commentVC.postData = self.postData
                 commentVC.reloadDataClouse = {
-                    if self.changeAllCommentAndLikeNumberClouse != nil {
-                        self.changeAllCommentAndLikeNumberClouse(.comment, .add)
-                    }
+
                     self.refreshData()
+                }
+                if self.changeAllCommentAndLikeNumberClouse != nil {
+                    self.changeAllCommentAndLikeNumberClouse(.comment, .add)
                 }
                 NavigaiontPresentView(self, toController: commentPost)
             }, senderClick: { str in
                 
             })
+            
         } else {
-            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: self.tableView.frame.maxY, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
+            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 44, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
                 let commentVC = CommentPostViewController()
                 let commentPost = UINavigationController.init(rootViewController: commentVC)
                 commentVC.postData = self.postData
@@ -83,11 +85,24 @@ class PostDetailViewController: BaseViewController {
             }, senderClick: { str in
                 
             })
+            
             // Fallback on earlier versions
         }
+        self.view.addSubview(gloableCommentView)
+
         gloableCommentView.textView.isEditable = false
         gloableCommentView.backgroundColor = .white
-        self.view.addSubview(gloableCommentView)
+        gloableCommentView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            if #available(iOS 11.0, *) {
+                make.height.equalTo(44 + TABBAR_HEIGHT)
+            } else {
+                make.height.equalTo(44)
+                // Fallback on earlier versions
+            }
+            make.bottom.equalToSuperview()
+        }
     }
     
     func refreshData(){

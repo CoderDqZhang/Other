@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostModel : NSObject, NSCoding{
+class PostModel : NSObject, NSCoding, NSCopying{
     
     var content : String!
     var images : NSMutableArray!
@@ -81,6 +81,10 @@ class PostModel : NSObject, NSCoding{
             aCoder.encode(tribe, forKey: "tribe")
         }
         
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        return self
     }
     
 }

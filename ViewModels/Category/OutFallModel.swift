@@ -1,52 +1,52 @@
+
 //
-//  TipModel.swift
+//  OutFallModel.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/24.
+//  Created by Zhang on 2019/6/25.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 
-class TipModel : NSObject, NSCoding, NSCopying{
+class OutFallModel : NSObject, NSCoding{
     
     var commentTime : String!
-    var createTime : String!
-    var commentTotal : Int!
+    var commentTotal : AnyObject!
     var content : String!
+    var createTime : String!
     var favor : Int!
     var fork : Int!
     var id : Int!
     var image : String!
-    var status : String!
-    var title : String!
-    var tribe : CategoryModel!
-    var user : UserInfoModel!
+    var img : String!
     var isCollect : Int!
     var isFork : Int!
+    var nickname : String!
+    var status : String!
+    var title : String!
+    var userId : Int!
+    
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
         commentTime = dictionary["commentTime"] as? String
-        createTime = dictionary["createTime"] as? String
-        commentTotal = dictionary["commentTotal"] as? Int
+        commentTotal = dictionary["commentTotal"] as? AnyObject
         content = dictionary["content"] as? String
+        createTime = dictionary["createTime"] as? String
         favor = dictionary["favor"] as? Int
         fork = dictionary["fork"] as? Int
         id = dictionary["id"] as? Int
         image = dictionary["image"] as? String
-        status = dictionary["status"] as? String
-        title = dictionary["title"] as? String
+        img = dictionary["img"] as? String
         isCollect = dictionary["isCollect"] as? Int
         isFork = dictionary["isFork"] as? Int
-        if let tribeData = dictionary["tribe"] as? [String:Any]{
-            tribe = CategoryModel(fromDictionary: tribeData)
-        }
-        if let userData = dictionary["user"] as? [String:Any]{
-            user = UserInfoModel(fromDictionary: userData)
-        }
+        nickname = dictionary["nickname"] as? String
+        status = dictionary["status"] as? String
+        title = dictionary["title"] as? String
+        userId = dictionary["userId"] as? Int
     }
     
     /**
@@ -58,14 +58,14 @@ class TipModel : NSObject, NSCoding, NSCopying{
         if commentTime != nil{
             dictionary["commentTime"] = commentTime
         }
-        if createTime != nil{
-            dictionary["createTime"] = createTime
-        }
         if commentTotal != nil{
             dictionary["commentTotal"] = commentTotal
         }
         if content != nil{
             dictionary["content"] = content
+        }
+        if createTime != nil{
+            dictionary["createTime"] = createTime
         }
         if favor != nil{
             dictionary["favor"] = favor
@@ -73,17 +73,23 @@ class TipModel : NSObject, NSCoding, NSCopying{
         if fork != nil{
             dictionary["fork"] = fork
         }
+        if id != nil{
+            dictionary["id"] = id
+        }
+        if image != nil{
+            dictionary["image"] = image
+        }
+        if img != nil{
+            dictionary["img"] = img
+        }
         if isCollect != nil{
             dictionary["isCollect"] = isCollect
         }
         if isFork != nil{
             dictionary["isFork"] = isFork
         }
-        if id != nil{
-            dictionary["id"] = id
-        }
-        if image != nil{
-            dictionary["image"] = image
+        if nickname != nil{
+            dictionary["nickname"] = nickname
         }
         if status != nil{
             dictionary["status"] = status
@@ -91,11 +97,8 @@ class TipModel : NSObject, NSCoding, NSCopying{
         if title != nil{
             dictionary["title"] = title
         }
-        if tribe != nil{
-            dictionary["tribe"] = tribe.toDictionary()
-        }
-        if user != nil{
-            dictionary["user"] = user.toDictionary()
+        if userId != nil{
+            dictionary["userId"] = userId
         }
         return dictionary
     }
@@ -107,19 +110,20 @@ class TipModel : NSObject, NSCoding, NSCopying{
     @objc required init(coder aDecoder: NSCoder)
     {
         commentTime = aDecoder.decodeObject(forKey: "commentTime") as? String
-        createTime = aDecoder.decodeObject(forKey: "createTime") as? String
-        commentTotal = aDecoder.decodeObject(forKey: "commentTotal") as? Int
+        commentTotal = aDecoder.decodeObject(forKey: "commentTotal") as? AnyObject
         content = aDecoder.decodeObject(forKey: "content") as? String
+        createTime = aDecoder.decodeObject(forKey: "createTime") as? String
         favor = aDecoder.decodeObject(forKey: "favor") as? Int
         fork = aDecoder.decodeObject(forKey: "fork") as? Int
         id = aDecoder.decodeObject(forKey: "id") as? Int
         image = aDecoder.decodeObject(forKey: "image") as? String
-        status = aDecoder.decodeObject(forKey: "status") as? String
-        title = aDecoder.decodeObject(forKey: "title") as? String
+        img = aDecoder.decodeObject(forKey: "img") as? String
         isCollect = aDecoder.decodeObject(forKey: "isCollect") as? Int
         isFork = aDecoder.decodeObject(forKey: "isFork") as? Int
-        tribe = aDecoder.decodeObject(forKey: "tribe") as? CategoryModel
-        user = aDecoder.decodeObject(forKey: "user") as? UserInfoModel
+        nickname = aDecoder.decodeObject(forKey: "nickname") as? String
+        status = aDecoder.decodeObject(forKey: "status") as? String
+        title = aDecoder.decodeObject(forKey: "title") as? String
+        userId = aDecoder.decodeObject(forKey: "userId") as? Int
         
     }
     
@@ -132,14 +136,14 @@ class TipModel : NSObject, NSCoding, NSCopying{
         if commentTime != nil{
             aCoder.encode(commentTime, forKey: "commentTime")
         }
-        if createTime != nil{
-            aCoder.encode(createTime, forKey: "createTime")
-        }
         if commentTotal != nil{
             aCoder.encode(commentTotal, forKey: "commentTotal")
         }
         if content != nil{
             aCoder.encode(content, forKey: "content")
+        }
+        if createTime != nil{
+            aCoder.encode(createTime, forKey: "createTime")
         }
         if favor != nil{
             aCoder.encode(favor, forKey: "favor")
@@ -153,11 +157,17 @@ class TipModel : NSObject, NSCoding, NSCopying{
         if image != nil{
             aCoder.encode(image, forKey: "image")
         }
+        if img != nil{
+            aCoder.encode(img, forKey: "img")
+        }
         if isCollect != nil{
             aCoder.encode(isCollect, forKey: "isCollect")
         }
         if isFork != nil{
             aCoder.encode(isFork, forKey: "isFork")
+        }
+        if nickname != nil{
+            aCoder.encode(nickname, forKey: "nickname")
         }
         if status != nil{
             aCoder.encode(status, forKey: "status")
@@ -165,17 +175,10 @@ class TipModel : NSObject, NSCoding, NSCopying{
         if title != nil{
             aCoder.encode(title, forKey: "title")
         }
-        if tribe != nil{
-            aCoder.encode(tribe, forKey: "tribe")
-        }
-        if user != nil{
-            aCoder.encode(user, forKey: "user")
+        if userId != nil{
+            aCoder.encode(userId, forKey: "userId")
         }
         
-    }
-    
-    func copy(with zone: NSZone? = nil) -> Any {
-        return self
     }
     
 }

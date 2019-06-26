@@ -62,23 +62,21 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(content:String, translate:String, images:[String], isTrans:Bool, indexPath:IndexPath, transButtonClicks:@escaping TransButtonClickClouse){
+    func cellSetData(model:OutFallModel, isTrans:Bool, indexPath:IndexPath, transButtonClicks:@escaping TransButtonClickClouse){
         
-        let stringHeight = content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-        detailLabel.snp.updateConstraints { (make) in
-            make.height.equalTo(stringHeight)
-        }
-        detailLabel.text = content
+         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: detailLabel)
+        
+        
         self.indexPath = indexPath
-        translateDetailLabel.text = translate
+        translateDetailLabel.text = model.content
         
         self.transButtonClickClouse = transButtonClicks
-        
+        let images = model.img.split(separator: ",")
         if images.count > 1 {
             imageContentView.isHidden = false
             for index in 0...images.count - 1 {
                 let image = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                UIImageViewManger.sd_imageView(url: images[index], imageView: image, placeholderImage: nil) { (image, error, cache, url) in
+                UIImageViewManger.sd_imageView(url: String(images[index]), imageView: image, placeholderImage: nil) { (image, error, cache, url) in
                     
                 }
                 image.layer.cornerRadius = 5

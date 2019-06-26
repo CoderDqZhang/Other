@@ -57,7 +57,6 @@ class MyCollectViewModel: BaseViewModel {
                     self.myCollectArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-            }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }

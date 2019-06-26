@@ -55,7 +55,6 @@ class NotificationViewModel: BaseViewModel {
                     self.detailArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-            }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
@@ -63,7 +62,7 @@ class NotificationViewModel: BaseViewModel {
     
     func notificationStatusNet(indexPath:IndexPath){
         let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any])
-        let parameters = ["id":messageModel.id.string] as [String : Any]
+        let parameters = ["notifyId":messageModel.id.string] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(NotifyAlertStatusUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.updateUnreadNumber()
@@ -79,7 +78,7 @@ class NotificationViewModel: BaseViewModel {
     
     func deleteNotificationNet(indexPath:IndexPath){
         let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any])
-        let parameters = ["id":messageModel.id.string] as [String : Any]
+        let parameters = ["notifyId":messageModel.id.string] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(NotifyAlertDeleteUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.updateUnreadNumber()

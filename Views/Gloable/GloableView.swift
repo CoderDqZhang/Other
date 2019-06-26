@@ -471,7 +471,7 @@ class LoginView: UIView {
     var registerButton:UIButton!
     var loginViewButtonClouse:LoginViewButtonClouse!
     
-    var isCheckBoolProperty = MutableProperty<Bool>(false)
+    var isCheckBoolProperty = MutableProperty<Bool>(true)
 
     
     var count:Int = 15
@@ -498,7 +498,7 @@ class LoginView: UIView {
         self.addSubview(logoImage)
         
         phoneTextField = UITextField.init()
-        phoneTextField.keyboardType = .namePhonePad
+        phoneTextField.keyboardType = .numberPad
         phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         phoneTextField.textColor = App_Theme_FFFFFF_Color
         phoneTextField.placeholder = "请输入手机号"
@@ -836,7 +836,7 @@ class RegisterView: UIView {
         self.addSubview(logoImage)
         
         phoneTextField = UITextField.init()
-        phoneTextField.keyboardType = .namePhonePad
+        phoneTextField.keyboardType = .numberPad
         phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         phoneTextField.textColor = App_Theme_FFFFFF_Color
         phoneTextField.placeholder = "请输入手机号"

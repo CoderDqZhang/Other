@@ -56,8 +56,6 @@ class MyCommentViewModel: BaseViewModel {
                     self.myCommentArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-            }else{
-                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

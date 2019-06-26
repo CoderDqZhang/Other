@@ -69,6 +69,7 @@ class CommentViewModel: BaseViewModel {
                     self.replistList = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

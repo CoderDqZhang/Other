@@ -68,7 +68,6 @@ class CategoryDetailViewModel: BaseViewModel {
                     self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-            }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }

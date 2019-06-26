@@ -52,6 +52,18 @@ class CommentViewController: BaseViewController {
         }
         gloableCommentView.backgroundColor = .white
         self.view.addSubview(gloableCommentView)
+        
+        gloableCommentView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            if #available(iOS 11.0, *) {
+                make.height.equalTo(44 + TABBAR_HEIGHT)
+            } else {
+                make.height.equalTo(44)
+                // Fallback on earlier versions
+            }
+            make.bottom.equalToSuperview()
+        }
     }
     
     override func bindViewModelLogic() {

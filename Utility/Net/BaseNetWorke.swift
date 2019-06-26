@@ -231,6 +231,29 @@ class BaseNetWorke : SessionManager {
         }
     }
     
+    
+    ///TransGoogle
+    
+    func googleTrans(url:String, success:@escaping SuccessClouse, failure:@escaping FailureClouse){
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
+        Alamofire.request(url, method: .get , parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+            if response.result.error != nil{
+                failure(response.result.error! as AnyObject)
+            }else{
+                if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
+                    success(response.value as! NSDictionary)
+                }else{
+                    failure(["message":(response.result.value! as! NSDictionary).object(forKey: "error")] as AnyObject)
+                }
+            }
+        }
+    }
+    
     ///AliPayBankName
     
     func aliPayBankName(url:String, success:@escaping SuccessClouse, failure:@escaping FailureClouse){

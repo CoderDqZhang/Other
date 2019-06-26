@@ -56,7 +56,6 @@ class MyPostViewModel: BaseViewModel {
                     self.myPostArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-            }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
