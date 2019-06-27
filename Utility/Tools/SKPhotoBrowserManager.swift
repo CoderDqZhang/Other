@@ -40,7 +40,7 @@ class SKPhotoBrowserManager: NSObject {
         var images = [SKPhoto]()
 
         for url in urls{
-            let photo = SKPhoto.photoWithImageURL(UIImageViewManger.appendImageUrl(url: String(url)), holder: holderImage)
+            let photo = SKPhoto.photoWithImageURL(UIImageViewManger.getSharedInstance().appendImageUrl(url: String(url)), holder: holderImage)
             images.append(photo)
         }
         
@@ -54,7 +54,7 @@ class SKPhotoBrowserManager: NSObject {
         var images = [SKPhoto]()
         
         for url in urls{
-            let photo = SKPhoto.photoWithImageURL(UIImageViewManger.appendImageUrl(url: url), holder: holderImage)
+            let photo = SKPhoto.photoWithImageURL(UIImageViewManger.getSharedInstance().appendImageUrl(url: url), holder: holderImage)
             images.append(photo)
         }
         

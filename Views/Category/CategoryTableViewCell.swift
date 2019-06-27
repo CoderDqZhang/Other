@@ -29,11 +29,9 @@ class CategoryView:UIView {
         let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: CategoryViewWidth, height: ImageHeith))
         setMutiBorderRoundingCorners(imageView, corner: 10, byRoundingCorners: [UIRectCorner.topLeft,UIRectCorner.topRight])
         imageView.backgroundColor = .gray
-        UIImageViewManger.sd_imageView(url: imageUrl, imageView: imageView, placeholderImage: nil) { (image, error, cacheType, url) in
-            if error == nil {
-                imageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: CategoryViewWidth, height: ImageHeith))
-            }
-        }
+        imageView.sd_crope_imageView(url: imageUrl, imageView: imageView, placeholderImage: nil, completedBlock: { (image, url, type, state, error) in
+            
+        })
         
         self.addSubview(imageView)
         let titleLabel = YYLabel.init(frame: CGRect.init(x: 0, y: ImageHeith, width: CategoryViewWidth, height: CategoryViewHeight - ImageHeith))
@@ -86,7 +84,7 @@ class CategoryTableViewCell: UITableViewCell {
     
     func cellSetData(models:NSMutableArray){
         for index in 0...models.count - 1 {
-            if contentView.viewWithTag(index + 100) == nil {
+            if contentViews.viewWithTag(index + 100) == nil {
                 let category = CategoryModel.init(fromDictionary: (models[index] as! NSDictionary) as! [String : Any])
                 let categoryView = CategoryView.init(imageUrl: category.tribeImg, title: category.tribeName, tag: index) { (tag) in
                     

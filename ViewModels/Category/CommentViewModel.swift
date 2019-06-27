@@ -139,7 +139,7 @@ extension CommentViewModel: UITableViewDelegate {
             return 56
         }
         if indexPath.section == 0 {
-            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheByKey: (self.commentData as? NSCopying), configuration: { (cell) in
+            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheByKey: (self.commentData), configuration: { (cell) in
                 self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell  as! PostDetailCommentTableViewCell)
             })
         }

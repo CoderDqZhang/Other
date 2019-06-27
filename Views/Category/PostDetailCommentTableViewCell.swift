@@ -146,7 +146,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 for index in 0...images.count - 1 {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
                     imageView.tag = index + 10000
-                    UIImageViewManger.sd_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
+                    imageView.sd_crope_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
 //                        let view = self.imageContentView.viewWithTag(index + 10000)
                         imageView.frame = CGRect.init(x: 0, y:imageContentHeight, width: SCREENWIDTH - 64, height: (SCREENWIDTH - 64) * (image?.size.height)! / (image?.size.width)!)
                         imageView.backgroundColor = .red
@@ -171,10 +171,8 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 }
                 for index in 0...images.count - 1 {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (commentImageWidth + 11), y: 0, width: commentImageWidth, height: commentImageHeight))
-                    UIImageViewManger.sd_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
-                        if error == nil {
-                            imageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: commentImageWidth, height: commentImageHeight))
-                        }
+                    imageView.sd_crope_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
+                        
                     }
                     imageView.tag = index + 1000
                     imageView.isUserInteractionEnabled = true

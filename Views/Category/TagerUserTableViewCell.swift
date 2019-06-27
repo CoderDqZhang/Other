@@ -56,7 +56,7 @@ class TagerUserTableViewCell: UITableViewCell {
     func cellSetCatogyModel(model:CategoryModel){
         userNameLabel.text = model.tribeName
         descLabel.text = model.tribeName
-        UIImageViewManger.sd_imageView(url: model.tribeImg, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
+        avatarImageView.sd_crope_imageView(url: model.tribeImg, imageView: avatarImageView, placeholderImage: nil) { (image, url, type, state, error) in
             if error == nil {
                 self.avatarImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 34, height: 34))
             }

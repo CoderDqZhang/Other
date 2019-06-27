@@ -56,11 +56,11 @@ class CategoryHeaderTableViewCell: UITableViewCell {
     
     func cellSetData(model:CategoryModel){
         
-        UIImageViewManger.sd_imageView(url: model.tribeImg.nsString.replacingOccurrences(of: " ", with: ""), imageView: logoImageView, placeholderImage: nil) { (image, error, cache, url) in
+        logoImageView.sd_crope_imageView(url: model.tribeImg.nsString.replacingOccurrences(of: " ", with: ""), imageView: logoImageView, placeholderImage: nil) { (image, url, type, state, error) in
             
             if error == nil {
-                self.logoImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 52, height: 52))
-                self.backImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: self.contentView.size.width, height: self.contentView.size.height))
+                self.logoImageView.image = image
+                self.backImageView.image = image
                 self.backImageView.blur(withStyle: UIBlurEffect.Style.light)
 
             }

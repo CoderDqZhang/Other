@@ -339,7 +339,7 @@ class MineInfoTableViewCell: UITableViewCell {
             attentionsLabel.text = "关注 \(showModel!.followNum.string)"
         }
         descLabel.text = showModel!.descriptionField == "" ? "还没有个人简介" : showModel!.descriptionField
-        UIImageViewManger.sd_imageView(url: showModel!.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cacheType, url) in
+        avatarImageView.sd_crope_imageView(url: showModel!.img, imageView: avatarImageView, placeholderImage: nil) { (image, url, type, state, error) in
             if error == nil {
                 self.avatarImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 62, height: 62))
             }

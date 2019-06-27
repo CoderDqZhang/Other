@@ -39,62 +39,42 @@ class CategoryContentTableViewCell: UITableViewCell {
         
         imageContentView = UIView.init()
         self.contentView.addSubview(imageContentView)
-        
-        detailLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView.snp.left).offset(15)
-            make.right.equalTo(self.contentView.snp.right).offset(-15)
-            make.top.equalTo(self.contentView.snp.top).offset(0)
-        }
-        
-        imageContentView.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView.snp.left).offset(15)
-            make.right.equalTo(self.contentView.snp.right).offset(-15)
-            make.top.equalTo(self.detailLabel.snp.bottom).offset(8)
-            make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
-            make.height.equalTo(0.001)
-        }
-        
         self.contentView.addSubview(lineLabel)
-       
-        lineLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView.snp.left).offset(15)
-            make.right.equalTo(self.contentView.snp.right).offset(-15)
-            make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
-            make.height.equalTo(1)
-        }
-        
         self.updateConstraints()
     }
     
     func cellSetData(tipmodel:TipModel){
         
-        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: tipmodel.title, yyLabel: detailLabel)
+//        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: tipmodel.title, yyLabel: detailLabel)
         
-        let images = tipmodel.image.split(separator: ",")
-        
-        if images.count > 1 {
-            for index in 0...images.count - 1 {
-                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                UIImageViewManger.sd_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
-                    if error == nil {
-                        imageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: contentImageWidth, height: contentImageHeight))
-                    }
-                }
-                imageView.layer.cornerRadius = 5
-                imageView.layer.masksToBounds = true
-                self.imageContentView.addSubview(imageView)
-            }
-            imageContentView.isHidden = false
-            imageContentView.snp.updateConstraints{ (make) in
-                make.height.equalTo(contentImageHeight)
-            }
-        }else{
-            imageContentView.isHidden = true
-            imageContentView.snp.updateConstraints{ (make) in
-                make.height.equalTo(0.0001)
-            }
-        }
-        self.contentView.updateConstraintsIfNeeded()
+//        let images = tipmodel.image.split(separator: ",")
+//
+//        if images.count > 1 {
+//            for index in 0...images.count - 1 {
+//                if self.imageContentView.subviews.count == 0 {
+////                    let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
+////                    avatarImage.sd_crope_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
+////                        if error == nil {
+////                            imageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: contentImageWidth, height: contentImageHeight))
+////                        }
+////                    }
+////                    imageView.tag = index + 1000
+////                    imageView.layer.cornerRadius = 5
+////                    imageView.layer.masksToBounds = true
+////                    self.imageContentView.addSubview(imageView)
+//                }
+//            }
+//            imageContentView.isHidden = false
+//            imageContentView.snp.updateConstraints{ (make) in
+//                make.height.equalTo(contentImageHeight)
+//            }
+//        }else{
+//            imageContentView.isHidden = true
+//            imageContentView.snp.updateConstraints{ (make) in
+//                make.height.equalTo(0.0001)
+//            }
+//        }
+//        self.contentView.updateConstraintsIfNeeded()
         
 
     }
@@ -106,7 +86,26 @@ class CategoryContentTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !didMakeConstraints {
+            detailLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+            }
             
+            imageContentView.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.detailLabel.snp.bottom).offset(8)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
+            }
+            
+            
+            lineLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
+                make.height.equalTo(1)
+            }
             didMakeConstraints = true
         }
         super.updateConstraints()
