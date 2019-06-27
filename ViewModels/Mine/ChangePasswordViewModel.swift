@@ -60,7 +60,7 @@ class ChangePasswordViewModel: BaseViewModel {
         
         cell.anmationButton.addAction({ (button) in
             if self.confirmPassword != self.newPassword {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "两次密码不一致", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "两次密码不一致", autoHidder: true)
                 return
             }
             self.changePasswordNet(oldPas: AddAESKeyPassword(str: self.oldPassword), newPas: AddAESKeyPassword(str: self.newPassword))
@@ -75,7 +75,7 @@ class ChangePasswordViewModel: BaseViewModel {
         let parameters = ["oldPassword":oldPas,"password":newPas]
         BaseNetWorke.getSharedInstance().postUrlWithString(SurePasswordUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "修改成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "修改成功", autoHidder: true)
                 self.controller!.navigationController?.popViewController()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

@@ -92,32 +92,32 @@ class ErrorCodeTools: NSObject {
             sucess(responseObject.object(forKey: "data") as AnyObject)
         case ErrorCode.INVALID_PARAM.rawValue:
 //            sucess(responseObject)
-            _ = Tools.shareInstance.showMessage(KWindow, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
+            _ = Tools.shareInstance.showMessage(current()!.view, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
             break
         case ErrorCode.FAIL.rawValue:
 //            sucess(responseObject)
-            _ = Tools.shareInstance.showMessage(KWindow, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
+            _ = Tools.shareInstance.showMessage(current()!.view, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
             break
         case ErrorCode.LOGINOTHERPHONE.rawValue:
 //            sucess(responseObject)
             CacheManager.getSharedInstance().logout()
-            _ = Tools.shareInstance.showMessage(KWindow, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
+            _ = Tools.shareInstance.showMessage(current()!.view, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
             break
         case ErrorCode.UNAUTHENTICATED.rawValue:
 //            sucess(responseObject)
             CacheManager.getSharedInstance().logout()
-            _ = Tools.shareInstance.showMessage(KWindow, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
+            _ = Tools.shareInstance.showMessage(current()!.view, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
             break
         case ErrorCode.UNAUTHENTICATED.rawValue:
 //            sucess(responseObject)
-            _ = Tools.shareInstance.showMessage(KWindow, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
+            _ = Tools.shareInstance.showMessage(current()!.view, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
             break
         case ErrorCode.UNAUTHENTICATED.rawValue:
 //            sucess(responseObject)
-            _ = Tools.shareInstance.showMessage(KWindow, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
+            _ = Tools.shareInstance.showMessage(current()!.view, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
             break
         default:
-            _ = Tools.shareInstance.showMessage(KWindow, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
+            _ = Tools.shareInstance.showMessage(current()!.view, msg: responseObject.object(forKey: "msg") as! String, autoHidder: true)
             break
 //            sucess(responseObject)
         }

@@ -45,7 +45,7 @@ class CategoryDetailViewController: BaseViewController {
         self.updateTableViewConstraints()
         
         self.setUpLoadMoreData {
-            
+            self.categoryViewModel.getCategoryNet()
         }
     }
     

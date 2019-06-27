@@ -51,7 +51,7 @@ class ResetPasViewModel: BaseViewModel {
     
     func setNewPassword(){
         if self.newPas != self.confirmPas {
-            _ = Tools.shareInstance.showMessage(KWindow, msg: "两次密码不一致", autoHidder: true)
+            _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "两次密码不一致", autoHidder: true)
             return
         }
         self.resetPasNetWork()

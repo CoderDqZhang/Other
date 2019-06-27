@@ -123,9 +123,7 @@ class GloabelHeader: UIView {
     
     func cellSetData(model:UserInfoModel){
         avatarImageView.sd_crope_imageView(url: model.img, imageView: avatarImageView, placeholderImage: nil) { (image, url, type, state, error) in
-            if error == nil {
-                self.avatarImageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: 62, height: 62))
-            }
+            
             
         }
         

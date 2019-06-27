@@ -101,7 +101,7 @@ extension CategoryDetailViewModel: UITableViewDelegate {
             if indexPath.row == 0 {
                 return 52
             }else if indexPath.row == 1 {
-                return tableView.fd_heightForCell(withIdentifier: CategoryContentTableViewCell.description(), configuration: { (cell) in
+                return tableView.fd_heightForCell(withIdentifier: CategoryContentTableViewCell.description(), cacheByKey: (self.tipListArray[indexPath.section - 1] as! NSCopying), configuration: { (cell) in
                     self.tableViewCategoryContentTableViewCellSetData(indexPath, cell: cell as! CategoryContentTableViewCell)
                 })
             }

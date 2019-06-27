@@ -168,7 +168,7 @@ class BaseNetWorke : SessionManager {
                         if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
                             subscriber.send(value: response.result.value ?? "")
                         }else{
-                            _ = Tools.shareInstance.showMessage(KWindow, msg: "上传失败", autoHidder: true)
+                            _ = Tools.shareInstance.showMessage(current()!.view, msg: "上传失败", autoHidder: true)
                         }
                         if hud != nil {
                             Tools.shareInstance.hiddenLoading(hud: hud!)
@@ -180,7 +180,7 @@ class BaseNetWorke : SessionManager {
                     if hud != nil {
                         Tools.shareInstance.hiddenLoading(hud: hud!)
                     }
-                    _ = Tools.shareInstance.showMessage(KWindow, msg: "上传失败", autoHidder: true)
+                    _ = Tools.shareInstance.showMessage(current()!.view, msg: "上传失败", autoHidder: true)
                     subscriber.sendCompleted()
                 }
             }

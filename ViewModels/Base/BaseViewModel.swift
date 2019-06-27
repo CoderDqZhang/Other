@@ -19,6 +19,10 @@ class BaseViewModel: NSObject {
         super.init()
     }
     
+    func getControllerView() -> UIView{
+        return self.controller!.view
+    }
+    
     func reloadTableViewData(){
         self.controller?.tableView.reloadData()
     }

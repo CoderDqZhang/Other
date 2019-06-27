@@ -103,14 +103,14 @@ class SigupVIPViewModel: BaseViewModel {
     
     func singUpVipNameNet(){
         if fontImage == nil || backImage == nil || takeHandImage == nil {
-            _ = Tools.shareInstance.showMessage(KWindow, msg: "请上传图片", autoHidder: true)
+            _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "请上传图片", autoHidder: true)
             return
         }
         AliPayManager.getSharedInstance().uploadFile(images: [fontImage!,backImage!,takeHandImage!], type: .user) { imgs,strs  in
             let parameters = ["username":self.username,"idNumber":self.idnumber,imgs:strs] as [AnyHashable : String]
             BaseNetWorke.getSharedInstance().postUrlWithString(PersonapplyMasterUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
-                    _ = Tools.shareInstance.showMessage(KWindow, msg: "提交成功，等待审核", autoHidder: true)
+                    _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "提交成功，等待审核", autoHidder: true)
                     self.controller?.navigationController?.popViewController()
                 }else{
                     self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

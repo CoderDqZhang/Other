@@ -150,9 +150,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
 //                        let view = self.imageContentView.viewWithTag(index + 10000)
                         imageView.frame = CGRect.init(x: 0, y:imageContentHeight, width: SCREENWIDTH - 64, height: (SCREENWIDTH - 64) * (image?.size.height)! / (image?.size.width)!)
                         imageView.backgroundColor = .red
-                        if error == nil {
-                            imageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: SCREENWIDTH - 64, height: SCREENWIDTH - 64))
-                        }
+                        
                         if index == images.count - 1 {
                             self.imageContentView.snp.updateConstraints{ (make) in
                                 make.height.equalTo(imageView.frame.maxY)

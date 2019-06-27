@@ -37,7 +37,7 @@ class MineViewModel: BaseViewModel {
                         touUpVC.accountInfo = self.accountInfo
                         NavigationPushView(self.controller!, toConroller: touUpVC)
                     }else{
-                        _ = Tools.shareInstance.showMessage(KWindow, msg: "请先实名认证", autoHidder: true)
+                        _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "请先实名认证", autoHidder: true)
                     }
                 case.daily:
                     NavigationPushView(self.controller!, toConroller: DailyViewController())
@@ -102,18 +102,18 @@ class MineViewModel: BaseViewModel {
             case 3:
                 if indexPath.row == 0 {
                     if self.userInfo != nil && (self.userInfo!.isMember == "1") {
-                        _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经实名认证了", autoHidder: true)
+                        _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "您已经实名认证了", autoHidder: true)
                         return
                     }
                     NavigationPushView(self.controller!, toConroller: RealNameViewController())
                 }else if indexPath.row == 1{
                     if self.userInfo != nil  {
                         if (self.userInfo!.isMaster == "1"){
-                            _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经是大神用户", autoHidder: true)
+                            _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "您已经是大神用户", autoHidder: true)
                             return
                         }
                         if (self.userInfo!.isMaster == "2") {
-                            _ = Tools.shareInstance.showMessage(KWindow, msg: "正在审核中", autoHidder: true)
+                            _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "正在审核中", autoHidder: true)
                             return
                         }
                     }

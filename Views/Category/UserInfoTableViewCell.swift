@@ -55,12 +55,9 @@ class UserInfoView: UIView {
     }
     
     func createContent(avatar:String, name:String, category:String) {
-//        self.avatarImage.sd_crope_imageView(url: avatar, placeholderImage: nil, completedBlock: { (image, url, type, state, error) in
-//            
-//        })
-//        self.avatarImage.sd_setImage(with: URL.init(string: UIImageViewManger.getSharedInstance().appendImageUrl(url: avatar), relativeTo: nil), placeholderImage: nil, options: .retryFailed ) { (image, url, type, state, error) in
-//
-//        }
+        self.avatarImage.sd_crope_imageView(url: avatar, imageView: avatarImage, placeholderImage: nil, completedBlock: { (image, url, type, state, error) in
+            
+        })
         userName.text = name
         categoryLabel.text = category
     }

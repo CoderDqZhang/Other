@@ -59,6 +59,10 @@ class BaseViewController: UIViewController {
     
     func bindViewModelLogic(){}
     
+    func getControllerView() ->UIView {
+        return self.view
+    }
+    
     func bindViewodelResultData(_ resultData:NSMutableArray){
         if self.viewModel != nil {
             self.viewModel!.resultData = resultData

@@ -83,6 +83,7 @@ class CategoryTableViewCell: UITableViewCell {
     }
     
     func cellSetData(models:NSMutableArray){
+        self.models = models
         for index in 0...models.count - 1 {
             if contentViews.viewWithTag(index + 100) == nil {
                 let category = CategoryModel.init(fromDictionary: (models[index] as! NSDictionary) as! [String : Any])

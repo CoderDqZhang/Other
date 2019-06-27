@@ -48,12 +48,12 @@ class ChangeInfoViewController: BaseViewController {
     @objc func rightBarItemClick(_ sender:UIBarButtonItem) {
         
         if detailString.count == 0 {
-            _ = Tools.shareInstance.showMessage(KWindow, msg: "请输入字符", autoHidder: true)
+            _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "请输入字符", autoHidder: true)
         }
         if self.type == .email {
             let ret = detailString.isValidEmail
             if !ret {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "邮件格式不对", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "邮件格式不对", autoHidder: true)
             }
         }
         

@@ -279,6 +279,7 @@
 		1FF1E53F22C3162000BB9A50 /* YYLaoutTextHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */; };
 		1FF1E54122C3627200BB9A50 /* UIImageMaxCrope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */; };
 		1FF1E54322C46C5A00BB9A50 /* ReplyContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54222C46C5900BB9A50 /* ReplyContentTableViewCell.swift */; };
+		1FF1E54522C4BF0000BB9A50 /* UIViewControllerExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54422C4BF0000BB9A50 /* UIViewControllerExtentions.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -638,6 +639,7 @@
 		1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYLaoutTextHeight.swift; sourceTree = "<group>"; };
 		1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageMaxCrope.swift; sourceTree = "<group>"; };
 		1FF1E54222C46C5900BB9A50 /* ReplyContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyContentTableViewCell.swift; sourceTree = "<group>"; };
+		1FF1E54422C4BF0000BB9A50 /* UIViewControllerExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtentions.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1116,6 +1118,7 @@
 				1FE5BE412282864300C9137C /* NSTimer.swift */,
 				1FE5BE422282864300C9137C /* UITapGestureRecognizer+Extention.swift */,
 				1FE5BE432282864300C9137C /* AlertControl+Tools.swift */,
+				1FF1E54422C4BF0000BB9A50 /* UIViewControllerExtentions.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -2032,6 +2035,7 @@
 				1FE5BF66228A943B00C9137C /* PostCommentImagesTableViewCell.swift in Sources */,
 				1FE5BF3A2284359D00C9137C /* OutFallCategoryUserInfoTableViewCell.swift in Sources */,
 				1FE5BEB32282866200C9137C /* TADotView.m in Sources */,
+				1FF1E54522C4BF0000BB9A50 /* UIViewControllerExtentions.swift in Sources */,
 				1FE5BDF52282731C00C9137C /* MainTabBarController.swift in Sources */,
 				1FE5BE362282863D00C9137C /* TransitionAnimatedManager.swift in Sources */,
 				1FE5BDE622817B5F00C9137C /* Define.swift in Sources */,

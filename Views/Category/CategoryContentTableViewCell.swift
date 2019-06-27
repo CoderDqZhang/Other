@@ -45,36 +45,32 @@ class CategoryContentTableViewCell: UITableViewCell {
     
     func cellSetData(tipmodel:TipModel){
         
-//        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: tipmodel.title, yyLabel: detailLabel)
+        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: tipmodel.title, yyLabel: detailLabel)
         
-//        let images = tipmodel.image.split(separator: ",")
-//
-//        if images.count > 1 {
-//            for index in 0...images.count - 1 {
-//                if self.imageContentView.subviews.count == 0 {
-////                    let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-////                    avatarImage.sd_crope_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
-////                        if error == nil {
-////                            imageView.image = UIImageMaxCroped.cropeImage(image: image!, imageViewSize: CGSize.init(width: contentImageWidth, height: contentImageHeight))
-////                        }
-////                    }
-////                    imageView.tag = index + 1000
-////                    imageView.layer.cornerRadius = 5
-////                    imageView.layer.masksToBounds = true
-////                    self.imageContentView.addSubview(imageView)
-//                }
-//            }
-//            imageContentView.isHidden = false
-//            imageContentView.snp.updateConstraints{ (make) in
-//                make.height.equalTo(contentImageHeight)
-//            }
-//        }else{
-//            imageContentView.isHidden = true
-//            imageContentView.snp.updateConstraints{ (make) in
-//                make.height.equalTo(0.0001)
-//            }
-//        }
-//        self.contentView.updateConstraintsIfNeeded()
+        let images = tipmodel.image.split(separator: ",")
+
+        if images.count > 1 {
+            for index in 0...images.count - 1 {
+                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
+                imageView.sd_crope_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
+                    
+                }
+                imageView.tag = index + 1000
+                imageView.layer.cornerRadius = 5
+                imageView.layer.masksToBounds = true
+                self.imageContentView.addSubview(imageView)
+            }
+            imageContentView.isHidden = false
+            imageContentView.snp.updateConstraints{ (make) in
+                make.height.equalTo(contentImageHeight)
+            }
+        }else{
+            imageContentView.isHidden = true
+            imageContentView.snp.updateConstraints{ (make) in
+                make.height.equalTo(0.0001)
+            }
+        }
+        self.contentView.updateConstraintsIfNeeded()
         
 
     }
@@ -96,6 +92,7 @@ class CategoryContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.detailLabel.snp.bottom).offset(8)
+                make.height.equalTo(0.0001)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
             }
             

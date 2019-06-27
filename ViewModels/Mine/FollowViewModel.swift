@@ -69,7 +69,7 @@ class FollowViewModel: BaseViewModel {
         let parameters = ["userId":model.id!.string]
         BaseNetWorke.getSharedInstance().postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "操作成功", autoHidder: true)
                 if type == .select {
                     self.reloadTalbeViewData(indexPath: indexPath)
                 }

@@ -43,7 +43,7 @@ class FeedBackViewModel: BaseViewModel {
         let parameters = ["content":content]
         BaseNetWorke.getSharedInstance().postUrlWithString(UserFeedBackinsertFeedbackUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "反馈成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "反馈成功", autoHidder: true)
                 self.controller!.navigationController?.popViewController()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

@@ -33,9 +33,9 @@ class OtherMineViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(PersonfollowUserUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if status {
-                    _ = Tools.shareInstance.showMessage(KWindow, msg: "取消关注成功", autoHidder: true)
+                    _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "取消关注成功", autoHidder: true)
                 }else{
-                    _ = Tools.shareInstance.showMessage(KWindow, msg: "关注成功", autoHidder: true)
+                    _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "关注成功", autoHidder: true)
                 }
                 self.changeFollowStatus(status: !status)
             }else{
