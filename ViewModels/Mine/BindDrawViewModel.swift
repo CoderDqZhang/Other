@@ -164,7 +164,7 @@ class BindDrawViewModel: BaseViewModel {
                     self.bankNameProperty.value = true
                     self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 2, section: 1)], with: .automatic)
                 }else{
-                    _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "请检查账户", autoHidder: true)
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "请检查账户", autoHidder: true)
                 }
                 
             }
@@ -176,7 +176,7 @@ class BindDrawViewModel: BaseViewModel {
     func phoneCodeNetWork(){
         BaseNetWorke.getSharedInstance().postUrlWithString(UsersendCodeUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "发送验证码成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "发送验证码成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
@@ -187,7 +187,7 @@ class BindDrawViewModel: BaseViewModel {
         let parameters = ["bankName":self.type == .bank ? self.bindModel.bankName! : self.bindModel.bankUserName!, "type":self.bindModel.type!, "code":self.bindModel.code!,"bankNo":self.bindModel.bankNo!] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(AccountbindAccountUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "绑定成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "绑定成功", autoHidder: true)
                 if self.controller?.postDetailDataClouse != nil {
                     self.controller?.postDetailDataClouse(NSMutableDictionary.init(dictionary: resultDic.value as! NSDictionary), .Hot,nil)
                 }

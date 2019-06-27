@@ -47,7 +47,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     
     func postTCommentNet(){
         if self.commentContent == "" {
-            _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "请输入内容", autoHidder: true)
+            _ = Tools.shareInstance.showMessage(KWindow, msg: "请输入内容", autoHidder: true)
             return
         }
         if self.selectPhotos.count > 0 {
@@ -55,7 +55,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                 let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":strs] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
-                        _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "评论成功", autoHidder: true)
+                        _ = Tools.shareInstance.showMessage(KWindow, msg: "评论成功", autoHidder: true)
                         self.controller?.dismiss(animated: true, completion: {
                             if self.controller?.reloadDataClouse != nil {
                                 self.controller?.reloadDataClouse()
@@ -71,7 +71,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":""] as [String : Any]
             BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
-                    _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "评论成功", autoHidder: true)
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "评论成功", autoHidder: true)
                     self.controller?.dismiss(animated: true, completion: {
                         if self.controller?.reloadDataClouse != nil {
                             self.controller?.reloadDataClouse()

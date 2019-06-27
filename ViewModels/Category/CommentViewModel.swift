@@ -59,7 +59,7 @@ class CommentViewModel: BaseViewModel {
         let parameters = ["replyId":model.id!.string,"userId":model.userId.string]
         BaseNetWorke.getSharedInstance().postUrlWithString(CommentReplyApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "点赞成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "点赞成功", autoHidder: true)
             }
         }
     }
@@ -83,7 +83,7 @@ class CommentViewModel: BaseViewModel {
     
     func setUpReplit(content:String){
         if content == "" {
-            _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "请输入数据", autoHidder: true)
+            _ = Tools.shareInstance.showMessage(KWindow, msg: "请输入数据", autoHidder: true)
             return
         }
         var parameters:[String : Any]
@@ -92,14 +92,14 @@ class CommentViewModel: BaseViewModel {
         }else{
 //            if self.selectReply.userId.string == CacheManager.getSharedInstance().getUserId() {
 //                self.replyDone()
-//                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "不能够回复自己", autoHidder: true)
+//                _ = Tools.shareInstance.showMessage(KWindow, msg: "不能够回复自己", autoHidder: true)
 //                return
 //            }
             parameters = ["content":content, "toUserId":self.selectReply.userId.string, "commentId":self.commentData.id.string] as [String : Any]
         }
         BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "回复成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "回复成功", autoHidder: true)
                 self.replyDone()
                 if self.controller?.reloadDataClouse != nil {
                     self.controller?.reloadDataClouse()

@@ -119,7 +119,7 @@ class PostDetailViewModel: BaseViewModel {
         let parameters = ["tipId":self.tipDetailModel.id!.string]
         BaseNetWorke.getSharedInstance().postUrlWithString(TipcollectTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "操作成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
@@ -133,7 +133,7 @@ class PostDetailViewModel: BaseViewModel {
                 if (self.controller! as! PostDetailViewController).changeAllCommentAndLikeNumberClouse != nil {
                     (self.controller! as! PostDetailViewController).changeAllCommentAndLikeNumberClouse(.like, status)
                 }
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "操作成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
@@ -144,7 +144,7 @@ class PostDetailViewModel: BaseViewModel {
         let parameters = ["commentId":commentId]
         BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "操作成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
@@ -158,7 +158,7 @@ class PostDetailViewModel: BaseViewModel {
                 if (self.controller as! PostDetailViewController).changeFansFollowButtonStatusClouse != nil {
                     (self.controller as! PostDetailViewController).changeFansFollowButtonStatusClouse(status)
                 }
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: status == true ? "关注成功" : "取消关注成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: status == true ? "关注成功" : "取消关注成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }

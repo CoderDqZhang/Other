@@ -67,7 +67,7 @@ class MyCollectViewModel: BaseViewModel {
         let parameters = ["tipId":model.id!.string]
         BaseNetWorke.getSharedInstance().postUrlWithString(TipcollectTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "取消收藏成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "取消收藏成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }

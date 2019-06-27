@@ -58,7 +58,7 @@ class LoginViewModel: BaseViewModel {
         let parameters = ["phone":phone]
         BaseNetWorke.getSharedInstance().postUrlWithString(UsersendCodeUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "发送验证码成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "发送验证码成功", autoHidder: true)
                 //                let userInfo = UserInfoModel.yy_model(with: (resultDic.value as! [AnyHashable : Any]))
                 
             }else{

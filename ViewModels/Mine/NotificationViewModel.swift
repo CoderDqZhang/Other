@@ -84,7 +84,7 @@ class NotificationViewModel: BaseViewModel {
                 self.updateUnreadNumber()
                 messageModel.status = "1"
                 self.detailArray.replaceObject(at: indexPath.row, with: messageModel.toDictionary())
-                _ = Tools.shareInstance.showMessage(self.getControllerView(), msg: "删除成功", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "删除成功", autoHidder: true)
                 self.detailArray.removeObject(at: indexPath.row)
                 self.reloadTableViewData()
             }else{

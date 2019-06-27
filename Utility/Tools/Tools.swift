@@ -95,29 +95,31 @@ class Tools: NSObject {
         hud.hide(animated: true, afterDelay: 2.0)
         hud.removeFromSuperViewOnHide = true
         hud.margin = 10
+        hud.isUserInteractionEnabled = false
+        
         return hud
     }
     
     func showErrorMessage(_ errorDic:AnyObject) ->MBProgressHUD? {
         if (errorDic is NSDictionary) {
             if (errorDic as! NSDictionary).object(forKey: "message") != nil {
-                return  self.showMessage(current()!.view, msg: (errorDic as! NSDictionary).object(forKey: "message") as? String ?? "出现错误", autoHidder: true)
+                return  self.showMessage(KWindow, msg: (errorDic as! NSDictionary).object(forKey: "message") as? String ?? "出现错误", autoHidder: true)
             }else{
-                return self.showMessage(current()!.view, msg:"网络服务错误" , autoHidder: true)
+                return self.showMessage(KWindow, msg:"网络服务错误" , autoHidder: true)
             }
         }else{
-            return self.showMessage(current()!.view, msg:"网络服务错误" , autoHidder: true)
+            return self.showMessage(KWindow, msg:"网络服务错误" , autoHidder: true)
         }
     }
     
     func showNetWorkError(_ error:AnyObject) ->MBProgressHUD {
         let netWorkError = (error as! NSError)
         print(netWorkError)
-        return self.showMessage(current()!.view, msg:netWorkError.localizedDescription , autoHidder: true)
+        return self.showMessage(KWindow, msg:netWorkError.localizedDescription , autoHidder: true)
     }
     
     func showAliPathError(_ error:String) ->MBProgressHUD {
-        return self.showMessage(current()!.view, msg: error, autoHidder: true)
+        return self.showMessage(KWindow, msg: error, autoHidder: true)
     }
     
    
