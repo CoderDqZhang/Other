@@ -278,6 +278,7 @@
 		1FF1E53D22C2243900BB9A50 /* TransModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53C22C2243900BB9A50 /* TransModel.swift */; };
 		1FF1E53F22C3162000BB9A50 /* YYLaoutTextHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */; };
 		1FF1E54122C3627200BB9A50 /* UIImageMaxCrope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */; };
+		1FF1E54322C46C5A00BB9A50 /* ReplyContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54222C46C5900BB9A50 /* ReplyContentTableViewCell.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -636,6 +637,7 @@
 		1FF1E53C22C2243900BB9A50 /* TransModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransModel.swift; sourceTree = "<group>"; };
 		1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYLaoutTextHeight.swift; sourceTree = "<group>"; };
 		1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageMaxCrope.swift; sourceTree = "<group>"; };
+		1FF1E54222C46C5900BB9A50 /* ReplyContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyContentTableViewCell.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1383,6 +1385,7 @@
 				1FE5BF4D22853E9500C9137C /* CategoryHeaderTableViewCell.swift */,
 				1FE5BF4F228561CB00C9137C /* PostDetailUserInfoTableViewCell.swift */,
 				1FE5BF51228561E800C9137C /* PostDetailCommentTableViewCell.swift */,
+				1FF1E54222C46C5900BB9A50 /* ReplyContentTableViewCell.swift */,
 				1FE5BF53228561F900C9137C /* PostDetailCommentUserTableViewCell.swift */,
 				1FE5BF552285623400C9137C /* PostDetailContentTableViewCell.swift */,
 				1FE5BF63228A942500C9137C /* PostCommentTextTableViewCell.swift */,
@@ -2140,6 +2143,7 @@
 				1FE5BE1C228285FA00C9137C /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1FE8DA9E228E981B00DCED01 /* FansViewController.swift in Sources */,
 				1FE5BE032282752C00C9137C /* ScoreViewController.swift in Sources */,
+				1FF1E54322C46C5A00BB9A50 /* ReplyContentTableViewCell.swift in Sources */,
 				1FE5BE4A2282864300C9137C /* NSTimer.swift in Sources */,
 				1FE5BE352282863D00C9137C /* LocalJsonFile.swift in Sources */,
 				1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */,

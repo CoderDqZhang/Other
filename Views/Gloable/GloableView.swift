@@ -181,6 +181,7 @@ import IQKeyboardManagerSwift
 let YYTextViewFrameWidht:CGFloat = SCREENWIDTH - 16 * 2
 let YYTextViewFrameMAXHeight:CGFloat = 100
 typealias CustomViewCommentTextFieldSenderClick = (_ str:String) ->Void
+typealias CustomViewCommentTextFieldEndClick = () ->Void
 class CustomViewCommentTextField: UIView {
     
     var textView:YYTextView!
@@ -190,6 +191,7 @@ class CustomViewCommentTextField: UIView {
     var keybordFrame:CGRect!
     var textViewOriginFrame:CGRect!
     var customViewCommentTextFieldSenderClick:CustomViewCommentTextFieldSenderClick!
+    var customViewCommentTextFieldEndClick:CustomViewCommentTextFieldEndClick!
     init(frame:CGRect, placeholderString:String, isEdit:Bool, click:@escaping TouchClickClouse, senderClick:@escaping CustomViewCommentTextFieldSenderClick) {
         super.init(frame: frame)
         originFrame = frame
@@ -335,6 +337,9 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
             make.left.equalTo(self.snp.left).offset(15)
             make.right.equalTo(self.snp.right).offset(-15)
             make.height.equalTo(30)
+        }
+        if customViewCommentTextFieldEndClick != nil {
+            self.customViewCommentTextFieldEndClick()
         }
         self.frame = originFrame
     }

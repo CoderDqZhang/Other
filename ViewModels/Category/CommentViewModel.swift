@@ -23,15 +23,15 @@ class CommentViewModel: BaseViewModel {
     }
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        if indexPath.section == 0 {
-            cell.cellSetData(model: self.commentData, isCommentDetail: false, isShowRepli: false)
-        }else{
-            let model =  ReplyList.init(fromDictionary:replistList[indexPath.section - 1] as! [String : Any])
-            cell.cellSetRepliy(model: model, isReplyComment: model.toNickname == commentData.user.nickname ? true : false)
-        }
+        cell.cellSetData(model: self.commentData, isCommentDetail: false, isShowRepli: false)
         cell.postDetailContentTableViewCellImageClickClouse = { tag,browser in
             NavigaiontPresentView(self.controller!, toController: browser)
         }
+    }
+    
+    func tableViewReplyContentTableViewCellSetData(_ indexPath:IndexPath, cell:ReplyContentTableViewCell) {
+        let model =  ReplyList.init(fromDictionary:replistList[indexPath.section - 1] as! [String : Any])
+        cell.cellSetRepliy(model: model, isReplyComment: model.toNickname == commentData.user.nickname ? true : false)
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
@@ -91,8 +91,7 @@ class CommentViewModel: BaseViewModel {
             parameters = ["content":content, "toUserId":self.commentData.user.id.string, "commentId":self.commentData.id.string] as [String : Any]
         }else{
             if self.selectReply.userId.string == CacheManager.getSharedInstance().getUserId() {
-                (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "请输入你的精彩回复"
-                self.selectReply = nil
+                self.replyDone()
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "不能够回复自己", autoHidder: true)
                 return
             }
@@ -101,14 +100,18 @@ class CommentViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "回复成功", autoHidder: true)
-                (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "请输入你的精彩回复"
-                self.selectReply = nil
+                self.replyDone()
                 if self.controller?.reloadDataClouse != nil {
                     self.controller?.reloadDataClouse()
                 }
                 self.controller?.tableView.mj_header.beginRefreshing()
             }
         }
+    }
+    
+    func replyDone(){
+        (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "请输入你的精彩回复"
+        self.selectReply = nil
     }
 }
 
@@ -135,8 +138,13 @@ extension CommentViewModel: UITableViewDelegate {
         if indexPath.row == 0 {
             return 56
         }
-        return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
-            self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell  as! PostDetailCommentTableViewCell)
+        if indexPath.section == 0 {
+            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheByKey: (self.commentData as? NSCopying), configuration: { (cell) in
+                self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell  as! PostDetailCommentTableViewCell)
+            })
+        }
+        return tableView.fd_heightForCell(withIdentifier: ReplyContentTableViewCell.description(), cacheByKey: (self.replistList[indexPath.section - 1] as! NSCopying), configuration: { (cell) in
+            self.tableViewReplyContentTableViewCellSetData(indexPath, cell: cell  as! ReplyContentTableViewCell)
         })
     }
     
@@ -169,13 +177,24 @@ extension CommentViewModel: UITableViewDataSource {
             
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
-        self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
+            self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
+            cell.selectionStyle = .none
+            if indexPath.section == 0 {
+                (cell as! PostDetailCommentTableViewCell).lineLabel.isHidden = true
+            }
+            return cell
+
+        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: ReplyContentTableViewCell.description(), for: indexPath)
+        self.tableViewReplyContentTableViewCellSetData(indexPath, cell: cell as! ReplyContentTableViewCell)
         cell.selectionStyle = .none
         if indexPath.section == 0 {
-            (cell as! PostDetailCommentTableViewCell).lineLabel.isHidden = true
+            (cell as! ReplyContentTableViewCell).lineLabel.isHidden = true
         }
         return cell
+
     }
 }
 
