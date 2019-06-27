@@ -471,7 +471,7 @@ class LoginView: UIView {
     var registerButton:UIButton!
     var loginViewButtonClouse:LoginViewButtonClouse!
     
-    var isCheckBoolProperty = MutableProperty<Bool>(true)
+    var isCheckBoolProperty = MutableProperty<Bool>(false)
 
     
     var count:Int = 15
@@ -1156,7 +1156,7 @@ class CofirmProtocolView: UIView {
         checkBox.layer.masksToBounds = true
         checkBox.cornerRadius = 8.5
         checkBox.tag = 101
-        checkBox.setBackgroundImage(UIImage.init(named: "check_select"), for: .normal)
+        checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
         
         self.addSubview(checkBox)
         

@@ -13,6 +13,7 @@ class CommentViewModel: BaseViewModel {
 
     
     var commentData:CommentModel!
+    var selectReply:ReplyList!
     var replistList = NSMutableArray.init()
     var page:Int = 0
     var content:String = ""
@@ -25,7 +26,8 @@ class CommentViewModel: BaseViewModel {
         if indexPath.section == 0 {
             cell.cellSetData(model: self.commentData, isCommentDetail: false, isShowRepli: false)
         }else{
-            cell.cellSetRepliy(model: ReplyList.init(fromDictionary: replistList[indexPath.section - 1] as! [String : Any]))
+            let model =  ReplyList.init(fromDictionary:replistList[indexPath.section - 1] as! [String : Any])
+            cell.cellSetRepliy(model: model, isReplyComment: model.toNickname == commentData.user.nickname ? true : false)
         }
         cell.postDetailContentTableViewCellImageClickClouse = { tag,browser in
             NavigaiontPresentView(self.controller!, toController: browser)
@@ -44,7 +46,13 @@ class CommentViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
+        if indexPath.section != 0 {
+            let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any])
+            (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "回复\(String(describing: model.nickname!))"
+            self.selectReply = model
+            (self.controller! as! CommentViewController).gloableCommentView.textView.becomeFirstResponder()
+            
+        }
     }
     
     func likeNet(model:ReplyList){
@@ -61,7 +69,6 @@ class CommentViewModel: BaseViewModel {
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "commentId": self.commentData.id.string]
         BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyreplyListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 if self.page != 1 {
                     self.replistList.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
                 }else{
@@ -79,10 +86,23 @@ class CommentViewModel: BaseViewModel {
             _ = Tools.shareInstance.showMessage(KWindow, msg: "请输入数据", autoHidder: true)
             return
         }
-        let parameters = ["content":content, "toUserId":self.commentData.user.id.string, "commentId":self.commentData.id.string] as [String : Any]
+        var parameters:[String : Any]
+        if self.selectReply == nil {
+            parameters = ["content":content, "toUserId":self.commentData.user.id.string, "commentId":self.commentData.id.string] as [String : Any]
+        }else{
+            if self.selectReply.userId.string == CacheManager.getSharedInstance().getUserId() {
+                (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "请输入你的精彩回复"
+                self.selectReply = nil
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "不能够回复自己", autoHidder: true)
+                return
+            }
+            parameters = ["content":content, "toUserId":self.selectReply.userId.string, "commentId":self.commentData.id.string] as [String : Any]
+        }
         BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "回复成功", autoHidder: true)
+                (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "请输入你的精彩回复"
+                self.selectReply = nil
                 if self.controller?.reloadDataClouse != nil {
                     self.controller?.reloadDataClouse()
                 }

@@ -93,6 +93,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     
     func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool){
         
+        
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
         
         let images:[String] = model.img.nsString.components(separatedBy: ",")
@@ -111,9 +112,20 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         self.contentView.updateConstraintsIfNeeded()
     }
     
-    func cellSetRepliy(model:ReplyList) {
+    func cellSetRepliy(model:ReplyList, isReplyComment:Bool) {
         
-        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
+        if isReplyComment {
+            _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content!, yyLabel: contentLabel)
+        }else{
+            let str = "回复\(String(describing: model.toNickname!)):\(model.content!)"
+            let attributedStr = NSMutableAttributedString.init(string: str)
+            attributedStr.addAttribute(NSAttributedString.Key.font, value: App_Theme_PinFan_M_14_Font!, range: NSRange.init(location: 0, length: str.count))
+            attributedStr.addAttributes([NSAttributedString.Key.foregroundColor : App_Theme_06070D_Color!], range: NSRange.init(location: 0, length: 2))
+            attributedStr.addAttributes([NSAttributedString.Key.foregroundColor : App_Theme_FFAC1B_Color!], range: NSRange.init(location: 2, length: String(describing: model.toNickname!).count))
+            attributedStr.addAttributes([NSAttributedString.Key.foregroundColor : App_Theme_06070D_Color!], range: NSRange.init(location: String(describing: model.toNickname!).count + 2, length: str.count - String(describing: model.toNickname!).count - 2))
+            _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextAttributedBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: attributedStr, yyLabel: contentLabel)
+        }
+        
 
         imageContentView.snp.updateConstraints{ (make) in
             make.height.equalTo(0.0001)
@@ -147,7 +159,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         case 1:
             secondeContent.isHidden = false
             
-            let detailContent = self.createSecondeContentLabel(index: 0, username: secondeContents[0].nickname, content: secondeContents[0].content)
+            let detailContent = self.createSecondeContentLabel(index: 0, username: "\(String(describing: secondeContents[0].nickname!)) 回复 \(String(describing: secondeContents[0].toNickname!))", content: secondeContents[0].content)
             detailContent.tag = 10000
             secondeContent.addSubview(detailContent)
             secondeContent.snp.updateConstraints{ (make) in
@@ -156,7 +168,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         case 2:
             secondeContent.isHidden = false
             for index in 0...secondeContents.count - 1 {
-                let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].nickname, content: secondeContents[index].content)
+                let detailContent = self.createSecondeContentLabel(index: index, username: "\(String(describing: secondeContents[0].nickname!)) 回复 \(String(describing: secondeContents[0].toNickname!))", content: secondeContents[index].content)
                 detailContent.tag = index + 10000
                 secondeContent.addSubview(detailContent)
             }
@@ -167,7 +179,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         default:
             secondeContent.isHidden = false
             for index in 0...1 {
-                let detailContent = self.createSecondeContentLabel(index: index, username: secondeContents[index].nickname, content: secondeContents[index].content)
+                let detailContent = self.createSecondeContentLabel(index: index, username: "\(String(describing: secondeContents[index].nickname!)) 回复 \(String(describing: secondeContents[index].toNickname!))", content: secondeContents[index].content)
                 detailContent.tag = index + 10000
                 secondeContent.addSubview(detailContent)
             }
