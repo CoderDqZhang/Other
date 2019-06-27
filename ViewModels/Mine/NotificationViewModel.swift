@@ -41,6 +41,16 @@ class NotificationViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
+        if self.type != .system {
+            let dicData:NSDictionary = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any]).toDictionary() as NSDictionary
+            let mutDic = NSMutableDictionary.init(dictionary: dicData)
+            mutDic.setObject(dicData.object(forKey: "params")!, forKey: "id" as NSCopying)
+            if (self.controller as! NotificationViewController).postDetailDataClouse != nil {
+                (self.controller as! NotificationViewController).postDetailDataClouse(mutDic,.Hot,indexPath)
+            }
+            //点击及标记已读
+            self.notificationStatusNet(indexPath: indexPath)
+        }
         
     }
     

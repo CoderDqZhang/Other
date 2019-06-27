@@ -124,7 +124,7 @@ class PostDetailViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
-        self.navigationItem.title = ((self.postData.object(forKey: "tribe") as! NSDictionary).object(forKey: "tribeName") as! String)
+//        self.navigationItem.title = ((self.postData.object(forKey: "tribe") as! NSDictionary).object(forKey: "tribeName") as! String)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
     }
     
@@ -135,10 +135,6 @@ class PostDetailViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    override func viewControllerSetNavigationItemBack() {
-        self.navigationItem.title = "皇家马德里"
     }
 
     /*

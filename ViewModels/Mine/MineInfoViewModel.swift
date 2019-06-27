@@ -19,7 +19,10 @@ class MineInfoViewModel: BaseViewModel {
     }
     
     func bindLoginc(){
-        desc = [["",userInfo.nickname,userInfo.descriptionField,userInfo.phone,userInfo.email],[userInfo.openId == "" ? "已绑定" : "未绑定"]]
+        if CacheManager.getSharedInstance().isLogin() {
+            self.userInfo = CacheManager.getSharedInstance().getUserInfo()!
+            desc = [["",userInfo.nickname,userInfo.descriptionField,userInfo.phone,userInfo.email],[userInfo.openId == "" ? "已绑定" : "未绑定"]]
+        }
     }
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {

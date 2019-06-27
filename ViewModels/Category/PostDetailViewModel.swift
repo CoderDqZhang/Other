@@ -91,6 +91,7 @@ class PostDetailViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.tipDetailModel = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
+                (self.controller! as! PostDetailViewController).navigationItem.title = self.tipDetailModel.tribe.tribeName
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

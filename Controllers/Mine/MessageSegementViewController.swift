@@ -21,6 +21,8 @@ class MessageSegementViewController: BaseViewController {
     var segmentedViewDataSource: JXSegmentedDotDataSource!
     var segmentedView: JXSegmentedView!
     var listContainerView: JXSegmentedListContainerView!
+    
+    let messageViewModel = MessageViewModel.init()
 
     let titles = ["系统", "评论", "@我的", "点赞"]
     var tableHeaderViewHeight: CGFloat = 138
@@ -40,7 +42,7 @@ class MessageSegementViewController: BaseViewController {
     }
     
     override func setUpView() {
-        
+        self.bindViewModel(viewModel: messageViewModel, controller: self)
         dotStates = [unreadModel.violation > 0 ? true : false, unreadModel.commentMine > 0 ? true : false,unreadModel.atMine > 0 ? true : false,unreadModel.approveMine > 0 ? true : false,]
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
         segmentedViewDataSource = JXSegmentedDotDataSource()
@@ -154,6 +156,9 @@ extension MessageSegementViewController: JXSegmentedListContainerViewDataSource 
         controller.initSView(type: index)
         controller.notificationViewControllerReloadClouse = { index in
             self.realoadSegementView(index: index)
+        }
+        controller.postDetailDataClouse = { data, type, indexPath in
+            self.messageViewModel.pushPostDetailViewController(data, type, indexPath!)
         }
         return controller
     }
