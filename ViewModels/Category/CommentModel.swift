@@ -17,6 +17,8 @@ class CommentModel : NSObject, NSCoding, NSCopying{
     var img : String!
     var isFollow : Int!
     var replyList : [ReplyList]!
+    var tipDetail : TipModel!
+    var userId : Int!
     var replyNum : Int!
     var user : UserInfoModel!
     
@@ -42,6 +44,10 @@ class CommentModel : NSObject, NSCoding, NSCopying{
         if let userData = dictionary["user"] as? [String:Any]{
             user = UserInfoModel(fromDictionary: userData)
         }
+        if let tipDetailData = dictionary["tipDetail"] as? [String:Any]{
+            tipDetail = TipModel(fromDictionary: tipDetailData)
+        }
+        userId = dictionary["userId"] as? Int
     }
     
     /**
@@ -81,6 +87,12 @@ class CommentModel : NSObject, NSCoding, NSCopying{
         if user != nil{
             dictionary["user"] = user.toDictionary()
         }
+        if tipDetail != nil{
+            dictionary["tipDetail"] = tipDetail.toDictionary()
+        }
+        if userId != nil{
+            dictionary["userId"] = userId
+        }
         return dictionary
     }
     
@@ -99,7 +111,8 @@ class CommentModel : NSObject, NSCoding, NSCopying{
         replyList = aDecoder.decodeObject(forKey :"replyList") as? [ReplyList]
         replyNum = aDecoder.decodeObject(forKey: "replyNum") as? Int
         user = aDecoder.decodeObject(forKey: "user") as? UserInfoModel
-        
+        tipDetail = aDecoder.decodeObject(forKey: "tipDetail") as? TipModel
+        userId = aDecoder.decodeObject(forKey: "userId") as? Int
     }
     
     /**
@@ -134,6 +147,12 @@ class CommentModel : NSObject, NSCoding, NSCopying{
         }
         if user != nil{
             aCoder.encode(user, forKey: "user")
+        }
+        if tipDetail != nil{
+            aCoder.encode(tipDetail, forKey: "tipDetail")
+        }
+        if userId != nil{
+            aCoder.encode(userId, forKey: "userId")
         }
         
     }

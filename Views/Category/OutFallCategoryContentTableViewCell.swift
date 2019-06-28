@@ -90,8 +90,8 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
         self.indexPath = indexPath
         
         self.transButtonClickClouse = transButtonClicks
-        let images = model.img.split(separator: ",")
-        if images.count > 1 {
+        let images = model.image.split(separator: ",")
+        if images.count >= 1 {
             imageContentView.isHidden = false
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))

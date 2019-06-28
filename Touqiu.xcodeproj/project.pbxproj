@@ -281,6 +281,7 @@
 		1FF1E54322C46C5A00BB9A50 /* ReplyContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54222C46C5900BB9A50 /* ReplyContentTableViewCell.swift */; };
 		1FF1E54522C4BF0000BB9A50 /* UIViewControllerExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54422C4BF0000BB9A50 /* UIViewControllerExtentions.swift */; };
 		1FF1E54722C4C67400BB9A50 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54622C4C67400BB9A50 /* MessageViewModel.swift */; };
+		1FF1E54922C6151900BB9A50 /* MyCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54822C6151900BB9A50 /* MyCommentTableViewCell.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -642,6 +643,7 @@
 		1FF1E54222C46C5900BB9A50 /* ReplyContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyContentTableViewCell.swift; sourceTree = "<group>"; };
 		1FF1E54422C4BF0000BB9A50 /* UIViewControllerExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtentions.swift; sourceTree = "<group>"; };
 		1FF1E54622C4C67400BB9A50 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
+		1FF1E54822C6151900BB9A50 /* MyCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentTableViewCell.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1416,6 +1418,7 @@
 				1F1C1B2F229EA01E008031F4 /* TopUpToolsTableViewCell.swift */,
 				1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */,
 				1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */,
+				1FF1E54822C6151900BB9A50 /* MyCommentTableViewCell.swift */,
 				1F1C1B37229F66EB008031F4 /* WithDrawTypeTableViewCell.swift */,
 				1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */,
 				1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */,
@@ -2047,6 +2050,7 @@
 				1FE5BEB62282866300C9137C /* TAAbstractDotView.m in Sources */,
 				1FE5BE20228285FA00C9137C /* UIViewController+DismissKeyboard.m in Sources */,
 				1FE5BF562285623400C9137C /* PostDetailContentTableViewCell.swift in Sources */,
+				1FF1E54922C6151900BB9A50 /* MyCommentTableViewCell.swift in Sources */,
 				1F395CC922962E5200781C0C /* AliPayManager.swift in Sources */,
 				1FE5BF1B2282D1A100C9137C /* HotDetailTableViewCell.swift in Sources */,
 				1FE8DAEE2292933A00DCED01 /* JXPagingMainTableView.swift in Sources */,

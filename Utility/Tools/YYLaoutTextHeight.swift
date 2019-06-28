@@ -24,10 +24,18 @@ class YYLaoutTextGloabelManager: NSObject {
         yyLabel.attributedText = tempStr
         yyLabel.textLayout = (YYTextLayout.init(containerSize: size, text: tempStr))
         yyLabel.frame.size = yyLabel.textLayout!.textBoundingSize
-
-        yyLabel.snp.makeConstraints { (make) in
-            make.height.equalTo((yyLabel.textLayout?.textBoundingSize.height)!)
+        
+        if yyLabel.textLayout != nil {
+            yyLabel.snp.makeConstraints { (make) in
+                make.height.equalTo((yyLabel.textLayout?.textBoundingSize.height)!)
+            }
+        }else{
+            yyLabel.snp.makeConstraints { (make) in
+                make.height.equalTo(0.0001)
+            }
         }
+
+       
         return (YYTextLayout.init(containerSize: size, text: tempStr)!)
     }
     

@@ -37,6 +37,9 @@ class PostSegementViewController: BaseViewController {
     
     override func setUpView() {
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
+        self.bindViewModel(viewModel: segmentViewModel, controller: self)
+        
+        //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
         segmentedViewDataSource = JXSegmentedTitleDataSource()
         segmentedViewDataSource.titles = titles
         segmentedViewDataSource.titleSelectedColor = App_Theme_06070D_Color!
@@ -66,6 +69,9 @@ class PostSegementViewController: BaseViewController {
         listContainerView.didAppearPercent = 0.9
         view.addSubview(listContainerView)
         
+        //6、将listContainerView.scrollView和segmentedView.contentScrollView进行关联
+        segmentedView.contentScrollView = listContainerView.scrollView
+        
         //6、将listContainerView.scrollView和segmentedView.contentScrollVi
     }
     
@@ -86,6 +92,19 @@ class PostSegementViewController: BaseViewController {
         super.viewDidLayoutSubviews()
         listContainerView.frame = CGRect(x: 0, y: 50, width: view.bounds.size.width, height: view.bounds.size.height - 50)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.fd_prefersNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        //处于第一个item的时候，才允许屏幕边缘手势返回
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = (self.segmentedView.selectedIndex == 0)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //离开页面的时候，需要恢复屏幕边缘手势，不能影响其他页面
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
 
     /*
     // MARK: - Navigation
@@ -98,7 +117,6 @@ class PostSegementViewController: BaseViewController {
     */
 
 }
-
 
 extension PostSegementViewController : JXSegmentedViewDelegate {
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
@@ -119,9 +137,14 @@ extension PostSegementViewController: JXSegmentedListContainerViewDataSource {
     }
     
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        let controller = NotificationViewController.init()
-        controller.initSView(type: index)
-        return controller
+        switch index {
+        case 0:
+            postVC.initSView(type: index)
+            return postVC
+        default:
+            commentVC.initSView(type: index)
+            return commentVC
+        }
     }
 }
 

@@ -20,27 +20,21 @@ class MyCommentViewModel: BaseViewModel {
     }
     
     
-    func tableViewCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryContentTableViewCell) {
+    func tableViewMyCommentTableViewCellSetData(_ indexPath:IndexPath, cell:MyCommentTableViewCell) {
         if myCommentArray != nil {
-//            cell.cellSetData(tipmodel: TipModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]))
-        }
-    }
-    
-    func tableViewUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:UserInfoTableViewCell){
-        if myCommentArray != nil {
-//            cell.cellSetData(model: TipModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]))
+            cell.cellSetData(model: CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]))
         }
     }
     
     func tableViewMCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
         if myCommentArray != nil {
-//            cell.cellSetData(model: TipModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]))
+            cell.cellSetData(model: CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]).tipDetail)
         }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.row != 0 {
-            let dicData:NSDictionary = TipModel.init(fromDictionary: self.myCommentArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
+            let dicData:NSDictionary = CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]).tipDetail.toDictionary() as NSDictionary
             (self.controller as! MyCommentViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
         }
     }
@@ -55,7 +49,10 @@ class MyCommentViewModel: BaseViewModel {
                 }else{
                     self.myCommentArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
@@ -80,12 +77,9 @@ extension MyCommentViewModel: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 52
-        }else if indexPath.row == 1 {
-            return tableView.fd_heightForCell(withIdentifier: CategoryContentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
-                self.tableViewCategoryContentTableViewCellSetData(indexPath, cell: cell as! CategoryContentTableViewCell)
+            return tableView.fd_heightForCell(withIdentifier: MyCommentTableViewCell.description(), cacheByKey: self.myCommentArray![indexPath.section] as! NSCopying, configuration: { (cell) in
+                self.tableViewMyCommentTableViewCellSetData(indexPath, cell: cell as! MyCommentTableViewCell)
             })
-            
         }
         return 32
     }
@@ -100,7 +94,7 @@ extension MyCommentViewModel: UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        (self.controller as! RecommendViewController).listViewDidScrollCallback?(scrollView)
+        (self.controller as! MyCommentViewController).listViewDidScrollCallback?(scrollView)
     }
 }
 
@@ -110,18 +104,13 @@ extension MyCommentViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: UserInfoTableViewCell.description(), for: indexPath)
-            self.tableViewUserInfoTableViewCellSetData(indexPath, cell: cell as! UserInfoTableViewCell)
-            cell.selectionStyle = .none
-            return cell
-        }else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CategoryContentTableViewCell.description(), for: indexPath)
-            self.tableViewCategoryContentTableViewCellSetData(indexPath, cell: cell as! CategoryContentTableViewCell)
+            let cell = tableView.dequeueReusableCell(withIdentifier: MyCommentTableViewCell.description(), for: indexPath)
+            self.tableViewMyCommentTableViewCellSetData(indexPath, cell: cell as! MyCommentTableViewCell)
             cell.selectionStyle = .none
             return cell
         }

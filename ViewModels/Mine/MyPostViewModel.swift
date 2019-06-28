@@ -57,6 +57,8 @@ class MyPostViewModel: BaseViewModel {
                 }
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }else{
+                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
