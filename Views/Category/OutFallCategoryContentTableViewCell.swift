@@ -64,12 +64,6 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
     func cellSetData(model:OutFallModel, isTrans:Bool, indexPath:IndexPath, transButtonClicks:@escaping TransButtonClickClouse){
         
          let textBound = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: detailLabel)
-        detailLabel.snp.remakeConstraints { (make) in
-            make.left.equalTo(self.contentView.snp.left).offset(15)
-            make.right.equalTo(self.contentView.snp.right).offset(-15)
-            make.top.equalTo(self.contentView.snp.top).offset(0)
-            make.height.equalTo(textBound.textBoundingSize.height)
-        }
         
         
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: translateDetailLabel)
@@ -132,6 +126,7 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.height.equalTo(0.0001)
             }
             
             translateButton.snp.makeConstraints { (make) in
@@ -143,6 +138,7 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.translateButton.snp.bottom).offset(9)
+                make.height.equalTo(0.0001)
             }
             
             imageContentView.snp.makeConstraints { (make) in

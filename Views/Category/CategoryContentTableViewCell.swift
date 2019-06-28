@@ -86,6 +86,7 @@ class CategoryContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.height.equalTo(0.0001)
             }
             
             imageContentView.snp.makeConstraints { (make) in

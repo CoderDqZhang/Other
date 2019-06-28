@@ -26,11 +26,11 @@ class YYLaoutTextGloabelManager: NSObject {
         yyLabel.frame.size = yyLabel.textLayout!.textBoundingSize
         
         if yyLabel.textLayout != nil {
-            yyLabel.snp.makeConstraints { (make) in
+            yyLabel.snp.updateConstraints { (make) in
                 make.height.equalTo((yyLabel.textLayout?.textBoundingSize.height)!)
             }
         }else{
-            yyLabel.snp.makeConstraints { (make) in
+            yyLabel.snp.updateConstraints { (make) in
                 make.height.equalTo(0.0001)
             }
         }

@@ -47,7 +47,7 @@ class MyPostViewModel: BaseViewModel {
     
     func getMyPostNet(){
         page = page + 1
-        let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":"0", "isCollect":"0","userId":CacheManager.getSharedInstance().getUserId()] as [String : Any]
+        let parameters = ["page":page.string, "limit":LIMITNUMBER] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {

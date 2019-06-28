@@ -54,8 +54,10 @@ class MyCommentTableViewCell: UITableViewCell {
     
     func cellSetData(model:CommentModel) {
         let str = "回复\(String(describing: model.tipDetail.user.nickname!))的帖子"
-        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: str, yyLabel: commentTitle)
-        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.tipDetail.content, yyLabel: tipContent)
+        let textBound = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: str, yyLabel: commentTitle)
+        
+        let contentBound = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.tipDetail.content, yyLabel: tipContent)
+        
         let images = model.tipDetail.image.split(separator: ",")
         
         if images.count > 1 {
@@ -88,12 +90,14 @@ class MyCommentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(15)
+                make.height.equalTo(0.0001)
             }
             
             tipContent.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.commentTitle.snp.bottom).offset(9)
+                make.height.equalTo(0.0001)
             }
             
             imageContentView.snp.makeConstraints { (make) in
