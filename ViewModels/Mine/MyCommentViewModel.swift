@@ -33,10 +33,8 @@ class MyCommentViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        if indexPath.row != 0 {
-            let dicData:NSDictionary = CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]).tipDetail.toDictionary() as NSDictionary
-            (self.controller as! MyCommentViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
-        }
+        let dicData:NSDictionary = CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]).tipDetail.toDictionary() as NSDictionary
+        (self.controller as! MyCommentViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
     }
     
     func getMyCommentNet(){
