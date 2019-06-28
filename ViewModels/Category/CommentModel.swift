@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentModel : NSObject, NSCoding{
+class CommentModel : NSObject, NSCoding, NSCopying{
     
     var approveNum : Int!
     var content : String!
@@ -138,9 +138,13 @@ class CommentModel : NSObject, NSCoding{
         
     }
     
+    func copy(with zone: NSZone? = nil) -> Any {
+        return self
+    }
+    
 }
 
-class ReplyList : NSObject, NSCoding{
+class ReplyList : NSObject, NSCoding, NSCopying{
     
     var content : String!
     var createTime : String!
@@ -258,4 +262,7 @@ class ReplyList : NSObject, NSCoding{
         
     }
     
+    func copy(with zone: NSZone? = nil) -> Any {
+        return self
+    }
 }

@@ -59,7 +59,6 @@ class FollowViewModel: BaseViewModel {
                     self.followArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-            }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }

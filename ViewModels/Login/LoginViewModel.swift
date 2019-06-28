@@ -25,6 +25,7 @@ class LoginViewModel: BaseViewModel {
                     (self.controller as! LoginViewController).navigationController?.popToRootViewController(animated: true)
                     //登录成功后读取未读消息数量
                     LoadConfigManger.getSharedInstance().loadUnreadUrl()
+                    self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 }
                 
             }else{
@@ -44,6 +45,7 @@ class LoginViewModel: BaseViewModel {
                     (self.controller as! LoginViewController).navigationController?.popToRootViewController(animated: true)
                     //登录成功后读取未读消息数量
                     LoadConfigManger.getSharedInstance().loadUnreadUrl()
+                    self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 }
                 
             }else{
@@ -58,6 +60,7 @@ class LoginViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "发送验证码成功", autoHidder: true)
                 //                let userInfo = UserInfoModel.yy_model(with: (resultDic.value as! [AnyHashable : Any]))
+                
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }

@@ -1,26 +1,27 @@
 //
-//  DailyModel.swift
+//  TransModel.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/6/12.
+//  Created by Zhang on 2019/6/25.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 
-class DailyModel : NSObject, NSCoding{
+class TransModel : NSObject, NSCoding{
     
-    var signIn : Int!
-    var status : Int!
-    var points : String = "0"
-    var maxPoint : Float = 0
+    var backend : Int!
+    var orig : String!
+    var trans : String!
+    
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        signIn = dictionary["signIn"] as? Int
-        status = dictionary["status"] as? Int
+        backend = dictionary["backend"] as? Int
+        orig = dictionary["orig"] as? String
+        trans = dictionary["trans"] as? String
     }
     
     /**
@@ -29,11 +30,14 @@ class DailyModel : NSObject, NSCoding{
     func toDictionary() -> [String:Any]
     {
         var dictionary = [String:Any]()
-        if signIn != nil{
-            dictionary["signIn"] = signIn
+        if backend != nil{
+            dictionary["backend"] = backend
         }
-        if status != nil{
-            dictionary["status"] = status
+        if orig != nil{
+            dictionary["orig"] = orig
+        }
+        if trans != nil{
+            dictionary["trans"] = trans
         }
         return dictionary
     }
@@ -44,8 +48,9 @@ class DailyModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        signIn = aDecoder.decodeObject(forKey: "signIn") as? Int
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        backend = aDecoder.decodeObject(forKey: "backend") as? Int
+        orig = aDecoder.decodeObject(forKey: "orig") as? String
+        trans = aDecoder.decodeObject(forKey: "trans") as? String
         
     }
     
@@ -55,11 +60,14 @@ class DailyModel : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
-        if signIn != nil{
-            aCoder.encode(signIn, forKey: "signIn")
+        if backend != nil{
+            aCoder.encode(backend, forKey: "backend")
         }
-        if status != nil{
-            aCoder.encode(status, forKey: "status")
+        if orig != nil{
+            aCoder.encode(orig, forKey: "orig")
+        }
+        if trans != nil{
+            aCoder.encode(trans, forKey: "trans")
         }
         
     }

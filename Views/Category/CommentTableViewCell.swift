@@ -108,7 +108,7 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:TipModel){
-        commentView.crateContent(time: model.commentTime, like: model.favor.string, comment: model.commentTotal.string, status: 0)
+        commentView.crateContent(time: model.createTime, like: model.favor.string, comment: model.commentTotal.string, status: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {

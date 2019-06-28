@@ -181,6 +181,7 @@ import IQKeyboardManagerSwift
 let YYTextViewFrameWidht:CGFloat = SCREENWIDTH - 16 * 2
 let YYTextViewFrameMAXHeight:CGFloat = 100
 typealias CustomViewCommentTextFieldSenderClick = (_ str:String) ->Void
+typealias CustomViewCommentTextFieldEndClick = () ->Void
 class CustomViewCommentTextField: UIView {
     
     var textView:YYTextView!
@@ -190,6 +191,7 @@ class CustomViewCommentTextField: UIView {
     var keybordFrame:CGRect!
     var textViewOriginFrame:CGRect!
     var customViewCommentTextFieldSenderClick:CustomViewCommentTextFieldSenderClick!
+    var customViewCommentTextFieldEndClick:CustomViewCommentTextFieldEndClick!
     init(frame:CGRect, placeholderString:String, isEdit:Bool, click:@escaping TouchClickClouse, senderClick:@escaping CustomViewCommentTextFieldSenderClick) {
         super.init(frame: frame)
         originFrame = frame
@@ -336,6 +338,9 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
             make.right.equalTo(self.snp.right).offset(-15)
             make.height.equalTo(30)
         }
+        if customViewCommentTextFieldEndClick != nil {
+            self.customViewCommentTextFieldEndClick()
+        }
         self.frame = originFrame
     }
     
@@ -471,6 +476,9 @@ class LoginView: UIView {
     var registerButton:UIButton!
     var loginViewButtonClouse:LoginViewButtonClouse!
     
+    var isCheckBoolProperty = MutableProperty<Bool>(false)
+
+    
     var count:Int = 15
     
     init(frame: CGRect, type:LoginType) {
@@ -495,6 +503,7 @@ class LoginView: UIView {
         self.addSubview(logoImage)
         
         phoneTextField = UITextField.init()
+        phoneTextField.keyboardType = .numberPad
         phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         phoneTextField.textColor = App_Theme_FFFFFF_Color
         phoneTextField.placeholder = "请输入手机号"
@@ -540,8 +549,16 @@ class LoginView: UIView {
                 return str.count > 0
             }
             
-            passwordTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,pas) in
-                if phone && pas && self.isCheckBool {
+            let confirmSignal = self.isCheckBoolProperty.signal.map { (ret) -> Bool in
+                return ret
+            }
+            
+            let combineLatest = confirmSignal.combineLatest(with: passwordTextFieldSignal).map { (ret,ret1) -> Bool in
+                return ret && ret1
+            }
+            
+            combineLatest.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,pas) in
+                if phone && pas  {
                     self.changeEnabel(isEnabled: true)
                 }else{
                     self.changeEnabel(isEnabled: false)
@@ -559,8 +576,16 @@ class LoginView: UIView {
                 return str.count > 0
             }
             
-            codeTextFieldSignal.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,code) in
-                if phone && code && self.isCheckBool {
+            let confirmSignal = self.isCheckBoolProperty.signal.map { (ret) -> Bool in
+                return ret
+            }
+            
+            let combineLatest = confirmSignal.combineLatest(with: codeTextFieldSignal).map { (ret,ret1) -> Bool in
+                return ret && ret1
+            }
+            
+            combineLatest.combineLatest(with: phoneTextFieldSignal).observeValues { (phone,code) in
+                if phone && code {
                     self.changeEnabel(isEnabled: true)
                 }else{
                     self.changeEnabel(isEnabled: false)
@@ -791,6 +816,8 @@ class RegisterView: UIView {
     var loginButton:UIButton!
     var registerViewButtonClouse:RegisterViewButtonClouse!
     
+    var isCheckBoolProperty = MutableProperty<Bool>(false)
+    
     var count:Int = 15
     
     override init(frame: CGRect) {
@@ -814,6 +841,7 @@ class RegisterView: UIView {
         self.addSubview(logoImage)
         
         phoneTextField = UITextField.init()
+        phoneTextField.keyboardType = .numberPad
         phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         phoneTextField.textColor = App_Theme_FFFFFF_Color
         phoneTextField.placeholder = "请输入手机号"
@@ -873,8 +901,16 @@ class RegisterView: UIView {
             return str.count > 0
         }
         
-        codeTextFieldSignal.combineLatest(with: codeSignal).observeValues { (phone,code) in
-            if phone && code && self.isCheckBool {
+        let confirmSignal = self.isCheckBoolProperty.signal.map { (ret) -> Bool in
+            return ret
+        }
+        
+        let combineLatest = confirmSignal.combineLatest(with: codeTextFieldSignal).map { (ret,ret1) -> Bool in
+            return ret && ret1
+        }
+        
+        combineLatest.combineLatest(with: codeSignal).observeValues { (phone,code) in
+            if phone && code {
                 self.changeEnabel(isEnabled: true)
             }else{
                 self.changeEnabel(isEnabled: false)
@@ -1125,7 +1161,7 @@ class CofirmProtocolView: UIView {
         checkBox.layer.masksToBounds = true
         checkBox.cornerRadius = 8.5
         checkBox.tag = 101
-        checkBox.setBackgroundImage(UIImage.init(named: "check_select"), for: .normal)
+        checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
         
         self.addSubview(checkBox)
         

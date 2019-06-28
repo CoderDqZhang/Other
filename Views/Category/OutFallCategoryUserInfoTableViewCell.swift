@@ -29,7 +29,7 @@ class OutFallUserInfoView: UIView {
         
         avatarImage = UIImageView.init()
         avatarImage.backgroundColor = UIColor.gray
-        UIImageViewManger.sd_imageView(url: avatar, imageView: avatarImage, placeholderImage: nil) { (image, error, type, url) in
+        avatarImage.sd_crope_imageView(url: avatar, imageView: avatarImage, placeholderImage: nil) { (image, url, type, state, error) in
             
         }
         avatarImage.layer.cornerRadius = 11

@@ -43,7 +43,6 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
         translateDetailLabel.numberOfLines = 0
         translateDetailLabel.textColor = App_Theme_666666_Color
         translateDetailLabel.font = App_Theme_PinFan_M_14_Font
-        
         self.contentView.addSubview(translateDetailLabel)
         
         
@@ -62,28 +61,46 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(content:String, translate:String, images:[String], isTrans:Bool, indexPath:IndexPath, transButtonClicks:@escaping TransButtonClickClouse){
+    func cellSetData(model:OutFallModel, isTrans:Bool, indexPath:IndexPath, transButtonClicks:@escaping TransButtonClickClouse){
         
-        let stringHeight = content.nsString.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-        detailLabel.snp.updateConstraints { (make) in
-            make.height.equalTo(stringHeight)
+         let textBound = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: detailLabel)
+        detailLabel.snp.remakeConstraints { (make) in
+            make.left.equalTo(self.contentView.snp.left).offset(15)
+            make.right.equalTo(self.contentView.snp.right).offset(-15)
+            make.top.equalTo(self.contentView.snp.top).offset(0)
+            make.height.equalTo(textBound.textBoundingSize.height)
         }
-        detailLabel.text = content
+        
+        
+        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: translateDetailLabel)
+        if isTrans {
+            translateButton.isEnabled = false
+            translateDetailLabel.isHidden = false
+            translateButton.setTitle("已翻译", for: .normal)
+            translateButton.setTitleColor(App_Theme_999999_Color, for: .normal)
+        }else{
+            translateDetailLabel.isHidden = true
+            translateButton.isEnabled = true
+            translateButton.setTitle("查看翻译", for: .normal)
+            translateButton.setTitleColor(App_Theme_5AA7FE_Color, for: .normal)
+
+        }
+        
+        
         self.indexPath = indexPath
-        translateDetailLabel.text = translate
         
         self.transButtonClickClouse = transButtonClicks
-        
+        let images = model.img.split(separator: ",")
         if images.count > 1 {
             imageContentView.isHidden = false
             for index in 0...images.count - 1 {
-                let image = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                UIImageViewManger.sd_imageView(url: images[index], imageView: image, placeholderImage: nil) { (image, error, cache, url) in
+                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
+                imageView.sd_crope_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
                     
                 }
-                image.layer.cornerRadius = 5
-                image.layer.masksToBounds = true
-                self.imageContentView.addSubview(image)
+                imageView.layer.cornerRadius = 5
+                imageView.layer.masksToBounds = true
+                self.imageContentView.addSubview(imageView)
             }
             imageContentView.snp.updateConstraints{ (make) in
                 make.height.equalTo(contentImageHeight)
@@ -95,21 +112,6 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
             }
             
         }
-        
-        if isTrans {
-            let stringHeight = self.translateDetailLabel.text!.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-            translateDetailLabel.snp.updateConstraints { (make) in
-                make.height.equalTo(stringHeight)
-            }
-            translateButton.isEnabled = false
-            translateButton.setTitle("已翻译", for: .normal)
-            translateButton.setTitleColor(App_Theme_999999_Color, for: .normal)
-        }else{
-            translateDetailLabel.snp.updateConstraints { (make) in
-                make.height.equalTo(0.0001)
-            }
-        }
-        
         self.contentView.updateConstraintsIfNeeded()
         
     }
@@ -130,7 +132,6 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(0)
-                make.height.equalTo(20)
             }
             
             translateButton.snp.makeConstraints { (make) in
@@ -142,13 +143,11 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.translateButton.snp.bottom).offset(9)
-                make.height.equalTo(0.0001)
             }
             
             imageContentView.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.top.equalTo(self.translateDetailLabel.snp.bottom).offset(9)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
                 make.height.equalTo(0.001)
             }

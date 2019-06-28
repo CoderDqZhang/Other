@@ -94,17 +94,10 @@ class PostDetailContentTableViewCell: UITableViewCell {
     
     func cellSetData(model:TipModel){
     
-        let titleHeight = model.title.nsString.height(with: App_Theme_PinFan_M_18_Font, constrainedToWidth: SCREENWIDTH - 30)
-        titleLabel.snp.makeConstraints { (make) in
-            make.height.equalTo(titleHeight)
-        }
-        titleLabel.text = model.title
+        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.title, yyLabel: titleLabel)
 
-        let contentHeight = model.content.nsString.height(with: App_Theme_PinFan_M_15_Font, constrainedToWidth: SCREENWIDTH - 30)
-        contnetLabel.snp.updateConstraints { (make) in
-            make.height.equalTo(contentHeight)
-        }
-        contnetLabel.text = model.content
+        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contnetLabel)
+        
 
         let images = model.image.split(separator: ",")
         var browser:SKPhotoBrowser? = nil
@@ -114,10 +107,8 @@ class PostDetailContentTableViewCell: UITableViewCell {
         if images.count > 1 {
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                UIImageViewManger.sd_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, error, cache, url) in
-                    if error == nil {
-                        imageView.image = image
-                    }
+                imageView.sd_crope_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
+                    
                 }
                 imageView.tag = index + 1000
                 imageView.isUserInteractionEnabled = true
@@ -136,12 +127,12 @@ class PostDetailContentTableViewCell: UITableViewCell {
                 self.imageContentView.addSubview(imageView)
             }
             imageContentView.isHidden = false
-            imageContentView.snp.updateConstraints{ (make) in
+            imageContentView.snp.makeConstraints{ (make) in
                 make.height.equalTo(contentImageHeight)
             }
         }else{
             imageContentView.isHidden = true
-            imageContentView.snp.updateConstraints{ (make) in
+            imageContentView.snp.makeConstraints{ (make) in
                 make.height.equalTo(0.0001)
             }
         }
@@ -174,23 +165,20 @@ class PostDetailContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(0)
-                make.height.equalTo(18)
             }
-            
+
             contnetLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
-                make.height.equalTo(15)
             }
-            
+
             imageContentView.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contnetLabel.snp.bottom).offset(25)
-                make.height.equalTo(0.001)
             }
-            
+
             likeButtonView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(self.contentView.snp.centerX).offset(-35)
                 make.top.equalTo(self.imageContentView.snp.bottom).offset(7)

@@ -39,7 +39,6 @@ class StoreViewModel: BaseViewModel {
                     self.detailArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-            }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
