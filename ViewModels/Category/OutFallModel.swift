@@ -9,8 +9,9 @@
 
 import UIKit
 
-class OutFallModel : NSObject, NSCoding{
+class OutFallModel: NSObject, NSCoding{
     
+    var cnContent : String!
     var commentTime : String!
     var commentTotal : AnyObject!
     var content : String!
@@ -32,6 +33,7 @@ class OutFallModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
+        cnContent = dictionary["cnContent"] as? String
         commentTime = dictionary["commentTime"] as? String
         commentTotal = dictionary["commentTotal"] as? AnyObject
         content = dictionary["content"] as? String
@@ -55,6 +57,9 @@ class OutFallModel : NSObject, NSCoding{
     func toDictionary() -> [String:Any]
     {
         var dictionary = [String:Any]()
+        if cnContent != nil{
+            dictionary["cnContent"] = cnContent
+        }
         if commentTime != nil{
             dictionary["commentTime"] = commentTime
         }
@@ -109,6 +114,7 @@ class OutFallModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
+        cnContent = aDecoder.decodeObject(forKey: "cnContent") as? String
         commentTime = aDecoder.decodeObject(forKey: "commentTime") as? String
         commentTotal = aDecoder.decodeObject(forKey: "commentTotal") as? AnyObject
         content = aDecoder.decodeObject(forKey: "content") as? String
@@ -133,6 +139,9 @@ class OutFallModel : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
+        if cnContent != nil{
+            aCoder.encode(cnContent, forKey: "cnContent")
+        }
         if commentTime != nil{
             aCoder.encode(commentTime, forKey: "commentTime")
         }

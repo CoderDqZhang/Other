@@ -48,20 +48,20 @@ class CommentViewController: BaseViewController {
             })
             // Fallback on earlier versions
         }
-//        gloableCommentView.customViewCommentTextFieldEndClick = {
-//            self.gloableCommentView.snp.remakeConstraints { (make) in
-//                make.left.equalToSuperview()
-//                make.right.equalToSuperview()
-//                if #available(iOS 11.0, *) {
-//                    make.height.equalTo(44 + TABBAR_HEIGHT)
-//                } else {
-//                    make.height.equalTo(44)
-//                    // Fallback on earlier versions
-//                }
-//                make.bottom.equalToSuperview()
-//            }
-//            self.commentDetailViewModel.replyDone()
-//        }
+        gloableCommentView.customViewCommentTextFieldEndClick = {
+            self.gloableCommentView.snp.remakeConstraints { (make) in
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
+                if #available(iOS 11.0, *) {
+                    make.height.equalTo(44 + TABBAR_HEIGHT)
+                } else {
+                    make.height.equalTo(44)
+                    // Fallback on earlier versions
+                }
+                make.bottom.equalToSuperview()
+            }
+            self.commentDetailViewModel.replyDone()
+        }
         gloableCommentView.customViewCommentTextFieldSenderClick = { str in
             if !CacheManager.getSharedInstance().isLogin() {
                 NavigationPushView(self, toConroller: LoginViewController())

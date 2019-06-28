@@ -15,7 +15,7 @@ class OutFallViewModel: BaseViewModel {
     var page:Int = 0
     var tipListArray = NSMutableArray.init()
     
-    let isTransArray:NSMutableArray = [false,false,false,false,false]
+    let isTransArray:NSMutableArray = []
     
     
     override init() {
@@ -26,9 +26,9 @@ class OutFallViewModel: BaseViewModel {
     
     func tableViewOutFallCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:OutFallCategoryContentTableViewCell) {
         if self.tipListArray.count > 0 {
-            cell.cellSetData(model: OutFallModel.init(fromDictionary: self.tipListArray[indexPath.section] as! [String : Any]), isTrans: false, indexPath: indexPath) { (indexPath) in
+            cell.cellSetData(model: OutFallModel.init(fromDictionary: self.tipListArray[indexPath.section] as! [String : Any]), isTrans: self.isTransArray[indexPath.section] as! Bool, indexPath: indexPath) { (indexPath) in
                 self.isTransArray.replaceObject(at: indexPath.section, with: true)
-                self.controller?.tableView.reloadRows(at: [indexPath], with: .automatic)
+                self.reloadTableViewData()
             }
         }
     }
@@ -49,16 +49,16 @@ class OutFallViewModel: BaseViewModel {
     ///获取内容高度
     func getHeight(_ indexPath:IndexPath, isTrans:Bool) -> CGFloat{
         let model = OutFallModel.init(fromDictionary: self.tipListArray[indexPath.section] as! [String : Any])
-        let stringHeight = model.content.height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-        let transHeight:CGFloat = 0
-//            self.translateStrs[indexPath.section].height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-        let imageHeight:CGFloat = 0
-//            = images[indexPath.section].count > 1 ? contentImageHeight : 0
-//        if isTrans {
-//            return stringHeight + transHeight + imageHeight + 50
-//        }
-        return stringHeight + imageHeight + 150
-        
+        let titleHeight = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: YYLabel.init()).textBoundingSize.height
+        var transHeight:CGFloat = 0
+        if isTrans {
+            transHeight = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: YYLabel.init()).textBoundingSize.height
+        }
+        if model.image.nsString.components(separatedBy: ",").count > 0 {
+            return transHeight + titleHeight + contentImageHeight + 50
+        }
+        return titleHeight + transHeight + 50
+
     }
     
     func getTribeListNet(){
@@ -68,8 +68,15 @@ class OutFallViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 if self.page != 1 {
                     self.tipListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    for _ in NSMutableArray.init(array: resultDic.value as! Array) {
+                        self.isTransArray.add(false)
+                    }
                 }else{
+                    self.isTransArray.removeAllObjects()
                     self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    for _ in NSMutableArray.init(array: resultDic.value as! Array) {
+                        self.isTransArray.add(false)
+                    }
                 }
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

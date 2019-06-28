@@ -31,7 +31,7 @@ class CommentViewModel: BaseViewModel {
     
     func tableViewReplyContentTableViewCellSetData(_ indexPath:IndexPath, cell:ReplyContentTableViewCell) {
         let model =  ReplyList.init(fromDictionary:replistList[indexPath.section - 1] as! [String : Any])
-        cell.cellSetRepliy(model: model, isReplyComment: model.toNickname == commentData.user.nickname ? true : false)
+        cell.cellSetRepliy(model: model, isReplyComment: model.toNickname != commentData.user.nickname ? true : false)
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
