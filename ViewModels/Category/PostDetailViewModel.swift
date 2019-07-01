@@ -86,6 +86,10 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
+    func scrollerTableViewToPoint(){
+        self.tableViewScrollToPoint(nil, IndexPath.init(row: 0, section: 2))
+    }
+    
     func getTipDetail(id:String){
         let parameters = ["tipId":id]
         BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
@@ -93,6 +97,8 @@ class PostDetailViewModel: BaseViewModel {
                 self.tipDetailModel = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
                 (self.controller! as! PostDetailViewController).navigationItem.title = self.tipDetailModel.tribe.tribeName
                 self.reloadTableViewData()
+                
+                
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
@@ -111,6 +117,11 @@ class PostDetailViewModel: BaseViewModel {
                     self.commentListArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
+                if (self.controller as! PostDetailViewController).gotoType != nil {
+                    if (self.controller as! PostDetailViewController).gotoType == .comment {
+                        self.scrollerTableViewToPoint()
+                    }
+                }
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }

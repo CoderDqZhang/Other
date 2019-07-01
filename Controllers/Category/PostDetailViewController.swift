@@ -18,6 +18,11 @@ enum ToolsStatus {
     case delete
 }
 
+enum PostDetaiGoToType {
+    case comment
+    case detail
+}
+
 typealias ChangeFansFollowButtonStatusClouse = (_ status:Bool) ->Void
 
 typealias ChangeAllCommentAndLikeNumberClouse = (_ type:ToatalNumber, _ status:ToolsStatus) ->Void
@@ -25,6 +30,8 @@ typealias ChangeAllCommentAndLikeNumberClouse = (_ type:ToatalNumber, _ status:T
 class PostDetailViewController: BaseViewController {
 
     var postType:PostType!
+    var gotoType:PostDetaiGoToType!
+    
     var postData:NSDictionary!
     var postDetailViewModel = PostDetailViewModel.init()
     
@@ -120,6 +127,7 @@ class PostDetailViewController: BaseViewController {
     override func bindViewModelLogic() {
         self.postDetailViewModel.getTipDetail(id: (self.postData.object(forKey: "id") as! Int).string)
         self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
+        
     }
     
     override func setUpViewNavigationItem() {

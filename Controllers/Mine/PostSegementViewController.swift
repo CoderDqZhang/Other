@@ -79,11 +79,11 @@ class PostSegementViewController: BaseViewController {
     override func bindViewModelLogic(){
         self.bindViewModel(viewModel: segmentViewModel, controller: self)
         self.postVC.postDetailDataClouse = { data, type, indexPath in
-            self.segmentViewModel.pushPostDetailViewController(data, type)
+            self.segmentViewModel.pushPostDetailViewController(data, type, nil)
         }
         
         self.commentVC.postDetailDataClouse = { data, type, indexPath in
-            self.segmentViewModel.pushPostDetailViewController(data, type)
+            self.segmentViewModel.pushPostDetailViewController(data, type, .comment)
         }
         
     }
