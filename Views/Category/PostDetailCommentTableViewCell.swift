@@ -140,7 +140,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     }
     
     func setImageContentView(_ images:[String], _ isCommentDetail:Bool){
-        if images.count > 1 {
+        if images.count > 1{
             if isCommentDetail {
                 var imageContentHeight:CGFloat = 0
                 for index in 0...images.count - 1 {
@@ -164,7 +164,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 
             }else{
                 var browser:SKPhotoBrowser? = nil
-                if images.count > 1 {
+                if images.count >= 1 {
                     browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
                 }
                 for index in 0...images.count - 1 {

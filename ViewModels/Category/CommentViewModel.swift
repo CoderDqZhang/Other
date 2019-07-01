@@ -37,6 +37,9 @@ class CommentViewModel: BaseViewModel {
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
         if indexPath.section == 0 {
             cell.cellSetData(model: self.commentData, indexPath: indexPath)
+            cell.postDetailCommentUserTableViewCellClouse = { indexPath in
+                self.likeCommentNet(commentId: self.commentData.id.string)
+            }
         }else{
             cell.cellSetRepliy(model:  ReplyList.init(fromDictionary: replistList[indexPath.section - 1] as! [String : Any]), indexPath: indexPath)
             cell.postDetailCommentUserTableViewCellClouse = { indexPath in
@@ -90,21 +93,42 @@ class CommentViewModel: BaseViewModel {
         if self.selectReply == nil {
             parameters = ["content":content, "toUserId":self.commentData.user.id.string, "commentId":self.commentData.id.string] as [String : Any]
         }else{
-//            if self.selectReply.userId.string == CacheManager.getSharedInstance().getUserId() {
-//                self.replyDone()
-//                _ = Tools.shareInstance.showMessage(KWindow, msg: "不能够回复自己", autoHidder: true)
-//                return
-//            }
             parameters = ["content":content, "toUserId":self.selectReply.userId.string, "commentId":self.commentData.id.string] as [String : Any]
         }
         BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                let model = ReplyList.init(fromDictionary: resultDic.value as! [String : Any])
+                self.commentData.replyList.append(model)
+                if (self.controller! as! CommentViewController).commentViewControllerApproveClouse != nil {
+                    (self.controller! as! CommentViewController).commentViewControllerApproveClouse(self.commentData.toDictionary() as NSDictionary)
+                }
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "回复成功", autoHidder: true)
                 self.replyDone()
                 if self.controller?.reloadDataClouse != nil {
                     self.controller?.reloadDataClouse()
                 }
                 self.controller?.tableView.mj_header.beginRefreshing()
+            }
+        }
+    }
+    
+    func likeCommentNet(commentId:String){
+        let parameters = ["commentId":commentId]
+        BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.commentData.isFollow == 1 {
+                    self.commentData.isFollow = 0
+                    self.commentData.approveNum = self.commentData.approveNum - 1
+                }else{
+                    self.commentData.isFollow = 1
+                    self.commentData.approveNum = self.commentData.approveNum + 1
+                }
+                if (self.controller! as! CommentViewController).commentViewControllerApproveClouse != nil {
+                    (self.controller! as! CommentViewController).commentViewControllerApproveClouse(self.commentData.toDictionary() as NSDictionary)
+                }
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }

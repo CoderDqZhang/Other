@@ -53,6 +53,7 @@ class ReplyContentTableViewCell: UITableViewCell {
             attributedStr.addAttributes([NSAttributedString.Key.foregroundColor : App_Theme_FFAC1B_Color!], range: NSRange.init(location: 2, length: String(describing: model.toNickname!).count))
             attributedStr.addAttributes([NSAttributedString.Key.foregroundColor : App_Theme_06070D_Color!], range: NSRange.init(location: String(describing: model.toNickname!).count + 2, length: str.count - String(describing: model.toNickname!).count - 2))
             _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextAttributedBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: attributedStr, yyLabel: contentLabel)
+            
         }
         
         lineLabel.snp.makeConstraints { (make) in

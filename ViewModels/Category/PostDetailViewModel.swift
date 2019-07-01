@@ -68,7 +68,7 @@ class PostDetailViewModel: BaseViewModel {
         
         cell.postDetailCommentUserTableViewCellClouse = { indexPath in
             let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
-            self.likeCommentNet(commentId: model.id.string)
+            self.likeCommentNet(commentId: model.id.string, model:model, indexPath: indexPath)
         }
     }
     
@@ -82,6 +82,10 @@ class PostDetailViewModel: BaseViewModel {
         if indexPath.section != 0 && indexPath.section != 1 {
             let commentVC = CommentViewController()
             commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+            commentVC.commentViewControllerApproveClouse = { model in
+                self.commentListArray.replaceObject(at: indexPath.section - 2, with: model)
+               self.controller?.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
             NavigationPushView(self.controller!, toConroller: commentVC)
         }
     }
@@ -152,10 +156,18 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
-    func likeCommentNet(commentId:String){
+    func likeCommentNet(commentId:String,model:CommentModel, indexPath:IndexPath){
         let parameters = ["commentId":commentId]
         BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                if model.isFollow == 1 {
+                    model.isFollow = 0
+                    model.approveNum = model.approveNum - 1
+                }else{
+                    model.isFollow = 1
+                    model.approveNum = model.approveNum + 1
+                }
+                self.commentListArray.replaceObject(at: indexPath.section - 2, with: model.toDictionary())
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

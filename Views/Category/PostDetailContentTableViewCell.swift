@@ -102,10 +102,10 @@ class PostDetailContentTableViewCell: UITableViewCell {
 
         let images = model.image.split(separator: ",")
         var browser:SKPhotoBrowser? = nil
-        if images.count > 1 {
+        if images.count >= 1 {
             browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithUrl(urls: images, selectPageIndex: 0)
         }
-        if images.count > 1 {
+        if images.count >= 1 {
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
                 imageView.sd_crope_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
