@@ -9,6 +9,7 @@
 import UIKit
 import TZImagePickerController
 
+typealias CommentPostViewControllerDataClouse = (_ model:NSDictionary) ->Void
 
 class CommentPostViewController: BaseViewController {
 
@@ -17,6 +18,8 @@ class CommentPostViewController: BaseViewController {
     
     var isSelectOriginalPhoto:Bool!
     var postData:NSDictionary!
+    
+    var commentPostViewControllerDataClouse:CommentPostViewControllerDataClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()

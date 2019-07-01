@@ -65,9 +65,9 @@ class PostDetailViewController: BaseViewController {
                 let commentVC = CommentPostViewController()
                 let commentPost = UINavigationController.init(rootViewController: commentVC)
                 commentVC.postData = self.postData
-                commentVC.reloadDataClouse = {
-
-                    self.refreshData()
+                commentVC.commentPostViewControllerDataClouse = { dic in
+                    self.postDetailViewModel.commentListArray.insert(dic, at: 0)
+                    self.postDetailViewModel.reloadTableViewData()
                 }
                 if self.changeAllCommentAndLikeNumberClouse != nil {
                     self.changeAllCommentAndLikeNumberClouse(.comment, .add)
@@ -82,9 +82,11 @@ class PostDetailViewController: BaseViewController {
                 let commentVC = CommentPostViewController()
                 let commentPost = UINavigationController.init(rootViewController: commentVC)
                 commentVC.postData = self.postData
-                commentVC.reloadDataClouse = {
-                    self.refreshData()
+                commentVC.commentPostViewControllerDataClouse = { dic in
+                    self.postDetailViewModel.commentListArray.insert(dic, at: 0)
+                    self.postDetailViewModel.reloadTableViewData()
                 }
+                
                 if self.changeAllCommentAndLikeNumberClouse != nil {
                     self.changeAllCommentAndLikeNumberClouse(.comment, .add)
                 }

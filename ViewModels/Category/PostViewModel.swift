@@ -85,6 +85,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                 let parameters = ["content":self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
+                        
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "发帖成功", autoHidder: true)
                         self.controller?.dismiss(animated: true, completion: {
                             CacheManager.getSharedInstance().removePostModel()
