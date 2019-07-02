@@ -234,11 +234,12 @@ class BaseNetWorke : SessionManager {
     
     ///TransGoogle
     
-    func googleTrans(url:String, success:@escaping SuccessClouse, failure:@escaping FailureClouse){
+    func googleTrans(url:String, parameters: AnyObject?, success:@escaping SuccessClouse, failure:@escaping FailureClouse){
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
-        Alamofire.request(url, method: .get , parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+        
+        Alamofire.request(url, method: .get , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }

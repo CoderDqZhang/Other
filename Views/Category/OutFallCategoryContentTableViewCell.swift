@@ -63,10 +63,11 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
     
     func cellSetData(model:OutFallModel, isTrans:Bool, indexPath:IndexPath, transButtonClicks:@escaping TransButtonClickClouse){
         
-         let textBound = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: detailLabel)
+         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: detailLabel)
         
-        
-        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: translateDetailLabel)
+        if model.cnContent != nil {
+            _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: translateDetailLabel)
+        }
         if isTrans {
             translateButton.isEnabled = false
             translateDetailLabel.isHidden = false

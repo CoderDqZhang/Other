@@ -83,7 +83,7 @@ func getAliPayBankNameUrl(banNo:String) ->String {
     return "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=\(banNo)&cardBinCheck=true"
 }
 
-func getGoogleTransUrl(str:String) ->String {
-    return "http://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl=zh&q=\(str)"
+func getGoogleTransUrl() ->String {
+    return "http://translate.google.cn/translate_a/single"
 }
 
