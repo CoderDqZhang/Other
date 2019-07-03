@@ -55,7 +55,7 @@ class CommentViewModel: BaseViewModel {
                             UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定删除该条回复?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
                                 
                             }, doneAction: {
-                                let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 2] as! [String : Any])
+                                let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any])
                                 self.deleteApproveNet(approveId: model.id.string, model: model, indexPath: indexPath)
                             })
                         }
@@ -70,7 +70,7 @@ class CommentViewModel: BaseViewModel {
                             UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定举报该条回复?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
                                 
                             }, doneAction: {
-                                let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 2] as! [String : Any])
+                                let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any])
                                 self.reportApproveNet(approveId: model.id.string, model: model, indexPath: indexPath)
                             })
                         }
@@ -98,11 +98,15 @@ class CommentViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.section != 0 {
-            let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any])
-            (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "回复\(String(describing: model.nickname!))"
-            self.selectReply = model
-            (self.controller! as! CommentViewController).gloableCommentView.textView.becomeFirstResponder()
             
+            let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any])
+            if model.status == "0" {
+                (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "回复\(String(describing: model.nickname!))"
+                self.selectReply = model
+                (self.controller! as! CommentViewController).gloableCommentView.textView.becomeFirstResponder()
+            }else{
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "回复已删除", autoHidder: true)
+            }
         }
     }
     
@@ -182,11 +186,29 @@ class CommentViewModel: BaseViewModel {
     }
     
     func deleteApproveNet(approveId:String, model:ReplyList, indexPath:IndexPath){
-        
+        let parameters = ["replyId":approveId]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyreplyDeleteUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                model.content = "回复已删除"
+                model.status = "1" //自己删除
+                self.replistList.replaceObject(at: indexPath.section - 1, with: model.toDictionary())
+                self.reloadTableViewData()
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
     }
     
     func reportApproveNet(approveId:String, model:ReplyList, indexPath:IndexPath){
-        
+        let parameters = ["param":approveId,"type":"2"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ReportAddReportUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "举报成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
     }
     
     func replyDone(){

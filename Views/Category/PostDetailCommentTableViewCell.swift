@@ -96,17 +96,20 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             make.right.equalToSuperview()
         }
         
-        if model.status == "0" && isShowRepli {
+        if model.status == "0"  {
             contentLabel.textColor = App_Theme_06070D_Color
-            _ = self.contentView.newLongpressGesture { (longPress) in
-                
-                }.whenBegan { (longPress) in
+            if isShowRepli {
+                _ = self.contentView.newLongpressGesture { (longPress) in
                     
-                }.whenEnded { (longPress) in
-                    if self.postDetailCommentTableViewCellClouse != nil {
-                        self.postDetailCommentTableViewCellClouse(model)
-                    }
+                    }.whenBegan { (longPress) in
+                        
+                    }.whenEnded { (longPress) in
+                        if self.postDetailCommentTableViewCellClouse != nil {
+                            self.postDetailCommentTableViewCellClouse(model)
+                        }
+                }
             }
+           
         }else{
             let attributed = NSMutableAttributedString.init(string: model.content)
             attributed.yy_textStrikethrough = YYTextDecoration.init(style: .single)

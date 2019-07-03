@@ -220,7 +220,7 @@ class PostDetailViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 model.content = "评论以删除"
                 model.status = "1" //自己删除
-                self.commentListArray.removeObject(at: indexPath.section - 2)
+                self.commentListArray.replaceObject(at: indexPath.section - 2, with: model.toDictionary())
                 self.reloadTableViewData()
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
