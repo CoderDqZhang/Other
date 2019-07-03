@@ -67,7 +67,9 @@ class PostDetailViewModel: BaseViewModel {
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
         if self.commentListArray.count > 0 {
-            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false, isShowRepli: true)
+            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false, isShowRepli: true, reload: { height in
+                
+            })
         }
     }
     

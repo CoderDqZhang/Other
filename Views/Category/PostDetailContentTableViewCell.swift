@@ -63,9 +63,11 @@ class  PostDetailContentTableViewCell : UITableViewCell {
         self.contentView.addSubview(imageContentView)
         
         likeButtonView = UIView.init()
+        self.likeButtonView.isHidden = true
         self.contentView.addSubview(likeButtonView)
         
         collectButtonView = UIView.init()
+        self.collectButtonView.isHidden = true
         self.contentView.addSubview(collectButtonView)
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "post_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
@@ -113,6 +115,19 @@ class  PostDetailContentTableViewCell : UITableViewCell {
         if images.count >= 1 {
             var imageHeight:CGFloat = 0
             var count = 0
+            //图片存在缓存问题是
+            isCheckBoolProperty.signal.observe { (ret) in
+                self.imageContentView.snp.makeConstraints{ (make) in
+                    make.height.equalTo(imageHeight)
+                }
+                if !self.isUpdateHeight {
+                    self.isUpdateHeight = true
+                    reload(imageHeight)
+                    self.collectButtonView.isHidden = false
+                    self.likeButtonView.isHidden = false
+                }
+            }
+            
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
                 imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), contentSize: CGSize.init(width: imageContentView.width, height: imageContentView.width), placeholderImage: nil) { (image, error, cacheType, url) in
@@ -140,17 +155,11 @@ class  PostDetailContentTableViewCell : UITableViewCell {
                 self.imageContentView.addSubview(imageView)
             }
             imageContentView.isHidden = false
-            isCheckBoolProperty.signal.observe { (ret) in
-                self.imageContentView.snp.makeConstraints{ (make) in
-                    make.height.equalTo(imageHeight)
-                }
-                if !self.isUpdateHeight {
-                    self.isUpdateHeight = true
-                    reload(imageHeight)
-                }
-            }
+            
 
         }else{
+            self.collectButtonView.isHidden = false
+            self.likeButtonView.isHidden = false
             imageContentView.isHidden = true
             imageContentView.snp.makeConstraints{ (make) in
                 make.height.equalTo(0.0001)

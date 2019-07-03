@@ -8,6 +8,8 @@
 
 import UIKit
 import SKPhotoBrowser
+import ReactiveCocoa
+import ReactiveSwift
 
 let commentImageWidth:CGFloat = (SCREENWIDTH - 60 - 8 * 2) / 3
 let commentImageHeight:CGFloat = commentImageWidth
@@ -24,6 +26,12 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
     var didMakeConstraints = false
+    
+    var isCheckBoolProperty = MutableProperty<Bool>(false)
+    var isUpdateHeight:Bool = false
+    
+    var imageHeight:CGFloat = 0
+
     
     var postDetailContentTableViewCellImageClickClouse:PostDetailContentTableViewCellImageClickClouse!
 
@@ -67,13 +75,13 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool){
+    func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool, reload:@escaping ReloadTableViewCell){
         
         
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
         
         let images:[String] = model.img.nsString.components(separatedBy: ",")
-        self.setImageContentView(images,isCommentDetail)
+        self.setImageContentView(images,isCommentDetail, reload: reload)
         
         if isShowRepli {
             self.setSecondeCotent(secondeContents: model.replyList)
@@ -139,32 +147,58 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         }
     }
     
-    func setImageContentView(_ images:[String], _ isCommentDetail:Bool){
+    func setImageContentView(_ images:[String], _ isCommentDetail:Bool,reload:@escaping ReloadTableViewCell){
+        self.imageContentView.removeSubviews()
         if images.count > 1{
             if isCommentDetail {
-                var imageContentHeight:CGFloat = 0
+                var browser:SKPhotoBrowser? = nil
+                if images.count > 1 {
+                    browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
+                }
+                var count = 0
+                //图片存在缓存问题是
+                isCheckBoolProperty.signal.observe { (ret) in
+                    self.imageContentView.snp.makeConstraints{ (make) in
+                        make.height.equalTo(self.imageHeight)
+                    }
+                    if !self.isUpdateHeight {
+                        self.isUpdateHeight = true
+                        reload(self.imageHeight)
+                    }
+                }
                 for index in 0...images.count - 1 {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
                     imageView.tag = index + 10000
-                    imageView.sd_crope_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
-//                        let view = self.imageContentView.viewWithTag(index + 10000)
-                        imageView.frame = CGRect.init(x: 0, y:imageContentHeight, width: SCREENWIDTH - 64, height: (SCREENWIDTH - 64) * (image?.size.height)! / (image?.size.width)!)
-                        imageView.backgroundColor = .red
-                        
-                        if index == images.count - 1 {
-                            self.imageContentView.snp.updateConstraints{ (make) in
-                                make.height.equalTo(imageView.frame.maxY)
+                    imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), contentSize: CGSize.init(width: imageContentView.width, height: imageContentView.width), placeholderImage: nil) { (image, error, cacheType, url) in
+                        if image != nil {
+                            count = count + 1
+                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.imageHeight + 10), size: CGSize.init(width: SCREENWIDTH - 60, height: (image?.size.height)!))
+                            self.imageHeight = image!.size.height + self.imageHeight + 10
+                            if count == images.count - 1{
+                                self.isCheckBoolProperty.value = true
                             }
-                        }else{
-                            imageContentHeight = imageContentHeight + (SCREENWIDTH - 64) * (image?.size.height)! / (image?.size.width)! + 8
+                            imageView.image = image
                         }
                     }
+                    imageView.tag = index + 1000
+                    imageView.isUserInteractionEnabled = true
+                    _ = imageView.newTapGesture { (gesture) in
+                        gesture.numberOfTapsRequired = 1
+                        gesture.numberOfTouchesRequired = 1
+                        }.whenTaped(handler: { (tap) in
+                            if self.postDetailContentTableViewCellImageClickClouse != nil {
+                                if browser != nil {
+                                    self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
+                                }
+                            }
+                        })
+                    imageView.layer.masksToBounds = true
                     self.imageContentView.addSubview(imageView)
                 }
-                
+                imageContentView.isHidden = false
             }else{
                 var browser:SKPhotoBrowser? = nil
-                if images.count >= 1 {
+                if images.count > 1 {
                     browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
                 }
                 for index in 0...images.count - 1 {

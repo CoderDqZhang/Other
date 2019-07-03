@@ -52,9 +52,9 @@ class PostDetailViewController: BaseViewController {
 
         self.updateTableViewConstraints()
 
-        self.setUpRefreshData {
-            self.refreshData()
-        }
+//        self.setUpRefreshData {
+//            self.refreshData()
+//        }
 
         self.setUpLoadMoreData {
             self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)

@@ -18,12 +18,24 @@ class CommentViewModel: BaseViewModel {
     var page:Int = 0
     var content:String = ""
     
+    var imageHeight:CGFloat = 0
+    var isUpDataHeight:Bool = false
     override init() {
         super.init()
     }
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        cell.cellSetData(model: self.commentData, isCommentDetail: false, isShowRepli: false)
+        cell.cellSetData(model: self.commentData, isCommentDetail: true, isShowRepli: false, reload: { imageHeight in
+            self.imageHeight = imageHeight + 50
+            if !self.isUpDataHeight{
+                self.isUpDataHeight = true
+                self.controller?.tableView.beginUpdates()
+                self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
+                self.controller?.tableView.endUpdates()
+            }
+            
+        })
+        
         cell.postDetailContentTableViewCellImageClickClouse = { tag,browser in
             NavigaiontPresentView(self.controller!, toController: browser)
         }
@@ -137,6 +149,12 @@ class CommentViewModel: BaseViewModel {
         (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "请输入你的精彩回复"
         self.selectReply = nil
     }
+    
+    func getContentHeight() ->CGFloat{
+    
+        let contentSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.commentData.content, yyLabel: YYLabel.init())
+        return contentSize.textBoundingSize.height + imageHeight
+    }
 }
 
 
@@ -163,9 +181,7 @@ extension CommentViewModel: UITableViewDelegate {
             return 56
         }
         if indexPath.section == 0 {
-            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheByKey: (self.commentData), configuration: { (cell) in
-                self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell  as! PostDetailCommentTableViewCell)
-            })
+            return self.getContentHeight()
         }
         return tableView.fd_heightForCell(withIdentifier: ReplyContentTableViewCell.description(), cacheByKey: (self.replistList[indexPath.section - 1] as! NSCopying), configuration: { (cell) in
             self.tableViewReplyContentTableViewCellSetData(indexPath, cell: cell  as! ReplyContentTableViewCell)

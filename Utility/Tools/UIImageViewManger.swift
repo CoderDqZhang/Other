@@ -59,10 +59,10 @@ extension UIImageView {
     
     func sd_crope_imageView_withMaxWidth(url:String, contentSize:CGSize, placeholderImage:UIImage?, completedBlock:SDExternalCompletionBlock?) {
         
-        self.sd_setImage(with: URL.init(string: UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: nil, options: [.avoidAutoSetImage,.retryFailed]) { (image, error, cacheType, url) in
+        self.sd_setImage(with: URL.init(string: UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: nil, options: [.avoidAutoSetImage,.retryFailed, .avoidAutoSetImage,.lowPriority]) { (image, error, cacheType, url) in
             if error == nil {
                 let size = image!.size
-                let height = size.height * (SCREENWIDTH - 30) / size.width
+                let height = size.height * contentSize.width / size.width
                 let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 30, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
                 completedBlock!(finistImage,error,cacheType,url)
             }
