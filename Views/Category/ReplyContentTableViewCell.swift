@@ -8,6 +8,9 @@
 
 import UIKit
 
+typealias ReplyContentTableViewCellClouse = (_ model:ReplyList) ->Void
+
+
 class ReplyContentTableViewCell: UITableViewCell {
 
     var contentLabel:YYLabel!
@@ -18,6 +21,8 @@ class ReplyContentTableViewCell: UITableViewCell {
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
     var didMakeConstraints = false
+    
+    var replyContentTableViewCellClouse:ReplyContentTableViewCellClouse!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -60,6 +65,17 @@ class ReplyContentTableViewCell: UITableViewCell {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
+        
+        _ = self.contentView.newLongpressGesture { (longPress) in
+            
+            }.whenBegan { (longPress) in
+                
+            }.whenEnded { (longPress) in
+                if self.replyContentTableViewCellClouse != nil {
+                    self.replyContentTableViewCellClouse(model)
+                }
+        }
+        
         self.contentView.updateConstraintsIfNeeded()
     }
     
@@ -74,7 +90,7 @@ class ReplyContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(45)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(0)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-15)
                 make.height.equalTo(0.0001)
             }
             didMakeConstraints = true

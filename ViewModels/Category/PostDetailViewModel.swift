@@ -70,6 +70,32 @@ class PostDetailViewModel: BaseViewModel {
             cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false, isShowRepli: true, reload: { height in
                 
             })
+            cell.postDetailCommentTableViewCellClouse = { model in
+                if CacheManager.getSharedInstance().isLogin() {
+                    if model.user.id.string == CacheManager.getSharedInstance().getUserId() {
+                        KWindow.addSubview(GloableAlertView.init(titles: ["查看评论","删除评论"], cancelTitle: "取消", buttonClick: { (tag) in
+                            if tag == 0 {
+                                self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
+                            }else{
+                                UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定删除该条评论?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                                    
+                                }, doneAction: {
+                                     let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+                                    self.deleteComment(commentId: model.id.string, model: model, indexPath: indexPath)
+                                })
+                            }
+                        }, cancelAction: {
+//                            print("cancel")
+                        }))
+                    }else{
+                        KWindow.addSubview(GloableAlertView.init(titles: ["查看评论","回复评论"], cancelTitle: "取消", buttonClick: { (tag) in
+                            self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
+                        }, cancelAction: {
+//                            print("cancel")
+                        }))
+                    }
+                }
+            }
         }
     }
     
@@ -181,6 +207,21 @@ class PostDetailViewModel: BaseViewModel {
                     model.approveNum = model.approveNum + 1
                 }
                 self.commentListArray.replaceObject(at: indexPath.section - 2, with: model.toDictionary())
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func deleteComment(commentId:String,model:CommentModel, indexPath:IndexPath){
+        let parameters = ["commentId":commentId]
+        BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentDelUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                model.content = "评论以删除"
+                model.status = "1" //自己删除
+                self.commentListArray.removeObject(at: indexPath.section - 2)
+                self.reloadTableViewData()
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

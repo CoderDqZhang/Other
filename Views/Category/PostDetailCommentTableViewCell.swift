@@ -16,6 +16,8 @@ let commentImageHeight:CGFloat = commentImageWidth
 let SecondeContentHeight:CGFloat = 18
 let SecondeContentWidth:CGFloat = SCREENWIDTH - 66
 
+typealias PostDetailCommentTableViewCellClouse = (_ model:CommentModel) ->Void
+
 class PostDetailCommentTableViewCell: UITableViewCell {
 
     var contentLabel:YYLabel!
@@ -32,7 +34,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     
     var imageHeight:CGFloat = 0
 
-    
+    var postDetailCommentTableViewCellClouse:PostDetailCommentTableViewCellClouse!
     var postDetailContentTableViewCellImageClickClouse:PostDetailContentTableViewCellImageClickClouse!
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -93,6 +95,25 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
+        
+        if model.status == "0" && isShowRepli {
+            contentLabel.textColor = App_Theme_06070D_Color
+            _ = self.contentView.newLongpressGesture { (longPress) in
+                
+                }.whenBegan { (longPress) in
+                    
+                }.whenEnded { (longPress) in
+                    if self.postDetailCommentTableViewCellClouse != nil {
+                        self.postDetailCommentTableViewCellClouse(model)
+                    }
+            }
+        }else{
+            let attributed = NSMutableAttributedString.init(string: model.content)
+            attributed.yy_textStrikethrough = YYTextDecoration.init(style: .single)
+            attributed.yy_color = App_Theme_999999_Color
+            contentLabel.attributedText = attributed
+        }
+        
         self.contentView.updateConstraintsIfNeeded()
     }
     
@@ -165,6 +186,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                         self.isUpdateHeight = true
                         reload(self.imageHeight)
                     }
+                    self.imageContentView.isHidden = false
                 }
                 for index in 0...images.count - 1 {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
@@ -195,7 +217,6 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                     imageView.layer.masksToBounds = true
                     self.imageContentView.addSubview(imageView)
                 }
-                imageContentView.isHidden = false
             }else{
                 var browser:SKPhotoBrowser? = nil
                 if images.count > 1 {

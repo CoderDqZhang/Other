@@ -25,8 +25,9 @@ class CommentViewModel: BaseViewModel {
     }
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
+        cell.imageHeight = 0
         cell.cellSetData(model: self.commentData, isCommentDetail: true, isShowRepli: false, reload: { imageHeight in
-            self.imageHeight = imageHeight + 50
+            self.imageHeight = imageHeight + 30
             if !self.isUpDataHeight{
                 self.isUpDataHeight = true
                 self.controller?.tableView.beginUpdates()
@@ -44,6 +45,41 @@ class CommentViewModel: BaseViewModel {
     func tableViewReplyContentTableViewCellSetData(_ indexPath:IndexPath, cell:ReplyContentTableViewCell) {
         let model =  ReplyList.init(fromDictionary:replistList[indexPath.section - 1] as! [String : Any])
         cell.cellSetRepliy(model: model, isReplyComment: model.toNickname != commentData.user.nickname ? true : false)
+        cell.replyContentTableViewCellClouse = { model in
+            if CacheManager.getSharedInstance().isLogin() {
+                if model.userId.string == CacheManager.getSharedInstance().getUserId() {
+                    KWindow.addSubview(GloableAlertView.init(titles: ["回复评论","删除回复"], cancelTitle: "取消", buttonClick: { (tag) in
+                        if tag == 0 {
+                            self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
+                        }else{
+                            UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定删除该条回复?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                                
+                            }, doneAction: {
+                                let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 2] as! [String : Any])
+                                self.deleteApproveNet(approveId: model.id.string, model: model, indexPath: indexPath)
+                            })
+                        }
+                    }, cancelAction: {
+                        //                            print("cancel")
+                    }))
+                }else{
+                    KWindow.addSubview(GloableAlertView.init(titles: ["回复评论","举报回复"], cancelTitle: "取消", buttonClick: { (tag) in
+                        if tag == 0 {
+                            self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
+                        }else{
+                            UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定举报该条回复?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                                
+                            }, doneAction: {
+                                let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 2] as! [String : Any])
+                                self.reportApproveNet(approveId: model.id.string, model: model, indexPath: indexPath)
+                            })
+                        }
+                    }, cancelAction: {
+                        //                            print("cancel")
+                    }))
+                }
+            }
+        }
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
@@ -145,6 +181,14 @@ class CommentViewModel: BaseViewModel {
         }
     }
     
+    func deleteApproveNet(approveId:String, model:ReplyList, indexPath:IndexPath){
+        
+    }
+    
+    func reportApproveNet(approveId:String, model:ReplyList, indexPath:IndexPath){
+        
+    }
+    
     func replyDone(){
         (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "请输入你的精彩回复"
         self.selectReply = nil
@@ -153,7 +197,7 @@ class CommentViewModel: BaseViewModel {
     func getContentHeight() ->CGFloat{
     
         let contentSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.commentData.content, yyLabel: YYLabel.init())
-        return contentSize.textBoundingSize.height + imageHeight
+        return contentSize.textBoundingSize.height + imageHeight + 25
     }
 }
 

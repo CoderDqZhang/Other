@@ -17,6 +17,7 @@ class CommentModel : NSObject, NSCoding, NSCopying{
     var img : String!
     var isFollow : Int!
     var replyList : [ReplyList]!
+    var status : String!
     var tipDetail : TipModel!
     var userId : Int!
     var replyNum : Int!
@@ -30,6 +31,7 @@ class CommentModel : NSObject, NSCoding, NSCopying{
         approveNum = dictionary["approveNum"] as? Int
         content = dictionary["content"] as? String
         createTime = dictionary["createTime"] as? String
+        status = dictionary["status"] as? String
         id = dictionary["id"] as? Int
         img = dictionary["img"] as? String
         isFollow = dictionary["isFollow"] as? Int
@@ -64,6 +66,9 @@ class CommentModel : NSObject, NSCoding, NSCopying{
         }
         if createTime != nil{
             dictionary["createTime"] = createTime
+        }
+        if status != nil{
+            dictionary["status"] = status
         }
         if id != nil{
             dictionary["id"] = id
@@ -106,6 +111,7 @@ class CommentModel : NSObject, NSCoding, NSCopying{
         content = aDecoder.decodeObject(forKey: "content") as? String
         createTime = aDecoder.decodeObject(forKey: "createTime") as? String
         id = aDecoder.decodeObject(forKey: "id") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? String
         img = aDecoder.decodeObject(forKey: "img") as? String
         isFollow = aDecoder.decodeObject(forKey: "isFollow") as? Int
         replyList = aDecoder.decodeObject(forKey :"replyList") as? [ReplyList]
@@ -126,6 +132,9 @@ class CommentModel : NSObject, NSCoding, NSCopying{
         }
         if content != nil{
             aCoder.encode(content, forKey: "content")
+        }
+        if status != nil{
+            aCoder.encode(status, forKey: "status")
         }
         if createTime != nil{
             aCoder.encode(createTime, forKey: "createTime")
@@ -170,6 +179,7 @@ class ReplyList : NSObject, NSCoding, NSCopying{
     var followNum : Int!
     var id : Int!
     var img : String!
+    var status : String!
     var isFollow : Int!
     var nickname : String!
     var toNickname : String!
@@ -183,6 +193,7 @@ class ReplyList : NSObject, NSCoding, NSCopying{
         content = dictionary["content"] as? String
         createTime = dictionary["createTime"] as? String
         followNum = dictionary["followNum"] as? Int
+        status = dictionary["status"] as? String
         id = dictionary["id"] as? Int
         img = dictionary["img"] as? String
         isFollow = dictionary["isFollow"] as? Int
@@ -199,6 +210,9 @@ class ReplyList : NSObject, NSCoding, NSCopying{
         var dictionary = [String:Any]()
         if content != nil{
             dictionary["content"] = content
+        }
+        if status != nil{
+            dictionary["status"] = status
         }
         if createTime != nil{
             dictionary["createTime"] = createTime
@@ -236,6 +250,7 @@ class ReplyList : NSObject, NSCoding, NSCopying{
         content = aDecoder.decodeObject(forKey: "content") as? String
         createTime = aDecoder.decodeObject(forKey: "createTime") as? String
         followNum = aDecoder.decodeObject(forKey: "followNum") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? String
         id = aDecoder.decodeObject(forKey: "id") as? Int
         img = aDecoder.decodeObject(forKey: "img") as? String
         isFollow = aDecoder.decodeObject(forKey: "isFollow") as? Int
@@ -259,6 +274,9 @@ class ReplyList : NSObject, NSCoding, NSCopying{
         }
         if followNum != nil{
             aCoder.encode(followNum, forKey: "followNum")
+        }
+        if status != nil{
+            aCoder.encode(status, forKey: "status")
         }
         if id != nil{
             aCoder.encode(id, forKey: "id")
