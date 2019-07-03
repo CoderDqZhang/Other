@@ -20,7 +20,7 @@ class YYLaoutTextGloabelManager: NSObject {
     func setYYLabelTextBound(font:UIFont, size:CGSize,  str:String, yyLabel:YYLabel) ->YYTextLayout {
         let tempStr = NSMutableAttributedString.init(string: str)
         tempStr.yy_font = font
-        tempStr.yy_lineSpacing = 8
+        tempStr.yy_lineSpacing = 6
         yyLabel.attributedText = tempStr
         yyLabel.textLayout = (YYTextLayout.init(containerSize: size, text: tempStr))
         yyLabel.frame.size = yyLabel.textLayout!.textBoundingSize
@@ -43,7 +43,7 @@ class YYLaoutTextGloabelManager: NSObject {
         yyLabel.attributedText = str
         yyLabel.textLayout = (YYTextLayout.init(containerSize: size, text: str))
         yyLabel.frame.size = yyLabel.textLayout!.textBoundingSize
-        
+        str.yy_lineSpacing = 6
         if yyLabel.textLayout != nil {
             yyLabel.snp.updateConstraints { (make) in
                 make.height.equalTo((yyLabel.textLayout?.textBoundingSize.height)!)

@@ -15,6 +15,8 @@ class PostDetailViewModel: BaseViewModel {
     var tipDetailModel:TipModel!
     var commentListArray = NSMutableArray.init()
     var page:Int = 0
+    var imageHeight:CGFloat = 0
+    var isUpDataHeight:Bool = false
     override init() {
         super.init()
     }
@@ -30,7 +32,16 @@ class PostDetailViewModel: BaseViewModel {
     
     func tableViewPostDetailContentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailContentTableViewCell) {
         if tipDetailModel != nil {
-            cell.cellSetData(model: self.tipDetailModel)
+            cell.cellSetData(model: self.tipDetailModel, reload: { imageHeight in
+                self.imageHeight = imageHeight
+                if !self.isUpDataHeight{
+                    self.isUpDataHeight = true
+                    self.controller?.tableView.beginUpdates()
+                    self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
+                    self.controller?.tableView.endUpdates()
+                }
+                
+            })
         }
         cell.postDetailContentTableViewCellClouse = { type, status in
             switch type {
@@ -189,6 +200,14 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
+    func getContentHeight() ->CGFloat{
+        let titleSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.tipDetailModel.title, yyLabel: YYLabel.init())
+        
+        let contentSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.tipDetailModel.content, yyLabel: YYLabel.init())
+        
+        return titleSize.textBoundingSize.height + contentSize.textBoundingSize.height + 120 + imageHeight
+    }
+    
 }
 
 
@@ -219,9 +238,10 @@ extension PostDetailViewModel: UITableViewDelegate {
                 return 60
             }
             if self.tipDetailModel != nil {
-                return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), cacheByKey: self.tipDetailModel   , configuration: { (cell) in
-                    self.tableViewPostDetailContentTableViewCellSetData(indexPath, cell: cell as! PostDetailContentTableViewCell)
-                })
+                return self.getContentHeight()
+//                return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), cacheByKey: self.tipDetailModel   , configuration: { (cell) in
+//                    self.tableViewPostDetailContentTableViewCellSetData(indexPath, cell: cell as! PostDetailContentTableViewCell)
+//                })
             }
             return 60
             
@@ -250,6 +270,8 @@ extension PostDetailViewModel: UITableViewDelegate {
             return 150
         }
     }
+    
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         

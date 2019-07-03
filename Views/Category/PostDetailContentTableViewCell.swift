@@ -9,6 +9,8 @@
 import UIKit
 import YYText
 import SKPhotoBrowser
+import ReactiveCocoa
+import ReactiveSwift
 
 enum PostDetailContentTableViewCellButtonType {
     case like
@@ -16,8 +18,9 @@ enum PostDetailContentTableViewCellButtonType {
 }
 typealias PostDetailContentTableViewCellClouse = (_ type:PostDetailContentTableViewCellButtonType, _ status:ToolsStatus) -> Void
 typealias PostDetailContentTableViewCellImageClickClouse = (_ tag:Int, _ photoBrowser:SKPhotoBrowser) ->Void
+typealias ReloadTableViewCell = (_ height:CGFloat) ->Void
 
-class PostDetailContentTableViewCell: UITableViewCell {
+class  PostDetailContentTableViewCell : UITableViewCell {
 
     var titleLabel:YYLabel!
     var contnetLabel:YYLabel!
@@ -32,6 +35,8 @@ class PostDetailContentTableViewCell: UITableViewCell {
     var postDetailContentTableViewCellClouse:PostDetailContentTableViewCellClouse!
     var postDetailContentTableViewCellImageClickClouse:PostDetailContentTableViewCellImageClickClouse!
     
+    var isCheckBoolProperty = MutableProperty<Bool>(false)
+    var isUpdateHeight:Bool = false
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -92,7 +97,7 @@ class PostDetailContentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(model:TipModel){
+    func cellSetData(model:TipModel, reload:@escaping ReloadTableViewCell){
     
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.title, yyLabel: titleLabel)
 
@@ -106,10 +111,18 @@ class PostDetailContentTableViewCell: UITableViewCell {
             browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithUrl(urls: images, selectPageIndex: 0)
         }
         if images.count >= 1 {
+            var imageHeight:CGFloat = 0
+            var count = 0
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                imageView.sd_crope_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
-                    
+                imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), contentSize: CGSize.init(width: imageContentView.width, height: imageContentView.width), placeholderImage: nil) { (image, error, cacheType, url) in
+                    count = count + 1
+                    imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: imageHeight + 10), size: image!.size)
+                    imageHeight = image!.size.height + imageHeight + 10
+                    if count == images.count {
+                        self.isCheckBoolProperty.value = true
+                    }
+                    imageView.image = image
                 }
                 imageView.tag = index + 1000
                 imageView.isUserInteractionEnabled = true
@@ -123,14 +136,20 @@ class PostDetailContentTableViewCell: UITableViewCell {
                             }
                         }
                     })
-                imageView.layer.cornerRadius = 5
                 imageView.layer.masksToBounds = true
                 self.imageContentView.addSubview(imageView)
             }
             imageContentView.isHidden = false
-            imageContentView.snp.makeConstraints{ (make) in
-                make.height.equalTo(contentImageHeight)
+            isCheckBoolProperty.signal.observe { (ret) in
+                self.imageContentView.snp.makeConstraints{ (make) in
+                    make.height.equalTo(imageHeight)
+                }
+                if !self.isUpdateHeight {
+                    self.isUpdateHeight = true
+                    reload(imageHeight)
+                }
             }
+
         }else{
             imageContentView.isHidden = true
             imageContentView.snp.makeConstraints{ (make) in
