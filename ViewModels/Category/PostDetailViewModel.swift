@@ -88,8 +88,17 @@ class PostDetailViewModel: BaseViewModel {
 //                            print("cancel")
                         }))
                     }else{
-                        KWindow.addSubview(GloableAlertView.init(titles: ["查看评论","回复评论"], cancelTitle: "取消", buttonClick: { (tag) in
-                            self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
+                        KWindow.addSubview(GloableAlertView.init(titles: ["查看评论","举报评论"], cancelTitle: "取消", buttonClick: { (tag) in
+                            if tag == 0 {
+                                self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
+                            }else{
+                                UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定删除举报该条评论?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                                    
+                                }, doneAction: {
+                                    let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+                                    self.reportCommentNet(commentId:  model.id.string, model: model, indexPath: indexPath)
+                                })
+                            }
                         }, cancelAction: {
 //                            print("cancel")
                         }))
@@ -228,6 +237,18 @@ class PostDetailViewModel: BaseViewModel {
             }
         }
     }
+    
+    func reportCommentNet(commentId:String, model:CommentModel, indexPath:IndexPath){
+        let parameters = ["param":commentId,"type":"1"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ReportAddReportUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "举报成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
     
     func followNet(status:Bool){
         let parameters = ["userId":self.tipDetailModel.user.id!.string]
