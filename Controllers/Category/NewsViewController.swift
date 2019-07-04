@@ -41,6 +41,11 @@ class NewsViewController: BaseViewController {
         self.newsViewModel.tipListArray.replaceObject(at: indexPath.section - 2, with: data)
         self.newsViewModel.reloadTableViewData()
     }
+    
+    func deleteArticle(_ indexPath:IndexPath) {
+        self.newsViewModel.tipListArray.removeObject(at: indexPath.section - 2)
+        self.newsViewModel.reloadTableViewData()
+    }
 
     /*
     // MARK: - Navigation

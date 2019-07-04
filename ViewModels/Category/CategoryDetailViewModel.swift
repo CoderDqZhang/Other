@@ -51,10 +51,16 @@ class CategoryDetailViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        let postDetailVC = PostDetailViewController()
-        postDetailVC.postData = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]).toDictionary() as NSDictionary
-        postDetailVC.postType = .Hot
-        NavigationPushView(self.controller!, toConroller: postDetailVC)
+        if indexPath.section != 0 {
+            let postDetailVC = PostDetailViewController()
+            postDetailVC.postData = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]).toDictionary() as NSDictionary
+            postDetailVC.deleteArticleClouse = {
+                self.tipListArray.removeObject(at: indexPath.section - 1)
+                self.reloadTableViewData()
+            }
+            postDetailVC.postType = .Hot
+            NavigationPushView(self.controller!, toConroller: postDetailVC)
+        }
     }
     
     func getCategoryNet(){

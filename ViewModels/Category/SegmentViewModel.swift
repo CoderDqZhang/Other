@@ -67,6 +67,11 @@ class SegmentViewModel: BaseViewModel {
             }
             (self.controller as! SegmentViewController).changeCommentAndLikeNumber(data,indexPath)
         }
+        
+        postDetail.deleteArticleClouse = {
+            (self.controller as! SegmentViewController).deleteArticle(indexPath)
+        }
+        
         postDetail.postData = data
         postDetail.postType = type
         NavigationPushView(self.controller!, toConroller: postDetail)
