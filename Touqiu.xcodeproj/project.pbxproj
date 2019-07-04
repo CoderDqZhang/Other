@@ -274,6 +274,14 @@
 		1FF1E53522B8E89700BB9A50 /* SKPhotoBrowserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53422B8E89700BB9A50 /* SKPhotoBrowserManager.swift */; };
 		1FF1E53722BA136600BB9A50 /* ErrorCodeTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53622BA136500BB9A50 /* ErrorCodeTools.swift */; };
 		1FF1E53922BB70AE00BB9A50 /* PointsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53822BB70AD00BB9A50 /* PointsModel.swift */; };
+		1FF1E53B22C21D8000BB9A50 /* OutFallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53A22C21D7F00BB9A50 /* OutFallModel.swift */; };
+		1FF1E53D22C2243900BB9A50 /* TransModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53C22C2243900BB9A50 /* TransModel.swift */; };
+		1FF1E53F22C3162000BB9A50 /* YYLaoutTextHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */; };
+		1FF1E54122C3627200BB9A50 /* UIImageMaxCrope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */; };
+		1FF1E54322C46C5A00BB9A50 /* ReplyContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54222C46C5900BB9A50 /* ReplyContentTableViewCell.swift */; };
+		1FF1E54522C4BF0000BB9A50 /* UIViewControllerExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54422C4BF0000BB9A50 /* UIViewControllerExtentions.swift */; };
+		1FF1E54722C4C67400BB9A50 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54622C4C67400BB9A50 /* MessageViewModel.swift */; };
+		1FF1E54922C6151900BB9A50 /* MyCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E54822C6151900BB9A50 /* MyCommentTableViewCell.swift */; };
 		23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2A42CA74CDE7162CDEF66B /* Pods_Touqiu.framework */; };
 		3629C3040FD2A1953DBD2EE7 /* Pods_TouqiuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BFD288F1262B71514304E2 /* Pods_TouqiuTests.framework */; };
 /* End PBXBuildFile section */
@@ -628,6 +636,14 @@
 		1FF1E53422B8E89700BB9A50 /* SKPhotoBrowserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKPhotoBrowserManager.swift; sourceTree = "<group>"; };
 		1FF1E53622BA136500BB9A50 /* ErrorCodeTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ErrorCodeTools.swift; path = ../../Global/ErrorCodeTools.swift; sourceTree = "<group>"; };
 		1FF1E53822BB70AD00BB9A50 /* PointsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsModel.swift; sourceTree = "<group>"; };
+		1FF1E53A22C21D7F00BB9A50 /* OutFallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutFallModel.swift; sourceTree = "<group>"; };
+		1FF1E53C22C2243900BB9A50 /* TransModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransModel.swift; sourceTree = "<group>"; };
+		1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYLaoutTextHeight.swift; sourceTree = "<group>"; };
+		1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageMaxCrope.swift; sourceTree = "<group>"; };
+		1FF1E54222C46C5900BB9A50 /* ReplyContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyContentTableViewCell.swift; sourceTree = "<group>"; };
+		1FF1E54422C4BF0000BB9A50 /* UIViewControllerExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtentions.swift; sourceTree = "<group>"; };
+		1FF1E54622C4C67400BB9A50 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
+		1FF1E54822C6151900BB9A50 /* MyCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentTableViewCell.swift; sourceTree = "<group>"; };
 		2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Touqiu.release.xcconfig"; path = "Target Support Files/Pods-Touqiu/Pods-Touqiu.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDF73A5751ABCD7F65BC27 /* Pods-TouqiuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.debug.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B43DCF086A5FC388370355DF /* Pods_TouqiuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TouqiuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1087,6 +1103,8 @@
 				1FE5BE2B2282863D00C9137C /* UIImageViewManger.swift */,
 				1F395CC42295458C00781C0C /* CacheManager.swift */,
 				1FF1E53422B8E89700BB9A50 /* SKPhotoBrowserManager.swift */,
+				1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */,
+				1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1104,6 +1122,7 @@
 				1FE5BE412282864300C9137C /* NSTimer.swift */,
 				1FE5BE422282864300C9137C /* UITapGestureRecognizer+Extention.swift */,
 				1FE5BE432282864300C9137C /* AlertControl+Tools.swift */,
+				1FF1E54422C4BF0000BB9A50 /* UIViewControllerExtentions.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -1373,6 +1392,7 @@
 				1FE5BF4D22853E9500C9137C /* CategoryHeaderTableViewCell.swift */,
 				1FE5BF4F228561CB00C9137C /* PostDetailUserInfoTableViewCell.swift */,
 				1FE5BF51228561E800C9137C /* PostDetailCommentTableViewCell.swift */,
+				1FF1E54222C46C5900BB9A50 /* ReplyContentTableViewCell.swift */,
 				1FE5BF53228561F900C9137C /* PostDetailCommentUserTableViewCell.swift */,
 				1FE5BF552285623400C9137C /* PostDetailContentTableViewCell.swift */,
 				1FE5BF63228A942500C9137C /* PostCommentTextTableViewCell.swift */,
@@ -1398,6 +1418,7 @@
 				1F1C1B2F229EA01E008031F4 /* TopUpToolsTableViewCell.swift */,
 				1F1C1B31229EA042008031F4 /* TopUpWarningTableViewCell.swift */,
 				1F1C1B33229EA052008031F4 /* TopUpConfirmTableViewCell.swift */,
+				1FF1E54822C6151900BB9A50 /* MyCommentTableViewCell.swift */,
 				1F1C1B37229F66EB008031F4 /* WithDrawTypeTableViewCell.swift */,
 				1F1C1B47229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift */,
 				1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */,
@@ -1445,6 +1466,7 @@
 				1FE8DAA7228EAB6600DCED01 /* ChangeViewModel.swift */,
 				1FE8DAB5228EC89E00DCED01 /* SettingViewModel.swift */,
 				1FE8DAB7228EC8B100DCED01 /* NotificationViewModel.swift */,
+				1FF1E54622C4C67400BB9A50 /* MessageViewModel.swift */,
 				1FE8DAB9228EC8BF00DCED01 /* RealNameViewModel.swift */,
 				1FE8DABB228EC8D100DCED01 /* SigupVIPViewModel.swift */,
 				1F1C1B5722A0F651008031F4 /* StoreViewModel.swift */,
@@ -1520,7 +1542,9 @@
 				1F395CCC2296A99E00781C0C /* CategoryModel.swift */,
 				1F395CCE229783A300781C0C /* TipModel.swift */,
 				1F395CDA229797D400781C0C /* PostModel.swift */,
+				1FF1E53A22C21D7F00BB9A50 /* OutFallModel.swift */,
 				1F991761229BF05700C8FDD5 /* CommentModel.swift */,
+				1FF1E53C22C2243900BB9A50 /* TransModel.swift */,
 			);
 			name = Category;
 			path = ViewModels/Category;
@@ -1941,6 +1965,7 @@
 				1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1F1C1B5422A0E930008031F4 /* NotificationTableViewCell.swift in Sources */,
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
+				1FF1E53B22C21D8000BB9A50 /* OutFallModel.swift in Sources */,
 				1F1C1B48229FDFBD008031F4 /* WithDrawMuchTableViewCell.swift in Sources */,
 				1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */,
 				1FE5BF212282D21F00C9137C /* OutFallViewModel.swift in Sources */,
@@ -1950,6 +1975,7 @@
 				1F395CCD2296A99E00781C0C /* CategoryModel.swift in Sources */,
 				1FE5BFB0228CF37E00C9137C /* BaseSearchViewController.swift in Sources */,
 				1F991758229BB41E00C8FDD5 /* AccountCoinsModel.swift in Sources */,
+				1FF1E54122C3627200BB9A50 /* UIImageMaxCrope.swift in Sources */,
 				1FE8DAD522926AA300DCED01 /* OtherMineViewModel.swift in Sources */,
 				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
 				1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */,
@@ -2015,13 +2041,16 @@
 				1FE5BF66228A943B00C9137C /* PostCommentImagesTableViewCell.swift in Sources */,
 				1FE5BF3A2284359D00C9137C /* OutFallCategoryUserInfoTableViewCell.swift in Sources */,
 				1FE5BEB32282866200C9137C /* TADotView.m in Sources */,
+				1FF1E54522C4BF0000BB9A50 /* UIViewControllerExtentions.swift in Sources */,
 				1FE5BDF52282731C00C9137C /* MainTabBarController.swift in Sources */,
 				1FE5BE362282863D00C9137C /* TransitionAnimatedManager.swift in Sources */,
 				1FE5BDE622817B5F00C9137C /* Define.swift in Sources */,
 				1FE5BF2B2283C1BC00C9137C /* NSString+NSStringAdditions.m in Sources */,
+				1FF1E54722C4C67400BB9A50 /* MessageViewModel.swift in Sources */,
 				1FE5BEB62282866300C9137C /* TAAbstractDotView.m in Sources */,
 				1FE5BE20228285FA00C9137C /* UIViewController+DismissKeyboard.m in Sources */,
 				1FE5BF562285623400C9137C /* PostDetailContentTableViewCell.swift in Sources */,
+				1FF1E54922C6151900BB9A50 /* MyCommentTableViewCell.swift in Sources */,
 				1F395CC922962E5200781C0C /* AliPayManager.swift in Sources */,
 				1FE5BF1B2282D1A100C9137C /* HotDetailTableViewCell.swift in Sources */,
 				1FE8DAEE2292933A00DCED01 /* JXPagingMainTableView.swift in Sources */,
@@ -2045,6 +2074,7 @@
 				1FE5BF4A228529B700C9137C /* PostDetailViewController.swift in Sources */,
 				1FE8DA8B228D6C7300DCED01 /* MineInfoTableViewCell.swift in Sources */,
 				1FE5BED82282866300C9137C /* RangeSeekSlider.swift in Sources */,
+				1FF1E53F22C3162000BB9A50 /* YYLaoutTextHeight.swift in Sources */,
 				1FE5BF422285170700C9137C /* CategoryDetailViewModel.swift in Sources */,
 				1FE8DAF02292933A00DCED01 /* JXPagingListRefreshView.swift in Sources */,
 				1F1C1B36229EA839008031F4 /* WithdrawViewModel.swift in Sources */,
@@ -2114,6 +2144,7 @@
 				1F1C1B5822A0F651008031F4 /* StoreViewModel.swift in Sources */,
 				1FE5BE492282864300C9137C /* UIImage+Crop.swift in Sources */,
 				1FE5BECA2282866300C9137C /* renderer_rgb.c in Sources */,
+				1FF1E53D22C2243900BB9A50 /* TransModel.swift in Sources */,
 				1FE8DA91228D6CC400DCED01 /* GloabelTableViewCell.swift in Sources */,
 				1F99174C229B74AC00C8FDD5 /* CoinsDetailViewController.swift in Sources */,
 				1FE5BE482282864300C9137C /* UIViewController+NavigationBar.swift in Sources */,
@@ -2124,6 +2155,7 @@
 				1FE5BE1C228285FA00C9137C /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1FE8DA9E228E981B00DCED01 /* FansViewController.swift in Sources */,
 				1FE5BE032282752C00C9137C /* ScoreViewController.swift in Sources */,
+				1FF1E54322C46C5A00BB9A50 /* ReplyContentTableViewCell.swift in Sources */,
 				1FE5BE4A2282864300C9137C /* NSTimer.swift in Sources */,
 				1FE5BE352282863D00C9137C /* LocalJsonFile.swift in Sources */,
 				1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */,

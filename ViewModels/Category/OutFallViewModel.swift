@@ -9,29 +9,39 @@
 import UIKit
 import DZNEmptyDataSet
 import ReactiveSwift
+typealias OutFallViewModelTransClouse = (_ str:String) ->Void
 
 class OutFallViewModel: BaseViewModel {
 
-    let contentStrs = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."]
-    let translateStrs = ["巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。","巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。","巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。","巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。","巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。","巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠，巴塞罗那今晚必定夺冠巴塞罗那今晚必定夺冠。"]
-    let images = [[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],[],["https://placehold.jp/150x150.png","https://placehold.jp/150x150.png"],["https://placehold.jp/150x150.png"]]
-    let isTransArray:NSMutableArray = [false,false,false,false,false]
+    var page:Int = 0
+    var tipListArray = NSMutableArray.init()
+    
+    let isTransArray:NSMutableArray = []
     
     
     override init() {
         super.init()
+        self.getTribeListNet()
     }
     
     
     func tableViewOutFallCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:OutFallCategoryContentTableViewCell) {
-        cell.cellSetData(content: contentStrs[indexPath.section], translate: translateStrs[indexPath.section], images: images[indexPath.section], isTrans: isTransArray[indexPath.section] as! Bool, indexPath: indexPath, transButtonClicks: { indexPath in
-            self.isTransArray.replaceObject(at: indexPath.section, with: true)
-            self.controller?.tableView.reloadRows(at: [indexPath], with: .automatic)
-        })
+        if self.tipListArray.count > 0 {
+            cell.cellSetData(model: OutFallModel.init(fromDictionary: self.tipListArray[indexPath.section] as! [String : Any]), isTrans: self.isTransArray[indexPath.section] as! Bool, indexPath: indexPath) { (indexPath) in
+                let model = OutFallModel.init(fromDictionary: self.tipListArray[indexPath.section] as! [String : Any])
+                self.transEnglish(q: model.content, trans: { (str) in
+                    model.cnContent = str
+                    self.tipListArray.replaceObject(at: indexPath.section, with: model.toDictionary())
+                    self.isTransArray.replaceObject(at: indexPath.section, with: true)
+                    self.reloadTableViewData()
+
+                })
+            }
+        }
     }
     
     func tableViewOutFallCategoryUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:OutFallCategoryUserInfoTableViewCell){
-        
+        cell.cellSetData(model: OutFallModel.init(fromDictionary: self.tipListArray[indexPath.section] as! [String : Any]))
     }
     
     func tableViewCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
@@ -45,14 +55,56 @@ class OutFallViewModel: BaseViewModel {
     
     ///获取内容高度
     func getHeight(_ indexPath:IndexPath, isTrans:Bool) -> CGFloat{
-        let stringHeight = self.contentStrs[indexPath.section].height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-        let transHeight = self.translateStrs[indexPath.section].height(with: App_Theme_PinFan_M_14_Font, constrainedToWidth: SCREENWIDTH - 30)
-        let imageHeight = images[indexPath.section].count > 1 ? contentImageHeight : 0
+        let model = OutFallModel.init(fromDictionary: self.tipListArray[indexPath.section] as! [String : Any])
+        let titleHeight = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: YYLabel.init()).textBoundingSize.height
+        var transHeight:CGFloat = 0
         if isTrans {
-            return stringHeight + transHeight + imageHeight + 50
+            transHeight = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: YYLabel.init()).textBoundingSize.height
         }
-        return stringHeight + imageHeight + 50
-        
+        if model.image.nsString.components(separatedBy: ",").count > 0 {
+            return transHeight + titleHeight + contentImageHeight + 70
+        }
+        return titleHeight + transHeight + 50
+
+    }
+    
+    func getTribeListNet(){
+        page = page + 1
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":"0", "isCollect":"0"] as [String : Any]
+        BaseNetWorke.getSharedInstance().getUrlWithString(TippublishTopTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.page != 1 {
+                    self.tipListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    for _ in NSMutableArray.init(array: resultDic.value as! Array) {
+                        self.isTransArray.add(false)
+                    }
+                }else{
+                    self.isTransArray.removeAllObjects()
+                    self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    for _ in NSMutableArray.init(array: resultDic.value as! Array) {
+                        self.isTransArray.add(false)
+                    }
+                }
+                self.reloadTableViewData()
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func transEnglish(q:String,trans:@escaping OutFallViewModelTransClouse){
+        let loadingHud = Tools.shareInstance.showLoading(KWindow, msg: "翻译中")
+        let parameters = ["client":"gtx", "dt":"t", "dj":"1", "ie":"UTF-8","sl":"auto","tl":"zh","q":q] as [String : Any]
+        BaseNetWorke.getSharedInstance().googleTrans(url: getGoogleTransUrl(), parameters: parameters as AnyObject, success: { (resultDic) in
+            let arrays = NSMutableArray.init(array: (resultDic as! NSDictionary).object(forKey: "sentences") as! Array)
+            var str = ""
+            for array in arrays {
+                str = "\(str)\(String(describing: (array as! NSDictionary).object(forKey: "trans")!))"
+            }
+            loadingHud.hide(animated: true)
+            trans(str)
+        }) { (fail) in
+            loadingHud.hide(animated: true)
+        }
     }
 }
 
@@ -97,11 +149,11 @@ extension OutFallViewModel: UITableViewDelegate {
 
 extension OutFallViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return images.count
+        return self.tipListArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return 3
+         return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

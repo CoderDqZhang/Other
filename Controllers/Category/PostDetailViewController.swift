@@ -18,6 +18,11 @@ enum ToolsStatus {
     case delete
 }
 
+enum PostDetaiGoToType {
+    case comment
+    case detail
+}
+
 typealias ChangeFansFollowButtonStatusClouse = (_ status:Bool) ->Void
 
 typealias ChangeAllCommentAndLikeNumberClouse = (_ type:ToatalNumber, _ status:ToolsStatus) ->Void
@@ -25,8 +30,10 @@ typealias ChangeAllCommentAndLikeNumberClouse = (_ type:ToatalNumber, _ status:T
 class PostDetailViewController: BaseViewController {
 
     var postType:PostType!
+    var gotoType:PostDetaiGoToType!
+    
     var postData:NSDictionary!
-    var postDetailViewModel = PostDetailViewModel()
+    var postDetailViewModel = PostDetailViewModel.init()
     
     var gloableCommentView:CustomViewCommentTextField!
     
@@ -45,36 +52,22 @@ class PostDetailViewController: BaseViewController {
 
         self.updateTableViewConstraints()
 
-        self.setUpRefreshData {
-            self.refreshData()
-        }
+//        self.setUpRefreshData {
+//            self.refreshData()
+//        }
 
         self.setUpLoadMoreData {
             self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
         }
         
         if #available(iOS 11.0, *) {
-            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
+            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 44 - TABBAR_HEIGHT, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
                 let commentVC = CommentPostViewController()
                 let commentPost = UINavigationController.init(rootViewController: commentVC)
                 commentVC.postData = self.postData
-                commentVC.reloadDataClouse = {
-                    if self.changeAllCommentAndLikeNumberClouse != nil {
-                        self.changeAllCommentAndLikeNumberClouse(.comment, .add)
-                    }
-                    self.refreshData()
-                }
-                NavigaiontPresentView(self, toController: commentPost)
-            }, senderClick: { str in
-                
-            })
-        } else {
-            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: self.tableView.frame.maxY, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
-                let commentVC = CommentPostViewController()
-                let commentPost = UINavigationController.init(rootViewController: commentVC)
-                commentVC.postData = self.postData
-                commentVC.reloadDataClouse = {
-                    self.refreshData()
+                commentVC.commentPostViewControllerDataClouse = { dic in
+                    self.postDetailViewModel.commentListArray.insert(dic, at: 0)
+                    self.postDetailViewModel.reloadTableViewData()
                 }
                 if self.changeAllCommentAndLikeNumberClouse != nil {
                     self.changeAllCommentAndLikeNumberClouse(.comment, .add)
@@ -83,12 +76,46 @@ class PostDetailViewController: BaseViewController {
             }, senderClick: { str in
                 
             })
+            
+            
+            
+        } else {
+            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 44, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
+                let commentVC = CommentPostViewController()
+                let commentPost = UINavigationController.init(rootViewController: commentVC)
+                commentVC.postData = self.postData
+                commentVC.commentPostViewControllerDataClouse = { dic in
+                    self.postDetailViewModel.commentListArray.insert(dic, at: 0)
+                    self.postDetailViewModel.reloadTableViewData()
+                }
+                
+                if self.changeAllCommentAndLikeNumberClouse != nil {
+                    self.changeAllCommentAndLikeNumberClouse(.comment, .add)
+                }
+                NavigaiontPresentView(self, toController: commentPost)
+            }, senderClick: { str in
+                
+            })
+            
             // Fallback on earlier versions
         }
+        self.view.addSubview(gloableCommentView)
+
         gloableCommentView.textView.isEditable = false
         gloableCommentView.backgroundColor = .white
-        self.view.addSubview(gloableCommentView)
+        gloableCommentView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            if #available(iOS 11.0, *) {
+                make.height.equalTo(44 + TABBAR_HEIGHT)
+            } else {
+                make.height.equalTo(44)
+                // Fallback on earlier versions
+            }
+            make.bottom.equalToSuperview()
+        }
     }
+
     
     func refreshData(){
         self.postDetailViewModel.page = 0
@@ -105,25 +132,51 @@ class PostDetailViewController: BaseViewController {
     override func bindViewModelLogic() {
         self.postDetailViewModel.getTipDetail(id: (self.postData.object(forKey: "id") as! Int).string)
         self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
+        
     }
     
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
-        self.navigationItem.title = ((self.postData.object(forKey: "tribe") as! NSDictionary).object(forKey: "tribeName") as! String)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
+//        self.navigationItem.title = ((self.postData.object(forKey: "tribe") as! NSDictionary).object(forKey: "tribeName") as! String)
+        let shareItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
+        var deleteItem:UIBarButtonItem?
+        if CacheManager.getSharedInstance().isLogin() {
+            if ((self.postData.object(forKey: "user") as! NSDictionary).object(forKey: "id") as! Int).string == CacheManager.getSharedInstance().getUserId() {
+                deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "delete")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.deleteBarItemClick(_:)))
+            }else{
+                deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "report")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.reportBarItemClick(_:)))
+
+            }
+            self.navigationItem.rightBarButtonItems = ([shareItem,deleteItem] as! [UIBarButtonItem])
+        }else{
+            self.navigationItem.rightBarButtonItems = [shareItem]
+        }
+        
     }
     
     @objc func rightBarItemClick(_ sender:UIBarButtonItem) {
-        
+       
+    }
+    
+    @objc func deleteBarItemClick(_ sender:UIBarButtonItem) {
+        UIAlertController.showAlertControl(self, style: .alert, title: "确定删除该篇文章?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+            
+        }, doneAction: {
+            self.postDetailViewModel.deleteArticle(tipId:  (self.postData.object(forKey: "id") as! Int).string, model: self.postDetailViewModel.tipDetailModel)
+        })
+    }
+    
+    @objc func reportBarItemClick(_ sender:UIBarButtonItem) {
+        UIAlertController.showAlertControl(self, style: .alert, title: "确定举报该篇文章?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+            
+        }, doneAction: {
+            self.postDetailViewModel.reportAritcleNet(tipId:  (self.postData.object(forKey: "id") as! Int).string, model: self.postDetailViewModel.tipDetailModel)
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    override func viewControllerSetNavigationItemBack() {
-        self.navigationItem.title = "皇家马德里"
     }
 
     /*

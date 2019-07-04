@@ -95,6 +95,8 @@ class Tools: NSObject {
         hud.hide(animated: true, afterDelay: 2.0)
         hud.removeFromSuperViewOnHide = true
         hud.margin = 10
+        hud.isUserInteractionEnabled = false
+        
         return hud
     }
     

@@ -21,17 +21,13 @@ class UserInfoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.setUpView()
     }
     
-    func createContent(avatar:String, name:String, category:String) {
-        
+    func setUpView(){
         avatarImage = UIImageView.init()
         avatarImage.backgroundColor = UIColor.gray
-        UIImageViewManger.sd_imageView(url: avatar, imageView: avatarImage, placeholderImage: nil) { (image, error, type, url) in
-            if error == nil {
-                self.avatarImage.image = image
-            }
-        }
+        
         avatarImage.layer.cornerRadius = 11
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)
@@ -43,14 +39,12 @@ class UserInfoView: UIView {
         self.addSubview(VImageView)
         
         userName = YYLabel.init()
-        userName.text = name
         userName.textColor = App_Theme_666666_Color
         userName.font = App_Theme_PinFan_M_14_Font
         self.addSubview(userName)
         
         
         categoryLabel = YYLabel.init()
-        categoryLabel.text = category
         categoryLabel.textColor = App_Theme_999999_Color
         categoryLabel.font = App_Theme_PinFan_L_14_Font
         self.addSubview(categoryLabel)
@@ -58,6 +52,14 @@ class UserInfoView: UIView {
         self.addSubview(lineLabel)
         
         self.updateConstraints()
+    }
+    
+    func createContent(avatar:String, name:String, category:String) {
+        self.avatarImage.sd_crope_imageView(url: avatar, imageView: avatarImage, placeholderImage: nil, completedBlock: { (image, url, type, state, error) in
+            
+        })
+        userName.text = name
+        categoryLabel.text = category
     }
     
     func lineHidden(){

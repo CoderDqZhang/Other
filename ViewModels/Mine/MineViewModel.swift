@@ -101,7 +101,7 @@ class MineViewModel: BaseViewModel {
                 }
             case 3:
                 if indexPath.row == 0 {
-                    if self.userInfo != nil && (self.userInfo!.isMember != "1") {
+                    if self.userInfo != nil && (self.userInfo!.isMember == "1") {
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经实名认证了", autoHidder: true)
                         return
                     }

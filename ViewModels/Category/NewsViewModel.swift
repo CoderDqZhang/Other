@@ -55,7 +55,7 @@ class NewsViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        if indexPath.row != 0 {
+        if indexPath.section != 0 && indexPath.section != 1 {
             let dicData:NSDictionary = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]).toDictionary() as NSDictionary
             (self.controller as! NewsViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot,indexPath)
         }
@@ -83,7 +83,6 @@ class NewsViewModel: BaseViewModel {
                     self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
-            }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
@@ -118,10 +117,9 @@ extension NewsViewModel: UITableViewDelegate {
             if indexPath.row == 0 {
                 return 52
             }else if indexPath.row == 1 {
-                return tableView.fd_heightForCell(withIdentifier: CategoryContentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
+                return tableView.fd_heightForCell(withIdentifier: CategoryContentTableViewCell.description(), cacheByKey: (self.tipListArray[indexPath.section - 2] as! NSCopying), configuration: { (cell) in
                     self.tableViewCategoryContentTableViewCellSetData(indexPath, cell: cell as! CategoryContentTableViewCell)
                 })
-               
             }
             return 32
         }

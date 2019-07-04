@@ -40,8 +40,12 @@ let CommentcommentUrl = "\(RootUrl)comment/addComment"
 let CommentcommentApprovetUrl = "\(RootUrl)comment/addApproveComment"
 let CommentcommentDetailUrl = "\(RootUrl)comment/addCommentDetail"
 let CommentcommentListUrl = "\(RootUrl)comment/getCommentList"
+let CommentcommentDelUrl = "\(RootUrl)comment/delComment"
 let ReplyreplyUrl = "\(RootUrl)commentReply/addReply"
 let ReplyreplyreplyListUrl = "\(RootUrl)commentReply/getReplyList"
+let ReplyreplyreplyDeleteUrl = "\(RootUrl)commentReply/delReply"
+let ReportAddReportUrl = "\(RootUrl)report/addReport"
+
 let CommentgetPointUrl = "\(RootUrl)common/getPointList"
 let CommentgetRechargeUrl = "\(RootUrl)common/getRechargeList"
 let CommentgetTimetUrl = "\(RootUrl)common/getTime"
@@ -68,6 +72,8 @@ let TipcollectTipUrl = "\(RootUrl)tip/addCollectTip"
 let TipgetTipDetailUrl = "\(RootUrl)tip/getTipDetail"
 let TipgetTipListUrl = "\(RootUrl)tip/getTipList"
 let TippublishTipUrl = "\(RootUrl)tip/addTip"
+let TipArticleDeleteUrl = "\(RootUrl)tip/delTip"
+let TippublishTopTipUrl = "\(RootUrl)topic/getTopicList"
 
 let TribesubscribeUrl = "\(RootUrl)tribe/subscribe"
 let TribetribeListUrl = "\(RootUrl)tribe/getTribeList"
@@ -80,5 +86,9 @@ let UserFeedBackinsertFeedbackUrl = "\(RootUrl)userFeedback/addFeedback"
 
 func getAliPayBankNameUrl(banNo:String) ->String {
     return "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=\(banNo)&cardBinCheck=true"
+}
+
+func getGoogleTransUrl() ->String {
+    return "http://translate.google.cn/translate_a/single"
 }
 

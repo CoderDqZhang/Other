@@ -53,8 +53,8 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     func cellSetData(title:String, desc:String, image:String?, isDescHidden:Bool){
         titleLabel.text = title
         if image != nil {
-            UIImageViewManger.sd_imageView(url: image!, imageView: rightImageView, placeholderImage: nil) { (image, error, cache, url) in
-                self.rightImageView.image = image
+            rightImageView.sd_crope_imageView(url: image!, imageView: rightImageView, placeholderImage: nil) { (image, url, type, state, error) in
+                
             }
             descLabel.isHidden = true
         }else{
@@ -87,7 +87,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
                 make.size.equalTo(CGSize.init(width: strHeight + 8, height: 14))
             })
         }
-        
+        numberLabel.text = showStr
         if str.int!  == 0 {
             numberLabel.isHidden = true
         }else{
@@ -226,10 +226,8 @@ class GloabelFansTableViewCell : UITableViewCell {
     func cellSetData(model:FansFlowwerModel, indexPath:IndexPath){
         titleLabel.text = model.nickname
         self.indexPath = indexPath
-        UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImageView, placeholderImage: nil) { (image, error, cache, url) in
-            if error == nil {
-                self.avatarImageView.image = image
-            }
+        avatarImageView.sd_crope_imageView(url: model.img, imageView: avatarImageView, placeholderImage: nil) { (image, url, type, state, error) in
+            
         }
         self.changeToolsButtonType(followed: model.isFollow == 1 ? true : false)
         descLabel.text = model.descriptionField

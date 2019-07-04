@@ -96,10 +96,8 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:TipModel){
-        UIImageViewManger.sd_imageView(url: model.user.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
-            if error == nil {
-                self.avatarImage.image = image
-            }
+        avatarImage.sd_crope_imageView(url: model.user.img, imageView: avatarImage, placeholderImage: nil) { (image, url, type, state, error) in
+    
         }
         userName.text = model.user.nickname
         timeLabel.text = model.createTime

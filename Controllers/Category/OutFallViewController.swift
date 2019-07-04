@@ -11,9 +11,11 @@ import JXSegmentedView
 
 class OutFallViewController: BaseViewController {
 
+    let outFallViewModel = OutFallViewModel.init()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.blue
+
         // Do any additional setup after loading the view.
     }
     
@@ -22,14 +24,17 @@ class OutFallViewController: BaseViewController {
     }
     
     func initSView(type:Int) {
-        self.bindViewModel(viewModel: OutFallViewModel(), controller: self)
+        self.bindViewModel(viewModel: outFallViewModel, controller: self)
         self.setUpTableView(style: .grouped, cells: [CommentTableViewCell.self,OutFallCategoryContentTableViewCell.self,OutFallCategoryUserInfoTableViewCell.self], controller: self)
         
         
         self.setUpRefreshData {
+            self.outFallViewModel.page = 0
+            self.outFallViewModel.getTribeListNet()
         }
         
         self.setUpLoadMoreData {
+            self.outFallViewModel.getTribeListNet()
         }
     }
     

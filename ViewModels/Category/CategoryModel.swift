@@ -8,7 +8,8 @@
 
 import UIKit
 
-class CategoryModel : NSObject, NSCoding{
+class CategoryModel : NSObject, NSCoding, NSCopying{
+    
     
     var descriptionField : String!
     var id : Int!
@@ -107,5 +108,10 @@ class CategoryModel : NSObject, NSCoding{
         }
         
     }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        return self
+    }
+    
     
 }

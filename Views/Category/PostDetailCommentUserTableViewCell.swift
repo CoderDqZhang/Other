@@ -73,7 +73,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
     
     
     func changeLikeButtonStatus(status:Int) ->UIImage{
-        if status == 0{
+        if status == 0 {
             return UIImage.init(named: "category_detail_like")!
         }else{
             return UIImage.init(named: "loveinred")!
@@ -82,10 +82,8 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
     
     func cellSetRepliy(model:ReplyList,indexPath:IndexPath){
         self.indexPath = indexPath
-        UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
-            if error == nil {
-                self.avatarImage.image = image
-            }
+        avatarImage.sd_crope_imageView(url: model.img, imageView: avatarImage, placeholderImage: nil) { (image, url, type, state, error) in
+            
         }
         userName.text = model.nickname
         timeLabel.text = model.createTime
@@ -94,10 +92,8 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
     
     func cellSetData(model:CommentModel,indexPath:IndexPath){
         self.indexPath = indexPath
-        UIImageViewManger.sd_imageView(url: model.img, imageView: avatarImage, placeholderImage: nil) { (image, error, cache, url) in
-            if error == nil {
-                self.avatarImage.image = image
-            }
+        avatarImage.sd_crope_imageView(url: model.user.img, imageView: avatarImage, placeholderImage: nil) { (image, url, type, state, error) in
+            
         }
         userName.text = model.user.nickname
         timeLabel.text = model.createTime

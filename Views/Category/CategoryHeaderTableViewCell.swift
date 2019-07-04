@@ -56,11 +56,13 @@ class CategoryHeaderTableViewCell: UITableViewCell {
     
     func cellSetData(model:CategoryModel){
         
-        UIImageViewManger.sd_imageView(url: model.tribeImg.nsString.replacingOccurrences(of: " ", with: ""), imageView: logoImageView, placeholderImage: nil) { (image, error, cache, url) in
+        logoImageView.sd_crope_imageView(url: model.tribeImg.nsString.replacingOccurrences(of: " ", with: ""), imageView: logoImageView, placeholderImage: nil) { (image, url, type, state, error) in
+            
             if error == nil {
                 self.logoImageView.image = image
                 self.backImageView.image = image
                 self.backImageView.blur(withStyle: UIBlurEffect.Style.light)
+
             }
         }
         categoryName.text = model.tribeName

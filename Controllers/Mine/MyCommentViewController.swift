@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JXSegmentedView
 
 class MyCommentViewController: BaseViewController {
 
@@ -17,9 +18,9 @@ class MyCommentViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
-    func initSView() {
+    func initSView(type:Int) {
         self.bindViewModel(viewModel: myCommendViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [CategoryContentTableViewCell.self,CommentTableViewCell.self,UserInfoTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [MyCommentTableViewCell.self,CommentTableViewCell.self], controller: self)
         
         self.setUpRefreshData {
             self.myCommendViewModel.page = 0
@@ -42,4 +43,18 @@ class MyCommentViewController: BaseViewController {
     }
     */
 
+}
+
+extension MyCommentViewController : JXSegmentedListContainerViewListDelegate {
+    override func listView() -> UIView {
+        return view
+    }
+    
+    override func listDidAppear() {
+        print("listDidAppear")
+    }
+    
+    override func listDidDisappear() {
+        print("listDidDisappear")
+    }
 }

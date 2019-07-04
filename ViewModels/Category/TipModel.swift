@@ -8,17 +8,17 @@
 
 import UIKit
 
-class TipModel : NSObject, NSCoding{
+class TipModel : NSObject, NSCoding, NSCopying{
     
     var commentTime : String!
     var createTime : String!
     var commentTotal : Int!
     var content : String!
+    var status : String!
     var favor : Int!
     var fork : Int!
     var id : Int!
     var image : String!
-    var status : String!
     var title : String!
     var tribe : CategoryModel!
     var user : UserInfoModel!
@@ -33,6 +33,7 @@ class TipModel : NSObject, NSCoding{
         createTime = dictionary["createTime"] as? String
         commentTotal = dictionary["commentTotal"] as? Int
         content = dictionary["content"] as? String
+        status = dictionary["status"] as? String
         favor = dictionary["favor"] as? Int
         fork = dictionary["fork"] as? Int
         id = dictionary["id"] as? Int
@@ -60,6 +61,9 @@ class TipModel : NSObject, NSCoding{
         }
         if createTime != nil{
             dictionary["createTime"] = createTime
+        }
+        if status != nil{
+            dictionary["status"] = status
         }
         if commentTotal != nil{
             dictionary["commentTotal"] = commentTotal
@@ -110,6 +114,7 @@ class TipModel : NSObject, NSCoding{
         createTime = aDecoder.decodeObject(forKey: "createTime") as? String
         commentTotal = aDecoder.decodeObject(forKey: "commentTotal") as? Int
         content = aDecoder.decodeObject(forKey: "content") as? String
+        status = aDecoder.decodeObject(forKey: "status") as? String
         favor = aDecoder.decodeObject(forKey: "favor") as? Int
         fork = aDecoder.decodeObject(forKey: "fork") as? Int
         id = aDecoder.decodeObject(forKey: "id") as? Int
@@ -134,6 +139,9 @@ class TipModel : NSObject, NSCoding{
         }
         if createTime != nil{
             aCoder.encode(createTime, forKey: "createTime")
+        }
+        if status != nil{
+            aCoder.encode(status, forKey: "status")
         }
         if commentTotal != nil{
             aCoder.encode(commentTotal, forKey: "commentTotal")
@@ -172,6 +180,10 @@ class TipModel : NSObject, NSCoding{
             aCoder.encode(user, forKey: "user")
         }
         
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        return self
     }
     
 }

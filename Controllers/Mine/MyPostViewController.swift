@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JXSegmentedView
 
 class MyPostViewController: BaseViewController {
 
@@ -17,7 +18,7 @@ class MyPostViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
-    func initSView() {
+    func initSView(type:Int) {
         self.bindViewModel(viewModel: myPostViewModel, controller: self)
         self.setUpTableView(style: .grouped, cells: [CategoryContentTableViewCell.self,CommentTableViewCell.self,UserInfoTableViewCell.self], controller: self)
         
@@ -41,4 +42,18 @@ class MyPostViewController: BaseViewController {
     }
     */
 
+}
+
+extension MyPostViewController : JXSegmentedListContainerViewListDelegate {
+    override func listView() -> UIView {
+        return view
+    }
+    
+    override func listDidAppear() {
+        print("listDidAppear")
+    }
+    
+    override func listDidDisappear() {
+        print("listDidDisappear")
+    }
 }

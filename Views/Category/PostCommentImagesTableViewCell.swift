@@ -88,6 +88,8 @@ class PostCommentImagesTableViewCell: UITableViewCell {
     }
     
     func cellSetData(images:NSMutableArray){
+        snapshotView.removeSubviews()
+        snapshotView.addSubview(addButton)
         if images.count > 0 {
             for index in 0...images.count - 1 {
                 let postImageView = PostImageSelectView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (PostImageSelectViewWidth + PostImageSelectViewMargetWidth), y: 0, width: PostImageSelectViewWidth, height: PostImageSelectViewHeight), image: images[index] as! UIImage)
@@ -101,14 +103,15 @@ class PostCommentImagesTableViewCell: UITableViewCell {
                         }
                 }
                 snapshotView.addSubview(postImageView)
-                
             }
             if images.count == 3 {
                 addButton.isHidden = true
             }else{
+                addButton.isHidden = false
                 addButton.frame = CGRect.init(x: 0 + CGFloat(images.count) * (PostImageSelectViewWidth + PostImageSelectViewMargetWidth), y: 0, width: PostImageSelectViewWidth, height: PostImageSelectViewHeight)
             }
         }else{
+            addButton.isHidden = false
             addButton.frame = CGRect.init(x: 0 + CGFloat(images.count) * (PostImageSelectViewWidth + PostImageSelectViewMargetWidth), y: 0, width: PostImageSelectViewWidth, height: PostImageSelectViewHeight)
         }
     }

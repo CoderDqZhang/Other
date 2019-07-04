@@ -13,25 +13,81 @@ class CommentViewModel: BaseViewModel {
 
     
     var commentData:CommentModel!
+    var selectReply:ReplyList!
     var replistList = NSMutableArray.init()
     var page:Int = 0
     var content:String = ""
     
+    var imageHeight:CGFloat = 0
+    var isUpDataHeight:Bool = false
     override init() {
         super.init()
     }
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        if indexPath.section == 0 {
-            cell.cellSetData(model: self.commentData, isCommentDetail: false, isShowRepli: false)
-        }else{
-            cell.cellSetRepliy(model: ReplyList.init(fromDictionary: replistList[indexPath.section - 1] as! [String : Any]))
+        cell.imageHeight = 0
+        cell.cellSetData(model: self.commentData, isCommentDetail: true, isShowRepli: false, reload: { imageHeight in
+            self.imageHeight = imageHeight + 30
+            if !self.isUpDataHeight{
+                self.isUpDataHeight = true
+                self.controller?.tableView.beginUpdates()
+                self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
+                self.controller?.tableView.endUpdates()
+            }
+            
+        })
+        
+        cell.postDetailContentTableViewCellImageClickClouse = { tag,browser in
+            NavigaiontPresentView(self.controller!, toController: browser)
+        }
+    }
+    
+    func tableViewReplyContentTableViewCellSetData(_ indexPath:IndexPath, cell:ReplyContentTableViewCell) {
+        let model =  ReplyList.init(fromDictionary:replistList[indexPath.section - 1] as! [String : Any])
+        cell.cellSetRepliy(model: model, isReplyComment: model.toNickname != commentData.user.nickname ? true : false)
+        cell.replyContentTableViewCellClouse = { model in
+            if CacheManager.getSharedInstance().isLogin() {
+                if model.userId.string == CacheManager.getSharedInstance().getUserId() {
+                    KWindow.addSubview(GloableAlertView.init(titles: ["回复评论","删除回复"], cancelTitle: "取消", buttonClick: { (tag) in
+                        if tag == 0 {
+                            self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
+                        }else{
+                            UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定删除该条回复?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                                
+                            }, doneAction: {
+                                let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any])
+                                self.deleteApproveNet(approveId: model.id.string, model: model, indexPath: indexPath)
+                            })
+                        }
+                    }, cancelAction: {
+                        //                            print("cancel")
+                    }))
+                }else{
+                    KWindow.addSubview(GloableAlertView.init(titles: ["回复评论","举报回复"], cancelTitle: "取消", buttonClick: { (tag) in
+                        if tag == 0 {
+                            self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
+                        }else{
+                            UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定举报该条回复?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                                
+                            }, doneAction: {
+                                let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any])
+                                self.reportApproveNet(approveId: model.id.string, model: model, indexPath: indexPath)
+                            })
+                        }
+                    }, cancelAction: {
+                        //                            print("cancel")
+                    }))
+                }
+            }
         }
     }
     
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
         if indexPath.section == 0 {
             cell.cellSetData(model: self.commentData, indexPath: indexPath)
+            cell.postDetailCommentUserTableViewCellClouse = { indexPath in
+                self.likeCommentNet(commentId: self.commentData.id.string)
+            }
         }else{
             cell.cellSetRepliy(model:  ReplyList.init(fromDictionary: replistList[indexPath.section - 1] as! [String : Any]), indexPath: indexPath)
             cell.postDetailCommentUserTableViewCellClouse = { indexPath in
@@ -41,7 +97,17 @@ class CommentViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        
+        if indexPath.section != 0 {
+            
+            let model = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any])
+            if model.status == "0" {
+                (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "回复\(String(describing: model.nickname!))"
+                self.selectReply = model
+                (self.controller! as! CommentViewController).gloableCommentView.textView.becomeFirstResponder()
+            }else{
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "回复已删除", autoHidder: true)
+            }
+        }
     }
     
     func likeNet(model:ReplyList){
@@ -58,7 +124,6 @@ class CommentViewModel: BaseViewModel {
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "commentId": self.commentData.id.string]
         BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyreplyListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 if self.page != 1 {
                     self.replistList.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
                 }else{
@@ -66,6 +131,7 @@ class CommentViewModel: BaseViewModel {
                     self.replistList = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
@@ -75,16 +141,85 @@ class CommentViewModel: BaseViewModel {
             _ = Tools.shareInstance.showMessage(KWindow, msg: "请输入数据", autoHidder: true)
             return
         }
-        let parameters = ["content":content, "toUserId":self.commentData.user.id.string, "commentId":self.commentData.id.string] as [String : Any]
+        var parameters:[String : Any]
+        if self.selectReply == nil {
+            parameters = ["content":content, "toUserId":self.commentData.user.id.string, "commentId":self.commentData.id.string] as [String : Any]
+        }else{
+            parameters = ["content":content, "toUserId":self.selectReply.userId.string, "commentId":self.commentData.id.string] as [String : Any]
+        }
         BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                let model = ReplyList.init(fromDictionary: resultDic.value as! [String : Any])
+                self.commentData.replyList.append(model)
+                if (self.controller! as! CommentViewController).commentViewControllerApproveClouse != nil {
+                    (self.controller! as! CommentViewController).commentViewControllerApproveClouse(self.commentData.toDictionary() as NSDictionary)
+                }
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "回复成功", autoHidder: true)
+                self.replyDone()
                 if self.controller?.reloadDataClouse != nil {
                     self.controller?.reloadDataClouse()
                 }
                 self.controller?.tableView.mj_header.beginRefreshing()
             }
         }
+    }
+    
+    func likeCommentNet(commentId:String){
+        let parameters = ["commentId":commentId]
+        BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.commentData.isFollow == 1 {
+                    self.commentData.isFollow = 0
+                    self.commentData.approveNum = self.commentData.approveNum - 1
+                }else{
+                    self.commentData.isFollow = 1
+                    self.commentData.approveNum = self.commentData.approveNum + 1
+                }
+                if (self.controller! as! CommentViewController).commentViewControllerApproveClouse != nil {
+                    (self.controller! as! CommentViewController).commentViewControllerApproveClouse(self.commentData.toDictionary() as NSDictionary)
+                }
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func deleteApproveNet(approveId:String, model:ReplyList, indexPath:IndexPath){
+        let parameters = ["replyId":approveId]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyreplyDeleteUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                model.content = "回复已删除"
+                model.status = "1" //自己删除
+                self.replistList.replaceObject(at: indexPath.section - 1, with: model.toDictionary())
+                self.reloadTableViewData()
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func reportApproveNet(approveId:String, model:ReplyList, indexPath:IndexPath){
+        let parameters = ["param":approveId,"type":"2"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ReportAddReportUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "举报成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func replyDone(){
+        (self.controller! as! CommentViewController).gloableCommentView.textView.placeholderText = "请输入你的精彩回复"
+        self.selectReply = nil
+    }
+    
+    func getContentHeight() ->CGFloat{
+    
+        let contentSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.commentData.content, yyLabel: YYLabel.init())
+        return contentSize.textBoundingSize.height + imageHeight + 25
     }
 }
 
@@ -111,8 +246,11 @@ extension CommentViewModel: UITableViewDelegate {
         if indexPath.row == 0 {
             return 56
         }
-        return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheBy: indexPath, configuration: { (cell) in
-            self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell  as! PostDetailCommentTableViewCell)
+        if indexPath.section == 0 {
+            return self.getContentHeight()
+        }
+        return tableView.fd_heightForCell(withIdentifier: ReplyContentTableViewCell.description(), cacheByKey: (self.replistList[indexPath.section - 1] as! NSCopying), configuration: { (cell) in
+            self.tableViewReplyContentTableViewCellSetData(indexPath, cell: cell  as! ReplyContentTableViewCell)
         })
     }
     
@@ -145,13 +283,24 @@ extension CommentViewModel: UITableViewDataSource {
             
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
-        self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
+            self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
+            cell.selectionStyle = .none
+            if indexPath.section == 0 {
+                (cell as! PostDetailCommentTableViewCell).lineLabel.isHidden = true
+            }
+            return cell
+
+        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: ReplyContentTableViewCell.description(), for: indexPath)
+        self.tableViewReplyContentTableViewCellSetData(indexPath, cell: cell as! ReplyContentTableViewCell)
         cell.selectionStyle = .none
         if indexPath.section == 0 {
-            (cell as! PostDetailCommentTableViewCell).lineLabel.isHidden = true
+            (cell as! ReplyContentTableViewCell).lineLabel.isHidden = true
         }
         return cell
+
     }
 }
 

@@ -11,6 +11,8 @@ import TZImagePickerController
 
 let maxImagesCount = 3
 
+typealias PostViewControllerDataClouse = (_ dic:NSDictionary) ->Void
+
 class PostViewController: BaseViewController {
 
     let postViewModel = PostViewModel.init()
@@ -18,6 +20,9 @@ class PostViewController: BaseViewController {
     var photoPickerVC:TZImagePickerController!
     
     var isSelectOriginalPhoto:Bool!
+    
+    
+    var postViewControllerDataClouse:PostViewControllerDataClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +84,9 @@ class PostViewController: BaseViewController {
                 let image = model.firstObject
                 let options = PHImageRequestOptions.init()
                 PHImageManager.default().requestImage(for: image!, targetSize: CGSize.init(width: image!.pixelWidth, height: image!.pixelHeight), contentMode: PHImageContentMode.aspectFill, options: options) { (img, str) in
-                    self.postViewModel.selectPhotos.add(img!)
+                    if self.postViewModel.selectPhotos.count < self.postViewModel.postModel.images.count {
+                        self.postViewModel.selectPhotos.add(img!)
+                    }
                 }
                 self.postViewModel.selectAssets.add(model.firstObject!)
                 
@@ -107,19 +114,7 @@ class PostViewController: BaseViewController {
             photoPickerVC!.showSelectedIndex = true
             photoPickerVC?.showPhotoCannotSelectLayer = true
             photoPickerVC!.sortAscendingByModificationDate = true
-            if self.postViewModel.postModel.images != nil {
-                let images = NSMutableArray.init()
-                for asset in self.postViewModel.postModel.images  {
-                    let options = PHFetchOptions.init()
-                    let result = PHAsset.fetchAssets(withLocalIdentifiers: [asset as! String], options: options)
-                    let image = result.firstObject
-                    if image != nil {
-                        let img:PHAsset = image!
-                        images.add(img)
-                    }
-                }
-                photoPickerVC.selectedAssets = images
-            }
+            photoPickerVC.selectedAssets = self.postViewModel.selectAssets
             NavigaiontPresentView(self, toController: photoPickerVC)
         }else{
             print("模拟器中无法打开照相机,请在真机中使用")
@@ -134,6 +129,8 @@ class PostViewController: BaseViewController {
         photoPickerVC?.showPhotoCannotSelectLayer = true
         photoPickerVC!.sortAscendingByModificationDate = true
         photoPickerVC?.didFinishPickingPhotosHandle = { photos, assets, isSelectOriginalPhoto in
+            self.postViewModel.selectPhotos.removeAllObjects()
+            self.postViewModel.selectAssets.removeAllObjects()
             self.postViewModel.selectPhotos = NSMutableArray.init(array: photos!)
             self.postViewModel.selectAssets = NSMutableArray.init(array: assets!)
             self.postViewModel.isSelectOriginalPhoto = isSelectOriginalPhoto
@@ -199,8 +196,11 @@ extension PostViewController : UIImagePickerControllerDelegate {
                 }else{
                     self.postViewModel.selectPhotos.add(image!)
                     self.postViewModel.selectAssets.add(assert!)
-                    
-                    self.postViewModel.postModel.images.removeAllObjects()
+                    if self.postViewModel.postModel.images != nil {
+                        self.postViewModel.postModel.images.removeAllObjects()
+                    }else{
+                        self.postViewModel.postModel.images = NSMutableArray.init()
+                    }
                     for asset in self.postViewModel.selectAssets  {
                         self.postViewModel.postModel.images.add((asset as! PHAsset).localIdentifier)
                     }
