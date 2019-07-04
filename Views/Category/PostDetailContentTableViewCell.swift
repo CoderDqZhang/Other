@@ -60,7 +60,6 @@ class  PostDetailContentTableViewCell : UITableViewCell {
         self.contentView.addSubview(contnetLabel)
         
         imageContentView = UIView.init()
-        imageContentView.backgroundColor = .red
         self.contentView.addSubview(imageContentView)
         
         likeButtonView = UIView.init()
@@ -145,7 +144,6 @@ class  PostDetailContentTableViewCell : UITableViewCell {
                         if count == images.count {
                             self.isCheckBoolProperty.value = true
                         }
-                        imageView.backgroundColor = .brown
                         imageView.image = finistImage
                     }
                 }
