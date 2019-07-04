@@ -13,7 +13,6 @@ class StoreViewController: BaseViewController {
 
     let storeViewModel = StoreViewModel.init()
     
-    let notificationViewModel = NotificationViewModel.init()
     var types = [StoreDetailTyp.all,StoreDetailTyp.income,StoreDetailTyp.pay]
     
     override func viewDidLoad() {

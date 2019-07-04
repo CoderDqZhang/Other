@@ -64,7 +64,6 @@ class CommentViewController: BaseViewController {
                 }
                 make.bottom.equalToSuperview()
             }
-            self.commentDetailViewModel.replyDone()
         }
         gloableCommentView.customViewCommentTextFieldSenderClick = { str in
             if !CacheManager.getSharedInstance().isLogin() {
@@ -91,6 +90,17 @@ class CommentViewController: BaseViewController {
     
     override func bindViewModelLogic() {
         commentDetailViewModel.commentData = commentData
+        if commentDetailViewModel.commentData.status != "0" {
+            gloableCommentView.textView.isEditable = false
+            gloableCommentView.backgroundColor = .white
+            _  = gloableCommentView.newTapGesture { (gesture) in
+                gesture.numberOfTouchesRequired = 1
+                gesture.numberOfTapsRequired = 1
+                }.whenTaped { (tap) in
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "该评论已删除不能回复", autoHidder: true)
+            }
+            
+        }
         commentDetailViewModel.getReplitList()
     }
     

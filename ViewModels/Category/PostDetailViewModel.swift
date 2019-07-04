@@ -253,7 +253,10 @@ class PostDetailViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 model.content = "文章以删除"
                 model.status = "1" //自己删除
-                self.getTipDetail(id: tipId)
+                if (self.controller! as! PostDetailViewController).deleteArticleClouse != nil {
+                    (self.controller! as! PostDetailViewController).deleteArticleClouse()
+                }
+                self.controller?.navigationController?.popViewController()
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

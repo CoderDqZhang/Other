@@ -11,8 +11,8 @@ import JXSegmentedView
 
 enum StoreDetailTyp:Int {
     case all = 0
-    case income = 1
-    case pay = 2
+    case income = 2
+    case pay = 1
 }
 
 class StoreSegementViewController: BaseViewController {

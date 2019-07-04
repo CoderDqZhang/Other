@@ -27,6 +27,9 @@ typealias ChangeFansFollowButtonStatusClouse = (_ status:Bool) ->Void
 
 typealias ChangeAllCommentAndLikeNumberClouse = (_ type:ToatalNumber, _ status:ToolsStatus) ->Void
 
+typealias DeleteArticleClouse = () ->Void
+
+
 class PostDetailViewController: BaseViewController {
 
     var postType:PostType!
@@ -39,6 +42,8 @@ class PostDetailViewController: BaseViewController {
     
     var changeFansFollowButtonStatusClouse:ChangeFansFollowButtonStatusClouse!
     var changeAllCommentAndLikeNumberClouse:ChangeAllCommentAndLikeNumberClouse!
+    
+    var deleteArticleClouse:DeleteArticleClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()

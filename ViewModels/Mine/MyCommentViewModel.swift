@@ -22,7 +22,12 @@ class MyCommentViewModel: BaseViewModel {
     
     func tableViewMyCommentTableViewCellSetData(_ indexPath:IndexPath, cell:MyCommentTableViewCell) {
         if myCommentArray != nil {
-            cell.cellSetData(model: CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]))
+            let model = CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any])
+            if model.tipDetail.status == "0" {
+                cell.cellSetData(model: model)
+            }else{
+                cell.deleteCellData(model: model)
+            }
         }
     }
     
@@ -34,7 +39,11 @@ class MyCommentViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         let dicData:NSDictionary = CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]).tipDetail.toDictionary() as NSDictionary
-        (self.controller as! MyCommentViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
+        if dicData.object(forKey: "status") as! String == "0" {
+            (self.controller as! MyCommentViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
+        }else{
+            _ = Tools.shareInstance.showMessage(KWindow, msg: "该贴已删除", autoHidder: true)
+        }
     }
     
     func getMyCommentNet(){
