@@ -101,17 +101,17 @@ class  PostDetailContentTableViewCell : UITableViewCell {
     }
     
     func cellSetData(model:TipModel, reload:@escaping ReloadTableViewCell){
-        print("==============\(isCheckBoolProperty.value)")
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.title, yyLabel: titleLabel)
 
         if model.content != "" {
             _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contnetLabel)
         }
 
-        let images = model.image.split(separator: ",")
+        var tempImges:[String] = model.image.components(separatedBy: ",")
+        let images = tempImges.removeAll("")
         var browser:SKPhotoBrowser? = nil
         if images.count >= 1 {
-            browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithUrl(urls: images, selectPageIndex: 0)
+            browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
         }
         if images.count >= 1 {
             var imageHeight:CGFloat = 0

@@ -82,8 +82,8 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
         
-        let images:[String] = model.img.nsString.components(separatedBy: ",")
-        self.setImageContentView(images,isCommentDetail, reload: reload)
+        var images:[String] = model.img.nsString.components(separatedBy: ",")
+        self.setImageContentView(images.removeAll(""),isCommentDetail, reload: reload)
         
         if isShowRepli {
             self.setSecondeCotent(secondeContents: model.replyList)
