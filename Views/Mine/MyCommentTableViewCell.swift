@@ -1,54 +1,65 @@
 //
-//  CategoryContentTableViewCell.swift
+//  MyCommentTableViewCell.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/8.
+//  Created by Zhang on 2019/6/28.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
-import SKPhotoBrowser
 
-// 108 / 77
-let contentWidth:CGFloat = SCREENWIDTH - 30
-let contentImageWidth:CGFloat = (SCREENWIDTH - 30 - 11 * 2) / 3
-let contentImageHeight:CGFloat = contentImageWidth * 77 / 108
+class MyCommentTableViewCell: UITableViewCell {
 
-class CategoryContentTableViewCell: UITableViewCell {
-
-    var detailLabel:YYLabel!
-    var imageContentView:UIView!
-    var model:TipModel!
+    var commentTitle:YYLabel!
+    var tipContent:YYLabel!
+    
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 1))
+
+    var imageContentView:UIView!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     
     func setUpView(){
         
-        detailLabel = YYLabel.init()
-        detailLabel.numberOfLines = 0
-        detailLabel.textColor = App_Theme_666666_Color
-        detailLabel.font = App_Theme_PinFan_M_14_Font
+        commentTitle = YYLabel.init()
+        commentTitle.numberOfLines = 0
+        commentTitle.textColor = App_Theme_666666_Color
+        commentTitle.font = App_Theme_PinFan_M_14_Font
         
-        self.contentView.addSubview(detailLabel)
+        self.contentView.addSubview(commentTitle)
+        
+        tipContent = YYLabel.init()
+        tipContent.numberOfLines = 0
+        tipContent.textColor = App_Theme_06070D_Color
+        tipContent.font = App_Theme_PinFan_M_15_Font
+        
+        self.contentView.addSubview(tipContent)
         
         imageContentView = UIView.init()
         self.contentView.addSubview(imageContentView)
+        
         self.contentView.addSubview(lineLabel)
+        
         self.updateConstraints()
     }
     
-    func cellSetData(tipmodel:TipModel){
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func cellSetData(model:CommentModel) {
+        let str = "回复\(String(describing: model.tipDetail.user.nickname!))的帖子"
+        let textBound = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: str, yyLabel: commentTitle)
         
-        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: tipmodel.title, yyLabel: detailLabel)
+        let contentBound = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.tipDetail.content, yyLabel: tipContent)
         
-        let images = tipmodel.image.split(separator: ",")
-
+        let images = model.tipDetail.image.split(separator: ",")
+        
         if images.count >= 1 {
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
@@ -71,28 +82,28 @@ class CategoryContentTableViewCell: UITableViewCell {
             }
         }
         self.contentView.updateConstraintsIfNeeded()
-        
-
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     
     override func updateConstraints() {
         if !didMakeConstraints {
-            detailLabel.snp.makeConstraints { (make) in
+            commentTitle.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.top.equalTo(self.contentView.snp.top).offset(15)
+                make.height.equalTo(0.0001)
+            }
+            
+            tipContent.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.commentTitle.snp.bottom).offset(9)
                 make.height.equalTo(0.0001)
             }
             
             imageContentView.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.top.equalTo(self.detailLabel.snp.bottom).offset(8)
+                make.top.equalTo(self.tipContent.snp.bottom).offset(8)
                 make.height.equalTo(0.0001)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-12)
             }
@@ -119,5 +130,4 @@ class CategoryContentTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-
 }

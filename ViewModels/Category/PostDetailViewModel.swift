@@ -15,6 +15,8 @@ class PostDetailViewModel: BaseViewModel {
     var tipDetailModel:TipModel!
     var commentListArray = NSMutableArray.init()
     var page:Int = 0
+    var imageHeight:CGFloat = 0
+    var isUpDataHeight:Bool = false
     override init() {
         super.init()
     }
@@ -30,7 +32,16 @@ class PostDetailViewModel: BaseViewModel {
     
     func tableViewPostDetailContentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailContentTableViewCell) {
         if tipDetailModel != nil {
-            cell.cellSetData(model: self.tipDetailModel)
+            cell.cellSetData(model: self.tipDetailModel, reload: { imageHeight in
+                self.imageHeight = imageHeight
+                if !self.isUpDataHeight{
+                    self.isUpDataHeight = true
+                    self.controller?.tableView.beginUpdates()
+                    self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
+                    self.controller?.tableView.endUpdates()
+                }
+                
+            })
         }
         cell.postDetailContentTableViewCellClouse = { type, status in
             switch type {
@@ -56,7 +67,42 @@ class PostDetailViewModel: BaseViewModel {
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
         if self.commentListArray.count > 0 {
-            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false, isShowRepli: true)
+            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false, isShowRepli: true, reload: { height in
+                
+            })
+            cell.postDetailCommentTableViewCellClouse = { model in
+                if CacheManager.getSharedInstance().isLogin() {
+                    if model.user.id.string == CacheManager.getSharedInstance().getUserId() {
+                        KWindow.addSubview(GloableAlertView.init(titles: ["查看评论","删除评论"], cancelTitle: "取消", buttonClick: { (tag) in
+                            if tag == 0 {
+                                self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
+                            }else{
+                                UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定删除该条评论?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                                    
+                                }, doneAction: {
+                                     let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+                                    self.deleteComment(commentId: model.id.string, model: model, indexPath: indexPath)
+                                })
+                            }
+                        }, cancelAction: {
+                        }))
+                    }else{
+                        KWindow.addSubview(GloableAlertView.init(titles: ["查看评论","举报评论"], cancelTitle: "取消", buttonClick: { (tag) in
+                            if tag == 0 {
+                                self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
+                            }else{
+                                UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定删除举报该条评论?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                                    
+                                }, doneAction: {
+                                    let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+                                    self.reportCommentNet(commentId:  model.id.string, model: model, indexPath: indexPath)
+                                })
+                            }
+                        }, cancelAction: {
+                        }))
+                    }
+                }
+            }
         }
     }
     
@@ -68,7 +114,7 @@ class PostDetailViewModel: BaseViewModel {
         
         cell.postDetailCommentUserTableViewCellClouse = { indexPath in
             let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
-            self.likeCommentNet(commentId: model.id.string)
+            self.likeCommentNet(commentId: model.id.string, model:model, indexPath: indexPath)
         }
     }
     
@@ -82,8 +128,16 @@ class PostDetailViewModel: BaseViewModel {
         if indexPath.section != 0 && indexPath.section != 1 {
             let commentVC = CommentViewController()
             commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+            commentVC.commentViewControllerApproveClouse = { model in
+                self.commentListArray.replaceObject(at: indexPath.section - 2, with: model)
+               self.controller?.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
             NavigationPushView(self.controller!, toConroller: commentVC)
         }
+    }
+    
+    func scrollerTableViewToPoint(){
+        self.tableViewScrollToPoint(nil, IndexPath.init(row: 0, section: 2))
     }
     
     func getTipDetail(id:String){
@@ -93,6 +147,8 @@ class PostDetailViewModel: BaseViewModel {
                 self.tipDetailModel = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
                 (self.controller! as! PostDetailViewController).navigationItem.title = self.tipDetailModel.tribe.tribeName
                 self.reloadTableViewData()
+                
+                
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
@@ -111,6 +167,11 @@ class PostDetailViewModel: BaseViewModel {
                     self.commentListArray = NSMutableArray.init(array: resultDic.value as! Array)
                 }
                 self.reloadTableViewData()
+                if (self.controller as! PostDetailViewController).gotoType != nil {
+                    if (self.controller as! PostDetailViewController).gotoType == .comment {
+                        self.scrollerTableViewToPoint()
+                    }
+                }
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
@@ -141,16 +202,76 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
-    func likeCommentNet(commentId:String){
+    func likeCommentNet(commentId:String,model:CommentModel, indexPath:IndexPath){
         let parameters = ["commentId":commentId]
         BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentApprovetUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                if model.isFollow == 1 {
+                    model.isFollow = 0
+                    model.approveNum = model.approveNum - 1
+                }else{
+                    model.isFollow = 1
+                    model.approveNum = model.approveNum + 1
+                }
+                self.commentListArray.replaceObject(at: indexPath.section - 2, with: model.toDictionary())
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
+    
+    func deleteComment(commentId:String,model:CommentModel, indexPath:IndexPath){
+        let parameters = ["commentId":commentId]
+        BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentDelUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                model.content = "评论以删除"
+                model.status = "1" //自己删除
+                self.commentListArray.replaceObject(at: indexPath.section - 2, with: model.toDictionary())
+                self.reloadTableViewData()
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func reportCommentNet(commentId:String, model:CommentModel, indexPath:IndexPath){
+        let parameters = ["param":commentId,"type":"1"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ReportAddReportUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "举报成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func deleteArticle(tipId:String,model:TipModel){
+        let parameters = ["tipId":tipId]
+        BaseNetWorke.getSharedInstance().postUrlWithString(TipArticleDeleteUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                model.content = "文章以删除"
+                model.status = "1" //自己删除
+                self.getTipDetail(id: tipId)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func reportAritcleNet(tipId:String, model:TipModel){
+        let parameters = ["param":tipId,"type":"0"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ReportAddReportUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "举报成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
     
     func followNet(status:Bool){
         let parameters = ["userId":self.tipDetailModel.user.id!.string]
@@ -164,6 +285,14 @@ class PostDetailViewModel: BaseViewModel {
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
+    }
+    
+    func getContentHeight() ->CGFloat{
+        let titleSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.tipDetailModel.title, yyLabel: YYLabel.init())
+        
+        let contentSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.tipDetailModel.content, yyLabel: YYLabel.init())
+        
+        return titleSize.textBoundingSize.height + contentSize.textBoundingSize.height + 120 + imageHeight
     }
     
 }
@@ -196,9 +325,10 @@ extension PostDetailViewModel: UITableViewDelegate {
                 return 60
             }
             if self.tipDetailModel != nil {
-                return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), cacheByKey: self.tipDetailModel   , configuration: { (cell) in
-                    self.tableViewPostDetailContentTableViewCellSetData(indexPath, cell: cell as! PostDetailContentTableViewCell)
-                })
+                return self.getContentHeight()
+//                return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), cacheByKey: self.tipDetailModel   , configuration: { (cell) in
+//                    self.tableViewPostDetailContentTableViewCellSetData(indexPath, cell: cell as! PostDetailContentTableViewCell)
+//                })
             }
             return 60
             
@@ -227,6 +357,8 @@ extension PostDetailViewModel: UITableViewDelegate {
             return 150
         }
     }
+    
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         

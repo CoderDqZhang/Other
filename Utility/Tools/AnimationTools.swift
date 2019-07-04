@@ -19,12 +19,13 @@ typealias AnimationFinishClouse = (_ ret:Bool) ->Void
 
 class AnimationTools: NSObject {
     
-    override init() {
-        super.init()
+    private static let _sharedInstance = AnimationTools()
+    
+    class func getSharedInstance() -> AnimationTools {
+        return _sharedInstance
     }
     
-    static let shareInstance = AnimationTools()
-    
+    private override init() {} // 私有化init方法
     
     @available(iOS 9.0, *)
     func setUpAnimation(_ float:CGFloat, velocity:CGFloat, finish:@escaping AnimationFinishClouse) ->CASpringAnimation{

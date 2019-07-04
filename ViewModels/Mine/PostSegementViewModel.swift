@@ -14,10 +14,11 @@ class PostSegementViewModel: BaseViewModel {
         super.init()
     }
     
-    func pushPostDetailViewController(_ data:NSDictionary, _ type:PostType) {
+    func pushPostDetailViewController(_ data:NSDictionary, _ type:PostType, _ gotoType:PostDetaiGoToType?) {
         let postDetail = PostDetailViewController()
         postDetail.postData = data
         postDetail.postType = type
+        postDetail.gotoType = gotoType
         NavigationPushView(self.controller!, toConroller: postDetail)
     }
 }

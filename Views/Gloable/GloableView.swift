@@ -19,8 +19,6 @@ class GloableLineLabel: UIView {
         return lable
     }
     
-    
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -1197,5 +1195,78 @@ class CofirmProtocolView: UIView {
             make.left.equalTo(self.checkBox.snp.right).offset(9)
             make.centerY.equalToSuperview()
         }
+    }
+}
+
+let ButtonHeight:CGFloat = 54
+let ContentWidth:CGFloat = 290
+typealias GloableAlertViewButtonActionClouse = (_ tag:Int) ->Void
+typealias GloableAlertViewCancelActionClouse = () ->Void
+class GloableAlertView: UIView {
+    var backView:UIView!
+    var cententView:UIView!
+    init(titles:[String], cancelTitle:String, buttonClick:@escaping GloableAlertViewButtonActionClouse, cancelAction:@escaping GloableAlertViewCancelActionClouse) {
+        super.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        
+        backView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        backView.backgroundColor = UIColor.init(hexString: "000000", transparency: 0.5)
+        _ = backView.newTapGesture(config: { (tapGestup) in
+            tapGestup.numberOfTapsRequired = 1
+            tapGestup.numberOfTouchesRequired = 1
+        }).whenTaped(handler: { (tap) in
+            self.disMissView()
+        })
+        self.addSubview(backView)
+        
+        cententView = UIView.init()
+        cententView.cornerRadius = 8
+        cententView.backgroundColor = App_Theme_FFFFFF_Color
+        self.addSubview(cententView)
+        cententView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: ContentWidth, height: CGFloat(titles.count + 1) * ButtonHeight))
+        }
+        
+        for index in 0...titles.count - 1 {
+            let frame = CGRect.init(x: 0, y: CGFloat(index) * ButtonHeight, width: ContentWidth, height: ButtonHeight)
+            let button = self.createTitleButton(title: titles[index], frame: frame)
+            button.tag = index + 1000
+            button.reactive.controlEvents(.touchUpInside).observeValues { (btn) in
+                buttonClick(btn.tag - 1000)
+                self.disMissView()
+            }
+            cententView.addSubview(button)
+            let lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 35, y: CGFloat(index + 1) * ButtonHeight, width: ContentWidth - 70, height: 1))
+            cententView.addSubview(lineLabel)
+        }
+        
+        let frame = CGRect.init(x: 0, y: CGFloat(titles.count) * ButtonHeight, width: ContentWidth, height: ButtonHeight)
+        let cancelButton = self.createTitleButton(title: cancelTitle, frame: frame)
+        cancelButton.tag = 10000
+        cancelButton.setTitleColor(App_Theme_666666_Color, for: .normal)
+        cancelButton.reactive.controlEvents(.touchUpInside).observeValues { (btn) in
+            cancelAction()
+            self.removeFromSuperview()
+        }
+        cententView.addSubview(cancelButton)
+    }
+    
+    func disMissView(){
+        self.removeFromSuperview()
+    }
+    
+    func createTitleButton(title:String, frame:CGRect) ->UIButton{
+        let button = UIButton.init(type: .custom)
+        button.frame = frame
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.font = App_Theme_PinFan_M_15_Font
+        button.setTitleColor(App_Theme_06070D_Color, for: .normal)
+        button.setTitleColor(App_Theme_FFCB00_Color, for: .selected)
+        return button
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

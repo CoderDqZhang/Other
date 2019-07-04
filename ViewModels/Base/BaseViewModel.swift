@@ -41,4 +41,15 @@ class BaseViewModel: NSObject {
             }
         }
     }
+    
+    //滑动到指定距离
+    func tableViewScrollToPoint(_ point:CGPoint?, _ indexPath:IndexPath?){
+        if indexPath != nil {
+            self.controller?.tableView.scrollToRow(at: indexPath!, at: UITableView.ScrollPosition.top, animated: true)
+        }
+        
+        if point != nil {
+            self.controller?.tableView.setContentOffset(point!, animated: true)
+        }
+    }
 }

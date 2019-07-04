@@ -9,6 +9,7 @@
 import UIKit
 import DZNEmptyDataSet
 import ReactiveSwift
+typealias OutFallViewModelTransClouse = (_ str:String) ->Void
 
 class OutFallViewModel: BaseViewModel {
 
@@ -27,14 +28,20 @@ class OutFallViewModel: BaseViewModel {
     func tableViewOutFallCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:OutFallCategoryContentTableViewCell) {
         if self.tipListArray.count > 0 {
             cell.cellSetData(model: OutFallModel.init(fromDictionary: self.tipListArray[indexPath.section] as! [String : Any]), isTrans: self.isTransArray[indexPath.section] as! Bool, indexPath: indexPath) { (indexPath) in
-                self.isTransArray.replaceObject(at: indexPath.section, with: true)
-                self.reloadTableViewData()
+                let model = OutFallModel.init(fromDictionary: self.tipListArray[indexPath.section] as! [String : Any])
+                self.transEnglish(q: model.content, trans: { (str) in
+                    model.cnContent = str
+                    self.tipListArray.replaceObject(at: indexPath.section, with: model.toDictionary())
+                    self.isTransArray.replaceObject(at: indexPath.section, with: true)
+                    self.reloadTableViewData()
+
+                })
             }
         }
     }
     
     func tableViewOutFallCategoryUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:OutFallCategoryUserInfoTableViewCell){
-        
+        cell.cellSetData(model: OutFallModel.init(fromDictionary: self.tipListArray[indexPath.section] as! [String : Any]))
     }
     
     func tableViewCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
@@ -55,7 +62,7 @@ class OutFallViewModel: BaseViewModel {
             transHeight = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: YYLabel.init()).textBoundingSize.height
         }
         if model.image.nsString.components(separatedBy: ",").count > 0 {
-            return transHeight + titleHeight + contentImageHeight + 50
+            return transHeight + titleHeight + contentImageHeight + 70
         }
         return titleHeight + transHeight + 50
 
@@ -81,6 +88,22 @@ class OutFallViewModel: BaseViewModel {
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
+        }
+    }
+    
+    func transEnglish(q:String,trans:@escaping OutFallViewModelTransClouse){
+        let loadingHud = Tools.shareInstance.showLoading(KWindow, msg: "翻译中")
+        let parameters = ["client":"gtx", "dt":"t", "dj":"1", "ie":"UTF-8","sl":"auto","tl":"zh","q":q] as [String : Any]
+        BaseNetWorke.getSharedInstance().googleTrans(url: getGoogleTransUrl(), parameters: parameters as AnyObject, success: { (resultDic) in
+            let arrays = NSMutableArray.init(array: (resultDic as! NSDictionary).object(forKey: "sentences") as! Array)
+            var str = ""
+            for array in arrays {
+                str = "\(str)\(String(describing: (array as! NSDictionary).object(forKey: "trans")!))"
+            }
+            loadingHud.hide(animated: true)
+            trans(str)
+        }) { (fail) in
+            loadingHud.hide(animated: true)
         }
     }
 }

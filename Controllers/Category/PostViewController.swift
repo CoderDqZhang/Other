@@ -11,6 +11,8 @@ import TZImagePickerController
 
 let maxImagesCount = 3
 
+typealias PostViewControllerDataClouse = (_ dic:NSDictionary) ->Void
+
 class PostViewController: BaseViewController {
 
     let postViewModel = PostViewModel.init()
@@ -18,6 +20,9 @@ class PostViewController: BaseViewController {
     var photoPickerVC:TZImagePickerController!
     
     var isSelectOriginalPhoto:Bool!
+    
+    
+    var postViewControllerDataClouse:PostViewControllerDataClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()

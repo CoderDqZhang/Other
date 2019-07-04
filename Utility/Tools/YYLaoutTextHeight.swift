@@ -20,28 +20,40 @@ class YYLaoutTextGloabelManager: NSObject {
     func setYYLabelTextBound(font:UIFont, size:CGSize,  str:String, yyLabel:YYLabel) ->YYTextLayout {
         let tempStr = NSMutableAttributedString.init(string: str)
         tempStr.yy_font = font
-        tempStr.yy_lineSpacing = 8
+        tempStr.yy_lineSpacing = 6
         yyLabel.attributedText = tempStr
         yyLabel.textLayout = (YYTextLayout.init(containerSize: size, text: tempStr))
         yyLabel.frame.size = yyLabel.textLayout!.textBoundingSize
-
-        yyLabel.snp.makeConstraints { (make) in
-            make.height.equalTo((yyLabel.textLayout?.textBoundingSize.height)!)
+        
+        if yyLabel.textLayout != nil {
+            yyLabel.snp.updateConstraints { (make) in
+                make.height.equalTo((yyLabel.textLayout?.textBoundingSize.height)!)
+            }
+        }else{
+            yyLabel.snp.updateConstraints { (make) in
+                make.height.equalTo(0.0001)
+            }
         }
+
+       
         return (YYTextLayout.init(containerSize: size, text: tempStr)!)
     }
     
     func setYYLabelTextAttributedBound(font:UIFont, size:CGSize,  str:NSMutableAttributedString, yyLabel:YYLabel) ->YYTextLayout {
-        str.yy_font = font
-        str.yy_lineSpacing = 8
         yyLabel.attributedText = str
         yyLabel.textLayout = (YYTextLayout.init(containerSize: size, text: str))
         yyLabel.frame.size = yyLabel.textLayout!.textBoundingSize
-        
-        yyLabel.snp.makeConstraints { (make) in
-            make.height.equalTo((yyLabel.textLayout?.textBoundingSize.height)!)
+        str.yy_lineSpacing = 6
+        if yyLabel.textLayout != nil {
+            yyLabel.snp.updateConstraints { (make) in
+                make.height.equalTo((yyLabel.textLayout?.textBoundingSize.height)!)
+            }
+        }else{
+            yyLabel.snp.updateConstraints { (make) in
+                make.height.equalTo(0.0001)
+            }
         }
-        return (YYTextLayout.init(containerSize: size, text: str)!)
+         return (YYTextLayout.init(containerSize: size, text: str)!)
     }
 }
 

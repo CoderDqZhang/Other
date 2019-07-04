@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias CommentViewControllerApproveClouse = (_ model:NSDictionary) ->Void
+
 class CommentViewController: BaseViewController {
 
     var commentData:CommentModel!
@@ -15,6 +17,8 @@ class CommentViewController: BaseViewController {
     var commentDetailViewModel = CommentViewModel.init()
     
     var gloableCommentView:CustomViewCommentTextField!
+    
+    var commentViewControllerApproveClouse:CommentViewControllerApproveClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()

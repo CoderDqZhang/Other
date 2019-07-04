@@ -31,6 +31,10 @@ class SegmentViewModel: BaseViewModel {
     func pushPostVC(){
         if CacheManager.getSharedInstance().isLogin() {
             let postVC = PostViewController()
+            postVC.postViewControllerDataClouse = { dic in
+                (self.controller! as! SegmentViewController).newController.newsViewModel.tipListArray.insert(dic, at: 0)
+                (self.controller! as! SegmentViewController).newController.newsViewModel.reloadTableViewData()
+            }
             let postNavigationController = UINavigationController.init(rootViewController: postVC)
             NavigaiontPresentView(self.controller!, toController: postNavigationController)
         }else{

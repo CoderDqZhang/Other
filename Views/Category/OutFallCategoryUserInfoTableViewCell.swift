@@ -58,6 +58,13 @@ class OutFallUserInfoView: UIView {
         self.updateConstraints()
     }
     
+    func updateData(avatar:String, name:String){
+        userName.text = name
+        avatarImage.sd_crope_imageView(url: avatar, imageView: avatarImage, placeholderImage: nil) { (image, url, type, state, error) in
+            
+        }
+    }
+    
     override func updateConstraints() {
         if !didMakeConstraints {
             avatarImage.snp.makeConstraints { (make) in
@@ -114,6 +121,10 @@ class OutFallCategoryUserInfoTableViewCell: UITableViewCell {
         
         
         self.updateConstraints()
+    }
+    
+    func cellSetData(model:OutFallModel){
+        userView.updateData(avatar: model.img, name: model.nickname)
     }
     
     required init?(coder aDecoder: NSCoder) {

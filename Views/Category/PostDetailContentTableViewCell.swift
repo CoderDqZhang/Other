@@ -9,6 +9,8 @@
 import UIKit
 import YYText
 import SKPhotoBrowser
+import ReactiveCocoa
+import ReactiveSwift
 
 enum PostDetailContentTableViewCellButtonType {
     case like
@@ -16,8 +18,9 @@ enum PostDetailContentTableViewCellButtonType {
 }
 typealias PostDetailContentTableViewCellClouse = (_ type:PostDetailContentTableViewCellButtonType, _ status:ToolsStatus) -> Void
 typealias PostDetailContentTableViewCellImageClickClouse = (_ tag:Int, _ photoBrowser:SKPhotoBrowser) ->Void
+typealias ReloadTableViewCell = (_ height:CGFloat) ->Void
 
-class PostDetailContentTableViewCell: UITableViewCell {
+class  PostDetailContentTableViewCell : UITableViewCell {
 
     var titleLabel:YYLabel!
     var contnetLabel:YYLabel!
@@ -32,6 +35,8 @@ class PostDetailContentTableViewCell: UITableViewCell {
     var postDetailContentTableViewCellClouse:PostDetailContentTableViewCellClouse!
     var postDetailContentTableViewCellImageClickClouse:PostDetailContentTableViewCellImageClickClouse!
     
+    var isCheckBoolProperty = MutableProperty<Bool>(false)
+    var isUpdateHeight:Bool = false
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -58,9 +63,11 @@ class PostDetailContentTableViewCell: UITableViewCell {
         self.contentView.addSubview(imageContentView)
         
         likeButtonView = UIView.init()
+        self.likeButtonView.isHidden = true
         self.contentView.addSubview(likeButtonView)
         
         collectButtonView = UIView.init()
+        self.collectButtonView.isHidden = true
         self.contentView.addSubview(collectButtonView)
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "post_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
@@ -92,23 +99,53 @@ class PostDetailContentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(model:TipModel){
-    
+    func cellSetData(model:TipModel, reload:@escaping ReloadTableViewCell){
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.title, yyLabel: titleLabel)
 
-        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contnetLabel)
-        
-
-        let images = model.image.split(separator: ",")
-        var browser:SKPhotoBrowser? = nil
-        if images.count > 1 {
-            browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithUrl(urls: images, selectPageIndex: 0)
+        if model.content != "" {
+            _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contnetLabel)
         }
-        if images.count > 1 {
+
+        var tempImges:[String] = model.image.components(separatedBy: ",")
+        let images = tempImges.removeAll("")
+        var browser:SKPhotoBrowser? = nil
+        if images.count >= 1 {
+            browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
+        }
+        if images.count >= 1 {
+            var imageHeight:CGFloat = 0
+            var count = 0
+            //图片存在缓存问题是
+            isCheckBoolProperty.signal.observe { (ret) in
+                if imageHeight > 0 {
+                    self.imageContentView.snp.makeConstraints{ (make) in
+                        make.height.equalTo(imageHeight)
+                    }
+                    if !self.isUpdateHeight {
+                        self.isUpdateHeight = true
+                        reload(imageHeight)
+                        self.collectButtonView.isHidden = false
+                        self.likeButtonView.isHidden = false
+                    }
+                    self.imageContentView.isHidden = false
+                    print(self.imageContentView.frame)
+                }
+            }
             for index in 0...images.count - 1 {
-                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                imageView.sd_crope_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
-                    
+                let imageView = UIImageView.init()
+                imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), placeholderImage: nil) { (image, error, cacheType, url) in
+                    if image != nil {
+                        let size = image!.size
+                        let height = size.height * (SCREENWIDTH - 30) / size.width
+                        let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 30, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
+                        count = count + 1
+                        imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: imageHeight + 10), size: finistImage!.size)
+                        imageHeight = finistImage!.size.height + imageHeight + 10
+                        if count == images.count {
+                            self.isCheckBoolProperty.value = true
+                        }
+                        imageView.image = finistImage
+                    }
                 }
                 imageView.tag = index + 1000
                 imageView.isUserInteractionEnabled = true
@@ -122,15 +159,12 @@ class PostDetailContentTableViewCell: UITableViewCell {
                             }
                         }
                     })
-                imageView.layer.cornerRadius = 5
                 imageView.layer.masksToBounds = true
                 self.imageContentView.addSubview(imageView)
             }
-            imageContentView.isHidden = false
-            imageContentView.snp.makeConstraints{ (make) in
-                make.height.equalTo(contentImageHeight)
-            }
         }else{
+            self.collectButtonView.isHidden = false
+            self.likeButtonView.isHidden = false
             imageContentView.isHidden = true
             imageContentView.snp.makeConstraints{ (make) in
                 make.height.equalTo(0.0001)
@@ -165,12 +199,14 @@ class PostDetailContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.height.equalTo(0.0001)
             }
 
             contnetLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
+                make.height.equalTo(0.0001)
             }
 
             imageContentView.snp.makeConstraints { (make) in

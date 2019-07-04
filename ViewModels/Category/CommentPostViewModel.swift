@@ -55,11 +55,13 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                 let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":strs] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
+                        let model = CommentModel.init(fromDictionary: resultDic.value as! [String : Any])
+                        if (self.controller as! CommentPostViewController).commentPostViewControllerDataClouse != nil {
+                            (self.controller as! CommentPostViewController).commentPostViewControllerDataClouse(model.toDictionary() as NSDictionary)
+                        }
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "评论成功", autoHidder: true)
                         self.controller?.dismiss(animated: true, completion: {
-                            if self.controller?.reloadDataClouse != nil {
-                                self.controller?.reloadDataClouse()
-                            }
+
                         })
                     }else{
                         self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -71,6 +73,10 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":""] as [String : Any]
             BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
+                    let model = CommentModel.init(fromDictionary: resultDic.value as! [String : Any])
+                    if (self.controller as! CommentPostViewController).commentPostViewControllerDataClouse != nil {
+                        (self.controller as! CommentPostViewController).commentPostViewControllerDataClouse(model.toDictionary() as NSDictionary)
+                    }
                     _ = Tools.shareInstance.showMessage(KWindow, msg: "评论成功", autoHidder: true)
                     self.controller?.dismiss(animated: true, completion: {
                         if self.controller?.reloadDataClouse != nil {

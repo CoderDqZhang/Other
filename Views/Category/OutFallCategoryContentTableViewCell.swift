@@ -63,16 +63,11 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
     
     func cellSetData(model:OutFallModel, isTrans:Bool, indexPath:IndexPath, transButtonClicks:@escaping TransButtonClickClouse){
         
-         let textBound = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: detailLabel)
-        detailLabel.snp.remakeConstraints { (make) in
-            make.left.equalTo(self.contentView.snp.left).offset(15)
-            make.right.equalTo(self.contentView.snp.right).offset(-15)
-            make.top.equalTo(self.contentView.snp.top).offset(0)
-            make.height.equalTo(textBound.textBoundingSize.height)
+         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: detailLabel)
+        
+        if model.cnContent != nil {
+            _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: translateDetailLabel)
         }
-        
-        
-        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: translateDetailLabel)
         if isTrans {
             translateButton.isEnabled = false
             translateDetailLabel.isHidden = false
@@ -90,8 +85,8 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
         self.indexPath = indexPath
         
         self.transButtonClickClouse = transButtonClicks
-        let images = model.img.split(separator: ",")
-        if images.count > 1 {
+        let images = model.image.split(separator: ",")
+        if images.count >= 1 {
             imageContentView.isHidden = false
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
@@ -132,6 +127,7 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.height.equalTo(0.0001)
             }
             
             translateButton.snp.makeConstraints { (make) in
@@ -143,6 +139,7 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.translateButton.snp.bottom).offset(9)
+                make.height.equalTo(0.0001)
             }
             
             imageContentView.snp.makeConstraints { (make) in

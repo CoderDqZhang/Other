@@ -8,11 +8,15 @@
 
 import UIKit
 import SKPhotoBrowser
+import ReactiveCocoa
+import ReactiveSwift
 
 let commentImageWidth:CGFloat = (SCREENWIDTH - 60 - 8 * 2) / 3
 let commentImageHeight:CGFloat = commentImageWidth
 let SecondeContentHeight:CGFloat = 18
 let SecondeContentWidth:CGFloat = SCREENWIDTH - 66
+
+typealias PostDetailCommentTableViewCellClouse = (_ model:CommentModel) ->Void
 
 class PostDetailCommentTableViewCell: UITableViewCell {
 
@@ -25,6 +29,12 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
     var didMakeConstraints = false
     
+    var isCheckBoolProperty = MutableProperty<Bool>(false)
+    var isUpdateHeight:Bool = false
+    
+    var imageHeight:CGFloat = 0
+
+    var postDetailCommentTableViewCellClouse:PostDetailCommentTableViewCellClouse!
     var postDetailContentTableViewCellImageClickClouse:PostDetailContentTableViewCellImageClickClouse!
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -67,13 +77,13 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool){
+    func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool, reload:@escaping ReloadTableViewCell){
         
         
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
         
-        let images:[String] = model.img.nsString.components(separatedBy: ",")
-        self.setImageContentView(images,isCommentDetail)
+        var images:[String] = model.img.nsString.components(separatedBy: ",")
+        self.setImageContentView(images.removeAll(""),isCommentDetail, reload: reload)
         
         if isShowRepli {
             self.setSecondeCotent(secondeContents: model.replyList)
@@ -85,6 +95,28 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
+        
+        if model.status == "0"  {
+            contentLabel.textColor = App_Theme_06070D_Color
+            if isShowRepli {
+                _ = self.contentView.newLongpressGesture { (longPress) in
+                    
+                    }.whenBegan { (longPress) in
+                        
+                    }.whenEnded { (longPress) in
+                        if self.postDetailCommentTableViewCellClouse != nil {
+                            self.postDetailCommentTableViewCellClouse(model)
+                        }
+                }
+            }
+           
+        }else{
+            let attributed = NSMutableAttributedString.init(string: model.content)
+            attributed.yy_textStrikethrough = YYTextDecoration.init(style: .single)
+            attributed.yy_color = App_Theme_999999_Color
+            contentLabel.attributedText = attributed
+        }
+        
         self.contentView.updateConstraintsIfNeeded()
     }
     
@@ -139,29 +171,59 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         }
     }
     
-    func setImageContentView(_ images:[String], _ isCommentDetail:Bool){
-        if images.count > 1 {
+    func setImageContentView(_ images:[String], _ isCommentDetail:Bool,reload:@escaping ReloadTableViewCell){
+        self.imageContentView.removeSubviews()
+        if images.count > 1{
             if isCommentDetail {
-                var imageContentHeight:CGFloat = 0
+                var browser:SKPhotoBrowser? = nil
+                if images.count > 1 {
+                    browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
+                }
+                var count = 0
+                //图片存在缓存问题是
+                isCheckBoolProperty.signal.observe { (ret) in
+                    self.imageContentView.snp.makeConstraints{ (make) in
+                        make.height.equalTo(self.imageHeight)
+                    }
+                    if !self.isUpdateHeight {
+                        self.isUpdateHeight = true
+                        reload(self.imageHeight)
+                    }
+                    self.imageContentView.isHidden = false
+                }
                 for index in 0...images.count - 1 {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
                     imageView.tag = index + 10000
-                    imageView.sd_crope_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
-//                        let view = self.imageContentView.viewWithTag(index + 10000)
-                        imageView.frame = CGRect.init(x: 0, y:imageContentHeight, width: SCREENWIDTH - 64, height: (SCREENWIDTH - 64) * (image?.size.height)! / (image?.size.width)!)
-                        imageView.backgroundColor = .red
-                        
-                        if index == images.count - 1 {
-                            self.imageContentView.snp.updateConstraints{ (make) in
-                                make.height.equalTo(imageView.frame.maxY)
+                    imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), placeholderImage: nil) { (image, error, cacheType, url) in
+                        if image != nil {
+                            let size = image!.size
+                            let height = size.height * (SCREENWIDTH - 30) / size.width
+                            let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 60, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
+                            count = count + 1
+                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.imageHeight + 10), size: finistImage!.size)
+                            self.imageHeight = finistImage!.size.height + self.imageHeight + 10
+                            if count == images.count {
+                                self.isCheckBoolProperty.value = true
                             }
-                        }else{
-                            imageContentHeight = imageContentHeight + (SCREENWIDTH - 64) * (image?.size.height)! / (image?.size.width)! + 8
+                            imageView.backgroundColor = .brown
+                            imageView.image = finistImage
                         }
                     }
+                    imageView.tag = index + 1000
+                    imageView.isUserInteractionEnabled = true
+                    _ = imageView.newTapGesture { (gesture) in
+                        gesture.numberOfTapsRequired = 1
+                        gesture.numberOfTouchesRequired = 1
+                        }.whenTaped(handler: { (tap) in
+                            if self.postDetailContentTableViewCellImageClickClouse != nil {
+                                if browser != nil {
+                                    self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
+                                }
+                            }
+                        })
+                    imageView.layer.masksToBounds = true
                     self.imageContentView.addSubview(imageView)
                 }
-                
             }else{
                 var browser:SKPhotoBrowser? = nil
                 if images.count > 1 {
@@ -261,6 +323,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(45)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.height.equalTo(0.0001)
             }
             
             imageContentView.snp.makeConstraints { (make) in
