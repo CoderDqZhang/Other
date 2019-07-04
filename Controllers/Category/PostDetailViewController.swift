@@ -77,6 +77,8 @@ class PostDetailViewController: BaseViewController {
                 
             })
             
+            
+            
         } else {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 44, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
                 let commentVC = CommentPostViewController()
@@ -113,6 +115,7 @@ class PostDetailViewController: BaseViewController {
             make.bottom.equalToSuperview()
         }
     }
+
     
     func refreshData(){
         self.postDetailViewModel.page = 0
@@ -135,11 +138,40 @@ class PostDetailViewController: BaseViewController {
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
 //        self.navigationItem.title = ((self.postData.object(forKey: "tribe") as! NSDictionary).object(forKey: "tribeName") as! String)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
+        let shareItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
+        var deleteItem:UIBarButtonItem?
+        if CacheManager.getSharedInstance().isLogin() {
+            if ((self.postData.object(forKey: "user") as! NSDictionary).object(forKey: "id") as! Int).string == CacheManager.getSharedInstance().getUserId() {
+                deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "delete")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.deleteBarItemClick(_:)))
+            }else{
+                deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "report")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.reportBarItemClick(_:)))
+
+            }
+            self.navigationItem.rightBarButtonItems = ([shareItem,deleteItem] as! [UIBarButtonItem])
+        }else{
+            self.navigationItem.rightBarButtonItems = [shareItem]
+        }
+        
     }
     
     @objc func rightBarItemClick(_ sender:UIBarButtonItem) {
-        
+       
+    }
+    
+    @objc func deleteBarItemClick(_ sender:UIBarButtonItem) {
+        UIAlertController.showAlertControl(self, style: .alert, title: "确定删除该篇文章?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+            
+        }, doneAction: {
+            self.postDetailViewModel.deleteArticle(tipId:  (self.postData.object(forKey: "id") as! Int).string, model: self.postDetailViewModel.tipDetailModel)
+        })
+    }
+    
+    @objc func reportBarItemClick(_ sender:UIBarButtonItem) {
+        UIAlertController.showAlertControl(self, style: .alert, title: "确定举报该篇文章?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+            
+        }, doneAction: {
+            self.postDetailViewModel.reportAritcleNet(tipId:  (self.postData.object(forKey: "id") as! Int).string, model: self.postDetailViewModel.tipDetailModel)
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {

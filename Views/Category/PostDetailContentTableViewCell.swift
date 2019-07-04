@@ -60,6 +60,7 @@ class  PostDetailContentTableViewCell : UITableViewCell {
         self.contentView.addSubview(contnetLabel)
         
         imageContentView = UIView.init()
+        imageContentView.backgroundColor = .red
         self.contentView.addSubview(imageContentView)
         
         likeButtonView = UIView.init()
@@ -100,7 +101,7 @@ class  PostDetailContentTableViewCell : UITableViewCell {
     }
     
     func cellSetData(model:TipModel, reload:@escaping ReloadTableViewCell){
-    
+        print("==============\(isCheckBoolProperty.value)")
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.title, yyLabel: titleLabel)
 
         if model.content != "" {
@@ -117,27 +118,36 @@ class  PostDetailContentTableViewCell : UITableViewCell {
             var count = 0
             //图片存在缓存问题是
             isCheckBoolProperty.signal.observe { (ret) in
-                self.imageContentView.snp.makeConstraints{ (make) in
-                    make.height.equalTo(imageHeight)
-                }
-                if !self.isUpdateHeight {
-                    self.isUpdateHeight = true
-                    reload(imageHeight)
-                    self.collectButtonView.isHidden = false
-                    self.likeButtonView.isHidden = false
+                if imageHeight > 0 {
+                    self.imageContentView.snp.makeConstraints{ (make) in
+                        make.height.equalTo(imageHeight)
+                    }
+                    if !self.isUpdateHeight {
+                        self.isUpdateHeight = true
+                        reload(imageHeight)
+                        self.collectButtonView.isHidden = false
+                        self.likeButtonView.isHidden = false
+                    }
+                    self.imageContentView.isHidden = false
+                    print(self.imageContentView.frame)
                 }
             }
-            
             for index in 0...images.count - 1 {
-                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), contentSize: CGSize.init(width: imageContentView.width, height: imageContentView.width), placeholderImage: nil) { (image, error, cacheType, url) in
-                    count = count + 1
-                    imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: imageHeight + 10), size: image!.size)
-                    imageHeight = image!.size.height + imageHeight + 10
-                    if count == images.count {
-                        self.isCheckBoolProperty.value = true
+                let imageView = UIImageView.init()
+                imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), placeholderImage: nil) { (image, error, cacheType, url) in
+                    if image != nil {
+                        let size = image!.size
+                        let height = size.height * (SCREENWIDTH - 30) / size.width
+                        let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 30, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
+                        count = count + 1
+                        imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: imageHeight + 10), size: finistImage!.size)
+                        imageHeight = finistImage!.size.height + imageHeight + 10
+                        if count == images.count {
+                            self.isCheckBoolProperty.value = true
+                        }
+                        imageView.backgroundColor = .brown
+                        imageView.image = finistImage
                     }
-                    imageView.image = image
                 }
                 imageView.tag = index + 1000
                 imageView.isUserInteractionEnabled = true
@@ -154,9 +164,6 @@ class  PostDetailContentTableViewCell : UITableViewCell {
                 imageView.layer.masksToBounds = true
                 self.imageContentView.addSubview(imageView)
             }
-            imageContentView.isHidden = false
-            
-
         }else{
             self.collectButtonView.isHidden = false
             self.likeButtonView.isHidden = false

@@ -194,15 +194,19 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 for index in 0...images.count - 1 {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
                     imageView.tag = index + 10000
-                    imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), contentSize: CGSize.init(width: imageContentView.width, height: imageContentView.width), placeholderImage: nil) { (image, error, cacheType, url) in
+                    imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), placeholderImage: nil) { (image, error, cacheType, url) in
                         if image != nil {
+                            let size = image!.size
+                            let height = size.height * (SCREENWIDTH - 30) / size.width
+                            let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 60, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
                             count = count + 1
-                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.imageHeight + 10), size: CGSize.init(width: SCREENWIDTH - 60, height: (image?.size.height)!))
-                            self.imageHeight = image!.size.height + self.imageHeight + 10
-                            if count == images.count - 1{
+                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.imageHeight + 10), size: finistImage!.size)
+                            self.imageHeight = finistImage!.size.height + self.imageHeight + 10
+                            if count == images.count {
                                 self.isCheckBoolProperty.value = true
                             }
-                            imageView.image = image
+                            imageView.backgroundColor = .brown
+                            imageView.image = finistImage
                         }
                     }
                     imageView.tag = index + 1000

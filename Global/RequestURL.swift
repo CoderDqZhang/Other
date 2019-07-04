@@ -72,6 +72,7 @@ let TipcollectTipUrl = "\(RootUrl)tip/addCollectTip"
 let TipgetTipDetailUrl = "\(RootUrl)tip/getTipDetail"
 let TipgetTipListUrl = "\(RootUrl)tip/getTipList"
 let TippublishTipUrl = "\(RootUrl)tip/addTip"
+let TipArticleDeleteUrl = "\(RootUrl)tip/delTip"
 let TippublishTopTipUrl = "\(RootUrl)topic/getTopicList"
 
 let TribesubscribeUrl = "\(RootUrl)tribe/subscribe"

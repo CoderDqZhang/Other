@@ -85,7 +85,6 @@ class PostDetailViewModel: BaseViewModel {
                                 })
                             }
                         }, cancelAction: {
-//                            print("cancel")
                         }))
                     }else{
                         KWindow.addSubview(GloableAlertView.init(titles: ["查看评论","举报评论"], cancelTitle: "取消", buttonClick: { (tag) in
@@ -100,7 +99,6 @@ class PostDetailViewModel: BaseViewModel {
                                 })
                             }
                         }, cancelAction: {
-//                            print("cancel")
                         }))
                     }
                 }
@@ -240,6 +238,31 @@ class PostDetailViewModel: BaseViewModel {
     
     func reportCommentNet(commentId:String, model:CommentModel, indexPath:IndexPath){
         let parameters = ["param":commentId,"type":"1"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ReportAddReportUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "举报成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func deleteArticle(tipId:String,model:TipModel){
+        let parameters = ["tipId":tipId]
+        BaseNetWorke.getSharedInstance().postUrlWithString(TipArticleDeleteUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                model.content = "文章以删除"
+                model.status = "1" //自己删除
+                self.getTipDetail(id: tipId)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func reportAritcleNet(tipId:String, model:TipModel){
+        let parameters = ["param":tipId,"type":"0"]
         BaseNetWorke.getSharedInstance().postUrlWithString(ReportAddReportUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "举报成功", autoHidder: true)
