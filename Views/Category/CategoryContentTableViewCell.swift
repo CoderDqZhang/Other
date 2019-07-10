@@ -59,6 +59,7 @@ class CategoryContentTableViewCell: UITableViewCell {
         let images = tipmodel.image.split(separator: ",")
 
         if images.count >= 1 {
+            imageContentView.removeSubviews()
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
                 imageView.sd_crope_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in

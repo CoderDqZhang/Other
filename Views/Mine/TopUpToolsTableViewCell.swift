@@ -23,8 +23,8 @@ class TopUPView: UIView {
     var descLable:YYLabel!
     
     var touUpAnimation:AnimationButton!
-    var titleStrs = ["10M币","10M币","10M币","10M币","10M币","10M币"]
-    var munberStrs = ["￥10","￥10","￥10","￥10","￥10","￥10"]
+    var titleStrs = ["30M币","68M币","128M币","288M币","388M币","648M币"]
+    var munberStrs = ["￥30","￥68","￥128","￥288","￥388","￥648"]
     
     override init(frame: CGRect) {
         super.init(frame: frame)

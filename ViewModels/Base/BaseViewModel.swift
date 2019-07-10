@@ -29,12 +29,14 @@ class BaseViewModel: NSObject {
     
     func hiddenMJLoadMoreData(resultData:Any){
         if self.controller?.tableView != nil {
-            if (resultData as! Array<Any>).capacity < LIMITNUMBER.int! {
-                if self.controller?.tableView.mj_footer != nil {
-                    self.controller?.tableView.mj_footer.endRefreshingWithNoMoreData()
-                }
-                if self.controller?.tableView.mj_header != nil {
-                    self.controller?.tableView.mj_header.endRefreshing()
+            if resultData is NSDictionary {
+                let pageModel = PageModel.init(fromDictionary: resultData as! [String : Any])
+                if pageModel.current != nil && pageModel.current == pageModel.pages {
+                    if self.controller?.tableView.mj_footer != nil {
+                        self.controller?.tableView.mj_footer.endRefreshingWithNoMoreData()
+                    }
+                }else{
+                    self.controller?.stopRefresh()
                 }
             }else{
                 self.controller?.stopRefresh()

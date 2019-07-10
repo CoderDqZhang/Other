@@ -8,6 +8,7 @@
 
 import UIKit
 import JXSegmentedView
+import MJRefresh
 
 class NewsViewController: BaseViewController {
 
@@ -32,9 +33,13 @@ class NewsViewController: BaseViewController {
             self.newsViewModel.getTribeListNet()
         }
         
-        self.setUpLoadMoreData {
+        self.tableView.mj_footer = MJRefreshAutoNormalFooter.init(refreshingBlock: {
             self.newsViewModel.getTribeListNet()
-        }
+        })
+        
+//        self.setUpLoadMoreData {
+//            
+//        }
     }
     
     func changeCommentAndLikeNumber(_ data:NSDictionary,_ indexPath:IndexPath){

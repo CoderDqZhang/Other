@@ -161,10 +161,10 @@ class PostDetailViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.commentListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.commentListArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
                     self.commentListArray.removeAllObjects()
-                    self.commentListArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.commentListArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.reloadTableViewData()
                 if (self.controller as! PostDetailViewController).gotoType != nil {

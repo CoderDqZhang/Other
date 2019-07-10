@@ -74,14 +74,14 @@ class OutFallViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().getUrlWithString(TippublishTopTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.tipListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
-                    for _ in NSMutableArray.init(array: resultDic.value as! Array) {
+                    self.tipListArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
+                    for _ in NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) {
                         self.isTransArray.add(false)
                     }
                 }else{
                     self.isTransArray.removeAllObjects()
-                    self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
-                    for _ in NSMutableArray.init(array: resultDic.value as! Array) {
+                    self.tipListArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
+                    for _ in NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) {
                         self.isTransArray.add(false)
                     }
                 }

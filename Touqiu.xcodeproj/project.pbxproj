@@ -177,7 +177,6 @@
 		1FE5BF3E228509B900C9137C /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF3D228509B900C9137C /* CategoryDetailViewController.swift */; };
 		1FE5BF4022850B3500C9137C /* SegmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF3F22850B3500C9137C /* SegmentViewModel.swift */; };
 		1FE5BF422285170700C9137C /* CategoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF412285170700C9137C /* CategoryDetailViewModel.swift */; };
-		1FE5BF44228517A700C9137C /* CommentContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF43228517A700C9137C /* CommentContentTableViewCell.swift */; };
 		1FE5BF46228528A900C9137C /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF45228528A900C9137C /* CommentViewModel.swift */; };
 		1FE5BF48228528FD00C9137C /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF47228528FD00C9137C /* CommentViewController.swift */; };
 		1FE5BF4A228529B700C9137C /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BF49228529B700C9137C /* PostDetailViewController.swift */; };
@@ -259,6 +258,7 @@
 		1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */; };
 		1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */; };
 		1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */; };
+		1FF025A722D5C79D005E2ED2 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A622D5C79C005E2ED2 /* PageModel.swift */; };
 		1FF1E51922AE08EB00BB9A50 /* LoadConfigManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */; };
 		1FF1E51C22AE0AEF00BB9A50 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */; };
 		1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */; };
@@ -536,7 +536,6 @@
 		1FE5BF3D228509B900C9137C /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		1FE5BF3F22850B3500C9137C /* SegmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentViewModel.swift; sourceTree = "<group>"; };
 		1FE5BF412285170700C9137C /* CategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewModel.swift; sourceTree = "<group>"; };
-		1FE5BF43228517A700C9137C /* CommentContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContentTableViewCell.swift; sourceTree = "<group>"; };
 		1FE5BF45228528A900C9137C /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		1FE5BF47228528FD00C9137C /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		1FE5BF49228529B700C9137C /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
@@ -620,6 +619,7 @@
 		1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewController.swift; sourceTree = "<group>"; };
 		1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiseViewController.swift; sourceTree = "<group>"; };
 		1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewModel.swift; sourceTree = "<group>"; };
+		1FF025A622D5C79C005E2ED2 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadConfigManger.swift; sourceTree = "<group>"; };
 		1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadMessageModel.swift; sourceTree = "<group>"; };
@@ -1388,7 +1388,6 @@
 				1FE5BF342284206300C9137C /* UserInfoTableViewCell.swift */,
 				1FE5BF392284359D00C9137C /* OutFallCategoryUserInfoTableViewCell.swift */,
 				1FE5BF3B228435B000C9137C /* OutFallCategoryContentTableViewCell.swift */,
-				1FE5BF43228517A700C9137C /* CommentContentTableViewCell.swift */,
 				1FE5BF4D22853E9500C9137C /* CategoryHeaderTableViewCell.swift */,
 				1FE5BF4F228561CB00C9137C /* PostDetailUserInfoTableViewCell.swift */,
 				1FE5BF51228561E800C9137C /* PostDetailCommentTableViewCell.swift */,
@@ -1608,6 +1607,7 @@
 			children = (
 				1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */,
 				1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */,
+				1FF025A622D5C79C005E2ED2 /* PageModel.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -2106,7 +2106,6 @@
 				1F991762229BF05700C8FDD5 /* CommentModel.swift in Sources */,
 				1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */,
 				1FE5BF242282E59500C9137C /* NSString+AES.m in Sources */,
-				1FE5BF44228517A700C9137C /* CommentContentTableViewCell.swift in Sources */,
 				1FF1E52A22AF55F700BB9A50 /* DailyViewController.swift in Sources */,
 				1F1C1B5222A0E6C6008031F4 /* MessageSegementViewController.swift in Sources */,
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,
@@ -2166,6 +2165,7 @@
 				1F1C1B3C229F6CC4008031F4 /* BindWithdrawViewController.swift in Sources */,
 				1FE5BF272283BB8300C9137C /* GTMBase64.m in Sources */,
 				1FE5BED22282866300C9137C /* rgb.fsh.c in Sources */,
+				1FF025A722D5C79D005E2ED2 /* PageModel.swift in Sources */,
 				1FE5BEC72282866300C9137C /* renderer_yuv444p10le.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2344,7 +2344,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D2P3LYQ7VY;
+				DEVELOPMENT_TEAM = 2HMCBPJZF9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Libs/Umeng/common",
@@ -2372,7 +2372,7 @@
 					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5/SocialLibraries/QQ",
 				);
 				OTHER_LIBTOOLFLAGS = "-Objc";
-				PRODUCT_BUNDLE_IDENTIFIER = com..touqiu.baodian;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touqiu.baodiantiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Global/Touqiu-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -2387,7 +2387,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D2P3LYQ7VY;
+				DEVELOPMENT_TEAM = 2HMCBPJZF9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Libs/Umeng/common",
@@ -2415,7 +2415,7 @@
 					"$(PROJECT_DIR)/Libs/UMeng/share/share_ios_6.9.5/SocialLibraries/QQ",
 				);
 				OTHER_LIBTOOLFLAGS = "-Objc";
-				PRODUCT_BUNDLE_IDENTIFIER = com..touqiu.baodian;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touqiu.baodiantiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Global/Touqiu-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
