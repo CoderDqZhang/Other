@@ -42,4 +42,6 @@
 
 #import "UIImage+Text.h"
 
+#import "JPUSHService.h"
+
 #endif /* Touqiu_Bridging_Header_h */

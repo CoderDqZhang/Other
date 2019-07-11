@@ -16,6 +16,7 @@ let LIMITNUMBER:String = "10"
 
 let LOCALBANKNAME = "BankName.json"
 
+let JPushKey = "3434b0b27289c88f8053e4fd"
 
 let UMengKey = "5ce3c7b5570df31299000416"
 

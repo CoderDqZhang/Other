@@ -16,6 +16,8 @@ var AnimationTouchViewAllCount = 6
 var AnimationTouchViewWidth = (SCREENWIDTH - AnimationTouchViewMarginLeft * 2  - CGFloat((AnimationTouchViewLineCount - 1 )) * AnimationTouchViewMarginItemX) / CGFloat(AnimationTouchViewLineCount)
 var AnimationTouchViewHeight = AnimationTouchViewWidth * 72 / 92
 
+typealias TopUpViewSelectCoinsModelClouse = (_ index:Int) ->Void
+
 class TopUPView: UIView {
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: 100, height: 1))
@@ -23,8 +25,12 @@ class TopUPView: UIView {
     var descLable:YYLabel!
     
     var touUpAnimation:AnimationButton!
+    
+    var selectIndex:Int = 1000
+    
     var titleStrs = ["30M币","68M币","128M币","288M币","388M币","648M币"]
     var munberStrs = ["￥30","￥68","￥128","￥288","￥388","￥648"]
+    var topUpViewSelectCoinsModelClouse:TopUpViewSelectCoinsModelClouse!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,29 +78,26 @@ class TopUPView: UIView {
             touchView.borderColor = App_Theme_E9E9E9_Color
         }
         
-        self.changeTouchStatus(selectIndex: 1001)
-        
+        self.changeTouchStatus(selectIndex: selectIndex)
         
         touUpAnimation = AnimationButton.init(type: .custom)
+        touUpAnimation.frame = CGRect.init(x: 15, y: maxY + 20, width: SCREENWIDTH - 30, height: 47)
         touUpAnimation.setTitle("确认充值", for: .normal)
         touUpAnimation.cornerRadius = 24
+        touUpAnimation.isUserInteractionEnabled = true
         touUpAnimation.layer.masksToBounds = true
         touUpAnimation.titleLabel?.font = App_Theme_PinFan_M_15_Font
         touUpAnimation.backgroundColor = App_Theme_FFD512_Color
         touUpAnimation.addAction({ (button) in
-            
+            if self.topUpViewSelectCoinsModelClouse != nil {
+                self.topUpViewSelectCoinsModelClouse(self.selectIndex)
+            }
         }, for: .touchUpInside)
         self.addSubview(touUpAnimation)
-        
-        touUpAnimation.snp.makeConstraints { (make) in
-            make.left.equalTo(self.snp.left).offset(15)
-            make.right.equalTo(self.snp.right).offset(-15)
-            make.height.equalTo(47)
-            make.top.equalTo(self.snp.top).offset(maxY + 20)
-        }
     }
     
     func changeTouchStatus(selectIndex:Int){
+        self.selectIndex = selectIndex
         for index in 0...AnimationTouchViewAllCount - 1 {
             let touchView = self.viewWithTag(index + 1000)! as! AnimationTouchView
             if index + 1000 == selectIndex {
@@ -114,6 +117,14 @@ class TopUPView: UIView {
             }
         }
         
+    }
+    
+    func topUpViewChangeText(array:NSMutableArray){
+        for index in 0...array.count - 1 {
+            let model = CoinsModel.init(fromDictionary: array[index] as! [String : Any])
+            let touchView = self.viewWithTag(index + 1000) as! AnimationTouchView
+            self.setUpTitleLableAndMuch(titleL: "\(String(describing: model.text!))M币", number: "￥\(String(describing: model.text!))", view: touchView)
+        }
     }
     
     func changeColor(textColor:UIColor,view:AnimationTouchView){
@@ -164,11 +175,13 @@ class TopUPView: UIView {
     }
 }
 
-
+typealias  TopUpToolsTableViewCellClouse = (_ dic:NSDictionary) ->Void
 class TopUpToolsTableViewCell: UITableViewCell {
 
     var topUPView:TopUPView!
     var didMakeConstraints = false
+    var topUpToolsTableViewCellClouse:TopUpToolsTableViewCellClouse!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
@@ -181,6 +194,15 @@ class TopUpToolsTableViewCell: UITableViewCell {
         self.contentView.addSubview(topUPView)
         
         self.updateConstraints()
+    }
+    
+    func cellSetData(array:NSMutableArray){
+        topUPView.topUpViewChangeText(array: array)
+        topUPView.topUpViewSelectCoinsModelClouse = { index in
+            if self.topUpToolsTableViewCellClouse != nil {
+                self.topUpToolsTableViewCellClouse(array[index - 1000] as! NSDictionary)
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

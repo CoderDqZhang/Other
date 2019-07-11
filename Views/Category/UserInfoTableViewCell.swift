@@ -130,7 +130,9 @@ class UserInfoTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:TipModel){
-        userView.createContent(avatar: model.user.img, name: model.user.nickname, category: model.tribe.tribeName)
+        if model.user != nil {
+            userView.createContent(avatar: model.user.img, name: model.user.nickname, category: model.tribe.tribeName)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

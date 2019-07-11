@@ -259,6 +259,12 @@
 		1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */; };
 		1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */; };
 		1FF025A722D5C79D005E2ED2 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A622D5C79C005E2ED2 /* PageModel.swift */; };
+		1FF025A922D6DF95005E2ED2 /* CoinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */; };
+		1FF025AB22D6E4CE005E2ED2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */; };
+		1FF025AD22D6E62E005E2ED2 /* InPurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025AC22D6E62E005E2ED2 /* InPurchaseManager.swift */; };
+		1FF025B022D71F15005E2ED2 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025AF22D71F15005E2ED2 /* NotificationManager.swift */; };
+		1FF025B822D71FC1005E2ED2 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025B722D71FC1005E2ED2 /* NotificationService.swift */; };
+		1FF025BC22D71FC1005E2ED2 /* TouqiuNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1FF025B522D71FC1005E2ED2 /* TouqiuNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1FF1E51922AE08EB00BB9A50 /* LoadConfigManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */; };
 		1FF1E51C22AE0AEF00BB9A50 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */; };
 		1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */; };
@@ -301,7 +307,28 @@
 			remoteGlobalIDString = 1FE5BDAC2281788E00C9137C;
 			remoteInfo = Touqiu;
 		};
+		1FF025BA22D71FC1005E2ED2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE5BDA52281788E00C9137C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FF025B422D71FC1005E2ED2;
+			remoteInfo = TouqiuNotification;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1FF025C022D71FC1005E2ED2 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1FF025BC22D71FC1005E2ED2 /* TouqiuNotification.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0DA723FDBC1D618581E1F82A /* Pods-TouqiuUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouqiuUITests.release.xcconfig"; path = "Target Support Files/Pods-TouqiuUITests/Pods-TouqiuUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -620,6 +647,15 @@
 		1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiseViewController.swift; sourceTree = "<group>"; };
 		1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewModel.swift; sourceTree = "<group>"; };
 		1FF025A622D5C79C005E2ED2 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
+		1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsModel.swift; sourceTree = "<group>"; };
+		1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1FF025AC22D6E62E005E2ED2 /* InPurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InPurchaseManager.swift; sourceTree = "<group>"; };
+		1FF025AE22D719EC005E2ED2 /* Touqiu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Touqiu.entitlements; sourceTree = "<group>"; };
+		1FF025AF22D71F15005E2ED2 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		1FF025B522D71FC1005E2ED2 /* TouqiuNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TouqiuNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FF025B722D71FC1005E2ED2 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		1FF025B922D71FC1005E2ED2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FF025C122D71FE8005E2ED2 /* TouqiuNotification.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TouqiuNotification.entitlements; sourceTree = "<group>"; };
 		1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadConfigManger.swift; sourceTree = "<group>"; };
 		1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadMessageModel.swift; sourceTree = "<group>"; };
@@ -667,6 +703,7 @@
 				1F395CA622951D4200781C0C /* UMCommon.framework in Frameworks */,
 				1FE5BEED2282887400C9137C /* TencentOpenAPI.framework in Frameworks */,
 				23A908A7D37EC966F3509ACA /* Pods_Touqiu.framework in Frameworks */,
+				1FF025AB22D6E4CE005E2ED2 /* StoreKit.framework in Frameworks */,
 				1F395CA922951D4200781C0C /* UShareUI.framework in Frameworks */,
 				1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */,
 				1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */,
@@ -691,6 +728,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				15108473677B73C6C74CACF8 /* Pods_TouqiuUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FF025B222D71FC1005E2ED2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,6 +921,7 @@
 				1FE5BDAF2281788E00C9137C /* Touqiu */,
 				1FE5BDC42281789100C9137C /* TouqiuTests */,
 				1FE5BDCF2281789100C9137C /* TouqiuUITests */,
+				1FF025B622D71FC1005E2ED2 /* TouqiuNotification */,
 				1FE5BDAE2281788E00C9137C /* Products */,
 				7B4FD7351CEDB453A5856703 /* Pods */,
 				C424FA459BEA2F3AC2707CC5 /* Frameworks */,
@@ -889,6 +934,7 @@
 				1FE5BDAD2281788E00C9137C /* Touqiu.app */,
 				1FE5BDC12281789100C9137C /* TouqiuTests.xctest */,
 				1FE5BDCC2281789100C9137C /* TouqiuUITests.xctest */,
+				1FF025B522D71FC1005E2ED2 /* TouqiuNotification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -896,6 +942,7 @@
 		1FE5BDAF2281788E00C9137C /* Touqiu */ = {
 			isa = PBXGroup;
 			children = (
+				1FF025AE22D719EC005E2ED2 /* Touqiu.entitlements */,
 				1FE5BDB02281788E00C9137C /* AppDelegate.swift */,
 				1FE5BDB22281788E00C9137C /* ViewController.swift */,
 				1F1C1B3F229FA151008031F4 /* BankName.json */,
@@ -1006,6 +1053,8 @@
 				1F395CC822962E5200781C0C /* AliPayManager.swift */,
 				1F395CB42295230500781C0C /* UMengManager.swift */,
 				1F395CB62295306B00781C0C /* UMengUI.swift */,
+				1FF025AC22D6E62E005E2ED2 /* InPurchaseManager.swift */,
+				1FF025AF22D71F15005E2ED2 /* NotificationManager.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1602,12 +1651,23 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		1FF025B622D71FC1005E2ED2 /* TouqiuNotification */ = {
+			isa = PBXGroup;
+			children = (
+				1FF025C122D71FE8005E2ED2 /* TouqiuNotification.entitlements */,
+				1FF025B722D71FC1005E2ED2 /* NotificationService.swift */,
+				1FF025B922D71FC1005E2ED2 /* Info.plist */,
+			);
+			path = TouqiuNotification;
+			sourceTree = "<group>";
+		};
 		1FF1E51A22AE0A6D00BB9A50 /* Config */ = {
 			isa = PBXGroup;
 			children = (
 				1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */,
 				1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */,
 				1FF025A622D5C79C005E2ED2 /* PageModel.swift */,
+				1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1628,6 +1688,7 @@
 		C424FA459BEA2F3AC2707CC5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */,
 				1F395CB2229521F300781C0C /* Photos.framework */,
 				1F395CB022951EB400781C0C /* CoreGraphics.framework */,
 				1F395CAE22951EA400781C0C /* libsqlite3.tbd */,
@@ -1650,10 +1711,12 @@
 				1FE5BDAA2281788E00C9137C /* Frameworks */,
 				1FE5BDAB2281788E00C9137C /* Resources */,
 				69B00E29798F8140159744BA /* [CP] Embed Pods Frameworks */,
+				1FF025C022D71FC1005E2ED2 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1FF025BB22D71FC1005E2ED2 /* PBXTargetDependency */,
 			);
 			name = Touqiu;
 			productName = Touqiu;
@@ -1698,6 +1761,23 @@
 			productReference = 1FE5BDCC2281789100C9137C /* TouqiuUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		1FF025B422D71FC1005E2ED2 /* TouqiuNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FF025BD22D71FC1005E2ED2 /* Build configuration list for PBXNativeTarget "TouqiuNotification" */;
+			buildPhases = (
+				1FF025B122D71FC1005E2ED2 /* Sources */,
+				1FF025B222D71FC1005E2ED2 /* Frameworks */,
+				1FF025B322D71FC1005E2ED2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TouqiuNotification;
+			productName = TouqiuNotification;
+			productReference = 1FF025B522D71FC1005E2ED2 /* TouqiuNotification.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1710,6 +1790,14 @@
 				TargetAttributes = {
 					1FE5BDAC2281788E00C9137C = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					1FE5BDC02281789100C9137C = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -1718,6 +1806,14 @@
 					1FE5BDCB2281789100C9137C = {
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 1FE5BDAC2281788E00C9137C;
+					};
+					1FF025B422D71FC1005E2ED2 = {
+						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1737,6 +1833,7 @@
 				1FE5BDAC2281788E00C9137C /* Touqiu */,
 				1FE5BDC02281789100C9137C /* TouqiuTests */,
 				1FE5BDCB2281789100C9137C /* TouqiuUITests */,
+				1FF025B422D71FC1005E2ED2 /* TouqiuNotification */,
 			);
 		};
 /* End PBXProject section */
@@ -1771,6 +1868,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1FF025B322D71FC1005E2ED2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1792,7 +1896,6 @@
 				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/RAMAnimatedTabBarController/RAMAnimatedTabBarController.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -1823,7 +1926,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAMAnimatedTabBarController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -1954,6 +2056,7 @@
 				1F395CD722978DB600781C0C /* CategoryChoosSearchViewController.swift in Sources */,
 				1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */,
 				1FE8DAF12292933A00DCED01 /* JXPagingListContainerView.swift in Sources */,
+				1FF025AD22D6E62E005E2ED2 /* InPurchaseManager.swift in Sources */,
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
 				1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */,
@@ -1996,6 +2099,7 @@
 				1FF1E53722BA136600BB9A50 /* ErrorCodeTools.swift in Sources */,
 				1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */,
 				1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */,
+				1FF025A922D6DF95005E2ED2 /* CoinsModel.swift in Sources */,
 				1FE5BF5B228583C000C9137C /* AnimationView.swift in Sources */,
 				1FF1E53122B0D95700BB9A50 /* DailyModel.swift in Sources */,
 				1FE5BEB42282866300C9137C /* TAPageControl.m in Sources */,
@@ -2163,6 +2267,7 @@
 				1FE5BEC52282866300C9137C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FE8DAB2228EC7E300DCED01 /* NotificationViewController.swift in Sources */,
 				1F1C1B3C229F6CC4008031F4 /* BindWithdrawViewController.swift in Sources */,
+				1FF025B022D71F15005E2ED2 /* NotificationManager.swift in Sources */,
 				1FE5BF272283BB8300C9137C /* GTMBase64.m in Sources */,
 				1FE5BED22282866300C9137C /* rgb.fsh.c in Sources */,
 				1FF025A722D5C79D005E2ED2 /* PageModel.swift in Sources */,
@@ -2186,6 +2291,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1FF025B122D71FC1005E2ED2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FF025B822D71FC1005E2ED2 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2198,6 +2311,11 @@
 			isa = PBXTargetDependency;
 			target = 1FE5BDAC2281788E00C9137C /* Touqiu */;
 			targetProxy = 1FE5BDCD2281789100C9137C /* PBXContainerItemProxy */;
+		};
+		1FF025BB22D71FC1005E2ED2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1FF025B422D71FC1005E2ED2 /* TouqiuNotification */;
+			targetProxy = 1FF025BA22D71FC1005E2ED2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2341,8 +2459,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F3241C641F515B13599DDB0F /* Pods-Touqiu.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CODE_SIGN_ENTITLEMENTS = Touqiu/Touqiu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2HMCBPJZF9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2384,8 +2504,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2FA4E805ED24454A9F4A471F /* Pods-Touqiu.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CODE_SIGN_ENTITLEMENTS = Touqiu/Touqiu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2HMCBPJZF9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2505,6 +2627,46 @@
 			};
 			name = Release;
 		};
+		1FF025BE22D71FC1005E2ED2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TouqiuNotification/TouqiuNotification.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2HMCBPJZF9;
+				INFOPLIST_FILE = TouqiuNotification/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.touqiu.baodiantiyu.TouqiuNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1FF025BF22D71FC1005E2ED2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TouqiuNotification/TouqiuNotification.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2HMCBPJZF9;
+				INFOPLIST_FILE = TouqiuNotification/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.touqiu.baodiantiyu.TouqiuNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2540,6 +2702,15 @@
 			buildConfigurations = (
 				1FE5BDDC2281789100C9137C /* Debug */,
 				1FE5BDDD2281789100C9137C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FF025BD22D71FC1005E2ED2 /* Build configuration list for PBXNativeTarget "TouqiuNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FF025BE22D71FC1005E2ED2 /* Debug */,
+				1FF025BF22D71FC1005E2ED2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
