@@ -20,7 +20,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Category/PostDetailCommentTableViewCell.swift"
-            timestampString = "584527647.850372"
+            timestampString = "584616084.303959"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "188"
@@ -36,7 +36,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Category/PostDetailCommentTableViewCell.swift"
-            timestampString = "584527647.854553"
+            timestampString = "584616084.30446"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "192"
@@ -52,7 +52,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Category/PostDetailCommentTableViewCell.swift"
-            timestampString = "584527647.85558"
+            timestampString = "584616084.3045681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "207"
@@ -68,7 +68,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Category/PostDetailCommentTableViewCell.swift"
-            timestampString = "584527647.8571939"
+            timestampString = "584616084.3046581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "198"
@@ -84,7 +84,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Category/PostDetailCommentTableViewCell.swift"
-            timestampString = "584527647.859552"
+            timestampString = "584616084.304774"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "205"
@@ -100,7 +100,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Category/CommentViewController.swift"
-            timestampString = "584527647.861026"
+            timestampString = "584616084.304903"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "49"
@@ -116,12 +116,12 @@
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Controllers/Category/CommentViewController.swift"
-                  timestampString = "584527650.266239"
+                  timestampString = "584616085.309042"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "50"
                   endingLineNumber = "50"
-                  offsetFromSymbolStart = "0">
+                  offsetFromSymbolStart = "4">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -131,12 +131,12 @@
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Controllers/Category/CommentViewController.swift"
-                  timestampString = "584527650.268896"
+                  timestampString = "584616085.311166"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "51"
                   endingLineNumber = "51"
-                  offsetFromSymbolStart = "124">
+                  offsetFromSymbolStart = "37">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -148,7 +148,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Category/CommentViewController.swift"
-            timestampString = "584527647.86366"
+            timestampString = "584616084.305917"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "43"
@@ -164,12 +164,12 @@
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Controllers/Category/CommentViewController.swift"
-                  timestampString = "584527650.274961"
+                  timestampString = "584616085.316651"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "44"
                   endingLineNumber = "44"
-                  offsetFromSymbolStart = "0">
+                  offsetFromSymbolStart = "4">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -179,12 +179,12 @@
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Controllers/Category/CommentViewController.swift"
-                  timestampString = "584527650.276688"
+                  timestampString = "584616085.318499"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "45"
                   endingLineNumber = "45"
-                  offsetFromSymbolStart = "124">
+                  offsetFromSymbolStart = "37">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -212,7 +212,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Category/CommentViewController.swift"
-            timestampString = "584527647.865169"
+            timestampString = "584616084.306134"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
@@ -228,7 +228,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Category/CommentViewController.swift"
-            timestampString = "584527647.865379"
+            timestampString = "584616084.306214"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
@@ -244,7 +244,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Category/CommentViewModel.swift"
-            timestampString = "584527647.865991"
+            timestampString = "584616084.306289"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
@@ -260,7 +260,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Category/CommentViewModel.swift"
-            timestampString = "584527647.867663"
+            timestampString = "584616084.306623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
@@ -308,7 +308,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Category/NewsViewModel.swift"
-            timestampString = "584527647.868667"
+            timestampString = "584616084.3067091"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
@@ -324,7 +324,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Category/NewsViewModel.swift"
-            timestampString = "584527647.870041"
+            timestampString = "584616084.307822"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "78"
@@ -372,7 +372,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Category/OutFallViewController.swift"
-            timestampString = "584527647.870191"
+            timestampString = "584616084.307965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "33"
@@ -388,7 +388,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Base/BaseViewController.swift"
-            timestampString = "584527647.871196"
+            timestampString = "584616084.308447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "116"
@@ -404,7 +404,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Category/CategoryContentTableViewCell.swift"
-            timestampString = "584527647.872082"
+            timestampString = "584616084.308803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "61"
@@ -420,7 +420,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Category/CategoryContentTableViewCell.swift"
-            timestampString = "584527647.872417"
+            timestampString = "584616084.30909"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
@@ -435,29 +435,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Views/Mine/TopUpToolsTableViewCell.swift"
-            timestampString = "584527647.873611"
+            filePath = "Global/InPurchaseManager.swift"
+            timestampString = "584616084.309206"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "init(frame:)"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "gotoApplePay(productID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Global/InPurchaseManager.swift"
-            timestampString = "584527647.875083"
+            filePath = "ViewModels/Mine/TouUpViewModel.swift"
+            timestampString = "584616084.30949"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "gotoApplePay(productID:)"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "tableViewTopUpToolsTableViewCellSetData(_:cell:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Mine/NotificationViewModel.swift"
+            timestampString = "584616084.30971"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "tableViewDidSelect(tableView:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Mine/NotificationViewModel.swift"
+            timestampString = "584616084.309899"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "tableViewDidSelect(tableView:indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -19,7 +19,7 @@ class NotificaitonModel : NSObject, NSCoding{
     var title : String!
     var type : String!
     var userId : Int!
-    
+    var user : UserInfoModel!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -28,6 +28,9 @@ class NotificaitonModel : NSObject, NSCoding{
         createTime = dictionary["createTime"] as? String
         descriptionField = dictionary["description"] as? String
         id = dictionary["id"] as? Int
+        if let userData = dictionary["user"] as? [String:Any]{
+            user = UserInfoModel(fromDictionary: userData)
+        }
         imgs = dictionary["imgs"] as? String
         params = dictionary["params"] as? Int
         status = dictionary["status"] as? String
@@ -53,6 +56,9 @@ class NotificaitonModel : NSObject, NSCoding{
         }
         if imgs != nil{
             dictionary["imgs"] = imgs
+        }
+        if user != nil{
+            dictionary["user"] = user.toDictionary()
         }
         if params != nil{
             dictionary["params"] = params
@@ -83,6 +89,7 @@ class NotificaitonModel : NSObject, NSCoding{
         id = aDecoder.decodeObject(forKey: "id") as? Int
         imgs = aDecoder.decodeObject(forKey: "imgs") as? String
         params = aDecoder.decodeObject(forKey: "params") as? Int
+        user = aDecoder.decodeObject(forKey: "user") as? UserInfoModel
         status = aDecoder.decodeObject(forKey: "status") as? String
         title = aDecoder.decodeObject(forKey: "title") as? String
         type = aDecoder.decodeObject(forKey: "type") as? String
@@ -119,6 +126,9 @@ class NotificaitonModel : NSObject, NSCoding{
         }
         if type != nil{
             aCoder.encode(type, forKey: "type")
+        }
+        if user != nil{
+            aCoder.encode(user, forKey: "user")
         }
         if userId != nil{
             aCoder.encode(userId, forKey: "userId")

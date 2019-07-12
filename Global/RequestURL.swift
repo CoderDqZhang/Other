@@ -81,6 +81,8 @@ let TribetribeListUrl = "\(RootUrl)tribe/getTribeList"
 //let NotificationDetailUrl = "\(RootUrl)notify/getNotifyList"
 let NotificationListUrl = "\(RootUrl)notify/getNotifyList"
 
+let PayUrl = "\(RootUrl)pay/iosPay"
+
 let UserFeedBackinsertFeedbackUrl = "\(RootUrl)userFeedback/addFeedback"
 
 

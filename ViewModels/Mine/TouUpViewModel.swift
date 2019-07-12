@@ -33,6 +33,7 @@ class TouUpViewModel: BaseViewModel {
             cell.topUpToolsTableViewCellClouse = { dic in
                 let model = CoinsModel.init(fromDictionary: dic as! [String : Any])
                 InPurchaseManager.getSharedInstance().gotoApplePay(productID: model.value)
+                print(dic)
                 InPurchaseManager.getSharedInstance().inPurchaseManagerCheckClouse = { dic in
                     self.checkPaySuccess(model: model, code:dic.object(forKey: "receipt") as! String)
                 }
@@ -89,7 +90,8 @@ class TouUpViewModel: BaseViewModel {
     }
     
     func checkPaySuccess(model:CoinsModel,code:String){
-        BaseNetWorke.getSharedInstance().postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
+        let parameters = ["receipt":code,"type":"3"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(PayUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.accountInfo.chargeCoin = self.accountInfo.chargeCoin + model.text.double()!
                 self.reloadTableViewData()
