@@ -44,7 +44,7 @@ class CommentViewModel: BaseViewModel {
     
     func tableViewReplyContentTableViewCellSetData(_ indexPath:IndexPath, cell:ReplyContentTableViewCell) {
         let model =  ReplyList.init(fromDictionary:replistList[indexPath.section - 1] as! [String : Any])
-        cell.cellSetRepliy(model: model, isReplyComment: model.toNickname != commentData.user.nickname ? true : false)
+        cell.cellSetRepliy(model: model, isReplyComment: model.toNickname == commentData.user.nickname ? true : false)
         cell.replyContentTableViewCellClouse = { model in
             if CacheManager.getSharedInstance().isLogin() {
                 if model.userId.string == CacheManager.getSharedInstance().getUserId() {
@@ -125,10 +125,10 @@ class CommentViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyreplyListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.replistList.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.replistList.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
                     self.replistList.removeAllObjects()
-                    self.replistList = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.replistList = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

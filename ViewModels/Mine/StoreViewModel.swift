@@ -34,9 +34,9 @@ class StoreViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(AccountpointDetailUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.detailArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.detailArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
-                    self.detailArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.detailArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -59,7 +59,7 @@ extension StoreViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 8
+        return 0.0001
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

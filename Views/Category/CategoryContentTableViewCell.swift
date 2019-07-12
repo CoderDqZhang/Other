@@ -17,6 +17,8 @@ let contentImageHeight:CGFloat = contentImageWidth * 77 / 108
 class CategoryContentTableViewCell: UITableViewCell {
 
     var detailLabel:YYLabel!
+    var deleteLabel:YYLabel!
+    
     var imageContentView:UIView!
     var model:TipModel!
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 1))
@@ -37,6 +39,13 @@ class CategoryContentTableViewCell: UITableViewCell {
         
         self.contentView.addSubview(detailLabel)
         
+        deleteLabel = YYLabel.init()
+        deleteLabel.numberOfLines = 0
+        deleteLabel.textColor = App_Theme_666666_Color
+        deleteLabel.font = App_Theme_PinFan_M_12_Font
+        
+        self.contentView.addSubview(deleteLabel)
+        
         imageContentView = UIView.init()
         self.contentView.addSubview(imageContentView)
         self.contentView.addSubview(lineLabel)
@@ -44,12 +53,13 @@ class CategoryContentTableViewCell: UITableViewCell {
     }
     
     func cellSetData(tipmodel:TipModel){
-        
+        deleteLabel.isHidden = true
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: tipmodel.title, yyLabel: detailLabel)
         
         let images = tipmodel.image.split(separator: ",")
 
         if images.count >= 1 {
+            imageContentView.removeSubviews()
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
                 imageView.sd_crope_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
@@ -71,8 +81,26 @@ class CategoryContentTableViewCell: UITableViewCell {
             }
         }
         self.contentView.updateConstraintsIfNeeded()
+    
+    }
+    
+    func deleteCellData(tipmodel:TipModel){
+         deleteLabel.isHidden = false
+        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: tipmodel.title, yyLabel: detailLabel)
+        imageContentView.isHidden = true
+        detailLabel.textColor = App_Theme_999999_Color
+        imageContentView.snp.updateConstraints{ (make) in
+            make.height.equalTo(20)
+        }
         
-
+        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_12_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: "-该帖因不符合平台管理规定，已被管理员删除。", yyLabel: deleteLabel)
+        self.contentView.addSubview(deleteLabel)
+        deleteLabel.textColor = App_Theme_FB5D5D_Color
+        deleteLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(detailLabel.snp.bottom).offset(6)
+            make.left.equalTo(detailLabel.snp.left).offset(0)
+        }
+        self.contentView.updateConstraintsIfNeeded()
     }
     
     required init?(coder aDecoder: NSCoder) {

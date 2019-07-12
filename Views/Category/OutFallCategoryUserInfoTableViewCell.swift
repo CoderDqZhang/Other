@@ -116,7 +116,7 @@ class OutFallCategoryUserInfoTableViewCell: UITableViewCell {
         userView = OutFallUserInfoView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 52))
         self.contentView.addSubview(userView)
         
-        userView.createContent(avatar: "", name: "Leiao Messi", translate: "里奥梅西")
+        userView.createContent(avatar: "", name: "Leiao Messi", translate: "")
         
         
         

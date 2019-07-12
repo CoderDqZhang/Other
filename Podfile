@@ -23,7 +23,6 @@ target 'Touqiu' do
   pod 'ReactiveCocoa'
   pod 'SwifterSwift'
   pod 'IQKeyboardManagerSwift'
-  pod 'RAMAnimatedTabBarController'
   pod 'pop'
   pod 'FDFullscreenPopGesture'
   pod 'UITableView+FDTemplateLayoutCell'
@@ -31,6 +30,7 @@ target 'Touqiu' do
   pod 'TZImagePickerController'
   pod 'JXSegmentedView'
   pod 'AliyunOSSiOS'
+  pod 'JPush'
 
   target 'TouqiuTests' do
     inherit! :search_paths

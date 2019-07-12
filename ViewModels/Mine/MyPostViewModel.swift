@@ -21,7 +21,12 @@ class MyPostViewModel: BaseViewModel {
     
     func tableViewCategoryContentTableViewCellSetData(_ indexPath:IndexPath, cell:CategoryContentTableViewCell) {
         if self.myPostArray.count > 0 {
-            cell.cellSetData(tipmodel: TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]))
+            let model = TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any])
+            if model.status == "0" {
+                cell.cellSetData(tipmodel: model)
+            }else{
+                cell.deleteCellData(tipmodel: model)
+            }
         }
     }
     
@@ -40,7 +45,11 @@ class MyPostViewModel: BaseViewModel {
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.row != 0 {
             let dicData:NSDictionary = TipModel.init(fromDictionary: self.myPostArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
-            (self.controller as! MyPostViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
+            if dicData.object(forKey: "status") as! String == "0" {
+                (self.controller as! MyPostViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
+            }else{
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "该文章已经删除", autoHidder: true)
+            }
         }
     }
     
@@ -51,9 +60,9 @@ class MyPostViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.myPostArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.myPostArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
-                    self.myPostArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.myPostArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

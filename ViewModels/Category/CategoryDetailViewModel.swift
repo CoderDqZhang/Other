@@ -51,10 +51,16 @@ class CategoryDetailViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        let postDetailVC = PostDetailViewController()
-        postDetailVC.postData = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]).toDictionary() as NSDictionary
-        postDetailVC.postType = .Hot
-        NavigationPushView(self.controller!, toConroller: postDetailVC)
+        if indexPath.section != 0 {
+            let postDetailVC = PostDetailViewController()
+            postDetailVC.postData = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]).toDictionary() as NSDictionary
+            postDetailVC.deleteArticleClouse = {
+                self.tipListArray.removeObject(at: indexPath.section - 1)
+                self.reloadTableViewData()
+            }
+            postDetailVC.postType = .Hot
+            NavigationPushView(self.controller!, toConroller: postDetailVC)
+        }
     }
     
     func getCategoryNet(){
@@ -63,9 +69,9 @@ class CategoryDetailViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.tipListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.tipListArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
-                    self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.tipListArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

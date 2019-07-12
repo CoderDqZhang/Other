@@ -28,7 +28,7 @@ class BankListViewModel: BaseViewModel {
     }
     
     func deleteAccount(indexPath:IndexPath){
-        let parameters = ["id":((self.bankListk[indexPath.row] as! NSDictionary).object(forKey: "id") as! Int).string]
+        let parameters = ["cashAccountId":((self.bankListk[indexPath.row] as! NSDictionary).object(forKey: "id") as! Int).string]
         BaseNetWorke.getSharedInstance().postUrlWithString(AccountDeleteAccountUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if (self.controller as! BindBankListViewController).bindBankListViewControllerDeleteClouse != nil {

@@ -13,9 +13,11 @@ import ReactiveCocoa
 class TouUpViewModel: BaseViewModel {
 
     var accountInfo:AccountInfoModel!
+    var coinsModel = NSMutableArray.init()
     
     override init() {
         super.init()
+        self.getCoinsInfoNet()
     }
     
     func tableViewTopUpTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpTableViewCell) {
@@ -26,7 +28,17 @@ class TouUpViewModel: BaseViewModel {
     }
     
     func tableViewTopUpToolsTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpToolsTableViewCell) {
-    
+        if self.coinsModel.count > 0 {
+            cell.cellSetData(array: self.coinsModel)
+            cell.topUpToolsTableViewCellClouse = { dic in
+                let model = CoinsModel.init(fromDictionary: dic as! [String : Any])
+                InPurchaseManager.getSharedInstance().gotoApplePay(productID: model.value)
+                print(dic)
+                InPurchaseManager.getSharedInstance().inPurchaseManagerCheckClouse = { dic in
+                    self.checkPaySuccess(model: model, code:dic.object(forKey: "receipt") as! String)
+                }
+            }
+        }
     }
     
     func tableViewTopUpConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpConfirmTableViewCell) {
@@ -65,6 +77,29 @@ class TouUpViewModel: BaseViewModel {
             }
         }
     }
+    
+    func getCoinsInfoNet(){
+        BaseNetWorke.getSharedInstance().getUrlWithString(CommentgetRechargeUrl, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.coinsModel = NSMutableArray.init(array: resultDic.value as! Array)
+                self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func checkPaySuccess(model:CoinsModel,code:String){
+        let parameters = ["receipt":code,"type":"3"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(PayUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.accountInfo.chargeCoin = self.accountInfo.chargeCoin + model.text.double()!
+                self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
 }
 
 
@@ -89,7 +124,7 @@ extension TouUpViewModel: UITableViewDelegate {
             return 189
         case 1:
             //79/375
-            return AnimationTouchViewHeight * 2 + AnimationTouchViewMarginItemY + 60
+            return AnimationTouchViewHeight * 2 + AnimationTouchViewMarginItemY + 160
         default:
             return 100
         }
@@ -109,7 +144,7 @@ extension TouUpViewModel: UITableViewDelegate {
 
 extension TouUpViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

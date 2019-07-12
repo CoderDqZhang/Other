@@ -40,6 +40,8 @@ let App_Theme_E22007_Color = UIColor.init(hexString: "E22007")
 let App_Theme_F2A541_Color = UIColor.init(hexString: "F2A541")
 let App_Theme_E34D31_Color = UIColor.init(hexString: "E34D31")
 let App_Theme_EDEDED_Color = UIColor.init(hexString: "EDEDED")
+let App_Theme_FB5D5D_Color = UIColor.init(hexString: "FB5D5D")
+
 
 
 let App_Theme_PinFan_L_10_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 10.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 10)

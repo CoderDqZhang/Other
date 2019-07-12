@@ -16,6 +16,7 @@ let LIMITNUMBER:String = "10"
 
 let LOCALBANKNAME = "BankName.json"
 
+let JPushKey = "3434b0b27289c88f8053e4fd"
 
 let UMengKey = "5ce3c7b5570df31299000416"
 
@@ -23,6 +24,8 @@ let OSS_ACCESSKEY_ID: String = "LTAIFreEhG934EtV"
 let OSS_SECRETKEY_ID: String = "fDma5kP0VpOqrEz15OPJA2xnXjIRIq"
 let OSS_BUCKET_PUBLIC: String = "tq-baodian"
 let OSS_BUCKET_PRIVATE: String = "tq-baodian"
+//let OSS_BUCKET_PUBLIC: String = "tq-baodian-prd"
+//let OSS_BUCKET_PRIVATE: String = "tq-baodian-prd"
 let OSS_ENDPOINT: String = "oss-cn-hangzhou.aliyuncs.com"
 let OSS_MULTIPART_UPLOADKEY: String = "multipart"
 let OSS_RESUMABLE_UPLOADKEY: String = "resumable"

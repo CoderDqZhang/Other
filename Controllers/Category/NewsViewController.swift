@@ -8,6 +8,7 @@
 
 import UIKit
 import JXSegmentedView
+import MJRefresh
 
 class NewsViewController: BaseViewController {
 
@@ -32,13 +33,22 @@ class NewsViewController: BaseViewController {
             self.newsViewModel.getTribeListNet()
         }
         
-        self.setUpLoadMoreData {
+        self.tableView.mj_footer = MJRefreshAutoNormalFooter.init(refreshingBlock: {
             self.newsViewModel.getTribeListNet()
-        }
+        })
+        
+//        self.setUpLoadMoreData {
+//            
+//        }
     }
     
     func changeCommentAndLikeNumber(_ data:NSDictionary,_ indexPath:IndexPath){
         self.newsViewModel.tipListArray.replaceObject(at: indexPath.section - 2, with: data)
+        self.newsViewModel.reloadTableViewData()
+    }
+    
+    func deleteArticle(_ indexPath:IndexPath) {
+        self.newsViewModel.tipListArray.removeObject(at: indexPath.section - 2)
         self.newsViewModel.reloadTableViewData()
     }
 

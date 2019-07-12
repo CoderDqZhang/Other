@@ -161,10 +161,10 @@ class PostDetailViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.commentListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.commentListArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
                     self.commentListArray.removeAllObjects()
-                    self.commentListArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.commentListArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.reloadTableViewData()
                 if (self.controller as! PostDetailViewController).gotoType != nil {
@@ -253,7 +253,10 @@ class PostDetailViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 model.content = "文章以删除"
                 model.status = "1" //自己删除
-                self.getTipDetail(id: tipId)
+                if (self.controller! as! PostDetailViewController).deleteArticleClouse != nil {
+                    (self.controller! as! PostDetailViewController).deleteArticleClouse()
+                }
+                self.controller?.navigationController?.popViewController()
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

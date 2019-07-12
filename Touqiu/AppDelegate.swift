@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LoadConfigManger.getSharedInstance().setUp()
         AliPayManager.getSharedInstance().ossSetUp()
         UMengManager.shareInstance.setUpUMengManger(application, didFinishLaunchingWithOptions: launchOptions)
-        
+        NotificationManager.getSharedInstance().setUpNotification(launchOptions: launchOptions)
         
         let rootVC = MainTabBarController.init()
         self.window?.rootViewController = rootVC
@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        NotificationManager.getSharedInstance().applicationDidEnterBackground(application)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -80,6 +81,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         return result!
+    }
+    
+    //点推送进来执行这个方法
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        NotificationManager.getSharedInstance().application(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        NotificationManager.getSharedInstance().application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
     }
     
 }

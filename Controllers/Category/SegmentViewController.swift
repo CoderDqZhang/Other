@@ -93,6 +93,10 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
         newController.changeCommentAndLikeNumber(data, indexPath)
     }
     
+    func deleteArticle(_ indexPath:IndexPath){
+        newController.deleteArticle(indexPath)
+    }
+    
     func createNavigationItem(){
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "发表")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.rightBarItemClick))
         self.navigationItem.titleView = self.segmentedView

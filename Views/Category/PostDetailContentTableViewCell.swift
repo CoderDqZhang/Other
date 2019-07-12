@@ -116,6 +116,7 @@ class  PostDetailContentTableViewCell : UITableViewCell {
             var imageHeight:CGFloat = 0
             var count = 0
             //图片存在缓存问题是
+            
             isCheckBoolProperty.signal.observe { (ret) in
                 if imageHeight > 0 {
                     self.imageContentView.snp.makeConstraints{ (make) in
@@ -131,6 +132,7 @@ class  PostDetailContentTableViewCell : UITableViewCell {
                     print(self.imageContentView.frame)
                 }
             }
+            imageContentView.removeSubviews()
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init()
                 imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), placeholderImage: nil) { (image, error, cacheType, url) in
