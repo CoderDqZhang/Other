@@ -37,9 +37,10 @@ class FollowsViewController: BaseViewController {
             self.followViewModel.page = 0
             self.followViewModel.getFllowerNet(userId: self.userId)
         }
-        
-        self.setUpLoadMoreData {
-            self.followViewModel.getFllowerNet(userId: self.userId)
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.followViewModel.getFllowerNet(userId: self.userId)
+            }
         }
     }
     

@@ -31,9 +31,12 @@ class CoinsDetailViewController: BaseViewController {
             self.coinsViewModel.getCoinsDetail()
         }
         
-        self.setUpLoadMoreData {
-            self.coinsViewModel.getCoinsDetail()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.coinsViewModel.getCoinsDetail()
+            }
         }
+        
         self.coinsViewModel.getCoinsDetail()
     }
     

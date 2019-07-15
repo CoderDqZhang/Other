@@ -33,9 +33,12 @@ class OutFallViewController: BaseViewController {
             self.outFallViewModel.getTribeListNet()
         }
         
-        self.setUpLoadMoreData {
-            self.outFallViewModel.getTribeListNet()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.outFallViewModel.getTribeListNet()
+            }
         }
+        
     }
     
 

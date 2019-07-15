@@ -17,7 +17,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     var isSelectOriginalPhoto:Bool!
     var contentText = NSMutableAttributedString.init()
     
-    var postModel = CacheManager.getSharedInstance().getPostModel() ?? PostModel.init(fromDictionary: ["":""])
+    var postModel = CacheManager.getSharedInstance().getPostModel() ?? PostModel.init(fromDictionary: ["content":"","title":""])
     
     override init() {
         super.init()
@@ -82,7 +82,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     func postTirbeNet(){
         if self.selectPhotos.count > 0 {
             AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
-                let parameters = ["content":self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
+                let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         let model = TipModel.init(fromDictionary: resultDic.value as! [String : Any])

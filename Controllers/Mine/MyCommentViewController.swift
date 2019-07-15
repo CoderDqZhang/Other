@@ -27,8 +27,10 @@ class MyCommentViewController: BaseViewController {
             self.myCommendViewModel.getMyCommentNet()
         }
         
-        self.setUpLoadMoreData {
-            self.myCommendViewModel.getMyCommentNet()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.myCommendViewModel.getMyCommentNet()
+            }
         }
     }
     

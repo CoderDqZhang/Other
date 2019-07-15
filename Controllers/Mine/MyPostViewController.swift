@@ -27,8 +27,10 @@ class MyPostViewController: BaseViewController {
             self.myPostViewModel.getMyPostNet()
         }
         
-        self.setUpLoadMoreData {
-            self.myPostViewModel.getMyPostNet()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.myPostViewModel.getMyPostNet()
+            }
         }
     }
     

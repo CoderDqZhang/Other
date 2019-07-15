@@ -32,16 +32,7 @@ class PostDetailViewModel: BaseViewModel {
     
     func tableViewPostDetailContentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailContentTableViewCell) {
         if tipDetailModel != nil {
-            cell.cellSetData(model: self.tipDetailModel, reload: { imageHeight in
-                self.imageHeight = imageHeight
-                if !self.isUpDataHeight{
-                    self.isUpDataHeight = true
-                    self.controller?.tableView.beginUpdates()
-                    self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
-                    self.controller?.tableView.endUpdates()
-                }
-                
-            })
+            cell.cellSetData(model: self.tipDetailModel)
         }
         cell.postDetailContentTableViewCellClouse = { type, status in
             switch type {
@@ -67,9 +58,7 @@ class PostDetailViewModel: BaseViewModel {
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
         if self.commentListArray.count > 0 {
-            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false, isShowRepli: true, reload: { height in
-                
-            })
+            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false, isShowRepli: true)
             cell.postDetailCommentTableViewCellClouse = { model in
                 if CacheManager.getSharedInstance().isLogin() {
                     if model.user.id.string == CacheManager.getSharedInstance().getUserId() {
@@ -294,7 +283,9 @@ class PostDetailViewModel: BaseViewModel {
         let titleSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.tipDetailModel.title, yyLabel: YYLabel.init())
         
         let contentSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.tipDetailModel.content, yyLabel: YYLabel.init())
-        
+        if self.tipDetailModel != nil {
+            imageHeight = self.imageContentHeight(image: self.tipDetailModel.image, contentWidth: SCREENWIDTH - 30)
+        }
         return titleSize.textBoundingSize.height + contentSize.textBoundingSize.height + 120 + imageHeight
     }
     

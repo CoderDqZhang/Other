@@ -26,8 +26,10 @@ class RecommendViewController: BaseViewController {
             
         }
         
-        self.setUpLoadMoreData {
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
             
+            }
         }
     }
     

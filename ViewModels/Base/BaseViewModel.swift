@@ -36,7 +36,13 @@ class BaseViewModel: NSObject {
                         self.controller?.tableView.mj_footer.endRefreshingWithNoMoreData()
                     }
                 }else{
-                    self.controller?.stopRefresh()
+                    if pageModel.total != nil && pageModel.total != 0  && self.controller?.tableView.mj_footer == nil{
+                        if self.controller!.setUpLoadMoreDataClouse != nil {
+                            self.controller!.setUpLoadMoreDataClouse()
+                        }
+                    }else{
+                        self.controller?.stopRefresh()
+                    }
                 }
             }else{
                 self.controller?.stopRefresh()
@@ -52,6 +58,30 @@ class BaseViewModel: NSObject {
         
         if point != nil {
             self.controller?.tableView.setContentOffset(point!, animated: true)
+        }
+    }
+    
+    func imageContentHeight(image:String,contentWidth:CGFloat) ->CGFloat {
+        var imageHeight:CGFloat = 0
+        let images = image.split(separator: ",")
+        if images.count >= 1 {
+            for index in 0...images.count - 1 {
+                var imageStrs = (images[index] as NSString).components(separatedBy: "_")
+                if imageStrs.count > 2 {
+                    let tempWidth = Int(imageStrs[imageStrs.count - 2].nsString.substring(with: NSRange.init(location: 1, length: imageStrs[imageStrs.count - 2].count - 1)))
+                    let tempHeigth = Int(imageStrs[imageStrs.count - 1].nsString.components(separatedBy: ".")[0].nsString.substring(with: NSRange.init(location: 1, length: imageStrs[imageStrs.count - 1].nsString.components(separatedBy: ".")[0].count - 1)))
+                    if CGFloat(tempWidth!) > contentWidth {
+                        imageHeight = CGFloat(tempHeigth!) * contentWidth / CGFloat(tempWidth!) + imageHeight + 20
+                    }else{
+                        imageHeight = imageHeight + CGFloat(tempHeigth!) + 20
+                    }
+                }else{
+                    imageHeight = imageHeight + 250 + 20
+                }
+            }
+            return imageHeight - 20
+        }else{
+           return imageHeight
         }
     }
 }

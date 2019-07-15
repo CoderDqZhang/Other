@@ -32,9 +32,12 @@ class StoreViewController: BaseViewController {
             self.storeViewModel.getStoreNet()
         }
         
-        self.setUpLoadMoreData {
-            self.storeViewModel.getStoreNet()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.storeViewModel.getStoreNet()
+            }
         }
+        
         self.storeViewModel.getStoreNet()
     }
 

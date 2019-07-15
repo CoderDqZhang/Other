@@ -67,10 +67,9 @@ class AliPayManager: NSObject {
         
         let date = Date.init()
         let phone:String = (CacheManager.getSharedInstance().getUserInfo()?.id.string)!
-        let imageKey = "\(Date().string(withFormat: "yyyy/MM/dd"))/\(phone)_\(date.nanosecond).png"
+        let imageKey = "\(Date().string(withFormat: "yyyy/MM/dd"))/\(phone)_\(date.nanosecond)_w\(Int(images.size.width))_h\(Int(images.size.height)).png"
         
         
-//        let imageKey = "\(date.year)/\(date.month)/\(date.day)/\(phone)_\(date.nanosecond).png"
         switch type{
         case .post:
             put.objectKey = "post/\(imageKey)"

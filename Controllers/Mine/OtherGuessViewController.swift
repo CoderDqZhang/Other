@@ -27,8 +27,10 @@ class OtherGuessViewController: BaseViewController {
             
         }
         
-        self.setUpLoadMoreData {
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
             
+            }
         }
     }
     /*
