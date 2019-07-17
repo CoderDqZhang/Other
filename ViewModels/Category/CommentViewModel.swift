@@ -25,17 +25,7 @@ class CommentViewModel: BaseViewModel {
     }
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        cell.imageHeight = 0
-        cell.cellSetData(model: self.commentData, isCommentDetail: true, isShowRepli: false, reload: { imageHeight in
-            self.imageHeight = imageHeight + 30
-            if !self.isUpDataHeight{
-                self.isUpDataHeight = true
-                self.controller?.tableView.beginUpdates()
-                self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
-                self.controller?.tableView.endUpdates()
-            }
-            
-        })
+        cell.cellSetData(model: self.commentData, isCommentDetail: true, isShowRepli: false)
         
         cell.postDetailContentTableViewCellImageClickClouse = { tag,browser in
             NavigaiontPresentView(self.controller!, toController: browser)
@@ -219,6 +209,9 @@ class CommentViewModel: BaseViewModel {
     func getContentHeight() ->CGFloat{
     
         let contentSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.commentData.content, yyLabel: YYLabel.init())
+        if self.commentData != nil {
+            imageHeight = self.imageContentHeight(image: self.commentData.img, contentWidth: SCREENWIDTH - 30)
+        }
         return contentSize.textBoundingSize.height + imageHeight + 25
     }
 }

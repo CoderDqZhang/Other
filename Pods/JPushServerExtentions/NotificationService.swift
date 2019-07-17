@@ -1,9 +1,8 @@
 //
 //  NotificationService.swift
-//  TouqiuNotification
+//  JPushServerExtentions
 //
-//  Created by Zhang on 2019/7/11.
-//  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
+//  Created by Zhang on 2019/7/17.
 //
 
 import UserNotifications

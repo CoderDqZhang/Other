@@ -26,7 +26,6 @@ class UserInfoView: UIView {
     
     func setUpView(){
         avatarImage = UIImageView.init()
-        avatarImage.backgroundColor = UIColor.gray
         
         avatarImage.layer.cornerRadius = 11
         avatarImage.layer.masksToBounds = true
@@ -122,10 +121,10 @@ class UserInfoTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        userView = UserInfoView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 52))
-        self.contentView.addSubview(userView)
-        
-
+        if userView == nil {
+            userView = UserInfoView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 52))
+            self.contentView.addSubview(userView)
+        }
         self.updateConstraints()
     }
     
@@ -142,7 +141,12 @@ class UserInfoTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !didMakeConstraints {
-            
+            userView.snp.makeConstraints { (make) in
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
+                make.top.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
             didMakeConstraints = true
         }
         super.updateConstraints()

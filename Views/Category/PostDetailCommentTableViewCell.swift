@@ -29,9 +29,6 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
     var didMakeConstraints = false
     
-    var isCheckBoolProperty = MutableProperty<Bool>(false)
-    var isUpdateHeight:Bool = false
-    
     var imageHeight:CGFloat = 0
 
     var postDetailCommentTableViewCellClouse:PostDetailCommentTableViewCellClouse!
@@ -77,13 +74,13 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool, reload:@escaping ReloadTableViewCell){
+    func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool){
         
         
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
         
         var images:[String] = model.img.nsString.components(separatedBy: ",")
-        self.setImageContentView(images.removeAll(""),isCommentDetail, reload: reload)
+        self.setImageContentView(images.removeAll(""),isCommentDetail)
         
         if isShowRepli {
             self.setSecondeCotent(secondeContents: model.replyList)
@@ -171,7 +168,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         }
     }
     
-    func setImageContentView(_ images:[String], _ isCommentDetail:Bool,reload:@escaping ReloadTableViewCell){
+    func setImageContentView(_ images:[String], _ isCommentDetail:Bool){
         self.imageContentView.removeSubviews()
         if images.count > 1{
             if isCommentDetail {
@@ -181,16 +178,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 }
                 var count = 0
                 //图片存在缓存问题是
-                isCheckBoolProperty.signal.observe { (ret) in
-                    self.imageContentView.snp.makeConstraints{ (make) in
-                        make.height.equalTo(self.imageHeight)
-                    }
-                    if !self.isUpdateHeight {
-                        self.isUpdateHeight = true
-                        reload(self.imageHeight)
-                    }
-                    self.imageContentView.isHidden = false
-                }
+                
                 for index in 0...images.count - 1 {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
                     imageView.tag = index + 10000
@@ -202,9 +190,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                             count = count + 1
                             imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.imageHeight + 10), size: finistImage!.size)
                             self.imageHeight = finistImage!.size.height + self.imageHeight + 10
-                            if count == images.count {
-                                self.isCheckBoolProperty.value = true
-                            }
+                            
                             imageView.backgroundColor = .brown
                             imageView.image = finistImage
                         }

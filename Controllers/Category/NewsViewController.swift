@@ -33,13 +33,9 @@ class NewsViewController: BaseViewController {
             self.newsViewModel.getTribeListNet()
         }
         
-        self.tableView.mj_footer = MJRefreshAutoNormalFooter.init(refreshingBlock: {
+        self.setUpLoadMoreData {
             self.newsViewModel.getTribeListNet()
-        })
-        
-//        self.setUpLoadMoreData {
-//            
-//        }
+        }
     }
     
     func changeCommentAndLikeNumber(_ data:NSDictionary,_ indexPath:IndexPath){

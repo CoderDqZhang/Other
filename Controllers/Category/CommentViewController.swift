@@ -34,8 +34,10 @@ class CommentViewController: BaseViewController {
             self.commentDetailViewModel.getReplitList()
         }
         
-        self.setUpLoadMoreData {
-            self.commentDetailViewModel.getReplitList()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.commentDetailViewModel.getReplitList()
+            }
         }
         
         if #available(iOS 11.0, *) {

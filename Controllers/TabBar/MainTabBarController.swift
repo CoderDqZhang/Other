@@ -32,12 +32,18 @@ class MainTabBarController: UITabBarController {
         mineNavigaitonVC = UINavigationController.init(rootViewController: mineVC)
         self.setNavigationVC(vc: mineNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "我的")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "我的_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "我的")
         
-
+        
         
         mineNavigaitonVC.navigationBar.isHidden = true
         self.viewControllers = [scoreNavigaitonVC,categoryNavigaitonVC,squareNavigaitonVC,mineNavigaitonVC]
         
         AuthorityManager.setUpAuthorityManager(controller: scoreVC)
+        
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, queue: OperationQueue.main) { (userInfo) in
+            let model = NotificationModel.init(fromDictionary: userInfo.userInfo as! [String : Any])
+            self.pushViewController(model: model)
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -53,6 +59,37 @@ class MainTabBarController: UITabBarController {
             if CacheManager.getSharedInstance().getUnreadModel()!.allunread > 0 {
                 mineNavigaitonVC.tabBarController?.tabBar.showBadgeOnItemIndex(index: 4)
 
+            }
+        }
+    }
+    
+    func pushViewController(model:NotificationModel){
+        if model.forword != nil {
+            switch  PushServerType.init(rawValue: model.forword)! {
+            case PushServerType.PushInServer:
+                let detailModel = TypeModel.init(fromDictionary: model.param.toDictionary() as! [String : Any])
+                switch  PushControllerType.init(rawValue: model.type)! {
+                case .ArticleDetail:
+                    self.tabBarController?.selectedIndex = 1
+                    let postDetailVC = PostDetailViewController()
+                    postDetailVC.postData = NSDictionary.init(dictionary: ["id":detailModel.id!.int!]) as NSDictionary
+                    postDetailVC.postType = .Hot
+                    NavigationPushView(MainTabBarController.current()!, toConroller: postDetailVC)
+                    break
+                case .System:
+                    self.tabBarController?.selectedIndex = 4
+                    NavigationPushView(MainTabBarController.current()!, toConroller: MessageSegementViewController())
+                    break
+                case .Scroce:
+                    self.tabBarController?.selectedIndex = 0
+                default:
+                    NavigationPushView(MainTabBarController.current()!, toConroller: MessageSegementViewController())
+                    break;
+                }
+            default:
+                let webVC = BaseWebViewController.init()
+                NavigationPushView(MainTabBarController.current()!, toConroller: webVC)
+                break;
             }
         }
     }

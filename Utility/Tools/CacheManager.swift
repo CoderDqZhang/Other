@@ -93,6 +93,8 @@ class CacheManager: NSObject {
             CacheManager._sharedInstance.userCache?.removeObject(forKey: CACHEMANAUSERINFO)
         }
         UserDefaults.init().removeObject(forKey: CACHEMANAUSERTOKEN)
+        //增加退出删除别名
+        NotificationManager.getSharedInstance().deleteAlias()
     }
     
     func isLogin() ->Bool {

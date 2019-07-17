@@ -44,8 +44,10 @@ class CategoryDetailViewController: BaseViewController {
         self.setUpTableView(style: .grouped, cells: [CategoryContentTableViewCell.self,CommentTableViewCell.self,CategoryHeaderTableViewCell.self,UserInfoTableViewCell.self], controller: self)
         self.updateTableViewConstraints()
         
-        self.setUpLoadMoreData {
-            self.categoryViewModel.getCategoryNet()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.categoryViewModel.getCategoryNet()
+            }
         }
     }
     

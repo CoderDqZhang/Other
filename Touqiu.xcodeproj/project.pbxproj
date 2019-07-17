@@ -263,8 +263,11 @@
 		1FF025AB22D6E4CE005E2ED2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */; };
 		1FF025AD22D6E62E005E2ED2 /* InPurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025AC22D6E62E005E2ED2 /* InPurchaseManager.swift */; };
 		1FF025B022D71F15005E2ED2 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025AF22D71F15005E2ED2 /* NotificationManager.swift */; };
-		1FF025B822D71FC1005E2ED2 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025B722D71FC1005E2ED2 /* NotificationService.swift */; };
-		1FF025BC22D71FC1005E2ED2 /* TouqiuNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1FF025B522D71FC1005E2ED2 /* TouqiuNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1FF025C322DC7A49005E2ED2 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025C222DC7A49005E2ED2 /* NotificationModel.swift */; };
+		1FF025C522DDC441005E2ED2 /* BaseWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025C422DDC440005E2ED2 /* BaseWebViewController.swift */; };
+		1FF025C722DDC617005E2ED2 /* StringExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025C622DDC617005E2ED2 /* StringExtentions.swift */; };
+		1FF025DF22DEC525005E2ED2 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025DE22DEC525005E2ED2 /* NotificationService.swift */; };
+		1FF025E322DEC525005E2ED2 /* JPushExtentions.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1FF025DC22DEC525005E2ED2 /* JPushExtentions.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1FF1E51922AE08EB00BB9A50 /* LoadConfigManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */; };
 		1FF1E51C22AE0AEF00BB9A50 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */; };
 		1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */; };
@@ -307,12 +310,12 @@
 			remoteGlobalIDString = 1FE5BDAC2281788E00C9137C;
 			remoteInfo = Touqiu;
 		};
-		1FF025BA22D71FC1005E2ED2 /* PBXContainerItemProxy */ = {
+		1FF025E122DEC525005E2ED2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1FE5BDA52281788E00C9137C /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 1FF025B422D71FC1005E2ED2;
-			remoteInfo = TouqiuNotification;
+			remoteGlobalIDString = 1FF025DB22DEC525005E2ED2;
+			remoteInfo = JPushExtentions;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -323,7 +326,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				1FF025BC22D71FC1005E2ED2 /* TouqiuNotification.appex in Embed App Extensions */,
+				1FF025E322DEC525005E2ED2 /* JPushExtentions.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,10 +655,15 @@
 		1FF025AC22D6E62E005E2ED2 /* InPurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InPurchaseManager.swift; sourceTree = "<group>"; };
 		1FF025AE22D719EC005E2ED2 /* Touqiu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Touqiu.entitlements; sourceTree = "<group>"; };
 		1FF025AF22D71F15005E2ED2 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
-		1FF025B522D71FC1005E2ED2 /* TouqiuNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TouqiuNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FF025B722D71FC1005E2ED2 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		1FF025B922D71FC1005E2ED2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1FF025C122D71FE8005E2ED2 /* TouqiuNotification.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TouqiuNotification.entitlements; sourceTree = "<group>"; };
+		1FF025C222DC7A49005E2ED2 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		1FF025C422DDC440005E2ED2 /* BaseWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebViewController.swift; sourceTree = "<group>"; };
+		1FF025C622DDC617005E2ED2 /* StringExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtentions.swift; sourceTree = "<group>"; };
+		1FF025C822DEC212005E2ED2 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		1FF025CA22DEC21F005E2ED2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1FF025DC22DEC525005E2ED2 /* JPushExtentions.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JPushExtentions.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FF025DE22DEC525005E2ED2 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		1FF025E022DEC525005E2ED2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FF025E722DEC604005E2ED2 /* JPushExtentions.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JPushExtentions.entitlements; sourceTree = "<group>"; };
 		1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadConfigManger.swift; sourceTree = "<group>"; };
 		1FF1E51B22AE0AEF00BB9A50 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadMessageModel.swift; sourceTree = "<group>"; };
@@ -731,7 +739,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1FF025B222D71FC1005E2ED2 /* Frameworks */ = {
+		1FF025D922DEC525005E2ED2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -921,7 +929,7 @@
 				1FE5BDAF2281788E00C9137C /* Touqiu */,
 				1FE5BDC42281789100C9137C /* TouqiuTests */,
 				1FE5BDCF2281789100C9137C /* TouqiuUITests */,
-				1FF025B622D71FC1005E2ED2 /* TouqiuNotification */,
+				1FF025DD22DEC525005E2ED2 /* JPushExtentions */,
 				1FE5BDAE2281788E00C9137C /* Products */,
 				7B4FD7351CEDB453A5856703 /* Pods */,
 				C424FA459BEA2F3AC2707CC5 /* Frameworks */,
@@ -934,7 +942,7 @@
 				1FE5BDAD2281788E00C9137C /* Touqiu.app */,
 				1FE5BDC12281789100C9137C /* TouqiuTests.xctest */,
 				1FE5BDCC2281789100C9137C /* TouqiuUITests.xctest */,
-				1FF025B522D71FC1005E2ED2 /* TouqiuNotification.appex */,
+				1FF025DC22DEC525005E2ED2 /* JPushExtentions.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1084,6 +1092,7 @@
 			isa = PBXGroup;
 			children = (
 				1FE5BE05228282B900C9137C /* BaseViewModel.swift */,
+				1FF025C222DC7A49005E2ED2 /* NotificationModel.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1172,6 +1181,7 @@
 				1FE5BE422282864300C9137C /* UITapGestureRecognizer+Extention.swift */,
 				1FE5BE432282864300C9137C /* AlertControl+Tools.swift */,
 				1FF1E54422C4BF0000BB9A50 /* UIViewControllerExtentions.swift */,
+				1FF025C622DDC617005E2ED2 /* StringExtentions.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -1423,6 +1433,7 @@
 			children = (
 				1FE5BDFA2282747900C9137C /* BaseViewController.swift */,
 				1FE5BFAF228CF37E00C9137C /* BaseSearchViewController.swift */,
+				1FF025C422DDC440005E2ED2 /* BaseWebViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1651,14 +1662,14 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		1FF025B622D71FC1005E2ED2 /* TouqiuNotification */ = {
+		1FF025DD22DEC525005E2ED2 /* JPushExtentions */ = {
 			isa = PBXGroup;
 			children = (
-				1FF025C122D71FE8005E2ED2 /* TouqiuNotification.entitlements */,
-				1FF025B722D71FC1005E2ED2 /* NotificationService.swift */,
-				1FF025B922D71FC1005E2ED2 /* Info.plist */,
+				1FF025E722DEC604005E2ED2 /* JPushExtentions.entitlements */,
+				1FF025DE22DEC525005E2ED2 /* NotificationService.swift */,
+				1FF025E022DEC525005E2ED2 /* Info.plist */,
 			);
-			path = TouqiuNotification;
+			path = JPushExtentions;
 			sourceTree = "<group>";
 		};
 		1FF1E51A22AE0A6D00BB9A50 /* Config */ = {
@@ -1688,6 +1699,8 @@
 		C424FA459BEA2F3AC2707CC5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1FF025CA22DEC21F005E2ED2 /* libz.tbd */,
+				1FF025C822DEC212005E2ED2 /* libresolv.tbd */,
 				1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */,
 				1F395CB2229521F300781C0C /* Photos.framework */,
 				1F395CB022951EB400781C0C /* CoreGraphics.framework */,
@@ -1716,7 +1729,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				1FF025BB22D71FC1005E2ED2 /* PBXTargetDependency */,
+				1FF025E222DEC525005E2ED2 /* PBXTargetDependency */,
 			);
 			name = Touqiu;
 			productName = Touqiu;
@@ -1761,21 +1774,21 @@
 			productReference = 1FE5BDCC2281789100C9137C /* TouqiuUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		1FF025B422D71FC1005E2ED2 /* TouqiuNotification */ = {
+		1FF025DB22DEC525005E2ED2 /* JPushExtentions */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1FF025BD22D71FC1005E2ED2 /* Build configuration list for PBXNativeTarget "TouqiuNotification" */;
+			buildConfigurationList = 1FF025E422DEC525005E2ED2 /* Build configuration list for PBXNativeTarget "JPushExtentions" */;
 			buildPhases = (
-				1FF025B122D71FC1005E2ED2 /* Sources */,
-				1FF025B222D71FC1005E2ED2 /* Frameworks */,
-				1FF025B322D71FC1005E2ED2 /* Resources */,
+				1FF025D822DEC525005E2ED2 /* Sources */,
+				1FF025D922DEC525005E2ED2 /* Frameworks */,
+				1FF025DA22DEC525005E2ED2 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = TouqiuNotification;
-			productName = TouqiuNotification;
-			productReference = 1FF025B522D71FC1005E2ED2 /* TouqiuNotification.appex */;
+			name = JPushExtentions;
+			productName = JPushExtentions;
+			productReference = 1FF025DC22DEC525005E2ED2 /* JPushExtentions.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -1807,7 +1820,7 @@
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 1FE5BDAC2281788E00C9137C;
 					};
-					1FF025B422D71FC1005E2ED2 = {
+					1FF025DB22DEC525005E2ED2 = {
 						CreatedOnToolsVersion = 10.2.1;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -1833,7 +1846,7 @@
 				1FE5BDAC2281788E00C9137C /* Touqiu */,
 				1FE5BDC02281789100C9137C /* TouqiuTests */,
 				1FE5BDCB2281789100C9137C /* TouqiuUITests */,
-				1FF025B422D71FC1005E2ED2 /* TouqiuNotification */,
+				1FF025DB22DEC525005E2ED2 /* JPushExtentions */,
 			);
 		};
 /* End PBXProject section */
@@ -1868,7 +1881,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1FF025B322D71FC1005E2ED2 /* Resources */ = {
+		1FF025DA22DEC525005E2ED2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2058,6 +2071,7 @@
 				1FE8DAF12292933A00DCED01 /* JXPagingListContainerView.swift in Sources */,
 				1FF025AD22D6E62E005E2ED2 /* InPurchaseManager.swift in Sources */,
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
+				1FF025C522DDC441005E2ED2 /* BaseWebViewController.swift in Sources */,
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
 				1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */,
 				1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */,
@@ -2147,6 +2161,7 @@
 				1FE5BEB32282866200C9137C /* TADotView.m in Sources */,
 				1FF1E54522C4BF0000BB9A50 /* UIViewControllerExtentions.swift in Sources */,
 				1FE5BDF52282731C00C9137C /* MainTabBarController.swift in Sources */,
+				1FF025C322DC7A49005E2ED2 /* NotificationModel.swift in Sources */,
 				1FE5BE362282863D00C9137C /* TransitionAnimatedManager.swift in Sources */,
 				1FE5BDE622817B5F00C9137C /* Define.swift in Sources */,
 				1FE5BF2B2283C1BC00C9137C /* NSString+NSStringAdditions.m in Sources */,
@@ -2160,6 +2175,7 @@
 				1FE8DAEE2292933A00DCED01 /* JXPagingMainTableView.swift in Sources */,
 				1FE5BF592285702100C9137C /* UIButton+Block.m in Sources */,
 				1F991756229B944A00C8FDD5 /* WithdrawViewController.swift in Sources */,
+				1FF025C722DDC617005E2ED2 /* StringExtentions.swift in Sources */,
 				1FE5BE322282863D00C9137C /* AudioPlayManager.swift in Sources */,
 				1FF1E51922AE08EB00BB9A50 /* LoadConfigManger.swift in Sources */,
 				1F395CD32297871800781C0C /* CategoryChossViewModel.swift in Sources */,
@@ -2291,11 +2307,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1FF025B122D71FC1005E2ED2 /* Sources */ = {
+		1FF025D822DEC525005E2ED2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FF025B822D71FC1005E2ED2 /* NotificationService.swift in Sources */,
+				1FF025DF22DEC525005E2ED2 /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2312,10 +2328,10 @@
 			target = 1FE5BDAC2281788E00C9137C /* Touqiu */;
 			targetProxy = 1FE5BDCD2281789100C9137C /* PBXContainerItemProxy */;
 		};
-		1FF025BB22D71FC1005E2ED2 /* PBXTargetDependency */ = {
+		1FF025E222DEC525005E2ED2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1FF025B422D71FC1005E2ED2 /* TouqiuNotification */;
-			targetProxy = 1FF025BA22D71FC1005E2ED2 /* PBXContainerItemProxy */;
+			target = 1FF025DB22DEC525005E2ED2 /* JPushExtentions */;
+			targetProxy = 1FF025E122DEC525005E2ED2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2627,43 +2643,45 @@
 			};
 			name = Release;
 		};
-		1FF025BE22D71FC1005E2ED2 /* Debug */ = {
+		1FF025E522DEC525005E2ED2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = TouqiuNotification/TouqiuNotification.entitlements;
+				CODE_SIGN_ENTITLEMENTS = JPushExtentions/JPushExtentions.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2HMCBPJZF9;
-				INFOPLIST_FILE = TouqiuNotification/Info.plist;
+				INFOPLIST_FILE = JPushExtentions/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.touqiu.baodiantiyu.TouqiuNotification;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touqiu.baodiantiyu.JPushExtentions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		1FF025BF22D71FC1005E2ED2 /* Release */ = {
+		1FF025E622DEC525005E2ED2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = TouqiuNotification/TouqiuNotification.entitlements;
+				CODE_SIGN_ENTITLEMENTS = JPushExtentions/JPushExtentions.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2HMCBPJZF9;
-				INFOPLIST_FILE = TouqiuNotification/Info.plist;
+				INFOPLIST_FILE = JPushExtentions/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.touqiu.baodiantiyu.TouqiuNotification;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touqiu.baodiantiyu.JPushExtentions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -2706,11 +2724,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1FF025BD22D71FC1005E2ED2 /* Build configuration list for PBXNativeTarget "TouqiuNotification" */ = {
+		1FF025E422DEC525005E2ED2 /* Build configuration list for PBXNativeTarget "JPushExtentions" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1FF025BE22D71FC1005E2ED2 /* Debug */,
-				1FF025BF22D71FC1005E2ED2 /* Release */,
+				1FF025E522DEC525005E2ED2 /* Debug */,
+				1FF025E622DEC525005E2ED2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

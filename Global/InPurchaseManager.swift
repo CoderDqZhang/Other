@@ -111,6 +111,7 @@ extension InPurchaseManager : SKPaymentTransactionObserver {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "延迟支付", autoHidder: true)
                 queue.finishTransaction(transaction)
             default:
+                loading.hide(animated: true)
                 break;
             }
         }

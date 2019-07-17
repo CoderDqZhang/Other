@@ -36,9 +36,12 @@ class NotificationViewController: BaseViewController {
             self.notificationViewModel.notificationNet()
         }
         
-        self.setUpLoadMoreData {
-            self.notificationViewModel.notificationNet()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.notificationViewModel.notificationNet()
+            }
         }
+        
         self.notificationViewModel.notificationNet()
     }
     

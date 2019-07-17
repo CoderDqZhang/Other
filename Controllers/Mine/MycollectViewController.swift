@@ -27,8 +27,10 @@ class MycollectViewController: BaseViewController {
             self.myCollectViewModel.getMyCollectNet()
         }
         
-        self.setUpLoadMoreData {
-            self.myCollectViewModel.getMyCollectNet()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.myCollectViewModel.getMyCollectNet()
+            }
         }
     }
     
