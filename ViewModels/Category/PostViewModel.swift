@@ -100,7 +100,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             }
             
         }else{
-            let parameters = ["content":self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":""] as [String : Any]
+            let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":""] as [String : Any]
             BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     let model = TipModel.init(fromDictionary: resultDic.value as! [String : Any])

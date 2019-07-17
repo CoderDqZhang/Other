@@ -69,6 +69,7 @@ class PostDetailViewController: BaseViewController {
                 let commentPost = UINavigationController.init(rootViewController: commentVC)
                 commentVC.postData = self.postData
                 commentVC.commentPostViewControllerDataClouse = { dic in
+                    self.postDetailViewModel.tipDetailModel.commentTotal = self.postDetailViewModel.tipDetailModel.commentTotal + 1
                     self.postDetailViewModel.commentListArray.insert(dic, at: 0)
                     self.postDetailViewModel.reloadTableViewData()
                 }
@@ -88,6 +89,7 @@ class PostDetailViewController: BaseViewController {
                 let commentPost = UINavigationController.init(rootViewController: commentVC)
                 commentVC.postData = self.postData
                 commentVC.commentPostViewControllerDataClouse = { dic in
+                    self.postDetailViewModel.tipDetailModel.commentTotal = self.postDetailViewModel.tipDetailModel.commentTotal + 1
                     self.postDetailViewModel.commentListArray.insert(dic, at: 0)
                     self.postDetailViewModel.reloadTableViewData()
                 }
@@ -144,13 +146,19 @@ class PostDetailViewController: BaseViewController {
         let shareItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
         var deleteItem:UIBarButtonItem?
         if CacheManager.getSharedInstance().isLogin() {
-            if ((self.postData.object(forKey: "user") as! NSDictionary).object(forKey: "id") as! Int).string == CacheManager.getSharedInstance().getUserId() {
-                deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "delete")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.deleteBarItemClick(_:)))
-            }else{
-                deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "report")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.reportBarItemClick(_:)))
-
+            if self.postData.object(forKey: "user") != nil {
+                if ((self.postData.object(forKey: "user") as! NSDictionary).object(forKey: "id") as! Int).string == CacheManager.getSharedInstance().getUserId() {
+                    deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "delete")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.deleteBarItemClick(_:)))
+                }else{
+                    deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "report")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.reportBarItemClick(_:)))
+                    
+                }
             }
-            self.navigationItem.rightBarButtonItems = ([shareItem,deleteItem] as! [UIBarButtonItem])
+            if deleteItem != nil {
+                self.navigationItem.rightBarButtonItems = ([shareItem,deleteItem] as! [UIBarButtonItem])
+            }else{
+                self.navigationItem.rightBarButtonItems = [shareItem]
+            }
         }else{
             self.navigationItem.rightBarButtonItems = [shareItem]
         }

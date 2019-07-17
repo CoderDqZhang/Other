@@ -54,6 +54,7 @@ class SettingViewModel: BaseViewModel {
                 CacheManager.getSharedInstance().logout()
                 if (self.controller as! SettingViewController).logoutClouse != nil {
                     (self.controller as! SettingViewController).logoutClouse()
+                    NotificationManager.getSharedInstance().deleteAlias()
                     self.controller?.navigationController?.popViewController()
                 }
             }else{

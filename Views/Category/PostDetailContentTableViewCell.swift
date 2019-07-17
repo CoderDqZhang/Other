@@ -45,7 +45,7 @@ class  PostDetailContentTableViewCell : UITableViewCell {
     
         titleLabel = YYLabel.init()
         titleLabel.numberOfLines = 0
-        titleLabel.textColor = App_Theme_2A2F34_Color
+        titleLabel.textColor = App_Theme_06070D_Color
         titleLabel.font = App_Theme_PinFan_M_18_Font
         
         self.contentView.addSubview(titleLabel)

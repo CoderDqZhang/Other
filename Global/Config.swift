@@ -42,7 +42,8 @@ let CACHEMANACONFIGMODEL = "ConfigModel"
 let CACHEMANAUNREADMESSAGEMODEL = "UnreadMessageModel"
 let CACHEMANAPointModel = "PointModel"
 
-
+let JPUSHALIAS = "touqiu_"
+let NOTIFICATIOINSPUSHCONTROLLER = "NOTIFICATIOINSPUSHCONTROLLER"
 
 let holderImage = UIImage.init(named: "")
 

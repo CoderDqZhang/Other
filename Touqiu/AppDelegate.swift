@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return result!
     }
     
-    //点推送进来执行这个方法
+    //点推送进来执行这个方法iOS 10
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         NotificationManager.getSharedInstance().application(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
     }
@@ -91,6 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         NotificationManager.getSharedInstance().application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
     }
+    
+    
     
 }
 
