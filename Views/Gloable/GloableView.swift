@@ -463,7 +463,7 @@ class LoginView: UIView {
     
     var time:Timer!
     
-    var isCheckBool:Bool = true
+    var isCheckBool:Bool = false
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
     var lineLabel1 = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))

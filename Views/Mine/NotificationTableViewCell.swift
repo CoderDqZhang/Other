@@ -33,6 +33,8 @@ class NotificationTableViewCell: UITableViewCell {
     
     func setUpView(){
         conisImageView = UIImageView.init()
+        conisImageView.cornerRadius = 17
+        conisImageView.layer.masksToBounds = true
         conisImageView.image = UIImage.init(named: "norification")
         self.contentView.addSubview(conisImageView)
         
@@ -81,7 +83,19 @@ class NotificationTableViewCell: UITableViewCell {
                 }
         }
         self.indexPath = indexPath
-        titleLabel.text = model.title
+        if model.user != nil && model.type != "0" {
+            titleLabel.text = "\(String(describing: model.user.nickname!))\(String(describing: model.title!))"
+            if model.user.img != nil {
+                conisImageView.sd_crope_imageView(url:  model.user.img, imageView: conisImageView, placeholderImage: nil) { (image, url, tyoe, statge, error) in
+                    
+                }
+            }else{
+                conisImageView.image = UIImage.init(named: "norification")
+            }
+        }else{
+            titleLabel.text = model.title
+        }
+        
         timeLabel.text = model.createTime
         descLabel.text = model.descriptionField
         isUnread.isHidden = model.status == "1" ? true : false
