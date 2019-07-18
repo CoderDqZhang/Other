@@ -76,6 +76,8 @@
 		1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */; };
 		1F991775229E6EC300C8FDD5 /* OtherPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */; };
 		1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */; };
+		1FD6DD2B22E00AD70090318E /* AppInfomationsTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */; };
+		1FD6DD2D22E00CEF0090318E /* UIDeviceExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
 		1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB22281788E00C9137C /* ViewController.swift */; };
 		1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB42281788E00C9137C /* Main.storyboard */; };
@@ -407,6 +409,8 @@
 		1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansFlowwerModel.swift; sourceTree = "<group>"; };
 		1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPostViewController.swift; sourceTree = "<group>"; };
 		1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherGuessViewController.swift; sourceTree = "<group>"; };
+		1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfomationsTools.swift; sourceTree = "<group>"; };
+		1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtentions.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5BDB02281788E00C9137C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE5BDB22281788E00C9137C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1163,6 +1167,7 @@
 				1FF1E53422B8E89700BB9A50 /* SKPhotoBrowserManager.swift */,
 				1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */,
 				1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */,
+				1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1182,6 +1187,7 @@
 				1FE5BE432282864300C9137C /* AlertControl+Tools.swift */,
 				1FF1E54422C4BF0000BB9A50 /* UIViewControllerExtentions.swift */,
 				1FF025C622DDC617005E2ED2 /* StringExtentions.swift */,
+				1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -2099,6 +2105,7 @@
 				1FE5BDFD2282750900C9137C /* MineViewController.swift in Sources */,
 				1FE5BF352284206300C9137C /* UserInfoTableViewCell.swift in Sources */,
 				1FE8DAB8228EC8B100DCED01 /* NotificationViewModel.swift in Sources */,
+				1FD6DD2B22E00AD70090318E /* AppInfomationsTools.swift in Sources */,
 				1FE5BF3C228435B000C9137C /* OutFallCategoryContentTableViewCell.swift in Sources */,
 				1F1C1B46229FA4A4008031F4 /* Config.swift in Sources */,
 				1FE8DAFB2292C1E900DCED01 /* PostSegementViewController.swift in Sources */,
@@ -2179,6 +2186,7 @@
 				1FE5BE322282863D00C9137C /* AudioPlayManager.swift in Sources */,
 				1FF1E51922AE08EB00BB9A50 /* LoadConfigManger.swift in Sources */,
 				1F395CD32297871800781C0C /* CategoryChossViewModel.swift in Sources */,
+				1FD6DD2D22E00CEF0090318E /* UIDeviceExtentions.swift in Sources */,
 				1FE5BEC62282866300C9137C /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				1FE5BEC42282866300C9137C /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1FE5BE472282864300C9137C /* View+Extntion.swift in Sources */,
