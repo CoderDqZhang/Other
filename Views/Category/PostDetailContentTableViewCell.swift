@@ -120,12 +120,19 @@ class  PostDetailContentTableViewCell : UITableViewCell {
                 imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), placeholderImage: nil) { (image, error, cacheType, url) in
                     if image != nil {
                         let size = image!.size
-                        let height = size.height * (SCREENWIDTH - 30) / size.width
-                        let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 30, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
-                        count = count + 1
-                        imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: imageHeight + 10), size: finistImage!.size)
-                        imageHeight = finistImage!.size.height + imageHeight + 10
-                        imageView.image = finistImage
+                        if size.width > SCREENWIDTH - 30 {
+                            let height = size.height * (SCREENWIDTH - 30) / size.width
+                            let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 30, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
+                            count = count + 1
+                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: imageHeight + 10), size: finistImage!.size)
+                            imageHeight = finistImage!.size.height + imageHeight + 10
+                            imageView.image = finistImage
+                        }else{
+                            count = count + 1
+                            imageView.frame = CGRect.init(origin: CGPoint.init(x: (SCREENWIDTH - 30 - size.width) / 2, y: imageHeight + 10), size: size)
+                            imageHeight = size.height + imageHeight + 10
+                            imageView.image = image
+                        }
                     }
                 }
                 imageView.tag = index + 1000

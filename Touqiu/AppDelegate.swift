@@ -15,8 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
+        // Override point for customization after application launch.
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
         //加载配置
@@ -24,6 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AliPayManager.getSharedInstance().ossSetUp()
         UMengManager.shareInstance.setUpUMengManger(application, didFinishLaunchingWithOptions: launchOptions)
         NotificationManager.getSharedInstance().setUpNotification(launchOptions: launchOptions)
+        
+        if (launchOptions != nil) {
+            let remoteNotification = (launchOptions as! NSDictionary).object(forKey: UIApplication.LaunchOptionsKey.remoteNotification)
+            if (remoteNotification != nil) {
+                print(remoteNotification)
+            }
+        }
         
         let rootVC = MainTabBarController.init()
         self.window?.rootViewController = rootVC
@@ -86,6 +93,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //点推送进来执行这个方法iOS 10
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         NotificationManager.getSharedInstance().application(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        NotificationManager.getSharedInstance().application(application, didReceiveRemoteNotification: userInfo)
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

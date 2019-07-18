@@ -50,7 +50,10 @@ class NotificationManager: NSObject {
         JPUSHService.register(forRemoteNotificationConfig: entity, delegate: self)
         
         JPUSHService.setup(withOption: launchOptions, appKey: JPushKey, channel: "App Store", apsForProduction: false, advertisingIdentifier: nil)
+        
     }
+    
+    
     
     //系统获取Token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -67,6 +70,12 @@ class NotificationManager: NSObject {
         JPUSHService.handleRemoteNotification(userInfo)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, userInfo: userInfo)
         completionHandler(UIBackgroundFetchResult.newData)
+        
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        JPUSHService.handleRemoteNotification(userInfo)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, userInfo: userInfo)
         
     }
     

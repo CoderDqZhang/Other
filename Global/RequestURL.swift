@@ -12,8 +12,8 @@ import Foundation
 //ZKFgTvUb5BXiuD7KK2iuFiOUintS6mLgFi+ukIPiol801JlCola+lkGcFGN886nd
 //ZKFgTvUb5BXiuD7KK2iuFtphhrg2uQu1kTJ0q4cnRothrdDXMpq+CNSo2UaDlDuI
 
-//let RootUrl = "http://192.168.0.155:10020/social/"
-let RootUrl = "http://192.168.0.172:10020/social/"
+let RootUrl = "http://192.168.0.155:10020/social/"
+//let RootUrl = "http://192.168.0.172:10020/social/"
 
 let UserforgetPasswordUrl = "\(RootUrl)user/forgetPassword"
 let UserBindPhoneUrl = "\(RootUrl)user/bindPhone"
