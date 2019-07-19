@@ -162,9 +162,9 @@ class  PostDetailContentTableViewCell : UITableViewCell {
 
         if model.isFork == 1 {
             self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
-            self.likeButton.changeContent(str: model.commentTotal.string, image: nil)
+            self.likeButton.changeContent(str: model.isFork.string, image: nil)
         }else{
-            likeButton.changeContent(str: model.commentTotal.string, image: nil)
+            likeButton.changeContent(str: model.isFork.string, image: nil)
         }
 
         if model.isCollect == 1 {

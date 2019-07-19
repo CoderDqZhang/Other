@@ -43,6 +43,6 @@
 #import "UIImage+Text.h"
 
 #import "JPUSHService.h"
-
+#import <UserNotifications/UserNotifications.h>
 
 #endif /* Touqiu_Bridging_Header_h */

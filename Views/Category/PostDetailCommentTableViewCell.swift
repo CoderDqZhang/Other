@@ -185,14 +185,21 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                     imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), placeholderImage: nil) { (image, error, cacheType, url) in
                         if image != nil {
                             let size = image!.size
-                            let height = size.height * (SCREENWIDTH - 30) / size.width
-                            let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 60, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
-                            count = count + 1
-                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.imageHeight + 10), size: finistImage!.size)
-                            self.imageHeight = finistImage!.size.height + self.imageHeight + 10
+                            if size.width > SCREENWIDTH - 60 {
+                                let height = size.height * (SCREENWIDTH - 30) / size.width
+                                let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 60, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
+                                count = count + 1
+                                imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.imageHeight + 10), size: finistImage!.size)
+                                self.imageHeight = finistImage!.size.height + self.imageHeight + 10
+                                
+                                imageView.image = finistImage
+                            }else{
+                                count = count + 1
+                                imageView.frame = CGRect.init(origin: CGPoint.init(x: (SCREENWIDTH - 60 - size.width) / 2, y: self.imageHeight + 10), size: size)
+                                self.imageHeight = size.height + self.imageHeight + 10
+                                imageView.image = image
+                            }
                             
-                            imageView.backgroundColor = .brown
-                            imageView.image = finistImage
                         }
                     }
                     imageView.tag = index + 1000

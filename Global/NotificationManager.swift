@@ -51,6 +51,8 @@ class NotificationManager: NSObject {
         
         JPUSHService.setup(withOption: launchOptions, appKey: JPushKey, channel: "App Store", apsForProduction: false, advertisingIdentifier: nil)
         
+        JPUSHService.setDebugMode()
+        
     }
     
     

@@ -87,6 +87,11 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         }
         userName.text = model.nickname
         timeLabel.text = model.createTime
+        if model.status == "0"  {
+            self.likeButton.isEnable(ret: true)
+        }else{
+            self.likeButton.isEnable(ret: false)
+        }
         self.likeButton.changeContent(str: model.followNum.string, image: self.changeLikeButtonStatus(status: model.isFollow))
     }
     
@@ -97,6 +102,12 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         }
         userName.text = model.user.nickname
         timeLabel.text = model.createTime
+        if model.status == "0"  {
+            self.likeButton.isEnable(ret: true)
+        }else{
+            self.likeButton.isEnable(ret: false)
+        }
+        
         self.likeButton.changeContent(str: model.approveNum.string, image: self.changeLikeButtonStatus(status: model.isFollow))
     }
     

@@ -25,6 +25,12 @@ class PostDetailViewModel: BaseViewModel {
         if tipDetailModel != nil {
             cell.cellSetData(model: self.tipDetailModel)
         }
+        cell.postDetailUserTagInfoClouse = {
+            let dic:NSDictionary = self.tipDetailModel.user.toDictionary() as NSDictionary
+            let otherMineVC = OtherMineViewController()
+            otherMineVC.postData = dic
+            NavigationPushView(self.controller!, toConroller: otherMineVC)
+        }
         cell.postDetailUserInfoClouse = { type in
             self.followNet(status: type == GloabelButtonType.select ? true : false)
         }
