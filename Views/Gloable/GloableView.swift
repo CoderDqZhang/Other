@@ -501,6 +501,7 @@ class LoginView: UIView {
         logoImage = UIImageView.init()
         logoImage.cornerRadius = 15
         logoImage.backgroundColor = .red
+        logoImage.image = UIImage.init(named: "logo1024")
         logoImage.layer.masksToBounds = true
         self.addSubview(logoImage)
         

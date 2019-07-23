@@ -16,7 +16,7 @@ class ScoreViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+       SocketManager.getSharedInstance().connect()
 //        AliPayManager.getSharedInstance().uploadFile(images: [UIImage.init(named: "back_bar")!], type: .post, result: { result in
 //            
 //        })

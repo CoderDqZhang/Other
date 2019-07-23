@@ -41,6 +41,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 
+## CocoaAsyncSocket
+
+Public Domain License
+
+The CocoaAsyncSocket project is in the public domain.
+
+The original TCP version (AsyncSocket) was created by Dustin Voss in January 2003.
+Updated and maintained by Deusty LLC and the Apple development community.
+
+
 ## DZNEmptyDataSet
 
 The MIT License (MIT)

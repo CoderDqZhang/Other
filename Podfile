@@ -31,6 +31,7 @@ target 'Touqiu' do
   pod 'JXSegmentedView'
   pod 'AliyunOSSiOS'
   pod 'JPush'
+  pod 'CocoaAsyncSocket'
 
   target 'TouqiuTests' do
     inherit! :search_paths

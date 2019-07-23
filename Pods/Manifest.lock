@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
   - AliyunOSSiOS (2.10.7)
+  - CocoaAsyncSocket (7.6.3)
   - DZNEmptyDataSet (1.8.1)
   - FDFullscreenPopGesture (1.1)
   - FMDB (2.7.5):
@@ -59,6 +60,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - AliyunOSSiOS
+  - CocoaAsyncSocket
   - DZNEmptyDataSet
   - FDFullscreenPopGesture
   - IQKeyboardManagerSwift
@@ -87,6 +89,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AliyunOSSiOS
+    - CocoaAsyncSocket
     - DZNEmptyDataSet
     - FDFullscreenPopGesture
     - FMDB
@@ -116,6 +119,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AliyunOSSiOS: 602b6a4e70e62a5f0a6431c20496343141d7e66f
+  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -142,6 +146,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: cfc13e7bc80aa21bdea9be616595cc26f279b4e0
+PODFILE CHECKSUM: 04f362154795e957fc05b321590a1e6e52d9c7cd
 
 COCOAPODS: 1.6.1

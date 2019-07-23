@@ -34,6 +34,7 @@
 		1F38664D22E58C680076C580 /* ProtocolViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38664C22E58C680076C580 /* ProtocolViewViewController.swift */; };
 		1F38664F22E5CAF80076C580 /* BindPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38664E22E5CAF80076C580 /* BindPhoneViewController.swift */; };
 		1F38665122E5CB4F0076C580 /* BindPhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38665022E5CB4F0076C580 /* BindPhoneViewModel.swift */; };
+		1F38665322E6EA950076C580 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38665222E6EA950076C580 /* SocketManager.swift */; };
 		1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8122951D4200781C0C /* UMCommonLog.framework */; };
 		1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F395C8222951D4200781C0C /* UMCommonLog.bundle */; };
 		1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8522951D4200781C0C /* UTDID.framework */; };
@@ -366,6 +367,7 @@
 		1F38664C22E58C680076C580 /* ProtocolViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolViewViewController.swift; sourceTree = "<group>"; };
 		1F38664E22E5CAF80076C580 /* BindPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BindPhoneViewController.swift; path = ../Mine/BindPhoneViewController.swift; sourceTree = "<group>"; };
 		1F38665022E5CB4F0076C580 /* BindPhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindPhoneViewModel.swift; sourceTree = "<group>"; };
+		1F38665222E6EA950076C580 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		1F395C8122951D4200781C0C /* UMCommonLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommonLog.framework; sourceTree = "<group>"; };
 		1F395C8222951D4200781C0C /* UMCommonLog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMCommonLog.bundle; sourceTree = "<group>"; };
 		1F395C8522951D4200781C0C /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
@@ -1070,6 +1072,7 @@
 				1F395CB62295306B00781C0C /* UMengUI.swift */,
 				1FF025AC22D6E62E005E2ED2 /* InPurchaseManager.swift */,
 				1FF025AF22D71F15005E2ED2 /* NotificationManager.swift */,
+				1F38665222E6EA950076C580 /* SocketManager.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1917,6 +1920,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Touqiu/Pods-Touqiu-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AliyunOSSiOS/AliyunOSSiOS.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
@@ -1947,6 +1951,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunOSSiOS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
@@ -2086,6 +2091,7 @@
 				1FE8DAF12292933A00DCED01 /* JXPagingListContainerView.swift in Sources */,
 				1FF025AD22D6E62E005E2ED2 /* InPurchaseManager.swift in Sources */,
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
+				1F38665322E6EA950076C580 /* SocketManager.swift in Sources */,
 				1FF025C522DDC441005E2ED2 /* BaseWebViewController.swift in Sources */,
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
 				1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */,

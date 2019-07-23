@@ -171,7 +171,7 @@ class PostDetailViewController: BaseViewController {
             case .dingDing:
                 UMengManager.getSharedInstance().sharePlatformImage(type: platform, thumImage: UIImage.init(named: "category_post")!, image_url: "", controller: self)
             default:
-                UMengManager.getSharedInstance().sharePlatformImageTitle(type: platform, title: "测试", descr: "测试", thumImage: UIImage.init(named: "category_post")!, controller: self, completion: { (ret, error) in
+                UMengManager.getSharedInstance().sharePlatformImageTitle(type: platform, title: self.postDetailViewModel.tipDetailModel.title, descr: self.postDetailViewModel.tipDetailModel.content, thumImage: UIImage.init(named: "category_post")!, controller: self, completion: { (ret, error) in
                     
                 })
             }
