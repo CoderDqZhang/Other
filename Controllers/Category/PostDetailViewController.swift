@@ -166,7 +166,16 @@ class PostDetailViewController: BaseViewController {
     }
     
     @objc func rightBarItemClick(_ sender:UIBarButtonItem) {
-       
+        UMengUI.getSharedInstance().createPlatForm(block: { platform,userInfo in
+            switch platform {
+            case .dingDing:
+                UMengManager.getSharedInstance().sharePlatformImage(type: platform, thumImage: UIImage.init(named: "category_post")!, image_url: "", controller: self)
+            default:
+                UMengManager.getSharedInstance().sharePlatformImageTitle(type: platform, title: "测试", descr: "测试", thumImage: UIImage.init(named: "category_post")!, controller: self, completion: { (ret, error) in
+                    
+                })
+            }
+        })
     }
     
     @objc func deleteBarItemClick(_ sender:UIBarButtonItem) {

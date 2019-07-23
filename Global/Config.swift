@@ -48,6 +48,18 @@ let NOTIFICATIOINSPUSHCONTROLLER = "NOTIFICATIOINSPUSHCONTROLLER"
 let holderImage = UIImage.init(named: "")
 
 
+//QQ开发平台
+let QQAPPID  = "1109440727"
+let QQAPPKEY = "SOmsWVgiESswZOpw"
+
+//微博
+let WeiboAPPKEY = "2894873924"
+let WeiboAppSecret = "bb759bcc23ee0c68f2e1e0470514f0f9"
+let WeiboRedirectUrl = "http://sns.whalecloud.com/sina2/callback"
+
+
+let WeiXinAppID = "wxde874e2be98bd508"
+
 
 func getNoLoginUserModel()->UserInfoModel{
     let userInfo = UserInfoModel.init(fromDictionary: ["id": 8,

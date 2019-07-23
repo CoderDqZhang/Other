@@ -1092,8 +1092,8 @@ class RegisterView: UIView {
 }
 
 enum GloableThirdLoginType:Int {
-    case wechat = 0
-    case weibo = 1
+    case weibo = 0
+    case weichat = 1
     case qq = 2
 }
 
@@ -1143,11 +1143,14 @@ class GloableThirdLogin: UIView {
     }
 }
 
+typealias CofirmProtocolViewClouse = () ->Void
+
 class CofirmProtocolView: UIView {
     
     var checkBox:UIButton!
     var titleLabel:YYLabel!
     var detailLabel:YYLabel!
+    var cofirmProtocolViewClouse:CofirmProtocolViewClouse!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -1162,13 +1165,20 @@ class CofirmProtocolView: UIView {
         checkBox = UIButton.init(type: .custom)
         checkBox.layer.masksToBounds = true
         checkBox.cornerRadius = 8.5
-        checkBox.tag = 101
+        checkBox.tag = 100
         checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
-        
         self.addSubview(checkBox)
         
         detailLabel = YYLabel.init()
         detailLabel.textAlignment = .left
+        _ = detailLabel.newTapGesture(config: { (config) in
+            config.numberOfTouchesRequired = 1
+            config.numberOfTapsRequired = 1
+        }).whenTaped(handler: { (gesture) in
+            if self.cofirmProtocolViewClouse != nil {
+                self.cofirmProtocolViewClouse()
+            }
+        })
         detailLabel.font = App_Theme_PinFan_M_12_Font
         detailLabel.textColor = App_Theme_FFFFFF_Color
         detailLabel.text = "《隐私用户条款约定》"
@@ -1179,6 +1189,7 @@ class CofirmProtocolView: UIView {
         titleLabel.font = App_Theme_PinFan_M_12_Font
         titleLabel.textColor = App_Theme_FFFFFF_Color
         titleLabel.text = "同意"
+        
         self.addSubview(titleLabel)
         self.updateConstraints()
     }

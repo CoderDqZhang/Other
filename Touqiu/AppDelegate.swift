@@ -22,15 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //加载配置
         LoadConfigManger.getSharedInstance().setUp()
         AliPayManager.getSharedInstance().ossSetUp()
-        UMengManager.shareInstance.setUpUMengManger(application, didFinishLaunchingWithOptions: launchOptions)
+        UMengManager.getSharedInstance().setUpUMengManger(application, didFinishLaunchingWithOptions: launchOptions)
         NotificationManager.getSharedInstance().setUpNotification(launchOptions: launchOptions)
-        
-        if (launchOptions != nil) {
-            let remoteNotification = (launchOptions as! NSDictionary).object(forKey: UIApplication.LaunchOptionsKey.remoteNotification)
-            if (remoteNotification != nil) {
-                print(remoteNotification)
-            }
-        }
         
         let rootVC = MainTabBarController.init()
         self.window?.rootViewController = rootVC

@@ -114,6 +114,7 @@ extension NotificationManager : JPUSHRegisterDelegate {
         if notification.request.trigger is UNPushNotificationTrigger {
             JPUSHService.handleRemoteNotification(userInfo)
         }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, userInfo: userInfo)
         // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
         completionHandler(Int(UNNotificationPresentationOptions.alert.rawValue))
     }
@@ -124,7 +125,7 @@ extension NotificationManager : JPUSHRegisterDelegate {
             JPUSHService.handleRemoteNotification(userInfo)
         }
         
-        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, userInfo: userInfo)
 //        NotificationService.re
         // 系统要求执行这个方法
         completionHandler()

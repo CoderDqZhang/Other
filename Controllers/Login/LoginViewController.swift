@@ -68,7 +68,37 @@ class LoginViewController: BaseViewController {
         thirdLogin.gloableThirdLoginClouse = { type in
             //消除定时器
             self.loginCenteView.relaseTimer()
-            
+            switch type {
+            case .qq:
+                
+                UMengManager.getSharedInstance().loginWithPlatform(type: UMSocialPlatformType.QQ, controller: self, loginType: type)
+            case .weibo:
+                UMengManager.getSharedInstance().loginWithPlatform(type: UMSocialPlatformType.sina, controller: self, loginType: type)
+            default:
+                UMengManager.getSharedInstance().loginWithPlatform(type: UMSocialPlatformType.wechatSession, controller: self, loginType: type)
+            }
+            UMengManager.getSharedInstance().umengManagerUserInfoResponse = { response,type in
+                let model = ThirdLoginModel()
+                switch type {
+                case .qq:
+                    model.openId = response.openid
+                    model.nickname = ((response.originalResponse as! NSDictionary).object(forKey: "nickname") as! String)
+                    model.img = ((response.originalResponse as! NSDictionary).object(forKey: "figureurl_qq") as! String)
+                    model.type = "1"
+                    model.descriptions = ((response.originalResponse as! NSDictionary).object(forKey: "nickname") as! String)
+                    break
+                case .weibo:
+                    model.openId = response.openid
+                    model.nickname = ((response.originalResponse as! NSDictionary).object(forKey: "name") as! String)
+                    model.img = ((response.originalResponse as! NSDictionary).object(forKey: "avatar_large") as! String)
+                    model.type = "2"
+                    model.descriptions = ((response.originalResponse as! NSDictionary).object(forKey: "description") as! String)
+                default:
+                    break
+//                    UMengManager.getSharedInstance().loginWithPlatform(type: UMSocialPlatformType.wechatSession, controller: self)
+                }
+                self.loginViewModel.loginThirdPlathom(model: model)
+            }
         }
         
         self.view.addSubview(thirdLogin)
@@ -87,6 +117,11 @@ class LoginViewController: BaseViewController {
                 self.cofirmProtocolView.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
             }
         }, for: UIControl.Event.touchUpInside)
+        cofirmProtocolView.cofirmProtocolViewClouse = {
+            let controllerVC = ProtocolViewViewController()
+            controllerVC.url = "https://www.baidu.com"
+            NavigationPushView(self, toConroller: controllerVC)
+        }
         self.view.addSubview(cofirmProtocolView)
     }
     

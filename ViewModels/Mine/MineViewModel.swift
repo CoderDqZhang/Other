@@ -82,7 +82,11 @@ class MineViewModel: BaseViewModel {
                 if self.userInfo == nil {
                     cell.setNumberText(str: "0")
                 }else{
-                    cell.setNumberText(str: CacheManager.getSharedInstance().getUnreadModel()!.allunread.string)
+                    if CacheManager.getSharedInstance().getUnreadModel() == nil {
+                        cell.setNumberText(str: "0")
+                    }else{
+                        cell.setNumberText(str: CacheManager.getSharedInstance().getUnreadModel()!.allunread.string)
+                    }
                 }
             }
         }else{

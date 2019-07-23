@@ -31,6 +31,9 @@
 		1F1C1B5822A0F651008031F4 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5722A0F651008031F4 /* StoreViewModel.swift */; };
 		1F1C1B5A22A1000F008031F4 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5922A1000F008031F4 /* StoreModel.swift */; };
 		1F1C1B5C22A10245008031F4 /* NotificaitonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1C1B5B22A10245008031F4 /* NotificaitonModel.swift */; };
+		1F38664D22E58C680076C580 /* ProtocolViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38664C22E58C680076C580 /* ProtocolViewViewController.swift */; };
+		1F38664F22E5CAF80076C580 /* BindPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38664E22E5CAF80076C580 /* BindPhoneViewController.swift */; };
+		1F38665122E5CB4F0076C580 /* BindPhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38665022E5CB4F0076C580 /* BindPhoneViewModel.swift */; };
 		1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8122951D4200781C0C /* UMCommonLog.framework */; };
 		1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F395C8222951D4200781C0C /* UMCommonLog.bundle */; };
 		1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8522951D4200781C0C /* UTDID.framework */; };
@@ -79,7 +82,6 @@
 		1FD6DD2B22E00AD70090318E /* AppInfomationsTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */; };
 		1FD6DD2D22E00CEF0090318E /* UIDeviceExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
-		1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB22281788E00C9137C /* ViewController.swift */; };
 		1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB42281788E00C9137C /* Main.storyboard */; };
 		1FE5BDB82281789100C9137C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB72281789100C9137C /* Assets.xcassets */; };
 		1FE5BDBB2281789100C9137C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB92281789100C9137C /* LaunchScreen.storyboard */; };
@@ -361,6 +363,9 @@
 		1F1C1B5722A0F651008031F4 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		1F1C1B5922A1000F008031F4 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		1F1C1B5B22A10245008031F4 /* NotificaitonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificaitonModel.swift; sourceTree = "<group>"; };
+		1F38664C22E58C680076C580 /* ProtocolViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolViewViewController.swift; sourceTree = "<group>"; };
+		1F38664E22E5CAF80076C580 /* BindPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BindPhoneViewController.swift; path = ../Mine/BindPhoneViewController.swift; sourceTree = "<group>"; };
+		1F38665022E5CB4F0076C580 /* BindPhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindPhoneViewModel.swift; sourceTree = "<group>"; };
 		1F395C8122951D4200781C0C /* UMCommonLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommonLog.framework; sourceTree = "<group>"; };
 		1F395C8222951D4200781C0C /* UMCommonLog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMCommonLog.bundle; sourceTree = "<group>"; };
 		1F395C8522951D4200781C0C /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
@@ -413,7 +418,6 @@
 		1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtentions.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5BDB02281788E00C9137C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1FE5BDB22281788E00C9137C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1FE5BDB52281788E00C9137C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1FE5BDB72281789100C9137C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FE5BDBA2281789100C9137C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -956,7 +960,6 @@
 			children = (
 				1FF025AE22D719EC005E2ED2 /* Touqiu.entitlements */,
 				1FE5BDB02281788E00C9137C /* AppDelegate.swift */,
-				1FE5BDB22281788E00C9137C /* ViewController.swift */,
 				1F1C1B3F229FA151008031F4 /* BankName.json */,
 				1FE5BDB42281788E00C9137C /* Main.storyboard */,
 				1FE5BDB72281789100C9137C /* Assets.xcassets */,
@@ -1414,6 +1417,7 @@
 				1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */,
 				1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */,
 				1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */,
+				1F38664C22E58C680076C580 /* ProtocolViewViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1649,6 +1653,7 @@
 			isa = PBXGroup;
 			children = (
 				1FE8DB132293DC0000DCED01 /* LoginViewController.swift */,
+				1F38664E22E5CAF80076C580 /* BindPhoneViewController.swift */,
 				1FE8DB182294E18800DCED01 /* FindPasViewController.swift */,
 				1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */,
 				1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */,
@@ -1664,6 +1669,7 @@
 				1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */,
 				1F395CC62295461000781C0C /* RegisterViewModel.swift */,
 				1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */,
+				1F38665022E5CB4F0076C580 /* BindPhoneViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -2104,7 +2110,6 @@
 				1FF1E54122C3627200BB9A50 /* UIImageMaxCrope.swift in Sources */,
 				1FE8DAD522926AA300DCED01 /* OtherMineViewModel.swift in Sources */,
 				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
-				1FE5BDB32281788E00C9137C /* ViewController.swift in Sources */,
 				1FE5BDFD2282750900C9137C /* MineViewController.swift in Sources */,
 				1FE5BF352284206300C9137C /* UserInfoTableViewCell.swift in Sources */,
 				1FE8DAB8228EC8B100DCED01 /* NotificationViewModel.swift in Sources */,
@@ -2117,6 +2122,7 @@
 				1FE8DAF5229293AD00DCED01 /* OtherGuessingViewModel.swift in Sources */,
 				1FE5BED92282866300C9137C /* TapticEngine.swift in Sources */,
 				1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */,
+				1F38664F22E5CAF80076C580 /* BindPhoneViewController.swift in Sources */,
 				1F395CB52295230500781C0C /* UMengManager.swift in Sources */,
 				1FF1E52622AF4C7D00BB9A50 /* InviteModel.swift in Sources */,
 				1FE5BF1D2282D1AC00C9137C /* CommentTableViewCell.swift in Sources */,
@@ -2179,6 +2185,7 @@
 				1FE5BEB62282866300C9137C /* TAAbstractDotView.m in Sources */,
 				1FE5BE20228285FA00C9137C /* UIViewController+DismissKeyboard.m in Sources */,
 				1FE5BF562285623400C9137C /* PostDetailContentTableViewCell.swift in Sources */,
+				1F38664D22E58C680076C580 /* ProtocolViewViewController.swift in Sources */,
 				1FF1E54922C6151900BB9A50 /* MyCommentTableViewCell.swift in Sources */,
 				1F395CC922962E5200781C0C /* AliPayManager.swift in Sources */,
 				1FE5BF1B2282D1A100C9137C /* HotDetailTableViewCell.swift in Sources */,
@@ -2254,6 +2261,7 @@
 				1FE5BFB6228CF47900C9137C /* TargerUserSearchViewController.swift in Sources */,
 				1FE8DAAC228EBC9100DCED01 /* SettingViewController.swift in Sources */,
 				1FE8DAA0228E982800DCED01 /* FollowsViewController.swift in Sources */,
+				1F38665122E5CB4F0076C580 /* BindPhoneViewModel.swift in Sources */,
 				1FE5BED12282866300C9137C /* yuv420sp.fsh.c in Sources */,
 				1FE5BE1E228285FA00C9137C /* UIViewController+hideExcessLine.m in Sources */,
 				1FE8DA8F228D6CAC00DCED01 /* InvitationTableViewCell.swift in Sources */,
