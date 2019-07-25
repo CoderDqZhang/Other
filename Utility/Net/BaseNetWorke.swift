@@ -284,6 +284,14 @@ class BaseNetWorke : SessionManager {
         
     }
     
+    func dataToDic(_ dictionary_temp:Data) ->NSDictionary{
+        let dictionary_temp_temp = try? JSONSerialization.jsonObject(with: dictionary_temp as Data, options: JSONSerialization.ReadingOptions.mutableContainers)
+        if  dictionary_temp_temp is NSDictionary{
+            return dictionary_temp_temp as! NSDictionary
+        }
+        return NSDictionary.init()
+    }
+    
     func header() ->HTTPHeaders{
         let app_v = versionCheck()
         let now = Date()

@@ -35,6 +35,8 @@
 		1F38664F22E5CAF80076C580 /* BindPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38664E22E5CAF80076C580 /* BindPhoneViewController.swift */; };
 		1F38665122E5CB4F0076C580 /* BindPhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38665022E5CB4F0076C580 /* BindPhoneViewModel.swift */; };
 		1F38665322E6EA950076C580 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38665222E6EA950076C580 /* SocketManager.swift */; };
+		1F38669722E8348D0076C580 /* GuidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38669622E8348D0076C580 /* GuidViewController.swift */; };
+		1F38669F22E8356F0076C580 /* GuidViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F38669E22E8356F0076C580 /* GuidViewModel.swift */; };
 		1F395CA122951D4200781C0C /* UMCommonLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8122951D4200781C0C /* UMCommonLog.framework */; };
 		1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F395C8222951D4200781C0C /* UMCommonLog.bundle */; };
 		1F395CA322951D4200781C0C /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F395C8522951D4200781C0C /* UTDID.framework */; };
@@ -263,6 +265,11 @@
 		1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */; };
 		1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */; };
 		1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */; };
+		1FEB98C922E953A30038B49F /* ScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98C822E953A30038B49F /* ScoreViewModel.swift */; };
+		1FEB98CB22E954F80038B49F /* AdModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98CA22E954F80038B49F /* AdModel.swift */; };
+		1FEB98CD22E9556F0038B49F /* AdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98CC22E9556F0038B49F /* AdViewController.swift */; };
+		1FEB98CF22E9595D0038B49F /* BackGroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98CE22E9595D0038B49F /* BackGroundManager.swift */; };
+		1FEB98D122E95BA90038B49F /* APPActiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98D022E95BA90038B49F /* APPActiveModel.swift */; };
 		1FF025A722D5C79D005E2ED2 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A622D5C79C005E2ED2 /* PageModel.swift */; };
 		1FF025A922D6DF95005E2ED2 /* CoinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */; };
 		1FF025AB22D6E4CE005E2ED2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */; };
@@ -368,6 +375,8 @@
 		1F38664E22E5CAF80076C580 /* BindPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BindPhoneViewController.swift; path = ../Mine/BindPhoneViewController.swift; sourceTree = "<group>"; };
 		1F38665022E5CB4F0076C580 /* BindPhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindPhoneViewModel.swift; sourceTree = "<group>"; };
 		1F38665222E6EA950076C580 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
+		1F38669622E8348D0076C580 /* GuidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidViewController.swift; sourceTree = "<group>"; };
+		1F38669E22E8356F0076C580 /* GuidViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidViewModel.swift; sourceTree = "<group>"; };
 		1F395C8122951D4200781C0C /* UMCommonLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommonLog.framework; sourceTree = "<group>"; };
 		1F395C8222951D4200781C0C /* UMCommonLog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMCommonLog.bundle; sourceTree = "<group>"; };
 		1F395C8522951D4200781C0C /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
@@ -659,6 +668,11 @@
 		1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewController.swift; sourceTree = "<group>"; };
 		1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiseViewController.swift; sourceTree = "<group>"; };
 		1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewModel.swift; sourceTree = "<group>"; };
+		1FEB98C822E953A30038B49F /* ScoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewModel.swift; sourceTree = "<group>"; };
+		1FEB98CA22E954F80038B49F /* AdModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdModel.swift; sourceTree = "<group>"; };
+		1FEB98CC22E9556F0038B49F /* AdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewController.swift; sourceTree = "<group>"; };
+		1FEB98CE22E9595D0038B49F /* BackGroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundManager.swift; sourceTree = "<group>"; };
+		1FEB98D022E95BA90038B49F /* APPActiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPActiveModel.swift; sourceTree = "<group>"; };
 		1FF025A622D5C79C005E2ED2 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsModel.swift; sourceTree = "<group>"; };
 		1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -759,6 +773,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F38669522E8346E0076C580 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				1F38669622E8348D0076C580 /* GuidViewController.swift */,
+				1FEB98CC22E9556F0038B49F /* AdViewController.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		1F38669B22E8354B0076C580 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				1F38669E22E8356F0076C580 /* GuidViewModel.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		1F395C7E22951D4200781C0C /* UMeng */ = {
 			isa = PBXGroup;
 			children = (
@@ -1004,6 +1035,7 @@
 		1FE5BDDF22817B1A00C9137C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1F38669522E8346E0076C580 /* Tools */,
 				1FE8DB122293DBE900DCED01 /* Login */,
 				1FE5BF052282A46500C9137C /* Base */,
 				1FE5BF042282A45900C9137C /* Score */,
@@ -1068,11 +1100,15 @@
 				1FE5BDF0228264F200C9137C /* Font-Color-Config.swift */,
 				1FE5BDE922817BCA00C9137C /* Touqiu-Bridging-Header.h */,
 				1F395CC822962E5200781C0C /* AliPayManager.swift */,
+				1FE5BE292282863D00C9137C /* AudioPlayManager.swift */,
 				1F395CB42295230500781C0C /* UMengManager.swift */,
 				1F395CB62295306B00781C0C /* UMengUI.swift */,
 				1FF025AC22D6E62E005E2ED2 /* InPurchaseManager.swift */,
 				1FF025AF22D71F15005E2ED2 /* NotificationManager.swift */,
 				1F38665222E6EA950076C580 /* SocketManager.swift */,
+				1FF1E53422B8E89700BB9A50 /* SKPhotoBrowserManager.swift */,
+				1F395CC42295458C00781C0C /* CacheManager.swift */,
+				1FEB98CE22E9595D0038B49F /* BackGroundManager.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1080,6 +1116,7 @@
 		1FE5BDE422817B1A00C9137C /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				1F38669B22E8354B0076C580 /* Tools */,
 				1FE8DB152293DC0E00DCED01 /* Login */,
 				1FE5BF0F2282A4CF00C9137C /* Category */,
 				1FE5BF0E2282A4C800C9137C /* Mine */,
@@ -1155,7 +1192,6 @@
 			isa = PBXGroup;
 			children = (
 				1FE5BE302282863D00C9137C /* AnimationTools.swift */,
-				1FE5BE292282863D00C9137C /* AudioPlayManager.swift */,
 				1FE5BF322283F60800C9137C /* Conner+Shadows.swift */,
 				1FE5BF252283BB8300C9137C /* GTMBase64.h */,
 				1FE5BF262283BB8300C9137C /* GTMBase64.m */,
@@ -1169,8 +1205,6 @@
 				1FE5BE2F2282863D00C9137C /* Tools.swift */,
 				1FE5BE2D2282863D00C9137C /* TransitionAnimatedManager.swift */,
 				1FE5BE2B2282863D00C9137C /* UIImageViewManger.swift */,
-				1F395CC42295458C00781C0C /* CacheManager.swift */,
-				1FF1E53422B8E89700BB9A50 /* SKPhotoBrowserManager.swift */,
 				1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */,
 				1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */,
 				1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */,
@@ -1517,6 +1551,7 @@
 		1FE5BF0C2282A4BB00C9137C /* Score */ = {
 			isa = PBXGroup;
 			children = (
+				1FEB98C822E953A30038B49F /* ScoreViewModel.swift */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -1694,6 +1729,8 @@
 				1FF1E51D22AE26B600BB9A50 /* UnreadMessageModel.swift */,
 				1FF025A622D5C79C005E2ED2 /* PageModel.swift */,
 				1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */,
+				1FEB98CA22E954F80038B49F /* AdModel.swift */,
+				1FEB98D022E95BA90038B49F /* APPActiveModel.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1926,6 +1963,7 @@
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
+				"${BUILT_PRODUCTS_DIR}/KSGuaidView/KSGuaidView.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
@@ -1957,6 +1995,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSGuaidView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
@@ -2057,6 +2096,7 @@
 				1FE5BFAA228BDEC200C9137C /* TargerUserViewController.swift in Sources */,
 				1FE5BF4C228529EC00C9137C /* PostDetailViewModel.swift in Sources */,
 				1FE8DAFF2292C4F100DCED01 /* MyCommentViewModel.swift in Sources */,
+				1FEB98CB22E954F80038B49F /* AdModel.swift in Sources */,
 				1FE5BE392282863D00C9137C /* AnimationTools.swift in Sources */,
 				1FE8DAAE228EC7CB00DCED01 /* RealNameViewController.swift in Sources */,
 				1FE5BF382284286A00C9137C /* GloableView.swift in Sources */,
@@ -2074,6 +2114,7 @@
 				1FE5BF5E228942EF00C9137C /* UITextFieldExtentions.swift in Sources */,
 				1FE5BECE2282866300C9137C /* renderer.c in Sources */,
 				1F395CCB2296787600781C0C /* AccountInfoModel.swift in Sources */,
+				1FEB98D122E95BA90038B49F /* APPActiveModel.swift in Sources */,
 				1FE8DABA228EC8BF00DCED01 /* RealNameViewModel.swift in Sources */,
 				1FE5BECD2282866300C9137C /* shader.c in Sources */,
 				1F1C1B4C22A0B58F008031F4 /* BindBankListViewController.swift in Sources */,
@@ -2127,6 +2168,7 @@
 				1FE5BEC12282866300C9137C /* JKDBModel.m in Sources */,
 				1FE8DAF5229293AD00DCED01 /* OtherGuessingViewModel.swift in Sources */,
 				1FE5BED92282866300C9137C /* TapticEngine.swift in Sources */,
+				1FEB98C922E953A30038B49F /* ScoreViewModel.swift in Sources */,
 				1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */,
 				1F38664F22E5CAF80076C580 /* BindPhoneViewController.swift in Sources */,
 				1F395CB52295230500781C0C /* UMengManager.swift in Sources */,
@@ -2145,6 +2187,7 @@
 				1FE5BE4C2282864300C9137C /* AlertControl+Tools.swift in Sources */,
 				1FE8DAD322926A5500DCED01 /* GloabelHeader.swift in Sources */,
 				1F395CD1229786AB00781C0C /* CategoryChoosViewController.swift in Sources */,
+				1FEB98CD22E9556F0038B49F /* AdViewController.swift in Sources */,
 				1F991775229E6EC300C8FDD5 /* OtherPostViewController.swift in Sources */,
 				1FE5BE1F228285FA00C9137C /* UIImage+PureColor.m in Sources */,
 				1FE5BE372282863D00C9137C /* PresentTransitionAnimated.m in Sources */,
@@ -2181,6 +2224,7 @@
 				1FE5BF66228A943B00C9137C /* PostCommentImagesTableViewCell.swift in Sources */,
 				1FE5BF3A2284359D00C9137C /* OutFallCategoryUserInfoTableViewCell.swift in Sources */,
 				1FE5BEB32282866200C9137C /* TADotView.m in Sources */,
+				1F38669F22E8356F0076C580 /* GuidViewModel.swift in Sources */,
 				1FF1E54522C4BF0000BB9A50 /* UIViewControllerExtentions.swift in Sources */,
 				1FE5BDF52282731C00C9137C /* MainTabBarController.swift in Sources */,
 				1FF025C322DC7A49005E2ED2 /* NotificationModel.swift in Sources */,
@@ -2194,6 +2238,7 @@
 				1F38664D22E58C680076C580 /* ProtocolViewViewController.swift in Sources */,
 				1FF1E54922C6151900BB9A50 /* MyCommentTableViewCell.swift in Sources */,
 				1F395CC922962E5200781C0C /* AliPayManager.swift in Sources */,
+				1FEB98CF22E9595D0038B49F /* BackGroundManager.swift in Sources */,
 				1FE5BF1B2282D1A100C9137C /* HotDetailTableViewCell.swift in Sources */,
 				1FE8DAEE2292933A00DCED01 /* JXPagingMainTableView.swift in Sources */,
 				1FE5BF592285702100C9137C /* UIButton+Block.m in Sources */,
@@ -2257,6 +2302,7 @@
 				1FF1E53922BB70AE00BB9A50 /* PointsModel.swift in Sources */,
 				1FF1E53322B782E800BB9A50 /* PostSegementViewModel.swift in Sources */,
 				1FE5BE4B2282864300C9137C /* UITapGestureRecognizer+Extention.swift in Sources */,
+				1F38669722E8348D0076C580 /* GuidViewController.swift in Sources */,
 				1FE8DB012292C5DC00DCED01 /* MycollectViewController.swift in Sources */,
 				1F1C1B3A229F6C88008031F4 /* BindDrawViewModel.swift in Sources */,
 				1FE5BECC2282866300C9137C /* renderer_yuv420sp.c in Sources */,
@@ -2502,6 +2548,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = Touqiu/Touqiu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -2547,6 +2594,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = Touqiu/Touqiu.entitlements;
 				CODE_SIGN_STYLE = Automatic;

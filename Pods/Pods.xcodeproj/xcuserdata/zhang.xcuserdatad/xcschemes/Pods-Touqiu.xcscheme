@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B47E3934D52AAB42CC2C7B4EF4186B1E"
+               BlueprintIdentifier = "1BF5EDA932DBCC835F82F7B1524048AE"
                BuildableName = "Pods_Touqiu.framework"
                BlueprintName = "Pods-Touqiu"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B47E3934D52AAB42CC2C7B4EF4186B1E"
+            BlueprintIdentifier = "1BF5EDA932DBCC835F82F7B1524048AE"
             BuildableName = "Pods_Touqiu.framework"
             BlueprintName = "Pods-Touqiu"
             ReferencedContainer = "container:Pods.xcodeproj">

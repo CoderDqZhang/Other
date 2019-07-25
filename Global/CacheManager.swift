@@ -130,6 +130,31 @@ class CacheManager: NSObject {
         return nil
     }
     
+    
+    func saveADModel(category:AdModel){
+        CacheManager._sharedInstance.otherCache?.setObject(category, forKey: ADMODEL)
+    }
+    
+    func getADModel() ->AdModel?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: ADMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: ADMODEL))!
+            return item as? AdModel
+        }
+        return nil
+    }
+    
+    func saveAPPActiveModel(category:APPActiveModel){
+        CacheManager._sharedInstance.otherCache?.setObject(category, forKey: APPACTIVEMODEL)
+    }
+    
+    func getAPPActiveModel() ->APPActiveModel?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: APPACTIVEMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: APPACTIVEMODEL))!
+            return item as? APPActiveModel
+        }
+        return nil
+    }
+    
     func savePointModel(point:NSMutableArray){
         CacheManager._sharedInstance.otherCache?.setObject(point, forKey: CACHEMANAPointModel)
     }

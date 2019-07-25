@@ -56,5 +56,14 @@ class LoadConfigManger: NSObject {
             }
         }
     }
+    
+    func setUpADView(controller:BaseViewController, model:AdModel){
+        let adView = AdView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), url: model.image) {
+            let controllerVC = AdViewController.init()
+            controllerVC.url = model.url
+            NavigationPushView(controller, toConroller: controllerVC)
+        }
+        KWindow.addSubview(adView)
+    }
 }
 

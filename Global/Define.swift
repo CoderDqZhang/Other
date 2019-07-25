@@ -48,7 +48,7 @@ let IPHONEWIDTH414 = SCREENWIDTH == 414 ? true:false
 let IPHONEXFRAMEHEIGHT:CGFloat = IPHONEXs ? 24 : 0
 let IPHONEXTABBARHEIGHT:CGFloat = IPHONEXs ? 30 : 0
 
-let KWindow:UIWindow = UIApplication.shared.keyWindow!
+let KWindow:UIWindow = UIApplication.shared.windows[0]
 
 
 
@@ -86,7 +86,6 @@ func versionCheck() -> String{
 //    let localizedModel = UIDevice.current.localizedModel //设备区域化型号如A1533
     
     let appVersion = majorVersion as! String
-    print(appVersion)
     return appVersion
 }
 

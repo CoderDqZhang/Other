@@ -45,4 +45,6 @@
 #import "JPUSHService.h"
 #import <UserNotifications/UserNotifications.h>
 
+#import "NSDate+LSCore.h"
+
 #endif /* Touqiu_Bridging_Header_h */

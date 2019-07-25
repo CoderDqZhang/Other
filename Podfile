@@ -32,7 +32,8 @@ target 'Touqiu' do
   pod 'AliyunOSSiOS'
   pod 'JPush'
   pod 'CocoaAsyncSocket'
-
+  pod 'KSGuaidView'
+  
   target 'TouqiuTests' do
     inherit! :search_paths
     # Pods for testing

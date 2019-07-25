@@ -14,6 +14,9 @@ let PACKET = 4
 class SocketManager: NSObject {
     
     var mSocket:GCDAsyncSocket!
+    
+    var time:Timer!
+    
     var connectStatus = 0
     
     private static let _sharedInstance = SocketManager()
@@ -44,20 +47,20 @@ class SocketManager: NSObject {
         mSocket.write(d, withTimeout: TimeInterval(1000), tag: 0)
     }
     
-    func data(){
+    func connectHeart(){
         let version = versionCheck()
         let version_4 = version.data(using: String.Encoding.utf8)
         let str = UIDevice.current.identifierForVendor?.uuidString
         let aes_uid = NSString.aes128Encrypt(str!, key:AESKey).data(using: String.Encoding.utf8)!
         var d = Data()
         let uid = (str?.data(using: String.Encoding.utf8))!
-        let content = Data.init(base64Encoded: "1234")!
+        let content = "ping".data(using: String.Encoding.utf8)!
         d.append(version_4!)
         d.append(uid)
         d.append(aes_uid)
         d.append(content)
+        print("发送心跳连接")
         mSocket.write(d, withTimeout: -1, tag: 0)
-        
 //        4字节版本号  Long类型 内容长度 36字节uuid  64字节签名(使用AES对uuid进行加密
     }
     
@@ -67,40 +70,20 @@ class SocketManager: NSObject {
             SocketManager.getSharedInstance().mSocket.delegate = self
             SocketManager.getSharedInstance().mSocket.delegateQueue = DispatchQueue.main
             connectStatus = 0
-            try mSocket.connect(toHost: "192.168.0.172", onPort: 4162, withTimeout: TimeInterval(5000))
-//            try mSocket.connect(toHost: "192.168.0.157", onPort: 2222, withTimeout: TimeInterval(5000))
+            try mSocket.connect(toHost: RootIPAddress, onPort: 4162, withTimeout: TimeInterval(5000))
         } catch {
             print("conncet error")
         }
     }
     
-    func parse_data(data:Data){
-//        let lenByte = data.subdata(in: 0..<PACKET )
-//        let contentLength = Int(UInt32(bigEndian: lenByte.withUnsafeBytes { $0.pointee }))
-//        let contentByte   = data.subdata(in: PACKET..<contentLength+PACKET)
-//        switch contentByte[0] {
-//        case 1:
-//            let flagByte = contentByte[1]
-//            let uidByte  = contentByte.subdata(in: 2..<contentByte.count)
-//            print(flagByte, UInt32(bigEndian: uidByte.withUnsafeBytes { $0.pointee }))
-//            break;
-//        case 2:
-//            let flagByte = contentByte[1]
-//            print(flagByte)
-//            break;
-//        default:
-//            print("unknow cmd")
-//        }
-//        if contentLength+PACKET < data.count {
-//            parse_data(data: data.subdata(in: contentLength+PACKET..<data.count))
-//        }
+    func disconnect(){
+        SocketManager.getSharedInstance().mSocket.disconnect()
+        time.invalidate()
     }
     
-    func longConnectToSocket(){
-        let str = "longConnect"
-        let data = str.data(using: String.Encoding.utf8)
-        SocketManager.getSharedInstance().mSocket.write(data!, withTimeout: 1, tag: 0)
-        print("心跳发送")
+    func parse_data(data:Data){
+        let dic = BaseNetWorke.getSharedInstance().dataToDic(data)
+        print(dic)
     }
 }
 
@@ -125,11 +108,11 @@ extension SocketManager : GCDAsyncSocketDelegate {
     
     func socket(_ sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {
         sock.readData(withTimeout: -1, tag: 0)
-        self.data()
-//        sock.write(<#T##data: Data##Data#>, withTimeout: -1, tag: 0)
-        _ = Timer.init(timeInterval: 1, repeats: true, block: { (time) in
-            self.longConnectToSocket()
+        self.connectHeart()
+        time = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (time) in
+            self.connectHeart()
         })
+        
         print("success")
     }
     

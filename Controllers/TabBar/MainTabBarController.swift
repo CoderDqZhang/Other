@@ -18,10 +18,6 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let str = "api_v=v1&c_time=1541709593&imei=359355041886388&os=1&os_v=12"
-        let lock = NSString.aes128Encrypt(str, key:"6Z*d02wRE43IRNJ^")
-        print(lock)
-        
         let scoreNavigaitonVC = UINavigationController.init(rootViewController: scoreVC)
         self.setNavigationVC(vc: scoreNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "比分")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "比分_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "比分")
         let categoryNavigaitonVC = UINavigationController.init(rootViewController: segmentVC)
@@ -40,10 +36,13 @@ class MainTabBarController: UITabBarController {
         AuthorityManager.setUpAuthorityManager(controller: scoreVC)
         
         
+        //推送通知跳转详情
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, queue: OperationQueue.main) { (userInfo) in
             let model = NotificationModel.init(fromDictionary: userInfo.userInfo as! [String : Any])
             self.pushViewController(model: model)
         }
+        
+        SocketManager.getSharedInstance().connect()
         // Do any additional setup after loading the view.
     }
     

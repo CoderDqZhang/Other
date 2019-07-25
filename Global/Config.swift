@@ -40,6 +40,8 @@ let CACHEMANAUSERINFO = "userInfo"
 let CACHEMANAUSERTOKEN = "UserToken"
 let CACHEMANACONFIGMODEL = "ConfigModel"
 let CACHEMANAUNREADMESSAGEMODEL = "UnreadMessageModel"
+let ADMODEL = "ADModel"
+let APPACTIVEMODEL = "APPActiveModel"
 let CACHEMANAPointModel = "PointModel"
 
 let JPUSHALIAS = "touqiu_"

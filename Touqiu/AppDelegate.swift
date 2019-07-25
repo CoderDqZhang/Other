@@ -19,12 +19,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
+        
         //加载配置
         LoadConfigManger.getSharedInstance().setUp()
+        //阿里云库
         AliPayManager.getSharedInstance().ossSetUp()
+        //友盟推送显示
         UMengManager.getSharedInstance().setUpUMengManger(application, didFinishLaunchingWithOptions: launchOptions)
+        //通知详情
         NotificationManager.getSharedInstance().setUpNotification(launchOptions: launchOptions)
-        
+        //WebSocket连接
+//        SocketManager.getSharedInstance().connect()
+
         let rootVC = MainTabBarController.init()
         self.window?.rootViewController = rootVC
         self.window?.makeKeyAndVisible()
@@ -41,10 +47,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        BackGroundManager.getSharedInstance().background()
         NotificationManager.getSharedInstance().applicationDidEnterBackground(application)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        BackGroundManager.getSharedInstance().active()
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 

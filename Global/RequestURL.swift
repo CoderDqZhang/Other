@@ -11,9 +11,10 @@ import Foundation
 
 //ZKFgTvUb5BXiuD7KK2iuFiOUintS6mLgFi+ukIPiol801JlCola+lkGcFGN886nd
 //ZKFgTvUb5BXiuD7KK2iuFtphhrg2uQu1kTJ0q4cnRothrdDXMpq+CNSo2UaDlDuI
-
-let RootUrl = "http://192.168.0.155:10020/social/"
-//let RootUrl = "http://192.168.0.172:10020/social/"
+//let RootIPAddress:String = "192.168.0.155"
+let RootIPAddress = "192.168.0.172"
+let SocketPort:Int = 4162
+let RootUrl = "http://\(RootIPAddress):10020/social/"
 
 let UserforgetPasswordUrl = "\(RootUrl)user/forgetPassword"
 let UserBindPhoneUrl = "\(RootUrl)user/bindPhone"
@@ -25,6 +26,7 @@ let UserregisterUrl = "\(RootUrl)user/register"
 let UsersendCodeUrl = "\(RootUrl)user/sendCode"
 let SurePasswordUrl = "\(RootUrl)user/updatePassword"
 let UserInfoUrl = "\(RootUrl)user/getUserInfo"
+
 
 let AccountbindAccountUrl = "\(RootUrl)account/addAccount"
 let AccountcashUrl = "\(RootUrl)account/addCashRecord"
@@ -86,6 +88,8 @@ let NotificationListUrl = "\(RootUrl)notify/getNotifyList"
 let PayUrl = "\(RootUrl)pay/iosPay"
 
 let UserFeedBackinsertFeedbackUrl = "\(RootUrl)userFeedback/addFeedback"
+
+let ADvertiseUsableAdvertise = "\(RootUrl)advertise/getUsableAdvertise"
 
 
 func getAliPayBankNameUrl(banNo:String) ->String {

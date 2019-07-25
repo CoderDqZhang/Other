@@ -1286,3 +1286,74 @@ class GloableAlertView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+typealias AdViewClouse = () ->Void
+class AdView: UIView {
+    
+    var imageView:UIImageView!
+    var doneButton:AnimationButton!
+    
+    var count = 3
+    var time:Timer!
+    
+    init(frame: CGRect, url:String, click:@escaping AdViewClouse) {
+        super.init(frame: frame)
+        imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+        self.addSubview(imageView)
+        
+        imageView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        imageView.sd_crope_imageView(url: url, imageView: imageView, placeholderImage: nil) { (image, url, type, stage, error) in
+            
+        }
+        
+        doneButton = AnimationButton.init(type: .custom)
+        time  = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
+            if self.count > 0 {
+                self.doneButton.setTitle("跳过\(self.count)", for: .normal)
+                self.count = self.count - 1
+            }else{
+                self.doneButton.setTitle("跳过", for: .normal)
+                self.time.invalidate()
+                self.disMiss()
+            }
+        })
+        doneButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
+        doneButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
+        doneButton.reactive.controlEvents(.touchUpInside).observeValues { (button) in
+            self.disMiss()
+        }
+        self.addSubview(doneButton)
+        
+        doneButton.snp.makeConstraints { (make) in
+            if #available(iOS 11.0, *) {
+                make.top.equalTo(self.snp.top).offset(NAV_HEIGHT + 30)
+            } else {
+                 make.top.equalTo(self.snp.top).offset(30)
+                // Fallback on earlier versions
+            }
+            make.right.equalTo(self.snp.right).offset(-15)
+            make.size.equalTo(CGSize.init(width: 50, height: 20))
+        }
+        
+        _ = self.newTapGesture(config: { (config) in
+            config.numberOfTapsRequired = 1
+            config.numberOfTouchesRequired = 1
+        }).whenTaped(handler: { (guest) in
+            click()
+        })
+    }
+    
+    func disMiss(){
+        self.removeFromSuperview()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

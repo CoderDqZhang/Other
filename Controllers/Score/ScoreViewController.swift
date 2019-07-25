@@ -12,14 +12,10 @@ class ScoreViewController: BaseViewController {
 
     var gloableCommentView:CustomViewCommentTextField!
     var textView111:YYTextView!
+    let scoreViewModel = ScoreViewModel.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       SocketManager.getSharedInstance().connect()
-//        AliPayManager.getSharedInstance().uploadFile(images: [UIImage.init(named: "back_bar")!], type: .post, result: { result in
-//            
-//        })
         
         if #available(iOS 11.0, *) {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49 - 60, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
@@ -46,6 +42,8 @@ class ScoreViewController: BaseViewController {
         gloableCommentView.backgroundColor = .white
         gloableCommentView.textView.isEditable = true
         self.view.addSubview(gloableCommentView)
+        
+        
 //
 //        
 //        let textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 100))
@@ -92,8 +90,13 @@ class ScoreViewController: BaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    override func setUpView() {
+        self.bindViewModel(viewModel: scoreViewModel, controller: self)
+    }
 }
+
+
 
 extension ScoreViewController : YYTextViewDelegate {
     func textViewDidEndEditing(_ textView: YYTextView) {
