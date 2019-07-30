@@ -48,9 +48,9 @@ class UMengManager: NSObject {
     
     func configUSharePlatforms(){
         //微信
-        UMSocialManager.default()?.setPlaform(.wechatSession, appKey: WeiXinAppID, appSecret: "", redirectURL: "")
+        UMSocialManager.default()?.setPlaform(.wechatSession, appKey: WeiXinAppID, appSecret: WeiXinAppSecret, redirectURL: "")
         //微信
-        UMSocialManager.default()?.setPlaform(.wechatTimeLine, appKey: WeiXinAppID, appSecret: "", redirectURL: "")
+        UMSocialManager.default()?.setPlaform(.wechatTimeLine, appKey: WeiXinAppID, appSecret: WeiXinAppSecret, redirectURL: "")
         //QQ
         UMSocialManager.default()?.setPlaform(.QQ, appKey: QQAPPID, appSecret: QQAPPKEY, redirectURL: "")
         //QQ空间

@@ -16,7 +16,7 @@ let LIMITNUMBER:String = "10"
 
 let LOCALBANKNAME = "BankName.json"
 
-let JPushKey = "3434b0b27289c88f8053e4fd"
+let JPushKey = "d64257d3a941be47886fcdd6"
 
 let UMengKey = "5ce3c7b5570df31299000416"
 
@@ -60,8 +60,8 @@ let WeiboAppSecret = "bb759bcc23ee0c68f2e1e0470514f0f9"
 let WeiboRedirectUrl = "http://sns.whalecloud.com/sina2/callback"
 
 
-let WeiXinAppID = "wxde874e2be98bd508"
-
+let WeiXinAppID = "wxc12aa2683cd59692"
+let WeiXinAppSecret = "7de854c8c6a50165fe7f46cc4060b00e"
 
 func getNoLoginUserModel()->UserInfoModel{
     let userInfo = UserInfoModel.init(fromDictionary: ["id": 8,

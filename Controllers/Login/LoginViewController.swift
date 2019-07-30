@@ -94,8 +94,11 @@ class LoginViewController: BaseViewController {
                     model.type = "2"
                     model.descriptions = ((response.originalResponse as! NSDictionary).object(forKey: "description") as! String)
                 default:
-                    break
-//                    UMengManager.getSharedInstance().loginWithPlatform(type: UMSocialPlatformType.wechatSession, controller: self)
+                    model.openId = response.openid
+                    model.nickname = ((response.originalResponse as! NSDictionary).object(forKey: "nickname") as! String)
+                    model.img = ((response.originalResponse as! NSDictionary).object(forKey: "headimgurl") as! String)
+                    model.type = "2"
+                    model.descriptions = ""
                 }
                 self.loginViewModel.loginThirdPlathom(model: model)
             }
