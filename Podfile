@@ -33,6 +33,7 @@ target 'Touqiu' do
   pod 'JPush'
   pod 'CocoaAsyncSocket'
   pod 'KSGuaidView'
+  pod 'JVerification'
   
   target 'TouqiuTests' do
     inherit! :search_paths

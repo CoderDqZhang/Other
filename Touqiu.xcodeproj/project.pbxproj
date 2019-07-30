@@ -270,6 +270,8 @@
 		1FEB98CD22E9556F0038B49F /* AdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98CC22E9556F0038B49F /* AdViewController.swift */; };
 		1FEB98CF22E9595D0038B49F /* BackGroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98CE22E9595D0038B49F /* BackGroundManager.swift */; };
 		1FEB98D122E95BA90038B49F /* APPActiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98D022E95BA90038B49F /* APPActiveModel.swift */; };
+		1FEB98D822F023210038B49F /* BadgeValueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98D722F023210038B49F /* BadgeValueButton.m */; };
+		1FEB98DF22F0464F0038B49F /* FirstAppStartManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98DE22F0464F0038B49F /* FirstAppStartManager.m */; };
 		1FF025A722D5C79D005E2ED2 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A622D5C79C005E2ED2 /* PageModel.swift */; };
 		1FF025A922D6DF95005E2ED2 /* CoinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */; };
 		1FF025AB22D6E4CE005E2ED2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */; };
@@ -673,6 +675,10 @@
 		1FEB98CC22E9556F0038B49F /* AdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewController.swift; sourceTree = "<group>"; };
 		1FEB98CE22E9595D0038B49F /* BackGroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundManager.swift; sourceTree = "<group>"; };
 		1FEB98D022E95BA90038B49F /* APPActiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPActiveModel.swift; sourceTree = "<group>"; };
+		1FEB98D622F023210038B49F /* BadgeValueButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BadgeValueButton.h; sourceTree = "<group>"; };
+		1FEB98D722F023210038B49F /* BadgeValueButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BadgeValueButton.m; sourceTree = "<group>"; };
+		1FEB98DD22F0464F0038B49F /* FirstAppStartManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstAppStartManager.h; sourceTree = "<group>"; };
+		1FEB98DE22F0464F0038B49F /* FirstAppStartManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstAppStartManager.m; sourceTree = "<group>"; };
 		1FF025A622D5C79C005E2ED2 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsModel.swift; sourceTree = "<group>"; };
 		1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -1091,13 +1097,13 @@
 			isa = PBXGroup;
 			children = (
 				1FE5BDE522817B5F00C9137C /* Define.swift */,
+				1FE5BDF0228264F200C9137C /* Font-Color-Config.swift */,
 				1F1C1B45229FA4A4008031F4 /* Config.swift */,
 				1FF1E51822AE08EB00BB9A50 /* LoadConfigManger.swift */,
 				1FE5BDE722817B8500C9137C /* RequestURL.swift */,
 				1FE5BDEE2282648D00C9137C /* AppThemeConfig.swift */,
 				1FE5BFA5228AC1E200C9137C /* AuthorityManager.swift */,
 				1F1C1B43229FA3F7008031F4 /* ReadFileDataManager.swift */,
-				1FE5BDF0228264F200C9137C /* Font-Color-Config.swift */,
 				1FE5BDE922817BCA00C9137C /* Touqiu-Bridging-Header.h */,
 				1F395CC822962E5200781C0C /* AliPayManager.swift */,
 				1FE5BE292282863D00C9137C /* AudioPlayManager.swift */,
@@ -1109,6 +1115,8 @@
 				1FF1E53422B8E89700BB9A50 /* SKPhotoBrowserManager.swift */,
 				1F395CC42295458C00781C0C /* CacheManager.swift */,
 				1FEB98CE22E9595D0038B49F /* BackGroundManager.swift */,
+				1FEB98DD22F0464F0038B49F /* FirstAppStartManager.h */,
+				1FEB98DE22F0464F0038B49F /* FirstAppStartManager.m */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1199,6 +1207,8 @@
 				1FE5BE2C2282863D00C9137C /* LocalJsonFile.swift */,
 				1FE5BF2C2283C22C00C9137C /* NSStringAdditions.h */,
 				1FE5BF2D2283C22C00C9137C /* NSStringAdditions.m */,
+				1FEB98D622F023210038B49F /* BadgeValueButton.h */,
+				1FEB98D722F023210038B49F /* BadgeValueButton.m */,
 				1FE5BE282282863D00C9137C /* PresentTransitionAnimated.h */,
 				1FE5BE2E2282863D00C9137C /* PresentTransitionAnimated.m */,
 				1FE5BE2A2282863D00C9137C /* ShareTools.swift */,
@@ -2231,6 +2241,8 @@
 				1FE5BE362282863D00C9137C /* TransitionAnimatedManager.swift in Sources */,
 				1FE5BDE622817B5F00C9137C /* Define.swift in Sources */,
 				1FE5BF2B2283C1BC00C9137C /* NSString+NSStringAdditions.m in Sources */,
+				1FEB98D822F023210038B49F /* BadgeValueButton.m in Sources */,
+				1FEB98DF22F0464F0038B49F /* FirstAppStartManager.m in Sources */,
 				1FF1E54722C4C67400BB9A50 /* MessageViewModel.swift in Sources */,
 				1FE5BEB62282866300C9137C /* TAAbstractDotView.m in Sources */,
 				1FE5BE20228285FA00C9137C /* UIViewController+DismissKeyboard.m in Sources */,

@@ -45,6 +45,11 @@
 #import "JPUSHService.h"
 #import <UserNotifications/UserNotifications.h>
 
+#import "BadgeValueButton.h"
+
+#import "FirstAppStartManager.h"
+#import "KSGuaidViewManager.h"
+
 #import "NSDate+LSCore.h"
 
 #endif /* Touqiu_Bridging_Header_h */

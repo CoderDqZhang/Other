@@ -17,6 +17,8 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     var numberLabel:YYLabel!
     
     var rightImageView:UIImageView!
+    
+    var rightButtonView:BadgeValueButton!
 
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
     var didMakeConstraints = false
@@ -46,6 +48,14 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         rightImageView.layer.masksToBounds = true
         self.contentView.addSubview(rightImageView)
         
+        
+        _ = rightImageView.newPanGesture(config: { (config) in
+        }).whenBegan(handler: { (guest) in
+            print("began")
+        }).whenEnded(handler: { (guest) in
+            print("end")
+        })
+        
         self.contentView.addSubview(lineLabel)
         self.updateConstraints()
     }
@@ -70,28 +80,34 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         if str.int! > 99 {
             showStr = "99+"
         }
-        if numberLabel == nil {
-            numberLabel = YYLabel.init()
-            numberLabel.textAlignment = .center
-            numberLabel.text = showStr
-            self.contentView.addSubview(numberLabel)
-            numberLabel.backgroundColor = App_Theme_F65449_Color
-            numberLabel.textColor = App_Theme_FFFFFF_Color
-            numberLabel.layer.cornerRadius = 7
-            numberLabel.font = App_Theme_PinFan_R_12_Font
-            
+        if rightButtonView == nil {
+            rightButtonView = BadgeValueButton.init()
+            self.contentView.addSubview(rightButtonView)
+            rightButtonView.backgroundColor = App_Theme_F65449_Color
+            rightButtonView.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
+            rightButtonView.titleLabel?.font = App_Theme_PinFan_R_12_Font
+            rightButtonView.layer.cornerRadius = 7
             let strHeight = showStr.nsString.width(with: App_Theme_PinFan_R_12_Font, constrainedToHeight: 14)
-            numberLabel.snp.makeConstraints({ (make) in
+            rightButtonView.snp.makeConstraints({ (make) in
                 make.right.equalTo(self.contentView.snp.right).offset(-9)
                 make.centerY.equalToSuperview()
                 make.size.equalTo(CGSize.init(width: strHeight + 8, height: 14))
             })
+            
+            
+            rightButtonView.block = {
+                print("dismiss")
+            }
+            
+            
         }
-        numberLabel.text = showStr
+        rightButtonView.setTitle(showStr, for: .normal)
+        rightButtonView.maxDistance = 10
+        
         if str.int!  == 0 {
-            numberLabel.isHidden = true
+            rightButtonView.isHidden = true
         }else{
-            numberLabel.isHidden = false
+            rightButtonView.isHidden = false
         }
     }
     

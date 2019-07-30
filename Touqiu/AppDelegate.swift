@@ -29,7 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //通知详情
         NotificationManager.getSharedInstance().setUpNotification(launchOptions: launchOptions)
         //WebSocket连接
-//        SocketManager.getSharedInstance().connect()
+        SocketManager.getSharedInstance().connect()
+        //FirstAppStart
+        FirstAppStartManager.init().setUpStartApp()
 
         let rootVC = MainTabBarController.init()
         self.window?.rootViewController = rootVC
