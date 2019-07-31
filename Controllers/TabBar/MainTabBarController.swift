@@ -10,7 +10,7 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
 
-    let scoreVC = ScoreViewController()
+    let scoreVC = ScoreSegementViewController()
     let segmentVC = SegmentViewController()
     let squareVC = SquareViewController()
     let mineVC = MineViewController()

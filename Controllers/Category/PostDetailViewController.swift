@@ -142,7 +142,6 @@ class PostDetailViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
-//        self.navigationItem.title = ((self.postData.object(forKey: "tribe") as! NSDictionary).object(forKey: "tribeName") as! String)
         let shareItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
         var deleteItem:UIBarButtonItem?
         if CacheManager.getSharedInstance().isLogin() {
@@ -151,7 +150,6 @@ class PostDetailViewController: BaseViewController {
                     deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "delete")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.deleteBarItemClick(_:)))
                 }else{
                     deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "report")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.reportBarItemClick(_:)))
-                    
                 }
             }
             if deleteItem != nil {

@@ -13,7 +13,12 @@ import DZNEmptyDataSet
 import FDFullscreenPopGesture
 
 typealias SearchResultDicClouse = (_ dic:NSDictionary) -> Void
+
 typealias PostDetailDataClouse =  (_ obj:NSMutableDictionary, _ type:PostType, _ indexPath:IndexPath?) ->Void
+
+typealias ScoreDetailDataClouse =  (_ obj:NSMutableDictionary, _ type:ScoreDetailVC, _ scoreType:ScoreDetailTypeVC, _ indexPath:IndexPath?) ->Void
+
+
 typealias SetUpLoadMoreDataClouse = () ->Void
 
 typealias ReloadDataClouse = () ->Void
@@ -28,6 +33,8 @@ class BaseViewController: UIViewController {
     var resultDicClouse:SearchResultDicClouse!
     var reloadDataClouse:ReloadDataClouse!
     var postDetailDataClouse:PostDetailDataClouse!
+    
+    var scoreDetailDataClouse:ScoreDetailDataClouse!
     
     var setUpLoadMoreDataClouse:SetUpLoadMoreDataClouse!
     

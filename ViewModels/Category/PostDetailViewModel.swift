@@ -128,6 +128,11 @@ class PostDetailViewModel: BaseViewModel {
                self.controller?.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
             NavigationPushView(self.controller!, toConroller: commentVC)
+        }else if indexPath.section == 0 && indexPath.row == 0 {
+            let dic:NSDictionary = self.tipDetailModel.user.toDictionary() as NSDictionary
+            let otherMineVC = OtherMineViewController()
+            otherMineVC.postData = dic
+            NavigationPushView(self.controller!, toConroller: otherMineVC)
         }
     }
     
@@ -142,8 +147,8 @@ class PostDetailViewModel: BaseViewModel {
                 self.tipDetailModel = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
                 (self.controller! as! PostDetailViewController).navigationItem.title = self.tipDetailModel.tribe.tribeName
                 self.reloadTableViewData()
-                
-                
+                (self.controller as! PostDetailViewController).postData = self.tipDetailModel.toDictionary() as NSDictionary
+                (self.controller as! PostDetailViewController).setUpViewNavigationItem()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }

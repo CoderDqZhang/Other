@@ -1,22 +1,23 @@
 //
-//  SegmentViewController.swift
+//  ScoreSegementViewController.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/8.
+//  Created by Zhang on 2019/7/31.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 import JXSegmentedView
 
-class SegmentViewController: BaseViewController, UIScrollViewDelegate {
 
+
+class ScoreSegementViewController: BaseViewController,UIScrollViewDelegate {
+
+    let titles = ["足球", "篮球"]
+    let segmentViewModel = ScoreSegmentViewModel.init()    
     
-    let titles = ["最新", "出墙"]
-    let segmentViewModel = SegmentViewModel.init()
-    let newController = NewsViewController.init()
-    let outFallController = OutFallViewController.init()
-
+    let baseketBallScoreSegmentVC = BaseScoreSegmentViewController.init()
+    let baseScoreFootBallSegmentVC = BaseScoreSegmentViewController.init()
     
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
@@ -39,9 +40,9 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
         segmentedViewDataSource = JXSegmentedTitleDataSource()
         segmentedViewDataSource.titles = titles
         segmentedViewDataSource.titleSelectedColor = App_Theme_06070D_Color!
-        segmentedViewDataSource.titleNormalColor = App_Theme_B4B4B4_Color!
-        segmentedViewDataSource.titleSelectedFont = App_Theme_PinFan_R_16_Font
-        segmentedViewDataSource.titleNormalFont = App_Theme_PinFan_R_16_Font!
+        segmentedViewDataSource.titleNormalColor = App_Theme_06070D_Color!
+        segmentedViewDataSource.titleSelectedFont = App_Theme_PinFan_M_21_Font!
+        segmentedViewDataSource.titleNormalFont = App_Theme_PinFan_R_18_Font!
         segmentedViewDataSource.isTitleColorGradientEnabled = true
         segmentedViewDataSource.isTitleZoomEnabled = false
         segmentedViewDataSource.reloadData(selectedIndex: 0)
@@ -49,7 +50,7 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = .clear
         segmentedView.contentEdgeInsetRight = 72
-        segmentedView.contentEdgeInsetLeft = 112
+        segmentedView.contentEdgeInsetLeft = 72
         segmentedView.defaultSelectedIndex = 0
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
@@ -76,35 +77,28 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     
     override func bindViewModelLogic(){
         self.bindViewModel(viewModel: segmentViewModel, controller: self)
-        self.newController.postDetailDataClouse = { data, type, indexPath in
-            self.segmentViewModel.pushPostDetailViewController(data, type, indexPath!)
+        
+        self.baseketBallScoreSegmentVC.scoreDetailDataClouse = { data, type, scoreType, indexPath in
+            self.segmentViewModel.pushScoreDetailViewController(data, type, scoreType, indexPath!)
         }
         
-        self.newController.categoryDetailClouse = { data, type in
-            self.segmentViewModel.pushCategoryDetailViewController(data, type)
+        self.baseScoreFootBallSegmentVC.scoreDetailDataClouse = { data, type, scoreType, indexPath in
+            self.segmentViewModel.pushScoreDetailViewController(data, type, scoreType, indexPath!)
         }
-        
-        self.outFallController.postDetailDataClouse = { data, type, indexPath in
-            self.segmentViewModel.pushPostDetailViewController(data, type, indexPath!)
-        }
-        
-    }
-    
-    func changeCommentAndLikeNumber(_ data:NSDictionary,_ indexPath:IndexPath){
-        newController.changeCommentAndLikeNumber(data, indexPath)
-    }
-    
-    func deleteArticle(_ indexPath:IndexPath){
-        newController.deleteArticle(indexPath)
     }
     
     func createNavigationItem(){
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "发表")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.rightBarItemClick))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "ic_more")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.rightBarItemClick))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "ic_filte")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.leftBarItemClick))
         self.navigationItem.titleView = self.segmentedView
     }
     
     @objc func rightBarItemClick(){
-        segmentViewModel.pushPostVC()
+        segmentViewModel.pushMoreVC()
+    }
+    
+    @objc func leftBarItemClick(){
+        segmentViewModel.pushFilterVC()
     }
     
     override func didReceiveMemoryWarning() {
@@ -123,9 +117,7 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        segmentedView.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 50)
-        listContainerView.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height - 50)
+        listContainerView.frame = view.bounds
     }
     
     /*
@@ -139,7 +131,7 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     
 }
 
-extension SegmentViewController : JXSegmentedViewDelegate {
+extension ScoreSegementViewController : JXSegmentedViewDelegate {
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
         //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
         listContainerView.didClickSelectedItem(at: index)
@@ -151,20 +143,20 @@ extension SegmentViewController : JXSegmentedViewDelegate {
     }
 }
 
-extension SegmentViewController: JXSegmentedListContainerViewDataSource {
+extension ScoreSegementViewController: JXSegmentedListContainerViewDataSource {
     
     func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
         return titles.count
     }
     
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        if index == 0 {
-            newController.initSView(type: index)
-            return newController
-        }else{
-            outFallController.initSView(type: index)
-            return outFallController
+        switch index {
+        case 0:
+            baseScoreFootBallSegmentVC.initSView(type: index)
+            return baseScoreFootBallSegmentVC
+        default:
+            baseketBallScoreSegmentVC.initSView(type: index)
+            return baseketBallScoreSegmentVC
         }
-        
     }
 }

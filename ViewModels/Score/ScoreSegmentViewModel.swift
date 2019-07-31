@@ -1,18 +1,32 @@
 //
-//  ScoreViewModel.swift
+//  ScoreSegmentViewModel.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/7/25.
+//  Created by Zhang on 2019/7/31.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 
-class ScoreViewModel: BaseViewModel {
+enum ScoreDetailVC:Int {
+    case basketball = 1
+    case football = 0
+}
+
+enum ScoreDetailTypeVC:Int {
+    case timely = 0
+    case underway = 1
+    case competition = 2
+    case amidithion = 3
+    case attention = 4
+}
+
+class ScoreSegmentViewModel: BaseViewModel {
 
     override init() {
         super.init()
-        self.loadADUrl()
+        //广告
+//        self.loadADUrl()
     }
     
     func loadADUrl(){
@@ -25,5 +39,17 @@ class ScoreViewModel: BaseViewModel {
                 LoadConfigManger.getSharedInstance().setUpADView(controller: self.controller!, model: model)
             }
         }
+    }
+    
+    func pushScoreDetailViewController(_ data:NSDictionary, _ type:ScoreDetailVC,_ scoreType:ScoreDetailTypeVC, _ indexPath:IndexPath){
+        
+    }
+    
+    func pushMoreVC(){
+        
+    }
+    
+    func pushFilterVC(){
+        
     }
 }

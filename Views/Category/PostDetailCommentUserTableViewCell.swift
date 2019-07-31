@@ -28,9 +28,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
     
     func setUpView(){
         
-        avatarImage = UIImageView.init()
-        avatarImage.backgroundColor = UIColor.gray
-        
+        avatarImage = UIImageView.init()        
         avatarImage.layer.cornerRadius = 11
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)

@@ -38,6 +38,7 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
                 self.postDetailUserTagInfoClouse()
             }
         })
+        avatarImage.isUserInteractionEnabled = true
         avatarImage.layer.cornerRadius = 17
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)

@@ -68,6 +68,9 @@
 		1F395CD722978DB600781C0C /* CategoryChoosSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD622978DB600781C0C /* CategoryChoosSearchViewController.swift */; };
 		1F395CD922978E7600781C0C /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CD822978E7600781C0C /* PostViewModel.swift */; };
 		1F395CDB229797D400781C0C /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CDA229797D400781C0C /* PostModel.swift */; };
+		1F6BA9C722F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9C622F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift */; };
+		1F6BA9C922F189660090A1D5 /* BasketBallScoreSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9C822F189660090A1D5 /* BasketBallScoreSegmentViewController.swift */; };
+		1F6BA9CB22F18A530090A1D5 /* BasketBallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9CA22F18A530090A1D5 /* BasketBallTableViewCell.swift */; };
 		1F99174C229B74AC00C8FDD5 /* CoinsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */; };
 		1F99174E229B74B900C8FDD5 /* ConinsSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */; };
 		1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */; };
@@ -98,7 +101,6 @@
 		1FE5BDFB2282747900C9137C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDFA2282747900C9137C /* BaseViewController.swift */; };
 		1FE5BDFD2282750900C9137C /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDFC2282750900C9137C /* MineViewController.swift */; };
 		1FE5BDFF2282751400C9137C /* SquareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDFE2282751400C9137C /* SquareViewController.swift */; };
-		1FE5BE032282752C00C9137C /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE022282752C00C9137C /* ScoreViewController.swift */; };
 		1FE5BE06228282B900C9137C /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE05228282B900C9137C /* BaseViewModel.swift */; };
 		1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE0C228285FA00C9137C /* UITextView+Placeholder.m */; };
 		1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BE0D228285FA00C9137C /* UIColor+Hex.m */; };
@@ -265,13 +267,21 @@
 		1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */; };
 		1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */; };
 		1FE8DB232294ED0D00DCED01 /* ResetPasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */; };
-		1FEB98C922E953A30038B49F /* ScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98C822E953A30038B49F /* ScoreViewModel.swift */; };
 		1FEB98CB22E954F80038B49F /* AdModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98CA22E954F80038B49F /* AdModel.swift */; };
 		1FEB98CD22E9556F0038B49F /* AdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98CC22E9556F0038B49F /* AdViewController.swift */; };
 		1FEB98CF22E9595D0038B49F /* BackGroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98CE22E9595D0038B49F /* BackGroundManager.swift */; };
 		1FEB98D122E95BA90038B49F /* APPActiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98D022E95BA90038B49F /* APPActiveModel.swift */; };
 		1FEB98D822F023210038B49F /* BadgeValueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98D722F023210038B49F /* BadgeValueButton.m */; };
 		1FEB98DF22F0464F0038B49F /* FirstAppStartManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98DE22F0464F0038B49F /* FirstAppStartManager.m */; };
+		1FEB98E122F128F20038B49F /* ScoreSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98E022F128F20038B49F /* ScoreSegementViewController.swift */; };
+		1FEB98E322F129040038B49F /* BasKetBallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98E222F129040038B49F /* BasKetBallViewController.swift */; };
+		1FEB98E522F129110038B49F /* FootBallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98E422F129110038B49F /* FootBallViewController.swift */; };
+		1FEB98E722F129890038B49F /* ScoreSegmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98E622F129890038B49F /* ScoreSegmentViewModel.swift */; };
+		1FEB98E922F1299B0038B49F /* BasketBallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98E822F1299B0038B49F /* BasketBallViewModel.swift */; };
+		1FEB98EB22F129A90038B49F /* FootBallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98EA22F129A90038B49F /* FootBallViewModel.swift */; };
+		1FEB98EF22F132AB0038B49F /* BaseScoreSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98EE22F132AB0038B49F /* BaseScoreSegmentViewController.swift */; };
+		1FEB98F122F13F940038B49F /* ScoreListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98F022F13F940038B49F /* ScoreListTableViewCell.swift */; };
+		1FEB98F322F13FA60038B49F /* ScoreInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98F222F13FA60038B49F /* ScoreInfoTableViewCell.swift */; };
 		1FF025A722D5C79D005E2ED2 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A622D5C79C005E2ED2 /* PageModel.swift */; };
 		1FF025A922D6DF95005E2ED2 /* CoinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */; };
 		1FF025AB22D6E4CE005E2ED2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */; };
@@ -413,6 +423,9 @@
 		1F395CD622978DB600781C0C /* CategoryChoosSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChoosSearchViewController.swift; sourceTree = "<group>"; };
 		1F395CD822978E7600781C0C /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		1F395CDA229797D400781C0C /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		1F6BA9C622F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallScoreSegmentViewController.swift; sourceTree = "<group>"; };
+		1F6BA9C822F189660090A1D5 /* BasketBallScoreSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallScoreSegmentViewController.swift; sourceTree = "<group>"; };
+		1F6BA9CA22F18A530090A1D5 /* BasketBallTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallTableViewCell.swift; sourceTree = "<group>"; };
 		1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailViewController.swift; sourceTree = "<group>"; };
 		1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConinsSegementViewController.swift; sourceTree = "<group>"; };
 		1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsViewModel.swift; sourceTree = "<group>"; };
@@ -450,7 +463,6 @@
 		1FE5BDFA2282747900C9137C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		1FE5BDFC2282750900C9137C /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		1FE5BDFE2282751400C9137C /* SquareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewController.swift; sourceTree = "<group>"; };
-		1FE5BE022282752C00C9137C /* ScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		1FE5BE05228282B900C9137C /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		1FE5BE08228285FA00C9137C /* UIViewController+DismissKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DismissKeyboard.h"; sourceTree = "<group>"; };
 		1FE5BE09228285FA00C9137C /* UIImage+PureColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PureColor.h"; sourceTree = "<group>"; };
@@ -670,7 +682,6 @@
 		1FE8DB1E2294E5DE00DCED01 /* ResetPasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewController.swift; sourceTree = "<group>"; };
 		1FE8DB202294EAFB00DCED01 /* RegiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiseViewController.swift; sourceTree = "<group>"; };
 		1FE8DB222294ED0D00DCED01 /* ResetPasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasViewModel.swift; sourceTree = "<group>"; };
-		1FEB98C822E953A30038B49F /* ScoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewModel.swift; sourceTree = "<group>"; };
 		1FEB98CA22E954F80038B49F /* AdModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdModel.swift; sourceTree = "<group>"; };
 		1FEB98CC22E9556F0038B49F /* AdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewController.swift; sourceTree = "<group>"; };
 		1FEB98CE22E9595D0038B49F /* BackGroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundManager.swift; sourceTree = "<group>"; };
@@ -679,6 +690,15 @@
 		1FEB98D722F023210038B49F /* BadgeValueButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BadgeValueButton.m; sourceTree = "<group>"; };
 		1FEB98DD22F0464F0038B49F /* FirstAppStartManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstAppStartManager.h; sourceTree = "<group>"; };
 		1FEB98DE22F0464F0038B49F /* FirstAppStartManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstAppStartManager.m; sourceTree = "<group>"; };
+		1FEB98E022F128F20038B49F /* ScoreSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSegementViewController.swift; sourceTree = "<group>"; };
+		1FEB98E222F129040038B49F /* BasKetBallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasKetBallViewController.swift; sourceTree = "<group>"; };
+		1FEB98E422F129110038B49F /* FootBallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallViewController.swift; sourceTree = "<group>"; };
+		1FEB98E622F129890038B49F /* ScoreSegmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSegmentViewModel.swift; sourceTree = "<group>"; };
+		1FEB98E822F1299B0038B49F /* BasketBallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallViewModel.swift; sourceTree = "<group>"; };
+		1FEB98EA22F129A90038B49F /* FootBallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallViewModel.swift; sourceTree = "<group>"; };
+		1FEB98EE22F132AB0038B49F /* BaseScoreSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScoreSegmentViewController.swift; sourceTree = "<group>"; };
+		1FEB98F022F13F940038B49F /* ScoreListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreListTableViewCell.swift; sourceTree = "<group>"; };
+		1FEB98F222F13FA60038B49F /* ScoreInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1FF025A622D5C79C005E2ED2 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsModel.swift; sourceTree = "<group>"; };
 		1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -1480,7 +1500,12 @@
 		1FE5BF042282A45900C9137C /* Score */ = {
 			isa = PBXGroup;
 			children = (
-				1FE5BE022282752C00C9137C /* ScoreViewController.swift */,
+				1FEB98E022F128F20038B49F /* ScoreSegementViewController.swift */,
+				1FEB98EE22F132AB0038B49F /* BaseScoreSegmentViewController.swift */,
+				1F6BA9C822F189660090A1D5 /* BasketBallScoreSegmentViewController.swift */,
+				1FEB98E222F129040038B49F /* BasKetBallViewController.swift */,
+				1FEB98E422F129110038B49F /* FootBallViewController.swift */,
+				1F6BA9C622F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -1554,6 +1579,9 @@
 		1FE5BF0B2282A4AC00C9137C /* Score */ = {
 			isa = PBXGroup;
 			children = (
+				1FEB98F022F13F940038B49F /* ScoreListTableViewCell.swift */,
+				1F6BA9CA22F18A530090A1D5 /* BasketBallTableViewCell.swift */,
+				1FEB98F222F13FA60038B49F /* ScoreInfoTableViewCell.swift */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -1561,7 +1589,9 @@
 		1FE5BF0C2282A4BB00C9137C /* Score */ = {
 			isa = PBXGroup;
 			children = (
-				1FEB98C822E953A30038B49F /* ScoreViewModel.swift */,
+				1FEB98E622F129890038B49F /* ScoreSegmentViewModel.swift */,
+				1FEB98E822F1299B0038B49F /* BasketBallViewModel.swift */,
+				1FEB98EA22F129A90038B49F /* FootBallViewModel.swift */,
 			);
 			path = Score;
 			sourceTree = "<group>";
@@ -2119,6 +2149,7 @@
 				1F99175E229BDBC400C8FDD5 /* CoinsDetailModel.swift in Sources */,
 				1FE5BEEF2282A1CA00C9137C /* SegmentViewController.swift in Sources */,
 				1FE5BE332282863D00C9137C /* ShareTools.swift in Sources */,
+				1FEB98E522F129110038B49F /* FootBallViewController.swift in Sources */,
 				1FE5BED02282866300C9137C /* yuv420p.fsh.c in Sources */,
 				1F991754229B92BB00C8FDD5 /* StoreViewController.swift in Sources */,
 				1FE5BF5E228942EF00C9137C /* UITextFieldExtentions.swift in Sources */,
@@ -2129,6 +2160,7 @@
 				1FE5BECD2282866300C9137C /* shader.c in Sources */,
 				1F1C1B4C22A0B58F008031F4 /* BindBankListViewController.swift in Sources */,
 				1FE5BED72282866300C9137C /* RangeSeekSliderDelegate.swift in Sources */,
+				1FEB98E922F1299B0038B49F /* BasketBallViewModel.swift in Sources */,
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
 				1FE8DB172293DC2300DCED01 /* LoginViewModel.swift in Sources */,
 				1FE8DAA4228EA08100DCED01 /* FollowViewModel.swift in Sources */,
@@ -2151,6 +2183,7 @@
 				1FE5BED42282866300C9137C /* IJKSDLGLView.m in Sources */,
 				1FE8DAD722926AE900DCED01 /* OtherMineViewController.swift in Sources */,
 				1FE8DAC6228ED11900DCED01 /* FeedBackViewModel.swift in Sources */,
+				1FEB98EF22F132AB0038B49F /* BaseScoreSegmentViewController.swift in Sources */,
 				1FE5BEC32282866300C9137C /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1F1C1B5422A0E930008031F4 /* NotificationTableViewCell.swift in Sources */,
 				1FE5BE1A228285FA00C9137C /* UITextView+Placeholder.m in Sources */,
@@ -2178,7 +2211,6 @@
 				1FE5BEC12282866300C9137C /* JKDBModel.m in Sources */,
 				1FE8DAF5229293AD00DCED01 /* OtherGuessingViewModel.swift in Sources */,
 				1FE5BED92282866300C9137C /* TapticEngine.swift in Sources */,
-				1FEB98C922E953A30038B49F /* ScoreViewModel.swift in Sources */,
 				1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */,
 				1F38664F22E5CAF80076C580 /* BindPhoneViewController.swift in Sources */,
 				1F395CB52295230500781C0C /* UMengManager.swift in Sources */,
@@ -2190,6 +2222,7 @@
 				1FF025A922D6DF95005E2ED2 /* CoinsModel.swift in Sources */,
 				1FE5BF5B228583C000C9137C /* AnimationView.swift in Sources */,
 				1FF1E53122B0D95700BB9A50 /* DailyModel.swift in Sources */,
+				1FEB98E322F129040038B49F /* BasKetBallViewController.swift in Sources */,
 				1FE5BEB42282866300C9137C /* TAPageControl.m in Sources */,
 				1F1C1B2E229E9FF4008031F4 /* TopUpTableViewCell.swift in Sources */,
 				1FE8DAC2228ECAF400DCED01 /* FeedBackViewController.swift in Sources */,
@@ -2225,6 +2258,7 @@
 				1F1C1B5022A0B61B008031F4 /* BankTableViewCell.swift in Sources */,
 				1FE8DAB0228EC7D800DCED01 /* SingUpVIPViewController.swift in Sources */,
 				1FE5BE252282862B00C9137C /* BaseNetWorke.swift in Sources */,
+				1FEB98F322F13FA60038B49F /* ScoreInfoTableViewCell.swift in Sources */,
 				1F395CC72295461000781C0C /* RegisterViewModel.swift in Sources */,
 				1FE8DA98228E8EC500DCED01 /* UIView+ESAddTapGestureRecognizer.m in Sources */,
 				1F395CC3229542E000781C0C /* UserInfoModel.swift in Sources */,
@@ -2269,7 +2303,9 @@
 				1FE8DB142293DC0000DCED01 /* LoginViewController.swift in Sources */,
 				1F395CCF229783A300781C0C /* TipModel.swift in Sources */,
 				1FE8DAEF2292933A00DCED01 /* JXPagingView.swift in Sources */,
+				1F6BA9CB22F18A530090A1D5 /* BasketBallTableViewCell.swift in Sources */,
 				1F1C1B5A22A1000F008031F4 /* StoreModel.swift in Sources */,
+				1FEB98E122F128F20038B49F /* ScoreSegementViewController.swift in Sources */,
 				1FE8DAE42292817400DCED01 /* RecommendViewController.swift in Sources */,
 				1FE5BF2E2283C22C00C9137C /* NSStringAdditions.m in Sources */,
 				1FE5BF4A228529B700C9137C /* PostDetailViewController.swift in Sources */,
@@ -2285,6 +2321,7 @@
 				1FE8DAF32292937000DCED01 /* OtherPostViewModel.swift in Sources */,
 				1FE5BDFB2282747900C9137C /* BaseViewController.swift in Sources */,
 				1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */,
+				1F6BA9C922F189660090A1D5 /* BasketBallScoreSegmentViewController.swift in Sources */,
 				1F1C1B5622A0F56D008031F4 /* StoreSegementViewController.swift in Sources */,
 				1FE8DAC4228ECD0600DCED01 /* ChangePasswordViewModel.swift in Sources */,
 				1FE8DAA8228EAB6600DCED01 /* ChangeViewModel.swift in Sources */,
@@ -2325,6 +2362,7 @@
 				1FE5BFB6228CF47900C9137C /* TargerUserSearchViewController.swift in Sources */,
 				1FE8DAAC228EBC9100DCED01 /* SettingViewController.swift in Sources */,
 				1FE8DAA0228E982800DCED01 /* FollowsViewController.swift in Sources */,
+				1FEB98E722F129890038B49F /* ScoreSegmentViewModel.swift in Sources */,
 				1F38665122E5CB4F0076C580 /* BindPhoneViewModel.swift in Sources */,
 				1FE5BED12282866300C9137C /* yuv420sp.fsh.c in Sources */,
 				1FE5BE1E228285FA00C9137C /* UIViewController+hideExcessLine.m in Sources */,
@@ -2356,8 +2394,8 @@
 				1FE8DAA2228EA07500DCED01 /* FansViewModel.swift in Sources */,
 				1FE5BE1C228285FA00C9137C /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1FE8DA9E228E981B00DCED01 /* FansViewController.swift in Sources */,
-				1FE5BE032282752C00C9137C /* ScoreViewController.swift in Sources */,
 				1FF1E54322C46C5A00BB9A50 /* ReplyContentTableViewCell.swift in Sources */,
+				1F6BA9C722F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift in Sources */,
 				1FE5BE4A2282864300C9137C /* NSTimer.swift in Sources */,
 				1FE5BE352282863D00C9137C /* LocalJsonFile.swift in Sources */,
 				1FF1E51E22AE26B600BB9A50 /* UnreadMessageModel.swift in Sources */,
@@ -2365,6 +2403,8 @@
 				1FE8DB032292C5F300DCED01 /* MyCollectViewModel.swift in Sources */,
 				1FE5BEC52282866300C9137C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FE8DAB2228EC7E300DCED01 /* NotificationViewController.swift in Sources */,
+				1FEB98F122F13F940038B49F /* ScoreListTableViewCell.swift in Sources */,
+				1FEB98EB22F129A90038B49F /* FootBallViewModel.swift in Sources */,
 				1F1C1B3C229F6CC4008031F4 /* BindWithdrawViewController.swift in Sources */,
 				1FF025B022D71F15005E2ED2 /* NotificationManager.swift in Sources */,
 				1FE5BF272283BB8300C9137C /* GTMBase64.m in Sources */,
