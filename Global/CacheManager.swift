@@ -166,4 +166,16 @@ class CacheManager: NSObject {
         }
         return nil
     }
+    
+    func saveFootTeamBallModel(point:NSMutableArray){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: FOOTBALLTEAMMODEL)
+    }
+    
+    func getFootTeamBallModel() ->NSMutableArray?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: FOOTBALLTEAMMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: FOOTBALLTEAMMODEL))!
+            return item as? NSMutableArray
+        }
+        return nil
+    }
 }

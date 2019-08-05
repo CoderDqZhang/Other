@@ -46,7 +46,8 @@ extension UIImageView {
     
     func sd_crope_imageView(url:String, imageView:UIImageView, placeholderImage:UIImage?, completedBlock:YYWebImageCompletionBlock?){
         let size = imageView.size
-        self.yy_setImage(with: URL.init(string: UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder: nil, options: [.setImageWithFadeAnimation, .progressiveBlur, .showNetworkActivity], manager: nil, progress: { (start, end) in
+        
+        self.yy_setImage(with: URL.init(string:url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder: nil, options: [.setImageWithFadeAnimation, .progressiveBlur, .showNetworkActivity], manager: nil, progress: { (start, end) in
             
         }, transform: { (image, url) -> UIImage? in
             return image.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill)
@@ -58,7 +59,7 @@ extension UIImageView {
     }
     
     func sd_crope_imageView_withMaxWidth(url:String, placeholderImage:UIImage?, completedBlock:SDExternalCompletionBlock?) {
-        self.sd_setImage(with: URL.init(string: UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: placeholderImage, options: .retryFailed, completed: completedBlock)
+        self.sd_setImage(with: URL.init(string: url.contains("http") ? url :UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: placeholderImage, options: .retryFailed, completed: completedBlock)
         
 //        self.yy_setImage(with: URL.init(string: UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder: nil, options: [.ignoreDiskCache], manager: nil, progress: { (start, end) in
 //

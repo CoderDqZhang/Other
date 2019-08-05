@@ -7,8 +7,11 @@
 //
 
 import UIKit
-
-typealias PostDetailCommentUserTableViewCellClouse = (_ indexPath:IndexPath) ->Void
+enum PostDetailCommentUserTableViewCellType {
+    case user
+    case like
+}
+typealias PostDetailCommentUserTableViewCellClouse = (_ indexPath:IndexPath, _ type:PostDetailCommentUserTableViewCellType) ->Void
 
 class PostDetailCommentUserTableViewCell: UITableViewCell {
 
@@ -31,6 +34,15 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         avatarImage = UIImageView.init()        
         avatarImage.layer.cornerRadius = 11
         avatarImage.layer.masksToBounds = true
+        avatarImage.isUserInteractionEnabled = true
+        _ = avatarImage.newTapGesture(config: { (config) in
+            config.numberOfTapsRequired = 1
+            config.numberOfTouchesRequired = 1
+        }).whenTaped(handler: { (tap) in
+            if self.postDetailCommentUserTableViewCellClouse != nil {
+                self.postDetailCommentUserTableViewCellClouse(self.indexPath,.user)
+            }
+        })
         self.addSubview(avatarImage)
         
         userName = YYLabel.init()
@@ -56,7 +68,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
             }
             
             if self.postDetailCommentUserTableViewCellClouse != nil {
-                self.postDetailCommentUserTableViewCellClouse(self.indexPath)
+                self.postDetailCommentUserTableViewCellClouse(self.indexPath,.like)
             }
         })
         

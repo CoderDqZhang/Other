@@ -7,6 +7,9 @@
 //
 
 import UIKit
+#if DEBUG
+import CocoaDebug
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //通知详情
         NotificationManager.getSharedInstance().setUpNotification(launchOptions: launchOptions)
         //WebSocket连接
-        SocketManager.getSharedInstance().connect()
+//        SocketManager.getSharedInstance().connect()
         //FirstAppStart
         FirstAppStartManager.init().setUpStartApp()
 
@@ -37,8 +40,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = rootVC
         self.window?.makeKeyAndVisible()
         
+        #if DEBUG
+        CocoaDebug.enable()
+        #endif
         
         return true
+    }
+    
+    //Step 3. (AppDelegate.swift)
+    public func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
+        #if DEBUG
+        swiftLog(file, function, line, message, color, false)
+        #endif
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

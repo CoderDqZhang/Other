@@ -97,7 +97,7 @@ class LoginViewController: BaseViewController {
                     model.openId = response.openid
                     model.nickname = ((response.originalResponse as! NSDictionary).object(forKey: "nickname") as! String)
                     model.img = ((response.originalResponse as! NSDictionary).object(forKey: "headimgurl") as! String)
-                    model.type = "2"
+                    model.type = "0"
                     model.descriptions = ""
                 }
                 self.loginViewModel.loginThirdPlathom(model: model)

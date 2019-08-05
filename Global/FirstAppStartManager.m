@@ -14,10 +14,11 @@
 
 
 - (void)setUpStartApp{
-    KSGuaidManager.images = @[[UIImage imageNamed:@"guid01"],
-                              [UIImage imageNamed:@"guid02"],
-                              [UIImage imageNamed:@"guid03"],
-                              [UIImage imageNamed:@"guid04"]];
+    KSGuaidManager.images = @[[UIImage imageNamed:@"ic_score"],
+                              [UIImage imageNamed:@"ic_follow"],
+                              [UIImage imageNamed:@"ic_screen"],
+                              [UIImage imageNamed:@"ic_circle"],
+                              [UIImage imageNamed:@"ic_information"]];
     
     /*
      方式一:

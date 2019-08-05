@@ -49,7 +49,14 @@ class ScoreSegmentViewModel: BaseViewModel {
         
     }
     
-    func pushFilterVC(){
-        
+    func pushFilterVC(_ type:ScoreDetailVC){
+        let fileterSegment = FilterSegmentViewController()
+        fileterSegment.viewType = type
+        fileterSegment.initSView(type: type.rawValue)
+        //更新数据
+        fileterSegment.filterSegmentViewControllerReloadDataClouse = {
+            
+        }
+        NavigationPushView(self.controller!, toConroller: fileterSegment)
     }
 }

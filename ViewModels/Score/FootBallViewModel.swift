@@ -29,6 +29,10 @@ class FootBallViewModel: BaseViewModel {
         
     }
     
+    func getFootBallNet(){
+        
+    }
+    
 }
 
 extension FootBallViewModel: UITableViewDelegate {

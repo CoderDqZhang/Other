@@ -33,7 +33,10 @@ target 'Touqiu' do
   pod 'JPush'
   pod 'CocoaAsyncSocket'
   pod 'KSGuaidView'
-  pod 'JVerification'
+  pod 'BDKCollectionIndexView'
+  
+  pod 'CocoaDebug', :configurations => ['Debug']
+  pod 'SWTableViewCell', '~> 0.3.7'
   
   target 'TouqiuTests' do
     inherit! :search_paths

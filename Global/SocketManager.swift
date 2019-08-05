@@ -15,8 +15,16 @@ class SocketManager: NSObject {
     
     var mSocket:GCDAsyncSocket!
     
+    var isRecive:Bool = false
+    
     var time:Timer!
     
+    var networkTestingTimer:Timer!
+    
+    var reConnectTime:TimeInterval!
+    
+    var isActivelyClose:Bool = false
+        
     var connectStatus = 0
     
     private static let _sharedInstance = SocketManager()
@@ -27,8 +35,7 @@ class SocketManager: NSObject {
     
     private override init() {
         super.init()
-//        self.data()
-        
+        self.onNetWorkStartTesting()
     } // 私有化init方法
     
     func send(){
@@ -47,6 +54,7 @@ class SocketManager: NSObject {
         mSocket.write(d, withTimeout: TimeInterval(1000), tag: 0)
     }
     
+    //心跳链接
     func connectHeart(){
         let version = versionCheck()
         let version_4 = version.data(using: String.Encoding.utf8)
@@ -64,6 +72,53 @@ class SocketManager: NSObject {
 //        4字节版本号  Long类型 内容长度 36字节uuid  64字节签名(使用AES对uuid进行加密
     }
     
+    //取消心跳
+    func destoryHeart(){
+        DispatchQueue.main.async {
+            if self.time != nil {
+                self.time.invalidate()
+                self.time = nil
+            }
+        }
+    }
+    //网络监测
+    func noNetWorkStartTestingTimer(){
+        DispatchQueue.main.async {
+            self.networkTestingTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (time) in
+                RunLoop.current.add(self.networkTestingTimer, forMode: RunLoop.Mode.default)
+            }
+        }
+    }
+    //取消网络监测
+    func destoryNetWorkStartTesting(){
+        DispatchQueue.main.async {
+            if (self.networkTestingTimer != nil) {
+                self.networkTestingTimer.invalidate()
+                self.networkTestingTimer = nil
+            }
+        }
+    }
+    
+    //网络监测
+    func onNetWorkStartTesting(){
+        NetWorkListManager.getSharedInstance().netWorkList { (status) in
+            switch status{
+            case .notReachable:
+                self.disconnect()
+                print("the noework is not reachable")
+            case .unknown:
+                print("It is unknown whether the network is reachable")
+            case .reachable(.ethernetOrWiFi):
+                self.reConnect()
+                print("通过WiFi链接")
+            case .reachable(.wwan):
+                self.reConnect()
+                print("通过移动网络链接")
+            }
+        }
+    }
+    
+    //连接Scoket
     func connect(){
         do {
             SocketManager.getSharedInstance().mSocket = GCDAsyncSocket()
@@ -76,14 +131,30 @@ class SocketManager: NSObject {
         }
     }
     
+    //重新连接
+    func reConnect(){
+        if self.mSocket.isConnected {
+            return
+        }
+//        if self.reConnectTime > 1024 {
+//            self.reConnectTime = 0
+//            return
+//        }
+        self.connect()
+    }
+    
+    //断开连接
     func disconnect(){
+        self.isActivelyClose = true
         SocketManager.getSharedInstance().mSocket.disconnect()
-        time.invalidate()
+        self.destoryNetWorkStartTesting()
+        self.destoryHeart()
     }
     
     func parse_data(data:Data){
         let dic = BaseNetWorke.getSharedInstance().dataToDic(data)
-        print(dic)
+        isRecive = true
+        print("接受到数据")
     }
 }
 
@@ -108,17 +179,27 @@ extension SocketManager : GCDAsyncSocketDelegate {
     
     func socket(_ sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {
         sock.readData(withTimeout: -1, tag: 0)
+        connectStatus = 1
         self.connectHeart()
-        time = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (time) in
-            self.connectHeart()
-        })
-        
+        if time == nil {
+            time = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (time) in
+                if !self.isRecive {
+                    self.isRecive = false
+                    return
+                }
+                self.connectHeart()
+            })
+        }
         print("success")
     }
     
     func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
         print(err ?? "")
-
+        if self.isActivelyClose {
+            self.destoryHeart()
+            return
+        }
+        
         print("disconnect")
     }
     

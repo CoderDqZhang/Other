@@ -8,7 +8,7 @@
 
 import UIKit
 import DZNEmptyDataSet
-
+import SWTableViewCell
 class PostDetailViewModel: BaseViewModel {
 
     var postType:PostType!
@@ -107,9 +107,18 @@ class PostDetailViewModel: BaseViewModel {
             cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), indexPath: indexPath)
         }
         
-        cell.postDetailCommentUserTableViewCellClouse = { indexPath in
-            let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
-            self.likeCommentNet(commentId: model.id.string, model:model, indexPath: indexPath)
+        cell.postDetailCommentUserTableViewCellClouse = { indexPath, type in
+            if type == .like {
+                let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+                self.likeCommentNet(commentId: model.id.string, model:model, indexPath: indexPath)
+            }else{
+                
+                let dic:NSDictionary = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]).user.toDictionary() as NSDictionary
+                let otherMineVC = OtherMineViewController()
+                otherMineVC.postData = dic
+                NavigationPushView(self.controller!, toConroller: otherMineVC)
+            }
+            
         }
     }
     
@@ -368,6 +377,13 @@ extension PostDetailViewModel: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
+    
+    func rightButtons() ->NSArray{
+        let rightUtilityButtons = NSMutableArray.init()
+        rightUtilityButtons.sw_addUtilityButton(with: UIColor.red, title: "删除")
+        rightUtilityButtons.sw_addUtilityButton(with: UIColor.yellow, title: "已读")
+        return rightUtilityButtons
+    }
 }
 
 extension PostDetailViewModel: UITableViewDataSource {
@@ -409,9 +425,29 @@ extension PostDetailViewModel: UITableViewDataSource {
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
             self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
+            (cell as! PostDetailCommentTableViewCell).delegate = self
+            (cell as! PostDetailCommentTableViewCell).rightUtilityButtons = (self.rightButtons() as! [Any])
             cell.selectionStyle = .none
             return cell
         }
+    }
+}
+
+extension PostDetailViewModel : SWTableViewCellDelegate {
+    
+    func swipeableTableViewCellDidEndScrolling(_ cell: SWTableViewCell!) {
+        
+    }
+    func swipeableTableViewCell(_ cell: SWTableViewCell!, scrollingTo state: SWCellState) {
+        
+    }
+    
+    func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
+        
+    }
+    
+    func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
+        
     }
 }
 

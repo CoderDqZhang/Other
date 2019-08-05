@@ -22,7 +22,7 @@ class BackGroundManager: NSObject {
         let timeNow = date!.timeIntervalSince1970
         let model = APPActiveModel.init(fromDictionary: ["background":timeNow,"active":0])
         CacheManager.getSharedInstance().saveAPPActiveModel(category: model)
-        
+         SocketManager.getSharedInstance().isActivelyClose = true
         SocketManager.getSharedInstance().mSocket.disconnect()
     }
     
@@ -38,6 +38,6 @@ class BackGroundManager: NSObject {
             }
         }
         
-        SocketManager.getSharedInstance().connect()
+        SocketManager.getSharedInstance().reConnect()
     }
 }

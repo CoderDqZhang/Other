@@ -43,6 +43,9 @@ let CACHEMANAUNREADMESSAGEMODEL = "UnreadMessageModel"
 let ADMODEL = "ADModel"
 let APPACTIVEMODEL = "APPActiveModel"
 let CACHEMANAPointModel = "PointModel"
+//助球队信息
+let FOOTBALLTEAMMODEL = "FootBallTeamModel"
+
 
 let JPUSHALIAS = "touqiu_"
 let NOTIFICATIOINSPUSHCONTROLLER = "NOTIFICATIOINSPUSHCONTROLLER"
@@ -65,7 +68,7 @@ let WeiXinAppSecret = "7de854c8c6a50165fe7f46cc4060b00e"
 
 func getNoLoginUserModel()->UserInfoModel{
     let userInfo = UserInfoModel.init(fromDictionary: ["id": 8,
-                                                       "img": "/user/2019/5/27/8_716837048.png",
+                                                       "img": "/user/default.png",
                                                        "nickname": "请先登录",
                                                        "description": "还未登录",
                                                        "phone": "",

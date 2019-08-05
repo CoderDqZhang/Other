@@ -26,6 +26,9 @@ class ScoreSegementViewController: BaseViewController,UIScrollViewDelegate {
     var tableHeaderViewHeight: CGFloat = 138
     var heightForHeaderInSection: Int = 44
     
+    
+    var selectViewType:ScoreDetailVC = .football
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -98,7 +101,7 @@ class ScoreSegementViewController: BaseViewController,UIScrollViewDelegate {
     }
     
     @objc func leftBarItemClick(){
-        segmentViewModel.pushFilterVC()
+        segmentViewModel.pushFilterVC(self.selectViewType)
     }
     
     override func didReceiveMemoryWarning() {
@@ -135,6 +138,7 @@ extension ScoreSegementViewController : JXSegmentedViewDelegate {
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
         //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
         listContainerView.didClickSelectedItem(at: index)
+        self.selectViewType = ScoreDetailVC.init(rawValue: index)!
     }
     
     func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {

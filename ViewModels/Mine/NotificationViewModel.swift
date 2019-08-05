@@ -8,6 +8,7 @@
 
 import UIKit
 import DZNEmptyDataSet
+import SWTableViewCell
 
 class NotificationViewModel: BaseViewModel {
 
@@ -121,6 +122,13 @@ class NotificationViewModel: BaseViewModel {
         }
         CacheManager.getSharedInstance().saveUnreadModel(category: self.unreadModel)
     }
+    
+    func rightButtons() ->NSArray{
+        let rightUtilityButtons = NSMutableArray.init()
+        rightUtilityButtons.sw_addUtilityButton(with: UIColor.red, title: "删除")
+        rightUtilityButtons.sw_addUtilityButton(with: UIColor.yellow, title: "已读")
+        return rightUtilityButtons
+    }
 }
 
 
@@ -160,10 +168,30 @@ extension NotificationViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NotificationTableViewCell.description(), for: indexPath)
         self.tableViewNotificationTableViewCellSetData(indexPath, cell: cell as! NotificationTableViewCell)
+        (cell as! NotificationTableViewCell).rightUtilityButtons = (self.rightButtons() as! [Any])
+        (cell as! NotificationTableViewCell).delegate = self as SWTableViewCellDelegate
         return cell
     }
 }
 
+
+extension NotificationViewModel : SWTableViewCellDelegate {
+    
+    func swipeableTableViewCellDidEndScrolling(_ cell: SWTableViewCell!) {
+        
+    }
+    func swipeableTableViewCell(_ cell: SWTableViewCell!, scrollingTo state: SWCellState) {
+        
+    }
+    
+    func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
+        
+    }
+    
+    func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
+        
+    }
+}
 
 extension NotificationViewModel : DZNEmptyDataSetDelegate {
     

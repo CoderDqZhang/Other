@@ -1357,3 +1357,85 @@ class AdView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+enum FilterBottomViewClickType {
+    case allselect
+    case allunselect
+    case done
+}
+typealias FilterBottomViewClick = (_ type:FilterBottomViewClickType) ->Void
+class FilterBottomView: UIView {
+    var allSelectButton:AnimationButton!
+    var allUnselectButton:AnimationButton!
+    var doneButton:UIButton!
+    
+    var selectLabel:YYLabel!
+    
+    let lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 54, y: 18, width: 1, height: 12))
+    init(frame:CGRect, number:String, click:@escaping FilterBottomViewClick) {
+        super.init(frame: frame)
+        self.backgroundColor = App_Theme_FFFFFF_Color
+        allSelectButton = AnimationButton.init(type: .custom)
+        allSelectButton.setTitle("全选", for: .normal)
+        allSelectButton.addAction({ (button) in
+            click(.allselect)
+        }, for: .touchUpInside)
+        allSelectButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
+        allSelectButton.titleLabel?.font = App_Theme_PinFan_M_12_Font
+        self.addSubview(allSelectButton)
+        allSelectButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 54, height: 48))
+            make.left.equalToSuperview()
+        }
+        
+        allUnselectButton = AnimationButton.init(type: .custom)
+        allUnselectButton.setTitle("反选", for: .normal)
+        allUnselectButton.addAction({ (button) in
+            click(.allunselect)
+        }, for: .touchUpInside)
+        allUnselectButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
+        allUnselectButton.titleLabel?.font = App_Theme_PinFan_M_12_Font
+        self.addSubview(allUnselectButton)
+        
+        allUnselectButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 54, height: 48))
+            make.left.equalTo(self.allSelectButton.snp.right).offset(0)
+        }
+        
+        
+        doneButton = AnimationButton.init(type: .custom)
+        doneButton.setTitle("确定", for: .normal)
+        doneButton.addAction({ (button) in
+            click(.done)
+        }, for: .touchUpInside)
+        doneButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
+        doneButton.titleLabel?.font = App_Theme_PinFan_M_12_Font
+        doneButton.backgroundColor = App_Theme_FFD512_Color
+        self.addSubview(doneButton)
+        doneButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 120, height: 48))
+            make.right.equalTo(self.snp.right).offset(0)
+        }
+        
+        selectLabel = YYLabel.init()
+        selectLabel.textAlignment = .left
+        selectLabel.font = App_Theme_PinFan_M_10_Font
+        selectLabel.textColor = App_Theme_666666_Color
+        selectLabel.text = "已隐藏比赛: \(number) 场"
+        self.addSubview(selectLabel)
+        selectLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(19)
+            make.left.equalTo(self.allUnselectButton.snp.right).offset(0)
+        }
+    }
+    
+    func changeSelectLabelText(number:String){
+        selectLabel.text = "已隐藏比赛: \(number) 场"
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

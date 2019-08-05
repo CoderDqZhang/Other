@@ -75,13 +75,27 @@ class CommentViewModel: BaseViewModel {
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
         if indexPath.section == 0 {
             cell.cellSetData(model: self.commentData, indexPath: indexPath)
-            cell.postDetailCommentUserTableViewCellClouse = { indexPath in
-                self.likeCommentNet(commentId: self.commentData.id.string)
+            cell.postDetailCommentUserTableViewCellClouse = { indexPath, type in
+                if type == .like {
+                    self.likeCommentNet(commentId: self.commentData.id.string)
+                }else{
+                    let dic:NSDictionary = self.commentData.user.toDictionary() as NSDictionary
+                    let otherMineVC = OtherMineViewController()
+                    otherMineVC.postData = dic
+                    NavigationPushView(self.controller!, toConroller: otherMineVC)
+                }
             }
         }else{
             cell.cellSetRepliy(model:  ReplyList.init(fromDictionary: replistList[indexPath.section - 1] as! [String : Any]), indexPath: indexPath)
-            cell.postDetailCommentUserTableViewCellClouse = { indexPath in
-                self.likeNet(model: ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any]))
+            cell.postDetailCommentUserTableViewCellClouse = { indexPath,type in
+                if type == .like {
+                    self.likeNet(model: ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any]))
+                }else {
+//                    let dic:NSDictionary = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any]).user.toDictionary() as NSDictionary
+//                    let otherMineVC = OtherMineViewController()
+//                    otherMineVC.postData = dic
+//                    NavigationPushView(self.controller!, toConroller: otherMineVC)
+                }
             }
         }
     }
