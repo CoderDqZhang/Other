@@ -64,7 +64,7 @@ class LoginViewController: BaseViewController {
         self.view.addSubview(loginCenteView)
         
         
-        thirdLogin = GloableThirdLogin.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 172, width: SCREENWIDTH, height: 91))
+        thirdLogin = GloableThirdLogin.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 172 + (IPHONE5 ? 30 : 0), width: SCREENWIDTH, height: 91))
         thirdLogin.gloableThirdLoginClouse = { type in
             //消除定时器
             self.loginCenteView.relaseTimer()
@@ -106,7 +106,7 @@ class LoginViewController: BaseViewController {
         
         self.view.addSubview(thirdLogin)
         
-        cofirmProtocolView = CofirmProtocolView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 30, width: SCREENWIDTH, height: 30))
+        cofirmProtocolView = CofirmProtocolView.init(frame: CGRect.init(x: 0, y: thirdLogin.frame.maxY, width: SCREENWIDTH, height: 30))
         cofirmProtocolView.checkBox.addAction({ (button) in
             if button?.tag == 100 {
                 self.loginCenteView.isCheckBoolProperty.value = true

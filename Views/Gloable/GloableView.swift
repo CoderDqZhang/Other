@@ -500,7 +500,6 @@ class LoginView: UIView {
         
         logoImage = UIImageView.init()
         logoImage.cornerRadius = 15
-        logoImage.backgroundColor = .red
         logoImage.image = UIImage.init(named: "logo1024")
         logoImage.layer.masksToBounds = true
         self.addSubview(logoImage)
@@ -839,7 +838,7 @@ class RegisterView: UIView {
         
         logoImage = UIImageView.init()
         logoImage.cornerRadius = 15
-        logoImage.backgroundColor = .red
+        logoImage.image = UIImage.init(named: "logo1024")
         logoImage.layer.masksToBounds = true
         self.addSubview(logoImage)
         
@@ -1182,7 +1181,11 @@ class CofirmProtocolView: UIView {
         })
         detailLabel.font = App_Theme_PinFan_M_12_Font
         detailLabel.textColor = App_Theme_FFFFFF_Color
-        detailLabel.text = "《隐私用户条款约定》"
+        let attributedText = NSMutableAttributedString.init(string: "《隐私用户条款约定》")
+        attributedText.yy_lineSpacing = 3
+        attributedText.yy_color = App_Theme_FFFFFF_Color
+        attributedText.yy_setTextUnderline(YYTextDecoration.init(style: YYTextLineStyle.single), range: NSRange.init(location: 1, length: attributedText.length - 2))
+        detailLabel.attributedText = attributedText
         self.addSubview(detailLabel)
         
         titleLabel = YYLabel.init()

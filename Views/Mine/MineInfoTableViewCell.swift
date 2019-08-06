@@ -365,7 +365,7 @@ class MineInfoTableViewCell: UITableViewCell {
                 make.top.equalToSuperview()
                 make.right.equalToSuperview()
                 make.left.equalToSuperview()
-                make.height.equalTo(SCREENWIDTH * 167 / 375)
+                make.height.equalTo(SCREENWIDTH * 167 / 375 + (IPHONE5 ? 30 : 0))
             }
             
             avatarImageView.snp.makeConstraints { (make) in

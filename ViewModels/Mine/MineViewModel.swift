@@ -211,7 +211,7 @@ extension MineViewModel: UITableViewDelegate {
         switch indexPath.section {
         case 0:
             //185/375
-            return SCREENWIDTH * 205 / 375
+            return SCREENWIDTH * 205 / 375 + (IPHONE5 ? 40 : 0)
         case 1:
             //79/375
             return 79 
