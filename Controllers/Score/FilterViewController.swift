@@ -45,7 +45,7 @@ class FilterViewController: BaseViewController {
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets.init(top: 8, left: 15, bottom: 8, right: 15)
 
-        collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:SCREENHEIGHT - 108), collectionViewLayout: layout)
+        collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:SCREENHEIGHT - 108 - 48), collectionViewLayout: layout)
         collectionView?.backgroundColor = App_Theme_F6F6F6_Color
         collectionView.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: FilterCollectionViewCell.description())
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
@@ -73,7 +73,7 @@ class FilterViewController: BaseViewController {
         let frame = CGRect(x: SCREENWIDTH - indexWidth,
                            y: 0,
                            width: indexWidth,
-                           height: collectionView.bounds.size.height - buttomView.size.height)
+                           height: SCREENHEIGHT - 108 - 44 - 44)
         let indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"])
         indexView?.delegate = self
         indexView!.autoresizingMask = [.flexibleHeight,.flexibleLeftMargin]

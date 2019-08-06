@@ -40,6 +40,7 @@ class BaseViewController: UIViewController {
     
     var listViewDidScrollCallback: ((UIScrollView) -> ())?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,7 +53,6 @@ class BaseViewController: UIViewController {
         self.setupBaseViewForDismissKeyboard()
         //处于第一个Item 允许返回
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-
         // Do any additional setup after loading the view.
     }
     

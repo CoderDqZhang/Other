@@ -78,6 +78,8 @@
 		1F6BA9D522F2CB830090A1D5 /* FootBallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9D422F2CB830090A1D5 /* FootBallModel.swift */; };
 		1F6BA9D722F7C0710090A1D5 /* NetWorkListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9D622F7C0700090A1D5 /* NetWorkListManager.swift */; };
 		1F6BA9D922F811B20090A1D5 /* BallTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9D822F811B20090A1D5 /* BallTeamModel.swift */; };
+		1F91C39E22F95E8F0030916F /* NextGrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C39A22F95E8F0030916F /* NextGrowingTextView.swift */; };
+		1F91C39F22F95E8F0030916F /* NextGrowingInternalTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C39C22F95E8F0030916F /* NextGrowingInternalTextView.swift */; };
 		1F99174C229B74AC00C8FDD5 /* CoinsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */; };
 		1F99174E229B74B900C8FDD5 /* ConinsSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */; };
 		1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */; };
@@ -439,6 +441,8 @@
 		1F6BA9D422F2CB830090A1D5 /* FootBallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallModel.swift; sourceTree = "<group>"; };
 		1F6BA9D622F7C0700090A1D5 /* NetWorkListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkListManager.swift; sourceTree = "<group>"; };
 		1F6BA9D822F811B20090A1D5 /* BallTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallTeamModel.swift; sourceTree = "<group>"; };
+		1F91C39A22F95E8F0030916F /* NextGrowingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextGrowingTextView.swift; sourceTree = "<group>"; };
+		1F91C39C22F95E8F0030916F /* NextGrowingInternalTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextGrowingInternalTextView.swift; sourceTree = "<group>"; };
 		1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailViewController.swift; sourceTree = "<group>"; };
 		1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConinsSegementViewController.swift; sourceTree = "<group>"; };
 		1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsViewModel.swift; sourceTree = "<group>"; };
@@ -995,6 +999,16 @@
 			path = QQ;
 			sourceTree = "<group>";
 		};
+		1F91C39922F95E8F0030916F /* NextGrowingTextView */ = {
+			isa = PBXGroup;
+			children = (
+				1F91C39A22F95E8F0030916F /* NextGrowingTextView.swift */,
+				1F91C39C22F95E8F0030916F /* NextGrowingInternalTextView.swift */,
+			);
+			name = NextGrowingTextView;
+			path = ../../../Documents/Clone/NextGrowingTextView/NextGrowingTextView;
+			sourceTree = "<group>";
+		};
 		1FE5BDA42281788E00C9137C = {
 			isa = PBXGroup;
 			children = (
@@ -1099,6 +1113,7 @@
 		1FE5BDE122817B1A00C9137C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1F91C39922F95E8F0030916F /* NextGrowingTextView */,
 				1FE8DAE92292933A00DCED01 /* JXPagingView-Swift */,
 				1FE5BF362284285700C9137C /* Gloable */,
 				1FE5BF0B2282A4AC00C9137C /* Score */,
@@ -2026,6 +2041,8 @@
 				"${BUILT_PRODUCTS_DIR}/KSGuaidView/KSGuaidView.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/RSKGrowingTextView/RSKGrowingTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/RSKPlaceholderTextView/RSKPlaceholderTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -2061,6 +2078,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSGuaidView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSKGrowingTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSKPlaceholderTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -2258,6 +2277,7 @@
 				1F395CD1229786AB00781C0C /* CategoryChoosViewController.swift in Sources */,
 				1FEB98CD22E9556F0038B49F /* AdViewController.swift in Sources */,
 				1F991775229E6EC300C8FDD5 /* OtherPostViewController.swift in Sources */,
+				1F91C39E22F95E8F0030916F /* NextGrowingTextView.swift in Sources */,
 				1FE5BE1F228285FA00C9137C /* UIImage+PureColor.m in Sources */,
 				1FE5BE372282863D00C9137C /* PresentTransitionAnimated.m in Sources */,
 				1FE5BF50228561CB00C9137C /* PostDetailUserInfoTableViewCell.swift in Sources */,
@@ -2353,6 +2373,7 @@
 				1FE5BDFB2282747900C9137C /* BaseViewController.swift in Sources */,
 				1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */,
 				1F6BA9C922F189660090A1D5 /* BasketBallScoreSegmentViewController.swift in Sources */,
+				1F91C39F22F95E8F0030916F /* NextGrowingInternalTextView.swift in Sources */,
 				1F1C1B5622A0F56D008031F4 /* StoreSegementViewController.swift in Sources */,
 				1FE8DAC4228ECD0600DCED01 /* ChangePasswordViewModel.swift in Sources */,
 				1FE5BF332283F60800C9137C /* Conner+Shadows.swift in Sources */,

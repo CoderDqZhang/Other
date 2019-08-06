@@ -21,6 +21,9 @@ PODS:
   - ReactiveCocoa (10.0.0):
     - ReactiveSwift (~> 6.0)
   - ReactiveSwift (6.0.0)
+  - RSKGrowingTextView (5.0.2):
+    - RSKPlaceholderTextView (= 5.0.2)
+  - RSKPlaceholderTextView (5.0.2)
   - SDWebImage (5.1.0):
     - SDWebImage/Core (= 5.1.0)
   - SDWebImage/Core (5.1.0)
@@ -78,6 +81,7 @@ DEPENDENCIES:
   - pop
   - ReactiveCocoa
   - ReactiveSwift
+  - RSKGrowingTextView
   - SDWebImage
   - SKPhotoBrowser
   - SnapKit (~> 5.0.0)
@@ -113,6 +117,8 @@ SPEC REPOS:
     - pop
     - ReactiveCocoa
     - ReactiveSwift
+    - RSKGrowingTextView
+    - RSKPlaceholderTextView
     - SDWebImage
     - SKPhotoBrowser
     - SnapKit
@@ -147,6 +153,8 @@ SPEC CHECKSUMS:
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   ReactiveCocoa: 6d4c37ba236f5d9a7a55b2172cd09f19ba85f574
   ReactiveSwift: 24b7ed245617bbfd30ee0c87779b6c64ac1b4518
+  RSKGrowingTextView: 9fdc68c8dabaacd54e23c316ff14b73aef034594
+  RSKPlaceholderTextView: df72ca93edfac185b98f51cb85e445f54ce8a163
   SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
   SKPhotoBrowser: 343de95d89dc7913763c5dda243cc6e606e4a168
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
@@ -162,6 +170,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 6d0bf3cb02739314b9588e662f6c4159ed363675
+PODFILE CHECKSUM: 494a30c36b938d29a3023eb9c0be5737b31e05d6
 
 COCOAPODS: 1.6.1

@@ -11,8 +11,8 @@ import Foundation
 
 //ZKFgTvUb5BXiuD7KK2iuFiOUintS6mLgFi+ukIPiol801JlCola+lkGcFGN886nd
 //ZKFgTvUb5BXiuD7KK2iuFtphhrg2uQu1kTJ0q4cnRothrdDXMpq+CNSo2UaDlDuI
-//let RootIPAddress:String = "192.168.0.155"
-let RootIPAddress:String = "192.168.0.172"
+let RootIPAddress:String = "192.168.0.155"
+//let RootIPAddress:String = "192.168.0.172"
 let SocketPort:Int = 4162
 let RootUrl = "http://\(RootIPAddress):10020/social/"
 
@@ -92,7 +92,8 @@ let UserFeedBackinsertFeedbackUrl = "\(RootUrl)userFeedback/addFeedback"
 let ADvertiseUsableAdvertise = "\(RootUrl)advertise/getUsableAdvertise"
 
 
-let FootBallTeamInfo = "https://open.sportnanoapi.com/api/sports/football/team/list?user=xmtq&secret=2f9e2c9e7426285ed"
+let FootBallInfoUrl = "\(RootUrl)football/getData"
+let FootBallInfoTestUrl = "\(RootUrl)football/getTeamsAndSoOn"
 
 func getAliPayBankNameUrl(banNo:String) ->String {
     return "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=\(banNo)&cardBinCheck=true"

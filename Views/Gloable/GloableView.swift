@@ -303,6 +303,7 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
     func textViewDidChange(_ textView: YYTextView) {
         let fltTextHeight = textView.textLayout!.textBoundingSize.height;
         textView.isScrollEnabled = true //必须设置为NO
+        
         UIView.animate(withDuration: 0.25, animations: {
             self.frame = CGRect.init(x: 0, y: self.keybordFrame.origin.y - (fltTextHeight - self.textViewOriginFrame.size.height), width: self.keybordFrame.size.width, height: fltTextHeight + 14)
             textView.height = fltTextHeight
@@ -324,12 +325,6 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
             
         }
         self.height = textView.frame.size.height + 14
-        textView.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(7)
-            make.left.equalTo(self.snp.left).offset(15)
-            make.right.equalTo(self.snp.right).offset(-15)
-            make.bottom.equalTo(self.snp.bottom).offset(-7)
-        }
         keybordFrame = self.frame
     }
 
@@ -343,7 +338,6 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
         if customViewCommentTextFieldEndClick != nil {
             self.customViewCommentTextFieldEndClick()
         }
-        self.frame = originFrame
     }
     
 }

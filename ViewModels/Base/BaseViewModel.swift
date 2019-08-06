@@ -35,14 +35,14 @@ class BaseViewModel: NSObject {
                     if self.controller?.tableView.mj_footer != nil {
                         self.controller?.tableView.mj_footer.endRefreshingWithNoMoreData()
                     }
+                    self.controller?.stopRefresh()
                 }else{
                     if pageModel.total != nil && pageModel.total != 0  && self.controller?.tableView.mj_footer == nil{
                         if self.controller!.setUpLoadMoreDataClouse != nil {
                             self.controller!.setUpLoadMoreDataClouse()
                         }
-                    }else{
-                        self.controller?.stopRefresh()
                     }
+                    self.controller?.stopRefresh()
                 }
             }else{
                 self.controller?.stopRefresh()

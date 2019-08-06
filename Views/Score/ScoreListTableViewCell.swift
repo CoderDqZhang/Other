@@ -181,6 +181,60 @@ class ScoreListTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func cellSetData(model:FootBallModel){
+        scoreType.text = model.eventInfo.nameZh
+        scoreTime.text = Date.init(iso8601String: model.startTime.string)?.timeString()
+        
+        scoreStatus.text = model.status.string
+        
+//        var timeLabel:YYLabel!
+        teamA.text = model.teamA.teamsInfo.nameZh
+        teamB.text = model.teamB.teamsInfo.nameZh
+        
+        if model.teamA.halfYellow != 0 {
+            whiteTeamA.text = model.teamA.halfYellow.string
+            whiteTeamA.isHidden = false
+        }else{
+            whiteTeamA.isHidden = true
+        }
+    
+        if model.teamB.halfYellow != 0 {
+            whiteTeamB.text = model.teamB.halfYellow.string
+            whiteTeamB.isHidden = false
+        }else{
+            whiteTeamB.isHidden = true
+        }
+        
+        if model.teamA.halfYellow != 0 {
+            yellowTeamA.text = model.teamB.halfYellow.string
+            yellowTeamA.isHidden = false
+        }else{
+            yellowTeamA.isHidden = true
+        }
+        
+        if model.teamB.halfYellow != 0 {
+            yellowTeamB.text = model.teamB.halfYellow.string
+            yellowTeamB.isHidden = false
+        }else{
+            yellowTeamB.isHidden = true
+        }
+        
+        if model.teamA.halfRed != 0 {
+            redTeamA.text = model.teamB.halfRed.string
+            redTeamA.isHidden = false
+        }else{
+            redTeamA.isHidden = true
+        }
+        
+        if model.teamB.halfRed != 0 {
+            redTeamB.text = model.teamB.halfRed.string
+            redTeamB.isHidden = false
+        }else{
+            redTeamB.isHidden = true
+        }
+        
+        scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:\(String(describing: model.teamA.cornerBall!))-\(String(describing: model.teamB.cornerBall!))"
+    }
     
     override func updateConstraints() {
         if !didMakeConstraints {

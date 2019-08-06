@@ -38,6 +38,9 @@ class ScoreInfoTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func cellSetData(model:FootBallModel){
+        
+    }
     
     override func updateConstraints() {
         if !didMakeConstraints {

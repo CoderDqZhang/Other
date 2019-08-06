@@ -34,7 +34,7 @@ target 'Touqiu' do
   pod 'CocoaAsyncSocket'
   pod 'KSGuaidView'
   pod 'BDKCollectionIndexView'
-  
+  pod 'RSKGrowingTextView'
   pod 'CocoaDebug', :configurations => ['Debug']
   pod 'SWTableViewCell', '~> 0.3.7'
   

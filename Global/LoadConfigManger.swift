@@ -23,7 +23,7 @@ class LoadConfigManger: NSObject {
         self.loadUnreadUrl()
         self.loadPointdUrl()
         //获取球队信息
-        self.loadScorTeam()
+//        self.loadScorTeam()
     }
     
     func loadConfigUrl(){
@@ -68,20 +68,20 @@ class LoadConfigManger: NSObject {
         KWindow.addSubview(adView)
     }
     
-    func loadScorTeam(){
-        if CacheManager.getSharedInstance().getFootTeamBallModel() == nil {
-            BaseNetWorke.getSharedInstance().sportnanoApi(url: FootBallTeamInfo, parameters: nil, success: { (resultDic) in
-                let models = NSMutableArray.init(array: resultDic as! Array)
-                let sql_models:NSMutableArray = NSMutableArray.init()
-                for model in models{
-                    let temp_model = BallTeamSqlModel.init(fromDictionary: ["id":(model as! NSDictionary).object(forKey: "id") as Any,"team":BallTeamModel.init(fromDictionary: model as! [String : Any])])
-                    sql_models.add(temp_model)
-                }
-                CacheManager.getSharedInstance().saveFootTeamBallModel(point: sql_models)
-            }) { (failt) in
-                print("请求失败")
-            }
-        }
-    }
+//    func loadScorTeam(){
+//        if CacheManager.getSharedInstance().getFootTeamBallModel() == nil {
+//            BaseNetWorke.getSharedInstance().sportnanoApi(url: FootBallInfoUrl, parameters: nil, success: { (resultDic) in
+//                let models = NSMutableArray.init(array: resultDic as! Array)
+//                let sql_models:NSMutableArray = NSMutableArray.init()
+//                for model in models{
+//                    let temp_model = BallTeamSqlModel.init(fromDictionary: ["id":(model as! NSDictionary).object(forKey: "id") as Any,"team":BallTeamModel.init(fromDictionary: model as! [String : Any])])
+//                    sql_models.add(temp_model)
+//                }
+//                CacheManager.getSharedInstance().saveFootTeamBallModel(point: sql_models)
+//            }) { (failt) in
+//                print("请求失败")
+//            }
+//        }
+//    }
 }
 
