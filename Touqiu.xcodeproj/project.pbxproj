@@ -77,9 +77,10 @@
 		1F6BA9D322F280960090A1D5 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9D222F280960090A1D5 /* FilterCollectionViewCell.swift */; };
 		1F6BA9D522F2CB830090A1D5 /* FootBallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9D422F2CB830090A1D5 /* FootBallModel.swift */; };
 		1F6BA9D722F7C0710090A1D5 /* NetWorkListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9D622F7C0700090A1D5 /* NetWorkListManager.swift */; };
-		1F6BA9D922F811B20090A1D5 /* BallTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9D822F811B20090A1D5 /* BallTeamModel.swift */; };
 		1F91C39E22F95E8F0030916F /* NextGrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C39A22F95E8F0030916F /* NextGrowingTextView.swift */; };
 		1F91C39F22F95E8F0030916F /* NextGrowingInternalTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C39C22F95E8F0030916F /* NextGrowingInternalTextView.swift */; };
+		1F91C3A422FA6C710030916F /* DateTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3A322FA6C700030916F /* DateTools.swift */; };
+		1F91C3A622FAB1D50030916F /* BasketBallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3A522FAB1D50030916F /* BasketBallModel.swift */; };
 		1F99174C229B74AC00C8FDD5 /* CoinsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */; };
 		1F99174E229B74B900C8FDD5 /* ConinsSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */; };
 		1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */; };
@@ -440,9 +441,10 @@
 		1F6BA9D222F280960090A1D5 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F6BA9D422F2CB830090A1D5 /* FootBallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallModel.swift; sourceTree = "<group>"; };
 		1F6BA9D622F7C0700090A1D5 /* NetWorkListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkListManager.swift; sourceTree = "<group>"; };
-		1F6BA9D822F811B20090A1D5 /* BallTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallTeamModel.swift; sourceTree = "<group>"; };
 		1F91C39A22F95E8F0030916F /* NextGrowingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextGrowingTextView.swift; sourceTree = "<group>"; };
 		1F91C39C22F95E8F0030916F /* NextGrowingInternalTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextGrowingInternalTextView.swift; sourceTree = "<group>"; };
+		1F91C3A322FA6C700030916F /* DateTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTools.swift; sourceTree = "<group>"; };
+		1F91C3A522FAB1D50030916F /* BasketBallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallModel.swift; sourceTree = "<group>"; };
 		1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailViewController.swift; sourceTree = "<group>"; };
 		1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConinsSegementViewController.swift; sourceTree = "<group>"; };
 		1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsViewModel.swift; sourceTree = "<group>"; };
@@ -1266,6 +1268,7 @@
 				1FF1E53E22C3161F00BB9A50 /* YYLaoutTextHeight.swift */,
 				1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */,
 				1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */,
+				1F91C3A322FA6C700030916F /* DateTools.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1691,7 +1694,7 @@
 			isa = PBXGroup;
 			children = (
 				1F6BA9D422F2CB830090A1D5 /* FootBallModel.swift */,
-				1F6BA9D822F811B20090A1D5 /* BallTeamModel.swift */,
+				1F91C3A522FAB1D50030916F /* BasketBallModel.swift */,
 			);
 			name = Score;
 			path = ViewModels/Score;
@@ -2217,7 +2220,6 @@
 				1FE5BFA6228AC1E200C9137C /* AuthorityManager.swift in Sources */,
 				1FE8DAF12292933A00DCED01 /* JXPagingListContainerView.swift in Sources */,
 				1FF025AD22D6E62E005E2ED2 /* InPurchaseManager.swift in Sources */,
-				1F6BA9D922F811B20090A1D5 /* BallTeamModel.swift in Sources */,
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
 				1F38665322E6EA950076C580 /* SocketManager.swift in Sources */,
 				1FF025C522DDC441005E2ED2 /* BaseWebViewController.swift in Sources */,
@@ -2294,6 +2296,7 @@
 				1F6BA9D122F277ED0090A1D5 /* FilterViewModel.swift in Sources */,
 				1FE5BED52282866300C9137C /* ijksdl_timer.c in Sources */,
 				1FE8DABC228EC8D100DCED01 /* SigupVIPViewModel.swift in Sources */,
+				1F91C3A422FA6C710030916F /* DateTools.swift in Sources */,
 				1FE5BE452282864300C9137C /* UIButton+Extentions.swift in Sources */,
 				1FE5BF46228528A900C9137C /* CommentViewModel.swift in Sources */,
 				1FE5BED62282866300C9137C /* ZHPickView.m in Sources */,
@@ -2379,6 +2382,7 @@
 				1FE5BF332283F60800C9137C /* Conner+Shadows.swift in Sources */,
 				1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */,
 				1FE5BEC92282866300C9137C /* mvp.vsh.c in Sources */,
+				1F91C3A622FAB1D50030916F /* BasketBallModel.swift in Sources */,
 				1F991752229B784800C8FDD5 /* CoinsDetailTableViewCell.swift in Sources */,
 				1FE5BE21228285FA00C9137C /* NSString+Utils.m in Sources */,
 				1FE5BDE822817B8500C9137C /* RequestURL.swift in Sources */,

@@ -214,6 +214,62 @@ class BasketBallTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func cellSetData(model:BasketBallModel){
+        scoreType.text = model.basketballEvent.nameZh
+        scoreTime.text = Date.init(timeIntervalSince1970: model.time.double).string(withFormat: "yyyy-MM-dd HH:mm")
+        
+        if model.status == 1 || model.status == 0{
+            scoreStatus.text = "未开赛"
+            scoreStatus.textColor = App_Theme_999999_Color
+        }else if model.status == 8 {
+            scoreStatus.text = "完场"
+            scoreStatus.textColor = App_Theme_FF4343_Color
+        }else if model.status < 7 {
+            scoreStatus.text = "进行中"
+            scoreStatus.textColor = App_Theme_FFAC1B_Color
+        }else{
+            scoreStatus.text = "延迟"
+            scoreStatus.textColor = App_Theme_999999_Color
+        }
+        
+        teamA.text = model.basketBallTeamA.basketballTeamInfo.nameZh
+        teamB.text = model.basketballTeamB.basketballTeamInfo.nameZh
+        
+        if model.basketBallTeamA.sort != "" {
+            whiteTeamA.text = "[\(String(describing: model.basketBallTeamA.sort!))]"
+            whiteTeamA.isHidden = false
+        }else{
+            whiteTeamA.isHidden = true
+        }
+        
+        if model.basketballTeamB.sort != "" {
+            whiteTeamB.text = "[\(String(describing: model.basketballTeamB.sort!))]"
+            whiteTeamB.isHidden = false
+        }else{
+            whiteTeamB.isHidden = true
+        }
+        
+        oneTeamA.text = model.basketBallTeamA.first.string
+        oneTeamB.text = model.basketballTeamB.first.string
+        twoTeamA.text = model.basketBallTeamA.second.string
+        twoTeamB.text = model.basketballTeamB.second.string
+        threeTeamA.text = model.basketBallTeamA.third.string
+        threeTeamB.text = model.basketballTeamB.third.string
+        fourTeamA.text = model.basketBallTeamA.four.string
+        fourTeamB.text = model.basketballTeamB.four.string
+        fiveTeamA.text = model.basketBallTeamA.overtime.string
+        fiveTeamB.text = model.basketballTeamB.overtime.string
+        let all_score_a = model.basketBallTeamA.first + model.basketBallTeamA.second + model.basketBallTeamA.third + model.basketBallTeamA.four + Int(model.basketBallTeamA.overtime)
+        allTeamA.text = all_score_a.string
+        let all_score_b = model.basketballTeamB.first + model.basketballTeamB.second + model.basketballTeamB.third + model.basketballTeamB.four +  Int(model.basketballTeamB.overtime)
+        allTeamB.text = all_score_b.string
+        
+//        var specificTeamA:YYLabel!
+//        var specificTeamB:YYLabel!
+        
+        
+    }
+    
     
     override func updateConstraints() {
         if !didMakeConstraints {

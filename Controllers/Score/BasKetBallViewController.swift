@@ -16,20 +16,45 @@ class BasKetBallViewController: BaseViewController {
     var viewType:ScoreDetailVC!
     var viewDesc:ScoreDetailTypeVC!
     
+    var dateTime:String!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-    func initSView(type:Int) {
+    func initSView(type:Int, titles:String?) {
         self.bindViewModel(viewModel: basketBallViewModel, controller: self)
         self.setUpTableView(style: .grouped, cells: [BasketBallTableViewCell.self], controller: self)
+        if titles != nil {
+            dateTime = titles
+        }
+        self.bindLogic()
+        if self.viewDesc != .timely {
+            self.setUpRefreshData {
+                self.getNetWorkData()
+            }
+        }
     }
     
-    override func bindViewModelLogic() {
+    func bindLogic() {
         self.basketBallViewModel.viewType = self.viewType
         self.basketBallViewModel.viewDesc = self.viewDesc
+        if self.viewDesc == .competition ||  self.viewDesc == .amidithion || self.viewDesc == .underway{
+            self.getNetWorkData()
+        }
+        
+    }
+    
+    func getNetWorkData(){
+        var date:String!
+        if self.viewDesc == .underway {
+            date = Date.init().string(withFormat: "yyyyMMdd")
+        }else{
+            date = DateTools.getSharedInstance().getDateTime(str: self.dateTime)
+        }
+        //            self.footBallViewModel.getFoot1BallNet(date: date)
+        self.basketBallViewModel.getbasket1Net(type:self.viewDesc.rawValue.string, date: date)
     }
     /*
     // MARK: - Navigation

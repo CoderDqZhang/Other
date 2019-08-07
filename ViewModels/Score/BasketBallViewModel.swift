@@ -14,15 +14,80 @@ class BasketBallViewModel: BaseViewModel {
     var viewType:ScoreDetailVC!
     var viewDesc:ScoreDetailTypeVC!
     
+    var basketBallArray = NSMutableArray.init()
     override init() {
         super.init()
     }
     
     func tableViewBasketBallTableViewCellSetData(_ indexPath:IndexPath, cell:BasketBallTableViewCell) {
+        if self.basketBallArray.count > 0 {
+            let dic = self.basketBallArray[indexPath.section]
+            if dic is NSDictionary {
+                cell.cellSetData(model: BasketBallModel.init(fromDictionary: self.basketBallArray[indexPath.section] as! [String : Any]))
+            }else{
+                cell.cellSetData(model:  self.basketBallArray[indexPath.section] as! BasketBallModel)
+            }
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func getbasketBallNet(type:String, date:String){
+        let parameters = ["type":type, "date":date] as [String : Any]
+        BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.basketBallArray = NSMutableArray.init(array: resultDic.value as! Array)
+                self.reloadTableViewData()
+            }
+        }
+    }
+    
+    func getbasket1Net(type:String, date:String){
+        let parameters = ["type":type, "date":date] as [String : Any]
+        BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoTestUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.basketBallBindText(resultDic.value as! NSDictionary)
+            }
+        }
+    }
+    
+    func basketBallBindText(_ dic:NSDictionary){
+        for match in (dic.object(forKey: "matches") as! NSArray){
+            let temp_array = (match as! NSArray)
+            let model = FootBallModel.init(fromDictionary: [
+                "id": temp_array[0] as! Int,
+                "section": temp_array[1] as! Int,
+                "basketball_event": (dic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[2])")!,
+                "status": temp_array[3] as! Int,
+                "time": temp_array[4] as! Int,
+                "all_second": temp_array[5] as! Int,
+                "basketBallteamA": [
+                    "basketball_team_info": (dic.object(forKey: "teams") as! NSDictionary).object(forKey: "\((temp_array[6] as! NSArray)[0])"),
+                    "sort": (temp_array[6] as! NSArray)[1] as! String,
+                    "first": (temp_array[6] as! NSArray)[2] as! Int,
+                    "second": (temp_array[6] as! NSArray)[3] as! Int,
+                    "third": (temp_array[6] as! NSArray)[4] as! Int,
+                    "four": (temp_array[6] as! NSArray)[5] as! Int,
+                    "overtime": (temp_array[6] as! NSArray)[6] as! Int
+                ],
+                "basketball_teamB": [
+                    "basketball_team_info": (dic.object(forKey: "teams") as! NSDictionary).object(forKey: "\((temp_array[7] as! NSArray)[0])"),
+                    "sort": (temp_array[7] as! NSArray)[1] as! String,
+                    "first": (temp_array[7] as! NSArray)[2] as! Int,
+                    "second": (temp_array[7] as! NSArray)[3] as! Int,
+                    "third": (temp_array[7] as! NSArray)[4] as! Int,
+                    "four": (temp_array[7] as! NSArray)[5] as! Int,
+                    "overtime": (temp_array[7] as! NSArray)[6] as! Int
+                ],
+                "basketball_remark": [
+                    "remark_detail": (temp_array[8] as! NSArray)[0] as! String
+                ]
+            ])
+            basketBallArray.add(model)
+        }
+        self.reloadTableViewData()
     }
     
 }

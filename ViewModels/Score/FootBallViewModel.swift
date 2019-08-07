@@ -13,11 +13,11 @@ class FootBallViewModel: BaseViewModel {
 
     var viewType:ScoreDetailVC!
     var viewDesc:ScoreDetailTypeVC!
+    
     var footBallArray = NSMutableArray.init()
     override init() {
         super.init()
-//        self.getFootBallNet()
-        self.getFoot1BallNet()
+    
     }
     
     func tableViewScoreInfoTableViewCellSetData(_ indexPath:IndexPath, cell:ScoreInfoTableViewCell) {
@@ -46,26 +46,21 @@ class FootBallViewModel: BaseViewModel {
         
     }
     
-    func getFootBallNet(){
-        let parameters = ["type":0, "date":"20190806"] as [String : Any]
+    func getFootBallNet(type:String, date:String){
+        let parameters = ["type":type, "date":date] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.footBallArray = NSMutableArray.init(array: resultDic.value as! Array)
-//                self.footBallBindText(resultDic.value as! NSDictionary)
                 self.reloadTableViewData()
-//                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
-    func getFoot1BallNet(){
-        let parameters = ["type":0, "date":"20190806"] as [String : Any]
+    func getFoot1BallNet(type:String, date:String){
+        let parameters = ["type":type, "date":date] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoTestUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-//                self.footBallArray = NSMutableArray.init(array: resultDic.value as! Array)
                 self.footBallBindText(resultDic.value as! NSDictionary)
-//                self.reloadTableViewData()
-                //                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
@@ -73,9 +68,14 @@ class FootBallViewModel: BaseViewModel {
     func footBallBindText(_ dic:NSDictionary){
         for match in (dic.object(forKey: "matches") as! NSArray){
             let temp_array = (match as! NSArray)
+            //去除阶段为0 错误
+            let stage = (temp_array[9] as! NSArray)[0] as! Int != 0 ? (dic.object(forKey: "stages") as! NSDictionary).object(forKey: "\((temp_array[9] as! NSArray)[0])")! : []
             let model = FootBallModel.init(fromDictionary: [
-                "start_time": temp_array[3] as! Int,
+                "id": temp_array[0] as! Int,
                 "event_info": (dic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])")!,
+                "status": temp_array[2] as! Int,
+                "start_time": temp_array[3] as! Int,
+                "time": temp_array[4] as! Int,
                 "teamA": [
                     "score": (temp_array[5] as! NSArray)[2] as! Int,
                     "corner_ball": (temp_array[5] as! NSArray)[6] as! Int,
@@ -98,25 +98,20 @@ class FootBallViewModel: BaseViewModel {
                     "half_yellow": (temp_array[6] as! NSArray)[5] as! Int,
                     "teams_info": (dic.object(forKey: "teams") as! NSDictionary).object(forKey: "\((temp_array[6] as! NSArray)[0])")
                 ],
-                "id": temp_array[0] as! Int,
-                "time": temp_array[4] as! Int,
-                "stage": [
-                    "stage_info": (dic.object(forKey: "stages") as! NSDictionary).object(forKey: "\((temp_array[9] as! NSArray)[0])")!,
-                    "number_row": 0,
-                    "number_column": 0
-                ],
                 "remark": [
                     "remark_detail": (temp_array[7] as! NSArray)[0] as! String,
                     "is_center": (temp_array[7] as! NSArray)[1] as! Int,
                     "number_row": (temp_array[7] as! NSArray)[2] as! Int,
                 ],
-                
                 "season": [
                     "id": (temp_array[8] as! NSArray)[0] as! Int,
                     "year": (temp_array[8] as! NSArray)[1] as! String
                 ],
-                "status": temp_array[2] as! Int
-                ])
+                "stage": [
+                    "stage_info": stage,
+                    "number_row": 0,
+                    "number_column": 0
+                ]])
             footBallArray.add(model)
         }
         self.reloadTableViewData()

@@ -182,27 +182,92 @@ class ScoreListTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:FootBallModel){
-        scoreType.text = model.eventInfo.nameZh
-        scoreTime.text = Date.init(iso8601String: model.startTime.string)?.timeString()
+        scoreType.text = model.eventInfo.shortNameZh
+        scoreTime.text = Date.init(timeIntervalSince1970: model.startTime.double).string(withFormat: "yyyy-MM-dd HH:mm")
         
-        scoreStatus.text = model.status.string
+        if model.status == 1 || model.status == 0{
+            scoreStatus.text = "未开赛"
+            scoreStatus.textColor = App_Theme_999999_Color
+        }else if model.status == 8 {
+            scoreStatus.text = "完场"
+            scoreStatus.textColor = App_Theme_FF4343_Color
+        }else if model.status < 7 {
+            scoreStatus.text = "进行中"
+            scoreStatus.textColor = App_Theme_FFAC1B_Color
+        }else{
+            scoreStatus.text = "延迟"
+            scoreStatus.textColor = App_Theme_999999_Color
+        }
         
-//        var timeLabel:YYLabel!
+        timeLabel.isHidden = true
+        
         teamA.text = model.teamA.teamsInfo.nameZh
         teamB.text = model.teamB.teamsInfo.nameZh
         
-        if model.teamA.halfYellow != 0 {
-            whiteTeamA.text = model.teamA.halfYellow.string
+        if model.teamA.sort != "" {
+            whiteTeamA.text = "[\(String(describing: model.teamA.sort!))]"
             whiteTeamA.isHidden = false
+            redTeamA.snp.remakeConstraints { (make) in
+                make.right.equalTo(self.whiteTeamA.snp.left).offset(-2)
+                make.top.equalTo(self.contentView.snp.top).offset(30)
+                make.size.equalTo(CGSize.init(width: 10, height: 9))
+            }
         }else{
             whiteTeamA.isHidden = true
+            redTeamA.snp.remakeConstraints { (make) in
+                make.right.equalTo(self.teamA.snp.left).offset(-2)
+                make.top.equalTo(self.contentView.snp.top).offset(30)
+                make.size.equalTo(CGSize.init(width: 10, height: 9))
+            }
         }
     
-        if model.teamB.halfYellow != 0 {
-            whiteTeamB.text = model.teamB.halfYellow.string
+        if model.teamB.sort != "" {
+            whiteTeamB.text = "[\(String(describing: model.teamB.sort!))]"
             whiteTeamB.isHidden = false
+            yellowTeamB.snp.remakeConstraints { (make) in
+                make.left.equalTo(self.whiteTeamB.snp.right).offset(2)
+                make.top.equalTo(self.contentView.snp.top).offset(30)
+                make.size.equalTo(CGSize.init(width: 10, height: 9))
+            }
         }else{
             whiteTeamB.isHidden = true
+            yellowTeamB.snp.remakeConstraints { (make) in
+                make.left.equalTo(self.teamB.snp.right).offset(2)
+                make.top.equalTo(self.contentView.snp.top).offset(30)
+                make.size.equalTo(CGSize.init(width: 10, height: 9))
+            }
+        }
+        
+        if model.teamA.halfRed != 0 {
+            redTeamA.text = model.teamA.halfRed.string
+            redTeamA.isHidden = false
+            yellowTeamA.snp.remakeConstraints { (make) in
+                make.right.equalTo(self.redTeamA.snp.left).offset(-2)
+                make.top.equalTo(self.contentView.snp.top).offset(30)
+                make.size.equalTo(CGSize.init(width: 10, height: 9))
+            }
+        }else{
+            redTeamA.isHidden = true
+            if model.teamA.sort == ""{
+                yellowTeamA.snp.remakeConstraints { (make) in
+                    make.right.equalTo(self.teamA.snp.left).offset(-2)
+                    make.top.equalTo(self.contentView.snp.top).offset(30)
+                    make.size.equalTo(CGSize.init(width: 10, height: 9))
+                }
+            }else{
+                yellowTeamA.snp.remakeConstraints { (make) in
+                    make.right.equalTo(self.whiteTeamA.snp.left).offset(-2)
+                    make.top.equalTo(self.contentView.snp.top).offset(30)
+                    make.size.equalTo(CGSize.init(width: 10, height: 9))
+                }
+            }
+        }
+        
+        if model.teamB.halfRed != 0 {
+            redTeamB.text = model.teamB.halfRed.string
+            redTeamB.isHidden = false
+        }else{
+            redTeamB.isHidden = true
         }
         
         if model.teamA.halfYellow != 0 {
@@ -215,23 +280,33 @@ class ScoreListTableViewCell: UITableViewCell {
         if model.teamB.halfYellow != 0 {
             yellowTeamB.text = model.teamB.halfYellow.string
             yellowTeamB.isHidden = false
+            redTeamB.snp.remakeConstraints { (make) in
+                make.left.equalTo(self.yellowTeamB.snp.right).offset(2)
+                make.top.equalTo(self.contentView.snp.top).offset(30)
+                make.size.equalTo(CGSize.init(width: 10, height: 9))
+                
+            }
         }else{
             yellowTeamB.isHidden = true
+            if model.teamB.sort == "" {
+                redTeamB.snp.remakeConstraints { (make) in
+                    make.left.equalTo(self.teamB.snp.right).offset(2)
+                    make.top.equalTo(self.contentView.snp.top).offset(30)
+                    make.size.equalTo(CGSize.init(width: 10, height: 9))
+                }
+            }else{
+                redTeamB.snp.remakeConstraints { (make) in
+                    make.left.equalTo(self.yellowTeamB.snp.right).offset(2)
+                    make.top.equalTo(self.contentView.snp.top).offset(30)
+                    make.size.equalTo(CGSize.init(width: 10, height: 9))
+                }
+            }
         }
         
-        if model.teamA.halfRed != 0 {
-            redTeamA.text = model.teamB.halfRed.string
-            redTeamA.isHidden = false
-        }else{
-            redTeamA.isHidden = true
-        }
+        scoreLabel.text = "\(String(describing: model.teamA.score!))-\(String(describing: model.teamB.score!))"
         
-        if model.teamB.halfRed != 0 {
-            redTeamB.text = model.teamB.halfRed.string
-            redTeamB.isHidden = false
-        }else{
-            redTeamB.isHidden = true
-        }
+//        scoreInfo.isHidden = true
+//        scoreInfo3.isHidden = true
         
         scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:\(String(describing: model.teamA.cornerBall!))-\(String(describing: model.teamB.cornerBall!))"
     }
@@ -246,7 +321,7 @@ class ScoreListTableViewCell: UITableViewCell {
             
             scoreTime.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(75)
-                make.top.equalTo(self.scoreType.snp.top).offset(0)
+                make.top.equalTo(self.scoreType.snp.top).offset(1)
             }
             
             scoreStatus.snp.makeConstraints { (make) in
@@ -273,7 +348,7 @@ class ScoreListTableViewCell: UITableViewCell {
             }
             
             whiteTeamA.snp.makeConstraints { (make) in
-                make.top.equalTo(self.contentView.snp.top).offset(28)
+                make.top.equalTo(self.contentView.snp.top).offset(27)
                 make.right.equalTo(self.teamA.snp.left).offset(-2)
             }
             
@@ -290,20 +365,20 @@ class ScoreListTableViewCell: UITableViewCell {
             }
             
             whiteTeamB.snp.makeConstraints { (make) in
-                make.top.equalTo(self.contentView.snp.top).offset(28)
+                make.top.equalTo(self.contentView.snp.top).offset(27)
                 make.left.equalTo(self.teamB.snp.right).offset(2)
             }
             
             redTeamB.snp.makeConstraints { (make) in
                 make.top.equalTo(self.contentView.snp.top).offset(30)
-                make.left.equalTo(self.whiteTeamB.snp.right).offset(2)
+                make.left.equalTo(self.yellowTeamB.snp.right).offset(2)
                 make.size.equalTo(CGSize.init(width: 10, height: 9))
                 
             }
             
             yellowTeamB.snp.makeConstraints { (make) in
                 make.top.equalTo(self.contentView.snp.top).offset(30)
-                make.left.equalTo(self.redTeamB.snp.right).offset(2)
+                make.left.equalTo(self.whiteTeamB.snp.right).offset(2)
                 make.size.equalTo(CGSize.init(width: 10, height: 9))
             }
             
@@ -315,22 +390,22 @@ class ScoreListTableViewCell: UITableViewCell {
             
             scoreLabel.snp.makeConstraints { (make) in
                 make.centerX.equalToSuperview()
-                make.top.equalTo(self.contentView.snp.top).offset(26)
+                make.top.equalTo(self.contentView.snp.top).offset(28)
             }
             
-            scoreInfo.snp.makeConstraints { (make) in
+            scoreInfos.snp.makeConstraints { (make) in
                 make.centerX.equalToSuperview()
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
             }
             
-            scoreInfos.snp.makeConstraints { (make) in
-                make.right.equalTo(self.scoreInfo.snp.left).offset(-35)
-                make.bottom.equalTo(self.scoreInfo.snp.bottom).offset(0)
+            scoreInfo.snp.makeConstraints { (make) in
+                make.right.equalTo(self.scoreInfos.snp.left).offset(-35)
+                make.bottom.equalTo(self.scoreInfos.snp.bottom).offset(0)
             }
             
             scoreInfo3.snp.makeConstraints { (make) in
-                make.left.equalTo(self.scoreInfo.snp.right).offset(35)
-                make.bottom.equalTo(self.scoreInfo.snp.bottom).offset(0)
+                make.left.equalTo(self.scoreInfos.snp.right).offset(35)
+                make.bottom.equalTo(self.scoreInfos.snp.bottom).offset(0)
             }
             
             

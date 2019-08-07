@@ -15,7 +15,7 @@ class FootBallScoreSegmentViewController: BaseViewController {
     var segmentedView: JXSegmentedView!
     var listContainerView: JXSegmentedListContainerView!
     
-    let titles = ["周二\n06-04", "周三\n06-04", "周四\n06-04", "周五\n06-04", "周六\n06-04","周天\n06-04","周一\n06-04"]
+    var titles:[String]!
     var heightForHeaderInSection: Int = 33
     
     var viewType:ScoreDetailVC! = .football
@@ -67,6 +67,10 @@ class FootBallScoreSegmentViewController: BaseViewController {
         segmentedView.contentScrollView = listContainerView.scrollView
         
         //6、将listContainerView.scrollView和segmentedView.contentScrollVi
+        
+    }
+    
+    override func bindViewModelLogic() {
         
     }
     
@@ -122,7 +126,7 @@ extension FootBallScoreSegmentViewController: JXSegmentedListContainerViewDataSo
         let footBallVC = FootBallViewController()
         footBallVC.viewType = self.viewType
         footBallVC.viewDesc = self.viewDesc
-        footBallVC.initSView(type: index)
+        footBallVC.initSView(type: index, titles:titles[index])
         return footBallVC
     }
 }

@@ -52,6 +52,10 @@ class SquareViewController: BaseViewController {
                 .foregroundColor: UIColor.gray
             ]
         )
+        
+        let date = Date.init()
+        print(date.weekday)
+        print(date.dateString())
         // Do any additional setup after loading the view.
     }
     
