@@ -576,7 +576,8 @@ class GloabelTextViewTableViewCell : UITableViewCell,YYTextViewDelegate {
             textView.text = textView.text.nsString.substring(to: 255)
         }
         if self.gloabelTextViewTableViewCellClouse != nil {
-            self.gloabelTextViewTableViewCellClouse(textView.text,textView.text.count > 0 ? true : false)
+            let str = "\(String(describing: textView.text.nsString.replacingCharacters(in: range, with: "")))\(text)"
+            self.gloabelTextViewTableViewCellClouse(str,str.count > 0 ? true : false)
         }
         return true
     }

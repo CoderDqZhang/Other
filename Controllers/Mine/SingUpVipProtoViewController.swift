@@ -1,14 +1,14 @@
 //
-//  AboutViewController.swift
+//  SingUpVipProtoViewController.swift
 //  Touqiu
 //
-//  Created by Zhang on 2019/5/17.
+//  Created by Zhang on 2019/8/7.
 //  Copyright © 2019 com.touqiu.touqiu. All rights reserved.
 //
 
 import UIKit
 
-class AboutViewController: BaseViewController {
+class SingUpVipProtoViewController: BaseWebViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,10 +16,6 @@ class AboutViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func setUpViewNavigationItem() {
-        self.navigationItem.title = "关于豹典"
-        self.setNavigationItemBack()
-    }
 
     /*
     // MARK: - Navigation

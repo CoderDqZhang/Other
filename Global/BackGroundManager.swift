@@ -23,7 +23,9 @@ class BackGroundManager: NSObject {
         let model = APPActiveModel.init(fromDictionary: ["background":timeNow,"active":0])
         CacheManager.getSharedInstance().saveAPPActiveModel(category: model)
         SocketManager.getSharedInstance().isActivelyClose = true
-        SocketManager.getSharedInstance().mSocket.disconnect()
+        if SocketManager.getSharedInstance().mSocket != nil {
+            SocketManager.getSharedInstance().mSocket.disconnect()
+        }
     }
     
     func active(){

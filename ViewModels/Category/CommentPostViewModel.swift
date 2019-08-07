@@ -36,7 +36,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     
     func tableViewPostCommentTextTableViewCellSetData(_ indexPath:IndexPath, cell:PostCommentTextTableViewCell) {
         cell.postCommentTextTableViewCellTextClouse = { str in
-            self.commentContent = cell.textView.text
+            self.commentContent = str
         }
     }
     

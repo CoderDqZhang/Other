@@ -122,7 +122,7 @@ class LoginViewController: BaseViewController {
         }, for: UIControl.Event.touchUpInside)
         cofirmProtocolView.cofirmProtocolViewClouse = {
             let controllerVC = ProtocolViewViewController()
-            controllerVC.url = "https://www.baidu.com"
+            controllerVC.loadRequest(url: "https://www.baidu.com")
             NavigationPushView(self, toConroller: controllerVC)
         }
         self.view.addSubview(cofirmProtocolView)

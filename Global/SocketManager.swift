@@ -133,8 +133,10 @@ class SocketManager: NSObject {
     
     //重新连接
     func reConnect(){
-        if self.mSocket.isConnected {
-            return
+        if self.mSocket != nil {
+            if self.mSocket.isConnected {
+                return
+            }
         }
 //        if self.reConnectTime > 1024 {
 //            self.reConnectTime = 0

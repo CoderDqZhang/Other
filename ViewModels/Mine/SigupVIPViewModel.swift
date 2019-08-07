@@ -44,6 +44,13 @@ class SigupVIPViewModel: BaseViewModel {
                 cell.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
             }
         }, for: UIControl.Event.touchUpInside)
+        
+        
+        cell.confirmProtocolTableViewCellClouse = {
+            let protocolVC = SingUpVipProtoViewController()
+            protocolVC.loadRequest(url: "www.baidu.com")
+            NavigationPushView(self.controller!, toConroller: protocolVC)
+        }
     }
     
     func tableViewTakeVCartTableViewCellSetData(_ indexPath:IndexPath, cell:TakeVCartTableViewCell) {

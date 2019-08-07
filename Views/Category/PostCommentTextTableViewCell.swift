@@ -92,7 +92,7 @@ extension PostCommentTextTableViewCell : YYTextViewDelegate {
             textView.text = textView.text.nsString.substring(to: MaxTextViewCount)
         }
         if self.postCommentTextTableViewCellTextClouse != nil {
-            self.postCommentTextTableViewCellTextClouse("\(String(describing: textView.text!))\(text)")
+            self.postCommentTextTableViewCellTextClouse("\(String(describing: textView.text.nsString.replacingCharacters(in: range, with: "")))\(text)")
         }
         return true
     }
@@ -103,6 +103,10 @@ extension PostCommentTextTableViewCell : YYTextViewDelegate {
             textView.text = textView.text.nsString.substring(to: MaxTextViewCount)
         }
         self.updateConstraintsIfNeeded()
+    }
+    
+    func textViewDidEndEditing(_ textView: YYTextView) {
+        
     }
     
 }

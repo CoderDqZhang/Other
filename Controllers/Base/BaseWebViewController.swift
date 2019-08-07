@@ -32,7 +32,6 @@ import UIKit
 
 class BaseWebViewController: UIViewController {
 
-    var url:String = ""
     var webView:UIWebView!
     
     override func viewDidLoad() {
@@ -46,30 +45,33 @@ class BaseWebViewController: UIViewController {
     
     
     func setUpView(){
-        webView = UIWebView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
-        webView.sizeToFit()
-        webView.sizeThatFits(CGSize.init(width: SCREENWIDTH, height: SCREENHEIGHT))
-        webView.scalesPageToFit = true
-        webView.allowsInlineMediaPlayback = true
-        webView.mediaPlaybackRequiresUserAction = true
-        webView.suppressesIncrementalRendering = true
-        webView.keyboardDisplayRequiresUserAction = true
-        webView.mediaPlaybackAllowsAirPlay = true
-        webView.paginationMode  = .bottomToTop
-        
-//        let pageWidth = webView.pageLength
-//        webView.pageLength = 100
-//        let grapWeb = webView.gapBetweenPages
-//        webView.gapBetweenPages = 20
-        
-        self.view.addSubview(webView)
-        self.loadRequest()
-        webView.delegate = self
-        
+        if webView == nil {
+            webView = UIWebView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+            webView.sizeToFit()
+            webView.sizeThatFits(CGSize.init(width: SCREENWIDTH, height: SCREENHEIGHT))
+            webView.scalesPageToFit = true
+            webView.allowsInlineMediaPlayback = true
+            webView.mediaPlaybackRequiresUserAction = true
+            webView.suppressesIncrementalRendering = true
+            webView.keyboardDisplayRequiresUserAction = true
+            webView.mediaPlaybackAllowsAirPlay = true
+            webView.paginationMode  = .bottomToTop
+            
+            //        let pageWidth = webView.pageLength
+            //        webView.pageLength = 100
+            //        let grapWeb = webView.gapBetweenPages
+            //        webView.gapBetweenPages = 20
+            
+            self.view.addSubview(webView)
+            webView.delegate = self
+        }
     }
     
-    func loadRequest(){
-        let request = URLRequest.init(url: URL.init(string: self.url)!)
+    func loadRequest(url:String){
+        let request = URLRequest.init(url: URL.init(string: url)!)
+        if webView == nil {
+            self.setUpView()
+        }
         webView.loadRequest(request)
     }
 
