@@ -48,7 +48,7 @@ class SigupVIPViewModel: BaseViewModel {
         
         cell.confirmProtocolTableViewCellClouse = {
             let protocolVC = SingUpVipProtoViewController()
-            protocolVC.loadRequest(url: "www.baidu.com")
+            protocolVC.loadRequest(url: "https://www.baidu.com")
             NavigationPushView(self.controller!, toConroller: protocolVC)
         }
     }
@@ -186,14 +186,17 @@ extension SigupVIPViewModel: UITableViewDataSource {
             if indexPath.row == 2 || indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldAndTitleTableViewCell.description(), for: indexPath)
                 self.tableViewGloabelTextFieldAndTitleTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldAndTitleTableViewCell)
+                cell.selectionStyle = .none
                 return cell
             }else if indexPath.row == 0{
                 let cell = tableView.dequeueReusableCell(withIdentifier: UploadCartTableViewCell.description(), for: indexPath)
                 self.tableViewUploadCartTableViewCellSetData(indexPath, cell: cell as! UploadCartTableViewCell)
+                cell.selectionStyle = .none
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCell(withIdentifier: TakeVCartTableViewCell.description(), for: indexPath)
                 self.tableViewTakeVCartTableViewCellSetData(indexPath, cell: cell as! TakeVCartTableViewCell)
+                cell.selectionStyle = .none
                 return cell
             }
         case 1:
@@ -201,12 +204,14 @@ extension SigupVIPViewModel: UITableViewDataSource {
             self.tableViewConfirmProtocolTableViewCellSetData(indexPath, cell: cell as! ConfirmProtocolTableViewCell)
             cell.contentView.backgroundColor = .clear
             cell.backgroundColor = .clear
+            cell.selectionStyle = .none
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: GloabelConfirmTableViewCell.description(), for: indexPath)
             self.tableViewGloabelConfirmTableViewCellSetData(indexPath, cell: cell as! GloabelConfirmTableViewCell)
             cell.contentView.backgroundColor = .clear
             cell.backgroundColor = .clear
+            cell.selectionStyle = .none
             return cell
         }
     }
