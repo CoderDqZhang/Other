@@ -85,3 +85,43 @@ class BaseViewModel: NSObject {
         }
     }
 }
+
+extension BaseViewModel : DZNEmptyDataSetDelegate {
+    func emptyDataSetDidAppear(_ scrollView: UIScrollView!) {
+        
+    }
+    
+    func emptyDataSetWillAppear(_ scrollView: UIScrollView!) {
+        
+    }
+    
+    func emptyDataSetDidDisappear(_ scrollView: UIScrollView!) {
+        
+    }
+    
+    func emptyDataSetShouldFade(in scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    
+    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
+         return true
+    }
+}
+
+extension BaseViewModel : DZNEmptyDataSetSource {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributed = "网络开小猜了~"
+        let attributedString = NSMutableAttributedString.init(string: attributed)
+        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_999999_Color!], range: NSRange.init(location: 0, length: 7))
+        
+        return attributedString
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "net_error")
+    }
+    
+    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
+        return -64
+    }
+}

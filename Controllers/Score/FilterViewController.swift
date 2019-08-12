@@ -35,6 +35,7 @@ class FilterViewController: BaseViewController {
     }
     
     func initSView(type:Int) {
+        self.filterViewModel.controller = self
         self.bindViewModel(viewModel: filterViewModel, controller: self)
         
         let layout = UICollectionViewFlowLayout.init()
@@ -55,7 +56,11 @@ class FilterViewController: BaseViewController {
         
         
         buttomView = FilterBottomView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 48, width: SCREENWIDTH, height: 48), number: "0", click: { (type) in
-            
+            if type == .done {
+                self.filterViewModel.saveEvent()
+            }else{
+                self.filterViewModel.selectTools(type: type)
+            }
         })
         self.view.addSubview(buttomView)
         buttomView.snp.makeConstraints { (make) in
@@ -74,12 +79,14 @@ class FilterViewController: BaseViewController {
                            y: 0,
                            width: indexWidth,
                            height: SCREENHEIGHT - 108 - 44 - 44)
-        let indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"])
+        let indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","S","Y","Z"])
         indexView?.delegate = self
         indexView!.autoresizingMask = [.flexibleHeight,.flexibleLeftMargin]
         indexView!.addTarget(self, action: #selector(indexViewValueChanged(sender:)), for: .valueChanged)
         self.view.addSubview(indexView!)
         
+        self.bindLogic()
+
     }
     
     @objc func indexViewValueChanged(sender: BDKCollectionIndexView) {
@@ -91,8 +98,11 @@ class FilterViewController: BaseViewController {
                                                y: collectionView.contentOffset.y - 45.0)
     }
     
-    override func bindViewModelLogic() {
-    
+    func bindLogic() {
+        self.filterViewModel.viewType = self.viewType
+        if self.viewType == .football {
+            self.filterViewModel.footBallNumberOfSelect(isAdd: true)
+        }
     }
     
     /*

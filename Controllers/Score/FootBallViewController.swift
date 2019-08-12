@@ -47,15 +47,17 @@ class FootBallViewController: BaseViewController {
     func bindLogic() {
         self.footBallViewModel.viewType = self.viewType
         self.footBallViewModel.viewDesc = self.viewDesc
-        if self.viewDesc == .competition ||  self.viewDesc == .amidithion || self.viewDesc == .underway{
+        if self.viewDesc != .attention{
             self.getNetWorkData()
         }
-        
+        if self.viewDesc == .timely {
+            self.footBallViewModel.socketData()
+        }
     }
     
     func getNetWorkData(){
         var date:String!
-        if self.viewDesc == .underway {
+        if self.viewDesc == .underway || self.viewDesc == .timely {
             date = Date.init().string(withFormat: "yyyyMMdd")
         }else{
             date = DateTools.getSharedInstance().getDateTime(str: self.dateTime)

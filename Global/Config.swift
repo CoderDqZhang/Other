@@ -44,7 +44,8 @@ let ADMODEL = "ADModel"
 let APPACTIVEMODEL = "APPActiveModel"
 let CACHEMANAPointModel = "PointModel"
 //助球队信息
-let FOOTBALLTEAMMODEL = "FootBallTeamModel"
+let FOOTBALLEVENTODEL = "FootBallEventModel"
+let BASKETBALLEVENTODEL = "BasketBallEventModel"
 
 
 let JPUSHALIAS = "touqiu_"

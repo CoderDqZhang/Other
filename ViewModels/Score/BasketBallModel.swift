@@ -190,7 +190,7 @@ class BasketballEvent : NSObject, NSCoding{
     var nameEn : String!
     var nameZh : String!
     var nameZht : String!
-    
+    var isSelect : Bool!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -200,6 +200,7 @@ class BasketballEvent : NSObject, NSCoding{
         nameEn = dictionary["name_en"] as? String
         nameZh = dictionary["name_zh"] as? String
         nameZht = dictionary["name_zht"] as? String
+        isSelect = dictionary["is_select"] as? Bool
     }
     
     /**
@@ -213,6 +214,9 @@ class BasketballEvent : NSObject, NSCoding{
         }
         if nameEn != nil{
             dictionary["name_en"] = nameEn
+        }
+        if isSelect != nil{
+            dictionary["is_select"] = isSelect
         }
         if nameZh != nil{
             dictionary["name_zh"] = nameZh
@@ -233,7 +237,7 @@ class BasketballEvent : NSObject, NSCoding{
         nameEn = aDecoder.decodeObject(forKey: "name_en") as? String
         nameZh = aDecoder.decodeObject(forKey: "name_zh") as? String
         nameZht = aDecoder.decodeObject(forKey: "name_zht") as? String
-        
+        isSelect = aDecoder.decodeObject(forKey: "is_select") as? Bool
     }
     
     /**
@@ -253,6 +257,9 @@ class BasketballEvent : NSObject, NSCoding{
         }
         if nameZht != nil{
             aCoder.encode(nameZht, forKey: "name_zht")
+        }
+        if isSelect != nil{
+            aCoder.encode(isSelect, forKey: "is_select")
         }
         
     }

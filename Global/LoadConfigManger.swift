@@ -23,7 +23,7 @@ class LoadConfigManger: NSObject {
         self.loadUnreadUrl()
         self.loadPointdUrl()
         //获取球队信息
-//        self.loadScorTeam()
+        self.loadScorEvent()
     }
     
     func loadConfigUrl(){
@@ -68,20 +68,60 @@ class LoadConfigManger: NSObject {
         KWindow.addSubview(adView)
     }
     
-//    func loadScorTeam(){
-//        if CacheManager.getSharedInstance().getFootTeamBallModel() == nil {
-//            BaseNetWorke.getSharedInstance().sportnanoApi(url: FootBallInfoUrl, parameters: nil, success: { (resultDic) in
-//                let models = NSMutableArray.init(array: resultDic as! Array)
-//                let sql_models:NSMutableArray = NSMutableArray.init()
-//                for model in models{
-//                    let temp_model = BallTeamSqlModel.init(fromDictionary: ["id":(model as! NSDictionary).object(forKey: "id") as Any,"team":BallTeamModel.init(fromDictionary: model as! [String : Any])])
-//                    sql_models.add(temp_model)
+    func loadScorEvent(){
+//        BaseNetWorke.getSharedInstance().sportnanoApi(url: FootBallEVENTUrl, parameters: nil, success: { (resultDic) in
+//            if (resultDic as! NSDictionary).object(forKey: "err") == nil {
+//                let models = NSMutableArray.init(array: (resultDic as! NSDictionary).object(forKey: "matchevents") as! Array)
+//                for index in 0...models.count - 1 {
+//                    let temp_dic = NSMutableDictionary.init(dictionary: models[index] as! NSDictionary)
+//                    temp_dic.setValue(true, forKey: "is_select")
+//                    models.replaceObject(at: index, with: temp_dic)
 //                }
-//                CacheManager.getSharedInstance().saveFootTeamBallModel(point: sql_models)
-//            }) { (failt) in
-//                print("请求失败")
+//                let dic = NSMutableDictionary.init()
+//                let titles = NSArray.init(array: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","S","Y","Z"])
+//                for name in titles {
+//                    let array = models.filter { (dic) -> Bool in
+//                        let title = self.getFirstLetterFromString(aString: ((dic as! NSDictionary).object(forKey: "short_name_zh") as! String))
+//                        return  title == name as! String
+//                    }
+//                    dic.setValue(array, forKey: name as! String)
+//                }
+//                CacheManager.getSharedInstance().saveFootBallEventModel(point: dic)
 //            }
+//        }) { (failt) in
+//            print("请求失败")
 //        }
-//    }
+    }
+    
+    // MARK: - 获取联系人姓名首字母(传入汉字字符串, 返回大写拼音首字母)
+    func getFirstLetterFromString(aString: String) -> (String) {
+        
+        // 注意,这里一定要转换成可变字符串
+        let mutableString = NSMutableString.init(string: aString)
+        // 将中文转换成带声调的拼音
+        CFStringTransform(mutableString as CFMutableString, nil, kCFStringTransformToLatin, false)
+        // 去掉声调(用此方法大大提高遍历的速度)
+        let pinyinString = mutableString.folding(options: String.CompareOptions.diacriticInsensitive, locale: NSLocale.current)
+        // 将拼音首字母装换成大写
+        let strPinYin = polyphoneStringHandle(nameString: aString, pinyinString: pinyinString).uppercased()
+        // 截取大写首字母
+        let firstString = strPinYin.substring(to: strPinYin.index(strPinYin.startIndex, offsetBy:1))
+        // 判断姓名首位是否为大写字母
+        let regexA = "^[A-Z]$"
+        let predA = NSPredicate.init(format: "SELF MATCHES %@", regexA)
+        return predA.evaluate(with: firstString) ? firstString : "#"
+    }
+    
+    
+    /// 多音字处理
+    func polyphoneStringHandle(nameString:String, pinyinString:String) -> String {
+        if nameString.hasPrefix("长") {return "chang"}
+        if nameString.hasPrefix("沈") {return "shen"}
+        if nameString.hasPrefix("厦") {return "xia"}
+        if nameString.hasPrefix("地") {return "di"}
+        if nameString.hasPrefix("重") {return "chong"}
+        
+        return pinyinString;
+    }
 }
 

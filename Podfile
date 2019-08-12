@@ -36,7 +36,6 @@ target 'Touqiu' do
   pod 'BDKCollectionIndexView'
   pod 'RSKGrowingTextView'
   pod 'CocoaDebug', :configurations => ['Debug']
-  pod 'SWTableViewCell', '~> 0.3.7'
   
   target 'TouqiuTests' do
     inherit! :search_paths

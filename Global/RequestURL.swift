@@ -95,6 +95,8 @@ let ADvertiseUsableAdvertise = "\(RootUrl)advertise/getUsableAdvertise"
 let FootBallInfoUrl = "\(RootUrl)football/getData"
 let FootBallInfoTestUrl = "\(RootUrl)football/getTeamsAndSoOn"
 
+let FootBallEVENTUrl = "https://open.sportnanoapi.com/api/sports/football/matchevent/list?user=xmtq&secret=2f9e2c9e7426285ed"
+
 func getAliPayBankNameUrl(banNo:String) ->String {
     return "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=\(banNo)&cardBinCheck=true"
 }

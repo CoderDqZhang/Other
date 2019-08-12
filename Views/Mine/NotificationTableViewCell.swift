@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import SWTableViewCell
 
 typealias NotificationTableViewCellClouse = (_ indexPath:IndexPath) ->Void
 
-class NotificationTableViewCell: SWTableViewCell {
+class NotificationTableViewCell: UITableViewCell {
 
     var conisImageView:UIImageView!
     var titleLabel:YYLabel!

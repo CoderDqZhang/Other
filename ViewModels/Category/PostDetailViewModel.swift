@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
-import SWTableViewCell
+
+
 class PostDetailViewModel: BaseViewModel {
 
     var postType:PostType!
@@ -378,12 +378,6 @@ extension PostDetailViewModel: UITableViewDelegate {
         
     }
     
-    func rightButtons() ->NSArray{
-        let rightUtilityButtons = NSMutableArray.init()
-        rightUtilityButtons.sw_addUtilityButton(with: UIColor.red, title: "删除")
-        rightUtilityButtons.sw_addUtilityButton(with: UIColor.yellow, title: "已读")
-        return rightUtilityButtons
-    }
 }
 
 extension PostDetailViewModel: UITableViewDataSource {
@@ -425,50 +419,9 @@ extension PostDetailViewModel: UITableViewDataSource {
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
             self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
-            (cell as! PostDetailCommentTableViewCell).delegate = self
-            (cell as! PostDetailCommentTableViewCell).rightUtilityButtons = (self.rightButtons() as! [Any])
+            
             cell.selectionStyle = .none
             return cell
         }
-    }
-}
-
-extension PostDetailViewModel : SWTableViewCellDelegate {
-    
-    func swipeableTableViewCellDidEndScrolling(_ cell: SWTableViewCell!) {
-        
-    }
-    func swipeableTableViewCell(_ cell: SWTableViewCell!, scrollingTo state: SWCellState) {
-        
-    }
-    
-    func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
-        
-    }
-    
-    func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
-        
-    }
-}
-
-extension PostDetailViewModel : DZNEmptyDataSetDelegate {
-    
-}
-
-extension PostDetailViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color ?? ""], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
     }
 }

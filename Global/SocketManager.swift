@@ -8,6 +8,8 @@
 
 import UIKit
 import CocoaAsyncSocket
+import ReactiveSwift
+import ReactiveCocoa
 
 let PACKET = 4
 
@@ -24,10 +26,14 @@ class SocketManager: NSObject {
     var reConnectTime:TimeInterval!
     
     var isActivelyClose:Bool = false
+    
+    var subscriber:Signal<Any, NSError>.Observer!
+    
+    private static let _sharedInstance = SocketManager()
         
     var connectStatus = 0
     
-    private static let _sharedInstance = SocketManager()
+    var single:Signal<Any, NSError>!
     
     class func getSharedInstance() -> SocketManager {
         return _sharedInstance
@@ -36,6 +42,9 @@ class SocketManager: NSObject {
     private override init() {
         super.init()
         self.onNetWorkStartTesting()
+        single = Signal.init({ (subscr, liftTime) in
+            self.subscriber = subscr
+        })
     } // 私有化init方法
     
     func send(){
@@ -154,9 +163,8 @@ class SocketManager: NSObject {
     }
     
     func parse_data(data:Data){
-        let dic = BaseNetWorke.getSharedInstance().dataToDic(data)
         isRecive = true
-        print("接受到数据")
+        SocketManager.getSharedInstance().subscriber.send(value: BaseNetWorke.getSharedInstance().dataToDic(data))
     }
 }
 
@@ -185,11 +193,11 @@ extension SocketManager : GCDAsyncSocketDelegate {
         self.connectHeart()
         if time == nil {
             time = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (time) in
-                if !self.isRecive {
+                if self.isRecive {
                     self.isRecive = false
-                    return
+                }else{
+                    self.connectHeart()
                 }
-                self.connectHeart()
             })
         }
         print("success")

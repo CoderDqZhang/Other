@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "84C36A8036805AB89461A75D7D01630D"
+               BlueprintIdentifier = "EA2220642CA2FF362A8BACC635D4B9FF"
                BuildableName = "TYPagerController.framework"
                BlueprintName = "TYPagerController"
                ReferencedContainer = "container:Pods.xcodeproj">

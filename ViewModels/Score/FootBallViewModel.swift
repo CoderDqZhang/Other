@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
 
+import ReactiveCocoa
+import ReactiveSwift
 class FootBallViewModel: BaseViewModel {
 
     var viewType:ScoreDetailVC!
@@ -17,7 +18,7 @@ class FootBallViewModel: BaseViewModel {
     var footBallArray = NSMutableArray.init()
     override init() {
         super.init()
-    
+        
     }
     
     func tableViewScoreInfoTableViewCellSetData(_ indexPath:IndexPath, cell:ScoreInfoTableViewCell) {
@@ -44,6 +45,23 @@ class FootBallViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func socketData(){
+        SocketManager.getSharedInstance().single?.observe { (dic) in
+            if (dic.value as! NSDictionary).object(forKey: "type") as! Int == 1 {
+                let matchs = (dic.value as! NSDictionary).object(forKey: "data")
+                if (dic.value as! NSDictionary).object(forKey: "data") is NSArray {
+                    for match in matchs as! NSArray {
+                        let footBall = self.footBallArray.filter({ (model) -> Bool in
+                            return (model as! FootBallModel).id == (match as! Array)[0]
+                        })
+                        self.socketUpdateData(match: match as! NSArray, model: footBall[0] as! FootBallModel)
+                    }
+                    self.reloadTableViewData()
+                }
+            }
+        }
     }
     
     func getFootBallNet(type:String, date:String){
@@ -116,6 +134,22 @@ class FootBallViewModel: BaseViewModel {
         }
         self.reloadTableViewData()
     }
+    
+    func socketUpdateData(match:NSArray, model:FootBallModel){
+        model.status = (match[2] as! Int)
+        model.teamA.score = ((match[5] as! NSArray)[2] as! Int)
+        model.teamA.cornerBall = ((match[5] as! NSArray)[6] as! Int)
+        model.teamA.addTimeScore = ((match[5] as! NSArray)[8] as! Int)
+        model.teamA.halfScore = ((match[5] as! NSArray)[3] as! Int)
+        model.teamA.halfRed = ((match[5] as! NSArray)[4] as! Int)
+        model.teamA.halfYellow = ((match[5] as! NSArray)[5] as! Int)
+        model.teamB.score = ((match[6] as! NSArray)[2] as! Int)
+        model.teamB.cornerBall = ((match[6] as! NSArray)[6] as! Int)
+        model.teamB.addTimeScore = ((match[6] as! NSArray)[8] as! Int)
+        model.teamB.halfScore = ((match[6] as! NSArray)[3] as! Int)
+        model.teamB.halfRed = ((match[6] as! NSArray)[4] as! Int)
+        model.teamB.halfYellow = ((match[6] as! NSArray)[5] as! Int)
+    }
 }
 
 extension FootBallViewModel: UITableViewDelegate {
@@ -186,24 +220,4 @@ extension FootBallViewModel: UITableViewDataSource {
     }
 }
 
-extension FootBallViewModel : DZNEmptyDataSetDelegate {
-    
-}
 
-extension FootBallViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

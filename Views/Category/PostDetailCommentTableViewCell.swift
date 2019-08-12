@@ -10,7 +10,6 @@ import UIKit
 import SKPhotoBrowser
 import ReactiveCocoa
 import ReactiveSwift
-import SWTableViewCell
 
 let commentImageWidth:CGFloat = (SCREENWIDTH - 60 - 8 * 2) / 3
 let commentImageHeight:CGFloat = commentImageWidth
@@ -19,7 +18,7 @@ let SecondeContentWidth:CGFloat = SCREENWIDTH - 66
 
 typealias PostDetailCommentTableViewCellClouse = (_ model:CommentModel) ->Void
 
-class PostDetailCommentTableViewCell: SWTableViewCell {
+class PostDetailCommentTableViewCell: UITableViewCell {
 
     var contentLabel:YYLabel!
     var imageContentView:UIView!

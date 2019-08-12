@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import MJRefresh
 import DZNEmptyDataSet
+
 import FDFullscreenPopGesture
 
 typealias SearchResultDicClouse = (_ dic:NSDictionary) -> Void
@@ -94,6 +95,8 @@ class BaseViewController: UIViewController {
         self.tableView.estimatedSectionHeaderHeight = 0;
         self.tableView.estimatedSectionFooterHeight = 0;
         self.tableView.separatorStyle = .none
+        self.tableView.emptyDataSetSource = viewModel
+        self.tableView.emptyDataSetDelegate = viewModel
         controller?.view.addSubview(tableView)
         tableView.delegate = viewModel as? UITableViewDelegate
         tableView.dataSource = viewModel as? UITableViewDataSource

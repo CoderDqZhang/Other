@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 
 class BasketBallViewModel: BaseViewModel {
 
@@ -32,6 +32,23 @@ class BasketBallViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func socketData(){
+        SocketManager.getSharedInstance().single?.observe { (dic) in
+            if (dic.value as! NSDictionary).object(forKey: "type") as! Int == 2 {
+                let matchs = (dic.value as! NSDictionary).object(forKey: "data")
+                if (dic.value as! NSDictionary).object(forKey: "data") is NSArray {
+                    for match in matchs as! NSArray {
+                        let basketBall = self.basketBallArray.filter({ (model) -> Bool in
+                            return (model as! BasketBallModel).id == (match as! Array)[0]
+                        })
+                        self.socketUpdateData(match: match as! NSArray, model: basketBall[0] as! BasketBallModel)
+                    }
+                    self.reloadTableViewData()
+                }
+            }
+        }
     }
     
     func getbasketBallNet(type:String, date:String){
@@ -90,6 +107,21 @@ class BasketBallViewModel: BaseViewModel {
         self.reloadTableViewData()
     }
     
+    func socketUpdateData(match:NSArray, model:BasketBallModel){
+        model.status = (match[2] as! Int)
+        model.allSecond = (match[5] as! Int)
+        model.basketBallTeamA.first = ((match[6] as! NSArray)[1] as! Int)
+        model.basketBallTeamA.second = ((match[6] as! NSArray)[2] as! Int)
+        model.basketBallTeamA.third = ((match[6] as! NSArray)[3] as! Int)
+        model.basketBallTeamA.four = ((match[6] as! NSArray)[4] as! Int)
+        model.basketBallTeamA.overtime = ((match[6] as! NSArray)[5] as! Int)
+        model.basketballTeamB.first = ((match[7] as! NSArray)[1] as! Int)
+        model.basketballTeamB.second = ((match[7] as! NSArray)[2] as! Int)
+        model.basketballTeamB.third = ((match[7] as! NSArray)[3] as! Int)
+        model.basketballTeamB.four = ((match[7] as! NSArray)[4] as! Int)
+        model.basketballTeamB.overtime = ((match[7] as! NSArray)[5] as! Int)
+    }
+    
 }
 
 extension BasketBallViewModel: UITableViewDelegate {
@@ -140,24 +172,3 @@ extension BasketBallViewModel: UITableViewDataSource {
     }
 }
 
-extension BasketBallViewModel : DZNEmptyDataSetDelegate {
-    
-}
-
-extension BasketBallViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

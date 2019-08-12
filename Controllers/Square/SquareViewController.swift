@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YYImage
 
 class SquareViewController: BaseViewController {
 
@@ -56,7 +57,6 @@ class SquareViewController: BaseViewController {
         let date = Date.init()
         print(date.weekday)
         print(date.dateString())
-        // Do any additional setup after loading the view.
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
