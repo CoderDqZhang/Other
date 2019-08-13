@@ -100,7 +100,7 @@ class UMengManager: NSObject {
     }
     
     //单纯分享图片
-    func sharePlatformImage(type:UMSocialPlatformType,thumImage:UIImage,image_url:String, controller:BaseViewController){
+    func sharePlatformImage(type:UMSocialPlatformType,thumImage:UIImage,image_url:String, controller:BaseViewController,completion:UMSocialRequestCompletionHandler){
         let object = UMSocialMessageObject.init()
         let shareObject = UMShareImageObject.init()
         shareObject.thumbImage = thumImage
@@ -121,7 +121,7 @@ class UMengManager: NSObject {
     }
     
     //分享网页链接
-    func sharePlatformWeb(type:UMSocialPlatformType, title:String,descr:String,thumImage:UIImage, web_url:String, controller:BaseViewController) {
+    func sharePlatformWeb(type:UMSocialPlatformType, title:String,descr:String,thumImage:UIImage, web_url:String, controller:BaseViewController,completion:UMSocialRequestCompletionHandler) {
         let object = UMSocialMessageObject.init()
         let webObject = UMShareWebpageObject.shareObject(withTitle: title, descr: descr, thumImage: thumImage)
         webObject?.webpageUrl = web_url

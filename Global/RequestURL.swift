@@ -95,6 +95,11 @@ let ADvertiseUsableAdvertise = "\(RootUrl)advertise/getUsableAdvertise"
 let FootBallInfoUrl = "\(RootUrl)football/getData"
 let FootBallInfoTestUrl = "\(RootUrl)football/getTeamsAndSoOn"
 
+let RegisterLoginUrl = "http://www.baodiantiyu.com:8081/bdty/index.html"
+let InviteUrl = "http://www.baodiantiyu.com:8081/bdty/register.html"
+let ShareUrl = "http://www.baodiantiyu.com:8081/bdty/invite.html"
+let MasterUrl = "http://www.baodiantiyu.com:8081/bdty/master.html"
+
 let FootBallEVENTUrl = "https://open.sportnanoapi.com/api/sports/football/matchevent/list?user=xmtq&secret=2f9e2c9e7426285ed"
 
 func getAliPayBankNameUrl(banNo:String) ->String {

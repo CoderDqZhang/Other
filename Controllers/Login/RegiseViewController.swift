@@ -85,6 +85,11 @@ class RegiseViewController: BaseViewController {
                 self.cofirmProtocolView.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
             }
         }, for: UIControl.Event.touchUpInside)
+        cofirmProtocolView.cofirmProtocolViewClouse = {
+            let controllerVC = ProtocolViewViewController()
+            controllerVC.loadRequest(url: RegisterLoginUrl)
+            NavigationPushView(self, toConroller: controllerVC)
+        }
         self.view.addSubview(cofirmProtocolView)
     }
     

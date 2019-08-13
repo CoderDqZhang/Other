@@ -48,7 +48,7 @@ class SigupVIPViewModel: BaseViewModel {
         
         cell.confirmProtocolTableViewCellClouse = {
             let protocolVC = SingUpVipProtoViewController()
-            protocolVC.loadRequest(url: "https://www.baidu.com")
+            protocolVC.loadRequest(url: MasterUrl)
             NavigationPushView(self.controller!, toConroller: protocolVC)
         }
     }

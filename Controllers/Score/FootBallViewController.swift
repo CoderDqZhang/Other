@@ -63,7 +63,7 @@ class FootBallViewController: BaseViewController {
             date = DateTools.getSharedInstance().getDateTime(str: self.dateTime)
         }
         //            self.footBallViewModel.getFoot1BallNet(date: date)
-        self.footBallViewModel.getFootBallNet(type:self.viewDesc.rawValue.string, date: date)
+//        self.footBallViewModel.getFootBallNet(type:self.viewDesc.rawValue.string, date: date)
     }
     
     /*

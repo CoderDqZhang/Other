@@ -167,9 +167,11 @@ class PostDetailViewController: BaseViewController {
         UMengUI.getSharedInstance().createPlatForm(block: { platform,userInfo in
             switch platform {
             case .dingDing:
-                UMengManager.getSharedInstance().sharePlatformImage(type: platform, thumImage: UIImage.init(named: "category_post")!, image_url: "", controller: self)
+                UMengManager.getSharedInstance().sharePlatformImage(type: platform, thumImage: UIImage.init(named: "category_post")!, image_url: "", controller: self, completion: { (ret, error) in
+                    
+                })
             default:
-                UMengManager.getSharedInstance().sharePlatformImageTitle(type: platform, title: self.postDetailViewModel.tipDetailModel.title, descr: self.postDetailViewModel.tipDetailModel.content, thumImage: UIImage.init(named: "category_post")!, controller: self, completion: { (ret, error) in
+                UMengManager.getSharedInstance().sharePlatformWeb(type: platform, title: self.postDetailViewModel.tipDetailModel.content, descr: self.postDetailViewModel.tipDetailModel.title, thumImage: UIImage.init(named: "logo1024")!, web_url: "\(ShareUrl)?tipId=\(String(describing: self.postDetailViewModel.tipDetailModel.id!))", controller: self, completion: { (ret, error) in
                     
                 })
             }
