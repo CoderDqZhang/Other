@@ -42,6 +42,11 @@ class FollowViewModel: BaseViewModel {
         NavigationPushView(self.controller!, toConroller: otherMineVC)
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getFllowerNet(userId: self.userId)
+    }
+    
     func getFllowerNet(userId:String?){
         page = page + 1
         var parameters:[String : Any]?

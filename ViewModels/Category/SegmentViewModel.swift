@@ -29,51 +29,14 @@ class SegmentViewModel: BaseViewModel {
     }
     
     func pushPostVC(){
-        if CacheManager.getSharedInstance().isLogin() {
-            let postVC = PostViewController()
-            postVC.postViewControllerDataClouse = { dic in
-                (self.controller! as! SegmentViewController).newController.newsViewModel.tipListArray.insert(dic, at: 0)
-                (self.controller! as! SegmentViewController).newController.newsViewModel.reloadTableViewData()
-            }
-            let postNavigationController = UINavigationController.init(rootViewController: postVC)
-            NavigaiontPresentView(self.controller!, toController: postNavigationController)
-        }else{
-            NavigationPushView(self.controller!, toConroller: LoginViewController())
-        }
+        
     }
     
     func pushCategoryDetailViewController(_ data:NSDictionary, _ type:CategoryType){
-        let categoryDetail = CategoryDetailViewController()
-        categoryDetail.categoryData = data
-        categoryDetail.categoryType = type
-        NavigationPushView(self.controller!, toConroller: categoryDetail)
+        
     }
     
     func pushPostDetailViewController(_ data:NSMutableDictionary, _ type:PostType, _ indexPath:IndexPath) {
-        let postDetail = PostDetailViewController()
-        postDetail.changeAllCommentAndLikeNumberClouse = { type, status in
-            if type == .comment {
-                if status == .add {
-                    data["commentTotal"] = data["commentTotal"] as! Int + 1
-                }else{
-                    data["commentTotal"] = data["commentTotal"] as! Int - 1
-                }
-            }else{
-                if status == .add {
-                    data["favor"] = data["favor"] as! Int + 1
-                }else{
-                    data["favor"] = data["favor"] as! Int - 1
-                }
-            }
-            (self.controller as! SegmentViewController).changeCommentAndLikeNumber(data,indexPath)
-        }
         
-        postDetail.deleteArticleClouse = {
-            (self.controller as! SegmentViewController).deleteArticle(indexPath)
-        }
-        
-        postDetail.postData = data
-        postDetail.postType = type
-        NavigationPushView(self.controller!, toConroller: postDetail)
     }
 }

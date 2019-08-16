@@ -84,6 +84,13 @@
 		1F91C3A822FAC8550030916F /* SingUpVipProtoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3A722FAC8550030916F /* SingUpVipProtoViewController.swift */; };
 		1F91C3AA22FBF7140030916F /* FootBallEventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3A922FBF7140030916F /* FootBallEventModel.swift */; };
 		1F91C3AE22FC26CA0030916F /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1F91C3AD22FC26C90030916F /* loading.gif */; };
+		1F91C3C02304049E0030916F /* NorthSigleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3BF2304049E0030916F /* NorthSigleModel.swift */; };
+		1F91C3C2230529100030916F /* FootBallLotteryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3C1230529100030916F /* FootBallLotteryModel.swift */; };
+		1F91C3C4230529BD0030916F /* FootBallIndexModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3C3230529BD0030916F /* FootBallIndexModel.swift */; };
+		1F91C3C62305683D0030916F /* SquareSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3C52305683D0030916F /* SquareSegmentViewController.swift */; };
+		1F91C3C8230569D30030916F /* SquareSegemtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3C7230569D30030916F /* SquareSegemtViewModel.swift */; };
+		1F91C3CA230569E20030916F /* SquareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3C9230569E20030916F /* SquareViewModel.swift */; };
+		1F91C3CC23056A910030916F /* SquareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3CB23056A910030916F /* SquareTableViewCell.swift */; };
 		1F99174C229B74AC00C8FDD5 /* CoinsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */; };
 		1F99174E229B74B900C8FDD5 /* ConinsSegementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */; };
 		1F991750229B76F400C8FDD5 /* CoinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */; };
@@ -434,6 +441,13 @@
 		1F91C3A722FAC8550030916F /* SingUpVipProtoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingUpVipProtoViewController.swift; sourceTree = "<group>"; };
 		1F91C3A922FBF7140030916F /* FootBallEventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallEventModel.swift; sourceTree = "<group>"; };
 		1F91C3AD22FC26C90030916F /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
+		1F91C3BF2304049E0030916F /* NorthSigleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NorthSigleModel.swift; sourceTree = "<group>"; };
+		1F91C3C1230529100030916F /* FootBallLotteryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallLotteryModel.swift; sourceTree = "<group>"; };
+		1F91C3C3230529BD0030916F /* FootBallIndexModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallIndexModel.swift; sourceTree = "<group>"; };
+		1F91C3C52305683D0030916F /* SquareSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareSegmentViewController.swift; sourceTree = "<group>"; };
+		1F91C3C7230569D30030916F /* SquareSegemtViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareSegemtViewModel.swift; sourceTree = "<group>"; };
+		1F91C3C9230569E20030916F /* SquareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewModel.swift; sourceTree = "<group>"; };
+		1F91C3CB23056A910030916F /* SquareTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareTableViewCell.swift; sourceTree = "<group>"; };
 		1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsDetailViewController.swift; sourceTree = "<group>"; };
 		1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConinsSegementViewController.swift; sourceTree = "<group>"; };
 		1F99174F229B76F400C8FDD5 /* CoinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsViewModel.swift; sourceTree = "<group>"; };
@@ -542,16 +556,16 @@
 		1FE5BEE62282868200C9137C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		1FE5BEEA2282887400C9137C /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		1FE5BEEB2282887400C9137C /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
-		1FE5BEEE2282A1CA00C9137C /* SegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentViewController.swift; sourceTree = "<group>"; };
+		1FE5BEEE2282A1CA00C9137C /* SegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SegmentViewController.swift; path = ../Category/SegmentViewController.swift; sourceTree = "<group>"; };
 		1FE5BEF02282A20400C9137C /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
-		1FE5BEF22282A21600C9137C /* OutFallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutFallViewController.swift; sourceTree = "<group>"; };
+		1FE5BEF22282A21600C9137C /* OutFallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OutFallViewController.swift; path = ../Category/OutFallViewController.swift; sourceTree = "<group>"; };
 		1FE5BF142282CBE900C9137C /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		1FE5BF162282D17B00C9137C /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		1FE5BF182282D18D00C9137C /* CategoryContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContentTableViewCell.swift; sourceTree = "<group>"; };
 		1FE5BF1A2282D1A100C9137C /* HotDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotDetailTableViewCell.swift; sourceTree = "<group>"; };
 		1FE5BF1C2282D1AC00C9137C /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		1FE5BF1E2282D20D00C9137C /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
-		1FE5BF202282D21F00C9137C /* OutFallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutFallViewModel.swift; sourceTree = "<group>"; };
+		1FE5BF202282D21F00C9137C /* OutFallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OutFallViewModel.swift; path = ../Category/OutFallViewModel.swift; sourceTree = "<group>"; };
 		1FE5BF222282E59500C9137C /* NSString+AES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+AES.h"; sourceTree = "<group>"; };
 		1FE5BF232282E59500C9137C /* NSString+AES.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES.m"; sourceTree = "<group>"; };
 		1FE5BF252283BB8300C9137C /* GTMBase64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
@@ -567,7 +581,7 @@
 		1FE5BF392284359D00C9137C /* OutFallCategoryUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutFallCategoryUserInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1FE5BF3B228435B000C9137C /* OutFallCategoryContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutFallCategoryContentTableViewCell.swift; sourceTree = "<group>"; };
 		1FE5BF3D228509B900C9137C /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
-		1FE5BF3F22850B3500C9137C /* SegmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentViewModel.swift; sourceTree = "<group>"; };
+		1FE5BF3F22850B3500C9137C /* SegmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SegmentViewModel.swift; path = ../Category/SegmentViewModel.swift; sourceTree = "<group>"; };
 		1FE5BF412285170700C9137C /* CategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewModel.swift; sourceTree = "<group>"; };
 		1FE5BF45228528A900C9137C /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		1FE5BF47228528FD00C9137C /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
@@ -1330,9 +1344,7 @@
 		1FE5BF002282A42000C9137C /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				1FE5BEEE2282A1CA00C9137C /* SegmentViewController.swift */,
 				1FE5BEF02282A20400C9137C /* NewsViewController.swift */,
-				1FE5BEF22282A21600C9137C /* OutFallViewController.swift */,
 				1FE5BF3D228509B900C9137C /* CategoryDetailViewController.swift */,
 				1FE5BF47228528FD00C9137C /* CommentViewController.swift */,
 				1FE5BF49228529B700C9137C /* PostDetailViewController.swift */,
@@ -1390,6 +1402,9 @@
 		1FE5BF032282A44C00C9137C /* Square */ = {
 			isa = PBXGroup;
 			children = (
+				1FE5BEEE2282A1CA00C9137C /* SegmentViewController.swift */,
+				1FE5BEF22282A21600C9137C /* OutFallViewController.swift */,
+				1F91C3C52305683D0030916F /* SquareSegmentViewController.swift */,
 				1FE5BDFE2282751400C9137C /* SquareViewController.swift */,
 			);
 			path = Square;
@@ -1472,6 +1487,7 @@
 		1FE5BF0A2282A4A400C9137C /* Square */ = {
 			isa = PBXGroup;
 			children = (
+				1F91C3CB23056A910030916F /* SquareTableViewCell.swift */,
 			);
 			path = Square;
 			sourceTree = "<group>";
@@ -1501,6 +1517,10 @@
 		1FE5BF0D2282A4C200C9137C /* Square */ = {
 			isa = PBXGroup;
 			children = (
+				1FE5BF3F22850B3500C9137C /* SegmentViewModel.swift */,
+				1F91C3C7230569D30030916F /* SquareSegemtViewModel.swift */,
+				1F91C3C9230569E20030916F /* SquareViewModel.swift */,
+				1FE5BF202282D21F00C9137C /* OutFallViewModel.swift */,
 			);
 			path = Square;
 			sourceTree = "<group>";
@@ -1542,8 +1562,6 @@
 			isa = PBXGroup;
 			children = (
 				1FE5BF1E2282D20D00C9137C /* NewsViewModel.swift */,
-				1FE5BF202282D21F00C9137C /* OutFallViewModel.swift */,
-				1FE5BF3F22850B3500C9137C /* SegmentViewModel.swift */,
 				1FE5BF412285170700C9137C /* CategoryDetailViewModel.swift */,
 				1FE5BF45228528A900C9137C /* CommentViewModel.swift */,
 				1FE5BF4B228529EC00C9137C /* PostDetailViewModel.swift */,
@@ -1563,6 +1581,9 @@
 				1F6BA9D422F2CB830090A1D5 /* FootBallModel.swift */,
 				1F91C3A522FAB1D50030916F /* BasketBallModel.swift */,
 				1F91C3A922FBF7140030916F /* FootBallEventModel.swift */,
+				1F91C3BF2304049E0030916F /* NorthSigleModel.swift */,
+				1F91C3C1230529100030916F /* FootBallLotteryModel.swift */,
+				1F91C3C3230529BD0030916F /* FootBallIndexModel.swift */,
 			);
 			name = Score;
 			path = ViewModels/Score;
@@ -2051,6 +2072,7 @@
 				1FE8DAFF2292C4F100DCED01 /* MyCommentViewModel.swift in Sources */,
 				1FEB98CB22E954F80038B49F /* AdModel.swift in Sources */,
 				1FE5BE392282863D00C9137C /* AnimationTools.swift in Sources */,
+				1F91C3C4230529BD0030916F /* FootBallIndexModel.swift in Sources */,
 				1FE8DAAE228EC7CB00DCED01 /* RealNameViewController.swift in Sources */,
 				1FE5BF382284286A00C9137C /* GloableView.swift in Sources */,
 				1FE5BEB52282866300C9137C /* TAAnimatedDotView.m in Sources */,
@@ -2090,6 +2112,7 @@
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
 				1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */,
 				1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */,
+				1F91C3C02304049E0030916F /* NorthSigleModel.swift in Sources */,
 				1FF1E52422AF45F600BB9A50 /* InveterViewModel.swift in Sources */,
 				1FE8DAD722926AE900DCED01 /* OtherMineViewController.swift in Sources */,
 				1FE8DAC6228ED11900DCED01 /* FeedBackViewModel.swift in Sources */,
@@ -2177,6 +2200,7 @@
 				1F395CC3229542E000781C0C /* UserInfoModel.swift in Sources */,
 				1FE5BF62228A5C5700C9137C /* CommentPostViewModel.swift in Sources */,
 				1FE8DAE82292830600DCED01 /* RecommendViewModel.swift in Sources */,
+				1F91C3CA230569E20030916F /* SquareViewModel.swift in Sources */,
 				1FE5BF4E22853E9500C9137C /* CategoryHeaderTableViewCell.swift in Sources */,
 				1FE5BF66228A943B00C9137C /* PostCommentImagesTableViewCell.swift in Sources */,
 				1FE5BF3A2284359D00C9137C /* OutFallCategoryUserInfoTableViewCell.swift in Sources */,
@@ -2237,6 +2261,7 @@
 				1FE8DB212294EAFB00DCED01 /* RegiseViewController.swift in Sources */,
 				1F6BA9C922F189660090A1D5 /* BasketBallScoreSegmentViewController.swift in Sources */,
 				1F91C39F22F95E8F0030916F /* NextGrowingInternalTextView.swift in Sources */,
+				1F91C3CC23056A910030916F /* SquareTableViewCell.swift in Sources */,
 				1F1C1B5622A0F56D008031F4 /* StoreSegementViewController.swift in Sources */,
 				1FE8DAC4228ECD0600DCED01 /* ChangePasswordViewModel.swift in Sources */,
 				1FE5BF332283F60800C9137C /* Conner+Shadows.swift in Sources */,
@@ -2245,6 +2270,7 @@
 				1F991752229B784800C8FDD5 /* CoinsDetailTableViewCell.swift in Sources */,
 				1FE5BE21228285FA00C9137C /* NSString+Utils.m in Sources */,
 				1FE5BDE822817B8500C9137C /* RequestURL.swift in Sources */,
+				1F91C3C8230569D30030916F /* SquareSegemtViewModel.swift in Sources */,
 				1F1C1B3E229F7FC3008031F4 /* AccountTypeTableViewCell.swift in Sources */,
 				1FE8DAF72292C15C00DCED01 /* MyPostViewController.swift in Sources */,
 				1FF1E51C22AE0AEF00BB9A50 /* ConfigModel.swift in Sources */,
@@ -2279,11 +2305,13 @@
 				1FE8DA8F228D6CAC00DCED01 /* InvitationTableViewCell.swift in Sources */,
 				1FE5BFA8228BDE9E00C9137C /* TagerUserTableViewCell.swift in Sources */,
 				1FE5BE382282863D00C9137C /* Tools.swift in Sources */,
+				1F91C3C2230529100030916F /* FootBallLotteryModel.swift in Sources */,
 				1FE5BFB8228D0BB600C9137C /* SearchResultViewModel.swift in Sources */,
 				1FE5BF54228561F900C9137C /* PostDetailCommentUserTableViewCell.swift in Sources */,
 				1FE5BF152282CBE900C9137C /* PostViewController.swift in Sources */,
 				1FE8DA93228D718A00DCED01 /* AdTableViewCell.swift in Sources */,
 				1FE5BF6022894D2700C9137C /* CommentPostViewController.swift in Sources */,
+				1F91C3C62305683D0030916F /* SquareSegmentViewController.swift in Sources */,
 				1FF1E53522B8E89700BB9A50 /* SKPhotoBrowserManager.swift in Sources */,
 				1FE5BE22228285FA00C9137C /* NSString+StringSize.m in Sources */,
 				1F1C1B44229FA3F7008031F4 /* ReadFileDataManager.swift in Sources */,

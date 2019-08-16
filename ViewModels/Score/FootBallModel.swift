@@ -10,7 +10,9 @@ import UIKit
 
 class FootBallModel : NSObject, NSCoding{
     
-    var eventInfo : EventInfo!
+    var eventInfo : FootBallEventModel!
+    var northSigle : NorthSigleModel!
+    var footballLottery : FootBallLotteryModel!
     var id : Int!
     var remark : Remark!
     var season : Season!
@@ -27,7 +29,13 @@ class FootBallModel : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: [String:Any]){
         if let eventInfoData = dictionary["event_info"] as? [String:Any]{
-            eventInfo = EventInfo(fromDictionary: eventInfoData)
+            eventInfo = FootBallEventModel(fromDictionary: eventInfoData)
+        }
+        if let northSigleData = dictionary["north_sigle"] as? [String:Any]{
+            northSigle = NorthSigleModel(fromDictionary: northSigleData)
+        }
+        if let footballLotteryData = dictionary["lottery"] as? [String:Any]{
+            footballLottery = FootBallLotteryModel(fromDictionary: footballLotteryData)
         }
         id = dictionary["id"] as? Int
         if let remarkData = dictionary["remark"] as? [String:Any]{
@@ -58,6 +66,12 @@ class FootBallModel : NSObject, NSCoding{
         var dictionary = [String:Any]()
         if eventInfo != nil{
             dictionary["event_info"] = eventInfo.toDictionary()
+        }
+        if northSigle != nil{
+            dictionary["north_sigle"] = northSigle.toDictionary()
+        }
+        if footballLottery != nil{
+            dictionary["lottery"] = footballLottery.toDictionary()
         }
         if id != nil{
             dictionary["id"] = id
@@ -95,7 +109,9 @@ class FootBallModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        eventInfo = aDecoder.decodeObject(forKey: "event_info") as? EventInfo
+        eventInfo = aDecoder.decodeObject(forKey: "event_info") as? FootBallEventModel
+        northSigle = aDecoder.decodeObject(forKey: "north_sigle") as? NorthSigleModel
+        footballLottery = aDecoder.decodeObject(forKey: "lottery") as? FootBallLotteryModel
         id = aDecoder.decodeObject(forKey: "id") as? Int
         remark = aDecoder.decodeObject(forKey: "remark") as? Remark
         season = aDecoder.decodeObject(forKey: "season") as? Season
@@ -116,6 +132,12 @@ class FootBallModel : NSObject, NSCoding{
     {
         if eventInfo != nil{
             aCoder.encode(eventInfo, forKey: "event_info")
+        }
+        if footballLottery != nil{
+            aCoder.encode(footballLottery, forKey: "lottery")
+        }
+        if northSigle != nil{
+            aCoder.encode(northSigle, forKey: "north_sigle")
         }
         if id != nil{
             aCoder.encode(id, forKey: "id")
@@ -151,6 +173,7 @@ class FootBallModel : NSObject, NSCoding{
 class Team : NSObject, NSCoding{
     
     var addTimeScore : Int!
+    var id : Int!
     var cornerBall : Int!
     var halfYellow : Int!
     var halfRed : Int!
@@ -159,6 +182,7 @@ class Team : NSObject, NSCoding{
     var score : Int!
     var sort : String!
     var teamsInfo : StageInfo!
+    var teamName : String!
     
     
     /**
@@ -172,7 +196,9 @@ class Team : NSObject, NSCoding{
         halfScore = dictionary["half_score"] as? Int
         pointScore = dictionary["point_score"] as? Int
         score = dictionary["score"] as? Int
+        id = dictionary["id"] as? Int
         sort = dictionary["sort"] as? String
+        teamName = dictionary["team_name"] as? String
         if let teamsInfoData = dictionary["teams_info"] as? [String:Any]{
             teamsInfo = StageInfo(fromDictionary: teamsInfoData)
         }
@@ -187,6 +213,9 @@ class Team : NSObject, NSCoding{
         if addTimeScore != nil{
             dictionary["add_time_score"] = addTimeScore
         }
+        if teamName != nil{
+            dictionary["team_name"] = addTimeScore
+        }
         if cornerBall != nil{
             dictionary["corner_ball"] = cornerBall
         }
@@ -195,6 +224,9 @@ class Team : NSObject, NSCoding{
         }
         if halfRed != nil{
             dictionary["half_red"] = halfRed
+        }
+        if id != nil{
+            dictionary["id"] = id
         }
         if halfScore != nil{
             dictionary["half_score"] = halfScore
@@ -224,10 +256,12 @@ class Team : NSObject, NSCoding{
         cornerBall = aDecoder.decodeObject(forKey: "corner_ball") as? Int
         halfYellow = aDecoder.decodeObject(forKey: "half_yellow") as? Int
         halfRed = aDecoder.decodeObject(forKey: "half_red") as? Int
+        id = aDecoder.decodeObject(forKey: "id") as? Int
         halfScore = aDecoder.decodeObject(forKey: "half_score") as? Int
         pointScore = aDecoder.decodeObject(forKey: "point_score") as? Int
         score = aDecoder.decodeObject(forKey: "score") as? Int
         sort = aDecoder.decodeObject(forKey: "sort") as? String
+        teamName = aDecoder.decodeObject(forKey: "team_name") as? String
         teamsInfo = aDecoder.decodeObject(forKey: "teams_info") as? StageInfo
         
     }
@@ -262,8 +296,14 @@ class Team : NSObject, NSCoding{
         if sort != nil{
             aCoder.encode(sort, forKey: "sort")
         }
+        if teamName != nil{
+            aCoder.encode(teamName, forKey: "team_name")
+        }
         if teamsInfo != nil{
             aCoder.encode(teamsInfo, forKey: "teams_info")
+        }
+        if id != nil{
+            aCoder.encode(id, forKey: "id")
         }
         
     }
@@ -557,117 +597,6 @@ class Remark : NSObject, NSCoding{
         }
         if remarkDetail != nil{
             aCoder.encode(remarkDetail, forKey: "remark_detail")
-        }
-        
-    }
-    
-}
-
-class EventInfo : NSObject, NSCoding{
-    
-    var id : Int!
-    var logo : String!
-    var nameEn : String!
-    var nameZh : String!
-    var nameZht : String!
-    var shortNameEn : String!
-    var shortNameZh : String!
-    var shortNameZht : String!
-    
-    
-    /**
-     * Instantiate the instance using the passed dictionary values to set the properties values
-     */
-    init(fromDictionary dictionary: [String:Any]){
-        id = dictionary["id"] as? Int
-        logo = dictionary["logo"] as? String
-        nameEn = dictionary["name_en"] as? String
-        nameZh = dictionary["name_zh"] as? String
-        nameZht = dictionary["name_zht"] as? String
-        shortNameEn = dictionary["short_name_en"] as? String
-        shortNameZh = dictionary["short_name_zh"] as? String
-        shortNameZht = dictionary["short_name_zht"] as? String
-    }
-    
-    /**
-     * Returns all the available property values in the form of [String:Any] object where the key is the approperiate json key and the value is the value of the corresponding property
-     */
-    func toDictionary() -> [String:Any]
-    {
-        var dictionary = [String:Any]()
-        if id != nil{
-            dictionary["id"] = id
-        }
-        if logo != nil{
-            dictionary["logo"] = logo
-        }
-        if nameEn != nil{
-            dictionary["name_en"] = nameEn
-        }
-        if nameZh != nil{
-            dictionary["name_zh"] = nameZh
-        }
-        if nameZht != nil{
-            dictionary["name_zht"] = nameZht
-        }
-        if shortNameEn != nil{
-            dictionary["short_name_en"] = shortNameEn
-        }
-        if shortNameZh != nil{
-            dictionary["short_name_zh"] = shortNameZh
-        }
-        if shortNameZht != nil{
-            dictionary["short_name_zht"] = shortNameZht
-        }
-        return dictionary
-    }
-    
-    /**
-     * NSCoding required initializer.
-     * Fills the data from the passed decoder
-     */
-    @objc required init(coder aDecoder: NSCoder)
-    {
-        id = aDecoder.decodeObject(forKey: "id") as? Int
-        logo = aDecoder.decodeObject(forKey: "logo") as? String
-        nameEn = aDecoder.decodeObject(forKey: "name_en") as? String
-        nameZh = aDecoder.decodeObject(forKey: "name_zh") as? String
-        nameZht = aDecoder.decodeObject(forKey: "name_zht") as? String
-        shortNameEn = aDecoder.decodeObject(forKey: "short_name_en") as? String
-        shortNameZh = aDecoder.decodeObject(forKey: "short_name_zh") as? String
-        shortNameZht = aDecoder.decodeObject(forKey: "short_name_zht") as? String
-        
-    }
-    
-    /**
-     * NSCoding required method.
-     * Encodes mode properties into the decoder
-     */
-    @objc func encode(with aCoder: NSCoder)
-    {
-        if id != nil{
-            aCoder.encode(id, forKey: "id")
-        }
-        if logo != nil{
-            aCoder.encode(logo, forKey: "logo")
-        }
-        if nameEn != nil{
-            aCoder.encode(nameEn, forKey: "name_en")
-        }
-        if nameZh != nil{
-            aCoder.encode(nameZh, forKey: "name_zh")
-        }
-        if nameZht != nil{
-            aCoder.encode(nameZht, forKey: "name_zht")
-        }
-        if shortNameEn != nil{
-            aCoder.encode(shortNameEn, forKey: "short_name_en")
-        }
-        if shortNameZh != nil{
-            aCoder.encode(shortNameZh, forKey: "short_name_zh")
-        }
-        if shortNameZht != nil{
-            aCoder.encode(shortNameZht, forKey: "short_name_zht")
         }
         
     }

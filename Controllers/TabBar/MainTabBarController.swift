@@ -11,8 +11,8 @@ import UIKit
 class MainTabBarController: UITabBarController {
 
     let scoreVC = ScoreSegementViewController()
+    let newVC = NewsViewController()
     let segmentVC = SegmentViewController()
-    let squareVC = SquareViewController()
     let mineVC = MineViewController()
     var mineNavigaitonVC : UINavigationController!
     override func viewDidLoad() {
@@ -20,9 +20,9 @@ class MainTabBarController: UITabBarController {
         
         let scoreNavigaitonVC = UINavigationController.init(rootViewController: scoreVC)
         self.setNavigationVC(vc: scoreNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "比分")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "比分_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "比分")
-        let categoryNavigaitonVC = UINavigationController.init(rootViewController: segmentVC)
-        self.setNavigationVC(vc: categoryNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "部落")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "部落_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "部落")
-        let squareNavigaitonVC = UINavigationController.init(rootViewController: squareVC)
+        let newNavigaitonVC = UINavigationController.init(rootViewController: newVC)
+        self.setNavigationVC(vc: newNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "部落")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "部落_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "部落")
+        let squareNavigaitonVC = UINavigationController.init(rootViewController: segmentVC)
         self.setNavigationVC(vc: squareNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "广场")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "广场_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "广场")
         
         mineNavigaitonVC = UINavigationController.init(rootViewController: mineVC)
@@ -31,7 +31,7 @@ class MainTabBarController: UITabBarController {
         
         
         mineNavigaitonVC.navigationBar.isHidden = true
-        self.viewControllers = [scoreNavigaitonVC,categoryNavigaitonVC,squareNavigaitonVC,mineNavigaitonVC]
+        self.viewControllers = [scoreNavigaitonVC,newNavigaitonVC,squareNavigaitonVC,mineNavigaitonVC]
         
         AuthorityManager.setUpAuthorityManager(controller: scoreVC)
         

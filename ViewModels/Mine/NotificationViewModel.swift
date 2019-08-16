@@ -54,6 +54,11 @@ class NotificationViewModel: BaseViewModel {
         
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.notificationNet()
+    }
+    
     func notificationNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "type":self.type.rawValue] as [String : Any]

@@ -15,10 +15,14 @@ class FootBallViewModel: BaseViewModel {
     var viewType:ScoreDetailVC!
     var viewDesc:ScoreDetailTypeVC!
     
+    var footballDic:NSDictionary!
+    
     var footBallArray = NSMutableArray.init()
+    var allFootBallArray =  NSMutableArray.init()
+    
     override init() {
         super.init()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.filterArray), name: NSNotification.Name.init(RELOADFILTERFOOTBALLMODEL), object: nil)
     }
     
     func tableViewScoreInfoTableViewCellSetData(_ indexPath:IndexPath, cell:ScoreInfoTableViewCell) {
@@ -47,6 +51,10 @@ class FootBallViewModel: BaseViewModel {
         
     }
     
+    override func tapViewNoneData() {
+        (self.controller as! FootBallViewController).getNetWorkData()
+    }
+    
     func socketData(){
         SocketManager.getSharedInstance().single?.observe { (dic) in
             if (dic.value as! NSDictionary).object(forKey: "type") as! Int == 1 {
@@ -66,31 +74,46 @@ class FootBallViewModel: BaseViewModel {
     
     func getFootBallNet(type:String, date:String){
         let parameters = ["type":type, "date":date] as [String : Any]
-        BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(FootBallMatchUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.footBallArray = NSMutableArray.init(array: resultDic.value as! Array)
-                self.reloadTableViewData()
+                self.footBallBindText(resultDic.value as! NSArray)
             }
         }
     }
     
-    func getFoot1BallNet(type:String, date:String){
-        let parameters = ["type":type, "date":date] as [String : Any]
-        BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoTestUrl, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                self.footBallBindText(resultDic.value as! NSDictionary)
+    func getFootInfoBallNet(type:String, date:String){
+        let parameters = ["date":date] as [String : Any]
+        var temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
+        if temp_dic == nil || temp_dic?.object(forKey: date) == nil {
+            BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    if temp_dic == nil {
+                        temp_dic = NSMutableDictionary.init(dictionary:  [date:resultDic.value as! NSDictionary])
+                    }else{
+                        temp_dic?.setValue(resultDic.value , forKey: date)
+                    }
+                    CacheManager.getSharedInstance().saveFootBallInfoModel(point: temp_dic!)
+                    self.footballDic = NSDictionary.init(dictionary:(temp_dic?.object(forKey: date) as! NSDictionary))
+                    self.getFootBallNet(type: type, date: date)
+                }
             }
+        }else{
+            footballDic = (temp_dic?.object(forKey: date) as! NSDictionary)
+            self.getFootBallNet(type: type, date: date)
         }
+        
     }
     
-    func footBallBindText(_ dic:NSDictionary){
-        for match in (dic.object(forKey: "matches") as! NSArray){
+    func footBallBindText(_ dic:NSArray){
+        UserDefaults.standard.set(dic.count, forKey: ALLFOOTBALLMACTH)
+        for match in dic{
             let temp_array = (match as! NSArray)
             //去除阶段为0 错误
-            let stage = (temp_array[9] as! NSArray)[0] as! Int != 0 ? (dic.object(forKey: "stages") as! NSDictionary).object(forKey: "\((temp_array[9] as! NSArray)[0])")! : []
+            let north_sigle:NSDictionary = (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
+            let lottery:NSDictionary = (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
             let model = FootBallModel.init(fromDictionary: [
                 "id": temp_array[0] as! Int,
-                "event_info": (dic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])")!,
+                "event_info": (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])") == nil ? [:] : (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])")!,
                 "status": temp_array[2] as! Int,
                 "start_time": temp_array[3] as! Int,
                 "time": temp_array[4] as! Int,
@@ -102,8 +125,10 @@ class FootBallViewModel: BaseViewModel {
                     "point_score": (temp_array[5] as! NSArray)[6] as! Int,
                     "half_red": (temp_array[5] as! NSArray)[4] as! Int,
                     "sort": (temp_array[5] as! NSArray)[1] as! String,
+                    "team_name":(temp_array[5] as! NSArray)[9] as! String,
                     "half_yellow": (temp_array[5] as! NSArray)[5] as! Int,
-                    "teams_info": (dic.object(forKey: "teams") as! NSDictionary).object(forKey: "\((temp_array[5] as! NSArray)[0])")
+                    "teams_info": [],
+                    "id":(temp_array[5] as! NSArray)[0] as! Int
                 ],
                 "teamB": [
                     "score": (temp_array[6] as! NSArray)[2] as! Int,
@@ -113,8 +138,10 @@ class FootBallViewModel: BaseViewModel {
                     "point_score": (temp_array[6] as! NSArray)[6] as! Int,
                     "half_red": (temp_array[6] as! NSArray)[4] as! Int,
                     "sort": (temp_array[6] as! NSArray)[1] as! String,
+                    "team_name":(temp_array[6] as! NSArray)[9] as! String,
                     "half_yellow": (temp_array[6] as! NSArray)[5] as! Int,
-                    "teams_info": (dic.object(forKey: "teams") as! NSDictionary).object(forKey: "\((temp_array[6] as! NSArray)[0])")
+                    "teams_info": [],
+                    "id":(temp_array[5] as! NSArray)[0] as! Int
                 ],
                 "remark": [
                     "remark_detail": (temp_array[7] as! NSArray)[0] as! String,
@@ -125,13 +152,34 @@ class FootBallViewModel: BaseViewModel {
                     "id": (temp_array[8] as! NSArray)[0] as! Int,
                     "year": (temp_array[8] as! NSArray)[1] as! String
                 ],
+                "north_sigle":north_sigle,
+                "lottery":lottery,
                 "stage": [
-                    "stage_info": stage,
+                    "stage_info": [],
                     "number_row": 0,
                     "number_column": 0
-                ]])
-            footBallArray.add(model)
+                ]
+                ])
+            allFootBallArray.add(model)
         }
+        self.filterArray()
+    }
+    
+    @objc func filterArray(){
+        self.footBallArray.removeAllObjects()
+        for str in CacheManager.getSharedInstance().getFootBallEventSelectModel()!.allKeys{
+            let array = CacheManager.getSharedInstance().getFootBallEventSelectModel()!.object(forKey: str) as! NSArray
+            for temp in array {
+                let array = allFootBallArray.filter { (dic) -> Bool in
+                    return (dic as! FootBallModel).eventInfo!.id == ((temp as! NSDictionary).object(forKey: "id") as! Int)
+                }
+                self.footBallArray.addObjects(from: array)
+            }
+            
+        }
+        self.footBallArray = NSMutableArray.init(array: self.footBallArray.sorted { (dic, dic1) -> Bool in
+            return (dic as! FootBallModel).startTime < (dic1 as! FootBallModel).startTime
+            } as NSArray)
         self.reloadTableViewData()
     }
     

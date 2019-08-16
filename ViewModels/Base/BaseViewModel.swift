@@ -9,14 +9,40 @@
 import UIKit
 import DZNEmptyDataSet
 import MJRefresh
-
+import Alamofire
 class BaseViewModel: NSObject {
 
     var controller:BaseViewController?
     var resultData:NSMutableArray!
+    var netStatus:Bool = true
     
     override init() {
         super.init()
+        NetWorkListManager.getSharedInstance().net?.listener = { status in
+            if NetWorkListManager.getSharedInstance().net?.isReachable ?? false{
+                switch status{
+                case .notReachable:
+                    self.netStatus = false
+                    print("the noework is not reachable")
+                case .unknown:
+                    self.netStatus = false
+                    print("It is unknown whether the network is reachable")
+                case .reachable(.ethernetOrWiFi):
+                    print("通过WiFi链接")
+                    self.netStatus = true
+                case .reachable(.wwan):
+                    print("通过移动网络链接")
+                    self.netStatus = true
+                }
+            } else {
+                self.netStatus = false
+                print("网络不可用")
+            }
+        }
+    }
+    
+    func tapViewNoneData(){
+        
     }
     
     func getControllerView() -> UIView{
@@ -99,6 +125,10 @@ extension BaseViewModel : DZNEmptyDataSetDelegate {
         
     }
     
+    func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
+        self.tapViewNoneData()
+    }
+    
     func emptyDataSetShouldFade(in scrollView: UIScrollView!) -> Bool {
         return true
     }
@@ -110,15 +140,24 @@ extension BaseViewModel : DZNEmptyDataSetDelegate {
 
 extension BaseViewModel : DZNEmptyDataSetSource {
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "网络开小猜了~"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_999999_Color!], range: NSRange.init(location: 0, length: 7))
+        if self.netStatus {
+            let attributed = "空空如也~"
+            let attributedString = NSMutableAttributedString.init(string: attributed)
+            attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_999999_Color!], range: NSRange.init(location: 0, length: 5))
+            
+            return attributedString
+        }else{
+            let attributed = "网络开小猜了~"
+            let attributedString = NSMutableAttributedString.init(string: attributed)
+            attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_999999_Color!], range: NSRange.init(location: 0, length: 7))
+            
+            return attributedString
+        }
         
-        return attributedString
     }
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "net_error")
+        return self.netStatus ? UIImage.init(named: "none_data") : UIImage.init(named: "net_error")
     }
     
     func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {

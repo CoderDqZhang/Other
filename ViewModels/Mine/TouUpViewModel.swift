@@ -54,6 +54,10 @@ class TouUpViewModel: BaseViewModel {
             NavigationPushView(self.controller!, toConroller: WithdrawViewController())
         }
     }
+    
+    override func tapViewNoneData() {
+        self.getAccount()
+    }
 
     func getAccount(){
         BaseNetWorke.getSharedInstance().postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in

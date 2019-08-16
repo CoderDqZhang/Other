@@ -1423,8 +1423,15 @@ class FilterBottomView: UIView {
         selectLabel.text = "已隐藏比赛: \(number) 场"
         self.addSubview(selectLabel)
         selectLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(19)
+            make.top.equalTo(self.snp.top).offset(17)
             make.left.equalTo(self.allUnselectButton.snp.right).offset(0)
+        }
+        
+        self.addSubview(lineLabel)
+        lineLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(17)
+            make.size.equalTo(CGSize.init(width: 1, height: 12))
+            make.left.equalTo(self.allSelectButton.snp.right).offset(0)
         }
     }
     

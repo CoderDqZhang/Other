@@ -47,7 +47,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func cellSetData(_ indexPath:IndexPath, model:FootBallEventModel){
+    func cellSetFootBallEventData(_ indexPath:IndexPath, model:FootBallEventModel){
         selectImageButton.addAction({ (button) in
             if self.filterCollectionViewCellClouse != nil {
                 self.filterCollectionViewCellClouse(indexPath)
@@ -57,7 +57,38 @@ class FilterCollectionViewCell: UICollectionViewCell {
         titleLabel.text = model.shortNameZh
     }
     
-    func cellSetBaketBallData(_ indexPath:IndexPath, model:BasketballEvent){
+    func cellSetFootBallLotteryData(_ indexPath:IndexPath, model:FootBallLotteryModel){
+        selectImageButton.addAction({ (button) in
+            if self.filterCollectionViewCellClouse != nil {
+                self.filterCollectionViewCellClouse(indexPath)
+            }
+        }, for: .touchUpInside)
+        selectImageButton.setImage(model.isSelect ? UIImage.init(named: "filter_select") : UIImage.init(named: "filter_normal"), for: .normal)
+        titleLabel.text = model.eventsName
+    }
+    
+    func cellSetNorthSigleData(_ indexPath:IndexPath, model:NorthSigleModel){
+        selectImageButton.addAction({ (button) in
+            if self.filterCollectionViewCellClouse != nil {
+                self.filterCollectionViewCellClouse(indexPath)
+            }
+        }, for: .touchUpInside)
+        selectImageButton.setImage(model.isSelect ? UIImage.init(named: "filter_select") : UIImage.init(named: "filter_normal"), for: .normal)
+        titleLabel.text = model.eventsName
+    }
+    
+    func cellSetFootBallIndexData(_ indexPath:IndexPath, model:FootBallIndexModel){
+        selectImageButton.addAction({ (button) in
+            if self.filterCollectionViewCellClouse != nil {
+                self.filterCollectionViewCellClouse(indexPath)
+            }
+        }, for: .touchUpInside)
+        selectImageButton.setImage(model.isSelect ? UIImage.init(named: "filter_select") : UIImage.init(named: "filter_normal"), for: .normal)
+        titleLabel.text = model.eventsName
+    }
+    
+    
+    func cellSetBaketBallEventData(_ indexPath:IndexPath, model:BasketballEvent){
         selectImageButton.addAction({ (button) in
             if self.filterCollectionViewCellClouse != nil {
                 self.filterCollectionViewCellClouse(indexPath)
@@ -66,8 +97,6 @@ class FilterCollectionViewCell: UICollectionViewCell {
         selectImageButton.setImage(model.isSelect ? UIImage.init(named: "filter_select") : UIImage.init(named: "filter_normal"), for: .normal)
         titleLabel.text = model.nameZh
     }
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

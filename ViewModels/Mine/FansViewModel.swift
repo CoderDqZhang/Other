@@ -39,6 +39,11 @@ class FansViewModel: BaseViewModel {
         NavigationPushView(self.controller!, toConroller: otherMineVC)
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getFansNet(userId: self.userId)
+    }
+    
     func getFansNet(userId:String?){
         page = page + 1
         var parameters:[String : Any]?

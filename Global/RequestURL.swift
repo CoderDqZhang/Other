@@ -11,7 +11,7 @@ import Foundation
 
 //ZKFgTvUb5BXiuD7KK2iuFiOUintS6mLgFi+ukIPiol801JlCola+lkGcFGN886nd
 //ZKFgTvUb5BXiuD7KK2iuFtphhrg2uQu1kTJ0q4cnRothrdDXMpq+CNSo2UaDlDuI
-let RootIPAddress:String = "192.168.0.155"
+let RootIPAddress:String = "192.168.3.4"
 //let RootIPAddress:String = "192.168.0.172"
 let SocketPort:Int = 4162
 let RootUrl = "http://\(RootIPAddress):10020/social/"
@@ -92,8 +92,8 @@ let UserFeedBackinsertFeedbackUrl = "\(RootUrl)userFeedback/addFeedback"
 let ADvertiseUsableAdvertise = "\(RootUrl)advertise/getUsableAdvertise"
 
 
-let FootBallInfoUrl = "\(RootUrl)football/getData"
-let FootBallInfoTestUrl = "\(RootUrl)football/getTeamsAndSoOn"
+let FootBallMatchUrl = "\(RootUrl)football/getData"
+let FootBallInfoUrl = "\(RootUrl)football/getTeamsAndSoOn"
 
 let RegisterLoginUrl = "http://www.baodiantiyu.com:8081/bdty/index.html"
 let InviteUrl = "http://www.baodiantiyu.com:8081/bdty/register.html"

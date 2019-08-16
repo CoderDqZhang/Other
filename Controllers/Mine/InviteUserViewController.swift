@@ -150,6 +150,9 @@ class InviteUserViewController: BaseViewController {
         inveterBtn.setTitleColor(App_Theme_E22007_Color, for: .normal)
         inveterBtn.titleLabel?.font = App_Theme_PinFan_M_18_Font
         inveterBtn.setBackgroundImage(UIImage.init(named: "invete_btn"), for: .normal)
+        inveterBtn.addAction({ (button) in
+            
+        }, for: UIControl.Event.touchUpInside)
         inveterView.addSubview(inveterBtn)
         inveterView.bringSubviewToFront(inveterBtn)
         

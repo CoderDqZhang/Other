@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 import ReactiveSwift
 typealias OutFallViewModelTransClouse = (_ str:String) ->Void
 
@@ -46,6 +45,11 @@ class OutFallViewModel: BaseViewModel {
     
     func tableViewCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
         
+    }
+    
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getTribeListNet()
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){

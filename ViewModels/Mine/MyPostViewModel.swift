@@ -53,6 +53,11 @@ class MyPostViewModel: BaseViewModel {
         }
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getMyPostNet()
+    }
+    
     
     func getMyPostNet(){
         page = page + 1

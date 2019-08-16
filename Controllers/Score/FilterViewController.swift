@@ -16,6 +16,17 @@ let CollectItemMarginHeight:CGFloat = 8
 let CollectItemSizeWidth:CGFloat = ((SCREENWIDTH - 30) - CollectIemtCount * CollectIemtMarginWidth) / CollectIemtCount
 let CollectItemSizeHeight:CGFloat = 34
 
+typealias FilterViewControllerSaveClouse = () ->Void
+typealias FilterViewControllerReloadSaveClouse = (_ isAdd:Bool, _ dic:NSDictionary) ->Void
+
+enum FilterViewControllerType:Int {
+    case all = 0
+    case level1 = 1
+    case northsigle = 2
+    case index = 3
+    case lottery = 4
+}
+
 class FilterViewController: BaseViewController {
 
     var filterViewModel = FilterViewModel.init()
@@ -23,11 +34,17 @@ class FilterViewController: BaseViewController {
     var collectionView:UICollectionView!
     
     var buttomView:FilterBottomView!
+    var indexView:BDKCollectionIndexView!
     
     var viewType:ScoreDetailVC!
-    var viewDesc:ScoreDetailTypeVC!
+    var filterType:FilterViewControllerType!
     
     let indexWidth:CGFloat = 28
+    
+    var filterViewControllerSaveClouse:FilterViewControllerSaveClouse!
+    
+    var filterViewControllerReloadSaveClouse:FilterViewControllerReloadSaveClouse!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +53,25 @@ class FilterViewController: BaseViewController {
     
     func initSView(type:Int) {
         self.filterViewModel.controller = self
+        self.filterType = FilterViewControllerType.init(rawValue: type)
+        self.filterViewModel.filterType = FilterViewControllerType.init(rawValue: type)
+        if self.viewType == .football {
+            let temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
+            if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
+                LoadConfigManger.getSharedInstance().loadScorEvent()
+                NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADFOOTBALLEVENTDATA), object: nil)
+            }else{
+                if CacheManager.getSharedInstance().getFootBallEventModel() == nil {
+                    LoadConfigManger.getSharedInstance().saveEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
+                }
+                self.loadData()
+            }
+            
+        }else{
+            print("")
+        }
+        
+        
         self.bindViewModel(viewModel: filterViewModel, controller: self)
         
         let layout = UICollectionViewFlowLayout.init()
@@ -53,40 +89,83 @@ class FilterViewController: BaseViewController {
         collectionView?.delegate = filterViewModel
         collectionView?.dataSource = filterViewModel
         self.view.addSubview(collectionView!)
-        
-        
-        buttomView = FilterBottomView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 48, width: SCREENWIDTH, height: 48), number: "0", click: { (type) in
-            if type == .done {
-                self.filterViewModel.saveEvent()
-            }else{
-                self.filterViewModel.selectTools(type: type)
-            }
-        })
-        self.view.addSubview(buttomView)
-        buttomView.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview()
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            if #available(iOS 11.0, *) {
-                make.height.equalTo(48 + TABBAR_HEIGHT)
-            } else {
-                // Fallback on earlier versions
-                make.height.equalTo(48)
+        self.view.sendSubviewToBack(collectionView)
+    }
+    
+    func addBootomView(){
+        if self.buttomView == nil {
+            buttomView = FilterBottomView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 48, width: SCREENWIDTH, height: 48), number: "0", click: { (type) in
+                if type == .done {
+                    self.filterViewModel.saveEvent()
+                }else{
+                    self.filterViewModel.selectTools(type: type)
+                }
+            })
+            self.view.addSubview(buttomView)
+            self.view.bringSubviewToFront(buttomView)
+            buttomView.snp.makeConstraints { (make) in
+                make.bottom.equalToSuperview()
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
+                if #available(iOS 11.0, *) {
+                    make.height.equalTo(48 + TABBAR_HEIGHT)
+                } else {
+                    // Fallback on earlier versions
+                    make.height.equalTo(48)
+                }
             }
         }
-        
-        let frame = CGRect(x: SCREENWIDTH - indexWidth,
-                           y: 0,
-                           width: indexWidth,
-                           height: SCREENHEIGHT - 108 - 44 - 44)
-        let indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","S","Y","Z"])
-        indexView?.delegate = self
-        indexView!.autoresizingMask = [.flexibleHeight,.flexibleLeftMargin]
-        indexView!.addTarget(self, action: #selector(indexViewValueChanged(sender:)), for: .valueChanged)
-        self.view.addSubview(indexView!)
-        
-        self.bindLogic()
-
+    }
+    
+    @objc func reloadData(){
+        self.loadData()
+        self.collectionView.reloadData()
+    }
+    
+    func loadData(){
+        self.filterViewModel.viewType = self.viewType
+        self.addBootomView()
+        if self.viewType == .football {
+            switch self.filterType! {
+            case .all:
+                self.filterViewModel.footBalleventsList = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getFootBallEventModel()!)
+            case .level1:
+                self.filterViewModel.footBalleventsList = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getFootBallEventLevelModel() == nil ? [:] : CacheManager.getSharedInstance().getFootBallEventLevelModel()!)
+            case .northsigle:
+                self.filterViewModel.footBalleventsList = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getFootBallNorthSigleModel() == nil ? [:] :CacheManager.getSharedInstance().getFootBallNorthSigleModel()!)
+            case .index:
+                self.filterViewModel.footBalleventsList = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getFootBallIndexModel() == nil ? [:] : CacheManager.getSharedInstance().getFootBallIndexModel()!)
+            default:
+                self.filterViewModel.footBalleventsList = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getFootBallLotteryModel() == nil ? [:] : CacheManager.getSharedInstance().getFootBallLotteryModel()!)
+            }
+            if self.filterViewModel.footBalleventsList != nil {
+                self.addRightView(dic: self.filterViewModel.footBalleventsList)
+                self.filterViewModel.titles = self.filterViewModel.footBalleventsList.allKeys.sorted(by: { (first, seconde) -> Bool in
+                    return (first as! String) < (seconde as! String)
+                }) as NSArray
+                self.filterViewModel.selecFootBallDic = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getFootBallEventSelectModel()!)
+                self.filterViewModel.reloadSelectDic()
+            }
+        }else{
+            
+        }
+    }
+    
+    func addRightView(dic:NSDictionary){
+        if indexView == nil {
+            let frame = CGRect(x: SCREENWIDTH - indexWidth,
+                               y: 0,
+                               width: indexWidth,
+                               height: SCREENHEIGHT - 108 - 44 - 44)
+            indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: dic.allKeys.sorted(by: { (first, seconde) -> Bool in
+                return (first as! String) < (seconde as! String)
+            }))
+            indexView?.delegate = self
+            indexView!.autoresizingMask = [.flexibleHeight,.flexibleLeftMargin]
+            indexView!.addTarget(self, action: #selector(indexViewValueChanged(sender:)), for: .valueChanged)
+            self.view.addSubview(indexView!)
+            self.view.bringSubviewToFront(indexView!)
+        }
     }
     
     @objc func indexViewValueChanged(sender: BDKCollectionIndexView) {
@@ -97,14 +176,6 @@ class FilterViewController: BaseViewController {
         collectionView.contentOffset = CGPoint(x: collectionView.contentOffset.x,
                                                y: collectionView.contentOffset.y - 45.0)
     }
-    
-    func bindLogic() {
-        self.filterViewModel.viewType = self.viewType
-        if self.viewType == .football {
-            self.filterViewModel.footBallNumberOfSelect(isAdd: true)
-        }
-    }
-    
     /*
      // MARK: - Navigation
      

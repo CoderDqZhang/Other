@@ -46,6 +46,11 @@ class MyCollectViewModel: BaseViewModel {
         NavigationPushView(self.controller!, toConroller: postDetail)
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getMyCollectNet()
+    }
+    
     func getMyCollectNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":"0", "isCollect":"1","userId":CacheManager.getSharedInstance().getUserId()] as [String : Any]

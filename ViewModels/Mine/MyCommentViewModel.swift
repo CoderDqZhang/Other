@@ -46,6 +46,11 @@ class MyCommentViewModel: BaseViewModel {
         }
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getMyCommentNet()
+    }
+    
     func getMyCommentNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER,] as [String : Any]

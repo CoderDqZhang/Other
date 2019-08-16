@@ -10,23 +10,40 @@ import UIKit
 
 class FilterViewModel: BaseViewModel {
 
-    var titles:NSArray = NSArray.init(array: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","S","Y","Z"])
-    let footBalleventsList = CacheManager.getSharedInstance().getFootBallEventModel()
+    var titles:NSArray!
+    var footBalleventsList:NSMutableDictionary!
+    var selecFootBallDic:NSMutableDictionary!
+    
     let basketBalleventsList = CacheManager.getSharedInstance().getBasketBallEventModel()
     var viewType:ScoreDetailVC!
     
+    var filterType:FilterViewControllerType!
+    
     override init() {
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadSelectDic), name: NSNotification.Name.init(CLICKRELOADFOOTBALLEVENTDATA), object: nil)
     }
+    
     
     func cellFilterCollectionViewCellSetData(_ indexPath:IndexPath, cell:
         FilterCollectionViewCell){
         if self.viewType == .football {
             let array = footBalleventsList?.object(forKey: titles[indexPath.section]) as! NSArray
-            cell.cellSetData(indexPath, model: FootBallEventModel.init(fromDictionary: array[indexPath.row] as! [String : Any]))
+            switch self.filterType! {
+            case .all:
+                cell.cellSetFootBallEventData(indexPath, model: FootBallEventModel.init(fromDictionary: array[indexPath.row] as! [String : Any]))
+            case .level1:
+                cell.cellSetFootBallEventData(indexPath, model: FootBallEventModel.init(fromDictionary: array[indexPath.row] as! [String : Any]))
+            case .index:
+                cell.cellSetFootBallIndexData(indexPath, model: FootBallIndexModel.init(fromDictionary: array[indexPath.row] as! [String : Any]))
+            case .northsigle:
+                cell.cellSetNorthSigleData(indexPath, model: NorthSigleModel.init(fromDictionary: array[indexPath.row] as! [String : Any]))
+            default:
+                cell.cellSetFootBallLotteryData(indexPath, model: FootBallLotteryModel.init(fromDictionary: array[indexPath.row] as! [String : Any]))
+            }
         }else{
             let array = basketBalleventsList?.object(forKey: titles[indexPath.section]) as! NSArray
-            cell.cellSetBaketBallData(indexPath, model: BasketballEvent.init(fromDictionary: array[indexPath.row] as! [String : Any]))
+            cell.cellSetBaketBallEventData(indexPath, model: BasketballEvent.init(fromDictionary: array[indexPath.row] as! [String : Any]))
         }
     }
     
@@ -35,46 +52,14 @@ class FilterViewModel: BaseViewModel {
             let array = footBalleventsList?.object(forKey: titles[indexPath.section]) as! NSArray
             let dic = array[indexPath.row]
             (array[indexPath.row] as! NSDictionary).setValue(!((dic as! NSDictionary).object(forKey: "is_select") as! Bool), forKey: "is_select")
-            self.footBallNumberOfSelect(isAdd: (dic as! NSDictionary).object(forKey: "is_select") as! Bool)
-            collectView.reloadData()
+            self.clickCollectItemSave()
+            
         }else{
             let array = basketBalleventsList?.object(forKey: titles[indexPath.section]) as! NSArray
             let dic = array[indexPath.row]
             (dic as! NSDictionary).setValue(!((dic as! NSDictionary).object(forKey: "is_select") as! Bool), forKey: "is_select")
-            self.basketBallNumberOfSelect(isAdd: (dic as! NSDictionary).object(forKey: "is_select") as! Bool)
-            collectView.reloadData()
         }
         
-    }
-    
-    func footBallNumberOfSelect(isAdd:Bool){
-        var number = 0
-        if UserDefaults.standard.bool(forKey: "football\(Date.init().string(withFormat: "yyyyMMdd"))") {
-            let temp = isAdd ? 1 : -1
-            number = UserDefaults.standard.object(forKey: "football\(Date.init().string(withFormat: "yyyyMMdd"))") as! Int + temp
-            UserDefaults.standard.set(number, forKey: "football\(Date.init().string(withFormat: "yyyyMMdd"))")
-        }else{
-            for name in footBalleventsList!.allKeys {
-                number = number + (footBalleventsList!.object(forKey: name) as! NSArray).count
-            }
-            UserDefaults.standard.set(number, forKey: "football\(Date.init().string(withFormat: "yyyyMMdd"))")
-        }
-        (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: number.string)
-    }
-    
-    func basketBallNumberOfSelect(isAdd:Bool){
-        var number = 0
-        if UserDefaults.standard.bool(forKey: "basket\(Date.init().string(withFormat: "yyyyMMdd"))") {
-            let temp = isAdd ? 1 : -1
-            number = UserDefaults.standard.object(forKey: "basket\(Date.init().string(withFormat: "yyyyMMdd"))") as! Int + temp
-            UserDefaults.standard.set(number, forKey: "basket\(Date.init().string(withFormat: "yyyyMMdd"))")
-        }else{
-            for name in basketBalleventsList!.allKeys {
-                number = number + (basketBalleventsList!.object(forKey: name) as! NSArray).count
-            }
-            UserDefaults.standard.set(number, forKey: "basket\(Date.init().string(withFormat: "yyyyMMdd"))")
-        }
-        (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: number.string)
     }
     
     func selectTools(type:FilterBottomViewClickType){
@@ -87,7 +72,7 @@ class FilterViewModel: BaseViewModel {
                         (dic as! NSDictionary).setValue(true, forKey: "is_select")
                     }
                 }
-                 UserDefaults.standard.set(number, forKey: "football\(Date.init().string(withFormat: "yyyyMMdd"))")
+                self.clickCollectItemSave()
             }else{
                 for name in basketBalleventsList!.allKeys {
                     number = number + (basketBalleventsList!.object(forKey: name) as! NSArray).count
@@ -95,7 +80,6 @@ class FilterViewModel: BaseViewModel {
                         (dic as! NSDictionary).setValue(true, forKey: "is_select")
                     }
                 }
-                UserDefaults.standard.set(number, forKey: "basket\(Date.init().string(withFormat: "yyyyMMdd"))")
             }
         }else{
             if self.viewType == .football {
@@ -104,27 +88,143 @@ class FilterViewModel: BaseViewModel {
                         (dic as! NSDictionary).setValue(false, forKey: "is_select")
                     }
                 }
-                UserDefaults.standard.set(number, forKey: "football\(Date.init().string(withFormat: "yyyyMMdd"))")
+                self.clickCollectItemSave()
             }else{
                 for name in basketBalleventsList!.allKeys {
                     for dic in (basketBalleventsList!.object(forKey: name) as! NSArray) {
                         (dic as! NSDictionary).setValue(false, forKey: "is_select")
                     }
                 }
-                UserDefaults.standard.set(number, forKey: "basket\(Date.init().string(withFormat: "yyyyMMdd"))")
             }
         }
-        (self.controller! as! FilterViewController).collectionView.reloadData()
-        (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: number.string)
+    }
+    
+    //更新选中数据
+    func clickCollectItemSave(){
+        if self.viewType == .football {
+            let tempDic = NSMutableDictionary.init(dictionary: self.footBalleventsList.mutableCopy() as! NSDictionary)
+            let eventDic = NSMutableDictionary.init(dictionary: CacheManager.getSharedInstance().getFootBallEventModel()!.mutableCopy() as! NSDictionary)
+            for str in tempDic.allKeys {
+                let temp_array = (tempDic.object(forKey: str as! String) as! NSMutableArray)
+                let event_array = (eventDic.object(forKey: str as! String) as! NSMutableArray)
+                let result_array = NSMutableArray.init()
+                if temp_array.count > 0 {
+                    for index in 0...temp_array.count - 1{
+                        if ((temp_array[index] as! NSDictionary).object(forKey: "is_select")! as! Bool){
+                            if (temp_array[index] as! NSDictionary).object(forKey: "short_name_zh") == nil {
+                                for indexs in 0...event_array.count - 1 {
+                                    if (event_array[indexs] as! NSDictionary).object(forKey: "short_name_zh") as! String == (temp_array[index] as! NSDictionary).object(forKey: "eventsName") as! String {
+                                        result_array.add(event_array[indexs])
+                                        break
+                                    }
+                                }
+                            }else{
+                                result_array.add(temp_array[index])
+                            }
+                        }
+                    }
+                }
+                tempDic.setValue(result_array, forKey: str as! String)
+            }
+            self.selecFootBallDic = tempDic
+        }
+        CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: self.selecFootBallDic)
+        NotificationCenter.default.post(name: NSNotification.Name.init(CLICKRELOADFOOTBALLEVENTDATA), object: self, userInfo: nil)
+    }
+    
+    @objc func reloadSelectDic(){
+        if self.viewType == .football {
+            let selectTitles:NSMutableArray = NSMutableArray.init()
+            let selectDic = CacheManager.getSharedInstance().getFootBallEventSelectModel()!
+            for str in selectDic.allKeys {
+                for dic in selectDic.object(forKey: str as! String) as! NSArray{
+                    selectTitles.add((dic as! NSDictionary).object(forKey: "short_name_zh") == nil ? (dic as! NSDictionary).object(forKey: "eventsName")! : (dic as! NSDictionary).object(forKey: "short_name_zh")!)
+                }
+            }
+            var number = 0
+            switch self.filterType! {
+            case .all:
+                for str in self.footBalleventsList.allKeys {
+                    let array = self.footBalleventsList.object(forKey: str) as! NSArray
+                    for index in 0...array.count - 1 {
+                        let name = (array[index] as! NSDictionary).object(forKey: "short_name_zh")
+                        let isContains = selectTitles.contains(name as Any)
+                        if !isContains {
+                            number = number + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
+                        }
+                        (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
+                    }
+                }
+            case .level1:
+                for str in self.footBalleventsList.allKeys {
+                    let array = self.footBalleventsList.object(forKey: str) as! NSArray
+                    for index in 0...array.count - 1 {
+                        let name = (array[index] as! NSDictionary).object(forKey: "short_name_zh")
+                        let isContains = selectTitles.contains(name as Any)
+                        if isContains {
+                            number = number + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
+                        }
+                        (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
+                    }
+                }
+            case .index:
+                for str in self.footBalleventsList.allKeys {
+                    let array = self.footBalleventsList.object(forKey: str) as! NSArray
+                    for index in 0...array.count - 1 {
+                        let name = (array[index] as! NSDictionary).object(forKey: "eventsName")
+                        let isContains = selectTitles.contains(name as Any)
+                        if isContains {
+                            number = number + 1
+                        }
+                        (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
+                    }
+                }
+            case .northsigle:
+                for str in self.footBalleventsList.allKeys {
+                    let array = self.footBalleventsList.object(forKey: str) as! NSArray
+                    for index in 0...array.count - 1 {
+                        let name = (array[index] as! NSDictionary).object(forKey: "eventsName")
+                        let isContains = selectTitles.contains(name as Any)
+                        if isContains {
+                            number = number + 1
+                        }
+                        (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
+                    }
+                }
+            default:
+                for str in self.footBalleventsList.allKeys {
+                    let array = self.footBalleventsList.object(forKey: str) as! NSArray
+                    for index in 0...array.count - 1 {
+                        let name = (array[index] as! NSDictionary).object(forKey: "eventsName")
+                        let isContains = selectTitles.contains(name as Any)
+                        if isContains {
+                            number = number + 1
+                        }
+                        (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
+                    }
+                }
+            }
+            if (self.controller! as! FilterViewController).buttomView != nil {
+                if self.filterType! == .all {
+                    (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: number.string)
+                }else{
+                    let all_number = UserDefaults.standard.bool(forKey: ALLFOOTBALLMACTH) ? UserDefaults.standard.object(forKey: ALLFOOTBALLMACTH) as! Int:  self.footBalleventsList.count
+                    (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: (all_number - number).string)
+                }
+                
+            }
+        }else{
+            
+        }
+        if (self.controller as! FilterViewController).collectionView != nil {
+            (self.controller as! FilterViewController).collectionView.reloadData()
+        }
     }
     
     func saveEvent(){
-        if self.viewType == .football {
-            CacheManager.getSharedInstance().saveFootBallEventModel(point: self.footBalleventsList!)
-        }else{
-            CacheManager.getSharedInstance().saveBasketBallEventModel(point: self.basketBalleventsList!)
+        if (self.controller as! FilterViewController).filterViewControllerSaveClouse != nil {
+            (self.controller as! FilterViewController).filterViewControllerSaveClouse()
         }
-        self.controller?.navigationController?.popViewController()
     }
 }
 
@@ -137,7 +237,7 @@ extension FilterViewModel : UICollectionViewDelegate {
 extension FilterViewModel : UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return titles.count
+        return titles == nil ? 0 : titles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

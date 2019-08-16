@@ -50,6 +50,11 @@ class CategoryDetailViewModel: BaseViewModel {
         cell.cellSetData(model: self.categoryData)
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getCategoryNet()
+    }
+    
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.section != 0 {
             let postDetailVC = PostDetailViewController()

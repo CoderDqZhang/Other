@@ -199,10 +199,14 @@ class ScoreListTableViewCell: UITableViewCell {
             scoreStatus.textColor = App_Theme_999999_Color
         }
         
-        timeLabel.isHidden = true
+        if model.northSigle.issueNum != nil {
+            timeLabel.text = "北单 \(model.northSigle.issueNum!)"
+        }else{
+            timeLabel.isHidden = true
+        }
         
-        teamA.text = model.teamA.teamsInfo.nameZh
-        teamB.text = model.teamB.teamsInfo.nameZh
+        teamA.text = model.teamA.teamName
+        teamB.text = model.teamB.teamName
         
         if model.teamA.sort != "" {
             whiteTeamA.text = "[\(String(describing: model.teamA.sort!))]"
@@ -305,8 +309,8 @@ class ScoreListTableViewCell: UITableViewCell {
         
         scoreLabel.text = "\(String(describing: model.teamA.score!))-\(String(describing: model.teamB.score!))"
         
-//        scoreInfo.isHidden = true
-//        scoreInfo3.isHidden = true
+        scoreInfo.isHidden = true
+        scoreInfo3.isHidden = true
         
         scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:\(String(describing: model.teamA.cornerBall!))-\(String(describing: model.teamB.cornerBall!))"
     }

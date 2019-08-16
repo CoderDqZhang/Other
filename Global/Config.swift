@@ -44,7 +44,18 @@ let ADMODEL = "ADModel"
 let APPACTIVEMODEL = "APPActiveModel"
 let CACHEMANAPointModel = "PointModel"
 //助球队信息
-let FOOTBALLEVENTODEL = "FootBallEventModel"
+let FOOTBALLINFOMODEL = "FootBallInfoModel" //保存足球队信息 已移除
+let FOOTBALLEVENTODEL = "FootBallEventModel" //保存足球赛事信息
+let FOOTBALLEVENTSELECTMODEL = "FootBallEventSelectModel" //保存足球筛选中赛事数据
+let FOOTBALLEVENTLEVELMODEL = "FootBallEventLevelModel" //保存足球一级赛事信息
+let FOOTBALLNORTHSIGLEMODEL = "FootBallNorthSigle" //保存北单数据
+let FOOTBALLLOTTERYMODEL = "FootBallLottery" //保存足彩数据
+let FOOTBALLINDEXMODEL = "FootBallIndex" //保存竞彩数据
+let RELOADFOOTBALLEVENTDATA = "ReloadFootEventData" ///更新足球赛事信息
+let CLICKRELOADFOOTBALLEVENTDATA = "ClickReloadFootEventData" //点击更新其他j界面的赛事选择
+let ALLFOOTBALLMACTH = "AllFootBallMacth" //所有赛程数
+let RELOADFILTERFOOTBALLMODEL = "ReloadFilterFootModel" //更新列表页模型数据通知
+
 let BASKETBALLEVENTODEL = "BasketBallEventModel"
 
 

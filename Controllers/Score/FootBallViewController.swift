@@ -42,6 +42,10 @@ class FootBallViewController: BaseViewController {
                self.getNetWorkData()
             }
         }
+        
+        self.setUpRefreshData {
+            self.getNetWorkData()
+        }
     }
     
     func bindLogic() {
@@ -62,8 +66,7 @@ class FootBallViewController: BaseViewController {
         }else{
             date = DateTools.getSharedInstance().getDateTime(str: self.dateTime)
         }
-        //            self.footBallViewModel.getFoot1BallNet(date: date)
-//        self.footBallViewModel.getFootBallNet(type:self.viewDesc.rawValue.string, date: date)
+        self.footBallViewModel.getFootInfoBallNet(type:self.viewDesc.rawValue.string, date: date)
     }
     
     /*

@@ -55,7 +55,7 @@ class ScoreSegmentViewModel: BaseViewModel {
         fileterSegment.initSView(type: type.rawValue)
         //更新数据
         fileterSegment.filterSegmentViewControllerReloadDataClouse = {
-            
+            NotificationCenter.default.post(name: NSNotification.Name.init(RELOADFILTERFOOTBALLMODEL), object: nil, userInfo: nil)
         }
         NavigationPushView(self.controller!, toConroller: fileterSegment)
     }

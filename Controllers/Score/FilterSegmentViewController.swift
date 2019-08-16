@@ -17,7 +17,7 @@ class FilterSegmentViewController: BaseViewController {
     var segmentedView: JXSegmentedView!
     var listContainerView: JXSegmentedListContainerView!
     
-    let titles = ["完整", "一级", "北单"]
+    let titles = ["完整", "一级", "北单", "足彩", "竞彩"]
     var heightForHeaderInSection: Int = 44
     
     var viewType:ScoreDetailVC! = .football
@@ -124,6 +124,13 @@ extension FilterSegmentViewController: JXSegmentedListContainerViewDataSource {
         let filterVC = FilterViewController()
         filterVC.viewType = self.viewType
         filterVC.initSView(type: index)
+        filterVC.filterViewControllerSaveClouse = {
+            if self.filterSegmentViewControllerReloadDataClouse != nil {
+                self.filterSegmentViewControllerReloadDataClouse()
+            }
+            self.navigationController?.popViewController()
+        }
+        
         return filterVC
     }
 }

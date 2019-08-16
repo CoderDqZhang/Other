@@ -30,6 +30,10 @@ class BasketBallViewModel: BaseViewModel {
         }
     }
     
+    override func tapViewNoneData() {
+        (self.controller as! FootBallViewController).getNetWorkData()
+    }
+    
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
     }
@@ -62,12 +66,12 @@ class BasketBallViewModel: BaseViewModel {
     }
     
     func getbasket1Net(type:String, date:String){
-        let parameters = ["type":type, "date":date] as [String : Any]
-        BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoTestUrl, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                self.basketBallBindText(resultDic.value as! NSDictionary)
-            }
-        }
+//        let parameters = ["type":type, "date":date] as [String : Any]
+//        BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoTestUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+//            if !resultDic.isCompleted {
+//                self.basketBallBindText(resultDic.value as! NSDictionary)
+//            }
+//        }
     }
     
     func basketBallBindText(_ dic:NSDictionary){

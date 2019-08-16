@@ -100,6 +100,11 @@ class CommentViewModel: BaseViewModel {
         }
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getReplitList()
+    }
+    
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.section != 0 {
             

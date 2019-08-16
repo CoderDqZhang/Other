@@ -48,6 +48,12 @@ class NewsViewModel: BaseViewModel {
         }
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getCategoryNet()
+        self.getTribeListNet()
+    }
+    
     func tableViewMCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
         if self.tipListArray.count > 0 {
             cell.cellSetData(model: TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]))
@@ -57,7 +63,33 @@ class NewsViewModel: BaseViewModel {
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.section != 0 && indexPath.section != 1 {
             let dicData:NSDictionary = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]).toDictionary() as NSDictionary
-            (self.controller as! NewsViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot,indexPath)
+            let postDetail = PostDetailViewController()
+            postDetail.changeAllCommentAndLikeNumberClouse = { type, status in
+                if type == .comment {
+                    if status == .add {
+                        dicData.setValue(dicData["commentTotal"] as! Int + 1, forKey: "commentTotal")
+                    }else{
+                        dicData.setValue(dicData["commentTotal"] as! Int - 1, forKey: "commentTotal")
+                    }
+                }else{
+                    if status == .add {
+                        dicData.setValue(dicData["favor"] as! Int + 1, forKey: "favor")
+                    }else{
+                        dicData.setValue(dicData["favor"] as! Int - 1, forKey: "favor")
+                    }
+                }
+                self.tipListArray.replaceObject(at: indexPath.section - 2, with: dicData)
+                self.reloadTableViewData()
+            }
+            
+            postDetail.deleteArticleClouse = {
+                self.tipListArray.removeObject(at: indexPath.section - 2)
+                self.reloadTableViewData()
+            }
+            
+            postDetail.postData = dicData
+            postDetail.postType = .Hot
+            NavigationPushView(self.controller!, toConroller: postDetail)
         }
     }
     
