@@ -133,6 +133,38 @@ class DailyViewController: BaseViewController {
             make.top.equalTo(inveterBtn.snp.bottom).offset(15)
         }
         
+        let signTitleRuleLabel = YYLabel.init()
+        signTitleRuleLabel.frame = CGRect.init(x: 0, y: imageHeight + 127, width: SCREENWIDTH, height: 20)
+        signTitleRuleLabel.textAlignment = .center
+        signTitleRuleLabel.font = App_Theme_PinFan_R_15_Font
+        signTitleRuleLabel.textColor = App_Theme_FFFFFF_Color
+        signTitleRuleLabel.text = "签到规则"
+        scrollowView.addSubview(signTitleRuleLabel)
+        
+        let imgView:UIImageView = UIImageView(frame: CGRect(x: 15, y: signTitleRuleLabel.frame.maxY + 11, width: SCREENWIDTH - 30, height: 1))
+        scrollowView.addSubview(imgView)
+        UIGraphicsBeginImageContext(imgView.frame.size) // 位图上下文绘制区域
+        imgView.image?.draw(in: imgView.bounds)
+        let context:CGContext = UIGraphicsGetCurrentContext()!
+        context.setLineCap(CGLineCap.square)
+        let lengths:[CGFloat] = [5,15] // 绘制 跳过 无限循环
+        context.setStrokeColor(App_Theme_FFFFFF_Color!.cgColor)
+        context.setLineWidth(10)
+        context.setLineDash(phase: 0, lengths: lengths)
+        context.move(to: CGPoint(x: 0, y: 3))
+        context.addLine(to: CGPoint(x: SCREENWIDTH, y: 1))
+        context.strokePath()
+        imgView.image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        let signRuleLabel = YYLabel.init()
+        signRuleLabel.textAlignment = .left
+        signRuleLabel.font = App_Theme_PinFan_R_12_Font
+        signRuleLabel.numberOfLines = 0
+        signRuleLabel.textColor = App_Theme_FFFFFF_Color
+        signRuleLabel.frame = CGRect.init(x: 15, y: signTitleRuleLabel.frame.maxY + 21, width: SCREENWIDTH - 30, height: 55)
+        signRuleLabel.text = "签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则"
+        scrollowView.addSubview(signRuleLabel)
+        
     }
     
     func createDailyNumber(frame:CGRect)->UIView{
