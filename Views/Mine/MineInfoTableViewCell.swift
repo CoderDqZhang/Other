@@ -215,9 +215,53 @@ class TopUpView: UIView {
     }
 }
 
+enum ToolsViewType:Int{
+    case coins = 0
+    case post = 1
+    case collect = 2
+}
+
+typealias ToolsViewTypeClouse = (_ type:ToolsViewType) ->Void
+
+let ToolsButtonWidth:CGFloat = ((SCREENWIDTH - 30) - 16) / 3
+class ToolsView:UIView {
+    
+    let images = ["my_coins","publish","my_collect"]
+    let strings = ["我的积分","我的发表","我的收藏"]
+    var toolsViewTypeClouse:ToolsViewTypeClouse!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = App_Theme_FFFFFF_Color
+        
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        for index in 0...strings.count - 1 {
+            let buttonView = UIView.init(frame:  CGRect.init(x: 8 + CGFloat(index) * ToolsButtonWidth, y: 14, width: ToolsButtonWidth, height: ToolsViewHeight))
+            buttonView.isUserInteractionEnabled = true
+            
+            let button = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: 0, y: 0, width: ToolsButtonWidth, height: ToolsViewHeight), title: strings[index], image: UIImage.init(named: images[index])!, tag: index, titleColor: App_Theme_999999_Color!, spacing: 10, font: App_Theme_PinFan_M_12_Font!) {
+                if self.toolsViewTypeClouse != nil {
+                    self.toolsViewTypeClouse(ToolsViewType.init(rawValue: index)!)
+                }
+            }
+            button.isUserInteractionEnabled = true
+            buttonView.addSubview(button)
+            self.addSubview(buttonView)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 let CenterViewMarginLeft = (((SCREENWIDTH - 30) / 2) - 111) / 2
 
 typealias MineInfoTableViewCellClouse = (_ type:TopUpViewClickType) ->Void
+typealias MineInfoTableViewToolsCellClouse = (_ type:ToolsViewType) ->Void
 
 class MineInfoTableViewCell: UITableViewCell {
 
@@ -231,13 +275,15 @@ class MineInfoTableViewCell: UITableViewCell {
     var lineLabel:YYLabel!
     var daylyButton:AnimationButton!
     
-    var toolsView:UIView!
-    var topUpView:TopUpView!
-    var storeView:TopUpView!
+//    var topUpView:TopUpView!
+//    var storeView:TopUpView!
+    
+    var toolsView:ToolsView!
     
     var didMakeConstraints = false
     
     var mineInfoTableViewCellClouse:MineInfoTableViewCellClouse!
+    var mineInfoTableViewToolsCellClouse:MineInfoTableViewToolsCellClouse!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -307,17 +353,22 @@ class MineInfoTableViewCell: UITableViewCell {
         }
         self.contentView.addSubview(daylyButton)
         
+        toolsView = ToolsView.init(frame: CGRect.init(x: 0, y: 0, width: (SCREENWIDTH - 30), height: 75))
         
-        topUpView = TopUpView.init(frame: CGRect.init(x: 0, y: 0, width: (SCREENWIDTH - 30) / 2, height: 63), cion: "66", number: "66666", clouse: { type in
-            if self.mineInfoTableViewCellClouse != nil {
-                self.mineInfoTableViewCellClouse(type)
+//        topUpView = TopUpView.init(frame: CGRect.init(x: 0, y: 0, width: (SCREENWIDTH - 30) / 2, height: 63), cion: "66", number: "66666", clouse: { type in
+//            if self.mineInfoTableViewCellClouse != nil {
+//                self.mineInfoTableViewCellClouse(type)
+//            }
+//        })
+        toolsView.toolsViewTypeClouse = { type in
+            if self.mineInfoTableViewToolsCellClouse != nil {
+                self.mineInfoTableViewToolsCellClouse(type)
             }
-        })
-        topUpView.backgroundColor = .red
-        topUpView.cornerRadius = 15
-        topUpView.backgroundColor = App_Theme_FFFFFF_Color
-        topUpView.setShadowWithCornerRadius(corners: 10, shadowColor: App_Theme_B5B5B5_Color!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
-        self.contentView.addSubview(topUpView)
+        }
+        toolsView.cornerRadius = 15
+        toolsView.backgroundColor = App_Theme_FFFFFF_Color
+        toolsView.setShadowWithCornerRadius(corners: 10, shadowColor: App_Theme_B5B5B5_Color!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
+        self.contentView.addSubview(toolsView)
         
         self.updateConstraints()
     }
@@ -349,9 +400,9 @@ class MineInfoTableViewCell: UITableViewCell {
         }
         
         vImageView.isHidden = showModel!.isMaster == "1" ? false : true
-        if showAccountModel?.integral != nil {
-            topUpView.updateText(icon: showAccountModel!.chargeCoin.string, number: showAccountModel!.integral.string)
-        }
+//        if showAccountModel?.integral != nil {
+//            topUpView.updateText(icon: showAccountModel!.chargeCoin.string, number: showAccountModel!.integral.string)
+//        }
         
     }
     
@@ -365,12 +416,12 @@ class MineInfoTableViewCell: UITableViewCell {
                 make.top.equalToSuperview()
                 make.right.equalToSuperview()
                 make.left.equalToSuperview()
-                make.height.equalTo(SCREENWIDTH * 167 / 375 + (IPHONE5 ? 30 : 0))
+                make.height.equalTo(185)
             }
             
             avatarImageView.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
-                make.centerY.equalTo(self.contentView.snp.centerY).offset(-3)
+                make.top.equalTo(self.contentView.snp.top).offset(60)
                 make.size.equalTo(CGSize.init(width: 62, height: 62))
             }
             
@@ -413,11 +464,11 @@ class MineInfoTableViewCell: UITableViewCell {
                 make.size.equalTo(CGSize.init(width: 80, height: 24))
             }
             
-            topUpView.snp.makeConstraints { (make) in
+            toolsView.snp.makeConstraints { (make) in
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-8)
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.height.equalTo(63)
+                make.height.equalTo(75)
             }
             
             didMakeConstraints = true

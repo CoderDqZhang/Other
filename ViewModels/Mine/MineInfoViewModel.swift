@@ -29,9 +29,9 @@ class MineInfoViewModel: BaseViewModel {
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
         if indexPath.section == 0 && indexPath.row == 0 {
-            cell.cellSetData(title: titles[indexPath.section][indexPath.row], desc: desc[indexPath.section][indexPath.row], image: userInfo.img, isDescHidden: false)
+            cell.cellSetData(title: titles[indexPath.section][indexPath.row], desc: desc[indexPath.section][indexPath.row], leftImage: nil, rightImage: userInfo.img, isDescHidden: false)
         }else{
-            cell.cellSetData(title: titles[indexPath.section][indexPath.row], desc: desc[indexPath.section][indexPath.row], image: nil, isDescHidden: false)
+            cell.cellSetData(title: titles[indexPath.section][indexPath.row], desc: desc[indexPath.section][indexPath.row], leftImage: nil, rightImage: nil, isDescHidden: false)
         }
         if indexPath.row == titles[indexPath.section].count - 1 {
             cell.lineLableHidden()

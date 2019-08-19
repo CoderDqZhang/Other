@@ -7,11 +7,11 @@
 //
 
 import UIKit
-let ToolsViewMarginLeftAndRight:CGFloat = 6
+let ToolsViewMarginLeftAndRight:CGFloat = 8
 let ToolsViewMargin:CGFloat = 12
 let ToolsViewNumber:CGFloat = 5
 let ToolsViewWidth = (SCREENWIDTH - ToolsViewMarginLeftAndRight * 2) / ToolsViewNumber
-let ToolsViewHeight = SCREENWIDTH * 79 / 375 - 19 * 2
+let ToolsViewHeight = SCREENWIDTH * 79 / 375 - 19 * 2 + 20
 
 enum MineToolsType:Int {
     case recommend = 0

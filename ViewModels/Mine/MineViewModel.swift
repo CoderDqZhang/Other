@@ -11,7 +11,8 @@ import UIKit
 
 class MineViewModel: BaseViewModel {
     
-    let titles = [["实名认证","专家号申请","消息","设置"],["邀请好友"]]
+    let titles = [["实名认证","消息","设置"],["邀请好友"]]
+    let leftImage = [["realname","message","setting"],[""]]
     var desc:[[String]]!
     
     var userInfo:UserInfoModel!
@@ -47,6 +48,21 @@ class MineViewModel: BaseViewModel {
                 NavigationPushView(self.controller!, toConroller: LoginViewController())
             }
         }
+        cell.mineInfoTableViewToolsCellClouse =  { type in
+            if CacheManager.getSharedInstance().isLogin() {
+                switch type {
+                case .post:
+                    NavigationPushView(self.controller!, toConroller: PostSegementViewController())
+                case .collect:
+                    NavigationPushView(self.controller!, toConroller: MycollectViewController())
+                default:
+                    NavigationPushView(self.controller!, toConroller: StoreSegementViewController())
+                    break
+                }
+            }else{
+                NavigationPushView(self.controller!, toConroller: LoginViewController())
+            }
+        }
     }
     
     func tableViewMineToolsTableViewCellSetData(_ indexPath:IndexPath, cell:MineToolsTableViewCell) {
@@ -71,13 +87,10 @@ class MineViewModel: BaseViewModel {
     }
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
+        cell.imageView?.image = UIImage.init(named: leftImage[indexPath.section - 2][indexPath.row])
         if self.userInfo != nil {
-            cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: desc[indexPath.section-3][indexPath.row], image: nil, isDescHidden: false)
+            cell.cellSetData(title: titles[indexPath.section-2][indexPath.row], desc: desc[indexPath.section-2][indexPath.row], leftImage: leftImage[indexPath.section - 2][indexPath.row], rightImage: nil, isDescHidden: false)
             if indexPath.row == 1 {
-                cell.updateDescFontAndColor(App_Theme_999999_Color!, App_Theme_PinFan_R_12_Font!)
-            }else if indexPath.row == 0{
-                cell.updateDescFontAndColor(App_Theme_FF7800_Color!, App_Theme_PinFan_R_12_Font!)
-            }else if indexPath.row == 2{
                 if self.userInfo == nil {
                     cell.setNumberText(str: "0")
                 }else{
@@ -90,9 +103,12 @@ class MineViewModel: BaseViewModel {
                 cell.rightButtonView.reactive.controlEvents(.touchUpInside).observeValues { (button) in
                     
                 }
+            }else if indexPath.row == 0{
+                cell.updateDescFontAndColor(App_Theme_FF7800_Color!, App_Theme_PinFan_R_12_Font!)
             }
         }else{
-             cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: "", image: nil, isDescHidden: false)
+             cell.cellSetData(title: titles[indexPath.section-2][indexPath.row], desc: "", leftImage: leftImage[indexPath.section - 2][indexPath.row], rightImage: nil, isDescHidden: false)
+            
         }
     }
     
@@ -154,7 +170,7 @@ class MineViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
-                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证", self.userInfo.isMaster == "1" ? "已认证" : self.userInfo.isMaster == "2" ? "审核中" : "点击申请","",""],["推广标语推广标语"]]
+                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证", "",""],["推广标语推广标语"]]
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -168,7 +184,7 @@ class MineViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
-                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证", self.userInfo.isMaster == "1" ? "已认证" : self.userInfo.isMaster == "2" ? "审核中" : "点击申请","",""],["推广标语推广标语"]]
+                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证","",""],["推广标语推广标语"]]
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -209,14 +225,10 @@ extension MineViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            //185/375
-            return SCREENWIDTH * 205 / 375 + (IPHONE5 ? 40 : 0)
+            return 223
         case 1:
-            //79/375
-            return 79 
-        case 2:
             return 70
-        case 3:
+        case 2:
             return 47
         default:
             if indexPath.row == 0 {
@@ -240,15 +252,15 @@ extension MineViewModel: UITableViewDelegate {
 
 extension MineViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0,1,2:
+        case 0,1:
             return 1
-        case 3:
-            return titles[section - 3].count
+        case 2:
+            return titles[section - 2].count
         default:
             return 2
         }
@@ -263,20 +275,15 @@ extension MineViewModel: UITableViewDataSource {
             cell.contentView.backgroundColor = App_Theme_F6F6F6_Color
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: MineToolsTableViewCell.description(), for: indexPath)
-            self.tableViewMineToolsTableViewCellSetData(indexPath, cell: cell as! MineToolsTableViewCell)
-            cell.selectionStyle = .none
-            return cell
-        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: AdTableViewCell.description(), for: indexPath)
             self.tableViewAdTableViewCellSetData(indexPath, cell: cell as! AdTableViewCell)
             cell.selectionStyle = .none
             return cell
-        case 3:
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: TitleLableAndDetailLabelDescRight.description(), for: indexPath)
             self.tableViewTitleLableAndDetailLabelDescRightSetData(indexPath, cell: cell as! TitleLableAndDetailLabelDescRight)
             cell.selectionStyle = .none
-            if indexPath.row == titles[indexPath.section - 3].count - 1 {
+            if indexPath.row == titles[indexPath.section - 2].count - 1 {
                 (cell as! TitleLableAndDetailLabelDescRight).lineLableHidden()
             }
             return cell

@@ -17,6 +17,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     var numberLabel:YYLabel!
     
     var rightImageView:UIImageView!
+    var leftImageView:UIImageView!
     
     var rightButtonView:BadgeValueButton!
 
@@ -48,6 +49,10 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         rightImageView.layer.masksToBounds = true
         self.contentView.addSubview(rightImageView)
         
+        leftImageView  = UIImageView.init()
+        leftImageView.cornerRadius = 17
+        leftImageView.layer.masksToBounds = true
+        self.contentView.addSubview(leftImageView)
         
         _ = rightImageView.newPanGesture(config: { (config) in
         }).whenBegan(handler: { (guest) in
@@ -60,10 +65,10 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(title:String, desc:String, image:String?, isDescHidden:Bool){
+    func cellSetData(title:String, desc:String, leftImage:String?, rightImage:String?, isDescHidden:Bool){
         titleLabel.text = title
-        if image != nil {
-            rightImageView.sd_crope_imageView(url: image!, imageView: rightImageView, placeholderImage: nil) { (image, url, type, state, error) in
+        if rightImage != nil {
+            rightImageView.sd_crope_imageView(url: rightImage!, imageView: rightImageView, placeholderImage: nil) { (image, url, type, state, error) in
                 
             }
             descLabel.isHidden = true
@@ -71,7 +76,24 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
             descLabel.text = desc
             self.descLabel.isHidden = isDescHidden
         }
-
+        if leftImage != nil {
+            leftImageView.sd_crope_imageView(url: leftImage!, imageView: leftImageView, placeholderImage: nil) { (image, url, type, state, error) in
+                
+            }
+            titleLabel.snp.remakeConstraints { (make) in
+                make.left.equalTo(self.leftImageView.snp.right).offset(10)
+                make.width.equalTo(200)
+                make.centerY.equalToSuperview()
+            }
+            
+        }else{
+            titleLabel.snp.remakeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.width.equalTo(200)
+                make.centerY.equalToSuperview()
+            }
+            
+        }
     }
     
     func setNumberText(str:String){
@@ -128,7 +150,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     override func updateConstraints() {
         if !didMakeConstraints {
             titleLabel.snp.makeConstraints { (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.left.equalTo(self.leftImageView.snp.right).offset(10)
                 make.width.equalTo(200)
                 make.centerY.equalToSuperview()
             }
@@ -142,6 +164,12 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
             rightImageView.snp.makeConstraints { (make) in
                 make.right.equalTo(self.contentView.snp.right).offset(-9)
                 make.size.equalTo(CGSize.init(width: 34, height: 34))
+                make.centerY.equalToSuperview()
+            }
+            
+            leftImageView.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.size.equalTo(CGSize.init(width: 25, height: 25))
                 make.centerY.equalToSuperview()
             }
             
