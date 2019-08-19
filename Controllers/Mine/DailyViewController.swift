@@ -49,7 +49,6 @@ class DailyViewController: BaseViewController {
         self.bindViewModel(viewModel: dailyViewModel, controller: self)
 
         scrollowView = UIScrollView.init()
-        scrollowView.backgroundColor = .red
         self.view.addSubview(scrollowView)
         scrollowView.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
@@ -68,7 +67,6 @@ class DailyViewController: BaseViewController {
         let image = UIImage.init(named: "signin")
         backImage.image = image
         backImage.isUserInteractionEnabled = true
-        backImage.backgroundColor = .blue
         scrollowView.addSubview(backImage)
         let imageHeight = SCREENWIDTH * (image?.size.height)! / (image?.size.width)!
         backImage.snp.makeConstraints { (make) in
@@ -79,54 +77,56 @@ class DailyViewController: BaseViewController {
         }
         
         
+        let layerView = UIView()
+        layerView.frame = CGRect(x: 0, y: imageHeight, width: SCREENWIDTH, height: SCREENHEIGHT - imageHeight)
+        // layerFillCode
+        let layer = CALayer()
+        layer.frame = layerView.bounds
+        layer.backgroundColor = UIColor(red: 0.95, green: 0.65, blue: 0.25, alpha: 1).cgColor
+        layerView.layer.addSublayer(layer)
+        // gradientCode
+        let gradient1 = CAGradientLayer()
+        gradient1.colors = [UIColor(red: 0.95, green: 0.65, blue: 0.25, alpha: 1).cgColor,UIColor(red: 0.97, green: 0.85, blue: 0.29, alpha: 1).cgColor]
+        gradient1.locations = [0, 1]
+        gradient1.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradient1.endPoint = CGPoint(x: 1.0, y: 0.5)
+        gradient1.frame = layerView.bounds
+        layerView.layer.addSublayer(gradient1)
+        scrollowView.addSubview(layerView)
+        
+        
         let inveterView = UIView.init()
-        inveterView.backgroundColor = .brown
+        if #available(iOS 11.0, *) {
+            inveterView.frame = CGRect.init(x: 0, y: SCREENHEIGHT - (415 + TABBAR_HEIGHT), width: SCREENWIDTH, height: 415 + TABBAR_HEIGHT)
+        } else {
+            inveterView.frame = CGRect.init(x: 0, y: SCREENHEIGHT - 415, width: SCREENWIDTH, height: 415)
+            // Fallback on earlier versions
+        }
         inveterView.tag = 1000
         inveterView.isUserInteractionEnabled = true
         scrollowView.addSubview(inveterView)
-        inveterView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-            if #available(iOS 11.0, *) {
-                make.height.equalTo(415 + TABBAR_HEIGHT)
-            } else {
-                // Fallback on earlier versions
-                make.height.equalTo(415)
-            }
-        }
-        
-        
-        let backView = UIView.init()
-        backView.backgroundColor = App_Theme_F2A541_Color
-        inveterView.addSubview(backView)
-        backView.tag = 2000
-        backView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.top.equalTo(inveterView.snp.top).offset(10)
-        }
-        
-        
+
+
+
+
         inveterBtn = AnimationButton.init(type: .custom)
-        inveterBtn.setBackgroundImage(UIImage.init(named: "daily"), for: .normal)
+        inveterBtn.setBackgroundImage(UIImage.init(named: "sigin_button"), for: .normal)
         inveterBtn.reactive.controlEvents(.touchUpInside).observeValues { (button) in
             self.dailyViewModel.getDailyNet()
         }
-        
+
         scrollowView.addSubview(inveterBtn)
         inveterView.bringSubviewToFront(inveterBtn)
-        
+
         inveterBtn.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: 194, height: 62))
             make.centerX.equalToSuperview()
             make.bottom.equalTo(backImage.snp.bottom).offset(-40)
         }
-        
+
         let numberView = self.createDailyNumber(frame: CGRect.init(x: 15, y: backImage.frame.maxY, width: SCREENWIDTH - 30, height: 115))
         inveterView.addSubview(numberView)
-        
+
         numberView.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: SCREENWIDTH - 30, height: 115))
             make.centerX.equalToSuperview()

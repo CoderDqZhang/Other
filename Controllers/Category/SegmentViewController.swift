@@ -48,8 +48,8 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = .clear
-        segmentedView.contentEdgeInsetRight = 72
-        segmentedView.contentEdgeInsetLeft = 72
+        segmentedView.contentEdgeInsetRight = 121
+        segmentedView.contentEdgeInsetLeft = 121
         segmentedView.defaultSelectedIndex = 0
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true

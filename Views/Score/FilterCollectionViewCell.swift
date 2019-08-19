@@ -38,7 +38,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
         
         selectImageButton = AnimationButton.init(type: .custom)
         selectImageButton.setImage(UIImage.init(named: "filter_normal"), for: .normal)
-        
+        selectImageButton.isEnabled = false
         self.contentView.addSubview(selectImageButton)
         selectImageButton.snp.makeConstraints { (make) in
             make.left.equalTo(self.contentView.snp.left).offset(8)

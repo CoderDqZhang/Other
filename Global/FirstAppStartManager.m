@@ -31,6 +31,7 @@
      */
     
     //方式二:
+    
     KSGuaidManager.shouldDismissWhenDragging = YES;
     
     [KSGuaidManager begin];
