@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import JXSegmentedView
 
 class StoreViewController: BaseViewController {
 
@@ -41,18 +40,4 @@ class StoreViewController: BaseViewController {
         self.storeViewModel.getStoreNet()
     }
 
-}
-
-extension StoreViewController : JXSegmentedListContainerViewListDelegate {
-    override func listView() -> UIView {
-        return view
-    }
-    
-    override func listDidAppear() {
-        print("listDidAppear")
-    }
-    
-    override func listDidDisappear() {
-        print("listDidDisappear")
-    }
 }

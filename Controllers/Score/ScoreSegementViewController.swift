@@ -120,7 +120,7 @@ class ScoreSegementViewController: BaseViewController,UIScrollViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        listContainerView.frame = view.bounds
+        listContainerView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: view.bounds.height - 44)            
     }
     
     /*

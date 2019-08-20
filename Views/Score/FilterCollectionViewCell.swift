@@ -88,7 +88,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
     }
     
     
-    func cellSetBaketBallEventData(_ indexPath:IndexPath, model:BasketballEvent){
+    func cellSetBaketBallEventData(_ indexPath:IndexPath, model:BasketBallEventModel){
         selectImageButton.addAction({ (button) in
             if self.filterCollectionViewCellClouse != nil {
                 self.filterCollectionViewCellClouse(indexPath)
@@ -96,6 +96,16 @@ class FilterCollectionViewCell: UICollectionViewCell {
         }, for: .touchUpInside)
         selectImageButton.setImage(model.isSelect ? UIImage.init(named: "filter_select") : UIImage.init(named: "filter_normal"), for: .normal)
         titleLabel.text = model.nameZh
+    }
+    
+    func cellSetBasketBallIndexData(_ indexPath:IndexPath, model:BasketBallIndexModel){
+        selectImageButton.addAction({ (button) in
+            if self.filterCollectionViewCellClouse != nil {
+                self.filterCollectionViewCellClouse(indexPath)
+            }
+        }, for: .touchUpInside)
+        selectImageButton.setImage(model.isSelect ? UIImage.init(named: "filter_select") : UIImage.init(named: "filter_normal"), for: .normal)
+        titleLabel.text = model.eventsName
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -136,6 +136,8 @@ extension BaseScoreSegmentViewController: JXSegmentedListContainerViewDataSource
                 return basketBallVC
             }
             let basketBallVC = BasKetBallViewController()
+            basketBallVC.viewType = self.viewType
+            basketBallVC.viewDesc = ScoreDetailTypeVC.init(rawValue: index)
             basketBallVC.initSView(type: index, titles: nil)
             return basketBallVC
         }

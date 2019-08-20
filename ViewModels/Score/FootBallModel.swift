@@ -22,6 +22,7 @@ class FootBallModel : NSObject, NSCoding{
     var teamA : Team!
     var teamB : Team!
     var time : Int!
+    var isSelect: Bool!
     
     
     /**
@@ -47,6 +48,7 @@ class FootBallModel : NSObject, NSCoding{
         if let stageData = dictionary["stage"] as? [String:Any]{
             stage = Stage(fromDictionary: stageData)
         }
+        isSelect = dictionary["is_select"] as? Bool
         startTime = dictionary["start_time"] as? Int
         status = dictionary["status"] as? Int
         if let teamAData = dictionary["teamA"] as? [String:Any]{
@@ -82,6 +84,9 @@ class FootBallModel : NSObject, NSCoding{
         if season != nil{
             dictionary["season"] = season.toDictionary()
         }
+        if isSelect != nil{
+            dictionary["is_select"] = isSelect
+        }
         if stage != nil{
             dictionary["stage"] = stage.toDictionary()
         }
@@ -113,6 +118,7 @@ class FootBallModel : NSObject, NSCoding{
         northSigle = aDecoder.decodeObject(forKey: "north_sigle") as? NorthSigleModel
         footballLottery = aDecoder.decodeObject(forKey: "lottery") as? FootBallLotteryModel
         id = aDecoder.decodeObject(forKey: "id") as? Int
+        isSelect = aDecoder.decodeObject(forKey: "is_select") as? Bool
         remark = aDecoder.decodeObject(forKey: "remark") as? Remark
         season = aDecoder.decodeObject(forKey: "season") as? Season
         stage = aDecoder.decodeObject(forKey: "stage") as? Stage
@@ -135,6 +141,9 @@ class FootBallModel : NSObject, NSCoding{
         }
         if footballLottery != nil{
             aCoder.encode(footballLottery, forKey: "lottery")
+        }
+        if isSelect != nil{
+            aCoder.encode(isSelect, forKey: "is_select")
         }
         if northSigle != nil{
             aCoder.encode(northSigle, forKey: "north_sigle")
@@ -214,7 +223,7 @@ class Team : NSObject, NSCoding{
             dictionary["add_time_score"] = addTimeScore
         }
         if teamName != nil{
-            dictionary["team_name"] = addTimeScore
+            dictionary["team_name"] = teamName
         }
         if cornerBall != nil{
             dictionary["corner_ball"] = cornerBall

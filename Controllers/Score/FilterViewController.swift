@@ -58,17 +58,26 @@ class FilterViewController: BaseViewController {
         if self.viewType == .football {
             let temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
             if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
-                LoadConfigManger.getSharedInstance().loadScorEvent()
+                LoadConfigManger.getSharedInstance().loadFootBallScorEvent()
                 NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADFOOTBALLEVENTDATA), object: nil)
             }else{
                 if CacheManager.getSharedInstance().getFootBallEventModel() == nil {
-                    LoadConfigManger.getSharedInstance().saveEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
+                    LoadConfigManger.getSharedInstance().saveFootBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
                 }
                 self.loadData()
             }
             
         }else{
-            print("")
+            let temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
+            if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
+                LoadConfigManger.getSharedInstance().loadBasketBallScorEvent()
+                NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADBASKETBALLEVENTDATA), object: nil)
+            }else{
+                if CacheManager.getSharedInstance().getBasketBallEventModel() == nil {
+                    LoadConfigManger.getSharedInstance().saveBasketBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
+                }
+                self.loadData()
+            }
         }
         
         
@@ -144,10 +153,25 @@ class FilterViewController: BaseViewController {
                     return (first as! String) < (seconde as! String)
                 }) as NSArray
                 self.filterViewModel.selecFootBallDic = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getFootBallEventSelectModel()!)
-                self.filterViewModel.reloadSelectDic()
+                self.filterViewModel.reloadFootBallSelectDic()
             }
         }else{
-            
+            switch self.filterType! {
+            case .all:
+                self.filterViewModel.basketBalleventsList = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getBasketBallEventModel()!)
+            case .level1:
+                self.filterViewModel.basketBalleventsList = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getBasketBallEventLevelModel() == nil ? [:] : CacheManager.getSharedInstance().getBasketBallEventLevelModel()!)
+            default:
+               self.filterViewModel.basketBalleventsList = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getBasketBallIndexModel() == nil ? [:] : CacheManager.getSharedInstance().getBasketBallIndexModel()!)
+            }
+            if self.filterViewModel.basketBalleventsList != nil {
+                self.addRightView(dic: self.filterViewModel.basketBalleventsList)
+                self.filterViewModel.titles = self.filterViewModel.basketBalleventsList.allKeys.sorted(by: { (first, seconde) -> Bool in
+                    return (first as! String) < (seconde as! String)
+                }) as NSArray
+                self.filterViewModel.selecBasketBallDic = NSMutableDictionary.init(dictionary:CacheManager.getSharedInstance().getBasketBallEventSelectModel()!)
+                self.filterViewModel.reloadBasketSelectDic()
+            }
         }
     }
     

@@ -8,7 +8,12 @@
 
 import UIKit
 
-typealias ScoreListTableViewCellClouse = () ->Void
+enum ScoreListCollectType {
+    case select
+    case unselect
+}
+
+typealias ScoreListTableViewCellClouse = (_ type:ScoreListCollectType, _ model:FootBallModel) ->Void
 
 class ScoreListTableViewCell: UITableViewCell {
 
@@ -38,6 +43,8 @@ class ScoreListTableViewCell: UITableViewCell {
     var scoreListTableViewCellClouse:ScoreListTableViewCellClouse!
     
     var didMakeConstraints = false
+    
+    var model:FootBallModel!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -169,9 +176,10 @@ class ScoreListTableViewCell: UITableViewCell {
         attentionButton.setImage(UIImage.init(named: "score_normal_attention"), for: .normal)
         attentionButton.addAction({ (button) in
             if self.scoreListTableViewCellClouse != nil {
-                self.scoreListTableViewCellClouse()
+                self.scoreListTableViewCellClouse(button?.tag == 1000 ? .select : .unselect, self.model)
             }
         }, for: .touchUpInside)
+        attentionButton.tag = 1000
         self.contentView.addSubview(attentionButton)
         
         self.updateConstraints()
@@ -182,8 +190,9 @@ class ScoreListTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:FootBallModel){
+        self.model = model
         scoreType.text = model.eventInfo.shortNameZh
-        scoreTime.text = Date.init(timeIntervalSince1970: model.startTime.double).string(withFormat: "yyyy-MM-dd HH:mm")
+        scoreTime.text = Date.init(timeIntervalSince1970: model.startTime.double).string(withFormat: "HH:mm")
         
         if model.status == 1 || model.status == 0{
             scoreStatus.text = "未开赛"
@@ -313,6 +322,9 @@ class ScoreListTableViewCell: UITableViewCell {
         scoreInfo3.isHidden = true
         
         scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:\(String(describing: model.teamA.cornerBall!))-\(String(describing: model.teamB.cornerBall!))"
+        
+        attentionButton.tag = model.isSelect ? 2000 : 1000
+        attentionButton.setImage(UIImage.init(named: model.isSelect ? "score_select_attention" : "score_normal_attention"), for: .normal)
     }
     
     override func updateConstraints() {

@@ -211,3 +211,91 @@ class GloabelHeader: UIView {
     }
 
 }
+
+
+typealias StoreViewClouse = () ->Void
+
+class StoreView: UIView {
+    var storeLabel:YYLabel!
+    var storeInfoLabel:YYLabel!
+    var storeImageView:UIImageView!
+    
+    var centerView:UIView!
+    
+    var button:CustomViewButtonTopImageAndBottomLabel!
+    
+    var storeViewClouse:StoreViewClouse!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setUpView()
+        
+    }
+    
+    func setUpView(){
+        let backImageView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 30))
+        backImageView.backgroundColor = App_Theme_FFCB00_Color
+        self.addSubview(backImageView)
+        
+        centerView = UIView.init(frame: CGRect.init(x: 18, y: 0, width: SCREENWIDTH - 36, height: 80))
+        centerView.backgroundColor = .red
+        self.addSubview(centerView)
+        centerView.backgroundColor = App_Theme_FFFFFF_Color
+        centerView.setShadowWithCornerRadius(corners: 8, shadowColor: App_Theme_8E8E8E_Color!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
+        
+        storeLabel = YYLabel.init()
+        storeLabel.textAlignment = .left
+        storeLabel.font = App_Theme_PinFan_R_12_Font
+        storeLabel.textColor = App_Theme_666666_Color
+        storeLabel.text = "当前积分"
+        centerView.addSubview(storeLabel)
+        
+        storeImageView = UIImageView.init()
+        storeImageView.image = UIImage.init(named: "store_info")
+        centerView.addSubview(storeImageView)
+        
+        storeInfoLabel = YYLabel.init()
+        storeInfoLabel.textAlignment = .left
+        storeInfoLabel.font = App_Theme_PinFan_M_28_Font
+        storeInfoLabel.textColor = App_Theme_06070D_Color
+        storeInfoLabel.text = "66666"
+        centerView.addSubview(storeInfoLabel)
+        
+        let buttonView = UIView.init(frame:  CGRect.init(x: SCREENWIDTH - 120, y: 14, width: 100, height: 60))
+        buttonView.isUserInteractionEnabled = true
+        
+        let button = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: SCREENWIDTH - 150, y: 0, width: 100, height: 60), title: "商城", image: UIImage.init(named: "store")!, tag: 0, titleColor: App_Theme_999999_Color!, spacing: 10, font: App_Theme_PinFan_M_12_Font!) {
+            if self.storeViewClouse != nil {
+                self.storeViewClouse()
+            }
+        }
+        button.isUserInteractionEnabled = true
+        buttonView.addSubview(button)
+        centerView.addSubview(buttonView)
+        
+        
+        storeLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.centerView.snp.left).offset(14)
+            make.top.equalTo(self.centerView.snp.top).offset(18)
+        }
+        
+        storeImageView.snp.makeConstraints { (make) in
+            make.left.equalTo(self.storeLabel.snp.right).offset(2)
+            make.top.equalTo(self.centerView.snp.top).offset(18)
+        }
+        
+        storeInfoLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.centerView.snp.left).offset(14)
+            make.bottom.equalTo(self.centerView.snp.bottom).offset(-18)
+        }
+        
+    }
+    
+    func storeViewChangeText(_ text:String) {
+        storeLabel.text = text
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

@@ -17,7 +17,7 @@ class FilterSegmentViewController: BaseViewController {
     var segmentedView: JXSegmentedView!
     var listContainerView: JXSegmentedListContainerView!
     
-    let titles = ["完整", "一级", "北单", "足彩", "竞彩"]
+    var titles:[String]!
     var heightForHeaderInSection: Int = 44
     
     var viewType:ScoreDetailVC! = .football
@@ -36,6 +36,7 @@ class FilterSegmentViewController: BaseViewController {
     }
     
     func initSView(type:Int) {
+        titles = self.viewType == .football ? ["完整", "一级", "北单", "足彩", "竞彩"] : ["完整", "一级", "竞彩"]
         segmentedViewDataSource = JXSegmentedTitleDataSource()
         segmentedViewDataSource.titles = titles
         segmentedViewDataSource.titleSelectedColor = App_Theme_06070D_Color!

@@ -101,6 +101,7 @@ class BasketBallTableViewCell: UITableViewCell {
         
         specificTeamA = YYLabel.init()
         specificTeamA.textAlignment = .left
+        specificTeamA.isHidden = true
         specificTeamA.font = App_Theme_PinFan_M_10_Font
         specificTeamA.textColor = App_Theme_999999_Color
         specificTeamA.text = "0.98"
@@ -108,6 +109,7 @@ class BasketBallTableViewCell: UITableViewCell {
         
         specificTeamB = YYLabel.init()
         specificTeamB.textAlignment = .left
+        specificTeamB.isHidden = true
         specificTeamB.font = App_Theme_PinFan_M_10_Font
         specificTeamB.textColor = App_Theme_999999_Color
         specificTeamB.text = "0.98"
@@ -115,70 +117,70 @@ class BasketBallTableViewCell: UITableViewCell {
         
         
         oneTeamA = YYLabel.init()
-        oneTeamA.textAlignment = .left
+        oneTeamA.textAlignment = .center
         oneTeamA.font = App_Theme_PinFan_M_10_Font
         oneTeamA.textColor = App_Theme_06070D_Color
         oneTeamA.text = "25"
         self.contentView.addSubview(oneTeamA)
         
         oneTeamB = YYLabel.init()
-        oneTeamB.textAlignment = .left
+        oneTeamB.textAlignment = .center
         oneTeamB.font = App_Theme_PinFan_M_10_Font
         oneTeamB.textColor = App_Theme_06070D_Color
         oneTeamB.text = "25"
         self.contentView.addSubview(oneTeamB)
         
         twoTeamA = YYLabel.init()
-        twoTeamA.textAlignment = .left
+        twoTeamA.textAlignment = .center
         twoTeamA.font = App_Theme_PinFan_M_10_Font
         twoTeamA.textColor = App_Theme_06070D_Color
         twoTeamA.text = "25"
         self.contentView.addSubview(twoTeamA)
         
         twoTeamB = YYLabel.init()
-        twoTeamB.textAlignment = .left
+        twoTeamB.textAlignment = .center
         twoTeamB.font = App_Theme_PinFan_M_10_Font
         twoTeamB.textColor = App_Theme_06070D_Color
         twoTeamB.text = "25"
         self.contentView.addSubview(twoTeamB)
         
         threeTeamA = YYLabel.init()
-        threeTeamA.textAlignment = .left
+        threeTeamA.textAlignment = .center
         threeTeamA.font = App_Theme_PinFan_M_10_Font
         threeTeamA.textColor = App_Theme_06070D_Color
         threeTeamA.text = "25"
         self.contentView.addSubview(threeTeamA)
         
         threeTeamB = YYLabel.init()
-        threeTeamB.textAlignment = .left
+        threeTeamB.textAlignment = .center
         threeTeamB.font = App_Theme_PinFan_M_10_Font
         threeTeamB.textColor = App_Theme_06070D_Color
         threeTeamB.text = "25"
         self.contentView.addSubview(threeTeamB)
         
         fourTeamA = YYLabel.init()
-        fourTeamA.textAlignment = .left
+        fourTeamA.textAlignment = .center
         fourTeamA.font = App_Theme_PinFan_M_10_Font
         fourTeamA.textColor = App_Theme_06070D_Color
         fourTeamA.text = "25"
         self.contentView.addSubview(fourTeamA)
         
         fourTeamB = YYLabel.init()
-        fourTeamB.textAlignment = .left
+        fourTeamB.textAlignment = .center
         fourTeamB.font = App_Theme_PinFan_M_10_Font
         fourTeamB.textColor = App_Theme_06070D_Color
         fourTeamB.text = "25"
         self.contentView.addSubview(fourTeamB)
         
         fiveTeamA = YYLabel.init()
-        fiveTeamA.textAlignment = .left
+        fiveTeamA.textAlignment = .center
         fiveTeamA.font = App_Theme_PinFan_M_10_Font
         fiveTeamA.textColor = App_Theme_06070D_Color
         fiveTeamA.text = "25"
         self.contentView.addSubview(fiveTeamA)
         
         fiveTeamB = YYLabel.init()
-        fiveTeamB.textAlignment = .left
+        fiveTeamB.textAlignment = .center
         fiveTeamB.font = App_Theme_PinFan_M_10_Font
         fiveTeamB.textColor = App_Theme_06070D_Color
         fiveTeamB.text = "25"
@@ -216,15 +218,15 @@ class BasketBallTableViewCell: UITableViewCell {
     
     func cellSetData(model:BasketBallModel){
         scoreType.text = model.basketballEvent.nameZh
-        scoreTime.text = Date.init(timeIntervalSince1970: model.time.double).string(withFormat: "yyyy-MM-dd HH:mm")
+        scoreTime.text = Date.init(timeIntervalSince1970: model.time.double).string(withFormat: "HH:mm")
         
         if model.status == 1 || model.status == 0{
             scoreStatus.text = "未开赛"
             scoreStatus.textColor = App_Theme_999999_Color
-        }else if model.status == 8 {
+        }else if model.status == 10 {
             scoreStatus.text = "完场"
             scoreStatus.textColor = App_Theme_FF4343_Color
-        }else if model.status < 7 {
+        }else if model.status > 2 && model.status < 9 {
             scoreStatus.text = "进行中"
             scoreStatus.textColor = App_Theme_FFAC1B_Color
         }else{
@@ -232,8 +234,8 @@ class BasketBallTableViewCell: UITableViewCell {
             scoreStatus.textColor = App_Theme_999999_Color
         }
         
-        teamA.text = model.basketBallTeamA.basketballTeamInfo.nameZh
-        teamB.text = model.basketballTeamB.basketballTeamInfo.nameZh
+        teamA.text = model.basketBallTeamA.teamName
+        teamB.text = model.basketballTeamB.teamName
         
         if model.basketBallTeamA.sort != "" {
             whiteTeamA.text = "[\(String(describing: model.basketBallTeamA.sort!))]"
@@ -263,11 +265,6 @@ class BasketBallTableViewCell: UITableViewCell {
         allTeamA.text = all_score_a.string
         let all_score_b = model.basketballTeamB.first + model.basketballTeamB.second + model.basketballTeamB.third + model.basketballTeamB.four +  Int(model.basketballTeamB.overtime)
         allTeamB.text = all_score_b.string
-        
-//        var specificTeamA:YYLabel!
-//        var specificTeamB:YYLabel!
-        
-        
     }
     
     
@@ -276,10 +273,11 @@ class BasketBallTableViewCell: UITableViewCell {
             scoreType.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.top.equalTo(self.contentView.snp.top).offset(7)
+                make.right.lessThanOrEqualTo(self.scoreTime.snp.left).offset(-8)
             }
             
             scoreTime.snp.makeConstraints { (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(75)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(-SCREENWIDTH / 4 + 20)
                 make.top.equalTo(self.scoreType.snp.top).offset(0)
             }
             
@@ -290,13 +288,13 @@ class BasketBallTableViewCell: UITableViewCell {
             }
             
             teamA.snp.makeConstraints { (make) in
-                make.width.lessThanOrEqualTo(93)
+                make.right.lessThanOrEqualTo(self.specificTeamA.snp.left).offset(-8)
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.top.equalTo(self.contentView.snp.top).offset(26)
             }
             
             teamB.snp.makeConstraints { (make) in
-                make.width.lessThanOrEqualTo(93)
+                make.right.lessThanOrEqualTo(self.specificTeamB.snp.left).offset(-8)
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-3)
             }
@@ -313,64 +311,74 @@ class BasketBallTableViewCell: UITableViewCell {
             
             specificTeamA.snp.makeConstraints { (make) in
                 make.top.equalTo(self.contentView.snp.top).offset(30)
-                make.right.equalTo(self.contentView.snp.centerX).offset(-9)
+                make.right.equalTo(self.contentView.snp.centerX).offset(-35)
                 make.size.equalTo(CGSize.init(width: 22, height: 9))
                 
             }
             
             specificTeamB.snp.makeConstraints { (make) in
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-6)
-                make.right.equalTo(self.contentView.snp.centerX).offset(-9)
+                make.right.equalTo(self.contentView.snp.centerX).offset(-35)
                 make.size.equalTo(CGSize.init(width: 22, height: 9))
             }
             
             oneTeamA.snp.makeConstraints { (make) in
                 make.left.equalTo(self.specificTeamA.snp.right).offset(16)
+                make.width.equalTo(15)
                 make.top.equalTo(self.specificTeamA.snp.top).offset(-2)
             }
             
             oneTeamB.snp.makeConstraints { (make) in
                 make.left.equalTo(self.specificTeamB.snp.right).offset(16)
+                make.width.equalTo(15)
                 make.top.equalTo(self.specificTeamB.snp.top).offset(-2)
             }
             
             twoTeamA.snp.makeConstraints { (make) in
                 make.left.equalTo(self.oneTeamA.snp.right).offset(10)
+                make.width.equalTo(15)
                 make.top.equalTo(self.specificTeamA.snp.top).offset(-2)
             }
             
             twoTeamB.snp.makeConstraints { (make) in
                 make.left.equalTo(self.oneTeamB.snp.right).offset(10)
+                make.width.equalTo(15)
                 make.top.equalTo(self.specificTeamB.snp.top).offset(-2)
             }
             
             threeTeamA.snp.makeConstraints { (make) in
                 make.left.equalTo(self.twoTeamA.snp.right).offset(10)
+                make.width.equalTo(15)
                 make.top.equalTo(self.specificTeamA.snp.top).offset(-2)
             }
             
             threeTeamB.snp.makeConstraints { (make) in
                 make.left.equalTo(self.twoTeamB.snp.right).offset(10)
+                make.width.equalTo(15)
                 make.top.equalTo(self.specificTeamB.snp.top).offset(-2)
             }
             
             fourTeamA.snp.makeConstraints { (make) in
                 make.left.equalTo(self.threeTeamA.snp.right).offset(10)
+                make.width.equalTo(15)
                 make.top.equalTo(self.specificTeamA.snp.top).offset(-2)
             }
             
             fourTeamB.snp.makeConstraints { (make) in
                 make.left.equalTo(self.threeTeamB.snp.right).offset(10)
+                make.width.equalTo(15)
                 make.top.equalTo(self.specificTeamB.snp.top).offset(-2)
             }
             
             fiveTeamA.snp.makeConstraints { (make) in
                 make.left.equalTo(self.fourTeamA.snp.right).offset(10)
+                make.width.equalTo(15)
                 make.top.equalTo(self.specificTeamA.snp.top).offset(-2)
             }
             
             fiveTeamB.snp.makeConstraints { (make) in
                 make.left.equalTo(self.fourTeamB.snp.right).offset(10)
+                make.width.equalTo(15)
                 make.top.equalTo(self.specificTeamB.snp.top).offset(-2)
             }
             

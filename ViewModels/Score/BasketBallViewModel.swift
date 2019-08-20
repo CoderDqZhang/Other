@@ -7,16 +7,21 @@
 //
 
 import UIKit
-
+import ReactiveCocoa
+import ReactiveSwift
 
 class BasketBallViewModel: BaseViewModel {
 
     var viewType:ScoreDetailVC!
     var viewDesc:ScoreDetailTypeVC!
     
+    var basketballDic:NSDictionary!
     var basketBallArray = NSMutableArray.init()
+    var allBasketBallArray =  NSMutableArray.init()
+    
     override init() {
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.filterArray), name: NSNotification.Name.init(RELOADFILTERBASKETBALLMODEL), object: nil)
     }
     
     func tableViewBasketBallTableViewCellSetData(_ indexPath:IndexPath, cell:BasketBallTableViewCell) {
@@ -31,7 +36,7 @@ class BasketBallViewModel: BaseViewModel {
     }
     
     override func tapViewNoneData() {
-        (self.controller as! FootBallViewController).getNetWorkData()
+        (self.controller as! BasKetBallViewController).getNetWorkData()
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
@@ -57,57 +62,100 @@ class BasketBallViewModel: BaseViewModel {
     
     func getbasketBallNet(type:String, date:String){
         let parameters = ["type":type, "date":date] as [String : Any]
-        BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        BaseNetWorke.getSharedInstance().postUrlWithString(BasketBallMatchUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.basketBallArray = NSMutableArray.init(array: resultDic.value as! Array)
-                self.reloadTableViewData()
+                if resultDic.value is NSArray {
+                    self.basketBallBindText(resultDic.value as! NSArray)
+                }
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
         }
     }
     
-    func getbasket1Net(type:String, date:String){
-//        let parameters = ["type":type, "date":date] as [String : Any]
-//        BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoTestUrl, parameters: parameters as AnyObject).observe { (resultDic) in
-//            if !resultDic.isCompleted {
-//                self.basketBallBindText(resultDic.value as! NSDictionary)
-//            }
-//        }
+    func getBasketInfoBallNet(type:String, date:String){
+        let parameters = ["date":date] as [String : Any]
+        var temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
+        if temp_dic == nil || temp_dic?.object(forKey: date) == nil {
+            BaseNetWorke.getSharedInstance().postUrlWithString(BasketBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    if temp_dic == nil {
+                        temp_dic = NSMutableDictionary.init(dictionary:  [date:resultDic.value as! NSDictionary])
+                    }else{
+                        temp_dic?.setValue(resultDic.value , forKey: date)
+                    }
+                    CacheManager.getSharedInstance().saveBasketBallInfoModel(point: temp_dic!)
+                    self.basketballDic = NSDictionary.init(dictionary:(temp_dic?.object(forKey: date) as! NSDictionary))
+                    self.getbasketBallNet(type: type, date: date)
+                }
+            }
+        }else{
+            basketballDic = (temp_dic?.object(forKey: date) as! NSDictionary)
+            self.getbasketBallNet(type: type, date: date)
+        }
     }
     
-    func basketBallBindText(_ dic:NSDictionary){
-        for match in (dic.object(forKey: "matches") as! NSArray){
+    func basketBallBindText(_ dic:NSArray){
+        UserDefaults.standard.set(dic.count, forKey: ALLBASKETBALLMACTH)
+        for match in dic{
             let temp_array = (match as! NSArray)
-            let model = FootBallModel.init(fromDictionary: [
+            //去除阶段为0 错误
+            let event = (basketballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[2])") == nil ? [:] : (basketballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[2])")!
+            let model = BasketBallModel.init(fromDictionary: [
                 "id": temp_array[0] as! Int,
                 "section": temp_array[1] as! Int,
-                "basketball_event": (dic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[2])")!,
+                "basketball_event": event,
                 "status": temp_array[3] as! Int,
                 "time": temp_array[4] as! Int,
                 "all_second": temp_array[5] as! Int,
-                "basketBallteamA": [
-                    "basketball_team_info": (dic.object(forKey: "teams") as! NSDictionary).object(forKey: "\((temp_array[6] as! NSArray)[0])"),
+                "basketball_teamA": [
+                    "basketball_team_info": [:],
                     "sort": (temp_array[6] as! NSArray)[1] as! String,
                     "first": (temp_array[6] as! NSArray)[2] as! Int,
                     "second": (temp_array[6] as! NSArray)[3] as! Int,
                     "third": (temp_array[6] as! NSArray)[4] as! Int,
                     "four": (temp_array[6] as! NSArray)[5] as! Int,
-                    "overtime": (temp_array[6] as! NSArray)[6] as! Int
+                    "overtime": (temp_array[6] as! NSArray)[6] as! Int,
+                    "team_name":(temp_array[6] as! NSArray)[7] as! String
                 ],
                 "basketball_teamB": [
-                    "basketball_team_info": (dic.object(forKey: "teams") as! NSDictionary).object(forKey: "\((temp_array[7] as! NSArray)[0])"),
+                    "basketball_team_info": [:],
                     "sort": (temp_array[7] as! NSArray)[1] as! String,
                     "first": (temp_array[7] as! NSArray)[2] as! Int,
                     "second": (temp_array[7] as! NSArray)[3] as! Int,
                     "third": (temp_array[7] as! NSArray)[4] as! Int,
                     "four": (temp_array[7] as! NSArray)[5] as! Int,
-                    "overtime": (temp_array[7] as! NSArray)[6] as! Int
+                    "overtime": (temp_array[7] as! NSArray)[6] as! Int,
+                    "team_name":(temp_array[7] as! NSArray)[7] as! String
                 ],
                 "basketball_remark": [
                     "remark_detail": (temp_array[8] as! NSArray)[0] as! String
                 ]
-            ])
-            basketBallArray.add(model)
+                ])
+            allBasketBallArray.add(model)
         }
+        self.filterArray()
+    }
+    
+    @objc func filterArray(){
+        self.basketBallArray.removeAllObjects()
+        if CacheManager.getSharedInstance().getBasketBallEventSelectModel() != nil {
+            for str in CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.allKeys{
+                let array = CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.object(forKey: str) as! NSArray
+                for temp in array {
+                    let array = allBasketBallArray.filter { (dic) -> Bool in
+                        return (dic as! BasketBallModel).basketballEvent!.id == ((temp as! NSDictionary).object(forKey: "id") as! Int)
+                    }
+                    self.basketBallArray.addObjects(from: array)
+                }
+                
+            }
+        }else{
+            self.basketBallArray = self.allBasketBallArray.mutableCopy() as! NSMutableArray
+        }
+        
+        self.basketBallArray = NSMutableArray.init(array: self.basketBallArray.sorted { (dic, dic1) -> Bool in
+            return (dic as! BasketBallModel).time < (dic1 as! BasketBallModel).time
+            } as NSArray)
         self.reloadTableViewData()
     }
     
@@ -161,7 +209,7 @@ extension BasketBallViewModel: UITableViewDelegate {
 
 extension BasketBallViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        return self.basketBallArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

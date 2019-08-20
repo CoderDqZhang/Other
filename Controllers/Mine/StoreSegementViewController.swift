@@ -21,10 +21,15 @@ class StoreSegementViewController: BaseViewController {
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
     var listContainerView: JXSegmentedListContainerView!
+    
+    var pagingView:JXPagingView!
+    var userHeader:StoreView!
+    var userHeaderContainerView: UIView!
+
+    var tableHeaderViewHeight: CGFloat = 90
+    var heightForHeaderInSection: Int = 44
 
     let titles = ["全部", "收入", "支出"]
-    var tableHeaderViewHeight: CGFloat = 138
-    var heightForHeaderInSection: Int = 44
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,15 +40,20 @@ class StoreSegementViewController: BaseViewController {
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "积分明细"
         self.setNavigationItemBack()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "商城", style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
-    }
-    
-    @objc func rightBarItemClick(_ sender:UIBarButtonItem){
-        
     }
     
     
     override func setUpView() {
+        
+        userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight)))
+
+        userHeader = StoreView(frame: userHeaderContainerView.bounds)
+        //设置数据
+//        otherViewModel.getUserInfoNet(userId: (postData.object(forKey: "id") as! Int).string)
+        userHeader.storeViewClouse = {
+
+        }
+        userHeaderContainerView.addSubview(userHeader)
         
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
         segmentedViewDataSource = JXSegmentedTitleDataSource()
@@ -52,11 +62,11 @@ class StoreSegementViewController: BaseViewController {
         segmentedViewDataSource.titleNormalColor = App_Theme_999999_Color!
         segmentedViewDataSource.isTitleColorGradientEnabled = true
         segmentedViewDataSource.isTitleZoomEnabled = false
-        segmentedViewDataSource.reloadData(selectedIndex: 0)
+        segmentedViewDataSource.reloadData(selectedIndex: 1)
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = App_Theme_FFFFFF_Color
-        segmentedView.defaultSelectedIndex = 0
+        segmentedView.defaultSelectedIndex = 1
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
         
@@ -65,23 +75,16 @@ class StoreSegementViewController: BaseViewController {
         lineView.indicatorWidth = 26
         segmentedView.indicators = [lineView]
         
-        segmentedView.delegate = self
+        pagingView = JXPagingView(delegate: self)
         
+        self.view.addSubview(pagingView)
         
-        self.view.addSubview(segmentedView)
-        
-        //5、初始化JXSegmentedListContainerView
-        listContainerView = JXSegmentedListContainerView(dataSource: self)
-        listContainerView.didAppearPercent = 0.9
-        view.addSubview(listContainerView)
-        
-        //6、将listContainerView.scrollView和segmentedView.contentScrollView进行关联
-        segmentedView.contentScrollView = listContainerView.scrollView
+        segmentedView.contentScrollView = pagingView.listContainerView.collectionView
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        listContainerView.frame = CGRect(x: 0, y: 50, width: view.bounds.size.width, height: view.bounds.size.height - 50)
+        pagingView.frame = self.view.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,27 +94,35 @@ class StoreSegementViewController: BaseViewController {
     
 }
 
-extension StoreSegementViewController : JXSegmentedViewDelegate {
-    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-        //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
-        listContainerView.didClickSelectedItem(at: index)
+extension StoreSegementViewController: JXPagingViewDelegate {
+    
+    func tableHeaderViewHeight(in pagingView: JXPagingView) -> Int {
+        return Int(tableHeaderViewHeight)
     }
     
-    func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {
-        //传递scrollingFrom事件给listContainerView，必须调用！！！
-        listContainerView.segmentedViewScrolling(from: leftIndex, to: rightIndex, percent: percent, selectedIndex: segmentedView.selectedIndex)
+    func tableHeaderView(in pagingView: JXPagingView) -> UIView {
+        return userHeaderContainerView
     }
-}
-
-extension StoreSegementViewController: JXSegmentedListContainerViewDataSource {
     
-    func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
+    func heightForPinSectionHeader(in pagingView: JXPagingView) -> Int {
+        return heightForHeaderInSection
+    }
+    
+    func viewForPinSectionHeader(in pagingView: JXPagingView) -> UIView {
+        return segmentedView
+    }
+    
+    func numberOfLists(in pagingView: JXPagingView) -> Int {
         return titles.count
     }
     
-    func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
+    func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
         let controller = StoreViewController.init()
         controller.initSView(type: index)
         return controller
+    }
+    
+    func mainTableViewDidScroll(_ scrollView: UIScrollView) {
+//        userHeader?.scrollViewDidScroll(contentOffsetY: scrollView.contentOffset.y)
     }
 }

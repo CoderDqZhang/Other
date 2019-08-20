@@ -284,6 +284,9 @@
 		1FEB98EF22F132AB0038B49F /* BaseScoreSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98EE22F132AB0038B49F /* BaseScoreSegmentViewController.swift */; };
 		1FEB98F122F13F940038B49F /* ScoreListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98F022F13F940038B49F /* ScoreListTableViewCell.swift */; };
 		1FEB98F322F13FA60038B49F /* ScoreInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB98F222F13FA60038B49F /* ScoreInfoTableViewCell.swift */; };
+		1FEDB017230A950700024985 /* CoinsSegementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB016230A950700024985 /* CoinsSegementViewModel.swift */; };
+		1FEDB019230AB51E00024985 /* BasketBallIndexModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB018230AB51E00024985 /* BasketBallIndexModel.swift */; };
+		1FEDB01B230AB59900024985 /* BasketBallEventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB01A230AB59900024985 /* BasketBallEventModel.swift */; };
 		1FF025A722D5C79D005E2ED2 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A622D5C79C005E2ED2 /* PageModel.swift */; };
 		1FF025A922D6DF95005E2ED2 /* CoinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */; };
 		1FF025AB22D6E4CE005E2ED2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */; };
@@ -682,6 +685,9 @@
 		1FEB98EE22F132AB0038B49F /* BaseScoreSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScoreSegmentViewController.swift; sourceTree = "<group>"; };
 		1FEB98F022F13F940038B49F /* ScoreListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreListTableViewCell.swift; sourceTree = "<group>"; };
 		1FEB98F222F13FA60038B49F /* ScoreInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1FEDB016230A950700024985 /* CoinsSegementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsSegementViewModel.swift; sourceTree = "<group>"; };
+		1FEDB018230AB51E00024985 /* BasketBallIndexModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallIndexModel.swift; sourceTree = "<group>"; };
+		1FEDB01A230AB59900024985 /* BasketBallEventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallEventModel.swift; sourceTree = "<group>"; };
 		1FF025A622D5C79C005E2ED2 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsModel.swift; sourceTree = "<group>"; };
 		1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -1545,6 +1551,7 @@
 				1FE8DAF22292937000DCED01 /* OtherPostViewModel.swift */,
 				1FE8DAF4229293AD00DCED01 /* OtherGuessingViewModel.swift */,
 				1FF1E53222B782E700BB9A50 /* PostSegementViewModel.swift */,
+				1FEDB016230A950700024985 /* CoinsSegementViewModel.swift */,
 				1FE8DAFC2292C4E500DCED01 /* MyPostViewModel.swift */,
 				1FE8DAFE2292C4F100DCED01 /* MyCommentViewModel.swift */,
 				1FE8DB022292C5F300DCED01 /* MyCollectViewModel.swift */,
@@ -1584,6 +1591,8 @@
 				1F91C3BF2304049E0030916F /* NorthSigleModel.swift */,
 				1F91C3C1230529100030916F /* FootBallLotteryModel.swift */,
 				1F91C3C3230529BD0030916F /* FootBallIndexModel.swift */,
+				1FEDB018230AB51E00024985 /* BasketBallIndexModel.swift */,
+				1FEDB01A230AB59900024985 /* BasketBallEventModel.swift */,
 			);
 			name = Score;
 			path = ViewModels/Score;
@@ -2131,6 +2140,7 @@
 				1FE5BFB0228CF37E00C9137C /* BaseSearchViewController.swift in Sources */,
 				1F991758229BB41E00C8FDD5 /* AccountCoinsModel.swift in Sources */,
 				1FF1E54122C3627200BB9A50 /* UIImageMaxCrope.swift in Sources */,
+				1FEDB019230AB51E00024985 /* BasketBallIndexModel.swift in Sources */,
 				1FE8DAD522926AA300DCED01 /* OtherMineViewModel.swift in Sources */,
 				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
 				1FE5BDFD2282750900C9137C /* MineViewController.swift in Sources */,
@@ -2283,6 +2293,7 @@
 				1F991762229BF05700C8FDD5 /* CommentModel.swift in Sources */,
 				1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */,
 				1FE5BF242282E59500C9137C /* NSString+AES.m in Sources */,
+				1FEDB01B230AB59900024985 /* BasketBallEventModel.swift in Sources */,
 				1FF1E52A22AF55F700BB9A50 /* DailyViewController.swift in Sources */,
 				1F1C1B5222A0E6C6008031F4 /* MessageSegementViewController.swift in Sources */,
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,
@@ -2346,6 +2357,7 @@
 				1FF025B022D71F15005E2ED2 /* NotificationManager.swift in Sources */,
 				1FE5BF272283BB8300C9137C /* GTMBase64.m in Sources */,
 				1FF025A722D5C79D005E2ED2 /* PageModel.swift in Sources */,
+				1FEDB017230A950700024985 /* CoinsSegementViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

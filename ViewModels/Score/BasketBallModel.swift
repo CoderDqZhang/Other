@@ -12,9 +12,10 @@ class BasketBallModel  : NSObject, NSCoding{
     
     var allSecond : Int!
     var basketBallTeamA : BasketBallteamA!
-    var basketballEvent : BasketballEvent!
+    var basketballEvent : BasketBallEventModel!
     var basketballRemark : BasketballRemark!
     var basketballTeamB : BasketBallteamA!
+//    var basketIndex : BasketBallIndexModel!
     var id : Int!
     var section : Int!
     var status : Int!
@@ -26,11 +27,11 @@ class BasketBallModel  : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: [String:Any]){
         allSecond = dictionary["all_second"] as? Int
-        if let basketBallteamAData = dictionary["basketBall_teamA"] as? [String:Any]{
+        if let basketBallteamAData = dictionary["basketball_teamA"] as? [String:Any]{
             basketBallTeamA = BasketBallteamA(fromDictionary: basketBallteamAData)
         }
         if let basketballEventData = dictionary["basketball_event"] as? [String:Any]{
-            basketballEvent = BasketballEvent(fromDictionary: basketballEventData)
+            basketballEvent = BasketBallEventModel(fromDictionary: basketballEventData)
         }
         if let basketballRemarkData = dictionary["basketball_remark"] as? [String:Any]{
             basketballRemark = BasketballRemark(fromDictionary: basketballRemarkData)
@@ -54,7 +55,7 @@ class BasketBallModel  : NSObject, NSCoding{
             dictionary["all_second"] = allSecond
         }
         if basketBallTeamA != nil{
-            dictionary["basketBall_teamA"] = basketBallTeamA.toDictionary()
+            dictionary["basketball_teamA"] = basketBallTeamA.toDictionary()
         }
         if basketballEvent != nil{
             dictionary["basketball_event"] = basketballEvent.toDictionary()
@@ -87,8 +88,8 @@ class BasketBallModel  : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         allSecond = aDecoder.decodeObject(forKey: "all_second") as? Int
-        basketBallTeamA = aDecoder.decodeObject(forKey: "basketBall_teamA") as? BasketBallteamA
-        basketballEvent = aDecoder.decodeObject(forKey: "basketball_event") as? BasketballEvent
+        basketBallTeamA = aDecoder.decodeObject(forKey: "basketball_teamA") as? BasketBallteamA
+        basketballEvent = aDecoder.decodeObject(forKey: "basketball_event") as? BasketBallEventModel
         basketballRemark = aDecoder.decodeObject(forKey: "basketball_remark") as? BasketballRemark
         basketballTeamB = aDecoder.decodeObject(forKey: "basketball_teamB") as? BasketBallteamA
         id = aDecoder.decodeObject(forKey: "id") as? Int
@@ -108,7 +109,7 @@ class BasketBallModel  : NSObject, NSCoding{
             aCoder.encode(allSecond, forKey: "all_second")
         }
         if basketBallTeamA != nil{
-            aCoder.encode(basketBallTeamA, forKey: "basketBall_teamA")
+            aCoder.encode(basketBallTeamA, forKey: "basketball_teamA")
         }
         if basketballEvent != nil{
             aCoder.encode(basketballEvent, forKey: "basketball_event")
@@ -184,88 +185,6 @@ class BasketballRemark : NSObject, NSCoding{
     
 }
 
-class BasketballEvent : NSObject, NSCoding{
-    
-    var id : Int!
-    var nameEn : String!
-    var nameZh : String!
-    var nameZht : String!
-    var isSelect : Bool!
-    
-    /**
-     * Instantiate the instance using the passed dictionary values to set the properties values
-     */
-    init(fromDictionary dictionary: [String:Any]){
-        id = dictionary["id"] as? Int
-        nameEn = dictionary["name_en"] as? String
-        nameZh = dictionary["name_zh"] as? String
-        nameZht = dictionary["name_zht"] as? String
-        isSelect = dictionary["is_select"] as? Bool
-    }
-    
-    /**
-     * Returns all the available property values in the form of [String:Any] object where the key is the approperiate json key and the value is the value of the corresponding property
-     */
-    func toDictionary() -> [String:Any]
-    {
-        var dictionary = [String:Any]()
-        if id != nil{
-            dictionary["id"] = id
-        }
-        if nameEn != nil{
-            dictionary["name_en"] = nameEn
-        }
-        if isSelect != nil{
-            dictionary["is_select"] = isSelect
-        }
-        if nameZh != nil{
-            dictionary["name_zh"] = nameZh
-        }
-        if nameZht != nil{
-            dictionary["name_zht"] = nameZht
-        }
-        return dictionary
-    }
-    
-    /**
-     * NSCoding required initializer.
-     * Fills the data from the passed decoder
-     */
-    @objc required init(coder aDecoder: NSCoder)
-    {
-        id = aDecoder.decodeObject(forKey: "id") as? Int
-        nameEn = aDecoder.decodeObject(forKey: "name_en") as? String
-        nameZh = aDecoder.decodeObject(forKey: "name_zh") as? String
-        nameZht = aDecoder.decodeObject(forKey: "name_zht") as? String
-        isSelect = aDecoder.decodeObject(forKey: "is_select") as? Bool
-    }
-    
-    /**
-     * NSCoding required method.
-     * Encodes mode properties into the decoder
-     */
-    @objc func encode(with aCoder: NSCoder)
-    {
-        if id != nil{
-            aCoder.encode(id, forKey: "id")
-        }
-        if nameEn != nil{
-            aCoder.encode(nameEn, forKey: "name_en")
-        }
-        if nameZh != nil{
-            aCoder.encode(nameZh, forKey: "name_zh")
-        }
-        if nameZht != nil{
-            aCoder.encode(nameZht, forKey: "name_zht")
-        }
-        if isSelect != nil{
-            aCoder.encode(isSelect, forKey: "is_select")
-        }
-        
-    }
-    
-}
-
 class BasketBallteamA : NSObject, NSCoding{
     
     var basketballTeamInfo : BasketballTeamInfo!
@@ -275,8 +194,8 @@ class BasketBallteamA : NSObject, NSCoding{
     var second : Int!
     var sort : String!
     var third : Int!
-    
-    
+    var teamName : String!
+
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -290,6 +209,7 @@ class BasketBallteamA : NSObject, NSCoding{
         second = dictionary["second"] as? Int
         sort = dictionary["sort"] as? String
         third = dictionary["third"] as? Int
+        teamName = dictionary["team_name"] as? String
     }
     
     /**
@@ -300,6 +220,9 @@ class BasketBallteamA : NSObject, NSCoding{
         var dictionary = [String:Any]()
         if basketballTeamInfo != nil{
             dictionary["basketball_team_info"] = basketballTeamInfo.toDictionary()
+        }
+        if teamName != nil{
+            dictionary["team_name"] = teamName
         }
         if first != nil{
             dictionary["first"] = first
@@ -316,6 +239,7 @@ class BasketBallteamA : NSObject, NSCoding{
         if sort != nil{
             dictionary["sort"] = sort
         }
+        
         if third != nil{
             dictionary["third"] = third
         }
@@ -330,6 +254,7 @@ class BasketBallteamA : NSObject, NSCoding{
     {
         basketballTeamInfo = aDecoder.decodeObject(forKey: "basketball_team_info") as? BasketballTeamInfo
         first = aDecoder.decodeObject(forKey: "first") as? Int
+        teamName = aDecoder.decodeObject(forKey: "team_name") as? String
         four = aDecoder.decodeObject(forKey: "four") as? Int
         overtime = aDecoder.decodeObject(forKey: "overtime") as? Int
         second = aDecoder.decodeObject(forKey: "second") as? Int
@@ -364,6 +289,9 @@ class BasketBallteamA : NSObject, NSCoding{
         }
         if third != nil{
             aCoder.encode(third, forKey: "third")
+        }
+        if teamName != nil{
+            aCoder.encode(teamName, forKey: "team_name")
         }
         
     }

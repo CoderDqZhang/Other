@@ -95,6 +95,9 @@ let ADvertiseUsableAdvertise = "\(RootUrl)advertise/getUsableAdvertise"
 let FootBallMatchUrl = "\(RootUrl)football/getData"
 let FootBallInfoUrl = "\(RootUrl)football/getTeamsAndSoOn"
 
+let BasketBallInfoUrl = "\(RootUrl)basketball/getBasketBallEventsAndSoOn"
+let BasketBallMatchUrl = "\(RootUrl)basketball/getData"
+
 let RegisterLoginUrl = "http://www.baodiantiyu.com:8081/bdty/index.html"
 let InviteUrl = "http://www.baodiantiyu.com:8081/bdty/register.html"
 let ShareUrl = "http://www.baodiantiyu.com:8081/bdty/invite.html"

@@ -251,6 +251,30 @@ class CacheManager: NSObject {
         return nil
     }
     
+    func saveFootBallMatchCollectModel(point:NSDictionary){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: FOOTBALLMATCHCOLLECTMODEL)
+    }
+    
+    func getFootBallMatchCollectModel() ->NSDictionary?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: FOOTBALLMATCHCOLLECTMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: FOOTBALLMATCHCOLLECTMODEL))!
+            return item as? NSDictionary
+        }
+        return nil
+    }
+    
+    func saveBasketBallInfoModel(point:NSDictionary){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: BASKETBALLINFOMODEL)
+    }
+    
+    func getBasketBallInfoModel() ->NSDictionary?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey:BASKETBALLINFOMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: BASKETBALLINFOMODEL))!
+            return item as? NSDictionary
+        }
+        return nil
+    }
+    
     func saveBasketBallEventModel(point:NSDictionary){
         CacheManager._sharedInstance.otherCache?.setObject(point, forKey: BASKETBALLEVENTODEL)
     }
@@ -263,5 +287,52 @@ class CacheManager: NSObject {
         return nil
     }
     
+    func saveBasketBallEventSelectModel(point:NSDictionary){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: BASKETBALLEVENTSELECTMODEL)
+    }
+    
+    func getBasketBallEventSelectModel() ->NSDictionary?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: BASKETBALLEVENTSELECTMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: BASKETBALLEVENTSELECTMODEL))!
+            return item as? NSDictionary
+        }
+        return nil
+    }
+    
+    func saveBasketBallEventLevelModel(point:NSDictionary){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: BASKETBALLEVENTLEVELMODEL)
+    }
+    
+    func getBasketBallEventLevelModel() ->NSDictionary?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: BASKETBALLEVENTLEVELMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: BASKETBALLEVENTLEVELMODEL))!
+            return item as? NSDictionary
+        }
+        return nil
+    }
+    
+    func saveBasketBallIndexModel(point:NSDictionary){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: BASKETBALLINDEXMODEL)
+    }
+    
+    func getBasketBallIndexModel() ->NSDictionary?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: BASKETBALLINDEXMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: BASKETBALLINDEXMODEL))!
+            return item as? NSDictionary
+        }
+        return nil
+    }
+    
+    func saveBasketBallMatchCollectModel(point:NSDictionary){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: BASKETBALLMATCHCOLLECTMODEL)
+    }
+    
+    func getBasketBallMatchCollectModel() ->NSDictionary?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: BASKETBALLMATCHCOLLECTMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: BASKETBALLMATCHCOLLECTMODEL))!
+            return item as? NSDictionary
+        }
+        return nil
+    }
     
 }

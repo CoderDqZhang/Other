@@ -76,7 +76,7 @@ class FootBallScoreSegmentViewController: BaseViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        listContainerView.frame = CGRect(x: 0, y: 33, width: view.bounds.size.width, height: view.bounds.size.height - 50)
+        listContainerView.frame = CGRect(x: 0, y: 33, width: view.bounds.size.width, height: view.bounds.size.height - 33)
     }
     /*
      // MARK: - Navigation

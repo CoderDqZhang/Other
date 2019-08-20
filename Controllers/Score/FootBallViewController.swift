@@ -37,14 +37,13 @@ class FootBallViewController: BaseViewController {
             dateTime = titles
         }
         self.bindLogic()
-        if self.viewDesc != .timely {
-            self.setUpRefreshData {
-               self.getNetWorkData()
-            }
-        }
         
         self.setUpRefreshData {
-            self.getNetWorkData()
+            if self.viewDesc != .attention {
+                self.getNetWorkData()
+            }else{
+                self.footBallViewModel.filterArray()
+            }
         }
     }
     
@@ -53,6 +52,8 @@ class FootBallViewController: BaseViewController {
         self.footBallViewModel.viewDesc = self.viewDesc
         if self.viewDesc != .attention{
             self.getNetWorkData()
+        }else{
+            self.footBallViewModel.filterArray()
         }
         if self.viewDesc == .timely {
             self.footBallViewModel.socketData()

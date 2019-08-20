@@ -30,31 +30,37 @@ class BasKetBallViewController: BaseViewController {
             dateTime = titles
         }
         self.bindLogic()
-        if self.viewDesc != .timely {
-            self.setUpRefreshData {
-                self.getNetWorkData()
-            }
+//        if self.viewDesc != .timely {
+//            self.setUpRefreshData {
+//                self.getNetWorkData()
+//            }
+//        }
+        self.setUpRefreshData {
+            self.getNetWorkData()
         }
     }
     
     func bindLogic() {
         self.basketBallViewModel.viewType = self.viewType
         self.basketBallViewModel.viewDesc = self.viewDesc
-        if self.viewDesc == .competition ||  self.viewDesc == .amidithion || self.viewDesc == .underway{
+        if self.viewDesc != .attention{
             self.getNetWorkData()
+        }
+        if self.viewDesc == .timely {
+            self.basketBallViewModel.socketData()
         }
         
     }
     
     func getNetWorkData(){
         var date:String!
-        if self.viewDesc == .underway {
+        if self.viewDesc == .underway || self.viewDesc == .timely{
             date = Date.init().string(withFormat: "yyyyMMdd")
         }else{
             date = DateTools.getSharedInstance().getDateTime(str: self.dateTime)
         }
         //            self.footBallViewModel.getFoot1BallNet(date: date)
-        self.basketBallViewModel.getbasket1Net(type:self.viewDesc.rawValue.string, date: date)
+        self.basketBallViewModel.getBasketInfoBallNet(type:self.viewDesc.rawValue.string, date: date)
     }
     /*
     // MARK: - Navigation

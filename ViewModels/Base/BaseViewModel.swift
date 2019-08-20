@@ -41,6 +41,10 @@ class BaseViewModel: NSObject {
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     func tapViewNoneData(){
         
     }
