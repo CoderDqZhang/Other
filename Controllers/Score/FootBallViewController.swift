@@ -58,6 +58,10 @@ class FootBallViewController: BaseViewController {
         if self.viewDesc == .timely {
             self.footBallViewModel.socketData()
         }
+        
+        if self.viewDesc != .amidithion {
+            NotificationCenter.default.addObserver(self.footBallViewModel, selector: #selector(self.footBallViewModel.filterArray), name: NSNotification.Name.init(RELOADCOLLECTFOOTBALLMODEL), object: nil)
+        }
     }
     
     func getNetWorkData(){

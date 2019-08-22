@@ -149,6 +149,19 @@ class AnimationTools: NSObject {
             finish(ret)
         }
     }
+    
+    func opacityForever_Animation() -> CABasicAnimation{
+        
+        let animation = CABasicAnimation.init(keyPath: "opacity")
+        animation.fromValue = 1.0
+        animation.toValue = 0.5
+        animation.autoreverses = true
+        animation.duration = 2
+        animation.repeatCount =  10000000
+        animation.isRemovedOnCompletion = false
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        return animation
+    }
 }
 
 extension AnimationTools : CAAnimationDelegate {

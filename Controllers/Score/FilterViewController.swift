@@ -91,7 +91,12 @@ class FilterViewController: BaseViewController {
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets.init(top: 8, left: 15, bottom: 8, right: 15)
 
-        collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:SCREENHEIGHT - 108 - 48), collectionViewLayout: layout)
+        if #available(iOS 11.0, *) {
+            collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - NAV_HEIGHT - 49 - 48 - 44 - TABBAR_HEIGHT), collectionViewLayout: layout)
+        } else {
+            // Fallback on earlier versions
+           collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - 49 - 48 - 44), collectionViewLayout: layout)
+        }
         collectionView?.backgroundColor = App_Theme_F6F6F6_Color
         collectionView.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: FilterCollectionViewCell.description())
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
@@ -177,15 +182,24 @@ class FilterViewController: BaseViewController {
     
     func addRightView(dic:NSDictionary){
         if indexView == nil {
-            let frame = CGRect(x: SCREENWIDTH - indexWidth,
-                               y: 0,
-                               width: indexWidth,
-                               height: SCREENHEIGHT - 108 - 44 - 44)
+            var frame:CGRect!
+            if #available(iOS 11.0, *) {
+                frame = CGRect(x: SCREENWIDTH - indexWidth,
+                                   y: 0,
+                                   width: indexWidth,
+                                   height: view.frame.size.height - NAV_HEIGHT - 49 - 48 - 64 - TABBAR_HEIGHT)
+            } else {
+                frame = CGRect(x: SCREENWIDTH - indexWidth,
+                                   y: 0,
+                                   width: indexWidth,
+                                   height: view.frame.size.height - 49 - 48 - 64)
+                // Fallback on earlier versions
+            }
             indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: dic.allKeys.sorted(by: { (first, seconde) -> Bool in
                 return (first as! String) < (seconde as! String)
             }))
+            indexView.backgroundColor = .red
             indexView?.delegate = self
-            indexView!.autoresizingMask = [.flexibleHeight,.flexibleLeftMargin]
             indexView!.addTarget(self, action: #selector(indexViewValueChanged(sender:)), for: .valueChanged)
             self.view.addSubview(indexView!)
             self.view.bringSubviewToFront(indexView!)
@@ -232,6 +246,6 @@ extension FilterViewController : BDKCollectionIndexViewDelegate {
     }
     
     func collectionIndexView(_ collectionIndexView: BDKCollectionIndexView!, isPressedOn pressedIndex: UInt, indexTitle: String!) {
-        
+        _ = Tools.shareInstance.showMessage(KWindow, msg: indexTitle, autoHidder: true)
     }
 }

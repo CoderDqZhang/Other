@@ -251,14 +251,20 @@ class CacheManager: NSObject {
         return nil
     }
     
-    func saveFootBallMatchCollectModel(point:NSDictionary){
-        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: FOOTBALLMATCHCOLLECTMODEL)
+    func saveFootBallMatchCollectModel(point:NSMutableArray){
+        let resultArray = point.filter({ (dic) -> Bool in
+            return (dic as! FootBallModel).status != 8
+        })
+        CacheManager._sharedInstance.otherCache?.setObject(NSMutableArray.init(array: resultArray), forKey: FOOTBALLMATCHCOLLECTMODEL)
     }
     
-    func getFootBallMatchCollectModel() ->NSDictionary?{
+    func getFootBallMatchCollectModel() ->NSMutableArray?{
         if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: FOOTBALLMATCHCOLLECTMODEL))! {
             let item = (CacheManager._sharedInstance.otherCache?.object(forKey: FOOTBALLMATCHCOLLECTMODEL))!
-            return item as? NSDictionary
+            let resultArray = (item as! NSMutableArray).filter({ (dic) -> Bool in
+                return (dic as! FootBallModel).status != 8
+            })
+            return  NSMutableArray.init(array: resultArray)
         }
         return nil
     }
@@ -323,14 +329,20 @@ class CacheManager: NSObject {
         return nil
     }
     
-    func saveBasketBallMatchCollectModel(point:NSDictionary){
-        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: BASKETBALLMATCHCOLLECTMODEL)
+    func saveBasketBallMatchCollectModel(point:NSMutableArray){
+        let resultArray = point.filter({ (dic) -> Bool in
+            return (dic as! BasketBallModel).status != 8
+        })
+        CacheManager._sharedInstance.otherCache?.setObject(NSMutableArray.init(array: resultArray), forKey: BASKETBALLMATCHCOLLECTMODEL)
     }
     
-    func getBasketBallMatchCollectModel() ->NSDictionary?{
+    func getBasketBallMatchCollectModel() ->NSMutableArray?{
         if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: BASKETBALLMATCHCOLLECTMODEL))! {
             let item = (CacheManager._sharedInstance.otherCache?.object(forKey: BASKETBALLMATCHCOLLECTMODEL))!
-            return item as? NSDictionary
+            let resultArray = (item as! NSMutableArray).filter({ (dic) -> Bool in
+                return (dic as! BasketBallModel).status != 8
+            })
+            return NSMutableArray.init(array: resultArray)
         }
         return nil
     }

@@ -20,6 +20,7 @@ class BasketBallModel  : NSObject, NSCoding{
     var section : Int!
     var status : Int!
     var time : Int!
+    var isSelect: Bool!
     
     
     /**
@@ -40,6 +41,7 @@ class BasketBallModel  : NSObject, NSCoding{
             basketballTeamB = BasketBallteamA(fromDictionary: basketballTeamBData)
         }
         id = dictionary["id"] as? Int
+        isSelect = dictionary["is_select"] as? Bool
         section = dictionary["section"] as? Int
         status = dictionary["status"] as? Int
         time = dictionary["time"] as? Int
@@ -75,6 +77,9 @@ class BasketBallModel  : NSObject, NSCoding{
         if status != nil{
             dictionary["status"] = status
         }
+        if isSelect != nil{
+            dictionary["is_select"] = isSelect
+        }
         if time != nil{
             dictionary["time"] = time
         }
@@ -93,6 +98,7 @@ class BasketBallModel  : NSObject, NSCoding{
         basketballRemark = aDecoder.decodeObject(forKey: "basketball_remark") as? BasketballRemark
         basketballTeamB = aDecoder.decodeObject(forKey: "basketball_teamB") as? BasketBallteamA
         id = aDecoder.decodeObject(forKey: "id") as? Int
+        isSelect = aDecoder.decodeObject(forKey: "is_select") as? Bool
         section = aDecoder.decodeObject(forKey: "section") as? Int
         status = aDecoder.decodeObject(forKey: "status") as? Int
         time = aDecoder.decodeObject(forKey: "time") as? Int
@@ -131,6 +137,9 @@ class BasketBallModel  : NSObject, NSCoding{
         }
         if time != nil{
             aCoder.encode(time, forKey: "time")
+        }
+        if isSelect != nil{
+            aCoder.encode(isSelect, forKey: "is_select")
         }
         
     }

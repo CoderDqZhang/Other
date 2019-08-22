@@ -26,12 +26,32 @@ class BasketBallViewModel: BaseViewModel {
     
     func tableViewBasketBallTableViewCellSetData(_ indexPath:IndexPath, cell:BasketBallTableViewCell) {
         if self.basketBallArray.count > 0 {
-            let dic = self.basketBallArray[indexPath.section]
-            if dic is NSDictionary {
-                cell.cellSetData(model: BasketBallModel.init(fromDictionary: self.basketBallArray[indexPath.section] as! [String : Any]))
-            }else{
-                cell.cellSetData(model:  self.basketBallArray[indexPath.section] as! BasketBallModel)
+            cell.cellSetData(model:  self.basketBallArray[indexPath.section] as! BasketBallModel)
+            cell.basketBallTableViewCellClouse = { type,model in
+                self.saveCollectModel(type, model)
             }
+        }
+    }
+    
+    func saveCollectModel(_ type:BasketBallCollectType, _ model:BasketBallModel){
+        DispatchQueue.global(qos: .default).sync {
+            var selectArray:NSMutableArray!
+            if CacheManager.getSharedInstance().getBasketBallMatchCollectModel() != nil{
+                selectArray = CacheManager.getSharedInstance().getBasketBallMatchCollectModel()!
+            }else{
+                selectArray = NSMutableArray.init()
+            }
+            if type == .select {
+                model.isSelect = true
+                selectArray.add(model)
+            }else{
+                let temp_array = selectArray.filter({ (dic) -> Bool in
+                    return (dic as! BasketBallModel).id != model.id
+                })
+                selectArray = NSMutableArray.init(array: temp_array)
+            }
+            CacheManager.getSharedInstance().saveBasketBallMatchCollectModel(point:selectArray)
+            NotificationCenter.default.post(name: NSNotification.Name.init(RELOADCOLLECTRBASKETBALLMODEL), object: nil)
         }
     }
     
@@ -95,68 +115,90 @@ class BasketBallViewModel: BaseViewModel {
     }
     
     func basketBallBindText(_ dic:NSArray){
-        UserDefaults.standard.set(dic.count, forKey: ALLBASKETBALLMACTH)
-        for match in dic{
-            let temp_array = (match as! NSArray)
-            //去除阶段为0 错误
-            let event = (basketballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[2])") == nil ? [:] : (basketballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[2])")!
-            let model = BasketBallModel.init(fromDictionary: [
-                "id": temp_array[0] as! Int,
-                "section": temp_array[1] as! Int,
-                "basketball_event": event,
-                "status": temp_array[3] as! Int,
-                "time": temp_array[4] as! Int,
-                "all_second": temp_array[5] as! Int,
-                "basketball_teamA": [
-                    "basketball_team_info": [:],
-                    "sort": (temp_array[6] as! NSArray)[1] as! String,
-                    "first": (temp_array[6] as! NSArray)[2] as! Int,
-                    "second": (temp_array[6] as! NSArray)[3] as! Int,
-                    "third": (temp_array[6] as! NSArray)[4] as! Int,
-                    "four": (temp_array[6] as! NSArray)[5] as! Int,
-                    "overtime": (temp_array[6] as! NSArray)[6] as! Int,
-                    "team_name":(temp_array[6] as! NSArray)[7] as! String
-                ],
-                "basketball_teamB": [
-                    "basketball_team_info": [:],
-                    "sort": (temp_array[7] as! NSArray)[1] as! String,
-                    "first": (temp_array[7] as! NSArray)[2] as! Int,
-                    "second": (temp_array[7] as! NSArray)[3] as! Int,
-                    "third": (temp_array[7] as! NSArray)[4] as! Int,
-                    "four": (temp_array[7] as! NSArray)[5] as! Int,
-                    "overtime": (temp_array[7] as! NSArray)[6] as! Int,
-                    "team_name":(temp_array[7] as! NSArray)[7] as! String
-                ],
-                "basketball_remark": [
-                    "remark_detail": (temp_array[8] as! NSArray)[0] as! String
-                ]
-                ])
-            allBasketBallArray.add(model)
+        DispatchQueue.global(qos: .default).sync {
+            UserDefaults.standard.set(dic.count, forKey: ALLBASKETBALLMACTH)
+            for match in dic{
+                let temp_array = (match as! NSArray)
+                //去除阶段为0 错误
+                let event = (basketballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[2])") == nil ? [:] : (basketballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[2])")!
+                let model = BasketBallModel.init(fromDictionary: [
+                    "id": temp_array[0] as! Int,
+                    "section": temp_array[1] as! Int,
+                    "basketball_event": event,
+                    "status": temp_array[3] as! Int,
+                    "time": temp_array[4] as! Int,
+                    "all_second": temp_array[5] as! Int,
+                    "is_select" : false,
+                    "basketball_teamA": [
+                        "basketball_team_info": [:],
+                        "sort": (temp_array[6] as! NSArray)[1] as! String,
+                        "first": (temp_array[6] as! NSArray)[2] as! Int,
+                        "second": (temp_array[6] as! NSArray)[3] as! Int,
+                        "third": (temp_array[6] as! NSArray)[4] as! Int,
+                        "four": (temp_array[6] as! NSArray)[5] as! Int,
+                        "overtime": (temp_array[6] as! NSArray)[6] as! Int,
+                        "team_name":(temp_array[6] as! NSArray)[7] as! String
+                    ],
+                    "basketball_teamB": [
+                        "basketball_team_info": [:],
+                        "sort": (temp_array[7] as! NSArray)[1] as! String,
+                        "first": (temp_array[7] as! NSArray)[2] as! Int,
+                        "second": (temp_array[7] as! NSArray)[3] as! Int,
+                        "third": (temp_array[7] as! NSArray)[4] as! Int,
+                        "four": (temp_array[7] as! NSArray)[5] as! Int,
+                        "overtime": (temp_array[7] as! NSArray)[6] as! Int,
+                        "team_name":(temp_array[7] as! NSArray)[7] as! String
+                    ],
+                    "basketball_remark": [
+                        "remark_detail": (temp_array[8] as! NSArray)[0] as! String
+                    ]
+                    ])
+                allBasketBallArray.add(model)
+            }
+            self.filterArray()
         }
-        self.filterArray()
     }
     
     @objc func filterArray(){
-        self.basketBallArray.removeAllObjects()
-        if CacheManager.getSharedInstance().getBasketBallEventSelectModel() != nil {
-            for str in CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.allKeys{
-                let array = CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.object(forKey: str) as! NSArray
-                for temp in array {
-                    let array = allBasketBallArray.filter { (dic) -> Bool in
-                        return (dic as! BasketBallModel).basketballEvent!.id == ((temp as! NSDictionary).object(forKey: "id") as! Int)
+         DispatchQueue.global(qos: .default).sync {
+            self.basketBallArray.removeAllObjects()
+            if CacheManager.getSharedInstance().getBasketBallEventSelectModel() != nil {
+                for str in CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.allKeys{
+                    let array = CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.object(forKey: str) as! NSArray
+                    for temp in array {
+                        let array = allBasketBallArray.filter { (dic) -> Bool in
+                            return (dic as! BasketBallModel).basketballEvent!.id == ((temp as! NSDictionary).object(forKey: "id") as! Int)
+                        }
+                        self.basketBallArray.addObjects(from: array)
                     }
-                    self.basketBallArray.addObjects(from: array)
+                    
                 }
-                
+            }else{
+                self.basketBallArray = self.allBasketBallArray.mutableCopy() as! NSMutableArray
             }
-        }else{
-            self.basketBallArray = self.allBasketBallArray.mutableCopy() as! NSMutableArray
+            
+            if CacheManager.getSharedInstance().getBasketBallMatchCollectModel() != nil{
+                let select_array = CacheManager.getSharedInstance().getBasketBallMatchCollectModel()!
+                let ids = NSMutableArray.init()
+                for model in select_array {
+                    ids.add((model as! BasketBallModel).id!)
+                }
+                if self.viewDesc == .attention {
+                    self.basketBallArray = select_array.mutableCopy() as! NSMutableArray
+                    self.hiddenMJLoadMoreData(resultData: self.basketBallArray)
+                }else{
+                    for temp_array in self.basketBallArray {
+                        let ret = ids.contains((temp_array as! BasketBallModel).id!)
+                        (temp_array as! BasketBallModel).isSelect = ret
+                    }
+                }
+            }
+            
+            self.basketBallArray = NSMutableArray.init(array: self.basketBallArray.sorted { (dic, dic1) -> Bool in
+                return (dic as! BasketBallModel).time < (dic1 as! BasketBallModel).time
+                } as NSArray)
+            self.reloadTableViewData()
         }
-        
-        self.basketBallArray = NSMutableArray.init(array: self.basketBallArray.sorted { (dic, dic1) -> Bool in
-            return (dic as! BasketBallModel).time < (dic1 as! BasketBallModel).time
-            } as NSArray)
-        self.reloadTableViewData()
     }
     
     func socketUpdateData(match:NSArray, model:BasketBallModel){

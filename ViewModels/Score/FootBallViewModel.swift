@@ -45,29 +45,34 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func saveCollectModel(_ type:ScoreListCollectType, _ model:FootBallModel){
-        var selectArray:NSMutableArray!
-        if CacheManager.getSharedInstance().getFootBallMatchCollectModel() != nil && CacheManager.getSharedInstance().getFootBallMatchCollectModel()?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) != nil {
-            selectArray = (CacheManager.getSharedInstance().getFootBallMatchCollectModel()?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) as! NSMutableArray)
-        }else{
-            selectArray = NSMutableArray.init()
+        
+        DispatchQueue.global(qos: .default).sync {
+            var selectArray:NSMutableArray!
+            if CacheManager.getSharedInstance().getFootBallMatchCollectModel() != nil{
+                selectArray = CacheManager.getSharedInstance().getFootBallMatchCollectModel()!
+            }else{
+                selectArray = NSMutableArray.init()
+            }
+            if type == .select {
+                model.isSelect = true
+                selectArray.add(model)
+            }else{
+                let temp_array = selectArray.filter({ (dic) -> Bool in
+                    return (dic as! FootBallModel).id != model.id
+                })
+                selectArray = NSMutableArray.init(array: temp_array)
+            }
+            CacheManager.getSharedInstance().saveFootBallMatchCollectModel(point: selectArray)
+            NotificationCenter.default.post(name: NSNotification.Name.init(RELOADCOLLECTFOOTBALLMODEL), object: nil)
         }
-        if type == .select {
-            model.isSelect = true
-            selectArray.add(model)
-            (selectArray.object(at: 0) as! FootBallModel).isSelect = true
-        }else{
-            let temp_array = selectArray.filter({ (dic) -> Bool in
-                return (dic as! FootBallModel).id != model.id
-            })
-            selectArray = NSMutableArray.init(array: temp_array)
-        }
-        CacheManager.getSharedInstance().saveFootBallMatchCollectModel(point: NSDictionary.init(dictionary: [Date.init().string(withFormat: "yyyyMMdd") : selectArray as Any]))
-        self.filterArray()
-        NotificationCenter.default.post(name: NSNotification.Name.init(RELOADFILTERFOOTBALLMODEL), object: nil)
     }
     
     override func tapViewNoneData() {
-        (self.controller as! FootBallViewController).getNetWorkData()
+        if self.viewDesc != .attention {
+            (self.controller as! FootBallViewController).getNetWorkData()
+        }else{
+            self.filterArray()
+        }
     }
     
     func socketData(){
@@ -124,105 +129,110 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func footBallBindText(_ dic:NSArray){
-        UserDefaults.standard.set(dic.count, forKey: ALLFOOTBALLMACTH)
-        for match in dic{
-            let temp_array = (match as! NSArray)
-            //去除阶段为0 错误
-            let north_sigle:NSDictionary = (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
-            let lottery:NSDictionary = (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
-            let model = FootBallModel.init(fromDictionary: [
-                "id": temp_array[0] as! Int,
-                "event_info": (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])") == nil ? [:] : (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])")!,
-                "status": temp_array[2] as! Int,
-                "start_time": temp_array[3] as! Int,
-                "time": temp_array[4] as! Int,
-                "is_select" : false,
-                "teamA": [
-                    "score": (temp_array[5] as! NSArray)[2] as! Int,
-                    "corner_ball": (temp_array[5] as! NSArray)[6] as! Int,
-                    "add_time_score": (temp_array[5] as! NSArray)[8] as! Int,
-                    "half_score": (temp_array[5] as! NSArray)[3] as! Int,
-                    "point_score": (temp_array[5] as! NSArray)[6] as! Int,
-                    "half_red": (temp_array[5] as! NSArray)[4] as! Int,
-                    "sort": (temp_array[5] as! NSArray)[1] as! String,
-                    "team_name":(temp_array[5] as! NSArray)[9] as! String,
-                    "half_yellow": (temp_array[5] as! NSArray)[5] as! Int,
-                    "teams_info": [],
-                    "id":(temp_array[5] as! NSArray)[0] as! Int
-                ],
-                "teamB": [
-                    "score": (temp_array[6] as! NSArray)[2] as! Int,
-                    "corner_ball": (temp_array[6] as! NSArray)[6] as! Int,
-                    "add_time_score": (temp_array[6] as! NSArray)[8] as! Int,
-                    "half_score": (temp_array[6] as! NSArray)[3] as! Int,
-                    "point_score": (temp_array[6] as! NSArray)[6] as! Int,
-                    "half_red": (temp_array[6] as! NSArray)[4] as! Int,
-                    "sort": (temp_array[6] as! NSArray)[1] as! String,
-                    "team_name":(temp_array[6] as! NSArray)[9] as! String,
-                    "half_yellow": (temp_array[6] as! NSArray)[5] as! Int,
-                    "teams_info": [],
-                    "id":(temp_array[5] as! NSArray)[0] as! Int
-                ],
-                "remark": [
-                    "remark_detail": (temp_array[7] as! NSArray)[0] as! String,
-                    "is_center": (temp_array[7] as! NSArray)[1] as! Int,
-                    "number_row": (temp_array[7] as! NSArray)[2] as! Int,
-                ],
-                "season": [
-                    "id": (temp_array[8] as! NSArray)[0] as! Int,
-                    "year": (temp_array[8] as! NSArray)[1] as! String
-                ],
-                "north_sigle":north_sigle,
-                "lottery":lottery,
-                "stage": [
-                    "stage_info": [],
-                    "number_row": 0,
-                    "number_column": 0
-                ]
-                ])
-            allFootBallArray.add(model)
+         DispatchQueue.global(qos: .default).sync {
+            UserDefaults.standard.set(dic.count, forKey: ALLFOOTBALLMACTH)
+            for match in dic{
+                let temp_array = (match as! NSArray)
+                //去除阶段为0 错误
+                let north_sigle:NSDictionary = (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
+                let lottery:NSDictionary = (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
+                let model = FootBallModel.init(fromDictionary: [
+                    "id": temp_array[0] as! Int,
+                    "event_info": (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])") == nil ? [:] : (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])")!,
+                    "status": temp_array[2] as! Int,
+                    "start_time": temp_array[3] as! Int,
+                    "time": temp_array[4] as! Int,
+                    "is_select" : false,
+                    "teamA": [
+                        "score": (temp_array[5] as! NSArray)[2] as! Int,
+                        "corner_ball": (temp_array[5] as! NSArray)[6] as! Int,
+                        "add_time_score": (temp_array[5] as! NSArray)[8] as! Int,
+                        "half_score": (temp_array[5] as! NSArray)[3] as! Int,
+                        "point_score": (temp_array[5] as! NSArray)[6] as! Int,
+                        "half_red": (temp_array[5] as! NSArray)[4] as! Int,
+                        "sort": (temp_array[5] as! NSArray)[1] as! String,
+                        "team_name":(temp_array[5] as! NSArray)[9] as! String,
+                        "half_yellow": (temp_array[5] as! NSArray)[5] as! Int,
+                        "teams_info": [],
+                        "id":(temp_array[5] as! NSArray)[0] as! Int
+                    ],
+                    "teamB": [
+                        "score": (temp_array[6] as! NSArray)[2] as! Int,
+                        "corner_ball": (temp_array[6] as! NSArray)[6] as! Int,
+                        "add_time_score": (temp_array[6] as! NSArray)[8] as! Int,
+                        "half_score": (temp_array[6] as! NSArray)[3] as! Int,
+                        "point_score": (temp_array[6] as! NSArray)[6] as! Int,
+                        "half_red": (temp_array[6] as! NSArray)[4] as! Int,
+                        "sort": (temp_array[6] as! NSArray)[1] as! String,
+                        "team_name":(temp_array[6] as! NSArray)[9] as! String,
+                        "half_yellow": (temp_array[6] as! NSArray)[5] as! Int,
+                        "teams_info": [],
+                        "id":(temp_array[5] as! NSArray)[0] as! Int
+                    ],
+                    "remark": [
+                        "remark_detail": (temp_array[7] as! NSArray)[0] as! String,
+                        "is_center": (temp_array[7] as! NSArray)[1] as! Int,
+                        "number_row": (temp_array[7] as! NSArray)[2] as! Int,
+                    ],
+                    "season": [
+                        "id": (temp_array[8] as! NSArray)[0] as! Int,
+                        "year": (temp_array[8] as! NSArray)[1] as! String
+                    ],
+                    "north_sigle":north_sigle,
+                    "lottery":lottery,
+                    "stage": [
+                        "stage_info": [],
+                        "number_row": 0,
+                        "number_column": 0
+                    ]
+                    ])
+                allFootBallArray.add(model)
+            }
+            self.filterArray()
         }
-        self.filterArray()
     }
     
     @objc func filterArray(){
-        self.footBallArray.removeAllObjects()
-        if CacheManager.getSharedInstance().getFootBallEventSelectModel() != nil {
-            for str in CacheManager.getSharedInstance().getFootBallEventSelectModel()!.allKeys{
-                let array = CacheManager.getSharedInstance().getFootBallEventSelectModel()!.object(forKey: str) as! NSArray
-                for temp in array {
-                    let array = allFootBallArray.filter { (dic) -> Bool in
-                        return (dic as! FootBallModel).eventInfo!.id == ((temp as! NSDictionary).object(forKey: "id") as! Int)
+        DispatchQueue.global(qos: .default).sync {
+            self.footBallArray.removeAllObjects()
+            if CacheManager.getSharedInstance().getFootBallEventSelectModel() != nil {
+                for str in CacheManager.getSharedInstance().getFootBallEventSelectModel()!.allKeys{
+                    let array = CacheManager.getSharedInstance().getFootBallEventSelectModel()!.object(forKey: str) as! NSArray
+                    for temp in array {
+                        let array = allFootBallArray.filter { (dic) -> Bool in
+                            return (dic as! FootBallModel).eventInfo!.id == ((temp as! NSDictionary).object(forKey: "id") as! Int)
+                        }
+                        self.footBallArray.addObjects(from: array)
                     }
-                    self.footBallArray.addObjects(from: array)
+                    
                 }
-                
-            }
-        }else{
-            self.footBallArray = self.allFootBallArray.mutableCopy() as! NSMutableArray
-        }
-        
-        if CacheManager.getSharedInstance().getFootBallMatchCollectModel() != nil && CacheManager.getSharedInstance().getFootBallMatchCollectModel()?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) != nil {
-            let select_array = CacheManager.getSharedInstance().getFootBallMatchCollectModel()?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) as! NSArray
-            let ids = NSMutableArray.init()
-            for model in select_array {
-                ids.add((model as! FootBallModel).id!)
-            }
-            if self.viewDesc == .attention {
-                self.footBallArray = select_array.mutableCopy() as! NSMutableArray
-                self.hiddenMJLoadMoreData(resultData: self.footBallArray)
             }else{
-                for temp_array in self.footBallArray {
-                    let ret = ids.contains((temp_array as! FootBallModel).id!)
-                    (temp_array as! FootBallModel).isSelect = ret
+                self.footBallArray = self.allFootBallArray.mutableCopy() as! NSMutableArray
+            }
+            
+            if CacheManager.getSharedInstance().getFootBallMatchCollectModel() != nil {
+                let select_array = CacheManager.getSharedInstance().getFootBallMatchCollectModel()!
+                let ids = NSMutableArray.init()
+                for model in select_array {
+                    ids.add((model as! FootBallModel).id!)
+                }
+                if self.viewDesc == .attention {
+                    self.footBallArray = select_array.mutableCopy() as! NSMutableArray
+                    self.hiddenMJLoadMoreData(resultData: self.footBallArray)
+                }else{
+                    for temp_array in self.footBallArray {
+                        let ret = ids.contains((temp_array as! FootBallModel).id!)
+                        (temp_array as! FootBallModel).isSelect = ret
+                    }
                 }
             }
+            
+            self.footBallArray = NSMutableArray.init(array: self.footBallArray.sorted { (dic, dic1) -> Bool in
+                return (dic as! FootBallModel).startTime < (dic1 as! FootBallModel).startTime
+                } as NSArray)
+            self.reloadTableViewData()
         }
         
-        self.footBallArray = NSMutableArray.init(array: self.footBallArray.sorted { (dic, dic1) -> Bool in
-            return (dic as! FootBallModel).startTime < (dic1 as! FootBallModel).startTime
-            } as NSArray)
-        self.reloadTableViewData()
     }
     
     func socketUpdateData(match:NSArray, model:FootBallModel){

@@ -36,7 +36,11 @@ class BasKetBallViewController: BaseViewController {
 //            }
 //        }
         self.setUpRefreshData {
-            self.getNetWorkData()
+            if self.viewDesc != .attention {
+                self.getNetWorkData()
+            }else{
+                self.basketBallViewModel.filterArray()
+            }
         }
     }
     
@@ -45,11 +49,15 @@ class BasKetBallViewController: BaseViewController {
         self.basketBallViewModel.viewDesc = self.viewDesc
         if self.viewDesc != .attention{
             self.getNetWorkData()
+        }else{
+            self.basketBallViewModel.filterArray()
         }
         if self.viewDesc == .timely {
             self.basketBallViewModel.socketData()
         }
-        
+        if self.viewDesc != .amidithion {
+            NotificationCenter.default.addObserver(self.basketBallViewModel, selector: #selector(self.basketBallViewModel.filterArray), name: NSNotification.Name.init(RELOADCOLLECTRBASKETBALLMODEL), object: nil)
+        }
     }
     
     func getNetWorkData(){

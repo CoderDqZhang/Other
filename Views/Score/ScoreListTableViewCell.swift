@@ -176,6 +176,7 @@ class ScoreListTableViewCell: UITableViewCell {
         attentionButton.setImage(UIImage.init(named: "score_normal_attention"), for: .normal)
         attentionButton.addAction({ (button) in
             if self.scoreListTableViewCellClouse != nil {
+                self.attentionButton.setImage(UIImage.init(named: button?.tag == 1000 ? "score_select_attention" : "score_normal_attention"), for: .normal)
                 self.scoreListTableViewCellClouse(button?.tag == 1000 ? .select : .unselect, self.model)
             }
         }, for: .touchUpInside)
@@ -201,7 +202,11 @@ class ScoreListTableViewCell: UITableViewCell {
             scoreStatus.text = "完场"
             scoreStatus.textColor = App_Theme_FF4343_Color
         }else if model.status < 7 {
-            scoreStatus.text = "进行中"
+            let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.startTime.double))
+            scoreStatus.text = String(format: "%.0f“", double)
+            if scoreStatus.layer.animation(forKey: "animation") == nil {
+                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+            }
             scoreStatus.textColor = App_Theme_FFAC1B_Color
         }else{
             scoreStatus.text = "延迟"
@@ -212,6 +217,12 @@ class ScoreListTableViewCell: UITableViewCell {
             timeLabel.text = "北单 \(model.northSigle.issueNum!)"
         }else{
             timeLabel.isHidden = true
+        }
+        
+        if model.status == 8 {
+            attentionButton.isHidden = true
+        }else{
+            attentionButton.isHidden = false
         }
         
         teamA.text = model.teamA.teamName

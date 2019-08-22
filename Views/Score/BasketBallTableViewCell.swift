@@ -8,7 +8,12 @@
 
 import UIKit
 
-typealias BasketBallTableViewCellClouse = () ->Void
+enum BasketBallCollectType {
+    case select
+    case unselect
+}
+
+typealias BasketBallTableViewCellClouse = (_ type:BasketBallCollectType, _ model:BasketBallModel) ->Void
 
 class BasketBallTableViewCell: UITableViewCell {
 
@@ -39,6 +44,7 @@ class BasketBallTableViewCell: UITableViewCell {
     var allTeamB:YYLabel!
     
     var attentionButton:AnimationButton!
+    var model:BasketBallModel!
     
     var basketBallTableViewCellClouse:BasketBallTableViewCellClouse!
     
@@ -202,9 +208,10 @@ class BasketBallTableViewCell: UITableViewCell {
         
         attentionButton = AnimationButton.init(type: .custom)
         attentionButton.setImage(UIImage.init(named: "score_normal_attention"), for: .normal)
+        attentionButton.tag = 1000
         attentionButton.addAction({ (button) in
             if self.basketBallTableViewCellClouse != nil {
-                self.basketBallTableViewCellClouse()
+                self.basketBallTableViewCellClouse(button?.tag == 1000 ? .select : .unselect, self.model)
             }
         }, for: .touchUpInside)
         self.contentView.addSubview(attentionButton)
@@ -217,6 +224,7 @@ class BasketBallTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:BasketBallModel){
+        self.model = model
         scoreType.text = model.basketballEvent.nameZh
         scoreTime.text = Date.init(timeIntervalSince1970: model.time.double).string(withFormat: "HH:mm")
         
@@ -265,6 +273,9 @@ class BasketBallTableViewCell: UITableViewCell {
         allTeamA.text = all_score_a.string
         let all_score_b = model.basketballTeamB.first + model.basketballTeamB.second + model.basketballTeamB.third + model.basketballTeamB.four +  Int(model.basketballTeamB.overtime)
         allTeamB.text = all_score_b.string
+        
+        attentionButton.tag = model.isSelect ? 2000 : 1000
+        attentionButton.setImage(UIImage.init(named: model.isSelect ? "score_select_attention" : "score_normal_attention"), for: .normal)
     }
     
     
