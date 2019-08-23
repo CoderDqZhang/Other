@@ -50,6 +50,10 @@ let ReplyreplyreplyListUrl = "\(RootUrl)commentReply/getReplyList"
 let ReplyreplyreplyDeleteUrl = "\(RootUrl)commentReply/delReply"
 let ReportAddReportUrl = "\(RootUrl)report/addReport"
 
+let ArticleTypeUrl = "\(RootUrl)article/getArticleType"
+let ArticleInfoUrl = "\(RootUrl)article/getArticleInfo"
+let ArticleListUrl = "\(RootUrl)article"
+
 let CommentgetPointUrl = "\(RootUrl)common/getPointList"
 let CommentgetRechargeUrl = "\(RootUrl)common/getRechargeList"
 let CommentgetTimetUrl = "\(RootUrl)common/getTime"

@@ -65,20 +65,21 @@ class NewsViewModel: BaseViewModel {
             let dicData:NSDictionary = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]).toDictionary() as NSDictionary
             let postDetail = PostDetailViewController()
             postDetail.changeAllCommentAndLikeNumberClouse = { type, status in
+                let muDic = NSMutableDictionary.init(dictionary: dicData)
                 if type == .comment {
                     if status == .add {
-                        dicData.setValue(dicData["commentTotal"] as! Int + 1, forKey: "commentTotal")
+                        muDic.setValue(dicData["commentTotal"] as! Int + 1, forKey: "commentTotal")
                     }else{
-                        dicData.setValue(dicData["commentTotal"] as! Int - 1, forKey: "commentTotal")
+                        muDic.setValue(dicData["commentTotal"] as! Int - 1, forKey: "commentTotal")
                     }
                 }else{
                     if status == .add {
-                        dicData.setValue(dicData["favor"] as! Int + 1, forKey: "favor")
+                        muDic.setValue(dicData["favor"] as! Int + 1, forKey: "favor")
                     }else{
-                        dicData.setValue(dicData["favor"] as! Int - 1, forKey: "favor")
+                        muDic.setValue(dicData["favor"] as! Int - 1, forKey: "favor")
                     }
                 }
-                self.tipListArray.replaceObject(at: indexPath.section - 2, with: dicData)
+                self.tipListArray.replaceObject(at: indexPath.section - 2, with: muDic)
                 self.reloadTableViewData()
             }
             

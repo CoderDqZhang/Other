@@ -76,11 +76,7 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     
     override func bindViewModelLogic(){
         self.bindViewModel(viewModel: segmentViewModel, controller: self)
-        
-        self.outFallController.postDetailDataClouse = { data, type, indexPath in
-            self.segmentViewModel.pushPostDetailViewController(data, type, indexPath!)
-        }
-        
+        self.segmentViewModel.getArticleType()
     }
     
     func createNavigationItem(){
@@ -127,11 +123,17 @@ extension SegmentViewController : JXSegmentedViewDelegate {
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
         //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
         listContainerView.didClickSelectedItem(at: index)
+        if squareViewController.titles == nil {
+            self.segmentViewModel.getArticleType()
+        }
     }
     
     func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {
         //传递scrollingFrom事件给listContainerView，必须调用！！！
         listContainerView.segmentedViewScrolling(from: leftIndex, to: rightIndex, percent: percent, selectedIndex: segmentedView.selectedIndex)
+        if squareViewController.titles == nil {
+            self.segmentViewModel.getArticleType()
+        }
     }
 }
 
@@ -146,7 +148,9 @@ extension SegmentViewController: JXSegmentedListContainerViewDataSource {
             outFallController.initSView(type: index)
             return outFallController
         }else{
-            squareViewController.initSView(type: index)
+            squareViewController.aritcleDetialClouse = { (data,type, indexPath) in
+                self.segmentViewModel.pushPostDetailViewController(data,type,indexPath)
+                } as! AritcleDetialClouse
             return squareViewController
         }
         

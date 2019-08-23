@@ -16,6 +16,7 @@ enum ToatalNumber {
 enum ToolsStatus {
     case add
     case delete
+    case none
 }
 
 enum PostDetaiGoToType {
@@ -72,9 +73,10 @@ class PostDetailViewController: BaseViewController {
                     self.postDetailViewModel.tipDetailModel.commentTotal = self.postDetailViewModel.tipDetailModel.commentTotal + 1
                     self.postDetailViewModel.commentListArray.insert(dic, at: 0)
                     self.postDetailViewModel.reloadTableViewData()
-                }
-                if self.changeAllCommentAndLikeNumberClouse != nil {
-                    self.changeAllCommentAndLikeNumberClouse(.comment, .add)
+                    
+                    if self.changeAllCommentAndLikeNumberClouse != nil {
+                        self.changeAllCommentAndLikeNumberClouse(.comment, .add)
+                    }
                 }
                 NavigaiontPresentView(self, toController: commentPost)
             }, senderClick: { str in

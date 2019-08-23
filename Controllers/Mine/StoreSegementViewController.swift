@@ -51,7 +51,7 @@ class StoreSegementViewController: BaseViewController {
         //设置数据
 //        otherViewModel.getUserInfoNet(userId: (postData.object(forKey: "id") as! Int).string)
         userHeader.storeViewClouse = {
-
+            NavigationPushView(self, toConroller: StoreInfoViewController())
         }
         userHeaderContainerView.addSubview(userHeader)
         

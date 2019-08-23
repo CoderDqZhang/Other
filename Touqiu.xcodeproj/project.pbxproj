@@ -105,6 +105,8 @@
 		1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */; };
 		1F991775229E6EC300C8FDD5 /* OtherPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */; };
 		1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */; };
+		1FBD7700230F950500852B4D /* ArticleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD76FF230F950500852B4D /* ArticleDetailViewModel.swift */; };
+		1FBD7702230F96D400852B4D /* ArticleDetailContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */; };
 		1FD6DD2B22E00AD70090318E /* AppInfomationsTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */; };
 		1FD6DD2D22E00CEF0090318E /* UIDeviceExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
@@ -287,6 +289,12 @@
 		1FEDB017230A950700024985 /* CoinsSegementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB016230A950700024985 /* CoinsSegementViewModel.swift */; };
 		1FEDB019230AB51E00024985 /* BasketBallIndexModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB018230AB51E00024985 /* BasketBallIndexModel.swift */; };
 		1FEDB01B230AB59900024985 /* BasketBallEventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB01A230AB59900024985 /* BasketBallEventModel.swift */; };
+		1FEDB01D230E755500024985 /* ArticleTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB01C230E755300024985 /* ArticleTypeModel.swift */; };
+		1FEDB01F230E75AE00024985 /* ArticleInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB01E230E75AE00024985 /* ArticleInfoModel.swift */; };
+		1FEDB021230E836E00024985 /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB020230E836E00024985 /* ArticleDetailViewController.swift */; };
+		1FEDB023230E88A300024985 /* StoreInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB022230E88A300024985 /* StoreInfoViewController.swift */; };
+		1FEDB025230E897600024985 /* StoreInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB024230E897600024985 /* StoreInfoViewModel.swift */; };
+		1FEDB027230E89EA00024985 /* StoreInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDB026230E89EA00024985 /* StoreInfoCollectionViewCell.swift */; };
 		1FF025A722D5C79D005E2ED2 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A622D5C79C005E2ED2 /* PageModel.swift */; };
 		1FF025A922D6DF95005E2ED2 /* CoinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */; };
 		1FF025AB22D6E4CE005E2ED2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */; };
@@ -465,6 +473,8 @@
 		1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansFlowwerModel.swift; sourceTree = "<group>"; };
 		1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPostViewController.swift; sourceTree = "<group>"; };
 		1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherGuessViewController.swift; sourceTree = "<group>"; };
+		1FBD76FF230F950500852B4D /* ArticleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewModel.swift; sourceTree = "<group>"; };
+		1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailContentTableViewCell.swift; sourceTree = "<group>"; };
 		1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfomationsTools.swift; sourceTree = "<group>"; };
 		1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtentions.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -688,6 +698,12 @@
 		1FEDB016230A950700024985 /* CoinsSegementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsSegementViewModel.swift; sourceTree = "<group>"; };
 		1FEDB018230AB51E00024985 /* BasketBallIndexModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallIndexModel.swift; sourceTree = "<group>"; };
 		1FEDB01A230AB59900024985 /* BasketBallEventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallEventModel.swift; sourceTree = "<group>"; };
+		1FEDB01C230E755300024985 /* ArticleTypeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTypeModel.swift; sourceTree = "<group>"; };
+		1FEDB01E230E75AE00024985 /* ArticleInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleInfoModel.swift; sourceTree = "<group>"; };
+		1FEDB020230E836E00024985 /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
+		1FEDB022230E88A300024985 /* StoreInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoViewController.swift; sourceTree = "<group>"; };
+		1FEDB024230E897600024985 /* StoreInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoViewModel.swift; sourceTree = "<group>"; };
+		1FEDB026230E89EA00024985 /* StoreInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		1FF025A622D5C79C005E2ED2 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		1FF025A822D6DF95005E2ED2 /* CoinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsModel.swift; sourceTree = "<group>"; };
 		1FF025AA22D6E4CE005E2ED2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -1394,6 +1410,7 @@
 				1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */,
 				1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */,
 				1F1C1B5522A0F56D008031F4 /* StoreSegementViewController.swift */,
+				1FEDB022230E88A300024985 /* StoreInfoViewController.swift */,
 				1F991753229B92BB00C8FDD5 /* StoreViewController.swift */,
 				1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */,
 				1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */,
@@ -1412,6 +1429,7 @@
 				1FE5BEF22282A21600C9137C /* OutFallViewController.swift */,
 				1F91C3C52305683D0030916F /* SquareSegmentViewController.swift */,
 				1FE5BDFE2282751400C9137C /* SquareViewController.swift */,
+				1FEDB020230E836E00024985 /* ArticleDetailViewController.swift */,
 			);
 			path = Square;
 			sourceTree = "<group>";
@@ -1486,6 +1504,7 @@
 				1F1C1B3D229F7FC3008031F4 /* AccountTypeTableViewCell.swift */,
 				1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */,
 				1F1C1B5322A0E930008031F4 /* NotificationTableViewCell.swift */,
+				1FEDB026230E89EA00024985 /* StoreInfoCollectionViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1494,6 +1513,7 @@
 			isa = PBXGroup;
 			children = (
 				1F91C3CB23056A910030916F /* SquareTableViewCell.swift */,
+				1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */,
 			);
 			path = Square;
 			sourceTree = "<group>";
@@ -1527,6 +1547,7 @@
 				1F91C3C7230569D30030916F /* SquareSegemtViewModel.swift */,
 				1F91C3C9230569E20030916F /* SquareViewModel.swift */,
 				1FE5BF202282D21F00C9137C /* OutFallViewModel.swift */,
+				1FBD76FF230F950500852B4D /* ArticleDetailViewModel.swift */,
 			);
 			path = Square;
 			sourceTree = "<group>";
@@ -1544,6 +1565,7 @@
 				1FE8DAB9228EC8BF00DCED01 /* RealNameViewModel.swift */,
 				1FE8DABB228EC8D100DCED01 /* SigupVIPViewModel.swift */,
 				1F1C1B5722A0F651008031F4 /* StoreViewModel.swift */,
+				1FEDB024230E897600024985 /* StoreInfoViewModel.swift */,
 				1FE8DAC3228ECD0600DCED01 /* ChangePasswordViewModel.swift */,
 				1FE8DAC5228ED11900DCED01 /* FeedBackViewModel.swift */,
 				1FE8DAD422926AA300DCED01 /* OtherMineViewModel.swift */,
@@ -1634,6 +1656,8 @@
 		1FE5BF132282A4EC00C9137C /* Square */ = {
 			isa = PBXGroup;
 			children = (
+				1FEDB01C230E755300024985 /* ArticleTypeModel.swift */,
+				1FEDB01E230E75AE00024985 /* ArticleInfoModel.swift */,
 			);
 			name = Square;
 			path = ViewModels/Square;
@@ -2118,9 +2142,11 @@
 				1FE5BF1F2282D20D00C9137C /* NewsViewModel.swift in Sources */,
 				1F38665322E6EA950076C580 /* SocketManager.swift in Sources */,
 				1FF025C522DDC441005E2ED2 /* BaseWebViewController.swift in Sources */,
+				1FEDB023230E88A300024985 /* StoreInfoViewController.swift in Sources */,
 				1FE5BE1B228285FA00C9137C /* UIColor+Hex.m in Sources */,
 				1F1C1B30229EA01E008031F4 /* TopUpToolsTableViewCell.swift in Sources */,
 				1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */,
+				1FEDB025230E897600024985 /* StoreInfoViewModel.swift in Sources */,
 				1F91C3C02304049E0030916F /* NorthSigleModel.swift in Sources */,
 				1FF1E52422AF45F600BB9A50 /* InveterViewModel.swift in Sources */,
 				1FE8DAD722926AE900DCED01 /* OtherMineViewController.swift in Sources */,
@@ -2135,6 +2161,7 @@
 				1FE5BF212282D21F00C9137C /* OutFallViewModel.swift in Sources */,
 				1FE8DAF92292C1D200DCED01 /* MyCommentViewController.swift in Sources */,
 				1F395CD522978BFF00781C0C /* CategorySearchViewModel.swift in Sources */,
+				1FEDB021230E836E00024985 /* ArticleDetailViewController.swift in Sources */,
 				1FE8DB1F2294E5DE00DCED01 /* ResetPasViewController.swift in Sources */,
 				1F395CCD2296A99E00781C0C /* CategoryModel.swift in Sources */,
 				1FE5BFB0228CF37E00C9137C /* BaseSearchViewController.swift in Sources */,
@@ -2167,6 +2194,7 @@
 				1FEB98E322F129040038B49F /* BasKetBallViewController.swift in Sources */,
 				1FE5BEB42282866300C9137C /* TAPageControl.m in Sources */,
 				1F1C1B2E229E9FF4008031F4 /* TopUpTableViewCell.swift in Sources */,
+				1FEDB01D230E755500024985 /* ArticleTypeModel.swift in Sources */,
 				1FE8DAC2228ECAF400DCED01 /* FeedBackViewController.swift in Sources */,
 				1FE5BEB22282866200C9137C /* SDCollectionViewCell.m in Sources */,
 				1FE5BE4C2282864300C9137C /* AlertControl+Tools.swift in Sources */,
@@ -2205,6 +2233,7 @@
 				1FE8DAB0228EC7D800DCED01 /* SingUpVIPViewController.swift in Sources */,
 				1FE5BE252282862B00C9137C /* BaseNetWorke.swift in Sources */,
 				1FEB98F322F13FA60038B49F /* ScoreInfoTableViewCell.swift in Sources */,
+				1FEDB01F230E75AE00024985 /* ArticleInfoModel.swift in Sources */,
 				1F395CC72295461000781C0C /* RegisterViewModel.swift in Sources */,
 				1FE8DA98228E8EC500DCED01 /* UIView+ESAddTapGestureRecognizer.m in Sources */,
 				1F395CC3229542E000781C0C /* UserInfoModel.swift in Sources */,
@@ -2219,6 +2248,7 @@
 				1FF1E54522C4BF0000BB9A50 /* UIViewControllerExtentions.swift in Sources */,
 				1FE5BDF52282731C00C9137C /* MainTabBarController.swift in Sources */,
 				1FF025C322DC7A49005E2ED2 /* NotificationModel.swift in Sources */,
+				1FEDB027230E89EA00024985 /* StoreInfoCollectionViewCell.swift in Sources */,
 				1FE5BE362282863D00C9137C /* TransitionAnimatedManager.swift in Sources */,
 				1FE5BDE622817B5F00C9137C /* Define.swift in Sources */,
 				1FE5BF2B2283C1BC00C9137C /* NSString+NSStringAdditions.m in Sources */,
@@ -2293,9 +2323,11 @@
 				1F991762229BF05700C8FDD5 /* CommentModel.swift in Sources */,
 				1FE8DB112293D52A00DCED01 /* ConfirmProtocolTableViewCell.swift in Sources */,
 				1FE5BF242282E59500C9137C /* NSString+AES.m in Sources */,
+				1FBD7702230F96D400852B4D /* ArticleDetailContentTableViewCell.swift in Sources */,
 				1FEDB01B230AB59900024985 /* BasketBallEventModel.swift in Sources */,
 				1FF1E52A22AF55F700BB9A50 /* DailyViewController.swift in Sources */,
 				1F1C1B5222A0E6C6008031F4 /* MessageSegementViewController.swift in Sources */,
+				1FBD7700230F950500852B4D /* ArticleDetailViewModel.swift in Sources */,
 				1FE5BEB12282866200C9137C /* UIView+SDExtension.m in Sources */,
 				1FE8DAFD2292C4E500DCED01 /* MyPostViewModel.swift in Sources */,
 				1FF1E53922BB70AE00BB9A50 /* PointsModel.swift in Sources */,

@@ -32,11 +32,26 @@ class SegmentViewModel: BaseViewModel {
         
     }
     
-    func pushCategoryDetailViewController(_ data:NSDictionary, _ type:CategoryType){
-        
+    func pushPostDetailViewController(_ data:NSDictionary, _ type:ArticleTypeModel, _ indexPath:IndexPath) {
+        let controllerVC = ArticleDetailViewController.init()
+        controllerVC.articleData = data
+        NavigationPushView(self.controller!, toConroller: controllerVC)
     }
     
-    func pushPostDetailViewController(_ data:NSMutableDictionary, _ type:PostType, _ indexPath:IndexPath) {
-        
+    func getArticleType(){
+        BaseNetWorke.getSharedInstance().postUrlWithString(ArticleTypeUrl, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let models = NSMutableArray.init(array: resultDic.value as! Array)
+                var titles:[String] = []
+                for model in models {
+                    titles.append((model as! NSDictionary).object(forKey: "value") as! String)
+                }
+                
+                (self.controller! as! SegmentViewController).squareViewController.titles = titles
+                (self.controller! as! SegmentViewController).squareViewController.articleTypeArray = models
+                (self.controller! as! SegmentViewController).squareViewController.initSView(type: 0)
+                
+            }
+        }
     }
 }

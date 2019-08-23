@@ -13,6 +13,7 @@ import ReactiveCocoa
 import ReactiveSwift
 
 enum PostDetailContentTableViewCellButtonType {
+    case login
     case like
     case collect
 }
@@ -69,14 +70,18 @@ class  PostDetailContentTableViewCell : UITableViewCell {
         self.contentView.addSubview(collectButtonView)
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "post_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
-            if self.likeButton.imageView.image == UIImage.init(named: "post_detail_like_select") {
-                self.likeButton.imageView.image = UIImage.init(named: "post_detail_like")
-                self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
-                self.postDetailContentTableViewCellClouse(.like, .delete)
+            if CacheManager.getSharedInstance().isLogin() {
+                if self.likeButton.imageView.image == UIImage.init(named: "post_detail_like_select") {
+                    self.likeButton.imageView.image = UIImage.init(named: "post_detail_like")
+                    self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
+                    self.postDetailContentTableViewCellClouse(.like, .delete)
+                }else{
+                    self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
+                    self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
+                    self.postDetailContentTableViewCellClouse(.like, .add)
+                }
             }else{
-                self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
-                self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
-                self.postDetailContentTableViewCellClouse(.like, .add)
+                self.postDetailContentTableViewCellClouse(.login, .none)
             }
         })
         

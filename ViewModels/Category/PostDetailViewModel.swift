@@ -43,17 +43,11 @@ class PostDetailViewModel: BaseViewModel {
         cell.postDetailContentTableViewCellClouse = { type, status in
             switch type {
             case .like:
-                if CacheManager.getSharedInstance().isLogin() {
-                    self.likeNet(status)
-                }else{
-                    NavigationPushView(self.controller!, toConroller: LoginViewController())
-                }
+               self.likeNet(status)
+            case .login:
+                NavigationPushView(self.controller!, toConroller: LoginViewController())
             default:
-                if CacheManager.getSharedInstance().isLogin() {
-                    self.collectNet()
-                }else{
-                    NavigationPushView(self.controller!, toConroller: LoginViewController())
-                }
+                 self.collectNet()
             }
         }
         

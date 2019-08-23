@@ -64,7 +64,12 @@ class NewsViewController: BaseViewController {
             newsPostView.isHidden = false
             newsPostView.snp.makeConstraints { (make) in
                 make.right.equalTo(KWindow.snp.right).offset(-15)
-                make.bottom.equalTo(KWindow.snp.bottom).offset(-86)
+                if #available(iOS 11.0, *) {
+                    make.bottom.equalTo(KWindow.snp.bottom).offset(-65 - TABBAR_HEIGHT)
+                } else {
+                    // Fallback on earlier versions
+                    make.bottom.equalTo(KWindow.snp.bottom).offset(-65)
+                }
                 make.size.equalTo(CGSize.init(width: 44, height: 44))
             }
         }else{
