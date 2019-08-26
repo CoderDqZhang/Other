@@ -57,6 +57,7 @@ class BaseViewModel: NSObject {
         self.controller?.tableView.reloadData()
     }
     
+    
     func hiddenMJLoadMoreData(resultData:Any){
         if self.controller?.tableView != nil {
             if resultData is NSDictionary {

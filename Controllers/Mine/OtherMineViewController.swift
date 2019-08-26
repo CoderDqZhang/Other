@@ -19,7 +19,7 @@ class OtherMineViewController: BaseViewController {
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
     let titles = ["推荐", "发表", "竞猜"]
-    var tableHeaderViewHeight: CGFloat = 138
+    var tableHeaderViewHeight: CGFloat = 108
     var heightForHeaderInSection: Int = 44
     
     let recommendVC = RecommendViewController()

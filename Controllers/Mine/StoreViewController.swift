@@ -24,7 +24,7 @@ class StoreViewController: BaseViewController {
     func initSView(type:Int) {
         self.bindViewModel(viewModel: storeViewModel, controller: self)
         storeViewModel.type = types[type]
-        self.setUpTableView(style: .plain, cells: [CoinsDetailTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [CoinsDetailTableViewCell.self], controller: self)
         
         self.setUpRefreshData {
             self.storeViewModel.page = 0

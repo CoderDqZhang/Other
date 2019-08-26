@@ -26,7 +26,7 @@ let UserregisterUrl = "\(RootUrl)user/register"
 let UsersendCodeUrl = "\(RootUrl)user/sendCode"
 let SurePasswordUrl = "\(RootUrl)user/updatePassword"
 let UserInfoUrl = "\(RootUrl)user/getUserInfo"
-
+let StoreGoodsListUrl = "\(RootUrl)goods/getGoodsList"
 
 let AccountbindAccountUrl = "\(RootUrl)account/addAccount"
 let AccountcashUrl = "\(RootUrl)account/addCashRecord"

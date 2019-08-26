@@ -71,6 +71,13 @@ class BaseWebViewController: UIViewController {
         self.view.addSubview(self.progressView)
     }
     
+    func loadRequestPost(url:String) {
+        var request = URLRequest.init(url: URL.init(string: url)!)
+        request.allHTTPHeaderFields = BaseNetWorke.getSharedInstance().header()
+        self.setUpView()
+        wkWebView.load(request)
+    }
+    
     func loadRequest(url:String){
         let request = URLRequest.init(url: URL.init(string: url)!)
         self.setUpView()

@@ -233,11 +233,22 @@ class StoreView: UIView {
     }
     
     func setUpView(){
-        let backImageView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 30))
+        var backImageView = UIView.init()
+        if #available(iOS 11.0, *) {
+            backImageView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 94 + NAV_HEIGHT))
+        } else {
+            backImageView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 94))
+            // Fallback on earlier versions
+        }
         backImageView.backgroundColor = App_Theme_FFCB00_Color
         self.addSubview(backImageView)
         
-        centerView = UIView.init(frame: CGRect.init(x: 18, y: 0, width: SCREENWIDTH - 36, height: 80))
+        if #available(iOS 11.0, *) {
+            centerView = UIView.init(frame: CGRect.init(x: 18, y: 64 + NAV_HEIGHT, width: SCREENWIDTH - 36, height: 80))
+        } else {
+            centerView = UIView.init(frame: CGRect.init(x: 18, y: 64, width: SCREENWIDTH - 36, height: 80))
+            // Fallback on earlier versions
+        }
         centerView.backgroundColor = .red
         self.addSubview(centerView)
         centerView.backgroundColor = App_Theme_FFFFFF_Color
@@ -289,6 +300,13 @@ class StoreView: UIView {
             make.bottom.equalTo(self.centerView.snp.bottom).offset(-18)
         }
         
+    }
+    
+    func scrollViewDidScroll(contentOffsetY: CGFloat) {
+        //        var frame = backImageView!
+        //        frame.size.height -= contentOffsetY
+        //        frame.y = contentOffsetY
+        //        backImageView.frame = frame
     }
     
     func storeViewChangeText(_ text:String) {

@@ -67,7 +67,7 @@ extension StoreViewModel: UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+        (self.controller as! StoreViewController).listViewDidScrollCallback?(scrollView)
     }
 }
 

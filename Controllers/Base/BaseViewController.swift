@@ -125,9 +125,12 @@ class BaseViewController: UIViewController {
     }
     
     func setUpRefreshData(refresh:@escaping MJRefreshComponentRefreshingBlock){
-        self.tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
-            refresh()
-        })
+        if self.tableView == nil {
+            self.tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
+                refresh()
+            })
+        }
+        
     }
     
     func stopRefresh(){

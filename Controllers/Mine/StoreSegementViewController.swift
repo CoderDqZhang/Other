@@ -26,9 +26,12 @@ class StoreSegementViewController: BaseViewController {
     var userHeader:StoreView!
     var userHeaderContainerView: UIView!
 
-    var tableHeaderViewHeight: CGFloat = 90
+    var tableHeaderViewHeight: CGFloat = 150
     var heightForHeaderInSection: Int = 44
 
+    var gloableNavigationBar:GLoabelNavigaitonBar!
+
+    
     let titles = ["全部", "收入", "支出"]
     
     override func viewDidLoad() {
@@ -38,14 +41,33 @@ class StoreSegementViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
-        self.navigationItem.title = "积分明细"
-        self.setNavigationItemBack()
+        if #available(iOS 11.0, *) {
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "积分明细", rightButton: nil, click: { (type) in
+                if type == .backBtn{
+                    self.navigationController?.popViewController()
+                }
+            })
+        } else {
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "积分明细", rightButton: nil, click: { (type) in
+                if type == .backBtn{
+                    self.navigationController?.popViewController()
+                }
+            })
+            // Fallback on earlier versions
+        }
+        pagingView.pinSectionHeaderVerticalOffset = gloableNavigationBar.height - 64
+        self.view.addSubview(gloableNavigationBar)
     }
     
     
     override func setUpView() {
         
-        userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight)))
+        if #available(iOS 11.0, *) {
+            userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight) + NAV_HEIGHT))
+        } else {
+            // Fallback on earlier versions
+             userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight)))
+        }
 
         userHeader = StoreView(frame: userHeaderContainerView.bounds)
         //设置数据
@@ -88,8 +110,8 @@ class StoreSegementViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.fd_prefersNavigationBarHidden = false
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.fd_prefersNavigationBarHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
 }
@@ -97,7 +119,7 @@ class StoreSegementViewController: BaseViewController {
 extension StoreSegementViewController: JXPagingViewDelegate {
     
     func tableHeaderViewHeight(in pagingView: JXPagingView) -> Int {
-        return Int(tableHeaderViewHeight)
+        return Int(tableHeaderViewHeight) + 8
     }
     
     func tableHeaderView(in pagingView: JXPagingView) -> UIView {
@@ -123,6 +145,7 @@ extension StoreSegementViewController: JXPagingViewDelegate {
     }
     
     func mainTableViewDidScroll(_ scrollView: UIScrollView) {
-//        userHeader?.scrollViewDidScroll(contentOffsetY: scrollView.contentOffset.y)
+        userHeader?.scrollViewDidScroll(contentOffsetY: scrollView.contentOffset.y)
+        self.gloableNavigationBar.changeBackGroundColor(transparency: 1)
     }
 }

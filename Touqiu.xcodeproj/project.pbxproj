@@ -107,6 +107,9 @@
 		1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */; };
 		1FBD7700230F950500852B4D /* ArticleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD76FF230F950500852B4D /* ArticleDetailViewModel.swift */; };
 		1FBD7702230F96D400852B4D /* ArticleDetailContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */; };
+		1FBD7704230FE3AD00852B4D /* StoreInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD7703230FE3AD00852B4D /* StoreInfoModel.swift */; };
+		1FBD77062313B27800852B4D /* StoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD77052313B27800852B4D /* StoreDetailViewController.swift */; };
+		1FBD77082313BD2C00852B4D /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD77072313BD2C00852B4D /* TestViewController.swift */; };
 		1FD6DD2B22E00AD70090318E /* AppInfomationsTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */; };
 		1FD6DD2D22E00CEF0090318E /* UIDeviceExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
@@ -475,6 +478,9 @@
 		1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherGuessViewController.swift; sourceTree = "<group>"; };
 		1FBD76FF230F950500852B4D /* ArticleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewModel.swift; sourceTree = "<group>"; };
 		1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailContentTableViewCell.swift; sourceTree = "<group>"; };
+		1FBD7703230FE3AD00852B4D /* StoreInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoModel.swift; sourceTree = "<group>"; };
+		1FBD77052313B27800852B4D /* StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
+		1FBD77072313BD2C00852B4D /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfomationsTools.swift; sourceTree = "<group>"; };
 		1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtentions.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1410,8 +1416,9 @@
 				1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */,
 				1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */,
 				1F1C1B5522A0F56D008031F4 /* StoreSegementViewController.swift */,
-				1FEDB022230E88A300024985 /* StoreInfoViewController.swift */,
+				1FBD77072313BD2C00852B4D /* TestViewController.swift */,
 				1F991753229B92BB00C8FDD5 /* StoreViewController.swift */,
+				1FEDB022230E88A300024985 /* StoreInfoViewController.swift */,
 				1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */,
 				1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */,
 				1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */,
@@ -1566,6 +1573,7 @@
 				1FE8DABB228EC8D100DCED01 /* SigupVIPViewModel.swift */,
 				1F1C1B5722A0F651008031F4 /* StoreViewModel.swift */,
 				1FEDB024230E897600024985 /* StoreInfoViewModel.swift */,
+				1FBD77052313B27800852B4D /* StoreDetailViewController.swift */,
 				1FE8DAC3228ECD0600DCED01 /* ChangePasswordViewModel.swift */,
 				1FE8DAC5228ED11900DCED01 /* FeedBackViewModel.swift */,
 				1FE8DAD422926AA300DCED01 /* OtherMineViewModel.swift */,
@@ -1634,6 +1642,7 @@
 				1FF1E52522AF4C7D00BB9A50 /* InviteModel.swift */,
 				1FF1E53022B0D95700BB9A50 /* DailyModel.swift */,
 				1FF1E53822BB70AD00BB9A50 /* PointsModel.swift */,
+				1FBD7703230FE3AD00852B4D /* StoreInfoModel.swift */,
 			);
 			name = Mine;
 			path = ViewModels/Mine;
@@ -2171,6 +2180,7 @@
 				1FE8DAD522926AA300DCED01 /* OtherMineViewModel.swift in Sources */,
 				1FE5BFAC228BDEDC00C9137C /* TargerUserViewModel.swift in Sources */,
 				1FE5BDFD2282750900C9137C /* MineViewController.swift in Sources */,
+				1FBD77082313BD2C00852B4D /* TestViewController.swift in Sources */,
 				1FE5BF352284206300C9137C /* UserInfoTableViewCell.swift in Sources */,
 				1FE8DAB8228EC8B100DCED01 /* NotificationViewModel.swift in Sources */,
 				1FD6DD2B22E00AD70090318E /* AppInfomationsTools.swift in Sources */,
@@ -2277,6 +2287,7 @@
 				1FE5BEC42282866300C9137C /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1FE5BE472282864300C9137C /* View+Extntion.swift in Sources */,
 				1FE5BE06228282B900C9137C /* BaseViewModel.swift in Sources */,
+				1FBD77062313B27800852B4D /* StoreDetailViewController.swift in Sources */,
 				1FE8DA9A228E958700DCED01 /* MineInfoViewController.swift in Sources */,
 				1FE8DB142293DC0000DCED01 /* LoginViewController.swift in Sources */,
 				1F395CCF229783A300781C0C /* TipModel.swift in Sources */,
@@ -2302,6 +2313,7 @@
 				1F6BA9C922F189660090A1D5 /* BasketBallScoreSegmentViewController.swift in Sources */,
 				1F91C39F22F95E8F0030916F /* NextGrowingInternalTextView.swift in Sources */,
 				1F91C3CC23056A910030916F /* SquareTableViewCell.swift in Sources */,
+				1FBD7704230FE3AD00852B4D /* StoreInfoModel.swift in Sources */,
 				1F1C1B5622A0F56D008031F4 /* StoreSegementViewController.swift in Sources */,
 				1FE8DAC4228ECD0600DCED01 /* ChangePasswordViewModel.swift in Sources */,
 				1FE5BF332283F60800C9137C /* Conner+Shadows.swift in Sources */,
