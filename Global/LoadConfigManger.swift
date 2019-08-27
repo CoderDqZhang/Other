@@ -87,8 +87,8 @@ class LoadConfigManger: NSObject {
         let date = Date.init().string(withFormat: "yyyyMMdd")
         let parameters = ["date":date] as [String : Any]
         var temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
-        if temp_dic == nil || temp_dic?.object(forKey: date) == nil || CacheManager.getSharedInstance().getFootBallEventSelectModel() == nil {
-            BaseNetWorke.getSharedInstance().postUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        if temp_dic == nil || temp_dic?.object(forKey: date) != nil || CacheManager.getSharedInstance().getFootBallEventSelectModel() == nil {
+            BaseNetWorke.getSharedInstance().getUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
         
                     self.saveFootBallEventDic(dic: (resultDic.value as! NSDictionary))
@@ -111,7 +111,7 @@ class LoadConfigManger: NSObject {
         let parameters = ["date":date] as [String : Any]
         var temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
         if temp_dic == nil || temp_dic?.object(forKey: date) == nil || CacheManager.getSharedInstance().getBasketBallEventSelectModel() == nil {
-            BaseNetWorke.getSharedInstance().postUrlWithString(BasketBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            BaseNetWorke.getSharedInstance().getUrlWithString(BasketBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     
                     self.saveBasketBallEventDic(dic: (resultDic.value as! NSDictionary))
@@ -130,33 +130,81 @@ class LoadConfigManger: NSObject {
     }
     
     func saveFootBallEventDic(dic:NSDictionary){
-        let models = NSMutableArray.init(array: (dic.object(forKey: "events") as! NSDictionary).allValues)
+        let models = self.reFootBallDuplictionData(originArray: NSMutableArray.init(array: (dic.object(forKey: "events") as! NSDictionary).allValues),type: .event)
         self.saveFootData(type: .event, models: models)
         
-        let level_models = NSMutableArray.init(array: (dic.object(forKey: "events") as! NSDictionary).allValues)
+        let level_models = self.reFootBallDuplictionData(originArray: NSMutableArray.init(array: (dic.object(forKey: "events") as! NSDictionary).allValues),type: .level)
         self.saveFootData(type: .level, models: level_models)
         
-        let north_models = NSMutableArray.init(array: (dic.object(forKey: "northOdd") as! NSDictionary).allValues)
+        let north_models = self.reFootBallDuplictionData(originArray: NSMutableArray.init(array: (dic.object(forKey: "northOdd") as! NSDictionary).allValues),type: .northsigle)
         self.saveFootData(type: .northsigle, models: north_models)
         
-        let indexex_models = NSMutableArray.init(array: (dic.object(forKey: "indexes") as! NSDictionary).allValues)
+        let indexex_models = self.reFootBallDuplictionData(originArray: NSMutableArray.init(array: (dic.object(forKey: "indexes") as! NSDictionary).allValues),type: .index)
         self.saveFootData(type: .index, models: indexex_models)
         
-        let lottery_models = NSMutableArray.init(array: (dic.object(forKey: "footballLottery") as! NSDictionary).allValues)
+        let lottery_models = self.reFootBallDuplictionData(originArray: NSMutableArray.init(array: (dic.object(forKey: "footballLottery") as! NSDictionary).allValues),type: .lottery)
         self.saveFootData(type: .lottery, models: lottery_models)
         
         
     }
     
     func saveBasketBallEventDic(dic:NSDictionary){
-        let models = NSMutableArray.init(array: (dic.object(forKey: "events") as! NSDictionary).allValues)
+        let models = self.reBasketBallDuplictionData(originArray: NSMutableArray.init(array: (dic.object(forKey: "events") as! NSDictionary).allValues), type: .event)
         self.saveBasketData(type: .event, models: models)
         
-        let level_models = NSMutableArray.init(array: (dic.object(forKey: "events") as! NSDictionary).allValues)
+        let level_models = self.reBasketBallDuplictionData(originArray: NSMutableArray.init(array: (dic.object(forKey: "events") as! NSDictionary).allValues), type: .level)
         self.saveBasketData(type: .level, models: level_models)
         
-        let indexex_models = NSMutableArray.init(array: (dic.object(forKey: "indexes") as! NSDictionary).allValues)
+        let indexex_models = self.reBasketBallDuplictionData(originArray: NSMutableArray.init(array: (dic.object(forKey: "indexes") as! NSDictionary).allValues), type: .index)
         self.saveBasketData(type: .index, models: indexex_models)
+    }
+    
+    func reFootBallDuplictionData(originArray:NSMutableArray,type:FootBallSaveType) -> NSMutableArray{
+        let temp_array = NSMutableArray.init()
+        let result_array = NSMutableArray.init()
+        switch type {
+        case .event, .level:
+            for item in originArray {
+                let con = temp_array.contains((item as! NSDictionary).object(forKey: "id")!)
+                if !con {
+                    temp_array.add((item as! NSDictionary).object(forKey: "id")!)
+                    result_array.add(item)
+                }
+            }
+        default:
+            for item in originArray {
+                let com = temp_array.contains((item as! NSDictionary).object(forKey: "eventsName")!)
+                if !com {
+                    temp_array.add((item as! NSDictionary).object(forKey: "eventsName")!)
+                    result_array.add(item)
+                }
+            }
+        }
+        return result_array
+    }
+    
+    func reBasketBallDuplictionData(originArray:NSMutableArray,type:BasketBallSaveType) -> NSMutableArray{
+        let temp_array = NSMutableArray.init()
+        let result_array = NSMutableArray.init()
+        switch type {
+        case .event, .level:
+            for item in originArray {
+                let con = temp_array.contains((item as! NSDictionary).object(forKey: "id")!)
+                if !con {
+                    temp_array.add((item as! NSDictionary).object(forKey: "id")!)
+                    result_array.add(item)
+                }
+            }
+        default:
+            for item in originArray {
+                let com = temp_array.contains((item as! NSDictionary).object(forKey: "eventsName")!)
+                if !com {
+                    temp_array.add((item as! NSDictionary).object(forKey: "eventsName")!)
+                    result_array.add(item)
+                }
+            }
+        }
+        return result_array
     }
     
     func saveBasketData(type:BasketBallSaveType, models:NSMutableArray) {
@@ -169,12 +217,10 @@ class LoadConfigManger: NSObject {
             let dic = NSMutableDictionary.init()
             let titles = NSArray.init(array: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","S","Y","Z"])
             for name in titles {
-                let temp_array = models.filter { (dic) -> Bool in
+                let array = models.filter { (dic) -> Bool in
                     var title = ""
                     switch type {
-                    case .event:
-                        title = self.getFirstLetterFromString(aString: ((dic as! NSDictionary).object(forKey: "name_zh") as! String))
-                    case .level:
+                    case .event,.level:
                         title = self.getFirstLetterFromString(aString: ((dic as! NSDictionary).object(forKey: "name_zh") as! String))
                     default:
                         title = self.getFirstLetterFromString(aString: ((dic as! NSDictionary).object(forKey: "eventsName") as! String))
@@ -185,9 +231,7 @@ class LoadConfigManger: NSObject {
                     }
                     return  title == name as! String
                 }
-                //去重
-                if temp_array.count > 0 {
-                    let array = self.reduBasketBallplictionData(data: temp_array as NSArray, type: type)
+                if array.count > 0 {
                     dic.setValue(array, forKey: name as! String)
                 }
             }
@@ -215,12 +259,10 @@ class LoadConfigManger: NSObject {
             let dic = NSMutableDictionary.init()
             let titles = NSArray.init(array: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","S","Y","Z"])
             for name in titles {
-                let temp_array = models.filter { (dic) -> Bool in
+                let array = models.filter { (dic) -> Bool in
                     var title = ""
                     switch type {
-                    case .event:
-                        title = self.getFirstLetterFromString(aString: ((dic as! NSDictionary).object(forKey: "short_name_zh") as! String))
-                    case .level:
+                    case .event, .level:
                         title = self.getFirstLetterFromString(aString: ((dic as! NSDictionary).object(forKey: "short_name_zh") as! String))
                     default:
                         title = self.getFirstLetterFromString(aString: ((dic as! NSDictionary).object(forKey: "eventsName") as! String))
@@ -231,9 +273,7 @@ class LoadConfigManger: NSObject {
                     }
                     return  title == name as! String
                 }
-                //去重
-                if temp_array.count > 0 {
-                    let array = self.reduFootBallplictionData(data: temp_array as NSArray, type: type)
+                if array.count > 0 {
                     dic.setValue(array, forKey: name as! String)
                 }
             }
@@ -253,93 +293,6 @@ class LoadConfigManger: NSObject {
                 CacheManager.getSharedInstance().saveFootBallEventLevelModel(point: dic)
             }
         }
-    }
-    //去重
-    func reduFootBallplictionData(data:NSArray,type:FootBallSaveType) ->NSMutableArray{
-        let array = NSMutableArray.init()
-        for index in 0...data.count - 1 {
-            var isRet = false
-            switch type {
-            case .event:
-                let title = ((data[index] as! NSDictionary).object(forKey: "short_name_zh") as! String)
-                if index + 1 < data.count - 1  {
-                    for index1 in (index + 1)...data.count - 1 {
-                        if title == ((data[index1] as! NSDictionary).object(forKey: "short_name_zh") as! String) {
-                            isRet = true
-                            break
-                        }
-                    }
-                }
-            case .level:
-                let title = ((data[index] as! NSDictionary).object(forKey: "short_name_zh") as! String)
-                if index + 1 < data.count - 1  {
-                    for index1 in (index + 1)...data.count - 1 {
-                        if title == ((data[index1] as! NSDictionary).object(forKey: "short_name_zh") as! String) {
-                            isRet = true
-                            break
-                        }
-                    }
-                }
-            default:
-                let title = ((data[index] as! NSDictionary).object(forKey: "comp") as! String)
-                if index + 1 < data.count - 1  {
-                    for index1 in (index + 1)...data.count - 1 {
-                        if title == ((data[index1] as! NSDictionary).object(forKey: "comp") as! String) {
-                            isRet = true
-                            break
-                        }
-                    }
-                }
-            }
-            if !isRet {
-                array.add(data[index])
-            }
-        }
-        return array
-    }
-    
-    //去重
-    func reduBasketBallplictionData(data:NSArray,type:BasketBallSaveType) ->NSMutableArray{
-        let array = NSMutableArray.init()
-        for index in 0...data.count - 1 {
-            var isRet = false
-            switch type {
-            case .event:
-                let title = ((data[index] as! NSDictionary).object(forKey: "name_zh") as! String)
-                if index + 1 < data.count - 1  {
-                    for index1 in (index + 1)...data.count - 1 {
-                        if title == ((data[index1] as! NSDictionary).object(forKey: "name_zh") as! String) {
-                            isRet = true
-                            break
-                        }
-                    }
-                }
-            case .level:
-                let title = ((data[index] as! NSDictionary).object(forKey: "name_zh") as! String)
-                if index + 1 < data.count - 1  {
-                    for index1 in (index + 1)...data.count - 1 {
-                        if title == ((data[index1] as! NSDictionary).object(forKey: "name_zh") as! String) {
-                            isRet = true
-                            break
-                        }
-                    }
-                }
-            default:
-                let title = ((data[index] as! NSDictionary).object(forKey: "comp") as! String)
-                if index + 1 < data.count - 1  {
-                    for index1 in (index + 1)...data.count - 1 {
-                        if title == ((data[index1] as! NSDictionary).object(forKey: "comp") as! String) {
-                            isRet = true
-                            break
-                        }
-                    }
-                }
-            }
-            if !isRet {
-                array.add(data[index])
-            }
-        }
-        return array
     }
     
     // MARK: - 获取联系人姓名首字母(传入汉字字符串, 返回大写拼音首字母)

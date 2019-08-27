@@ -250,12 +250,12 @@ class FilterViewModel: BaseViewModel {
             }
         }
         if (self.controller! as! FilterViewController).buttomView != nil {
+            if !UserDefaults.standard.bool(forKey: ALLFOOTBALLMACTH) {
+                UserDefaults.standard.set(allNumber, forKey: ALLFOOTBALLMACTH)
+            }
             if self.filterType! == .all {
                 (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: number.string)
             }else{
-                if UserDefaults.standard.bool(forKey: ALLFOOTBALLMACTH) {
-                    UserDefaults.standard.set(allNumber, forKey: ALLFOOTBALLMACTH)
-                }
                 let all_number = UserDefaults.standard.object(forKey: ALLFOOTBALLMACTH) as! Int
                 (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: (all_number - number).string)
             }
@@ -317,14 +317,13 @@ class FilterViewModel: BaseViewModel {
             }
         }
         if (self.controller! as! FilterViewController).buttomView != nil {
+            if UserDefaults.standard.bool(forKey: ALLBASKETBALLMACTH) {
+                UserDefaults.standard.set(allNumber, forKey: ALLBASKETBALLMACTH)
+            }
             if self.filterType! == .all {
                 (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: number.string)
             }else{
-                if UserDefaults.standard.bool(forKey: ALLBASKETBALLMACTH) {
-                    UserDefaults.standard.set(allNumber, forKey: ALLBASKETBALLMACTH)
-                }
                 let all_number = UserDefaults.standard.object(forKey: ALLBASKETBALLMACTH) as! Int
-                
                 (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: (all_number - number).string)
             }
             

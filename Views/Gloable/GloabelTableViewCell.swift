@@ -50,7 +50,6 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         self.contentView.addSubview(rightImageView)
         
         leftImageView  = UIImageView.init()
-        leftImageView.cornerRadius = 17
         leftImageView.layer.masksToBounds = true
         self.contentView.addSubview(leftImageView)
         
@@ -77,9 +76,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
             self.descLabel.isHidden = isDescHidden
         }
         if leftImage != nil {
-            leftImageView.sd_crope_imageView(url: leftImage!, imageView: leftImageView, placeholderImage: nil) { (image, url, type, state, error) in
-                
-            }
+            leftImageView.image = UIImage.init(named: leftImage!)
             titleLabel.snp.remakeConstraints { (make) in
                 make.left.equalTo(self.leftImageView.snp.right).offset(10)
                 make.width.equalTo(200)
@@ -169,7 +166,6 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
             
             leftImageView.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
-                make.size.equalTo(CGSize.init(width: 25, height: 25))
                 make.centerY.equalToSuperview()
             }
             

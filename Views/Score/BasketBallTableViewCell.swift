@@ -59,7 +59,7 @@ class BasketBallTableViewCell: UITableViewCell {
         scoreType = YYLabel.init()
         scoreType.textAlignment = .left
         scoreType.font = App_Theme_PinFan_M_10_Font
-        scoreType.textColor = App_Theme_5FBBFC_Color
+        scoreType.textColor = App_Theme_666666_Color
         scoreType.text = "NBA"
         self.contentView.addSubview(scoreType)
         
@@ -235,7 +235,11 @@ class BasketBallTableViewCell: UITableViewCell {
             scoreStatus.text = "完场"
             scoreStatus.textColor = App_Theme_FF4343_Color
         }else if model.status > 2 && model.status < 9 {
-            scoreStatus.text = "进行中"
+            let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.time.double))
+            scoreStatus.text = String(format: "%.0f“", double)
+            if scoreStatus.layer.animation(forKey: "animation") == nil {
+                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+            }
             scoreStatus.textColor = App_Theme_FFAC1B_Color
         }else{
             scoreStatus.text = "延迟"

@@ -92,10 +92,10 @@ class FilterViewController: BaseViewController {
         layout.sectionInset = UIEdgeInsets.init(top: 8, left: 15, bottom: 8, right: 15)
 
         if #available(iOS 11.0, *) {
-            collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - NAV_HEIGHT - 49 - 48 - 44 - TABBAR_HEIGHT), collectionViewLayout: layout)
+            collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - NAV_HEIGHT - 49 - 48 - 44 - 20), collectionViewLayout: layout)
         } else {
             // Fallback on earlier versions
-           collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - 49 - 48 - 44), collectionViewLayout: layout)
+           collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - 49 - 48 - 44 - 20), collectionViewLayout: layout)
         }
         collectionView?.backgroundColor = App_Theme_F6F6F6_Color
         collectionView.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: FilterCollectionViewCell.description())
@@ -198,7 +198,6 @@ class FilterViewController: BaseViewController {
             indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: dic.allKeys.sorted(by: { (first, seconde) -> Bool in
                 return (first as! String) < (seconde as! String)
             }))
-            indexView.backgroundColor = .red
             indexView?.delegate = self
             indexView!.addTarget(self, action: #selector(indexViewValueChanged(sender:)), for: .valueChanged)
             self.view.addSubview(indexView!)

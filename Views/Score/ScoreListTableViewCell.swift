@@ -57,7 +57,7 @@ class ScoreListTableViewCell: UITableViewCell {
         scoreType = YYLabel.init()
         scoreType.textAlignment = .left
         scoreType.font = App_Theme_PinFan_M_10_Font
-        scoreType.textColor = App_Theme_FF4444_Color
+        scoreType.textColor = App_Theme_666666_Color
         scoreType.text = "中超联赛"
         self.contentView.addSubview(scoreType)
         

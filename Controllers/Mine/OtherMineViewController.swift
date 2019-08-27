@@ -191,12 +191,15 @@ extension OtherMineViewController: JXPagingViewDelegate {
         
         var alpa:CGFloat = 0
         if #available(iOS 11.0, *) {
-            alpa = scrollView.contentOffset.y / (tableHeaderViewHeight - 64 - NAV_HEIGHT)
+            alpa = scrollView.contentOffset.y / 60
         } else {
-            alpa = scrollView.contentOffset.y / (tableHeaderViewHeight - 64)
+            alpa = scrollView.contentOffset.y / 60
             // Fallback on earlier versions
         }
-        gloableNavigationBar.rigthButton.isHidden = scrollView.contentOffset.y > 80 ? false : true
+        if scrollView.contentOffset.y < 0 {
+            alpa = 1
+        }
+        gloableNavigationBar.rigthButton.isHidden = scrollView.contentOffset.y > 40 ? false : true
 
         self.gloableNavigationBar.changeBackGroundColor(transparency: alpa > 1 ? 1 :alpa)
     }

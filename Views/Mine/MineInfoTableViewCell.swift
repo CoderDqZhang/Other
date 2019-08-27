@@ -278,6 +278,8 @@ class MineInfoTableViewCell: UITableViewCell {
 //    var topUpView:TopUpView!
 //    var storeView:TopUpView!
     
+    var imageViewFrame:CGRect!
+    
     var toolsView:ToolsView!
     
     var didMakeConstraints = false
@@ -292,6 +294,7 @@ class MineInfoTableViewCell: UITableViewCell {
     
     func setUpView(){
         backImageView = UIImageView.init()
+        imageViewFrame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 185)
         backImageView.backgroundColor = App_Theme_FFCB00_Color
         self.contentView.addSubview(backImageView)
         
@@ -404,6 +407,13 @@ class MineInfoTableViewCell: UITableViewCell {
 //            topUpView.updateText(icon: showAccountModel!.chargeCoin.string, number: showAccountModel!.integral.string)
 //        }
         
+    }
+    
+    func scrollViewDidScroll(contentOffsetY: CGFloat) {
+//        var frame = imageViewFrame!
+//        frame.size.height -= contentOffsetY
+//        frame.origin.y = contentOffsetY
+//        backImageView.frame = frame
     }
     
     required init?(coder aDecoder: NSCoder) {

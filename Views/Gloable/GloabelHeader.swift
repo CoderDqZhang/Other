@@ -21,6 +21,8 @@ class GloabelHeader: UIView {
     var attentionsLabel:YYLabel!
     var lineLabel:YYLabel!
     
+    var imageViewFrame:CGRect!
+    
     var isSelect:Bool = false
     var followButton:AnimationButton!
     var mineInfoTableViewCellClouse:MineInfoTableViewCellClouse!
@@ -32,6 +34,8 @@ class GloabelHeader: UIView {
         backImageView = UIImageView.init()
         backImageView.backgroundColor = App_Theme_FFCB00_Color
         self.addSubview(backImageView)
+        
+        imageViewFrame = frame
         
         avatarImageView = UIImageView.init()
         avatarImageView.backgroundColor = .red
@@ -200,10 +204,10 @@ class GloabelHeader: UIView {
     }
     
     func scrollViewDidScroll(contentOffsetY: CGFloat) {
-//        var frame = backImageView!
-//        frame.size.height -= contentOffsetY
-//        frame.y = contentOffsetY
-//        backImageView.frame = frame
+        var frame = imageViewFrame!
+        frame.size.height -= contentOffsetY
+        frame.origin.y = contentOffsetY
+        backImageView.frame = frame
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -219,8 +223,10 @@ class StoreView: UIView {
     var storeLabel:YYLabel!
     var storeInfoLabel:YYLabel!
     var storeImageView:UIImageView!
-    
+    var backImageView:UIView!
     var centerView:UIView!
+    
+    var imageViewFrame:CGRect!
     
     var button:CustomViewButtonTopImageAndBottomLabel!
     
@@ -229,11 +235,11 @@ class StoreView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpView()
-        
+
     }
     
     func setUpView(){
-        var backImageView = UIView.init()
+        backImageView = UIView.init()
         if #available(iOS 11.0, *) {
             backImageView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 94 + NAV_HEIGHT))
         } else {
@@ -241,8 +247,9 @@ class StoreView: UIView {
             // Fallback on earlier versions
         }
         backImageView.backgroundColor = App_Theme_FFCB00_Color
+        imageViewFrame = backImageView.frame
+
         self.addSubview(backImageView)
-        
         if #available(iOS 11.0, *) {
             centerView = UIView.init(frame: CGRect.init(x: 18, y: 64 + NAV_HEIGHT, width: SCREENWIDTH - 36, height: 80))
         } else {
@@ -303,10 +310,10 @@ class StoreView: UIView {
     }
     
     func scrollViewDidScroll(contentOffsetY: CGFloat) {
-        //        var frame = backImageView!
-        //        frame.size.height -= contentOffsetY
-        //        frame.y = contentOffsetY
-        //        backImageView.frame = frame
+        var frame = imageViewFrame!
+        frame.size.height -= contentOffsetY
+        frame.origin.y = contentOffsetY
+        backImageView.frame = frame
     }
     
     func storeViewChangeText(_ text:String) {

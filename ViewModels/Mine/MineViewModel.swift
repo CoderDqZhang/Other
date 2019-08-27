@@ -12,7 +12,7 @@ import UIKit
 class MineViewModel: BaseViewModel {
     
     let titles = [["实名认证","消息","设置"],["邀请好友"]]
-    let leftImage = [["realname","message","setting"],[""]]
+    let leftImage = [["realname","message","setting"],[nil]]
     var desc:[[String]]!
     
     var userInfo:UserInfoModel!
@@ -87,7 +87,6 @@ class MineViewModel: BaseViewModel {
     }
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
-        cell.imageView?.image = UIImage.init(named: leftImage[indexPath.section - 2][indexPath.row])
         if self.userInfo != nil {
             cell.cellSetData(title: titles[indexPath.section-2][indexPath.row], desc: desc[indexPath.section-2][indexPath.row], leftImage: leftImage[indexPath.section - 2][indexPath.row], rightImage: nil, isDescHidden: false)
             if indexPath.row == 1 {
@@ -121,14 +120,14 @@ class MineViewModel: BaseViewModel {
                     mineInfo.userInfo = self.userInfo
                     NavigationPushView(self.controller!, toConroller: mineInfo)
                 }
-            case 3:
+            case 2:
                 if indexPath.row == 0 {
                     if self.userInfo != nil && (self.userInfo!.isMember == "1") {
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经实名认证了", autoHidder: true)
                         return
                     }
                     NavigationPushView(self.controller!, toConroller: RealNameViewController())
-                }else if indexPath.row == 1{
+                }else if indexPath.row == 3{
                     if self.userInfo != nil  {
                         if (self.userInfo!.isMaster == "1"){
                             _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经是大神用户", autoHidder: true)
@@ -140,9 +139,9 @@ class MineViewModel: BaseViewModel {
                         }
                     }
                     NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
-                }else if indexPath.row == 2{
+                }else if indexPath.row == 1{
                     NavigationPushView(self.controller!, toConroller: MessageSegementViewController())
-                }else if indexPath.row == 3{
+                }else if indexPath.row == 2{
                     let settinVC = SettingViewController()
                     settinVC.logoutClouse = {
                         self.userInfo = nil
@@ -153,7 +152,7 @@ class MineViewModel: BaseViewModel {
                     }
                     NavigationPushView(self.controller!, toConroller: settinVC)
                 }
-            case 4:
+            case 3:
                 NavigationPushView(self.controller!, toConroller: InviteUserViewController())
             default:
                 break
@@ -247,6 +246,10 @@ extension MineViewModel: UITableViewDelegate {
             // Fallback on earlier versions
         }
         (self.controller as! MineViewController).gloableNavigationBar.changeBackGroundColor(transparency: alpa > 1 ? 1 :alpa)
+        
+        let cell = (self.controller as! MineViewController).tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! MineInfoTableViewCell
+        
+        cell.scrollViewDidScroll(contentOffsetY: scrollView.contentOffset.y)
     }
 }
 
