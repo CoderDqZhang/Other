@@ -156,7 +156,7 @@ class AnimationTools: NSObject {
         animation.fromValue = 1.0
         animation.toValue = 0.0
         animation.autoreverses = true
-        animation.duration = 2
+        animation.duration = 1
         animation.repeatCount =  10000000
         animation.isRemovedOnCompletion = false
         animation.fillMode = CAMediaTimingFillMode.forwards

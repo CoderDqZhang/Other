@@ -26,7 +26,7 @@ class StoreSegementViewController: BaseViewController {
     var userHeader:StoreView!
     var userHeaderContainerView: UIView!
 
-    var tableHeaderViewHeight: CGFloat = 150
+    var tableHeaderViewHeight: CGFloat = 148
     var heightForHeaderInSection: Int = 44
 
     var gloableNavigationBar:GLoabelNavigaitonBar!
@@ -61,9 +61,8 @@ class StoreSegementViewController: BaseViewController {
     
     
     override func setUpView() {
-        
         if #available(iOS 11.0, *) {
-            userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight) + NAV_HEIGHT))
+            userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight + NAV_HEIGHT / 2)))
         } else {
             // Fallback on earlier versions
              userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight)))
@@ -119,7 +118,12 @@ class StoreSegementViewController: BaseViewController {
 extension StoreSegementViewController: JXPagingViewDelegate {
     
     func tableHeaderViewHeight(in pagingView: JXPagingView) -> Int {
-        return Int(tableHeaderViewHeight) + 8
+        if #available(iOS 11.0, *) {
+            return Int(tableHeaderViewHeight) - 60 + Int(NAV_HEIGHT)
+        } else {
+            return Int(tableHeaderViewHeight) - 98
+            // Fallback on earlier versions
+        }
     }
     
     func tableHeaderView(in pagingView: JXPagingView) -> UIView {

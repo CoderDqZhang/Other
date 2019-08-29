@@ -9,8 +9,6 @@
 import UIKit
 import JXSegmentedView
 
-
-
 class ScoreSegementViewController: BaseViewController,UIScrollViewDelegate {
 
     let titles = ["足球", "篮球"]

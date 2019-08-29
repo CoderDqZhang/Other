@@ -87,7 +87,7 @@ class LoadConfigManger: NSObject {
         let date = Date.init().string(withFormat: "yyyyMMdd")
         let parameters = ["date":date] as [String : Any]
         var temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
-        if temp_dic == nil || temp_dic?.object(forKey: date) != nil || CacheManager.getSharedInstance().getFootBallEventSelectModel() == nil {
+//        if temp_dic == nil || temp_dic?.object(forKey: date) == nil || CacheManager.getSharedInstance().getFootBallEventSelectModel() == nil {
             BaseNetWorke.getSharedInstance().getUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
         
@@ -102,20 +102,17 @@ class LoadConfigManger: NSObject {
                     NotificationCenter.default.post(name: NSNotification.Name.init(RELOADFOOTBALLEVENTDATA), object: nil)
                 }
             }
-            
-        }
+//        }
     }
     
     func loadBasketBallScorEvent(){
         let date = Date.init().string(withFormat: "yyyyMMdd")
         let parameters = ["date":date] as [String : Any]
         var temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
-        if temp_dic == nil || temp_dic?.object(forKey: date) == nil || CacheManager.getSharedInstance().getBasketBallEventSelectModel() == nil {
+//        if temp_dic == nil || temp_dic?.object(forKey: date) == nil || CacheManager.getSharedInstance().getBasketBallEventSelectModel() == nil {
             BaseNetWorke.getSharedInstance().getUrlWithString(BasketBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
-                    
                     self.saveBasketBallEventDic(dic: (resultDic.value as! NSDictionary))
-                    
                     if temp_dic == nil {
                         temp_dic = NSMutableDictionary.init(dictionary:  [date:resultDic.value as! NSDictionary])
                     }else{
@@ -126,7 +123,7 @@ class LoadConfigManger: NSObject {
                 }
             }
             
-        }
+//        }
     }
     
     func saveFootBallEventDic(dic:NSDictionary){
@@ -215,7 +212,7 @@ class LoadConfigManger: NSObject {
                 models.replaceObject(at: index, with: temp_dic)
             }
             let dic = NSMutableDictionary.init()
-            let titles = NSArray.init(array: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","S","Y","Z"])
+            let titles = NSArray.init(array: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"])
             for name in titles {
                 let array = models.filter { (dic) -> Bool in
                     var title = ""
@@ -257,7 +254,7 @@ class LoadConfigManger: NSObject {
                 models.replaceObject(at: index, with: temp_dic)
             }
             let dic = NSMutableDictionary.init()
-            let titles = NSArray.init(array: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","S","Y","Z"])
+            let titles = NSArray.init(array: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"])
             for name in titles {
                 let array = models.filter { (dic) -> Bool in
                     var title = ""

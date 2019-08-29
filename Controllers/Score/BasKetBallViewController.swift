@@ -29,17 +29,10 @@ class BasKetBallViewController: BaseViewController {
         if titles != nil {
             dateTime = titles
         }
-        self.bindLogic()
-//        if self.viewDesc != .timely {
-//            self.setUpRefreshData {
-//                self.getNetWorkData()
-//            }
-//        }
-        self.setUpRefreshData {
-            if self.viewDesc != .attention {
-                self.getNetWorkData()
-            }else{
-                self.basketBallViewModel.filterArray()
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+            self.bindLogic()
+            self.setUpRefreshData {
+                self.refreshData()
             }
         }
     }
@@ -52,7 +45,7 @@ class BasKetBallViewController: BaseViewController {
         }else{
             self.basketBallViewModel.filterArray()
         }
-        if self.viewDesc == .timely {
+        if self.viewDesc == .timely || self.viewDesc == .underway {
             self.basketBallViewModel.socketData()
         }
         if self.viewDesc != .amidithion {
@@ -69,6 +62,14 @@ class BasKetBallViewController: BaseViewController {
         }
         //            self.footBallViewModel.getFoot1BallNet(date: date)
         self.basketBallViewModel.getBasketInfoBallNet(type:self.viewDesc.rawValue.string, date: date)
+    }
+    
+    func refreshData(){
+        if self.viewDesc != .attention {
+            self.getNetWorkData()
+        }else{
+            self.basketBallViewModel.filterArray()
+        }
     }
     /*
     // MARK: - Navigation

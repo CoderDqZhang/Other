@@ -19,7 +19,7 @@ class OtherMineViewController: BaseViewController {
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
     let titles = ["推荐", "发表", "竞猜"]
-    var tableHeaderViewHeight: CGFloat = 108
+    var tableHeaderViewHeight: CGFloat = 148
     var heightForHeaderInSection: Int = 44
     
     let recommendVC = RecommendViewController()
@@ -63,13 +63,12 @@ class OtherMineViewController: BaseViewController {
         gloableNavigationBar.rightButtonClouse = { status in
             self.otherViewModel.followNet(userId: (self.postData.object(forKey: "id") as! Int).string, status: status)
         }
-        pagingView.pinSectionHeaderVerticalOffset = gloableNavigationBar.height - 64
         self.view.addSubview(gloableNavigationBar)
     }
     
     override func setUpView() {
         if #available(iOS 11.0, *) {
-            userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight + NAV_HEIGHT)))
+            userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight + NAV_HEIGHT / 2)))
         } else {
              userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight)))
             // Fallback on earlier versions
@@ -153,7 +152,7 @@ class OtherMineViewController: BaseViewController {
 extension OtherMineViewController: JXPagingViewDelegate {
     
     func tableHeaderViewHeight(in pagingView: JXPagingView) -> Int {
-        return Int(tableHeaderViewHeight)
+        return Int(tableHeaderViewHeight) - 60
     }
     
     func tableHeaderView(in pagingView: JXPagingView) -> UIView {

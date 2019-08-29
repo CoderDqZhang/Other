@@ -32,7 +32,10 @@ class NewsViewModel: BaseViewModel {
         }
         cell.categoryTableViewCellClouseClick = { category in
             let dic:NSDictionary = category.toDictionary() as NSDictionary
-            (self.controller! as! NewsViewController).categoryDetailClouse(dic,.BasketBall)
+            let categoryVC = CategoryDetailViewController.init()
+            categoryVC.categoryData = dic
+            categoryVC.categoryType = .BasketBall
+            NavigationPushView(self.controller!, toConroller: categoryVC)
         }
     }
     

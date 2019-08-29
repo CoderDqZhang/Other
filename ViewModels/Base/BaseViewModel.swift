@@ -62,9 +62,10 @@ class BaseViewModel: NSObject {
         if self.controller?.tableView != nil {
             if resultData is NSDictionary {
                 let pageModel = PageModel.init(fromDictionary: resultData as! [String : Any])
-                if pageModel.current != nil && pageModel.current == pageModel.pages {
+                if pageModel.current != nil && pageModel.current >= pageModel.pages {
                     if self.controller?.tableView.mj_footer != nil {
                         self.controller?.tableView.mj_footer.endRefreshingWithNoMoreData()
+                        self.controller?.tableView.mj_footer.isHidden = true
                     }
                     self.controller?.stopRefresh()
                 }else{

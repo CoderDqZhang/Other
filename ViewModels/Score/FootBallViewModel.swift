@@ -77,16 +77,23 @@ class FootBallViewModel: BaseViewModel {
     
     func socketData(){
         SocketManager.getSharedInstance().single?.observe { (dic) in
-            if (dic.value as! NSDictionary).object(forKey: "type") as! Int == 1 {
-                let matchs = (dic.value as! NSDictionary).object(forKey: "data")
-                if (dic.value as! NSDictionary).object(forKey: "data") is NSArray {
-                    for match in matchs as! NSArray {
-                        let footBall = self.footBallArray.filter({ (model) -> Bool in
-                            return (model as! FootBallModel).id == (match as! Array)[0]
-                        })
-                        self.socketUpdateData(match: match as! NSArray, model: footBall[0] as! FootBallModel)
+            if dic.value is NSDictionary {
+                if (dic.value as! NSDictionary).object(forKey: "type") != nil && (dic.value as! NSDictionary).object(forKey: "type") as! Int == 2 {
+                    let matchs = (dic.value as! NSDictionary).object(forKey: "data")
+                    if (dic.value as! NSDictionary).object(forKey: "data") is NSArray {
+                        for match in matchs as! NSArray {
+                            if self.footBallArray.count > 0 {
+                                let footBall = self.footBallArray.filter({ (model) -> Bool in
+                                    return (model as! FootBallModel).id! == ((match as! NSArray)[0] as! Int)
+                                })
+                               
+                                if footBall.count > 0 {
+                                    self.socketUpdateData(match: match as! NSArray, model: footBall[0] as! FootBallModel)
+                                }
+                            }
+                        }
+                        self.reloadTableViewData()
                     }
-                    self.reloadTableViewData()
                 }
             }
         }
@@ -108,7 +115,7 @@ class FootBallViewModel: BaseViewModel {
     func getFootInfoBallNet(type:String, date:String){
         let parameters = ["date":date] as [String : Any]
         var temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
-        if temp_dic == nil || temp_dic?.object(forKey: date) == nil {
+//        if temp_dic == nil || temp_dic?.object(forKey: date) == nil {
             BaseNetWorke.getSharedInstance().getUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     if temp_dic == nil {
@@ -121,10 +128,10 @@ class FootBallViewModel: BaseViewModel {
                     self.getFootBallNet(type: type, date: date)
                 }
             }
-        }else{
-            footballDic = (temp_dic?.object(forKey: date) as! NSDictionary)
-            self.getFootBallNet(type: type, date: date)
-        }
+//        }else{
+//            footballDic = (temp_dic?.object(forKey: date) as! NSDictionary)
+//            self.getFootBallNet(type: type, date: date)
+//        }
         
     }
     
@@ -234,19 +241,20 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func socketUpdateData(match:NSArray, model:FootBallModel){
-        model.status = (match[2] as! Int)
-        model.teamA.score = ((match[5] as! NSArray)[2] as! Int)
-        model.teamA.cornerBall = ((match[5] as! NSArray)[6] as! Int)
-        model.teamA.addTimeScore = ((match[5] as! NSArray)[8] as! Int)
-        model.teamA.halfScore = ((match[5] as! NSArray)[3] as! Int)
-        model.teamA.halfRed = ((match[5] as! NSArray)[4] as! Int)
-        model.teamA.halfYellow = ((match[5] as! NSArray)[5] as! Int)
-        model.teamB.score = ((match[6] as! NSArray)[2] as! Int)
-        model.teamB.cornerBall = ((match[6] as! NSArray)[6] as! Int)
-        model.teamB.addTimeScore = ((match[6] as! NSArray)[8] as! Int)
-        model.teamB.halfScore = ((match[6] as! NSArray)[3] as! Int)
-        model.teamB.halfRed = ((match[6] as! NSArray)[4] as! Int)
-        model.teamB.halfYellow = ((match[6] as! NSArray)[5] as! Int)
+        model.status = (match[1] as! Int)
+        if (match[1] as! Int) == 8 {
+            (self.controller! as! FootBallViewController).refreshData()
+        }
+        model.teamA.score = ((match[2] as! NSArray)[2] as! Int)
+        model.teamA.cornerBall = ((match[2] as! NSArray)[6] as! Int)
+        model.teamA.halfScore = ((match[2] as! NSArray)[3] as! Int)
+        model.teamA.halfRed = ((match[2] as! NSArray)[4] as! Int)
+        model.teamA.halfYellow = ((match[2] as! NSArray)[5] as! Int)
+        model.teamB.score = ((match[3] as! NSArray)[2] as! Int)
+        model.teamB.cornerBall = ((match[3] as! NSArray)[6] as! Int)
+        model.teamB.halfScore = ((match[3] as! NSArray)[3] as! Int)
+        model.teamB.halfRed = ((match[3] as! NSArray)[4] as! Int)
+        model.teamB.halfYellow = ((match[3] as! NSArray)[5] as! Int)
     }
 }
 

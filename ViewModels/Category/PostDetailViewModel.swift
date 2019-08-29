@@ -45,7 +45,17 @@ class PostDetailViewModel: BaseViewModel {
             case .like:
                self.likeNet(status)
             case .login:
-                NavigationPushView(self.controller!, toConroller: LoginViewController())
+                let loginVC = LoginViewController()
+                if status == .loginadd{
+                    loginVC.loginDoneClouse = {
+                        cell.likeButtonClick()
+                    }
+                }else{
+                    loginVC.loginDoneClouse = {
+                        cell.collectButtonClick()
+                    }
+                }
+                NavigationPushView(self.controller!, toConroller: loginVC)
             default:
                  self.collectNet()
             }
@@ -105,14 +115,18 @@ class PostDetailViewModel: BaseViewModel {
             if type == .like {
                 let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
                 self.likeCommentNet(commentId: model.id.string, model:model, indexPath: indexPath)
-            }else{
-                
+            }else if type == .user{
                 let dic:NSDictionary = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]).user.toDictionary() as NSDictionary
                 let otherMineVC = OtherMineViewController()
                 otherMineVC.postData = dic
                 NavigationPushView(self.controller!, toConroller: otherMineVC)
+            }else{
+                let loginVC = LoginViewController()
+                loginVC.loginDoneClouse = {
+                    cell.likeButtonClick()
+                }
+                NavigationPushView(self.controller!, toConroller: loginVC)
             }
-            
         }
     }
     
@@ -334,9 +348,6 @@ extension PostDetailViewModel: UITableViewDelegate {
             }
             if self.tipDetailModel != nil {
                 return self.getContentHeight()
-//                return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), cacheByKey: self.tipDetailModel   , configuration: { (cell) in
-//                    self.tableViewPostDetailContentTableViewCellSetData(indexPath, cell: cell as! PostDetailContentTableViewCell)
-//                })
             }
             return 60
             
@@ -413,7 +424,7 @@ extension PostDetailViewModel: UITableViewDataSource {
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
             self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
-            
+            (cell as! PostDetailCommentTableViewCell).hiddenLineLabel(ret: self.commentListArray.count - 1 == indexPath.section - 2 ? true : false)
             cell.selectionStyle = .none
             return cell
         }

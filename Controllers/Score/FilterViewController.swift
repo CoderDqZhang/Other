@@ -55,31 +55,32 @@ class FilterViewController: BaseViewController {
         self.filterViewModel.controller = self
         self.filterType = FilterViewControllerType.init(rawValue: type)
         self.filterViewModel.filterType = FilterViewControllerType.init(rawValue: type)
-        if self.viewType == .football {
-            let temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
-            if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
-                LoadConfigManger.getSharedInstance().loadFootBallScorEvent()
-                NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADFOOTBALLEVENTDATA), object: nil)
-            }else{
-                if CacheManager.getSharedInstance().getFootBallEventModel() == nil {
-                    LoadConfigManger.getSharedInstance().saveFootBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+            if self.viewType == .football {
+                let temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
+                if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
+                    LoadConfigManger.getSharedInstance().loadFootBallScorEvent()
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADFOOTBALLEVENTDATA), object: nil)
+                }else{
+                    if CacheManager.getSharedInstance().getFootBallEventModel() == nil {
+                        LoadConfigManger.getSharedInstance().saveFootBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
+                    }
+                    self.loadData()
                 }
-                self.loadData()
-            }
-            
-        }else{
-            let temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
-            if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
-                LoadConfigManger.getSharedInstance().loadBasketBallScorEvent()
-                NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADBASKETBALLEVENTDATA), object: nil)
+                
             }else{
-                if CacheManager.getSharedInstance().getBasketBallEventModel() == nil {
-                    LoadConfigManger.getSharedInstance().saveBasketBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
+                let temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
+                if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
+                    LoadConfigManger.getSharedInstance().loadBasketBallScorEvent()
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADBASKETBALLEVENTDATA), object: nil)
+                }else{
+                    if CacheManager.getSharedInstance().getBasketBallEventModel() == nil {
+                        LoadConfigManger.getSharedInstance().saveBasketBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
+                    }
+                    self.loadData()
                 }
-                self.loadData()
             }
         }
-        
         
         self.bindViewModel(viewModel: filterViewModel, controller: self)
         
@@ -92,7 +93,7 @@ class FilterViewController: BaseViewController {
         layout.sectionInset = UIEdgeInsets.init(top: 8, left: 15, bottom: 8, right: 15)
 
         if #available(iOS 11.0, *) {
-            collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - NAV_HEIGHT - 49 - 48 - 44 - 20), collectionViewLayout: layout)
+            collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - NAV_HEIGHT - 49 - 48 - 44 - TABBAR_HEIGHT - 20), collectionViewLayout: layout)
         } else {
             // Fallback on earlier versions
            collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - 49 - 48 - 44 - 20), collectionViewLayout: layout)
@@ -107,25 +108,27 @@ class FilterViewController: BaseViewController {
     }
     
     func addBootomView(){
-        if self.buttomView == nil {
-            buttomView = FilterBottomView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 48, width: SCREENWIDTH, height: 48), number: "0", click: { (type) in
-                if type == .done {
-                    self.filterViewModel.saveEvent()
-                }else{
-                    self.filterViewModel.selectTools(type: type)
-                }
-            })
-            self.view.addSubview(buttomView)
-            self.view.bringSubviewToFront(buttomView)
-            buttomView.snp.makeConstraints { (make) in
-                make.bottom.equalToSuperview()
-                make.left.equalToSuperview()
-                make.right.equalToSuperview()
-                if #available(iOS 11.0, *) {
-                    make.height.equalTo(48 + TABBAR_HEIGHT)
-                } else {
-                    // Fallback on earlier versions
-                    make.height.equalTo(48)
+        DispatchQueue.main.async {
+            if self.buttomView == nil {
+                self.buttomView = FilterBottomView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 48, width: SCREENWIDTH, height: 48), number: "0", click: { (type) in
+                    if type == .done {
+                        self.filterViewModel.saveEvent()
+                    }else{
+                        self.filterViewModel.selectTools(type: type)
+                    }
+                })
+                self.view.addSubview(self.buttomView)
+                self.view.bringSubviewToFront(self.buttomView)
+                self.buttomView.snp.makeConstraints { (make) in
+                    make.bottom.equalToSuperview()
+                    make.left.equalToSuperview()
+                    make.right.equalToSuperview()
+                    if #available(iOS 11.0, *) {
+                        make.height.equalTo(48 + TABBAR_HEIGHT)
+                    } else {
+                        // Fallback on earlier versions
+                        make.height.equalTo(48)
+                    }
                 }
             }
         }
@@ -133,7 +136,7 @@ class FilterViewController: BaseViewController {
     
     @objc func reloadData(){
         self.loadData()
-        self.collectionView.reloadData()
+        
     }
     
     func loadData(){
@@ -181,27 +184,29 @@ class FilterViewController: BaseViewController {
     }
     
     func addRightView(dic:NSDictionary){
-        if indexView == nil {
-            var frame:CGRect!
-            if #available(iOS 11.0, *) {
-                frame = CGRect(x: SCREENWIDTH - indexWidth,
-                                   y: 0,
-                                   width: indexWidth,
-                                   height: view.frame.size.height - NAV_HEIGHT - 49 - 48 - 64 - TABBAR_HEIGHT)
-            } else {
-                frame = CGRect(x: SCREENWIDTH - indexWidth,
-                                   y: 0,
-                                   width: indexWidth,
-                                   height: view.frame.size.height - 49 - 48 - 64)
-                // Fallback on earlier versions
+        DispatchQueue.main.async {
+            if self.indexView == nil {
+                var frame:CGRect!
+                if #available(iOS 11.0, *) {
+                    frame = CGRect(x: SCREENWIDTH - self.indexWidth,
+                                       y: 0,
+                                       width: self.indexWidth,
+                                       height: self.view.frame.size.height - NAV_HEIGHT - 49 - 48 - 64 - TABBAR_HEIGHT)
+                } else {
+                    frame = CGRect(x: SCREENWIDTH - self.indexWidth,
+                                       y: 0,
+                                       width: self.indexWidth,
+                                       height: self.view.frame.size.height - 49 - 48 - 64)
+                    // Fallback on earlier versions
+                }
+                self.indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: dic.allKeys.sorted(by: { (first, seconde) -> Bool in
+                    return (first as! String) < (seconde as! String)
+                }))
+                self.indexView?.delegate = self
+                self.indexView!.addTarget(self, action: #selector(self.indexViewValueChanged(sender:)), for: .valueChanged)
+                self.view.addSubview(self.indexView!)
+                self.view.bringSubviewToFront(self.indexView!)
             }
-            indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: dic.allKeys.sorted(by: { (first, seconde) -> Bool in
-                return (first as! String) < (seconde as! String)
-            }))
-            indexView?.delegate = self
-            indexView!.addTarget(self, action: #selector(indexViewValueChanged(sender:)), for: .valueChanged)
-            self.view.addSubview(indexView!)
-            self.view.bringSubviewToFront(indexView!)
         }
     }
     

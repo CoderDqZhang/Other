@@ -36,15 +36,16 @@ class FootBallViewController: BaseViewController {
         if titles != nil {
             dateTime = titles
         }
-        self.bindLogic()
-        
-        self.setUpRefreshData {
-            if self.viewDesc != .attention {
-                self.getNetWorkData()
-            }else{
-                self.footBallViewModel.filterArray()
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+            self.bindLogic()
+            self.setUpRefreshData {
+                self.refreshData()
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     func bindLogic() {
@@ -55,7 +56,7 @@ class FootBallViewController: BaseViewController {
         }else{
             self.footBallViewModel.filterArray()
         }
-        if self.viewDesc == .timely {
+        if self.viewDesc == .timely || self.viewDesc == .underway{
             self.footBallViewModel.socketData()
         }
         
@@ -74,6 +75,13 @@ class FootBallViewController: BaseViewController {
         self.footBallViewModel.getFootInfoBallNet(type:self.viewDesc.rawValue.string, date: date)
     }
     
+    func refreshData(){
+        if self.viewDesc != .attention {
+            self.getNetWorkData()
+        }else{
+            self.footBallViewModel.filterArray()
+        }
+    }
     /*
     // MARK: - Navigation
 

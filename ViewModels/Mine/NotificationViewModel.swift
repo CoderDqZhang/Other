@@ -22,7 +22,7 @@ class NotificationViewModel: BaseViewModel {
     
     
     func tableViewNotificationTableViewCellSetData(_ indexPath:IndexPath, cell:NotificationTableViewCell) {
-        cell.cellSetData(model: NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any]), indexPath: indexPath)
+        cell.cellSetData(model: NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any]), indexPath: indexPath)
         cell.notificationTableViewCellClouse = { indexPath in
             let alerController = UIAlertController.init(title: "操作", message: "", preferredStyle: .actionSheet)
             alerController.addAction(title: "标记已读", style: .default, isEnabled: true, handler: { (read) in
@@ -42,7 +42,7 @@ class NotificationViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if self.type != .system {
-            let dicData:NSDictionary = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any]).toDictionary() as NSDictionary
+            let dicData:NSDictionary = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
             let mutDic = NSMutableDictionary.init(dictionary: dicData)
             mutDic.setObject(dicData.object(forKey: "params")!, forKey: "id" as NSCopying)
             if (self.controller as! NotificationViewController).postDetailDataClouse != nil {
@@ -76,13 +76,13 @@ class NotificationViewModel: BaseViewModel {
     }
     
     func notificationStatusNet(indexPath:IndexPath){
-        let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any])
+        let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any])
         let parameters = ["notifyId":messageModel.id.string] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(NotifyAlertStatusUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.updateUnreadNumber()
                 messageModel.status = "1"
-                self.detailArray.replaceObject(at: indexPath.row, with: messageModel.toDictionary())
+                self.detailArray.replaceObject(at: indexPath.section, with: messageModel.toDictionary())
                 _ = Tools.shareInstance.showMessage(self.controller!.view, msg: "标记成功", autoHidder: true)
                 self.reloadTableViewData()
             }else{
@@ -92,15 +92,15 @@ class NotificationViewModel: BaseViewModel {
     }
     
     func deleteNotificationNet(indexPath:IndexPath){
-        let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.row] as! [String : Any])
+        let messageModel = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any])
         let parameters = ["notifyId":messageModel.id.string] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(NotifyAlertDeleteUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.updateUnreadNumber()
                 messageModel.status = "1"
-                self.detailArray.replaceObject(at: indexPath.row, with: messageModel.toDictionary())
+                self.detailArray.replaceObject(at: indexPath.section, with: messageModel.toDictionary())
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "删除成功", autoHidder: true)
-                self.detailArray.removeObject(at: indexPath.row)
+                self.detailArray.removeObject(at: indexPath.section)
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -136,6 +136,9 @@ extension NotificationViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 5
+        }
         return 0.0001
     }
     
@@ -154,17 +157,18 @@ extension NotificationViewModel: UITableViewDelegate {
 
 extension NotificationViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return detailArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return detailArray.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NotificationTableViewCell.description(), for: indexPath)
         self.tableViewNotificationTableViewCellSetData(indexPath, cell: cell as! NotificationTableViewCell)
+        (cell as! NotificationTableViewCell).hiddenLineLabel(ret: self.detailArray.count - 1 == indexPath.section ? true : false)
         return cell
     }
 }

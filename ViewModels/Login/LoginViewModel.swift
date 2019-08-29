@@ -31,10 +31,17 @@ class LoginViewModel: BaseViewModel {
                     CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
                     NotificationManager.getSharedInstance().addAlias(alias: userInfo.id.string)
                     UserDefaults.init().set(userInfo.token, forKey: CACHEMANAUSERTOKEN)
-                    (self.controller as! LoginViewController).navigationController?.popToRootViewController(animated: true)
+                    (self.controller as! LoginViewController).navigationController?.popViewController(animated: true, {
+                        if (self.controller as! LoginViewController).loginDoneClouse != nil {
+                            (self.controller as! LoginViewController).loginDoneClouse()
+                        }
+                    })
                     //登录成功后读取未读消息数量
                     LoadConfigManger.getSharedInstance().loadUnreadUrl()
                     self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+                    
+                    //登录成功后执行操作
+                    
                 }
                 
             }else{
@@ -52,7 +59,11 @@ class LoginViewModel: BaseViewModel {
                     NotificationManager.getSharedInstance().addAlias(alias: userInfo.id.string)
                     CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
                     UserDefaults.init().set(userInfo.token, forKey: CACHEMANAUSERTOKEN)
-                    (self.controller as! LoginViewController).navigationController?.popToRootViewController(animated: true)
+                    (self.controller as! LoginViewController).navigationController?.popViewController(animated: true, {
+                        if (self.controller as! LoginViewController).loginDoneClouse != nil {
+                            (self.controller as! LoginViewController).loginDoneClouse()
+                        }
+                    })
                     //登录成功后读取未读消息数量
                     LoadConfigManger.getSharedInstance().loadUnreadUrl()
                     self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

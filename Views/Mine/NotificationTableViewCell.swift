@@ -101,6 +101,10 @@ class NotificationTableViewCell: UITableViewCell {
         isUnread.isHidden = model.status == "1" ? true : false
     }
     
+    func hiddenLineLabel(ret:Bool){
+        lineLabel.isHidden = ret
+    }
+    
     override func updateConstraints() {
         if !didMakeConstraints {
             conisImageView.snp.makeConstraints { (make) in

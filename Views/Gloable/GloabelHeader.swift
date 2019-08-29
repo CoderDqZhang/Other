@@ -251,7 +251,7 @@ class StoreView: UIView {
 
         self.addSubview(backImageView)
         if #available(iOS 11.0, *) {
-            centerView = UIView.init(frame: CGRect.init(x: 18, y: 64 + NAV_HEIGHT, width: SCREENWIDTH - 36, height: 80))
+            centerView = UIView.init(frame: CGRect.init(x: 18, y: 64 + NAV_HEIGHT / 2, width: SCREENWIDTH - 36, height: 80))
         } else {
             centerView = UIView.init(frame: CGRect.init(x: 18, y: 64, width: SCREENWIDTH - 36, height: 80))
             // Fallback on earlier versions

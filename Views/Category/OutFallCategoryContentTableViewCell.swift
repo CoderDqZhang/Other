@@ -21,7 +21,7 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
     var indexPath:IndexPath!
     var transButtonClickClouse:TransButtonClickClouse!
     
-    var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 1))
+//    var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 1))
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -56,7 +56,7 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
         imageContentView = UIView.init()
         self.contentView.addSubview(imageContentView)
         
-        self.contentView.addSubview(lineLabel)
+//        self.contentView.addSubview(lineLabel)
         
         self.updateConstraints()
     }
@@ -150,12 +150,12 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
                 make.height.equalTo(0.001)
             }
             
-            lineLabel.snp.makeConstraints { (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(15)
-                make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
-                make.height.equalTo(1)
-            }
+//            lineLabel.snp.makeConstraints { (make) in
+//                make.left.equalTo(self.contentView.snp.left).offset(15)
+//                make.right.equalTo(self.contentView.snp.right).offset(-15)
+//                make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
+//                make.height.equalTo(1)
+//            }
             didMakeConstraints = true
         }
         super.updateConstraints()

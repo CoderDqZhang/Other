@@ -10,6 +10,8 @@ import UIKit
 import ReactiveCocoa
 import ReactiveSwift
 
+typealias LoginDoneClouse = () ->Void
+
 class LoginViewController: BaseViewController {
 
     var gloableNavigationBar:GLoabelNavigaitonBar!
@@ -17,6 +19,8 @@ class LoginViewController: BaseViewController {
     var loginCenteView:LoginView!
     var thirdLogin:GloableThirdLogin!
     var cofirmProtocolView:CofirmProtocolView!
+    
+    var loginDoneClouse:LoginDoneClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()

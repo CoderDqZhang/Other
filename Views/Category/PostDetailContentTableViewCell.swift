@@ -71,29 +71,19 @@ class  PostDetailContentTableViewCell : UITableViewCell {
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "post_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
             if CacheManager.getSharedInstance().isLogin() {
-                if self.likeButton.imageView.image == UIImage.init(named: "post_detail_like_select") {
-                    self.likeButton.imageView.image = UIImage.init(named: "post_detail_like")
-                    self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
-                    self.postDetailContentTableViewCellClouse(.like, .delete)
-                }else{
-                    self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
-                    self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
-                    self.postDetailContentTableViewCellClouse(.like, .add)
-                }
+                self.likeButtonClick()
             }else{
-                self.postDetailContentTableViewCellClouse(.login, .none)
+                self.postDetailContentTableViewCellClouse(.login, .loginadd)
             }
         })
         
         likeButtonView.addSubview(likeButton)
         
         collectButton = CustomViewButtonTopImageAndBottomLabel.init(frame: CGRect.init(x: UIImage.init(named: "post_detail_like")!.size.width + 25, y: 0, width: 34, height: 74), title: "收藏", image: UIImage.init(named: "post_detail_collect")!, tag: 2, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
-            if self.collectButton.imageView.image == UIImage.init(named: "post_detail_collect_select"){
-                self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect")
-                self.postDetailContentTableViewCellClouse(.collect, .delete)
+            if CacheManager.getSharedInstance().isLogin() {
+                self.collectButtonClick()
             }else{
-                self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
-                self.postDetailContentTableViewCellClouse(.collect, .add)
+                self.postDetailContentTableViewCellClouse(.login, .logincollect)
             }
         })
         
@@ -184,6 +174,28 @@ class  PostDetailContentTableViewCell : UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func likeButtonClick(){
+        if self.likeButton.imageView.image == UIImage.init(named: "post_detail_like_select") {
+            self.likeButton.imageView.image = UIImage.init(named: "post_detail_like")
+            self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
+            self.postDetailContentTableViewCellClouse(.like, .delete)
+        }else{
+            self.likeButton.imageView.image = UIImage.init(named: "post_detail_like_select")
+            self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
+            self.postDetailContentTableViewCellClouse(.like, .add)
+        }
+    }
+    
+    func collectButtonClick(){
+        if self.collectButton.imageView.image == UIImage.init(named: "post_detail_collect_select"){
+            self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect")
+            self.postDetailContentTableViewCellClouse(.collect, .delete)
+        }else{
+            self.collectButton.imageView.image = UIImage.init(named: "post_detail_collect_select")
+            self.postDetailContentTableViewCellClouse(.collect, .add)
+        }
     }
     
     

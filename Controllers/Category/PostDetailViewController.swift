@@ -16,7 +16,8 @@ enum ToatalNumber {
 enum ToolsStatus {
     case add
     case delete
-    case none
+    case loginadd
+    case logincollect
 }
 
 enum PostDetaiGoToType {
@@ -66,40 +67,29 @@ class PostDetailViewController: BaseViewController {
         
         if #available(iOS 11.0, *) {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 44 - TABBAR_HEIGHT, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
-                let commentVC = CommentPostViewController()
-                let commentPost = UINavigationController.init(rootViewController: commentVC)
-                commentVC.postData = self.postData
-                commentVC.commentPostViewControllerDataClouse = { dic in
-                    self.postDetailViewModel.tipDetailModel.commentTotal = self.postDetailViewModel.tipDetailModel.commentTotal + 1
-                    self.postDetailViewModel.commentListArray.insert(dic, at: 0)
-                    self.postDetailViewModel.reloadTableViewData()
-                    
-                    if self.changeAllCommentAndLikeNumberClouse != nil {
-                        self.changeAllCommentAndLikeNumberClouse(.comment, .add)
+                if CacheManager.getSharedInstance().isLogin() {
+                    self.clickComentVC()
+                }else{
+                    let loginVC = LoginViewController.init()
+                    loginVC.loginDoneClouse = {
+                        self.clickComentVC()
                     }
+                    NavigationPushView(self, toConroller: loginVC)
                 }
-                NavigaiontPresentView(self, toController: commentPost)
             }, senderClick: { str in
                 
             })
-            
-            
-            
         } else {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 44, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
-                let commentVC = CommentPostViewController()
-                let commentPost = UINavigationController.init(rootViewController: commentVC)
-                commentVC.postData = self.postData
-                commentVC.commentPostViewControllerDataClouse = { dic in
-                    self.postDetailViewModel.tipDetailModel.commentTotal = self.postDetailViewModel.tipDetailModel.commentTotal + 1
-                    self.postDetailViewModel.commentListArray.insert(dic, at: 0)
-                    self.postDetailViewModel.reloadTableViewData()
+                if CacheManager.getSharedInstance().isLogin() {
+                    self.clickComentVC()
+                }else{
+                    let loginVC = LoginViewController.init()
+                    loginVC.loginDoneClouse = {
+                        self.clickComentVC()
+                    }
+                    NavigationPushView(self, toConroller: loginVC)
                 }
-                
-                if self.changeAllCommentAndLikeNumberClouse != nil {
-                    self.changeAllCommentAndLikeNumberClouse(.comment, .add)
-                }
-                NavigaiontPresentView(self, toController: commentPost)
             }, senderClick: { str in
                 
             })
@@ -123,6 +113,22 @@ class PostDetailViewController: BaseViewController {
         }
     }
 
+    //评论文章界面
+    func clickComentVC(){
+        let commentVC = CommentPostViewController()
+        let commentPost = UINavigationController.init(rootViewController: commentVC)
+        commentVC.postData = self.postData
+        commentVC.commentPostViewControllerDataClouse = { dic in
+            self.postDetailViewModel.tipDetailModel.commentTotal = self.postDetailViewModel.tipDetailModel.commentTotal + 1
+            self.postDetailViewModel.commentListArray.insert(dic, at: 0)
+            self.postDetailViewModel.reloadTableViewData()
+            
+            if self.changeAllCommentAndLikeNumberClouse != nil {
+                self.changeAllCommentAndLikeNumberClouse(.comment, .add)
+            }
+        }
+        NavigaiontPresentView(self, toController: commentPost)
+    }
     
     func refreshData(){
         self.postDetailViewModel.page = 0

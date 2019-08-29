@@ -49,6 +49,7 @@ class CommentPostViewController: BaseViewController {
     }
     
     @objc func rightButtonClick(_ sender:UIBarButtonItem) {
+        self.view.endEditing(true)
         self.commentPostViewModel.postTCommentNet()
     }
     /*

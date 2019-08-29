@@ -309,6 +309,10 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func hiddenLineLabel(ret:Bool){
+        lineLabel.isHidden = ret
+    }
+    
     
     override func updateConstraints() {
         if !didMakeConstraints {

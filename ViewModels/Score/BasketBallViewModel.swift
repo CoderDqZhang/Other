@@ -65,16 +65,22 @@ class BasketBallViewModel: BaseViewModel {
     
     func socketData(){
         SocketManager.getSharedInstance().single?.observe { (dic) in
-            if (dic.value as! NSDictionary).object(forKey: "type") as! Int == 2 {
-                let matchs = (dic.value as! NSDictionary).object(forKey: "data")
-                if (dic.value as! NSDictionary).object(forKey: "data") is NSArray {
-                    for match in matchs as! NSArray {
-                        let basketBall = self.basketBallArray.filter({ (model) -> Bool in
-                            return (model as! BasketBallModel).id == (match as! Array)[0]
-                        })
-                        self.socketUpdateData(match: match as! NSArray, model: basketBall[0] as! BasketBallModel)
+            if (dic.value is NSDictionary) {
+                if (dic.value as! NSDictionary).object(forKey: "type") != nil && (dic.value as! NSDictionary).object(forKey: "type") as! Int == 3 {
+                    let matchs = (dic.value as! NSDictionary).object(forKey: "data")
+                    if (dic.value as! NSDictionary).object(forKey: "data") is NSArray {
+                        for match in matchs as! NSArray {
+                            if self.basketBallArray.count > 0 {
+                                let basketBall = self.basketBallArray.filter({ (model) -> Bool in
+                                    return (model as! BasketBallModel).id! == (match as! NSArray)[0] as! Int
+                                })
+                                if basketBall.count > 0 {
+                                    self.socketUpdateData(match: match as! NSArray, model: basketBall[0] as! BasketBallModel)
+                                }
+                            }
+                        }
+                        self.reloadTableViewData()
                     }
-                    self.reloadTableViewData()
                 }
             }
         }
@@ -95,7 +101,7 @@ class BasketBallViewModel: BaseViewModel {
     func getBasketInfoBallNet(type:String, date:String){
         let parameters = ["date":date] as [String : Any]
         var temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
-        if temp_dic == nil || temp_dic?.object(forKey: date) == nil {
+//        if temp_dic == nil || temp_dic?.object(forKey: date) == nil {
             BaseNetWorke.getSharedInstance().getUrlWithString(BasketBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     if temp_dic == nil {
@@ -108,10 +114,10 @@ class BasketBallViewModel: BaseViewModel {
                     self.getbasketBallNet(type: type, date: date)
                 }
             }
-        }else{
-            basketballDic = (temp_dic?.object(forKey: date) as! NSDictionary)
-            self.getbasketBallNet(type: type, date: date)
-        }
+//        }else{
+//            basketballDic = (temp_dic?.object(forKey: date) as! NSDictionary)
+//            self.getbasketBallNet(type: type, date: date)
+//        }
     }
     
     func basketBallBindText(_ dic:NSArray){
@@ -200,18 +206,21 @@ class BasketBallViewModel: BaseViewModel {
     }
     
     func socketUpdateData(match:NSArray, model:BasketBallModel){
-        model.status = (match[2] as! Int)
-        model.allSecond = (match[5] as! Int)
-        model.basketBallTeamA.first = ((match[6] as! NSArray)[1] as! Int)
-        model.basketBallTeamA.second = ((match[6] as! NSArray)[2] as! Int)
-        model.basketBallTeamA.third = ((match[6] as! NSArray)[3] as! Int)
-        model.basketBallTeamA.four = ((match[6] as! NSArray)[4] as! Int)
-        model.basketBallTeamA.overtime = ((match[6] as! NSArray)[5] as! Int)
-        model.basketballTeamB.first = ((match[7] as! NSArray)[1] as! Int)
-        model.basketballTeamB.second = ((match[7] as! NSArray)[2] as! Int)
-        model.basketballTeamB.third = ((match[7] as! NSArray)[3] as! Int)
-        model.basketballTeamB.four = ((match[7] as! NSArray)[4] as! Int)
-        model.basketballTeamB.overtime = ((match[7] as! NSArray)[5] as! Int)
+        model.status = (match[1] as! Int)
+        model.allSecond = (match[2] as! Int)
+        if (match[1] as! Int) == 10 {
+            (self.controller! as! BasKetBallViewController).refreshData()
+        }
+        model.basketBallTeamA.first = ((match[3] as! NSArray)[0] as! Int)
+        model.basketBallTeamA.second = ((match[3] as! NSArray)[1] as! Int)
+        model.basketBallTeamA.third = ((match[3] as! NSArray)[2] as! Int)
+        model.basketBallTeamA.four = ((match[3] as! NSArray)[3] as! Int)
+        model.basketBallTeamA.overtime = ((match[3] as! NSArray)[4] as! Int)
+        model.basketballTeamB.first = ((match[4] as! NSArray)[0] as! Int)
+        model.basketballTeamB.second = ((match[4] as! NSArray)[1] as! Int)
+        model.basketballTeamB.third = ((match[4] as! NSArray)[2] as! Int)
+        model.basketballTeamB.four = ((match[4] as! NSArray)[3] as! Int)
+        model.basketballTeamB.overtime = ((match[4] as! NSArray)[4] as! Int)
     }
     
 }
