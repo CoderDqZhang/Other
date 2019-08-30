@@ -201,7 +201,9 @@ class FilterViewModel: BaseViewModel {
                         if !isContains {
                             number = number + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
                         }
-                        allNumber = allNumber + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
+                        if (array[index] as! NSDictionary).object(forKey: "match_ids") != nil {
+                            allNumber = allNumber + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
+                        }
                         (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
                     }
                 }

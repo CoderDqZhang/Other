@@ -317,7 +317,7 @@ class StoreView: UIView {
     }
     
     func storeViewChangeText(_ text:String) {
-        storeLabel.text = text
+        storeInfoLabel.text = text
     }
     
     required init?(coder aDecoder: NSCoder) {

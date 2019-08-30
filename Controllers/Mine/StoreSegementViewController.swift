@@ -29,6 +29,8 @@ class StoreSegementViewController: BaseViewController {
     var tableHeaderViewHeight: CGFloat = 148
     var heightForHeaderInSection: Int = 44
 
+    let storeViewModel = StoreSegmentViewModel.init()
+    
     var gloableNavigationBar:GLoabelNavigaitonBar!
 
     
@@ -70,7 +72,8 @@ class StoreSegementViewController: BaseViewController {
 
         userHeader = StoreView(frame: userHeaderContainerView.bounds)
         //设置数据
-//        otherViewModel.getUserInfoNet(userId: (postData.object(forKey: "id") as! Int).string)
+        storeViewModel.controller = self
+        storeViewModel.getAccountInfoNet()
         userHeader.storeViewClouse = {
             NavigationPushView(self, toConroller: StoreInfoViewController())
         }

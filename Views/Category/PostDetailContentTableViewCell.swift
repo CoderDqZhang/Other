@@ -112,7 +112,7 @@ class  PostDetailContentTableViewCell : UITableViewCell {
             imageContentView.removeSubviews()
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init()
-                imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), placeholderImage: nil) { (image, error, cacheType, url) in
+                imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), imageSize: nil, placeholderImage: nil) { (image, error, cacheType, url) in
                     if image != nil {
                         let size = image!.size
                         if size.width > SCREENWIDTH - 30 {

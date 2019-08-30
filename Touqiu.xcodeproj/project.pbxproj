@@ -109,6 +109,7 @@
 		1FBD7702230F96D400852B4D /* ArticleDetailContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */; };
 		1FBD7704230FE3AD00852B4D /* StoreInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD7703230FE3AD00852B4D /* StoreInfoModel.swift */; };
 		1FBD77062313B27800852B4D /* StoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD77052313B27800852B4D /* StoreDetailViewController.swift */; };
+		1FBD770A2319134000852B4D /* StoreSegmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD77092319133C00852B4D /* StoreSegmentViewModel.swift */; };
 		1FD6DD2B22E00AD70090318E /* AppInfomationsTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */; };
 		1FD6DD2D22E00CEF0090318E /* UIDeviceExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
@@ -479,6 +480,7 @@
 		1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailContentTableViewCell.swift; sourceTree = "<group>"; };
 		1FBD7703230FE3AD00852B4D /* StoreInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoModel.swift; sourceTree = "<group>"; };
 		1FBD77052313B27800852B4D /* StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
+		1FBD77092319133C00852B4D /* StoreSegmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSegmentViewModel.swift; sourceTree = "<group>"; };
 		1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfomationsTools.swift; sourceTree = "<group>"; };
 		1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtentions.swift; sourceTree = "<group>"; };
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1568,6 +1570,7 @@
 				1FF1E54622C4C67400BB9A50 /* MessageViewModel.swift */,
 				1FE8DAB9228EC8BF00DCED01 /* RealNameViewModel.swift */,
 				1FE8DABB228EC8D100DCED01 /* SigupVIPViewModel.swift */,
+				1FBD77092319133C00852B4D /* StoreSegmentViewModel.swift */,
 				1F1C1B5722A0F651008031F4 /* StoreViewModel.swift */,
 				1FEDB024230E897600024985 /* StoreInfoViewModel.swift */,
 				1FBD77052313B27800852B4D /* StoreDetailViewController.swift */,
@@ -2254,6 +2257,7 @@
 				1FF1E54522C4BF0000BB9A50 /* UIViewControllerExtentions.swift in Sources */,
 				1FE5BDF52282731C00C9137C /* MainTabBarController.swift in Sources */,
 				1FF025C322DC7A49005E2ED2 /* NotificationModel.swift in Sources */,
+				1FBD770A2319134000852B4D /* StoreSegmentViewModel.swift in Sources */,
 				1FEDB027230E89EA00024985 /* StoreInfoCollectionViewCell.swift in Sources */,
 				1FE5BE362282863D00C9137C /* TransitionAnimatedManager.swift in Sources */,
 				1FE5BDE622817B5F00C9137C /* Define.swift in Sources */,

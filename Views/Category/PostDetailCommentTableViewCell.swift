@@ -182,7 +182,7 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 for index in 0...images.count - 1 {
                     let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
                     imageView.tag = index + 10000
-                    imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), placeholderImage: nil) { (image, error, cacheType, url) in
+                    imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), imageSize: nil, placeholderImage: nil) { (image, error, cacheType, url) in
                         if image != nil {
                             let size = image!.size
                             if size.width > SCREENWIDTH - 60 {

@@ -136,6 +136,7 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func footBallBindText(_ dic:NSArray){
+        self.allFootBallArray.removeAllObjects()
          DispatchQueue.global(qos: .default).sync {
             for match in dic{
                 let temp_array = (match as! NSArray)

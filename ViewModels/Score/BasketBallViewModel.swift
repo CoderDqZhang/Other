@@ -19,6 +19,9 @@ class BasketBallViewModel: BaseViewModel {
     var basketBallArray = NSMutableArray.init()
     var allBasketBallArray =  NSMutableArray.init()
     
+    var collectModel:BasketBallModel!
+    var isSelect:BasketBallCollectType!
+    
     override init() {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(self.filterArray), name: NSNotification.Name.init(RELOADFILTERBASKETBALLMODEL), object: nil)
@@ -29,6 +32,9 @@ class BasketBallViewModel: BaseViewModel {
             cell.cellSetData(model:  self.basketBallArray[indexPath.section] as! BasketBallModel)
             cell.basketBallTableViewCellClouse = { type,model in
                 self.saveCollectModel(type, model)
+                //socket 更新收藏按钮
+                self.isSelect = type
+                self.collectModel = model
             }
         }
     }
@@ -121,6 +127,7 @@ class BasketBallViewModel: BaseViewModel {
     }
     
     func basketBallBindText(_ dic:NSArray){
+        allBasketBallArray.removeAllObjects()
         DispatchQueue.global(qos: .default).sync {
             UserDefaults.standard.set(dic.count, forKey: ALLBASKETBALLMACTH)
             for match in dic{
@@ -211,6 +218,12 @@ class BasketBallViewModel: BaseViewModel {
         if (match[1] as! Int) == 10 {
             (self.controller! as! BasKetBallViewController).refreshData()
         }
+        if self.collectModel != nil {
+            if model.id == self.collectModel.id {
+                model.isSelect = self.isSelect == .select ? true : false
+            }
+        }
+        
         model.basketBallTeamA.first = ((match[3] as! NSArray)[0] as! Int)
         model.basketBallTeamA.second = ((match[3] as! NSArray)[1] as! Int)
         model.basketBallTeamA.third = ((match[3] as! NSArray)[2] as! Int)
