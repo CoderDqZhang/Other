@@ -125,7 +125,7 @@ class BaseViewController: UIViewController {
     }
     
     func setUpRefreshData(refresh:@escaping MJRefreshComponentRefreshingBlock){
-        if self.tableView == nil {
+        if self.tableView != nil {
             self.tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
                 refresh()
             })

@@ -17,6 +17,8 @@ class FootBallViewModel: BaseViewModel {
     
     var footballDic:NSDictionary!
     
+    var isCollectSelect:Bool! = false
+    
     var footBallArray = NSMutableArray.init()
     var allFootBallArray =  NSMutableArray.init()
     
@@ -35,7 +37,9 @@ class FootBallViewModel: BaseViewModel {
         if self.footBallArray.count > 0 {
             cell.cellSetData(model:  self.footBallArray[indexPath.section] as! FootBallModel)
             cell.scoreListTableViewCellClouse = { type,model in
+                self.isCollectSelect = true
                 self.saveCollectModel(type, model)
+                self.isCollectSelect = false
             }
         }
     }
@@ -228,9 +232,14 @@ class FootBallViewModel: BaseViewModel {
             
             for item in self.allFootBallArray {
                 let isContains = selectEvent.contains((item as! FootBallModel).eventInfo.id as Any)
-                if isContains || selectEvent.count == 0{
+                if isContains || selectEvent.count == 0 {
+                    
                     let ret = ids.contains((item as! FootBallModel).id!)
                     (item as! FootBallModel).isSelect = ret
+                    //控制在进行中是不加入已完场赛事
+                    if self.viewDesc == .underway && (item as! FootBallModel).status == 8 {
+                        continue
+                    }
                     self.footBallArray.add(item)
                 }
             }
@@ -242,20 +251,23 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func socketUpdateData(match:NSArray, model:FootBallModel){
-        model.status = (match[1] as! Int)
-        if (match[1] as! Int) == 8 {
-            (self.controller! as! FootBallViewController).refreshData()
+        if !self.isCollectSelect {
+            model.status = (match[1] as! Int)
+            if (match[1] as! Int) == 8 {
+                
+                (self.controller! as! FootBallViewController).refreshData()
+            }
+            model.teamA.score = ((match[2] as! NSArray)[2] as! Int)
+            model.teamA.cornerBall = ((match[2] as! NSArray)[6] as! Int)
+            model.teamA.halfScore = ((match[2] as! NSArray)[3] as! Int)
+            model.teamA.halfRed = ((match[2] as! NSArray)[4] as! Int)
+            model.teamA.halfYellow = ((match[2] as! NSArray)[5] as! Int)
+            model.teamB.score = ((match[3] as! NSArray)[2] as! Int)
+            model.teamB.cornerBall = ((match[3] as! NSArray)[6] as! Int)
+            model.teamB.halfScore = ((match[3] as! NSArray)[3] as! Int)
+            model.teamB.halfRed = ((match[3] as! NSArray)[4] as! Int)
+            model.teamB.halfYellow = ((match[3] as! NSArray)[5] as! Int)
         }
-        model.teamA.score = ((match[2] as! NSArray)[2] as! Int)
-        model.teamA.cornerBall = ((match[2] as! NSArray)[6] as! Int)
-        model.teamA.halfScore = ((match[2] as! NSArray)[3] as! Int)
-        model.teamA.halfRed = ((match[2] as! NSArray)[4] as! Int)
-        model.teamA.halfYellow = ((match[2] as! NSArray)[5] as! Int)
-        model.teamB.score = ((match[3] as! NSArray)[2] as! Int)
-        model.teamB.cornerBall = ((match[3] as! NSArray)[6] as! Int)
-        model.teamB.halfScore = ((match[3] as! NSArray)[3] as! Int)
-        model.teamB.halfRed = ((match[3] as! NSArray)[4] as! Int)
-        model.teamB.halfYellow = ((match[3] as! NSArray)[5] as! Int)
     }
 }
 

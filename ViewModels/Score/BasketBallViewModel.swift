@@ -21,6 +21,7 @@ class BasketBallViewModel: BaseViewModel {
     
     var collectModel:BasketBallModel!
     var isSelect:BasketBallCollectType!
+    var isCollectSelect:Bool = false
     
     override init() {
         super.init()
@@ -31,10 +32,12 @@ class BasketBallViewModel: BaseViewModel {
         if self.basketBallArray.count > 0 {
             cell.cellSetData(model:  self.basketBallArray[indexPath.section] as! BasketBallModel)
             cell.basketBallTableViewCellClouse = { type,model in
+                self.isCollectSelect = true
                 self.saveCollectModel(type, model)
                 //socket 更新收藏按钮
                 self.isSelect = type
                 self.collectModel = model
+                self.isCollectSelect = false
             }
         }
     }
@@ -104,6 +107,7 @@ class BasketBallViewModel: BaseViewModel {
         }
     }
     
+    //加载篮球赛程数据，不保存前后7天数据
     func getBasketInfoBallNet(type:String, date:String){
         let parameters = ["date":date] as [String : Any]
         var temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
@@ -126,6 +130,7 @@ class BasketBallViewModel: BaseViewModel {
 //        }
     }
     
+    //解析赛事模型数据
     func basketBallBindText(_ dic:NSArray){
         allBasketBallArray.removeAllObjects()
         DispatchQueue.global(qos: .default).sync {
@@ -172,6 +177,7 @@ class BasketBallViewModel: BaseViewModel {
         }
     }
     
+    //刷新列表页数据
     @objc func filterArray(){
          DispatchQueue.global(qos: .default).sync {
             self.basketBallArray.removeAllObjects()
@@ -203,6 +209,10 @@ class BasketBallViewModel: BaseViewModel {
                 if isContains || selectEvent.count == 0 {
                     let ret = ids.contains((item as! BasketBallModel).id!)
                     (item as! BasketBallModel).isSelect = ret
+                    //控制在进行中是不加入已完场赛事
+                    if self.viewDesc == .underway && (item as! BasketBallModel).status == 10 {
+                        continue
+                    }
                     self.basketBallArray.add(item)
                 }
             }
@@ -212,30 +222,32 @@ class BasketBallViewModel: BaseViewModel {
         }
     }
     
+    //socket更新数据
     func socketUpdateData(match:NSArray, model:BasketBallModel){
-        model.status = (match[1] as! Int)
-        model.allSecond = (match[2] as! Int)
-        if (match[1] as! Int) == 10 {
-            (self.controller! as! BasKetBallViewController).refreshData()
-        }
-        if self.collectModel != nil {
-            if model.id == self.collectModel.id {
-                model.isSelect = self.isSelect == .select ? true : false
+        if !self.isCollectSelect {
+            model.status = (match[1] as! Int)
+            model.allSecond = (match[2] as! Int)
+            if (match[1] as! Int) == 10 {
+                (self.controller! as! BasKetBallViewController).refreshData()
             }
+            if self.collectModel != nil {
+                if model.id == self.collectModel.id {
+                    model.isSelect = self.isSelect == .select ? true : false
+                }
+            }
+            
+            model.basketBallTeamA.first = ((match[3] as! NSArray)[0] as! Int)
+            model.basketBallTeamA.second = ((match[3] as! NSArray)[1] as! Int)
+            model.basketBallTeamA.third = ((match[3] as! NSArray)[2] as! Int)
+            model.basketBallTeamA.four = ((match[3] as! NSArray)[3] as! Int)
+            model.basketBallTeamA.overtime = ((match[3] as! NSArray)[4] as! Int)
+            model.basketballTeamB.first = ((match[4] as! NSArray)[0] as! Int)
+            model.basketballTeamB.second = ((match[4] as! NSArray)[1] as! Int)
+            model.basketballTeamB.third = ((match[4] as! NSArray)[2] as! Int)
+            model.basketballTeamB.four = ((match[4] as! NSArray)[3] as! Int)
+            model.basketballTeamB.overtime = ((match[4] as! NSArray)[4] as! Int)
         }
-        
-        model.basketBallTeamA.first = ((match[3] as! NSArray)[0] as! Int)
-        model.basketBallTeamA.second = ((match[3] as! NSArray)[1] as! Int)
-        model.basketBallTeamA.third = ((match[3] as! NSArray)[2] as! Int)
-        model.basketBallTeamA.four = ((match[3] as! NSArray)[3] as! Int)
-        model.basketBallTeamA.overtime = ((match[3] as! NSArray)[4] as! Int)
-        model.basketballTeamB.first = ((match[4] as! NSArray)[0] as! Int)
-        model.basketballTeamB.second = ((match[4] as! NSArray)[1] as! Int)
-        model.basketballTeamB.third = ((match[4] as! NSArray)[2] as! Int)
-        model.basketballTeamB.four = ((match[4] as! NSArray)[3] as! Int)
-        model.basketballTeamB.overtime = ((match[4] as! NSArray)[4] as! Int)
     }
-    
 }
 
 extension BasketBallViewModel: UITableViewDelegate {

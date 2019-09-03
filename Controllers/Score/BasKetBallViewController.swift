@@ -31,8 +31,10 @@ class BasKetBallViewController: BaseViewController {
         }
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
             self.bindLogic()
-            self.setUpRefreshData {
-                self.refreshData()
+            DispatchQueue.main.async {
+                self.setUpRefreshData {
+                    self.refreshData()
+                }
             }
         }
     }

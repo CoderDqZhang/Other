@@ -24,8 +24,8 @@ class CommentViewModel: BaseViewModel {
         super.init()
     }
     
-    func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        cell.cellSetData(model: self.commentData, isCommentDetail: true, isShowRepli: false)
+    func tableViewCommentContenTableViewCellSetData(_ indexPath:IndexPath, cell:CommentContenTableViewCell) {
+        cell.cellSetData(model: self.commentData)
         
         cell.postDetailContentTableViewCellImageClickClouse = { tag,browser in
             NavigaiontPresentView(self.controller!, toController: browser)
@@ -296,12 +296,9 @@ extension CommentViewModel: UITableViewDataSource {
             return cell
         }
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
-            self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
+            let cell = tableView.dequeueReusableCell(withIdentifier: CommentContenTableViewCell.description(), for: indexPath)
+            self.tableViewCommentContenTableViewCellSetData(indexPath, cell: cell as! CommentContenTableViewCell)
             cell.selectionStyle = .none
-            if indexPath.section == 0 {
-                (cell as! PostDetailCommentTableViewCell).lineLabel.isHidden = true
-            }
             return cell
 
         }

@@ -332,7 +332,11 @@ class ScoreListTableViewCell: UITableViewCell {
         scoreInfo.isHidden = true
         scoreInfo3.isHidden = true
         
-        scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:\(String(describing: model.teamA.cornerBall!))-\(String(describing: model.teamB.cornerBall!))"
+        if model.teamB.cornerBall == -1 {
+            scoreInfos.text = "半:--- 角:---"
+        }else{
+           scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:\(String(describing: model.teamA.cornerBall!))-\(String(describing: model.teamB.cornerBall!))"
+        }
         
         attentionButton.tag = model.isSelect ? 2000 : 1000
         attentionButton.setImage(UIImage.init(named: model.isSelect ? "score_select_attention" : "score_normal_attention"), for: .normal)
@@ -410,9 +414,9 @@ class ScoreListTableViewCell: UITableViewCell {
             }
             
             attentionButton.snp.makeConstraints { (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.top.equalTo(self.contentView.snp.top).offset(24)
-                make.size.equalTo(CGSize.init(width: 18, height: 18))
+                make.right.equalTo(self.contentView.snp.right).offset(0)
+                make.centerY.equalToSuperview()
+                make.size.equalTo(CGSize.init(width: 33, height: 33))
             }
             
             scoreLabel.snp.makeConstraints { (make) in

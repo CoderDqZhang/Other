@@ -27,7 +27,7 @@ class CommentViewController: BaseViewController {
     
     override func setUpView() {
         self.bindViewModel(viewModel: commentDetailViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [PostDetailCommentUserTableViewCell.self, PostDetailCommentTableViewCell.self, ReplyContentTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [PostDetailCommentUserTableViewCell.self, PostDetailCommentTableViewCell.self, ReplyContentTableViewCell.self, CommentContenTableViewCell.self], controller: self)
         
         self.setUpRefreshData {
             self.commentDetailViewModel.page = 0

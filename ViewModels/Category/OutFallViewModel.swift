@@ -65,7 +65,7 @@ class OutFallViewModel: BaseViewModel {
         if isTrans {
             transHeight = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: YYLabel.init()).textBoundingSize.height
         }
-        if model.image.nsString.components(separatedBy: ",").count > 0 {
+        if model.image.split(separator: ",").count > 0 {
             return transHeight + titleHeight + contentImageHeight + 70
         }
         return titleHeight + transHeight + 50

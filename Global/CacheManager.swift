@@ -331,7 +331,7 @@ class CacheManager: NSObject {
     
     func saveBasketBallMatchCollectModel(point:NSMutableArray){
         let resultArray = point.filter({ (dic) -> Bool in
-            return (dic as! BasketBallModel).status != 8
+            return (dic as! BasketBallModel).status != 10
         })
         CacheManager._sharedInstance.otherCache?.setObject(NSMutableArray.init(array: resultArray), forKey: BASKETBALLMATCHCOLLECTMODEL)
     }
@@ -340,7 +340,7 @@ class CacheManager: NSObject {
         if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: BASKETBALLMATCHCOLLECTMODEL))! {
             let item = (CacheManager._sharedInstance.otherCache?.object(forKey: BASKETBALLMATCHCOLLECTMODEL))!
             let resultArray = (item as! NSMutableArray).filter({ (dic) -> Bool in
-                return (dic as! BasketBallModel).status != 8
+                return (dic as! BasketBallModel).status != 10
             })
             return NSMutableArray.init(array: resultArray)
         }

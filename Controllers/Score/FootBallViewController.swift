@@ -8,6 +8,7 @@
 
 import UIKit
 import JXSegmentedView
+import MJRefresh
 
 enum FootBallType:Int {
     case all = 0
@@ -36,10 +37,13 @@ class FootBallViewController: BaseViewController {
         if titles != nil {
             dateTime = titles
         }
+        
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
             self.bindLogic()
-            self.setUpRefreshData {
-                self.refreshData()
+            DispatchQueue.main.async {
+                self.setUpRefreshData {
+                    self.refreshData()
+                }
             }
         }
     }

@@ -105,6 +105,7 @@
 		1F991771229E574400C8FDD5 /* FansFlowwerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */; };
 		1F991775229E6EC300C8FDD5 /* OtherPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */; };
 		1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */; };
+		1FAF55FD231D14B100716FB3 /* CommentContenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAF55FC231D14B100716FB3 /* CommentContenTableViewCell.swift */; };
 		1FBD7700230F950500852B4D /* ArticleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD76FF230F950500852B4D /* ArticleDetailViewModel.swift */; };
 		1FBD7702230F96D400852B4D /* ArticleDetailContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */; };
 		1FBD7704230FE3AD00852B4D /* StoreInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD7703230FE3AD00852B4D /* StoreInfoModel.swift */; };
@@ -476,6 +477,7 @@
 		1F991770229E574400C8FDD5 /* FansFlowwerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansFlowwerModel.swift; sourceTree = "<group>"; };
 		1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPostViewController.swift; sourceTree = "<group>"; };
 		1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherGuessViewController.swift; sourceTree = "<group>"; };
+		1FAF55FC231D14B100716FB3 /* CommentContenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContenTableViewCell.swift; sourceTree = "<group>"; };
 		1FBD76FF230F950500852B4D /* ArticleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewModel.swift; sourceTree = "<group>"; };
 		1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailContentTableViewCell.swift; sourceTree = "<group>"; };
 		1FBD7703230FE3AD00852B4D /* StoreInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoModel.swift; sourceTree = "<group>"; };
@@ -1472,6 +1474,7 @@
 				1FE5BF182282D18D00C9137C /* CategoryContentTableViewCell.swift */,
 				1FE5BF1A2282D1A100C9137C /* HotDetailTableViewCell.swift */,
 				1FE5BF1C2282D1AC00C9137C /* CommentTableViewCell.swift */,
+				1FAF55FC231D14B100716FB3 /* CommentContenTableViewCell.swift */,
 				1FE5BF342284206300C9137C /* UserInfoTableViewCell.swift */,
 				1FE5BF392284359D00C9137C /* OutFallCategoryUserInfoTableViewCell.swift */,
 				1FE5BF3B228435B000C9137C /* OutFallCategoryContentTableViewCell.swift */,
@@ -2133,6 +2136,7 @@
 				1FE8DABA228EC8BF00DCED01 /* RealNameViewModel.swift in Sources */,
 				1F1C1B4C22A0B58F008031F4 /* BindBankListViewController.swift in Sources */,
 				1FE5BED72282866300C9137C /* RangeSeekSliderDelegate.swift in Sources */,
+				1FAF55FD231D14B100716FB3 /* CommentContenTableViewCell.swift in Sources */,
 				1FEB98E922F1299B0038B49F /* BasketBallViewModel.swift in Sources */,
 				1FE5BF172282D17B00C9137C /* CategoryTableViewCell.swift in Sources */,
 				1FE8DB172293DC2300DCED01 /* LoginViewModel.swift in Sources */,
