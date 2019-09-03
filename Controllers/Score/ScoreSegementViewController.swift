@@ -50,6 +50,7 @@ class ScoreSegementViewController: BaseViewController,UIScrollViewDelegate {
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = .clear
+        
         segmentedView.contentEdgeInsetRight = 72
         segmentedView.contentEdgeInsetLeft = 72
         segmentedView.defaultSelectedIndex = 0

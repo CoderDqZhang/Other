@@ -18,6 +18,7 @@ class FootBallViewModel: BaseViewModel {
     var footballDic:NSDictionary!
     
     var isCollectSelect:Bool! = false
+    var isRefreshData:Bool! = false
     
     var footBallArray = NSMutableArray.init()
     var allFootBallArray =  NSMutableArray.init()
@@ -244,6 +245,7 @@ class FootBallViewModel: BaseViewModel {
                 }
             }
             DispatchQueue.main.async {
+                self.isRefreshData = false
                 self.reloadTableViewData()
             }
         }
@@ -251,12 +253,8 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func socketUpdateData(match:NSArray, model:FootBallModel){
-        if !self.isCollectSelect {
+        if !self.isCollectSelect || !self.isRefreshData{
             model.status = (match[1] as! Int)
-            if (match[1] as! Int) == 8 {
-                
-                (self.controller! as! FootBallViewController).refreshData()
-            }
             model.teamA.score = ((match[2] as! NSArray)[2] as! Int)
             model.teamA.cornerBall = ((match[2] as! NSArray)[6] as! Int)
             model.teamA.halfScore = ((match[2] as! NSArray)[3] as! Int)
@@ -267,6 +265,10 @@ class FootBallViewModel: BaseViewModel {
             model.teamB.halfScore = ((match[3] as! NSArray)[3] as! Int)
             model.teamB.halfRed = ((match[3] as! NSArray)[4] as! Int)
             model.teamB.halfYellow = ((match[3] as! NSArray)[5] as! Int)
+            if (match[1] as! Int) == 8 {
+                self.isRefreshData = true
+                (self.controller! as! FootBallViewController).refreshData()
+            }
         }
     }
 }

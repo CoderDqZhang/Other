@@ -205,13 +205,13 @@ class LoadConfigManger: NSObject {
     }
     
     func saveBasketData(type:BasketBallSaveType, models:NSMutableArray) {
+        let dic = NSMutableDictionary.init()
         if models.count > 0 {
             for index in 0...models.count - 1 {
                 let temp_dic = NSMutableDictionary.init(dictionary: models[index] as! NSDictionary)
                 temp_dic.setValue(true, forKey: "is_select")
                 models.replaceObject(at: index, with: temp_dic)
             }
-            let dic = NSMutableDictionary.init()
             let titles = NSArray.init(array: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"])
             for name in titles {
                 let array = models.filter { (dic) -> Bool in
@@ -232,28 +232,28 @@ class LoadConfigManger: NSObject {
                     dic.setValue(array, forKey: name as! String)
                 }
             }
-            switch type {
-            case .event:
-                CacheManager.getSharedInstance().saveBasketBallEventModel(point: dic)
-                if CacheManager.getSharedInstance().getBasketBallEventSelectModel() == nil {
-                    CacheManager.getSharedInstance().saveBasketBallEventSelectModel(point: dic)
-                }
-            case .index:
-                CacheManager.getSharedInstance().saveBasketBallIndexModel(point: dic)
-            default:
-                CacheManager.getSharedInstance().saveBasketBallEventLevelModel(point: dic)
+        }
+        switch type {
+        case .event:
+            CacheManager.getSharedInstance().saveBasketBallEventModel(point: dic)
+            if CacheManager.getSharedInstance().getBasketBallEventSelectModel() == nil {
+                CacheManager.getSharedInstance().saveBasketBallEventSelectModel(point: dic)
             }
+        case .index:
+            CacheManager.getSharedInstance().saveBasketBallIndexModel(point: dic)
+        default:
+            CacheManager.getSharedInstance().saveBasketBallEventLevelModel(point: dic)
         }
     }
     
     func saveFootData(type:FootBallSaveType, models:NSMutableArray) {
+        let dic = NSMutableDictionary.init()
         if models.count > 0 {
             for index in 0...models.count - 1 {
                 let temp_dic = NSMutableDictionary.init(dictionary: models[index] as! NSDictionary)
                 temp_dic.setValue(true, forKey: "is_select")
                 models.replaceObject(at: index, with: temp_dic)
             }
-            let dic = NSMutableDictionary.init()
             let titles = NSArray.init(array: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"])
             for name in titles {
                 let array = models.filter { (dic) -> Bool in
@@ -274,21 +274,22 @@ class LoadConfigManger: NSObject {
                     dic.setValue(array, forKey: name as! String)
                 }
             }
-            switch type {
-            case .event:
-                CacheManager.getSharedInstance().saveFootBallEventModel(point: dic)
-                if CacheManager.getSharedInstance().getFootBallEventSelectModel() == nil {
-                    CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: dic)
-                }
-            case .index:
-                CacheManager.getSharedInstance().saveFootBallIndexModel(point: dic)
-            case .northsigle:
-                CacheManager.getSharedInstance().saveFootBallNorthSigleModel(point: dic)
-            case .lottery:
-                CacheManager.getSharedInstance().saveFootBallLotteryModel(point: dic)
-            default:
-                CacheManager.getSharedInstance().saveFootBallEventLevelModel(point: dic)
+        }
+        
+        switch type {
+        case .event:
+            CacheManager.getSharedInstance().saveFootBallEventModel(point: dic)
+            if CacheManager.getSharedInstance().getFootBallEventSelectModel() == nil {
+                CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: dic)
             }
+        case .index:
+            CacheManager.getSharedInstance().saveFootBallIndexModel(point: dic)
+        case .northsigle:
+            CacheManager.getSharedInstance().saveFootBallNorthSigleModel(point: dic)
+        case .lottery:
+            CacheManager.getSharedInstance().saveFootBallLotteryModel(point: dic)
+        default:
+            CacheManager.getSharedInstance().saveFootBallEventLevelModel(point: dic)
         }
     }
     

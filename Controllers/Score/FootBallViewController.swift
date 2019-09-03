@@ -60,7 +60,7 @@ class FootBallViewController: BaseViewController {
         }else{
             self.footBallViewModel.filterArray()
         }
-        if self.viewDesc == .timely || self.viewDesc == .underway{
+        if self.viewDesc == .timely || self.viewDesc == .underway || self.viewDesc == .attention{
             self.footBallViewModel.socketData()
         }
         

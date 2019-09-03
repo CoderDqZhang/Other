@@ -15,7 +15,7 @@ class BaseScoreSegmentViewController: BaseViewController {
     var segmentedView: JXSegmentedView!
     var listContainerView: JXSegmentedListContainerView!
     
-    let titles = ["及时", "进行中", "赛程", "赛果", "关注"]
+    let titles = ["即时", "进行中", "赛程", "赛果", "关注"]
     var heightForHeaderInSection: Int = 44
     
     var viewType:ScoreDetailVC! = .football
@@ -41,6 +41,9 @@ class BaseScoreSegmentViewController: BaseViewController {
         segmentedView.defaultSelectedIndex = 0
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
+        
+        //增加底部边框
+        segmentedView.border(for: App_Theme_F6F6F6_Color!, borderWidth: 1, borderType: UIBorderSideType.bottom)
         
         let lineView = JXSegmentedIndicatorLineView()
         lineView.indicatorColor = App_Theme_FFD512_Color!

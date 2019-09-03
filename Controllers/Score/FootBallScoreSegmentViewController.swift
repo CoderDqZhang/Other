@@ -45,6 +45,7 @@ class FootBallScoreSegmentViewController: BaseViewController {
         segmentedView.defaultSelectedIndex = 0
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
+
         
         let indicator = JXSegmentedIndicatorBackgroundView()
         indicator.backgroundWidthIncrement = 10

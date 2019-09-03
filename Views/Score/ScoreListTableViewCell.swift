@@ -202,8 +202,8 @@ class ScoreListTableViewCell: UITableViewCell {
             scoreStatus.text = "完场"
             scoreStatus.textColor = App_Theme_FF4343_Color
         }else if model.status < 7 {
-            let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.startTime.double))
-            scoreStatus.text = String(format: "%.0f“", double)
+            let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.time.double))
+            scoreStatus.text = String(format: "%.0f“", double + (model.status == 4 ? 45.00 : 0.00))
             if scoreStatus.layer.animation(forKey: "animation") == nil {
                 scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
             }
@@ -327,12 +327,17 @@ class ScoreListTableViewCell: UITableViewCell {
             }
         }
         
-        scoreLabel.text = "\(String(describing: model.teamA.score!))-\(String(describing: model.teamB.score!))"
+        if  model.status > 1 && model.status < 7 {
+            scoreLabel.text = "\(String(describing: model.teamA.score!))-\(String(describing: model.teamB.score!))"
+        }else{
+            scoreLabel.text = "VS"
+        }
+        
         
         scoreInfo.isHidden = true
         scoreInfo3.isHidden = true
         
-        if model.teamB.cornerBall == -1 {
+        if model.teamB.cornerBall == -1 || model.teamA.cornerBall == -1{
             scoreInfos.text = "半:--- 角:---"
         }else{
            scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:\(String(describing: model.teamA.cornerBall!))-\(String(describing: model.teamB.cornerBall!))"

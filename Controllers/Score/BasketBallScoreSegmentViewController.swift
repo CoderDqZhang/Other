@@ -46,6 +46,7 @@ class BasketBallScoreSegmentViewController: BaseViewController {
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
         
+        
         let indicator = JXSegmentedIndicatorBackgroundView()
         indicator.backgroundWidthIncrement = 10
         indicator.indicatorHeight = 33

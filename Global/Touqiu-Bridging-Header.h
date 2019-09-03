@@ -52,4 +52,6 @@
 
 #import "NSDate+LSCore.h"
 
+#import "UIView+BorderLine.h"
+
 #endif /* Touqiu_Bridging_Header_h */

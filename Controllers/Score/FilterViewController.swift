@@ -202,6 +202,7 @@ class FilterViewController: BaseViewController {
                 self.indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: dic.allKeys.sorted(by: { (first, seconde) -> Bool in
                     return (first as! String) < (seconde as! String)
                 }))
+                self.indexView.autoresizingMask = [.flexibleHeight, .flexibleLeftMargin]
                 self.indexView?.delegate = self
                 self.indexView!.addTarget(self, action: #selector(self.indexViewValueChanged(sender:)), for: .valueChanged)
                 self.view.addSubview(self.indexView!)
@@ -250,6 +251,7 @@ extension FilterViewController : BDKCollectionIndexViewDelegate {
     }
     
     func collectionIndexView(_ collectionIndexView: BDKCollectionIndexView!, isPressedOn pressedIndex: UInt, indexTitle: String!) {
+//        self.indexView.touchStatusView = uiview
         _ = Tools.shareInstance.showMessage(KWindow, msg: indexTitle, autoHidder: true)
     }
 }

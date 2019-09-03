@@ -47,7 +47,7 @@ class BasKetBallViewController: BaseViewController {
         }else{
             self.basketBallViewModel.filterArray()
         }
-        if self.viewDesc == .timely || self.viewDesc == .underway {
+        if self.viewDesc == .timely || self.viewDesc == .underway || self.viewDesc == .attention{
             self.basketBallViewModel.socketData()
         }
         if self.viewDesc != .amidithion {

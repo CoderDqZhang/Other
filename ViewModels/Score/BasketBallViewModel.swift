@@ -22,6 +22,7 @@ class BasketBallViewModel: BaseViewModel {
     var collectModel:BasketBallModel!
     var isSelect:BasketBallCollectType!
     var isCollectSelect:Bool = false
+    var isRefrshData:Bool! = false
     
     override init() {
         super.init()
@@ -217,6 +218,7 @@ class BasketBallViewModel: BaseViewModel {
                 }
             }
             DispatchQueue.main.async {
+                self.isRefrshData = false
                 self.reloadTableViewData()
             }
         }
@@ -224,18 +226,14 @@ class BasketBallViewModel: BaseViewModel {
     
     //socket更新数据
     func socketUpdateData(match:NSArray, model:BasketBallModel){
-        if !self.isCollectSelect {
+        if !self.isCollectSelect || !self.isRefrshData{
             model.status = (match[1] as! Int)
             model.allSecond = (match[2] as! Int)
-            if (match[1] as! Int) == 10 {
-                (self.controller! as! BasKetBallViewController).refreshData()
-            }
             if self.collectModel != nil {
                 if model.id == self.collectModel.id {
                     model.isSelect = self.isSelect == .select ? true : false
                 }
             }
-            
             model.basketBallTeamA.first = ((match[3] as! NSArray)[0] as! Int)
             model.basketBallTeamA.second = ((match[3] as! NSArray)[1] as! Int)
             model.basketBallTeamA.third = ((match[3] as! NSArray)[2] as! Int)
@@ -246,6 +244,10 @@ class BasketBallViewModel: BaseViewModel {
             model.basketballTeamB.third = ((match[4] as! NSArray)[2] as! Int)
             model.basketballTeamB.four = ((match[4] as! NSArray)[3] as! Int)
             model.basketballTeamB.overtime = ((match[4] as! NSArray)[4] as! Int)
+            if (match[1] as! Int) == 10 {
+                self.isRefrshData = true
+                (self.controller! as! BasKetBallViewController).refreshData()
+            }
         }
     }
 }
