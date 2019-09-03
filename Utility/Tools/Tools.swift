@@ -109,7 +109,9 @@ class Tools: NSObject {
         hud.minSize = HUDCustomView.getHudMinSize(msg)
         hud.label.text = msg;
         hud.bezelView.layer.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
-        hud.hide(animated: true, afterDelay: 2.0)
+        if autoHidder {
+            hud.hide(animated: true, afterDelay: 2.0)
+        }
         hud.removeFromSuperViewOnHide = true
         hud.margin = 10
         hud.isUserInteractionEnabled = false

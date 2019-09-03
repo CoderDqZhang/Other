@@ -9,6 +9,7 @@
 import UIKit
 import JXSegmentedView
 import BDKCollectionIndexView
+import MBProgressHUD
 
 let CollectIemtCount:CGFloat = 3
 let CollectIemtMarginWidth:CGFloat = 12
@@ -44,6 +45,8 @@ class FilterViewController: BaseViewController {
     var filterViewControllerSaveClouse:FilterViewControllerSaveClouse!
     
     var filterViewControllerReloadSaveClouse:FilterViewControllerReloadSaveClouse!
+    
+    var hud:MBProgressHUD!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,12 +95,8 @@ class FilterViewController: BaseViewController {
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets.init(top: 8, left: 15, bottom: 8, right: 15)
 
-        if #available(iOS 11.0, *) {
-            collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - NAV_HEIGHT - 49 - 48 - 44 - TABBAR_HEIGHT - 20), collectionViewLayout: layout)
-        } else {
-            // Fallback on earlier versions
-           collectionView = UICollectionView.init(frame: CGRect(x:0, y:0, width:SCREENWIDTH, height:view.frame.size.height - 49 - 48 - 44 - 20), collectionViewLayout: layout)
-        }
+        collectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: layout)
+
         collectionView?.backgroundColor = App_Theme_F6F6F6_Color
         collectionView.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: FilterCollectionViewCell.description())
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
@@ -105,6 +104,31 @@ class FilterViewController: BaseViewController {
         collectionView?.dataSource = filterViewModel
         self.view.addSubview(collectionView!)
         self.view.sendSubviewToBack(collectionView)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if #available(iOS 11.0, *) {
+            collectionView.frame = CGRect(x:0, y:0, width:SCREENWIDTH, height:view.bounds.size.height - 48 - TABBAR_HEIGHT)
+        } else {
+            // Fallback on earlier versions
+            collectionView.frame = CGRect(x:0, y:0, width:SCREENWIDTH, height:view.bounds.size.height - 48)
+        }
+        if self.indexView != nil {
+            if #available(iOS 11.0, *) {
+                indexView.frame = CGRect(x: SCREENWIDTH - self.indexWidth,
+                                         y: 0,
+                                         width: self.indexWidth,
+                                         height: view.bounds.size.height - 48 - TABBAR_HEIGHT)
+            } else {
+                // Fallback on earlier versions
+                indexView.frame = CGRect(x: SCREENWIDTH - self.indexWidth,
+                                         y: 0,
+                                         width: self.indexWidth,
+                                         height: view.bounds.size.height - 48)
+            }
+        }
+        
     }
     
     func addBootomView(){
@@ -185,23 +209,12 @@ class FilterViewController: BaseViewController {
     
     func addRightView(dic:NSDictionary){
         DispatchQueue.main.async {
-            if self.indexView == nil {
-                var frame:CGRect!
-                if #available(iOS 11.0, *) {
-                    frame = CGRect(x: SCREENWIDTH - self.indexWidth,
-                                       y: 0,
-                                       width: self.indexWidth,
-                                       height: self.view.frame.size.height - NAV_HEIGHT - 49 - 48 - 64 - TABBAR_HEIGHT)
-                } else {
-                    frame = CGRect(x: SCREENWIDTH - self.indexWidth,
-                                       y: 0,
-                                       width: self.indexWidth,
-                                       height: self.view.frame.size.height - 49 - 48 - 64)
-                    // Fallback on earlier versions
-                }
+            if self.indexView == nil && dic.allKeys.count > 0{
+                let frame:CGRect! = CGRect.zero
                 self.indexView = BDKCollectionIndexView.init(frame: frame, indexTitles: dic.allKeys.sorted(by: { (first, seconde) -> Bool in
                     return (first as! String) < (seconde as! String)
                 }))
+                
                 self.indexView.autoresizingMask = [.flexibleHeight, .flexibleLeftMargin]
                 self.indexView?.delegate = self
                 self.indexView!.addTarget(self, action: #selector(self.indexViewValueChanged(sender:)), for: .valueChanged)
@@ -247,11 +260,16 @@ extension FilterViewController : JXSegmentedListContainerViewListDelegate {
 
 extension FilterViewController : BDKCollectionIndexViewDelegate {
     func collectionIndexView(_ collectionIndexView: BDKCollectionIndexView!, liftedFingerFrom pressedIndex: UInt) {
-        
+        hud.hide(animated: true, afterDelay: 0.5)
+        hud = nil
     }
     
     func collectionIndexView(_ collectionIndexView: BDKCollectionIndexView!, isPressedOn pressedIndex: UInt, indexTitle: String!) {
-//        self.indexView.touchStatusView = uiview
-        _ = Tools.shareInstance.showMessage(KWindow, msg: indexTitle, autoHidder: true)
+        
+        if hud == nil {
+            hud = Tools.shareInstance.showMessage(KWindow, msg: indexTitle, autoHidder: false)
+        }else{
+            hud.label.text = indexTitle
+        }
     }
 }
