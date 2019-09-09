@@ -17,7 +17,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     var isSelectOriginalPhoto:Bool!
     var contentText = NSMutableAttributedString.init()
     
-    var postModel = CacheManager.getSharedInstance().getPostModel() ?? PostModel.init(fromDictionary: ["":""])
+    var postModel = CacheManager.getSharedInstance().getPostModel() ?? PostModel.init(fromDictionary: ["content":"","title":""])
     
     override init() {
         super.init()
@@ -28,8 +28,14 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
         cell.postCommentImageAddButtonClouse = { btn in
             (self.controller as! PostViewController).setUpAlerViewController()
         }
-        cell.postCommentImageImageButtonClouse = { tag in
-            (self.controller as! PostViewController).setUpPrewImagePickerBrowser(index: tag)
+        cell.postCommentImageImageButtonClouse = { tag,type in
+            if type == .image {
+                (self.controller as! PostViewController).setUpPrewImagePickerBrowser(index: tag)
+            }else{
+                self.selectAssets.removeObject(at: tag)
+                self.selectPhotos.removeObject(at: tag)
+                self.reloadTableView()
+            }
         }
     }
     
@@ -55,7 +61,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     }
     
     func tableViewGloabelTextFieldAndTitleTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldAndTitleTableViewCell) {
-        cell.cellSetData(title: "选择部落", placeholder: "请选择一个部落发布")
+        cell.cellSetData(title: "发布到", placeholder: "请选择一个部落发布")
         if self.postModel.tribe != nil {
             cell.textFiled.text = self.postModel.tribe.tribeName
         }
@@ -82,7 +88,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     func postTirbeNet(){
         if self.selectPhotos.count > 0 {
             AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
-                let parameters = ["content":self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
+                let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         let model = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
@@ -100,7 +106,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             }
             
         }else{
-            let parameters = ["content":self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":""] as [String : Any]
+            let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":""] as [String : Any]
             BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     let model = TipModel.init(fromDictionary: resultDic.value as! [String : Any])

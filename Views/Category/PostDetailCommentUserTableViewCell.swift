@@ -7,8 +7,12 @@
 //
 
 import UIKit
-
-typealias PostDetailCommentUserTableViewCellClouse = (_ indexPath:IndexPath) ->Void
+enum PostDetailCommentUserTableViewCellType {
+    case user
+    case like
+    case login
+}
+typealias PostDetailCommentUserTableViewCellClouse = (_ indexPath:IndexPath, _ type:PostDetailCommentUserTableViewCellType) ->Void
 
 class PostDetailCommentUserTableViewCell: UITableViewCell {
 
@@ -28,11 +32,18 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
     
     func setUpView(){
         
-        avatarImage = UIImageView.init()
-        avatarImage.backgroundColor = UIColor.gray
-        
+        avatarImage = UIImageView.init()        
         avatarImage.layer.cornerRadius = 11
         avatarImage.layer.masksToBounds = true
+        avatarImage.isUserInteractionEnabled = true
+        _ = avatarImage.newTapGesture(config: { (config) in
+            config.numberOfTapsRequired = 1
+            config.numberOfTouchesRequired = 1
+        }).whenTaped(handler: { (tap) in
+            if self.postDetailCommentUserTableViewCellClouse != nil {
+                self.postDetailCommentUserTableViewCellClouse(self.indexPath,.user)
+            }
+        })
         self.addSubview(avatarImage)
         
         userName = YYLabel.init()
@@ -49,16 +60,13 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         self.addSubview(timeLabel)
         
         likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "category_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
-            if UIImage.init(named: "loveinred") == self.likeButton.imageView.image {
-                self.likeButton.imageView.image = UIImage.init(named: "category_detail_like")
-                self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
-            }else{
-                self.likeButton.imageView.image = UIImage.init(named: "loveinred")
-                self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
-            }
             
-            if self.postDetailCommentUserTableViewCellClouse != nil {
-                self.postDetailCommentUserTableViewCellClouse(self.indexPath)
+            if CacheManager.getSharedInstance().isLogin() {
+                self.likeButtonClick()
+            }else{
+                if self.postDetailCommentUserTableViewCellClouse != nil {
+                    self.postDetailCommentUserTableViewCellClouse(self.indexPath,.login)
+                }
             }
         })
         
@@ -80,6 +88,20 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         }
     }
     
+    func likeButtonClick(){
+        if UIImage.init(named: "loveinred") == self.likeButton.imageView.image {
+            self.likeButton.imageView.image = UIImage.init(named: "category_detail_like")
+            self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
+        }else{
+            self.likeButton.imageView.image = UIImage.init(named: "loveinred")
+            self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
+        }
+        
+        if self.postDetailCommentUserTableViewCellClouse != nil {
+            self.postDetailCommentUserTableViewCellClouse(self.indexPath,.like)
+        }
+    }
+    
     func cellSetRepliy(model:ReplyList,indexPath:IndexPath){
         self.indexPath = indexPath
         avatarImage.sd_crope_imageView(url: model.img, imageView: avatarImage, placeholderImage: nil) { (image, url, type, state, error) in
@@ -87,6 +109,11 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         }
         userName.text = model.nickname
         timeLabel.text = model.createTime
+        if model.status == "0"  {
+            self.likeButton.isEnable(ret: true)
+        }else{
+            self.likeButton.isEnable(ret: false)
+        }
         self.likeButton.changeContent(str: model.followNum.string, image: self.changeLikeButtonStatus(status: model.isFollow))
     }
     
@@ -97,6 +124,12 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         }
         userName.text = model.user.nickname
         timeLabel.text = model.createTime
+        if model.status == "0"  {
+            self.likeButton.isEnable(ret: true)
+        }else{
+            self.likeButton.isEnable(ret: false)
+        }
+        
         self.likeButton.changeContent(str: model.approveNum.string, image: self.changeLikeButtonStatus(status: model.isFollow))
     }
     

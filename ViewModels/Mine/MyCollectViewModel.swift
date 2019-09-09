@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 
 class MyCollectViewModel: BaseViewModel {
     
@@ -46,15 +46,20 @@ class MyCollectViewModel: BaseViewModel {
         NavigationPushView(self.controller!, toConroller: postDetail)
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getMyCollectNet()
+    }
+    
     func getMyCollectNet(){
         page = page + 1
         let parameters = ["page":page.string, "limit":LIMITNUMBER, "tribeId":"0", "isCollect":"1","userId":CacheManager.getSharedInstance().getUserId()] as [String : Any]
         BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.myCollectArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.myCollectArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
-                    self.myCollectArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.myCollectArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -161,26 +166,3 @@ extension MyCollectViewModel: UITableViewDataSource {
         return cell
     }
 }
-
-extension MyCollectViewModel : DZNEmptyDataSetDelegate {
-    
-}
-
-extension MyCollectViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}
-

@@ -189,20 +189,26 @@ class TopUpTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:AccountInfoModel){
-        coinsView = CoinsView.init(frame: CGRect.init(x: 0, y: 0 , width: SCREENWIDTH, height: 189))
+        if coinsView == nil {
+            coinsView = CoinsView.init(frame: CGRect.init(x: 0, y: 0 , width: SCREENWIDTH, height: 189))
+            coinsView.withDrawButton.addAction({ (button) in
+                if self.topUpTableViewCellClouse != nil {
+                    self.topUpTableViewCellClouse()
+                }
+            }, for: .touchUpInside)
+            self.contentView.addSubview(coinsView)
+
+        }
         coinsView.viewSetData(model: model)
-        coinsView.withDrawButton.addAction({ (button) in
-            if self.topUpTableViewCellClouse != nil {
-                self.topUpTableViewCellClouse()
-            }
-        }, for: .touchUpInside)
-        self.contentView.addSubview(coinsView)
+        
     }
     
     func cellSetsData(model:AccountInfoModel){
-        coinsallCountView = CoinsCountView.init(frame: CGRect.init(x: 0, y: 0 , width: SCREENWIDTH, height: 189))
+        if coinsallCountView == nil {
+            coinsallCountView = CoinsCountView.init(frame: CGRect.init(x: 0, y: 0 , width: SCREENWIDTH, height: 189))
+            self.contentView.addSubview(coinsallCountView)
+        }
         coinsallCountView.viewSetData(model: model)
-        self.contentView.addSubview(coinsallCountView)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -7,15 +7,17 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 import ReactiveCocoa
 
 class TouUpViewModel: BaseViewModel {
 
     var accountInfo:AccountInfoModel!
+    var coinsModel = NSMutableArray.init()
     
     override init() {
         super.init()
+        self.getCoinsInfoNet()
     }
     
     func tableViewTopUpTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpTableViewCell) {
@@ -26,7 +28,17 @@ class TouUpViewModel: BaseViewModel {
     }
     
     func tableViewTopUpToolsTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpToolsTableViewCell) {
-    
+        if self.coinsModel.count > 0 {
+            cell.cellSetData(array: self.coinsModel)
+            cell.topUpToolsTableViewCellClouse = { dic in
+                let model = CoinsModel.init(fromDictionary: dic as! [String : Any])
+                InPurchaseManager.getSharedInstance().gotoApplePay(productID: model.value)
+                print(dic)
+                InPurchaseManager.getSharedInstance().inPurchaseManagerCheckClouse = { dic in
+                    self.checkPaySuccess(model: model, code:dic.object(forKey: "receipt") as! String)
+                }
+            }
+        }
     }
     
     func tableViewTopUpConfirmTableViewCellSetData(_ indexPath:IndexPath, cell:TopUpConfirmTableViewCell) {
@@ -41,6 +53,10 @@ class TouUpViewModel: BaseViewModel {
         if indexPath.section == 0 {
             NavigationPushView(self.controller!, toConroller: WithdrawViewController())
         }
+    }
+    
+    override func tapViewNoneData() {
+        self.getAccount()
     }
 
     func getAccount(){
@@ -59,6 +75,29 @@ class TouUpViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(AccountfindAccountUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.accountInfo = AccountInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
+                self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func getCoinsInfoNet(){
+        BaseNetWorke.getSharedInstance().getUrlWithString(CommentgetRechargeUrl, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.coinsModel = NSMutableArray.init(array: resultDic.value as! Array)
+                self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func checkPaySuccess(model:CoinsModel,code:String){
+        let parameters = ["receipt":code,"type":"3"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(PayUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.accountInfo.chargeCoin = self.accountInfo.chargeCoin + model.text.double()!
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -89,7 +128,7 @@ extension TouUpViewModel: UITableViewDelegate {
             return 189
         case 1:
             //79/375
-            return AnimationTouchViewHeight * 2 + AnimationTouchViewMarginItemY + 60
+            return AnimationTouchViewHeight * 2 + AnimationTouchViewMarginItemY + 160
         default:
             return 100
         }
@@ -109,7 +148,7 @@ extension TouUpViewModel: UITableViewDelegate {
 
 extension TouUpViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -138,24 +177,4 @@ extension TouUpViewModel: UITableViewDataSource {
     }
 }
 
-extension TouUpViewModel : DZNEmptyDataSetDelegate {
-    
-}
 
-extension TouUpViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

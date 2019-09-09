@@ -7,16 +7,44 @@
 //
 
 import UIKit
+import JXSegmentedView
+
+typealias SquareViewControllerClouse = (_ data:NSDictionary, _ indexPath:IndexPath) -> Void
 
 class SquareViewController: BaseViewController {
 
+    let squarViewModel = SquareViewModel.init()
+    var articleType:ArticleTypeModel!
+    
+    var squareViewControllerClouse:SquareViewControllerClouse!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
-
+    func initSView(type:Int) {
+        self.bindViewModel(viewModel: squarViewModel, controller: self)
+        self.squarViewModel.articleType = self.articleType
+        self.setUpTableView(style: .grouped, cells: [SquareTableViewCell.self], controller: self)
+        
+        self.setUpRefreshData {
+            self.squarViewModel.page = 0
+            self.squarViewModel.getNetWorkData()
+        }
+        
+        self.setUpRefreshData {
+            self.squarViewModel.page = self.squarViewModel.page + 1
+            self.squarViewModel.getNetWorkData()
+        }
+        
+        self.squarViewModel.getNetWorkData()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
     /*
     // MARK: - Navigation
 
@@ -27,4 +55,18 @@ class SquareViewController: BaseViewController {
     }
     */
 
+}
+
+extension SquareViewController : JXSegmentedListContainerViewListDelegate {
+    override func listView() -> UIView {
+        return view
+    }
+    
+    override func listDidAppear() {
+        print("listDidAppear")
+    }
+    
+    override func listDidDisappear() {
+        print("listDidDisappear")
+    }
 }

@@ -11,18 +11,22 @@ import Foundation
 
 //ZKFgTvUb5BXiuD7KK2iuFiOUintS6mLgFi+ukIPiol801JlCola+lkGcFGN886nd
 //ZKFgTvUb5BXiuD7KK2iuFtphhrg2uQu1kTJ0q4cnRothrdDXMpq+CNSo2UaDlDuI
-
-let RootUrl = "http://192.168.0.155:10020/social/"
-//let RootUrl = "http://192.168.0.172:10020/social/"
+let RootIPAddress:String = "192.168.3.4"
+//let RootIPAddress:String = "192.168.0.172"
+let SocketPort:Int = 4162
+let RootUrl = "http://\(RootIPAddress):10020/social/"
 
 let UserforgetPasswordUrl = "\(RootUrl)user/forgetPassword"
 let UserBindPhoneUrl = "\(RootUrl)user/bindPhone"
 let UserLoginUrl = "\(RootUrl)user/login"
+let UserLoginThirdPartyUrl = "\(RootUrl)user/thirdPartyLogin"
+let UserLoginBindPhoneUrl = "\(RootUrl)user/bindPhone"
 let UserlogoutUrl = "\(RootUrl)user/logout"
 let UserregisterUrl = "\(RootUrl)user/register"
 let UsersendCodeUrl = "\(RootUrl)user/sendCode"
 let SurePasswordUrl = "\(RootUrl)user/updatePassword"
 let UserInfoUrl = "\(RootUrl)user/getUserInfo"
+let StoreGoodsListUrl = "\(RootUrl)goods/getGoodsList"
 
 let AccountbindAccountUrl = "\(RootUrl)account/addAccount"
 let AccountcashUrl = "\(RootUrl)account/addCashRecord"
@@ -45,6 +49,10 @@ let ReplyreplyUrl = "\(RootUrl)commentReply/addReply"
 let ReplyreplyreplyListUrl = "\(RootUrl)commentReply/getReplyList"
 let ReplyreplyreplyDeleteUrl = "\(RootUrl)commentReply/delReply"
 let ReportAddReportUrl = "\(RootUrl)report/addReport"
+
+let ArticleTypeUrl = "\(RootUrl)article/getArticleType"
+let ArticleInfoUrl = "\(RootUrl)article/getArticleInfo"
+let ArticleListUrl = "\(RootUrl)article"
 
 let CommentgetPointUrl = "\(RootUrl)common/getPointList"
 let CommentgetRechargeUrl = "\(RootUrl)common/getRechargeList"
@@ -81,8 +89,26 @@ let TribetribeListUrl = "\(RootUrl)tribe/getTribeList"
 //let NotificationDetailUrl = "\(RootUrl)notify/getNotifyList"
 let NotificationListUrl = "\(RootUrl)notify/getNotifyList"
 
+let PayUrl = "\(RootUrl)pay/iosPay"
+
 let UserFeedBackinsertFeedbackUrl = "\(RootUrl)userFeedback/addFeedback"
 
+let ADvertiseUsableAdvertise = "\(RootUrl)advertise/getUsableAdvertise"
+
+
+let FootBallMatchUrl = "\(RootUrl)football/getData"
+let FootBallInfoUrl = "\(RootUrl)football/getTeamsAndSoOn"
+
+let BasketBallInfoUrl = "\(RootUrl)basketball/getBasketBallEventsAndSoOn"
+let BasketBallMatchUrl = "\(RootUrl)basketball/getData"
+
+let RegisterLoginUrl = "http://www.baodiantiyu.com:8081/bdty/index.html"
+let InviteUrl = "http://www.baodiantiyu.com:8081/bdty/register.html"
+let ShareUrl = "http://www.baodiantiyu.com:8081/bdty/invite.html"
+let MasterUrl = "http://www.baodiantiyu.com:8081/bdty/master.html"
+let SecretUrl="http://www.baodiantiyu.com:8081/bdty/secret.html"
+
+let FootBallEVENTUrl = "https://open.sportnanoapi.com/api/sports/football/matchevent/list?user=xmtq&secret=2f9e2c9e7426285ed"
 
 func getAliPayBankNameUrl(banNo:String) ->String {
     return "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=\(banNo)&cardBinCheck=true"

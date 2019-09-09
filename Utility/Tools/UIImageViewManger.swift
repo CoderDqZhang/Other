@@ -15,7 +15,7 @@ typealias ImageDownLoadImageCompletionBlock = (_ image:UIImage?, _ data:Data?,  
 let ImageRootURL = "https://\(OSS_BUCKET_PUBLIC).\(OSS_ENDPOINT)"
 
 
-let normalImage = UIImage.init(named: "")
+let normalImage = UIImage.init(named: "placeholder")
 
 //func getholderImage(size:CGSize) ->UIImage{
 //    UIImageViewManger.sd_downImage(url: "", placeholderImage: nil) { (image, data, error, ret) in
@@ -46,31 +46,22 @@ extension UIImageView {
     
     func sd_crope_imageView(url:String, imageView:UIImageView, placeholderImage:UIImage?, completedBlock:YYWebImageCompletionBlock?){
         let size = imageView.size
-        self.yy_setImage(with: URL.init(string: UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder: nil, options: [.setImageWithFadeAnimation, .progressiveBlur, .showNetworkActivity], manager: nil, progress: { (start, end) in
-            
-        }, transform: { (image, url) -> UIImage? in
-            return image.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill)
-        }) { (image, url, type, state, error) in
-            DispatchQueue.main.async(execute: {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+            self.yy_setImage(with: URL.init(string:url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder:normalImage!.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill), options: [.setImageWithFadeAnimation, .progressiveBlur, .showNetworkActivity,.allowBackgroundTask], manager: nil, progress: { (start, end) in
+                
+            }, transform: { (image, url) -> UIImage? in
+                return image.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill)
+            }) { (image, url, type, state, error) in
                 completedBlock!(image, url, type, state, error)
-            })
+            }
         }
     }
     
-    func sd_crope_imageView_withMaxWidth(url:String, placeholderImage:UIImage?, completedBlock:SDExternalCompletionBlock?) {
-        self.sd_setImage(with: URL.init(string: UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: placeholderImage, options: .retryFailed, completed: completedBlock)
-        
-//        self.yy_setImage(with: URL.init(string: UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder: nil, options: [.ignoreDiskCache], manager: nil, progress: { (start, end) in
-//
-//        }, transform: { (image, url) -> UIImage? in
-//            let size = image.size
-//            let height = size.height * (SCREENWIDTH - 30) / size.width
-//            return image.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 30, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
-//        }) { (image, url, type, state, error) in
-//            DispatchQueue.main.async(execute: {
-//                completedBlock!(image, url, type, state, error)
-//            })
-//        }
+    func sd_crope_imageView_withMaxWidth(url:String, imageSize:CGSize?, placeholderImage:UIImage?, completedBlock:SDExternalCompletionBlock?) {
+        self.sd_setImage(with:  URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: normalImage, options: [.retryFailed, .avoidAutoSetImage]) { (image, error, cacheType, url) in
+            
+            completedBlock!(image,error,cacheType,url)
+        }
     }
     
     func sd_downImage(url:String, placeholderImage:UIImage?, completedBlock: SDWebImage.SDWebImageDownloaderCompletedBlock? = nil) {

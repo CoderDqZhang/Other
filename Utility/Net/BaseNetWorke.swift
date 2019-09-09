@@ -215,7 +215,7 @@ class BaseNetWorke : SessionManager {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
         
-        sessionManager.request(url, method: methods , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: (["sign":"touqiutest","token":UserDefaults.init().object(forKey: CACHEMANAUSERTOKEN) ?? ""] as! HTTPHeaders)).responseJSON { (response) in
+        sessionManager.request(url, method: methods , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: (self.header() )).responseJSON { (response) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
@@ -277,11 +277,54 @@ class BaseNetWorke : SessionManager {
         }
     }
     
+    func sportnanoApi(url:String, parameters: AnyObject?, success:@escaping SuccessClouse, failure:@escaping FailureClouse){
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
+        
+        Alamofire.request(url, method: .get , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+            if response.result.error != nil{
+                failure(response.result.error! as AnyObject)
+            }else{
+                if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
+                    success(response.value as AnyObject)
+                }else{
+                    failure(["message":(response.result.value! as! NSDictionary).object(forKey: "error")] as AnyObject)
+                }
+            }
+        }
+    }
+    
     func jsonStringToDic(_ dictionary_temp:String) ->NSDictionary {
         let data = dictionary_temp.data(using: String.Encoding.utf8)! as NSData
         let dictionary_temp_temp = try? JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)
         return dictionary_temp_temp as! NSDictionary
         
+    }
+    
+    func dataToDic(_ dictionary_temp:Data) ->NSDictionary{
+        let dictionary_temp_temp = try? JSONSerialization.jsonObject(with: dictionary_temp as Data, options: JSONSerialization.ReadingOptions.mutableContainers)
+        if  dictionary_temp_temp is NSDictionary{
+            return dictionary_temp_temp as! NSDictionary
+        }
+        return NSDictionary.init()
+    }
+    
+    func header() ->HTTPHeaders{
+        let app_v = versionCheck()
+        let now = Date()
+        let timeInterval:TimeInterval = now.timeIntervalSince1970
+        let time = Int(timeInterval)
+        let imei = UIDevice.current.identifierForVendor
+        let os_v = UIDevice.current.systemVersion //iOS版本
+        let str = "api_v=\(app_v)&imei=\(String(describing: imei!))&os=ios&os_v=\(os_v)&time=\(time)"
+        let lock = NSString.aes128Encrypt(str, key:AESKey)
+        let headers:HTTPHeaders?
+        headers = (["sign":lock,"token":UserDefaults.init().object(forKey: CACHEMANAUSERTOKEN) ?? "","api_v":"\(app_v)","time":"\(time)", "imei": "\(String(describing: imei!))","os":"ios","os_v":"\(os_v)"] as! HTTPHeaders)
+        return headers!
     }
 }
 

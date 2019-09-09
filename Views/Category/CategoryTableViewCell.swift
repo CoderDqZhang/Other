@@ -24,11 +24,11 @@ class CategoryView:UIView {
     init(imageUrl:String, title:String, tag:Int, clouse:@escaping CategoryViewClouseClick){
         super.init(frame: CGRect.init(x: 0, y: 0, width: CategoryViewWidth, height: CategoryViewHeight))
         self.tag = tag
-        self.setShadowWithCornerRadius(corners: 10, shadowColor: App_Theme_B5B5B5_Color!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
+        
+        self.setShadowWithCornerRadius(corners: 10, shadowColor: UIColor.init(hexString: "B5B5B5", transparency: 0.1)!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
         
         let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: CategoryViewWidth, height: ImageHeith))
         setMutiBorderRoundingCorners(imageView, corner: 10, byRoundingCorners: [UIRectCorner.topLeft,UIRectCorner.topRight])
-        imageView.backgroundColor = .gray
         imageView.sd_crope_imageView(url: imageUrl, imageView: imageView, placeholderImage: nil, completedBlock: { (image, url, type, state, error) in
             
         })

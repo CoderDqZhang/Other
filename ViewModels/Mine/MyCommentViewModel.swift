@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 
 class MyCommentViewModel: BaseViewModel {
 
@@ -22,7 +22,12 @@ class MyCommentViewModel: BaseViewModel {
     
     func tableViewMyCommentTableViewCellSetData(_ indexPath:IndexPath, cell:MyCommentTableViewCell) {
         if myCommentArray != nil {
-            cell.cellSetData(model: CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]))
+            let model = CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any])
+            if model.tipDetail.status == "0" {
+                cell.cellSetData(model: model)
+            }else{
+                cell.deleteCellData(model: model)
+            }
         }
     }
     
@@ -34,7 +39,16 @@ class MyCommentViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         let dicData:NSDictionary = CommentModel.init(fromDictionary: myCommentArray![indexPath.section] as! [String : Any]).tipDetail.toDictionary() as NSDictionary
-        (self.controller as! MyCommentViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
+        if dicData.object(forKey: "status") as! String == "0" {
+            (self.controller as! MyCommentViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot, indexPath)
+        }else{
+            _ = Tools.shareInstance.showMessage(KWindow, msg: "该贴已删除", autoHidder: true)
+        }
+    }
+    
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getMyCommentNet()
     }
     
     func getMyCommentNet(){
@@ -43,9 +57,9 @@ class MyCommentViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.myCommentArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.myCommentArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
-                    self.myCommentArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.myCommentArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
                 self.reloadTableViewData()
@@ -119,24 +133,3 @@ extension MyCommentViewModel: UITableViewDataSource {
     }
 }
 
-extension MyCommentViewModel : DZNEmptyDataSetDelegate {
-    
-}
-
-extension MyCommentViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

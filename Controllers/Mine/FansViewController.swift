@@ -32,9 +32,10 @@ class FansViewController: BaseViewController {
             self.fansViewModel.page = 0
             self.fansViewModel.getFansNet(userId: self.userId)
         }
-        
-        self.setUpLoadMoreData {
-            self.fansViewModel.getFansNet(userId: self.userId)
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.fansViewModel.getFansNet(userId: self.userId)
+            }
         }
     }
     

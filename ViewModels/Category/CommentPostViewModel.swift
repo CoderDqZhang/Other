@@ -28,15 +28,20 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
         cell.postCommentImageAddButtonClouse = { btn in
             (self.controller as! CommentPostViewController).setUpAlerViewController()
         }
-        cell.postCommentImageImageButtonClouse = { tag in
-            (self.controller as! CommentPostViewController).setUpPrewImagePickerBrowser(index: tag)
+        cell.postCommentImageImageButtonClouse = { tag, type in
+            if type == .image {
+                (self.controller as! CommentPostViewController).setUpPrewImagePickerBrowser(index: tag)
+            }else{
+                self.selectAssets.removeObject(at: tag)
+                self.selectPhotos.removeObject(at: tag)
+            }
         }
         
     }
     
     func tableViewPostCommentTextTableViewCellSetData(_ indexPath:IndexPath, cell:PostCommentTextTableViewCell) {
         cell.postCommentTextTableViewCellTextClouse = { str in
-            self.commentContent = cell.textView.text
+            self.commentContent = str
         }
     }
     
@@ -46,13 +51,13 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     
     
     func postTCommentNet(){
-        if self.commentContent == "" {
+        if self.commentContent == "" && self.selectPhotos.count == 0 {
             _ = Tools.shareInstance.showMessage(KWindow, msg: "请输入内容", autoHidder: true)
             return
         }
         if self.selectPhotos.count > 0 {
             AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
-                let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":strs] as [String : Any]
+                let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"img":strs] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         let model = CommentModel.init(fromDictionary: resultDic.value as! [String : Any])

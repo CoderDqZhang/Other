@@ -27,19 +27,21 @@ class CommentViewController: BaseViewController {
     
     override func setUpView() {
         self.bindViewModel(viewModel: commentDetailViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [PostDetailCommentUserTableViewCell.self, PostDetailCommentTableViewCell.self, ReplyContentTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [PostDetailCommentUserTableViewCell.self, PostDetailCommentTableViewCell.self, ReplyContentTableViewCell.self, CommentContenTableViewCell.self], controller: self)
         
         self.setUpRefreshData {
             self.commentDetailViewModel.page = 0
             self.commentDetailViewModel.getReplitList()
         }
         
-        self.setUpLoadMoreData {
-            self.commentDetailViewModel.getReplitList()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.commentDetailViewModel.getReplitList()
+            }
         }
         
         if #available(iOS 11.0, *) {
-            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 64 - 44 - 49 - 2, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:true, click: {
+            gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:self.tableView.frame.maxY, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:true, click: {
                 
             }, senderClick: { str in
                 self.commentDetailViewModel.content = str
@@ -64,7 +66,6 @@ class CommentViewController: BaseViewController {
                 }
                 make.bottom.equalToSuperview()
             }
-            self.commentDetailViewModel.replyDone()
         }
         gloableCommentView.customViewCommentTextFieldSenderClick = { str in
             if !CacheManager.getSharedInstance().isLogin() {
@@ -91,6 +92,17 @@ class CommentViewController: BaseViewController {
     
     override func bindViewModelLogic() {
         commentDetailViewModel.commentData = commentData
+        if commentDetailViewModel.commentData.status != "0" {
+            gloableCommentView.textView.isEditable = false
+            gloableCommentView.backgroundColor = .white
+            _  = gloableCommentView.newTapGesture { (gesture) in
+                gesture.numberOfTouchesRequired = 1
+                gesture.numberOfTapsRequired = 1
+                }.whenTaped { (tap) in
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "该评论已删除不能回复", autoHidder: true)
+            }
+            
+        }
         commentDetailViewModel.getReplitList()
     }
     

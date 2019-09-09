@@ -15,6 +15,7 @@ class CategoryDetailViewController: BaseViewController {
     
     var gloableNavigationBar:GLoabelNavigaitonBar!
     var categoryViewModel = CategoryDetailViewModel()
+    var categoryPostView:AnimationButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,8 +45,10 @@ class CategoryDetailViewController: BaseViewController {
         self.setUpTableView(style: .grouped, cells: [CategoryContentTableViewCell.self,CommentTableViewCell.self,CategoryHeaderTableViewCell.self,UserInfoTableViewCell.self], controller: self)
         self.updateTableViewConstraints()
         
-        self.setUpLoadMoreData {
-            self.categoryViewModel.getCategoryNet()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.categoryViewModel.getCategoryNet()
+            }
         }
     }
     
@@ -57,11 +60,12 @@ class CategoryDetailViewController: BaseViewController {
     func updateTableViewConstraints() {
         self.tableView.snp.updateConstraints { (make) in
             if #available(iOS 11.0, *) {
-                make.top.equalTo(self.view.snp.top).offset(-NAV_HEIGHT/2)
+                make.top.equalTo(self.view.snp.top).offset(-NAV_HEIGHT)
             } else {
                 make.top.equalTo(self.view.snp.top).offset(0)
                 // Fallback on earlier versions
             }
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -78,26 +82,30 @@ class CategoryDetailViewController: BaseViewController {
     }
     
     func removeCategoryPostView(){
-        KWindow.viewWithTag(10000)?.removeFromSuperview()
+         categoryPostView.isHidden = true
     }
     
     
     func setUpCategoryPostView(){
-        let categoryPostView = AnimationButton.init(type: .custom)
-        categoryPostView.tag = 10000
-        categoryPostView.setImage(UIImage.init(named: "category_post"), for: .normal)
-        categoryPostView.reactive.controlEvents(.touchUpInside).observeValues { (button) in
-            let categoryVC = PostViewController()
-            categoryVC.bindCategoryModel(tribe: CategoryModel.init(fromDictionary: self.categoryData as! [String : Any]))
-            NavigaiontPresentView(self, toController: UINavigationController.init(rootViewController: categoryVC))
-        }
-        KWindow.addSubview(categoryPostView)
-        
-        categoryPostView.snp.makeConstraints { (make) in
-            make.right.equalTo(KWindow.snp.right).offset(-15)
-            make.bottom.equalTo(KWindow.snp.bottom).offset(-86)
-            make.size.equalTo(CGSize.init(width: 44, height: 44))
-        }
+        if categoryPostView == nil {
+            categoryPostView = AnimationButton.init(type: .custom)
+            categoryPostView.tag = 10000
+            categoryPostView.setImage(UIImage.init(named: "category_post"), for: .normal)
+            categoryPostView.reactive.controlEvents(.touchUpInside).observeValues { (button) in
+                let categoryVC = PostViewController()
+                categoryVC.bindCategoryModel(tribe: CategoryModel.init(fromDictionary: self.categoryData as! [String : Any]))
+                NavigaiontPresentView(self, toController: UINavigationController.init(rootViewController: categoryVC))
+            }
+            KWindow.addSubview(categoryPostView)
+            
+            categoryPostView.snp.makeConstraints { (make) in
+                make.right.equalTo(KWindow.snp.right).offset(-15)
+                make.bottom.equalTo(KWindow.snp.bottom).offset(-86)
+                make.size.equalTo(CGSize.init(width: 44, height: 44))
+            }
+        }else{
+            categoryPostView.isHidden = false
+        }        
     }
     /*
     // MARK: - Navigation

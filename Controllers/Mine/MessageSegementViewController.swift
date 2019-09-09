@@ -60,9 +60,13 @@ class MessageSegementViewController: BaseViewController {
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
         
+        //增加底部边框
+        segmentedView.border(for: App_Theme_F6F6F6_Color!, borderWidth: 1, borderType: UIBorderSideType.bottom)
+        
         let lineView = JXSegmentedIndicatorLineView()
         lineView.indicatorColor = App_Theme_FFD512_Color!
-        lineView.indicatorWidth = 26
+        lineView.indicatorWidth = 30
+        lineView.verticalOffset = 4
         segmentedView.indicators = [lineView]
         
         segmentedView.delegate = self
@@ -114,7 +118,7 @@ class MessageSegementViewController: BaseViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        listContainerView.frame = CGRect(x: 0, y: 50, width: view.bounds.size.width, height: view.bounds.size.height - 50)
+        listContainerView.frame = CGRect(x: 0, y: 44, width: view.bounds.size.width, height: view.bounds.size.height - 44)
     }
     
     override func viewWillAppear(_ animated: Bool) {

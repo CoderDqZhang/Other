@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 
 class CommentViewModel: BaseViewModel {
 
@@ -24,18 +24,8 @@ class CommentViewModel: BaseViewModel {
         super.init()
     }
     
-    func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
-        cell.imageHeight = 0
-        cell.cellSetData(model: self.commentData, isCommentDetail: true, isShowRepli: false, reload: { imageHeight in
-            self.imageHeight = imageHeight + 30
-            if !self.isUpDataHeight{
-                self.isUpDataHeight = true
-                self.controller?.tableView.beginUpdates()
-                self.controller?.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
-                self.controller?.tableView.endUpdates()
-            }
-            
-        })
+    func tableViewCommentContenTableViewCellSetData(_ indexPath:IndexPath, cell:CommentContenTableViewCell) {
+        cell.cellSetData(model: self.commentData)
         
         cell.postDetailContentTableViewCellImageClickClouse = { tag,browser in
             NavigaiontPresentView(self.controller!, toController: browser)
@@ -44,7 +34,7 @@ class CommentViewModel: BaseViewModel {
     
     func tableViewReplyContentTableViewCellSetData(_ indexPath:IndexPath, cell:ReplyContentTableViewCell) {
         let model =  ReplyList.init(fromDictionary:replistList[indexPath.section - 1] as! [String : Any])
-        cell.cellSetRepliy(model: model, isReplyComment: model.toNickname != commentData.user.nickname ? true : false)
+        cell.cellSetRepliy(model: model, isReplyComment: model.toNickname == commentData.user.nickname ? true : false)
         cell.replyContentTableViewCellClouse = { model in
             if CacheManager.getSharedInstance().isLogin() {
                 if model.userId.string == CacheManager.getSharedInstance().getUserId() {
@@ -85,15 +75,34 @@ class CommentViewModel: BaseViewModel {
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
         if indexPath.section == 0 {
             cell.cellSetData(model: self.commentData, indexPath: indexPath)
-            cell.postDetailCommentUserTableViewCellClouse = { indexPath in
-                self.likeCommentNet(commentId: self.commentData.id.string)
+            cell.postDetailCommentUserTableViewCellClouse = { indexPath, type in
+                if type == .like {
+                    self.likeCommentNet(commentId: self.commentData.id.string)
+                }else{
+                    let dic:NSDictionary = self.commentData.user.toDictionary() as NSDictionary
+                    let otherMineVC = OtherMineViewController()
+                    otherMineVC.postData = dic
+                    NavigationPushView(self.controller!, toConroller: otherMineVC)
+                }
             }
         }else{
             cell.cellSetRepliy(model:  ReplyList.init(fromDictionary: replistList[indexPath.section - 1] as! [String : Any]), indexPath: indexPath)
-            cell.postDetailCommentUserTableViewCellClouse = { indexPath in
-                self.likeNet(model: ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any]))
+            cell.postDetailCommentUserTableViewCellClouse = { indexPath,type in
+                if type == .like {
+                    self.likeNet(model: ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any]))
+                }else {
+//                    let dic:NSDictionary = ReplyList.init(fromDictionary: self.replistList[indexPath.section - 1] as! [String : Any]).user.toDictionary() as NSDictionary
+//                    let otherMineVC = OtherMineViewController()
+//                    otherMineVC.postData = dic
+//                    NavigationPushView(self.controller!, toConroller: otherMineVC)
+                }
             }
         }
+    }
+    
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getReplitList()
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
@@ -125,10 +134,10 @@ class CommentViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(ReplyreplyreplyListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.replistList.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.replistList.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
                     self.replistList.removeAllObjects()
-                    self.replistList = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.replistList = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -219,6 +228,9 @@ class CommentViewModel: BaseViewModel {
     func getContentHeight() ->CGFloat{
     
         let contentSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.commentData.content, yyLabel: YYLabel.init())
+        if self.commentData != nil {
+            imageHeight = self.imageContentHeight(image: self.commentData.img, contentWidth: SCREENWIDTH - 30)
+        }
         return contentSize.textBoundingSize.height + imageHeight + 25
     }
 }
@@ -284,12 +296,9 @@ extension CommentViewModel: UITableViewDataSource {
             return cell
         }
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
-            self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
+            let cell = tableView.dequeueReusableCell(withIdentifier: CommentContenTableViewCell.description(), for: indexPath)
+            self.tableViewCommentContenTableViewCellSetData(indexPath, cell: cell as! CommentContenTableViewCell)
             cell.selectionStyle = .none
-            if indexPath.section == 0 {
-                (cell as! PostDetailCommentTableViewCell).lineLabel.isHidden = true
-            }
             return cell
 
         }
@@ -304,24 +313,4 @@ extension CommentViewModel: UITableViewDataSource {
     }
 }
 
-extension CommentViewModel : DZNEmptyDataSetDelegate {
-    
-}
 
-extension CommentViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color ?? ""], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

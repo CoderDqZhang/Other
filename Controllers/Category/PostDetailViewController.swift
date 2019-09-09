@@ -16,6 +16,8 @@ enum ToatalNumber {
 enum ToolsStatus {
     case add
     case delete
+    case loginadd
+    case logincollect
 }
 
 enum PostDetaiGoToType {
@@ -26,6 +28,9 @@ enum PostDetaiGoToType {
 typealias ChangeFansFollowButtonStatusClouse = (_ status:Bool) ->Void
 
 typealias ChangeAllCommentAndLikeNumberClouse = (_ type:ToatalNumber, _ status:ToolsStatus) ->Void
+
+typealias DeleteArticleClouse = () ->Void
+
 
 class PostDetailViewController: BaseViewController {
 
@@ -40,6 +45,8 @@ class PostDetailViewController: BaseViewController {
     var changeFansFollowButtonStatusClouse:ChangeFansFollowButtonStatusClouse!
     var changeAllCommentAndLikeNumberClouse:ChangeAllCommentAndLikeNumberClouse!
     
+    var deleteArticleClouse:DeleteArticleClouse!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -52,47 +59,37 @@ class PostDetailViewController: BaseViewController {
 
         self.updateTableViewConstraints()
 
-//        self.setUpRefreshData {
-//            self.refreshData()
-//        }
-
-        self.setUpLoadMoreData {
-            self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
+            }
         }
         
         if #available(iOS 11.0, *) {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 44 - TABBAR_HEIGHT, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
-                let commentVC = CommentPostViewController()
-                let commentPost = UINavigationController.init(rootViewController: commentVC)
-                commentVC.postData = self.postData
-                commentVC.commentPostViewControllerDataClouse = { dic in
-                    self.postDetailViewModel.commentListArray.insert(dic, at: 0)
-                    self.postDetailViewModel.reloadTableViewData()
+                if CacheManager.getSharedInstance().isLogin() {
+                    self.clickComentVC()
+                }else{
+                    let loginVC = LoginViewController.init()
+                    loginVC.loginDoneClouse = {
+                        self.clickComentVC()
+                    }
+                    NavigationPushView(self, toConroller: loginVC)
                 }
-                if self.changeAllCommentAndLikeNumberClouse != nil {
-                    self.changeAllCommentAndLikeNumberClouse(.comment, .add)
-                }
-                NavigaiontPresentView(self, toController: commentPost)
             }, senderClick: { str in
                 
             })
-            
-            
-            
         } else {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 44, width: SCREENWIDTH, height: 44), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
-                let commentVC = CommentPostViewController()
-                let commentPost = UINavigationController.init(rootViewController: commentVC)
-                commentVC.postData = self.postData
-                commentVC.commentPostViewControllerDataClouse = { dic in
-                    self.postDetailViewModel.commentListArray.insert(dic, at: 0)
-                    self.postDetailViewModel.reloadTableViewData()
+                if CacheManager.getSharedInstance().isLogin() {
+                    self.clickComentVC()
+                }else{
+                    let loginVC = LoginViewController.init()
+                    loginVC.loginDoneClouse = {
+                        self.clickComentVC()
+                    }
+                    NavigationPushView(self, toConroller: loginVC)
                 }
-                
-                if self.changeAllCommentAndLikeNumberClouse != nil {
-                    self.changeAllCommentAndLikeNumberClouse(.comment, .add)
-                }
-                NavigaiontPresentView(self, toController: commentPost)
             }, senderClick: { str in
                 
             })
@@ -116,6 +113,22 @@ class PostDetailViewController: BaseViewController {
         }
     }
 
+    //评论文章界面
+    func clickComentVC(){
+        let commentVC = CommentPostViewController()
+        let commentPost = UINavigationController.init(rootViewController: commentVC)
+        commentVC.postData = self.postData
+        commentVC.commentPostViewControllerDataClouse = { dic in
+            self.postDetailViewModel.tipDetailModel.commentTotal = self.postDetailViewModel.tipDetailModel.commentTotal + 1
+            self.postDetailViewModel.commentListArray.insert(dic, at: 0)
+            self.postDetailViewModel.reloadTableViewData()
+            
+            if self.changeAllCommentAndLikeNumberClouse != nil {
+                self.changeAllCommentAndLikeNumberClouse(.comment, .add)
+            }
+        }
+        NavigaiontPresentView(self, toController: commentPost)
+    }
     
     func refreshData(){
         self.postDetailViewModel.page = 0
@@ -137,17 +150,21 @@ class PostDetailViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
-//        self.navigationItem.title = ((self.postData.object(forKey: "tribe") as! NSDictionary).object(forKey: "tribeName") as! String)
         let shareItem = UIBarButtonItem.init(image: UIImage.init(named: "post_detail_share")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
         var deleteItem:UIBarButtonItem?
         if CacheManager.getSharedInstance().isLogin() {
-            if ((self.postData.object(forKey: "user") as! NSDictionary).object(forKey: "id") as! Int).string == CacheManager.getSharedInstance().getUserId() {
-                deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "delete")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.deleteBarItemClick(_:)))
-            }else{
-                deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "report")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.reportBarItemClick(_:)))
-
+            if self.postData.object(forKey: "user") != nil {
+                if ((self.postData.object(forKey: "user") as! NSDictionary).object(forKey: "id") as! Int).string == CacheManager.getSharedInstance().getUserId() {
+                    deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "delete")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.deleteBarItemClick(_:)))
+                }else{
+                    deleteItem = UIBarButtonItem.init(image: UIImage.init(named: "report")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.reportBarItemClick(_:)))
+                }
             }
-            self.navigationItem.rightBarButtonItems = ([shareItem,deleteItem] as! [UIBarButtonItem])
+            if deleteItem != nil {
+                self.navigationItem.rightBarButtonItems = ([shareItem,deleteItem] as! [UIBarButtonItem])
+            }else{
+                self.navigationItem.rightBarButtonItems = [shareItem]
+            }
         }else{
             self.navigationItem.rightBarButtonItems = [shareItem]
         }
@@ -155,7 +172,18 @@ class PostDetailViewController: BaseViewController {
     }
     
     @objc func rightBarItemClick(_ sender:UIBarButtonItem) {
-       
+        UMengUI.getSharedInstance().createPlatForm(block: { platform,userInfo in
+            switch platform {
+            case .dingDing:
+                UMengManager.getSharedInstance().sharePlatformImage(type: platform, thumImage: UIImage.init(named: "category_post")!, image_url: "", controller: self, completion: { (ret, error) in
+                    
+                })
+            default:
+                UMengManager.getSharedInstance().sharePlatformWeb(type: platform, title: self.postDetailViewModel.tipDetailModel.content, descr: self.postDetailViewModel.tipDetailModel.title, thumImage: UIImage.init(named: "logo1024")!, web_url: "\(ShareUrl)?tipId=\(String(describing: self.postDetailViewModel.tipDetailModel.id!))", controller: self, completion: { (ret, error) in
+                    
+                })
+            }
+        })
     }
     
     @objc func deleteBarItemClick(_ sender:UIBarButtonItem) {

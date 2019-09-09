@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 
 
 class CategoryDetailViewModel: BaseViewModel {
@@ -50,11 +50,22 @@ class CategoryDetailViewModel: BaseViewModel {
         cell.cellSetData(model: self.categoryData)
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getCategoryNet()
+    }
+    
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        let postDetailVC = PostDetailViewController()
-        postDetailVC.postData = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]).toDictionary() as NSDictionary
-        postDetailVC.postType = .Hot
-        NavigationPushView(self.controller!, toConroller: postDetailVC)
+        if indexPath.section != 0 {
+            let postDetailVC = PostDetailViewController()
+            postDetailVC.postData = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 1] as! [String : Any]).toDictionary() as NSDictionary
+            postDetailVC.deleteArticleClouse = {
+                self.tipListArray.removeObject(at: indexPath.section - 1)
+                self.reloadTableViewData()
+            }
+            postDetailVC.postType = .Hot
+            NavigationPushView(self.controller!, toConroller: postDetailVC)
+        }
     }
     
     func getCategoryNet(){
@@ -63,9 +74,9 @@ class CategoryDetailViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(TipgetTipListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.tipListArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.tipListArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
-                    self.tipListArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.tipListArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -174,24 +185,4 @@ extension CategoryDetailViewModel: UITableViewDataSource {
     }
 }
 
-extension CategoryDetailViewModel : DZNEmptyDataSetDelegate {
-    
-}
 
-extension CategoryDetailViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color ?? ""], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

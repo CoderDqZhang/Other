@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 
 class FollowViewModel: BaseViewModel {
     
@@ -42,6 +42,11 @@ class FollowViewModel: BaseViewModel {
         NavigationPushView(self.controller!, toConroller: otherMineVC)
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getFllowerNet(userId: self.userId)
+    }
+    
     func getFllowerNet(userId:String?){
         page = page + 1
         var parameters:[String : Any]?
@@ -54,9 +59,9 @@ class FollowViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(PersonmyfollowUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if self.page != 1 {
-                    self.followArray.addObjects(from: NSMutableArray.init(array: resultDic.value as! Array) as! [Any])
+                    self.followArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
                 }else{
-                    self.followArray = NSMutableArray.init(array: resultDic.value as! Array)
+                    self.followArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                 }
                 self.reloadTableViewData()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -126,24 +131,3 @@ extension FollowViewModel: UITableViewDataSource {
     }
 }
 
-extension FollowViewModel : DZNEmptyDataSetDelegate {
-    
-}
-
-extension FollowViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

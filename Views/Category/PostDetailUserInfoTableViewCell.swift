@@ -9,6 +9,8 @@
 import UIKit
 
 typealias PostDetailUserInfoClouse = (_ type:GloabelButtonType) ->Void
+typealias PostDetailUserTagInfoClouse = () ->Void
+
 
 class PostDetailUserInfoTableViewCell: UITableViewCell {
 
@@ -18,6 +20,7 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
     
     var followButton:UIButton!
     var postDetailUserInfoClouse:PostDetailUserInfoClouse!
+    var postDetailUserTagInfoClouse:PostDetailUserTagInfoClouse!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -27,7 +30,15 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
     
     func setUpView(){
         avatarImage = UIImageView.init()
-        avatarImage.backgroundColor = UIColor.gray
+        _ = avatarImage.newTapGesture(config: { (config) in
+            config.numberOfTapsRequired = 1
+            config.numberOfTouchesRequired = 1
+        }).whenTaped(handler: { (tap) in
+            if self.postDetailUserTagInfoClouse != nil {
+                self.postDetailUserTagInfoClouse()
+            }
+        })
+        avatarImage.isUserInteractionEnabled = true
         avatarImage.layer.cornerRadius = 17
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)
@@ -97,11 +108,18 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
     
     func cellSetData(model:TipModel){
         avatarImage.sd_crope_imageView(url: model.user.img, imageView: avatarImage, placeholderImage: nil) { (image, url, type, state, error) in
-    
+            
         }
         userName.text = model.user.nickname
         timeLabel.text = model.createTime
-        self.changeFollowStatus(status: model.user.isFollow == 1 ? true : false)
+        if CacheManager.getSharedInstance().isLogin() {
+            if model.user.id.string == CacheManager.getSharedInstance().getUserId() {
+                followButton.isHidden = true
+            }else{
+                followButton.isHidden = false
+                self.changeFollowStatus(status: model.user.isFollow == 1 ? true : false)
+            }
+        }
     }
     
     override func updateConstraints() {

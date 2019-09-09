@@ -73,8 +73,8 @@ class BaseSearchViewController: UISearchController {
             let parameters = ["page":1, "limit":LIMITNUMBER,"userId":CacheManager.getSharedInstance().getUserId(),"search":text] as [String : Any]
             BaseNetWorke.getSharedInstance().postUrlWithString(PersonmyfollowUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
-                    self.resultArray = NSMutableArray.init(array: resultDic.value as! Array)
-
+                    
+                    self.resultArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
                     if self.resultArray.count > 0 {
                         (self.searchResultsController as! BaseViewController).bindViewodelResultData(self.resultArray)
                         ((self.searchResultsController as! BaseViewController) as! TargerUserSearchViewController).refreshResultData()

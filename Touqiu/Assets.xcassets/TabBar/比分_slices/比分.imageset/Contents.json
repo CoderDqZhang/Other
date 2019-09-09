@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "比分.png",
+      "filename" : "ic_baodian_scoreunselest.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "比分@2x.png",
+      "filename" : "ic_baodian_scoreunselest@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "比分@3x.png",
+      "filename" : "ic_baodian_scoreunselest@3x.png",
       "scale" : "3x"
     }
   ],

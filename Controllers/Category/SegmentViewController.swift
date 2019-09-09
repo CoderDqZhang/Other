@@ -12,10 +12,10 @@ import JXSegmentedView
 class SegmentViewController: BaseViewController, UIScrollViewDelegate {
 
     
-    let titles = ["最新", "出墙"]
+    let titles = ["动态", "资讯"]
     let segmentViewModel = SegmentViewModel.init()
-    let newController = NewsViewController.init()
     let outFallController = OutFallViewController.init()
+    let squareViewController = SquareSegmentViewController.init()
 
     
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
@@ -39,25 +39,26 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
         segmentedViewDataSource = JXSegmentedTitleDataSource()
         segmentedViewDataSource.titles = titles
         segmentedViewDataSource.titleSelectedColor = App_Theme_06070D_Color!
-        segmentedViewDataSource.titleNormalColor = App_Theme_B4B4B4_Color!
-        segmentedViewDataSource.titleSelectedFont = App_Theme_PinFan_R_16_Font
-        segmentedViewDataSource.titleNormalFont = App_Theme_PinFan_R_16_Font!
+        segmentedViewDataSource.titleNormalColor = App_Theme_06070D_Color!
+        segmentedViewDataSource.titleSelectedFont = App_Theme_PinFan_M_21_Font!
+        segmentedViewDataSource.titleNormalFont = App_Theme_PinFan_R_18_Font!
         segmentedViewDataSource.isTitleColorGradientEnabled = true
         segmentedViewDataSource.isTitleZoomEnabled = false
         segmentedViewDataSource.reloadData(selectedIndex: 0)
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = .clear
-        segmentedView.contentEdgeInsetRight = 72
-        segmentedView.contentEdgeInsetLeft = 112
+        segmentedView.contentEdgeInsetRight = 121
+        segmentedView.contentEdgeInsetLeft = 121
         segmentedView.defaultSelectedIndex = 0
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
         
-        let lineView = JXSegmentedIndicatorLineView()
-        lineView.indicatorColor = App_Theme_FFD512_Color!
-        lineView.indicatorWidth = 26
-        segmentedView.indicators = [lineView]
+        let triangleView = JXSegmentedIndicatorTriangleView()
+        triangleView.indicatorColor = App_Theme_FFFFFF_Color!
+        triangleView.indicatorWidth = 12
+        triangleView.indicatorHeight = 6
+        segmentedView.indicators = [triangleView]
         
         segmentedView.delegate = self
         
@@ -75,26 +76,10 @@ class SegmentViewController: BaseViewController, UIScrollViewDelegate {
     
     override func bindViewModelLogic(){
         self.bindViewModel(viewModel: segmentViewModel, controller: self)
-        self.newController.postDetailDataClouse = { data, type, indexPath in
-            self.segmentViewModel.pushPostDetailViewController(data, type, indexPath!)
-        }
-        
-        self.newController.categoryDetailClouse = { data, type in
-            self.segmentViewModel.pushCategoryDetailViewController(data, type)
-        }
-        
-        self.outFallController.postDetailDataClouse = { data, type, indexPath in
-            self.segmentViewModel.pushPostDetailViewController(data, type, indexPath!)
-        }
-        
-    }
-    
-    func changeCommentAndLikeNumber(_ data:NSDictionary,_ indexPath:IndexPath){
-        newController.changeCommentAndLikeNumber(data, indexPath)
+        self.segmentViewModel.getArticleType()
     }
     
     func createNavigationItem(){
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "发表")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.rightBarItemClick))
         self.navigationItem.titleView = self.segmentedView
     }
     
@@ -138,11 +123,17 @@ extension SegmentViewController : JXSegmentedViewDelegate {
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
         //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
         listContainerView.didClickSelectedItem(at: index)
+        if squareViewController.titles == nil {
+            self.segmentViewModel.getArticleType()
+        }
     }
     
     func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {
         //传递scrollingFrom事件给listContainerView，必须调用！！！
         listContainerView.segmentedViewScrolling(from: leftIndex, to: rightIndex, percent: percent, selectedIndex: segmentedView.selectedIndex)
+        if squareViewController.titles == nil {
+            self.segmentViewModel.getArticleType()
+        }
     }
 }
 
@@ -154,11 +145,13 @@ extension SegmentViewController: JXSegmentedListContainerViewDataSource {
     
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
         if index == 0 {
-            newController.initSView(type: index)
-            return newController
-        }else{
             outFallController.initSView(type: index)
             return outFallController
+        }else{
+            squareViewController.aritcleDetialClouse = { (data,type, indexPath) in
+                self.segmentViewModel.pushPostDetailViewController(data,type,indexPath)
+                } as! AritcleDetialClouse
+            return squareViewController
         }
         
     }

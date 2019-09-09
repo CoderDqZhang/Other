@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import YYImage
 
 let HUDBackGroudColor = "000000"
 let CustomViewWidth:CGFloat = 190
@@ -66,7 +67,7 @@ class Tools: NSObject {
     func showLoading(_ view:UIView, msg:String?) -> MBProgressHUD {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = .indeterminate
-        hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, transparency: 0.6)
+        hud.bezelView.color = UIColor.init(hexString: HUDBackGroudColor, transparency: 0.6)!
         hud.bezelView.layer.cornerRadius = 10.0
         if msg != nil {
             hud.label.text = msg
@@ -74,6 +75,22 @@ class Tools: NSObject {
             hud.label.textColor = UIColor.white
             hud.label.font = CustomViewFont;
         }
+        return hud
+    }
+    
+    func showLoading(_ view:UIView) ->MBProgressHUD {
+        let hud = MBProgressHUD.showAdded(to: view, animated: true)
+        let imageView = YYAnimatedImageView.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
+        imageView.image = YYImage.init(named: "loading.gif")
+//        imageView.backgroundColor = .red
+        hud.mode = .customView
+        hud.bezelView.style = .solidColor
+        hud.bezelView.color = .clear
+        hud.backgroundView.color = .clear
+        hud.customView = imageView
+        hud.animationType = .fade
+        hud.removeFromSuperViewOnHide = true
+        hud.alpha = 1
         return hud
     }
     
@@ -92,7 +109,9 @@ class Tools: NSObject {
         hud.minSize = HUDCustomView.getHudMinSize(msg)
         hud.label.text = msg;
         hud.bezelView.layer.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
-        hud.hide(animated: true, afterDelay: 2.0)
+        if autoHidder {
+            hud.hide(animated: true, afterDelay: 2.0)
+        }
         hud.removeFromSuperViewOnHide = true
         hud.margin = 10
         hud.isUserInteractionEnabled = false

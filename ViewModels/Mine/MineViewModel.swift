@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
 
 
 class MineViewModel: BaseViewModel {
     
-    let titles = [["实名认证","专家号申请","消息","设置"],["邀请好友"]]
+    let titles = [["实名认证","消息","设置"],["邀请好友"]]
+    let leftImage = [["realname","message","setting"],[nil]]
     var desc:[[String]]!
     
     var userInfo:UserInfoModel!
@@ -48,6 +48,21 @@ class MineViewModel: BaseViewModel {
                 NavigationPushView(self.controller!, toConroller: LoginViewController())
             }
         }
+        cell.mineInfoTableViewToolsCellClouse =  { type in
+            if CacheManager.getSharedInstance().isLogin() {
+                switch type {
+                case .post:
+                    NavigationPushView(self.controller!, toConroller: PostSegementViewController())
+                case .collect:
+                    NavigationPushView(self.controller!, toConroller: MycollectViewController())
+                default:
+                    NavigationPushView(self.controller!, toConroller: StoreSegementViewController())
+                    break
+                }
+            }else{
+                NavigationPushView(self.controller!, toConroller: LoginViewController())
+            }
+        }
     }
     
     func tableViewMineToolsTableViewCellSetData(_ indexPath:IndexPath, cell:MineToolsTableViewCell) {
@@ -73,20 +88,26 @@ class MineViewModel: BaseViewModel {
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
         if self.userInfo != nil {
-            cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: desc[indexPath.section-3][indexPath.row], image: nil, isDescHidden: false)
+            cell.cellSetData(title: titles[indexPath.section-2][indexPath.row], desc: desc[indexPath.section-2][indexPath.row], leftImage: leftImage[indexPath.section - 2][indexPath.row], rightImage: nil, isDescHidden: false)
             if indexPath.row == 1 {
-                cell.updateDescFontAndColor(App_Theme_999999_Color!, App_Theme_PinFan_R_12_Font!)
-            }else if indexPath.row == 0{
-                cell.updateDescFontAndColor(App_Theme_FF7800_Color!, App_Theme_PinFan_R_12_Font!)
-            }else if indexPath.row == 2{
                 if self.userInfo == nil {
                     cell.setNumberText(str: "0")
                 }else{
-                    cell.setNumberText(str: CacheManager.getSharedInstance().getUnreadModel()!.allunread.string)
+                    if CacheManager.getSharedInstance().getUnreadModel() == nil {
+                        cell.setNumberText(str: "0")
+                    }else{
+                        cell.setNumberText(str: CacheManager.getSharedInstance().getUnreadModel()!.allunread.string)
+                    }
                 }
+                cell.rightButtonView.reactive.controlEvents(.touchUpInside).observeValues { (button) in
+                    
+                }
+            }else if indexPath.row == 0{
+                cell.updateDescFontAndColor(App_Theme_FF7800_Color!, App_Theme_PinFan_R_12_Font!)
             }
         }else{
-             cell.cellSetData(title: titles[indexPath.section-3][indexPath.row], desc: "", image: nil, isDescHidden: false)
+             cell.cellSetData(title: titles[indexPath.section-2][indexPath.row], desc: "", leftImage: leftImage[indexPath.section - 2][indexPath.row], rightImage: nil, isDescHidden: false)
+            
         }
     }
     
@@ -99,14 +120,14 @@ class MineViewModel: BaseViewModel {
                     mineInfo.userInfo = self.userInfo
                     NavigationPushView(self.controller!, toConroller: mineInfo)
                 }
-            case 3:
+            case 2:
                 if indexPath.row == 0 {
                     if self.userInfo != nil && (self.userInfo!.isMember == "1") {
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经实名认证了", autoHidder: true)
                         return
                     }
                     NavigationPushView(self.controller!, toConroller: RealNameViewController())
-                }else if indexPath.row == 1{
+                }else if indexPath.row == 3{
                     if self.userInfo != nil  {
                         if (self.userInfo!.isMaster == "1"){
                             _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经是大神用户", autoHidder: true)
@@ -118,9 +139,9 @@ class MineViewModel: BaseViewModel {
                         }
                     }
                     NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
-                }else if indexPath.row == 2{
+                }else if indexPath.row == 1{
                     NavigationPushView(self.controller!, toConroller: MessageSegementViewController())
-                }else if indexPath.row == 3{
+                }else if indexPath.row == 2{
                     let settinVC = SettingViewController()
                     settinVC.logoutClouse = {
                         self.userInfo = nil
@@ -131,7 +152,7 @@ class MineViewModel: BaseViewModel {
                     }
                     NavigationPushView(self.controller!, toConroller: settinVC)
                 }
-            case 4:
+            case 3:
                 NavigationPushView(self.controller!, toConroller: InviteUserViewController())
             default:
                 break
@@ -142,6 +163,19 @@ class MineViewModel: BaseViewModel {
         
     }
     
+    func removeNotificationNet(userId:String){
+        let parameters = ["userId":userId]
+        BaseNetWorke.getSharedInstance().getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
+                CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
+                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证", "",""],["推广标语推广标语"]]
+                self.reloadTableViewData()
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
     
     func getUserInfoNet(userId:String){
         let parameters = ["userId":userId]
@@ -149,7 +183,7 @@ class MineViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
-                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证", self.userInfo.isMaster == "1" ? "已认证" : self.userInfo.isMaster == "2" ? "审核中" : "点击申请","",""],["推广标语推广标语"]]
+                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证","",""],["推广标语推广标语"]]
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -190,20 +224,16 @@ extension MineViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            //185/375
-            return SCREENWIDTH * 205 / 375
+            return 223
         case 1:
-            //79/375
-            return 79 
+            return 75
         case 2:
-            return 70
-        case 3:
-            return 47
+            return 48
         default:
             if indexPath.row == 0 {
                 return 30
             }
-            return 70
+            return 75
         }
     }
     
@@ -216,20 +246,24 @@ extension MineViewModel: UITableViewDelegate {
             // Fallback on earlier versions
         }
         (self.controller as! MineViewController).gloableNavigationBar.changeBackGroundColor(transparency: alpa > 1 ? 1 :alpa)
+        
+        let cell = (self.controller as! MineViewController).tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! MineInfoTableViewCell
+        
+        cell.scrollViewDidScroll(contentOffsetY: scrollView.contentOffset.y)
     }
 }
 
 extension MineViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0,1,2:
+        case 0,1:
             return 1
-        case 3:
-            return titles[section - 3].count
+        case 2:
+            return titles[section - 2].count
         default:
             return 2
         }
@@ -244,20 +278,15 @@ extension MineViewModel: UITableViewDataSource {
             cell.contentView.backgroundColor = App_Theme_F6F6F6_Color
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: MineToolsTableViewCell.description(), for: indexPath)
-            self.tableViewMineToolsTableViewCellSetData(indexPath, cell: cell as! MineToolsTableViewCell)
-            cell.selectionStyle = .none
-            return cell
-        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: AdTableViewCell.description(), for: indexPath)
             self.tableViewAdTableViewCellSetData(indexPath, cell: cell as! AdTableViewCell)
             cell.selectionStyle = .none
             return cell
-        case 3:
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: TitleLableAndDetailLabelDescRight.description(), for: indexPath)
             self.tableViewTitleLableAndDetailLabelDescRightSetData(indexPath, cell: cell as! TitleLableAndDetailLabelDescRight)
             cell.selectionStyle = .none
-            if indexPath.row == titles[indexPath.section - 3].count - 1 {
+            if indexPath.row == titles[indexPath.section - 2].count - 1 {
                 (cell as! TitleLableAndDetailLabelDescRight).lineLableHidden()
             }
             return cell
@@ -277,24 +306,3 @@ extension MineViewModel: UITableViewDataSource {
     }
 }
 
-extension MineViewModel : DZNEmptyDataSetDelegate {
-    
-}
-
-extension MineViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

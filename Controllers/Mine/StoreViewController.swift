@@ -7,13 +7,11 @@
 //
 
 import UIKit
-import JXSegmentedView
 
 class StoreViewController: BaseViewController {
 
     let storeViewModel = StoreViewModel.init()
     
-    let notificationViewModel = NotificationViewModel.init()
     var types = [StoreDetailTyp.all,StoreDetailTyp.income,StoreDetailTyp.pay]
     
     override func viewDidLoad() {
@@ -26,31 +24,20 @@ class StoreViewController: BaseViewController {
     func initSView(type:Int) {
         self.bindViewModel(viewModel: storeViewModel, controller: self)
         storeViewModel.type = types[type]
-        self.setUpTableView(style: .plain, cells: [CoinsDetailTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [CoinsDetailTableViewCell.self], controller: self)
         
         self.setUpRefreshData {
             self.storeViewModel.page = 0
             self.storeViewModel.getStoreNet()
         }
         
-        self.setUpLoadMoreData {
-            self.storeViewModel.getStoreNet()
+        self.setUpLoadMoreDataClouse = {
+            self.setUpLoadMoreData {
+                self.storeViewModel.getStoreNet()
+            }
         }
+        
         self.storeViewModel.getStoreNet()
     }
 
-}
-
-extension StoreViewController : JXSegmentedListContainerViewListDelegate {
-    override func listView() -> UIView {
-        return view
-    }
-    
-    override func listDidAppear() {
-        print("listDidAppear")
-    }
-    
-    override func listDidDisappear() {
-        print("listDidDisappear")
-    }
 }

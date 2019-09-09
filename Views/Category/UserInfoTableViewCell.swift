@@ -26,8 +26,8 @@ class UserInfoView: UIView {
     
     func setUpView(){
         avatarImage = UIImageView.init()
-        avatarImage.backgroundColor = UIColor.gray
-        
+        avatarImage.layer.borderColor = App_Theme_F6F6F6_Color!.cgColor
+        avatarImage.borderWidth = 1
         avatarImage.layer.cornerRadius = 11
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)
@@ -122,15 +122,17 @@ class UserInfoTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        userView = UserInfoView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 52))
-        self.contentView.addSubview(userView)
-        
-
+        if userView == nil {
+            userView = UserInfoView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 52))
+            self.contentView.addSubview(userView)
+        }
         self.updateConstraints()
     }
     
     func cellSetData(model:TipModel){
-        userView.createContent(avatar: model.user.img, name: model.user.nickname, category: model.tribe.tribeName)
+        if model.user != nil {
+            userView.createContent(avatar: model.user.img, name: model.user.nickname, category: model.tribe.tribeName)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -140,7 +142,12 @@ class UserInfoTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !didMakeConstraints {
-            
+            userView.snp.makeConstraints { (make) in
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
+                make.top.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
             didMakeConstraints = true
         }
         super.updateConstraints()

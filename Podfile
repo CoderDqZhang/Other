@@ -23,7 +23,6 @@ target 'Touqiu' do
   pod 'ReactiveCocoa'
   pod 'SwifterSwift'
   pod 'IQKeyboardManagerSwift'
-  pod 'RAMAnimatedTabBarController'
   pod 'pop'
   pod 'FDFullscreenPopGesture'
   pod 'UITableView+FDTemplateLayoutCell'
@@ -31,7 +30,13 @@ target 'Touqiu' do
   pod 'TZImagePickerController'
   pod 'JXSegmentedView'
   pod 'AliyunOSSiOS'
-
+  pod 'JPush'
+  pod 'CocoaAsyncSocket'
+  pod 'KSGuaidView'
+  pod 'BDKCollectionIndexView'
+  pod 'RSKGrowingTextView'
+  pod 'CocoaDebug', :configurations => ['Debug']
+  
   target 'TouqiuTests' do
     inherit! :search_paths
     # Pods for testing

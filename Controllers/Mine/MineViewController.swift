@@ -43,14 +43,14 @@ class MineViewController: BaseViewController {
     }
     
     func updateTableViewConstraints() {
-        self.tableView.snp.updateConstraints { (make) in
-            if #available(iOS 11.0, *) {
-                make.top.equalTo(self.view.snp.top).offset(-NAV_HEIGHT/2)
-            } else {
-                make.top.equalTo(self.view.snp.top).offset(0)
-                // Fallback on earlier versions
-            }
-        }
+//        self.tableView.snp.updateConstraints { (make) in
+//            if #available(iOS 11.0, *) {
+//                make.top.equalTo(self.view.snp.top).offset(-NAV_HEIGHT/2)
+//            } else {
+//                make.top.equalTo(self.view.snp.top).offset(0)
+//                // Fallback on earlier versions
+//            }
+//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

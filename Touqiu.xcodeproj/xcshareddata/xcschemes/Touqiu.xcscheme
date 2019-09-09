@@ -28,26 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1FE5BDC02281789100C9137C"
-               BuildableName = "TouqiuTests.xctest"
-               BlueprintName = "TouqiuTests"
-               ReferencedContainer = "container:Touqiu.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1FE5BDCB2281789100C9137C"
-               BuildableName = "TouqiuUITests.xctest"
-               BlueprintName = "TouqiuUITests"
-               ReferencedContainer = "container:Touqiu.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
