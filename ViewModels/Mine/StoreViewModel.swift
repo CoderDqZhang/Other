@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 
 class StoreViewModel: BaseViewModel {
 
@@ -55,7 +55,7 @@ extension StoreViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.0001
+        return 5
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -67,7 +67,7 @@ extension StoreViewModel: UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+        (self.controller as! StoreViewController).listViewDidScrollCallback?(scrollView)
     }
 }
 
@@ -84,29 +84,9 @@ extension StoreViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CoinsDetailTableViewCell.description(), for: indexPath)
         self.tableViewCoinsDetailTableViewCellSetData(indexPath, cell: cell as! CoinsDetailTableViewCell)
+        (cell as! CoinsDetailTableViewCell).hiddendLineLabel(ret: indexPath.row - 1 == detailArray.count ? true : false)
         return cell
     }
 }
 
 
-extension StoreViewModel : DZNEmptyDataSetDelegate {
-    
-}
-
-extension StoreViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

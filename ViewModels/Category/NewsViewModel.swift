@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 
 class NewsViewModel: BaseViewModel {
 
@@ -32,7 +32,10 @@ class NewsViewModel: BaseViewModel {
         }
         cell.categoryTableViewCellClouseClick = { category in
             let dic:NSDictionary = category.toDictionary() as NSDictionary
-            (self.controller! as! NewsViewController).categoryDetailClouse(dic,.BasketBall)
+            let categoryVC = CategoryDetailViewController.init()
+            categoryVC.categoryData = dic
+            categoryVC.categoryType = .BasketBall
+            NavigationPushView(self.controller!, toConroller: categoryVC)
         }
     }
     
@@ -48,6 +51,12 @@ class NewsViewModel: BaseViewModel {
         }
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getCategoryNet()
+        self.getTribeListNet()
+    }
+    
     func tableViewMCommentTableViewCellSetData(_ indexPath:IndexPath, cell:CommentTableViewCell){
         if self.tipListArray.count > 0 {
             cell.cellSetData(model: TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]))
@@ -57,7 +66,34 @@ class NewsViewModel: BaseViewModel {
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.section != 0 && indexPath.section != 1 {
             let dicData:NSDictionary = TipModel.init(fromDictionary: self.tipListArray[indexPath.section - 2] as! [String : Any]).toDictionary() as NSDictionary
-            (self.controller as! NewsViewController).postDetailDataClouse(NSMutableDictionary.init(dictionary: dicData),.Hot,indexPath)
+            let postDetail = PostDetailViewController()
+            postDetail.changeAllCommentAndLikeNumberClouse = { type, status in
+                let muDic = NSMutableDictionary.init(dictionary: dicData)
+                if type == .comment {
+                    if status == .add {
+                        muDic.setValue(dicData["commentTotal"] as! Int + 1, forKey: "commentTotal")
+                    }else{
+                        muDic.setValue(dicData["commentTotal"] as! Int - 1, forKey: "commentTotal")
+                    }
+                }else{
+                    if status == .add {
+                        muDic.setValue(dicData["favor"] as! Int + 1, forKey: "favor")
+                    }else{
+                        muDic.setValue(dicData["favor"] as! Int - 1, forKey: "favor")
+                    }
+                }
+                self.tipListArray.replaceObject(at: indexPath.section - 2, with: muDic)
+                self.reloadTableViewData()
+            }
+            
+            postDetail.deleteArticleClouse = {
+                self.tipListArray.removeObject(at: indexPath.section - 2)
+                self.reloadTableViewData()
+            }
+            
+            postDetail.postData = dicData
+            postDetail.postType = .Hot
+            NavigationPushView(self.controller!, toConroller: postDetail)
         }
     }
     
@@ -194,27 +230,5 @@ extension NewsViewModel: UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         }
-    }
-}
-
-extension NewsViewModel : DZNEmptyDataSetDelegate {
-    
-}
-
-extension NewsViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
     }
 }

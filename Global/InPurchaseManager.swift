@@ -100,8 +100,7 @@ extension InPurchaseManager : SKPaymentTransactionObserver {
                 queue.finishTransaction(transaction)
             case .failed:
                 loading.hide(animated: true)
-                loading = Tools.shareInstance.showLoading(KWindow, msg: "正在购买,请稍候...")
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "连接服务器失败,请重新支付", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "支付失败", autoHidder: true)
                 queue.finishTransaction(transaction)
             case .restored:
                 loading.hide(animated: true)

@@ -28,12 +28,10 @@ class NotificationService: UNNotificationServiceExtension {
             bestAttemptContent.title = "\(bestAttemptContent.title)"
             bestAttemptContent.subtitle = "\(bestAttemptContent.subtitle)"
             bestAttemptContent.body = "\(bestAttemptContent.body)"
-//            self.loadAttachmentForUrlString(urlStr: bestAttemptContent.launchImageName, type: "image") { (attach) in
-//                self.bestAttemptContent!.attachments = [attach]
-//                self.contentHandler!(self.bestAttemptContent!);
-//            }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, userInfo: bestAttemptContent.userInfo)
-            contentHandler(bestAttemptContent)
+            self.loadAttachmentForUrlString(urlStr: "\(bestAttemptContent.launchImageName)", type: "image") { (attach) in
+                self.bestAttemptContent!.attachments = [attach]
+                contentHandler(self.bestAttemptContent!);
+            }
         }
         
     }
@@ -58,12 +56,12 @@ class NotificationService: UNNotificationServiceExtension {
                 let path = self.getCachesDirectoryUserInfoDocumetPathDocument(user: "Public", document: "PushImages")
                 let saveName = path?.appending("/pushImage\(fileExt)")
                 do {
-                    try data!.write(to: NSURL.init(string: saveName!)! as URL, options: Data.WritingOptions.atomicWrite)
+                    try data?.write(to: URL.init(fileURLWithPath: saveName!), options: .atomicWrite)
                     var attachment:UNNotificationAttachment
                     try  attachment = UNNotificationAttachment(identifier: "remote-atta1", url: NSURL.init(fileURLWithPath: saveName!) as URL, options: nil)
                     completionHandle(attachment)
                 }catch{
-                    
+                    print("保存图片失败")
                 }
             }
         }

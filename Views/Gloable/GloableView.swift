@@ -169,6 +169,10 @@ class CustomViewButtonTopImageAndBottomLabel: AnimationTouchView {
         }
     }
     
+    func isEnable(ret:Bool) {
+        self.isUserInteractionEnabled = ret
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -299,6 +303,7 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
     func textViewDidChange(_ textView: YYTextView) {
         let fltTextHeight = textView.textLayout!.textBoundingSize.height;
         textView.isScrollEnabled = true //必须设置为NO
+        
         UIView.animate(withDuration: 0.25, animations: {
             self.frame = CGRect.init(x: 0, y: self.keybordFrame.origin.y - (fltTextHeight - self.textViewOriginFrame.size.height), width: self.keybordFrame.size.width, height: fltTextHeight + 14)
             textView.height = fltTextHeight
@@ -320,12 +325,6 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
             
         }
         self.height = textView.frame.size.height + 14
-        textView.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(7)
-            make.left.equalTo(self.snp.left).offset(15)
-            make.right.equalTo(self.snp.right).offset(-15)
-            make.bottom.equalTo(self.snp.bottom).offset(-7)
-        }
         keybordFrame = self.frame
     }
 
@@ -339,7 +338,6 @@ extension CustomViewCommentTextField : YYTextViewDelegate {
         if customViewCommentTextFieldEndClick != nil {
             self.customViewCommentTextFieldEndClick()
         }
-        self.frame = originFrame
     }
     
 }
@@ -463,7 +461,7 @@ class LoginView: UIView {
     
     var time:Timer!
     
-    var isCheckBool:Bool = true
+    var isCheckBool:Bool = false
     
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
     var lineLabel1 = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
@@ -496,16 +494,14 @@ class LoginView: UIView {
         
         logoImage = UIImageView.init()
         logoImage.cornerRadius = 15
-        logoImage.backgroundColor = .red
+        logoImage.image = UIImage.init(named: "logo1024")
         logoImage.layer.masksToBounds = true
         self.addSubview(logoImage)
         
         phoneTextField = UITextField.init()
         phoneTextField.keyboardType = .numberPad
-        phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         phoneTextField.textColor = App_Theme_FFFFFF_Color
-        phoneTextField.placeholder = "请输入手机号"
-        phoneTextField.placeholderColor = App_Theme_FFFFFF_Color!
+        phoneTextField.setPlaceholder(str: "请输入手机号", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
         centenView.addSubview(phoneTextField)
         
         
@@ -535,11 +531,8 @@ class LoginView: UIView {
             passwordTextField.rightView = rightImageView
             passwordTextField.rightViewMode = .always
             passwordTextField.isSecureTextEntry = true
-            passwordTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
             passwordTextField.textColor = App_Theme_FFFFFF_Color
-            passwordTextField.placeholder = "请输入密码"
-            passwordTextField.placeholderColor = App_Theme_FFFFFF_Color!
-            
+            passwordTextField.setPlaceholder(str: "请输入密码", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
             centenView.addSubview(passwordTextField)
             
             
@@ -564,10 +557,8 @@ class LoginView: UIView {
             }
         }else{
             codeTextField = UITextField.init()
-            codeTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
             codeTextField.textColor = App_Theme_FFFFFF_Color
-            codeTextField.placeholder = "请输入验证码"
-            codeTextField.placeholderColor = App_Theme_FFFFFF_Color!
+            codeTextField.setPlaceholder(str: "请输入验证码", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
             centenView.addSubview(codeTextField)
             
             let codeTextFieldSignal = codeTextField.reactive.continuousTextValues.map { (str) -> Bool in
@@ -834,16 +825,14 @@ class RegisterView: UIView {
         
         logoImage = UIImageView.init()
         logoImage.cornerRadius = 15
-        logoImage.backgroundColor = .red
+        logoImage.image = UIImage.init(named: "logo1024")
         logoImage.layer.masksToBounds = true
         self.addSubview(logoImage)
         
         phoneTextField = UITextField.init()
         phoneTextField.keyboardType = .numberPad
-        phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         phoneTextField.textColor = App_Theme_FFFFFF_Color
-        phoneTextField.placeholder = "请输入手机号"
-        phoneTextField.placeholderColor = App_Theme_FFFFFF_Color!
+        phoneTextField.setPlaceholder(str: "请输入手机号", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
         centenView.addSubview(phoneTextField)
         
         
@@ -871,11 +860,8 @@ class RegisterView: UIView {
         passwordTextField.rightView = rightImageView
         passwordTextField.rightViewMode = .always
         passwordTextField.isSecureTextEntry = true
-        passwordTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         passwordTextField.textColor = App_Theme_FFFFFF_Color
-        passwordTextField.placeholder = "请输入密码"
-        passwordTextField.placeholderColor = App_Theme_FFFFFF_Color!
-        
+        passwordTextField.setPlaceholder(str: "请输入密码", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
         centenView.addSubview(passwordTextField)
         
         
@@ -889,12 +875,9 @@ class RegisterView: UIView {
         
         
         codeTextField = UITextField.init()
-        codeTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         codeTextField.textColor = App_Theme_FFFFFF_Color
-        codeTextField.placeholder = "请输入验证码"
-        codeTextField.placeholderColor = App_Theme_FFFFFF_Color!
         centenView.addSubview(codeTextField)
-        
+        codeTextField.setPlaceholder(str: "请输入验证码", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
         let codeTextFieldSignal = codeTextField.reactive.continuousTextValues.map { (str) -> Bool in
             return str.count > 0
         }
@@ -1088,8 +1071,8 @@ class RegisterView: UIView {
 }
 
 enum GloableThirdLoginType:Int {
-    case wechat = 0
-    case weibo = 1
+    case weibo = 0
+    case weichat = 1
     case qq = 2
 }
 
@@ -1139,11 +1122,14 @@ class GloableThirdLogin: UIView {
     }
 }
 
+typealias CofirmProtocolViewClouse = () ->Void
+
 class CofirmProtocolView: UIView {
     
     var checkBox:UIButton!
     var titleLabel:YYLabel!
     var detailLabel:YYLabel!
+    var cofirmProtocolViewClouse:CofirmProtocolViewClouse!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -1158,16 +1144,27 @@ class CofirmProtocolView: UIView {
         checkBox = UIButton.init(type: .custom)
         checkBox.layer.masksToBounds = true
         checkBox.cornerRadius = 8.5
-        checkBox.tag = 101
+        checkBox.tag = 100
         checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
-        
         self.addSubview(checkBox)
         
         detailLabel = YYLabel.init()
         detailLabel.textAlignment = .left
+        _ = detailLabel.newTapGesture(config: { (config) in
+            config.numberOfTouchesRequired = 1
+            config.numberOfTapsRequired = 1
+        }).whenTaped(handler: { (gesture) in
+            if self.cofirmProtocolViewClouse != nil {
+                self.cofirmProtocolViewClouse()
+            }
+        })
         detailLabel.font = App_Theme_PinFan_M_12_Font
         detailLabel.textColor = App_Theme_FFFFFF_Color
-        detailLabel.text = "《隐私用户条款约定》"
+        let attributedText = NSMutableAttributedString.init(string: "《隐私用户条款约定》")
+        attributedText.yy_lineSpacing = 3
+        attributedText.yy_color = App_Theme_FFFFFF_Color
+        attributedText.yy_setTextUnderline(YYTextDecoration.init(style: YYTextLineStyle.single), range: NSRange.init(location: 1, length: attributedText.length - 2))
+        detailLabel.attributedText = attributedText
         self.addSubview(detailLabel)
         
         titleLabel = YYLabel.init()
@@ -1175,6 +1172,7 @@ class CofirmProtocolView: UIView {
         titleLabel.font = App_Theme_PinFan_M_12_Font
         titleLabel.textColor = App_Theme_FFFFFF_Color
         titleLabel.text = "同意"
+        
         self.addSubview(titleLabel)
         self.updateConstraints()
     }
@@ -1264,6 +1262,260 @@ class GloableAlertView: UIView {
         button.setTitleColor(App_Theme_06070D_Color, for: .normal)
         button.setTitleColor(App_Theme_FFCB00_Color, for: .selected)
         return button
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+typealias AdViewClouse = () ->Void
+class AdView: UIView {
+    
+    var imageView:UIImageView!
+    var doneButton:AnimationButton!
+    
+    var count = 3
+    var time:Timer!
+    
+    init(frame: CGRect, url:String, click:@escaping AdViewClouse) {
+        super.init(frame: frame)
+        imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+        self.addSubview(imageView)
+        
+        imageView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        imageView.sd_crope_imageView(url: url, imageView: imageView, placeholderImage: nil) { (image, url, type, stage, error) in
+            
+        }
+        
+        doneButton = AnimationButton.init(type: .custom)
+        time  = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
+            if self.count > 0 {
+                self.doneButton.setTitle("跳过\(self.count)", for: .normal)
+                self.count = self.count - 1
+            }else{
+                self.doneButton.setTitle("跳过", for: .normal)
+                self.time.invalidate()
+                self.disMiss()
+            }
+        })
+        doneButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
+        doneButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
+        doneButton.reactive.controlEvents(.touchUpInside).observeValues { (button) in
+            self.disMiss()
+        }
+        self.addSubview(doneButton)
+        
+        doneButton.snp.makeConstraints { (make) in
+            if #available(iOS 11.0, *) {
+                make.top.equalTo(self.snp.top).offset(NAV_HEIGHT + 30)
+            } else {
+                 make.top.equalTo(self.snp.top).offset(30)
+                // Fallback on earlier versions
+            }
+            make.right.equalTo(self.snp.right).offset(-15)
+            make.size.equalTo(CGSize.init(width: 50, height: 20))
+        }
+        
+        _ = self.newTapGesture(config: { (config) in
+            config.numberOfTapsRequired = 1
+            config.numberOfTouchesRequired = 1
+        }).whenTaped(handler: { (guest) in
+            click()
+        })
+    }
+    
+    func disMiss(){
+        self.removeFromSuperview()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+enum FilterBottomViewClickType {
+    case allselect
+    case allunselect
+    case done
+}
+typealias FilterBottomViewClick = (_ type:FilterBottomViewClickType) ->Void
+class FilterBottomView: UIView {
+    var allSelectButton:AnimationButton!
+    var allUnselectButton:AnimationButton!
+    var doneButton:UIButton!
+    
+    var selectLabel:YYLabel!
+    
+    let lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 54, y: 18, width: 1, height: 12))
+    init(frame:CGRect, number:String, click:@escaping FilterBottomViewClick) {
+        super.init(frame: frame)
+        self.backgroundColor = App_Theme_FFFFFF_Color
+        allSelectButton = AnimationButton.init(type: .custom)
+        allSelectButton.setTitle("全选", for: .normal)
+        allSelectButton.addAction({ (button) in
+            click(.allselect)
+        }, for: .touchUpInside)
+        allSelectButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
+        allSelectButton.titleLabel?.font = App_Theme_PinFan_M_12_Font
+        self.addSubview(allSelectButton)
+        allSelectButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 54, height: 48))
+            make.left.equalToSuperview()
+        }
+        
+        allUnselectButton = AnimationButton.init(type: .custom)
+        allUnselectButton.setTitle("反选", for: .normal)
+        allUnselectButton.addAction({ (button) in
+            click(.allunselect)
+        }, for: .touchUpInside)
+        allUnselectButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
+        allUnselectButton.titleLabel?.font = App_Theme_PinFan_M_12_Font
+        self.addSubview(allUnselectButton)
+        
+        allUnselectButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 54, height: 48))
+            make.left.equalTo(self.allSelectButton.snp.right).offset(0)
+        }
+        
+        
+        doneButton = AnimationButton.init(type: .custom)
+        doneButton.setTitle("确定", for: .normal)
+        doneButton.addAction({ (button) in
+            click(.done)
+        }, for: .touchUpInside)
+        doneButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
+        doneButton.titleLabel?.font = App_Theme_PinFan_M_12_Font
+        doneButton.backgroundColor = App_Theme_FFD512_Color
+        self.addSubview(doneButton)
+        doneButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 120, height: 48))
+            make.right.equalTo(self.snp.right).offset(0)
+        }
+        
+        selectLabel = YYLabel.init()
+        selectLabel.textAlignment = .left
+        selectLabel.font = App_Theme_PinFan_M_10_Font
+        selectLabel.textColor = App_Theme_666666_Color
+        selectLabel.text = "已隐藏比赛: \(number) 场"
+        self.addSubview(selectLabel)
+        selectLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(17)
+            make.left.equalTo(self.allUnselectButton.snp.right).offset(0)
+        }
+        
+        self.addSubview(lineLabel)
+        lineLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(17)
+            make.size.equalTo(CGSize.init(width: 1, height: 12))
+            make.left.equalTo(self.allSelectButton.snp.right).offset(0)
+        }
+    }
+    
+    func changeSelectLabelText(number:String){
+        selectLabel.text = "已隐藏比赛: \(number) 场"
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+typealias GloableSignViewClick = () ->Void
+
+class GloableSignView: UIView {
+    var backView:UIView!
+    var imageView:UIImageView!
+    var closeView:UIImageView!
+    var gloableSignViewClick:GloableSignViewClick!
+    
+    init(frame: CGRect, img:String, click:@escaping GloableSignViewClick) {
+        super.init(frame: frame)
+        self.gloableSignViewClick = click
+        self.backgroundColor = .clear
+        self.setUpView(img:img)
+    }
+    
+    func setUpView(img:String){
+        backView = UIView.init()
+        backView.backgroundColor = UIColor.init(hexString: "000000", transparency: 0.6)
+        backView.isUserInteractionEnabled = true
+        backView.newTapGesture { (tap) in
+            tap.numberOfTapsRequired = 1
+            tap.numberOfTouchesRequired = 1
+            }.whenTaped { (tap) in
+                self.disMissView()
+        }
+        
+        self.addSubview(backView)
+        
+        imageView = UIImageView.init()
+        imageView.newTapGesture { (tap) in
+            tap.numberOfTapsRequired = 1
+            tap.numberOfTouchesRequired = 1
+            }.whenTaped { (tap) in
+                if self.gloableSignViewClick != nil {
+                    self.gloableSignViewClick()
+                    self.disMissView()
+                }
+        }
+        imageView.sd_crope_imageView_withMaxWidth(url: img, imageSize: nil, placeholderImage: nil) { (image, error, cacheType, url) in
+            if error == nil {
+                self.imageView.image = image
+            }
+        }
+        imageView.image = UIImage.init(named: "sign")
+        self.addSubview(imageView)
+        
+        
+        closeView = UIImageView.init()
+        closeView.image = UIImage.init(named: "clouse")
+        closeView.isUserInteractionEnabled = true
+        closeView.newTapGesture { (tap) in
+            tap.numberOfTapsRequired = 1
+            tap.numberOfTouchesRequired = 1
+            }.whenTaped { (tap) in
+                self.disMissView()
+        }
+        self.addSubview(closeView)
+        self.updateConstraints()
+    }
+    
+    func viewCellData(imageUrl:String){
+        
+    }
+    
+    func disMissView(){
+        self.removeFromSuperview()
+    }
+    
+    override func updateConstraints() {
+        super.updateConstraints()
+        backView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+        }
+        
+        imageView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
+        closeView.snp.makeConstraints { (make) in
+            make.right.equalTo(self.imageView.snp.right).offset(0)
+            make.bottom.equalTo(self.imageView.snp.top).offset(0)
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

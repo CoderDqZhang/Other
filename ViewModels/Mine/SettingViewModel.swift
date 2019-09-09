@@ -11,13 +11,15 @@ import UIKit
 
 class SettingViewModel: BaseViewModel {
     
-    let titles = [["基本资料","修改密码"],["关于豹典","用户反馈"],["退出登录"]]
+    let titles = [["基本资料","修改密码"],["关于我们","清除缓存","用户反馈"],["退出登录"]]
+    var bankLiskArray = NSMutableArray.init()
     override init() {
         super.init()
+        self.getAccountInfoList()
     }
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
-        cell.cellSetData(title: titles[indexPath.section][indexPath.row], desc: "", image: nil, isDescHidden: true)
+        cell.cellSetData(title: titles[indexPath.section][indexPath.row], desc: "", leftImage: nil, rightImage: nil, isDescHidden: true)
         if indexPath.row == titles[indexPath.section].count - 1 {
             cell.lineLableHidden()
         }
@@ -33,17 +35,28 @@ class SettingViewModel: BaseViewModel {
         case 0:
             if indexPath.row == 0 {
                 NavigationPushView(self.controller!, toConroller: MineInfoViewController())
-            }else{
+            }else if indexPath.row == 1{
                 NavigationPushView(self.controller!, toConroller: ChangePasswordViewController())
+            }else{
+                let bindWithVC = BindBankListViewController()
+                bindWithVC.bankListk = self.bankLiskArray
+                
+                NavigationPushView(self.controller!, toConroller: bindWithVC)
             }
         case 1:
             if indexPath.row == 0 {
                 NavigationPushView(self.controller!, toConroller: AboutViewController())
+            }else if indexPath.row == 1 {
+                
             }else{
                 NavigationPushView(self.controller!, toConroller: FeedBackViewController())
             }
         default:
-            self.logoutNet()
+            UIAlertController.showAlertControl(self.controller!, style: .alert, title: "是否退出？", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                
+            }) {
+               self.logoutNet()
+            }
             break
         }
     }
@@ -57,6 +70,17 @@ class SettingViewModel: BaseViewModel {
                     NotificationManager.getSharedInstance().deleteAlias()
                     self.controller?.navigationController?.popViewController()
                 }
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
+    
+    func getAccountInfoList(){
+        BaseNetWorke.getSharedInstance().postUrlWithString(AccountFindCashAccountUrl, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.bankLiskArray = NSMutableArray.init(array: resultDic.value as! Array)
+                self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }

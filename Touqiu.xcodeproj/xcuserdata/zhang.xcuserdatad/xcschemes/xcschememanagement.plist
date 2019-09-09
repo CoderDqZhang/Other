@@ -6,40 +6,13 @@
 	<dict>
 		<key>JPushExtentions.xcscheme_^#shared#^_</key>
 		<dict>
-			<key>isShown</key>
-			<true/>
 			<key>orderHint</key>
-			<integer>29</integer>
+			<integer>5</integer>
 		</dict>
 		<key>Touqiu.xcscheme_^#shared#^_</key>
 		<dict>
-			<key>isShown</key>
-			<true/>
 			<key>orderHint</key>
-			<integer>30</integer>
-		</dict>
-	</dict>
-	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>1FE5BDAC2281788E00C9137C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1FE5BDC02281789100C9137C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1FE5BDCB2281789100C9137C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1FF025DB22DEC525005E2ED2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
+			<integer>26</integer>
 		</dict>
 	</dict>
 </dict>

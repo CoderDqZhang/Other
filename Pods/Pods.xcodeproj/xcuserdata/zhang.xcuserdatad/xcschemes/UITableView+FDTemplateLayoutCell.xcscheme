@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A5493446E693FF14312946B0754D3F5E"
+               BlueprintIdentifier = "AFAE27C8C18D4F9CB4773DAA8B753FE2"
                BuildableName = "UITableView_FDTemplateLayoutCell.framework"
                BlueprintName = "UITableView+FDTemplateLayoutCell"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A5493446E693FF14312946B0754D3F5E"
+            BlueprintIdentifier = "AFAE27C8C18D4F9CB4773DAA8B753FE2"
             BuildableName = "UITableView_FDTemplateLayoutCell.framework"
             BlueprintName = "UITableView+FDTemplateLayoutCell"
             ReferencedContainer = "container:Pods.xcodeproj">

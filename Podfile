@@ -31,7 +31,12 @@ target 'Touqiu' do
   pod 'JXSegmentedView'
   pod 'AliyunOSSiOS'
   pod 'JPush'
-
+  pod 'CocoaAsyncSocket'
+  pod 'KSGuaidView'
+  pod 'BDKCollectionIndexView'
+  pod 'RSKGrowingTextView'
+  pod 'CocoaDebug', :configurations => ['Debug']
+  
   target 'TouqiuTests' do
     inherit! :search_paths
     # Pods for testing

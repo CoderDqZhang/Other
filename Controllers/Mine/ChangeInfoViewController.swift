@@ -73,34 +73,18 @@ class ChangeInfoViewController: BaseViewController {
             self.view.addSubview(changeView)
             
             changeText = UITextField.init()
-            changeText.placeholderFont = App_Theme_PinFan_R_14_Font!
             changeText.font = App_Theme_PinFan_R_14_Font
             changeText.delegate = self
             changeText.textColor = App_Theme_06070D_Color
             changeText.becomeFirstResponder()
             changeView.addSubview(changeText)
             
-            
             detailLable = YYLabel.init()
             detailLable.textAlignment = .right
             detailLable.font = App_Theme_PinFan_M_14_Font
             detailLable.textColor = App_Theme_999999_Color
             detailLable.text = "0/16"
-            changeText.reactive.continuousTextValues.observeValues { (str) in
-                if self.type != .desc {
-                    self.detailString = str
-                }
-                self.detailLable.text = "\(str.count)/16"
-                if str.count > 0 {
-                    self.anmationButton.backgroundColor = App_Theme_FFD512_Color
-                    self.anmationButton.isEnabled = true
-                    self.anmationButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
-                }else{
-                    self.anmationButton.backgroundColor = App_Theme_DCDCDC_Color
-                    self.anmationButton.isEnabled = false
-                    self.anmationButton.setTitleColor(App_Theme_FFFFFF_Color!, for: .normal)
-                }
-            }
+            
             changeView.addSubview(detailLable)
             
             infoLable = YYLabel.init()
@@ -113,6 +97,10 @@ class ChangeInfoViewController: BaseViewController {
             anmationButton = AnimationButton.init(type: .custom)
             anmationButton.setTitle("确定", for: .normal)
             anmationButton.addAction({ (button) in
+                if self.type == .email && !self.changeText.text!.isValidEmail {
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "请输入邮箱", autoHidder: true)
+                    return
+                }
                 if self.changeInfoViewControllerClouse != nil {
                     self.changeInfoViewControllerClouse(self.type,self.changeText.text!)
                 }
@@ -164,7 +152,7 @@ class ChangeInfoViewController: BaseViewController {
     
     func changeInfoType(text:String,type:ChangeInfoType, placeholder:String){
         self.initView()
-        changeText.placeholder = placeholder
+        changeText.setPlaceholder(str: placeholder, font: App_Theme_PinFan_R_14_Font!, textColor: App_Theme_B5B5B5_Color!)
         changeText.text = text
         self.type = type
         switch type {
@@ -174,9 +162,18 @@ class ChangeInfoViewController: BaseViewController {
             infoLable.text = ""
             changeText.keyboardType = .default
             changeText.reactive.continuousTextValues.filter({ (str) -> Bool in
-                self.changeText.text = self.detailString
                 return str.count < 16
             }).observeValues({ (str) in
+                self.detailLable.text = "\(str.count)/16"
+                if str.count > 0 {
+                    self.anmationButton.backgroundColor = App_Theme_FFD512_Color
+                    self.anmationButton.isEnabled = true
+                    self.anmationButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
+                }else{
+                    self.anmationButton.backgroundColor = App_Theme_DCDCDC_Color
+                    self.anmationButton.isEnabled = false
+                    self.anmationButton.setTitleColor(App_Theme_FFFFFF_Color!, for: .normal)
+                }
                 self.detailString = str
             })
             
@@ -187,12 +184,36 @@ class ChangeInfoViewController: BaseViewController {
             infoLable.isHidden = true
             infoLable.text = ""
             self.navigationItem.title = "更改邮箱"
+            self.anmationButton.isEnabled = false
+            changeText.reactive.continuousTextValues.observeValues({ (str) in
+                if str.count > 0 {
+                    self.anmationButton.backgroundColor = App_Theme_FFD512_Color
+                    self.anmationButton.isEnabled = true
+                    self.anmationButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
+                }else{
+                    self.anmationButton.backgroundColor = App_Theme_DCDCDC_Color
+                    self.anmationButton.isEnabled = false
+                    self.anmationButton.setTitleColor(App_Theme_FFFFFF_Color!, for: .normal)
+                }
+            })
         default:
             detailLable.isHidden = true
             infoLable.isHidden = false
             changeText.keyboardType = .default
             infoLable.text = "好名称可以让朋友更好的记住你"
             self.navigationItem.title = "更改名称"
+            changeText.reactive.continuousTextValues.observeValues { (str) in
+                if str.count > 0 {
+                    self.anmationButton.backgroundColor = App_Theme_FFD512_Color
+                    self.anmationButton.isEnabled = true
+                    self.anmationButton.setTitleColor(App_Theme_06070D_Color!, for: .normal)
+                }else{
+                    self.anmationButton.backgroundColor = App_Theme_DCDCDC_Color
+                    self.anmationButton.isEnabled = false
+                    self.anmationButton.setTitleColor(App_Theme_FFFFFF_Color!, for: .normal)
+                }
+                self.detailString = str
+            }
             break
         }
     }
@@ -223,9 +244,9 @@ class ChangeInfoViewController: BaseViewController {
             let keyboardinfo = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey]
             let keyboardheight:CGFloat = ((keyboardinfo as AnyObject).cgRectValue.size.height)
             if #available(iOS 11.0, *) {
-                self.anmationButton.frame = CGRect.init(x: 15, y: self.view.bounds.size.height - keyboardheight - NAV_HEIGHT / 2 - 47, width: SCREENWIDTH - 30, height: 47)
+                self.anmationButton.frame = CGRect.init(x: 15, y: self.view.bounds.size.height - keyboardheight - NAV_HEIGHT / 2 - 47 - 30, width: SCREENWIDTH - 30, height: 47)
             } else {
-                self.anmationButton.frame = CGRect.init(x: 15, y: self.view.bounds.size.height - keyboardheight - 47, width: SCREENWIDTH - 30, height: 47)
+                self.anmationButton.frame = CGRect.init(x: 15, y: self.view.bounds.size.height - keyboardheight - 47 - 30, width: SCREENWIDTH - 30, height: 47)
                 // Fallback on earlier versions
             }
         }

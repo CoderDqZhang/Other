@@ -29,7 +29,7 @@ class NotificationViewController: BaseViewController {
     func initSView(type:Int) {
         self.bindViewModel(viewModel: notificationViewModel, controller: self)
         notificationViewModel.type = types[type]
-        self.setUpTableView(style: .plain, cells: [NotificationTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [NotificationTableViewCell.self], controller: self)
         
         self.setUpRefreshData {
             self.notificationViewModel.page = 0

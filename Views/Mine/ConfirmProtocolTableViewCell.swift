@@ -8,11 +8,15 @@
 
 import UIKit
 
+typealias ConfirmProtocolTableViewCellClouse = () ->Void
+
 class ConfirmProtocolTableViewCell: UITableViewCell {
 
     var checkBox:UIButton!
     var titleLabel:YYLabel!
     var detailLabel:YYLabel!
+    
+    var confirmProtocolTableViewCellClouse:ConfirmProtocolTableViewCellClouse!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -34,6 +38,15 @@ class ConfirmProtocolTableViewCell: UITableViewCell {
         detailLabel.font = App_Theme_PinFan_M_12_Font
         detailLabel.textColor = App_Theme_FFAC1B_Color
         detailLabel.text = "《隐私用户条款约定》"
+        detailLabel.isUserInteractionEnabled = true
+        _ = detailLabel.newTapGesture { (config) in
+            config.numberOfTapsRequired = 1
+            config.numberOfTouchesRequired = 1
+            }.whenTaped { (gesture) in
+                if self.confirmProtocolTableViewCellClouse != nil {
+                    self.confirmProtocolTableViewCellClouse()
+                }
+        }
         self.contentView.addSubview(detailLabel)
         
         titleLabel = YYLabel.init()
@@ -55,7 +68,7 @@ class ConfirmProtocolTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !didMakeConstraints {
             checkBox.snp.makeConstraints { (make) in
-                make.centerX.equalTo(self.contentView.snp.centerX).offset(-50)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(-70)
                 make.centerY.equalToSuperview()
             }
             

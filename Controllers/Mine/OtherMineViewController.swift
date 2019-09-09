@@ -19,7 +19,7 @@ class OtherMineViewController: BaseViewController {
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
     let titles = ["推荐", "发表", "竞猜"]
-    var tableHeaderViewHeight: CGFloat = 138
+    var tableHeaderViewHeight: CGFloat = 148
     var heightForHeaderInSection: Int = 44
     
     let recommendVC = RecommendViewController()
@@ -63,13 +63,12 @@ class OtherMineViewController: BaseViewController {
         gloableNavigationBar.rightButtonClouse = { status in
             self.otherViewModel.followNet(userId: (self.postData.object(forKey: "id") as! Int).string, status: status)
         }
-        pagingView.pinSectionHeaderVerticalOffset = gloableNavigationBar.height - 64
         self.view.addSubview(gloableNavigationBar)
     }
     
     override func setUpView() {
         if #available(iOS 11.0, *) {
-            userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight + NAV_HEIGHT)))
+            userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight + NAV_HEIGHT / 2)))
         } else {
              userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight)))
             // Fallback on earlier versions
@@ -110,9 +109,13 @@ class OtherMineViewController: BaseViewController {
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
         
+        //增加底部边框
+        segmentedView.border(for: App_Theme_F6F6F6_Color!, borderWidth: 1, borderType: UIBorderSideType.bottom)
+        
         let lineView = JXSegmentedIndicatorLineView()
         lineView.indicatorColor = App_Theme_FFD512_Color!
-        lineView.indicatorWidth = 26
+        lineView.indicatorWidth = 30
+        lineView.verticalOffset = 4
         segmentedView.indicators = [lineView]
         
         pagingView = JXPagingView(delegate: self)
@@ -153,7 +156,7 @@ class OtherMineViewController: BaseViewController {
 extension OtherMineViewController: JXPagingViewDelegate {
     
     func tableHeaderViewHeight(in pagingView: JXPagingView) -> Int {
-        return Int(tableHeaderViewHeight)
+        return Int(tableHeaderViewHeight) - 60
     }
     
     func tableHeaderView(in pagingView: JXPagingView) -> UIView {
@@ -191,12 +194,15 @@ extension OtherMineViewController: JXPagingViewDelegate {
         
         var alpa:CGFloat = 0
         if #available(iOS 11.0, *) {
-            alpa = scrollView.contentOffset.y / (tableHeaderViewHeight - 64 - NAV_HEIGHT)
+            alpa = scrollView.contentOffset.y / 60
         } else {
-            alpa = scrollView.contentOffset.y / (tableHeaderViewHeight - 64)
+            alpa = scrollView.contentOffset.y / 60
             // Fallback on earlier versions
         }
-        gloableNavigationBar.rigthButton.isHidden = scrollView.contentOffset.y > 80 ? false : true
+        if scrollView.contentOffset.y < 0 {
+            alpa = 1
+        }
+        gloableNavigationBar.rigthButton.isHidden = scrollView.contentOffset.y > 40 ? false : true
 
         self.gloableNavigationBar.changeBackGroundColor(transparency: alpa > 1 ? 1 :alpa)
     }

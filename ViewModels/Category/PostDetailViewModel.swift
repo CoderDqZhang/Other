@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 
 class PostDetailViewModel: BaseViewModel {
 
@@ -25,6 +25,12 @@ class PostDetailViewModel: BaseViewModel {
         if tipDetailModel != nil {
             cell.cellSetData(model: self.tipDetailModel)
         }
+        cell.postDetailUserTagInfoClouse = {
+            let dic:NSDictionary = self.tipDetailModel.user.toDictionary() as NSDictionary
+            let otherMineVC = OtherMineViewController()
+            otherMineVC.postData = dic
+            NavigationPushView(self.controller!, toConroller: otherMineVC)
+        }
         cell.postDetailUserInfoClouse = { type in
             self.followNet(status: type == GloabelButtonType.select ? true : false)
         }
@@ -37,17 +43,21 @@ class PostDetailViewModel: BaseViewModel {
         cell.postDetailContentTableViewCellClouse = { type, status in
             switch type {
             case .like:
-                if CacheManager.getSharedInstance().isLogin() {
-                    self.likeNet(status)
+               self.likeNet(status)
+            case .login:
+                let loginVC = LoginViewController()
+                if status == .loginadd{
+                    loginVC.loginDoneClouse = {
+                        cell.likeButtonClick()
+                    }
                 }else{
-                    NavigationPushView(self.controller!, toConroller: LoginViewController())
+                    loginVC.loginDoneClouse = {
+                        cell.collectButtonClick()
+                    }
                 }
+                NavigationPushView(self.controller!, toConroller: loginVC)
             default:
-                if CacheManager.getSharedInstance().isLogin() {
-                    self.collectNet()
-                }else{
-                    NavigationPushView(self.controller!, toConroller: LoginViewController())
-                }
+                 self.collectNet()
             }
         }
         
@@ -101,9 +111,22 @@ class PostDetailViewModel: BaseViewModel {
             cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), indexPath: indexPath)
         }
         
-        cell.postDetailCommentUserTableViewCellClouse = { indexPath in
-            let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
-            self.likeCommentNet(commentId: model.id.string, model:model, indexPath: indexPath)
+        cell.postDetailCommentUserTableViewCellClouse = { indexPath, type in
+            if type == .like {
+                let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+                self.likeCommentNet(commentId: model.id.string, model:model, indexPath: indexPath)
+            }else if type == .user{
+                let dic:NSDictionary = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]).user.toDictionary() as NSDictionary
+                let otherMineVC = OtherMineViewController()
+                otherMineVC.postData = dic
+                NavigationPushView(self.controller!, toConroller: otherMineVC)
+            }else{
+                let loginVC = LoginViewController()
+                loginVC.loginDoneClouse = {
+                    cell.likeButtonClick()
+                }
+                NavigationPushView(self.controller!, toConroller: loginVC)
+            }
         }
     }
     
@@ -122,6 +145,11 @@ class PostDetailViewModel: BaseViewModel {
                self.controller?.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
             NavigationPushView(self.controller!, toConroller: commentVC)
+        }else if indexPath.section == 0 && indexPath.row == 0 {
+            let dic:NSDictionary = self.tipDetailModel.user.toDictionary() as NSDictionary
+            let otherMineVC = OtherMineViewController()
+            otherMineVC.postData = dic
+            NavigationPushView(self.controller!, toConroller: otherMineVC)
         }
     }
     
@@ -136,8 +164,8 @@ class PostDetailViewModel: BaseViewModel {
                 self.tipDetailModel = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
                 (self.controller! as! PostDetailViewController).navigationItem.title = self.tipDetailModel.tribe.tribeName
                 self.reloadTableViewData()
-                
-                
+                (self.controller as! PostDetailViewController).postData = self.tipDetailModel.toDictionary() as NSDictionary
+                (self.controller as! PostDetailViewController).setUpViewNavigationItem()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
@@ -286,7 +314,7 @@ class PostDetailViewModel: BaseViewModel {
         if self.tipDetailModel != nil {
             imageHeight = self.imageContentHeight(image: self.tipDetailModel.image, contentWidth: SCREENWIDTH - 30)
         }
-        return titleSize.textBoundingSize.height + contentSize.textBoundingSize.height + 120 + imageHeight
+        return titleSize.textBoundingSize.height + contentSize.textBoundingSize.height + 132 + imageHeight - (contentSize.textBoundingSize.height == 0 ? 20 : 0)
     }
     
 }
@@ -320,9 +348,6 @@ extension PostDetailViewModel: UITableViewDelegate {
             }
             if self.tipDetailModel != nil {
                 return self.getContentHeight()
-//                return tableView.fd_heightForCell(withIdentifier: PostDetailContentTableViewCell.description(), cacheByKey: self.tipDetailModel   , configuration: { (cell) in
-//                    self.tableViewPostDetailContentTableViewCellSetData(indexPath, cell: cell as! PostDetailContentTableViewCell)
-//                })
             }
             return 60
             
@@ -357,6 +382,7 @@ extension PostDetailViewModel: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
+    
 }
 
 extension PostDetailViewModel: UITableViewDataSource {
@@ -398,30 +424,9 @@ extension PostDetailViewModel: UITableViewDataSource {
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
             self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
+            (cell as! PostDetailCommentTableViewCell).hiddenLineLabel(ret: self.commentListArray.count - 1 == indexPath.section - 2 ? true : false)
             cell.selectionStyle = .none
             return cell
         }
-    }
-}
-
-extension PostDetailViewModel : DZNEmptyDataSetDelegate {
-    
-}
-
-extension PostDetailViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color ?? ""], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
     }
 }

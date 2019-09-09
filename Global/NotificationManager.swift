@@ -50,7 +50,12 @@ class NotificationManager: NSObject {
         JPUSHService.register(forRemoteNotificationConfig: entity, delegate: self)
         
         JPUSHService.setup(withOption: launchOptions, appKey: JPushKey, channel: "App Store", apsForProduction: false, advertisingIdentifier: nil)
+        
+        JPUSHService.setDebugMode()
+        
     }
+    
+    
     
     //系统获取Token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -67,6 +72,12 @@ class NotificationManager: NSObject {
         JPUSHService.handleRemoteNotification(userInfo)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, userInfo: userInfo)
         completionHandler(UIBackgroundFetchResult.newData)
+        
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        JPUSHService.handleRemoteNotification(userInfo)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, userInfo: userInfo)
         
     }
     
@@ -103,6 +114,7 @@ extension NotificationManager : JPUSHRegisterDelegate {
         if notification.request.trigger is UNPushNotificationTrigger {
             JPUSHService.handleRemoteNotification(userInfo)
         }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, userInfo: userInfo)
         // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
         completionHandler(Int(UNNotificationPresentationOptions.alert.rawValue))
     }
@@ -113,7 +125,7 @@ extension NotificationManager : JPUSHRegisterDelegate {
             JPUSHService.handleRemoteNotification(userInfo)
         }
         
-        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, userInfo: userInfo)
 //        NotificationService.re
         // 系统要求执行这个方法
         completionHandler()

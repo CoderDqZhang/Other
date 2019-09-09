@@ -73,6 +73,10 @@ class CoinsDetailTableViewCell: UITableViewCell {
         numberLabel.text = "\((model.type == "0" ? "-\(model.point.string)" : "+\(model.point.string)"))"
     }
     
+    func hiddendLineLabel(ret:Bool) {
+        lineLabel.isHidden = ret
+    }
+    
     
     override func updateConstraints() {
         if !didMakeConstraints {

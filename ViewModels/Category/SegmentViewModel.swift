@@ -29,51 +29,29 @@ class SegmentViewModel: BaseViewModel {
     }
     
     func pushPostVC(){
-        if CacheManager.getSharedInstance().isLogin() {
-            let postVC = PostViewController()
-            postVC.postViewControllerDataClouse = { dic in
-                (self.controller! as! SegmentViewController).newController.newsViewModel.tipListArray.insert(dic, at: 0)
-                (self.controller! as! SegmentViewController).newController.newsViewModel.reloadTableViewData()
-            }
-            let postNavigationController = UINavigationController.init(rootViewController: postVC)
-            NavigaiontPresentView(self.controller!, toController: postNavigationController)
-        }else{
-            NavigationPushView(self.controller!, toConroller: LoginViewController())
-        }
+        
     }
     
-    func pushCategoryDetailViewController(_ data:NSDictionary, _ type:CategoryType){
-        let categoryDetail = CategoryDetailViewController()
-        categoryDetail.categoryData = data
-        categoryDetail.categoryType = type
-        NavigationPushView(self.controller!, toConroller: categoryDetail)
+    func pushPostDetailViewController(_ data:NSDictionary, _ type:ArticleTypeModel, _ indexPath:IndexPath) {
+        let controllerVC = ArticleDetailViewController.init()
+        controllerVC.articleData = data
+        NavigationPushView(self.controller!, toConroller: controllerVC)
     }
     
-    func pushPostDetailViewController(_ data:NSMutableDictionary, _ type:PostType, _ indexPath:IndexPath) {
-        let postDetail = PostDetailViewController()
-        postDetail.changeAllCommentAndLikeNumberClouse = { type, status in
-            if type == .comment {
-                if status == .add {
-                    data["commentTotal"] = data["commentTotal"] as! Int + 1
-                }else{
-                    data["commentTotal"] = data["commentTotal"] as! Int - 1
+    func getArticleType(){
+        BaseNetWorke.getSharedInstance().postUrlWithString(ArticleTypeUrl, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let models = NSMutableArray.init(array: resultDic.value as! Array)
+                var titles:[String] = []
+                for model in models {
+                    titles.append((model as! NSDictionary).object(forKey: "value") as! String)
                 }
-            }else{
-                if status == .add {
-                    data["favor"] = data["favor"] as! Int + 1
-                }else{
-                    data["favor"] = data["favor"] as! Int - 1
-                }
+                
+                (self.controller! as! SegmentViewController).squareViewController.titles = titles
+                (self.controller! as! SegmentViewController).squareViewController.articleTypeArray = models
+                (self.controller! as! SegmentViewController).squareViewController.initSView(type: 0)
+                
             }
-            (self.controller as! SegmentViewController).changeCommentAndLikeNumber(data,indexPath)
         }
-        
-        postDetail.deleteArticleClouse = {
-            (self.controller as! SegmentViewController).deleteArticle(indexPath)
-        }
-        
-        postDetail.postData = data
-        postDetail.postType = type
-        NavigationPushView(self.controller!, toConroller: postDetail)
     }
 }

@@ -9,8 +9,9 @@
 import UIKit
 import pop
 
-class AnimationView: UIView {
-}
+//class AnimationView: UIView {
+//
+//}
 
 typealias TouchClickClouse = () -> Void
 class AnimationTouchView: UIView, UIGestureRecognizerDelegate {

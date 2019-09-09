@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
+
 
 class FansViewModel: BaseViewModel {
     
@@ -37,6 +37,11 @@ class FansViewModel: BaseViewModel {
             self.getFansNet(userId: self.userId)
         }
         NavigationPushView(self.controller!, toConroller: otherMineVC)
+    }
+    
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getFansNet(userId: self.userId)
     }
     
     func getFansNet(userId:String?){
@@ -123,24 +128,3 @@ extension FansViewModel: UITableViewDataSource {
     }
 }
 
-extension FansViewModel : DZNEmptyDataSetDelegate {
-    
-}
-
-extension FansViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

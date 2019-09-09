@@ -62,7 +62,7 @@ class RegiseViewController: BaseViewController {
         self.view.addSubview(regisViewCenteView)
         
         
-        thirdLogin = GloableThirdLogin.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 172, width: SCREENWIDTH, height: 91))
+        thirdLogin = GloableThirdLogin.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 172 + (IPHONE5 ? 70 : 0), width: SCREENWIDTH, height: 91))
         thirdLogin.gloableThirdLoginClouse = { type in
             //消除定时器
             self.regisViewCenteView.relaseTimer()
@@ -71,7 +71,7 @@ class RegiseViewController: BaseViewController {
         
         self.view.addSubview(thirdLogin)
         
-        cofirmProtocolView = CofirmProtocolView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 30, width: SCREENWIDTH, height: 30))
+        cofirmProtocolView = CofirmProtocolView.init(frame: CGRect.init(x: 0, y:thirdLogin.frame.maxY, width: SCREENWIDTH, height: 30))
         cofirmProtocolView.checkBox.addAction({ (button) in
             if button?.tag == 100 {
                 self.regisViewCenteView.isCheckBoolProperty.value = true
@@ -85,6 +85,11 @@ class RegiseViewController: BaseViewController {
                 self.cofirmProtocolView.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
             }
         }, for: UIControl.Event.touchUpInside)
+        cofirmProtocolView.cofirmProtocolViewClouse = {
+            let controllerVC = ProtocolViewViewController()
+            controllerVC.loadRequest(url: RegisterLoginUrl)
+            NavigationPushView(self, toConroller: controllerVC)
+        }
         self.view.addSubview(cofirmProtocolView)
     }
     

@@ -17,13 +17,19 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     var numberLabel:YYLabel!
     
     var rightImageView:UIImageView!
+    var leftImageView:UIImageView!
+    var detailImageView:UIImageView!
+    
+    var rightButtonView:BadgeValueButton!
 
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
-        self.accessoryType = .disclosureIndicator
+        
+        
+//        self.accessoryType = .disclosureIndicator
     }
     
     func setUpView(){
@@ -46,14 +52,28 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         rightImageView.layer.masksToBounds = true
         self.contentView.addSubview(rightImageView)
         
+        leftImageView  = UIImageView.init()
+        leftImageView.layer.masksToBounds = true
+        self.contentView.addSubview(leftImageView)
+        
+        detailImageView = UIImageView.init(image: UIImage.init(named: "cell_right"))
+        self.contentView.addSubview(detailImageView)
+        
+        _ = rightImageView.newPanGesture(config: { (config) in
+        }).whenBegan(handler: { (guest) in
+            print("began")
+        }).whenEnded(handler: { (guest) in
+            print("end")
+        })
+        
         self.contentView.addSubview(lineLabel)
         self.updateConstraints()
     }
     
-    func cellSetData(title:String, desc:String, image:String?, isDescHidden:Bool){
+    func cellSetData(title:String, desc:String, leftImage:String?, rightImage:String?, isDescHidden:Bool){
         titleLabel.text = title
-        if image != nil {
-            rightImageView.sd_crope_imageView(url: image!, imageView: rightImageView, placeholderImage: nil) { (image, url, type, state, error) in
+        if rightImage != nil {
+            rightImageView.sd_crope_imageView(url: rightImage!, imageView: rightImageView, placeholderImage: nil) { (image, url, type, state, error) in
                 
             }
             descLabel.isHidden = true
@@ -61,7 +81,22 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
             descLabel.text = desc
             self.descLabel.isHidden = isDescHidden
         }
-
+        if leftImage != nil {
+            leftImageView.image = UIImage.init(named: leftImage!)
+            titleLabel.snp.remakeConstraints { (make) in
+                make.left.equalTo(self.leftImageView.snp.right).offset(10)
+                make.width.equalTo(200)
+                make.centerY.equalToSuperview()
+            }
+            
+        }else{
+            titleLabel.snp.remakeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.width.equalTo(200)
+                make.centerY.equalToSuperview()
+            }
+            
+        }
     }
     
     func setNumberText(str:String){
@@ -70,28 +105,34 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         if str.int! > 99 {
             showStr = "99+"
         }
-        if numberLabel == nil {
-            numberLabel = YYLabel.init()
-            numberLabel.textAlignment = .center
-            numberLabel.text = showStr
-            self.contentView.addSubview(numberLabel)
-            numberLabel.backgroundColor = App_Theme_F65449_Color
-            numberLabel.textColor = App_Theme_FFFFFF_Color
-            numberLabel.layer.cornerRadius = 7
-            numberLabel.font = App_Theme_PinFan_R_12_Font
-            
+        if rightButtonView == nil {
+            rightButtonView = BadgeValueButton.init()
+            self.contentView.addSubview(rightButtonView)
+            rightButtonView.backgroundColor = App_Theme_F65449_Color
+            rightButtonView.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
+            rightButtonView.titleLabel?.font = App_Theme_PinFan_R_12_Font
+            rightButtonView.layer.cornerRadius = 7
             let strHeight = showStr.nsString.width(with: App_Theme_PinFan_R_12_Font, constrainedToHeight: 14)
-            numberLabel.snp.makeConstraints({ (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(-9)
+            rightButtonView.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.detailImageView.snp.left).offset(-9)
                 make.centerY.equalToSuperview()
                 make.size.equalTo(CGSize.init(width: strHeight + 8, height: 14))
             })
+            
+            
+            rightButtonView.block = {
+                print("dismiss")
+            }
+            
+            
         }
-        numberLabel.text = showStr
+        rightButtonView.setTitle(showStr, for: .normal)
+        rightButtonView.maxDistance = 10
+        
         if str.int!  == 0 {
-            numberLabel.isHidden = true
+            rightButtonView.isHidden = true
         }else{
-            numberLabel.isHidden = false
+            rightButtonView.isHidden = false
         }
     }
     
@@ -112,20 +153,25 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     override func updateConstraints() {
         if !didMakeConstraints {
             titleLabel.snp.makeConstraints { (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.left.equalTo(self.leftImageView.snp.right).offset(10)
                 make.width.equalTo(200)
                 make.centerY.equalToSuperview()
             }
             
             descLabel.snp.makeConstraints { (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(-9)
+                make.right.equalTo(self.detailImageView.snp.left).offset(-9)
                 make.width.equalTo(200)
                 make.centerY.equalToSuperview()
             }
             
             rightImageView.snp.makeConstraints { (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(-9)
+                make.right.equalTo(self.detailImageView.snp.left).offset(-9)
                 make.size.equalTo(CGSize.init(width: 34, height: 34))
+                make.centerY.equalToSuperview()
+            }
+            
+            leftImageView.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.centerY.equalToSuperview()
             }
             
@@ -134,6 +180,11 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
                 make.right.equalToSuperview()
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
                 make.height.equalTo(1)
+            }
+            
+            detailImageView.snp.makeConstraints { (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(-1)
             }
             
             didMakeConstraints = true
@@ -346,8 +397,6 @@ class GloabelTextFieldAndTitleTableViewCell : UITableViewCell {
         textFiled.font = App_Theme_PinFan_M_15_Font
         textFiled.textColor = App_Theme_06070D_Color
         textFiled.placeholder = ""
-        textFiled.placeholderColor = App_Theme_B5B5B5_Color!
-        textFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
         self.contentView.addSubview(textFiled)
         
         
@@ -357,7 +406,7 @@ class GloabelTextFieldAndTitleTableViewCell : UITableViewCell {
     
     func cellSetData(title:String, placeholder:String){
         titleLabel.text = title
-        textFiled.placeholder = placeholder
+        textFiled.setPlaceholder(str: placeholder, font: App_Theme_PinFan_R_14_Font!, textColor: App_Theme_B5B5B5_Color!)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -426,8 +475,6 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
         textFiled.font = App_Theme_PinFan_M_15_Font
         textFiled.textColor = App_Theme_06070D_Color
         textFiled.placeholder = ""
-        textFiled.placeholderColor = App_Theme_B5B5B5_Color!
-        textFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
         self.contentView.addSubview(textFiled)
         
         
@@ -436,7 +483,7 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
     }
     
     func cellSetData(placeholder:String){
-        textFiled.placeholder = placeholder
+        textFiled.setPlaceholder(str: placeholder, font: App_Theme_PinFan_R_14_Font!, textColor: App_Theme_B5B5B5_Color!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -528,7 +575,7 @@ class GloabelTextViewTableViewCell : UITableViewCell,YYTextViewDelegate {
             
             textView.snp.makeConstraints { (make) in
                 make.top.equalTo(self.contentView.snp.top).offset(15)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-15)
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
             }
@@ -558,9 +605,15 @@ class GloabelTextViewTableViewCell : UITableViewCell,YYTextViewDelegate {
         detailLabel.text = "\(textView.text.count)/255"
         if textView.text.count > 255 {
             textView.text = textView.text.nsString.substring(to: 255)
+            return true
         }
         if self.gloabelTextViewTableViewCellClouse != nil {
-            self.gloabelTextViewTableViewCellClouse(textView.text,textView.text.count > 0 ? true : false)
+            var temp_rang = range
+            if range.length > 255 {
+                temp_rang = NSRange.init(location: 0, length: 255)
+            }
+            let str = "\(String(describing: textView.text.nsString.replacingCharacters(in: temp_rang, with: "")))\(text)"
+            self.gloabelTextViewTableViewCellClouse(str,str.count > 0 ? true : false)
         }
         return true
     }
@@ -652,6 +705,7 @@ class GloabelTextFieldButtonTableViewCell : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         self.setUpView()
     }
     
@@ -678,8 +732,6 @@ class GloabelTextFieldButtonTableViewCell : UITableViewCell {
         textFiled.font = App_Theme_PinFan_M_15_Font
         textFiled.textColor = App_Theme_06070D_Color
         textFiled.placeholder = ""
-        textFiled.placeholderColor = App_Theme_B5B5B5_Color!
-        textFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
         self.contentView.addSubview(textFiled)
         
         
@@ -689,7 +741,7 @@ class GloabelTextFieldButtonTableViewCell : UITableViewCell {
     
     func cellSetData(title:String, placeholder:String){
         titleLabel.text = title
-        textFiled.placeholder = placeholder
+        textFiled.setPlaceholder(str: placeholder, font: App_Theme_PinFan_R_14_Font!, textColor: App_Theme_B5B5B5_Color!)
     }
     
     func timeDone(){

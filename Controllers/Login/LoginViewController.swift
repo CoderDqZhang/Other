@@ -10,6 +10,8 @@ import UIKit
 import ReactiveCocoa
 import ReactiveSwift
 
+typealias LoginDoneClouse = () ->Void
+
 class LoginViewController: BaseViewController {
 
     var gloableNavigationBar:GLoabelNavigaitonBar!
@@ -17,6 +19,8 @@ class LoginViewController: BaseViewController {
     var loginCenteView:LoginView!
     var thirdLogin:GloableThirdLogin!
     var cofirmProtocolView:CofirmProtocolView!
+    
+    var loginDoneClouse:LoginDoneClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,16 +68,49 @@ class LoginViewController: BaseViewController {
         self.view.addSubview(loginCenteView)
         
         
-        thirdLogin = GloableThirdLogin.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 172, width: SCREENWIDTH, height: 91))
+        thirdLogin = GloableThirdLogin.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 172 + (IPHONE5 ? 30 : 0), width: SCREENWIDTH, height: 91))
         thirdLogin.gloableThirdLoginClouse = { type in
             //消除定时器
             self.loginCenteView.relaseTimer()
-            
+            switch type {
+            case .qq:
+                
+                UMengManager.getSharedInstance().loginWithPlatform(type: UMSocialPlatformType.QQ, controller: self, loginType: type)
+            case .weibo:
+                UMengManager.getSharedInstance().loginWithPlatform(type: UMSocialPlatformType.sina, controller: self, loginType: type)
+            default:
+                UMengManager.getSharedInstance().loginWithPlatform(type: UMSocialPlatformType.wechatSession, controller: self, loginType: type)
+            }
+            UMengManager.getSharedInstance().umengManagerUserInfoResponse = { response,type in
+                let model = ThirdLoginModel()
+                switch type {
+                case .qq:
+                    model.openId = response.openid
+                    model.nickname = ((response.originalResponse as! NSDictionary).object(forKey: "nickname") as! String)
+                    model.img = ((response.originalResponse as! NSDictionary).object(forKey: "figureurl_qq") as! String)
+                    model.type = "1"
+                    model.descriptions = ((response.originalResponse as! NSDictionary).object(forKey: "nickname") as! String)
+                    break
+                case .weibo:
+                    model.openId = response.openid
+                    model.nickname = ((response.originalResponse as! NSDictionary).object(forKey: "name") as! String)
+                    model.img = ((response.originalResponse as! NSDictionary).object(forKey: "avatar_large") as! String)
+                    model.type = "2"
+                    model.descriptions = ((response.originalResponse as! NSDictionary).object(forKey: "description") as! String)
+                default:
+                    model.openId = response.openid
+                    model.nickname = ((response.originalResponse as! NSDictionary).object(forKey: "nickname") as! String)
+                    model.img = ((response.originalResponse as! NSDictionary).object(forKey: "headimgurl") as! String)
+                    model.type = "0"
+                    model.descriptions = ""
+                }
+                self.loginViewModel.loginThirdPlathom(model: model)
+            }
         }
         
         self.view.addSubview(thirdLogin)
         
-        cofirmProtocolView = CofirmProtocolView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 30, width: SCREENWIDTH, height: 30))
+        cofirmProtocolView = CofirmProtocolView.init(frame: CGRect.init(x: 0, y: thirdLogin.frame.maxY, width: SCREENWIDTH, height: 30))
         cofirmProtocolView.checkBox.addAction({ (button) in
             if button?.tag == 100 {
                 self.loginCenteView.isCheckBoolProperty.value = true
@@ -87,6 +124,11 @@ class LoginViewController: BaseViewController {
                 self.cofirmProtocolView.checkBox.setBackgroundImage(UIImage.init(named: "check_normal"), for: .normal)
             }
         }, for: UIControl.Event.touchUpInside)
+        cofirmProtocolView.cofirmProtocolViewClouse = {
+            let controllerVC = ProtocolViewViewController()
+            controllerVC.loadRequest(url: RegisterLoginUrl)
+            NavigationPushView(self, toConroller: controllerVC)
+        }
         self.view.addSubview(cofirmProtocolView)
     }
     

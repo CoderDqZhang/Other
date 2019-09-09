@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DZNEmptyDataSet
 import ReactiveSwift
 typealias OutFallViewModelTransClouse = (_ str:String) ->Void
 
@@ -48,6 +47,11 @@ class OutFallViewModel: BaseViewModel {
         
     }
     
+    override func tapViewNoneData() {
+        self.page = 0
+        self.getTribeListNet()
+    }
+    
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
 //        let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section],"translateStrs":translateStrs[indexPath.section],"images":images[indexPath.section]], copyItems: true)
 //        (self.controller! as! OutFallViewController).postDetailDataClouse(dicData,.OutFall)
@@ -61,7 +65,7 @@ class OutFallViewModel: BaseViewModel {
         if isTrans {
             transHeight = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: YYLabel.init()).textBoundingSize.height
         }
-        if model.image.nsString.components(separatedBy: ",").count > 0 {
+        if model.image.split(separator: ",").count > 0 {
             return transHeight + titleHeight + contentImageHeight + 70
         }
         return titleHeight + transHeight + 50
@@ -176,24 +180,4 @@ extension OutFallViewModel: UITableViewDataSource {
     }
 }
 
-extension OutFallViewModel : DZNEmptyDataSetDelegate {
-    
-}
 
-extension OutFallViewModel : DZNEmptyDataSetSource {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributed = "暂时还没有数据哦！"
-        let attributedString = NSMutableAttributedString.init(string: attributed)
-        attributedString.addAttributes([NSAttributedString.Key.font:App_Theme_PinFan_M_16_Font!,NSAttributedString.Key.foregroundColor:App_Theme_CCCCCC_Color!], range: NSRange.init(location: 0, length: 9))
-        
-        return attributedString
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "pic_toy")
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return -64
-    }
-}

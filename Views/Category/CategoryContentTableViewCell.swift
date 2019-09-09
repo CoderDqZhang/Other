@@ -62,8 +62,14 @@ class CategoryContentTableViewCell: UITableViewCell {
             imageContentView.removeSubviews()
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
+                
+//                imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageSize: CGSize.init(width: contentImageWidth, height: contentImageHeight), placeholderImage: nil) { (image, error, cacheType, url) in
+//                    if error == nil {
+//                        let imageSize = UIImageMaxCroped.cropeImage(image: image!, imageViewSize:  CGSize.init(width: contentImageWidth, height: contentImageHeight))
+//                        imageView.image = imageSize
+//                    }
+//                }
                 imageView.sd_crope_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
-                    
                 }
                 imageView.tag = index + 1000
                 imageView.layer.cornerRadius = 5

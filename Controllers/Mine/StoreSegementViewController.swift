@@ -21,10 +21,20 @@ class StoreSegementViewController: BaseViewController {
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
     var listContainerView: JXSegmentedListContainerView!
+    
+    var pagingView:JXPagingView!
+    var userHeader:StoreView!
+    var userHeaderContainerView: UIView!
 
-    let titles = ["全部", "收入", "支出"]
-    var tableHeaderViewHeight: CGFloat = 138
+    var tableHeaderViewHeight: CGFloat = 148
     var heightForHeaderInSection: Int = 44
+
+    let storeViewModel = StoreSegmentViewModel.init()
+    
+    var gloableNavigationBar:GLoabelNavigaitonBar!
+
+    
+    let titles = ["全部", "收入", "支出"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,17 +43,41 @@ class StoreSegementViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
-        self.navigationItem.title = "积分明细"
-        self.setNavigationItemBack()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "商城", style: .plain, target: self, action: #selector(self.rightBarItemClick(_:)))
-    }
-    
-    @objc func rightBarItemClick(_ sender:UIBarButtonItem){
-        
+        if #available(iOS 11.0, *) {
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "积分明细", rightButton: nil, click: { (type) in
+                if type == .backBtn{
+                    self.navigationController?.popViewController()
+                }
+            })
+        } else {
+            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "积分明细", rightButton: nil, click: { (type) in
+                if type == .backBtn{
+                    self.navigationController?.popViewController()
+                }
+            })
+            // Fallback on earlier versions
+        }
+        pagingView.pinSectionHeaderVerticalOffset = gloableNavigationBar.height - 64
+        self.view.addSubview(gloableNavigationBar)
     }
     
     
     override func setUpView() {
+        if #available(iOS 11.0, *) {
+            userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight + NAV_HEIGHT / 2)))
+        } else {
+            // Fallback on earlier versions
+             userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight)))
+        }
+
+        userHeader = StoreView(frame: userHeaderContainerView.bounds)
+        //设置数据
+        storeViewModel.controller = self
+        storeViewModel.getAccountInfoNet()
+        userHeader.storeViewClouse = {
+            NavigationPushView(self, toConroller: StoreInfoViewController())
+        }
+        userHeaderContainerView.addSubview(userHeader)
         
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
         segmentedViewDataSource = JXSegmentedTitleDataSource()
@@ -52,66 +86,77 @@ class StoreSegementViewController: BaseViewController {
         segmentedViewDataSource.titleNormalColor = App_Theme_999999_Color!
         segmentedViewDataSource.isTitleColorGradientEnabled = true
         segmentedViewDataSource.isTitleZoomEnabled = false
-        segmentedViewDataSource.reloadData(selectedIndex: 0)
+        segmentedViewDataSource.reloadData(selectedIndex: 1)
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = App_Theme_FFFFFF_Color
-        segmentedView.defaultSelectedIndex = 0
+        segmentedView.defaultSelectedIndex = 1
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
         
+        //增加底部边框
+        segmentedView.border(for: App_Theme_F6F6F6_Color!, borderWidth: 1, borderType: UIBorderSideType.bottom)
+        
         let lineView = JXSegmentedIndicatorLineView()
         lineView.indicatorColor = App_Theme_FFD512_Color!
-        lineView.indicatorWidth = 26
+        lineView.indicatorWidth = 30
+        lineView.verticalOffset = 4
         segmentedView.indicators = [lineView]
         
-        segmentedView.delegate = self
+        pagingView = JXPagingView(delegate: self)
         
+        self.view.addSubview(pagingView)
         
-        self.view.addSubview(segmentedView)
-        
-        //5、初始化JXSegmentedListContainerView
-        listContainerView = JXSegmentedListContainerView(dataSource: self)
-        listContainerView.didAppearPercent = 0.9
-        view.addSubview(listContainerView)
-        
-        //6、将listContainerView.scrollView和segmentedView.contentScrollView进行关联
-        segmentedView.contentScrollView = listContainerView.scrollView
+        segmentedView.contentScrollView = pagingView.listContainerView.collectionView
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        listContainerView.frame = CGRect(x: 0, y: 50, width: view.bounds.size.width, height: view.bounds.size.height - 50)
+        pagingView.frame = self.view.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.fd_prefersNavigationBarHidden = false
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.fd_prefersNavigationBarHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
 }
 
-extension StoreSegementViewController : JXSegmentedViewDelegate {
-    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-        //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
-        listContainerView.didClickSelectedItem(at: index)
+extension StoreSegementViewController: JXPagingViewDelegate {
+    
+    func tableHeaderViewHeight(in pagingView: JXPagingView) -> Int {
+        if #available(iOS 11.0, *) {
+            return Int(tableHeaderViewHeight) - 60 + Int(NAV_HEIGHT)
+        } else {
+            return Int(tableHeaderViewHeight) - 98
+            // Fallback on earlier versions
+        }
     }
     
-    func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {
-        //传递scrollingFrom事件给listContainerView，必须调用！！！
-        listContainerView.segmentedViewScrolling(from: leftIndex, to: rightIndex, percent: percent, selectedIndex: segmentedView.selectedIndex)
+    func tableHeaderView(in pagingView: JXPagingView) -> UIView {
+        return userHeaderContainerView
     }
-}
-
-extension StoreSegementViewController: JXSegmentedListContainerViewDataSource {
     
-    func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
+    func heightForPinSectionHeader(in pagingView: JXPagingView) -> Int {
+        return heightForHeaderInSection
+    }
+    
+    func viewForPinSectionHeader(in pagingView: JXPagingView) -> UIView {
+        return segmentedView
+    }
+    
+    func numberOfLists(in pagingView: JXPagingView) -> Int {
         return titles.count
     }
     
-    func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
+    func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
         let controller = StoreViewController.init()
         controller.initSView(type: index)
         return controller
+    }
+    
+    func mainTableViewDidScroll(_ scrollView: UIScrollView) {
+        userHeader?.scrollViewDidScroll(contentOffsetY: scrollView.contentOffset.y)
+        self.gloableNavigationBar.changeBackGroundColor(transparency: 1)
     }
 }

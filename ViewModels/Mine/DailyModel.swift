@@ -12,6 +12,7 @@ class DailyModel : NSObject, NSCoding{
     
     var signIn : Int!
     var status : Int!
+    var img : String!
     var points : String = "0"
     var maxPoint : Float = 0
     
@@ -21,6 +22,7 @@ class DailyModel : NSObject, NSCoding{
     init(fromDictionary dictionary: [String:Any]){
         signIn = dictionary["signIn"] as? Int
         status = dictionary["status"] as? Int
+        img = dictionary["img"] as? String
     }
     
     /**
@@ -31,6 +33,9 @@ class DailyModel : NSObject, NSCoding{
         var dictionary = [String:Any]()
         if signIn != nil{
             dictionary["signIn"] = signIn
+        }
+        if img != nil{
+            dictionary["img"] = img
         }
         if status != nil{
             dictionary["status"] = status
@@ -46,7 +51,7 @@ class DailyModel : NSObject, NSCoding{
     {
         signIn = aDecoder.decodeObject(forKey: "signIn") as? Int
         status = aDecoder.decodeObject(forKey: "status") as? Int
-        
+        img = aDecoder.decodeObject(forKey: "img") as? String
     }
     
     /**
@@ -57,6 +62,9 @@ class DailyModel : NSObject, NSCoding{
     {
         if signIn != nil{
             aCoder.encode(signIn, forKey: "signIn")
+        }
+        if img != nil{
+            aCoder.encode(img, forKey: "img")
         }
         if status != nil{
             aCoder.encode(status, forKey: "status")

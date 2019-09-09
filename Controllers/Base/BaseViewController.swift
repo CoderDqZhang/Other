@@ -10,10 +10,16 @@ import UIKit
 import SnapKit
 import MJRefresh
 import DZNEmptyDataSet
+
 import FDFullscreenPopGesture
 
 typealias SearchResultDicClouse = (_ dic:NSDictionary) -> Void
+
 typealias PostDetailDataClouse =  (_ obj:NSMutableDictionary, _ type:PostType, _ indexPath:IndexPath?) ->Void
+
+typealias ScoreDetailDataClouse =  (_ obj:NSMutableDictionary, _ type:ScoreDetailVC, _ scoreType:ScoreDetailTypeVC, _ indexPath:IndexPath?) ->Void
+
+
 typealias SetUpLoadMoreDataClouse = () ->Void
 
 typealias ReloadDataClouse = () ->Void
@@ -29,10 +35,13 @@ class BaseViewController: UIViewController {
     var reloadDataClouse:ReloadDataClouse!
     var postDetailDataClouse:PostDetailDataClouse!
     
+    var scoreDetailDataClouse:ScoreDetailDataClouse!
+    
     var setUpLoadMoreDataClouse:SetUpLoadMoreDataClouse!
     
     var listViewDidScrollCallback: ((UIScrollView) -> ())?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,7 +54,6 @@ class BaseViewController: UIViewController {
         self.setupBaseViewForDismissKeyboard()
         //处于第一个Item 允许返回
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-
         // Do any additional setup after loading the view.
     }
     
@@ -87,6 +95,8 @@ class BaseViewController: UIViewController {
         self.tableView.estimatedSectionHeaderHeight = 0;
         self.tableView.estimatedSectionFooterHeight = 0;
         self.tableView.separatorStyle = .none
+        self.tableView.emptyDataSetSource = viewModel
+        self.tableView.emptyDataSetDelegate = viewModel
         controller?.view.addSubview(tableView)
         tableView.delegate = viewModel as? UITableViewDelegate
         tableView.dataSource = viewModel as? UITableViewDataSource
@@ -115,9 +125,12 @@ class BaseViewController: UIViewController {
     }
     
     func setUpRefreshData(refresh:@escaping MJRefreshComponentRefreshingBlock){
-        self.tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
-            refresh()
-        })
+        if self.tableView != nil {
+            self.tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
+                refresh()
+            })
+        }
+        
     }
     
     func stopRefresh(){

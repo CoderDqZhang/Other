@@ -76,9 +76,17 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     
     func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool){
         
-        
-        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
-        
+        if model.content != nil {
+            _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
+        }else{
+            imageContentView.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(44)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.contentView.snp.top).offset(5)
+                make.height.equalTo(contentImageHeight)
+            }
+        }
+    
         var images:[String] = model.img.nsString.components(separatedBy: ",")
         self.setImageContentView(images.removeAll(""),isCommentDetail)
         
@@ -170,75 +178,11 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     
     func setImageContentView(_ images:[String], _ isCommentDetail:Bool){
         self.imageContentView.removeSubviews()
-        if images.count > 1{
+        if images.count >= 1{
             if isCommentDetail {
-                var browser:SKPhotoBrowser? = nil
-                if images.count > 1 {
-                    browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
-                }
-                var count = 0
-                //图片存在缓存问题是
-                
-                for index in 0...images.count - 1 {
-                    let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
-                    imageView.tag = index + 10000
-                    imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), placeholderImage: nil) { (image, error, cacheType, url) in
-                        if image != nil {
-                            let size = image!.size
-                            let height = size.height * (SCREENWIDTH - 30) / size.width
-                            let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 60, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
-                            count = count + 1
-                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.imageHeight + 10), size: finistImage!.size)
-                            self.imageHeight = finistImage!.size.height + self.imageHeight + 10
-                            
-                            imageView.backgroundColor = .brown
-                            imageView.image = finistImage
-                        }
-                    }
-                    imageView.tag = index + 1000
-                    imageView.isUserInteractionEnabled = true
-                    _ = imageView.newTapGesture { (gesture) in
-                        gesture.numberOfTapsRequired = 1
-                        gesture.numberOfTouchesRequired = 1
-                        }.whenTaped(handler: { (tap) in
-                            if self.postDetailContentTableViewCellImageClickClouse != nil {
-                                if browser != nil {
-                                    self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
-                                }
-                            }
-                        })
-                    imageView.layer.masksToBounds = true
-                    self.imageContentView.addSubview(imageView)
-                }
+                self.showImageDetail(images: images)
             }else{
-                var browser:SKPhotoBrowser? = nil
-                if images.count > 1 {
-                    browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
-                }
-                for index in 0...images.count - 1 {
-                    let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (commentImageWidth + 11), y: 0, width: commentImageWidth, height: commentImageHeight))
-                    imageView.sd_crope_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
-                        
-                    }
-                    imageView.tag = index + 1000
-                    imageView.isUserInteractionEnabled = true
-                    _ = imageView.newTapGesture { (gesture) in
-                        gesture.numberOfTapsRequired = 1
-                        gesture.numberOfTouchesRequired = 1
-                        }.whenTaped(handler: { (tap) in
-                            if self.postDetailContentTableViewCellImageClickClouse != nil {
-                                if browser != nil {
-                                    self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
-                                }
-                            }
-                        })
-                    imageView.layer.cornerRadius = 5
-                    imageView.layer.masksToBounds = true
-                    self.imageContentView.addSubview(imageView)
-                }
-                imageContentView.snp.updateConstraints{ (make) in
-                    make.height.equalTo(commentImageHeight)
-                }
+                self.showImageDetailSmall(images: images)
             }
             
             imageContentView.isHidden = false
@@ -261,6 +205,91 @@ class PostDetailCommentTableViewCell: UITableViewCell {
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-17)
                 make.size.height.equalTo(0.001)
             }
+        }
+    }
+    
+    func showImageDetailSmall(images:[String]){
+        var browser:SKPhotoBrowser? = nil
+        if images.count > 1 {
+            browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
+        }
+        for index in 0...images.count - 1 {
+            let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (commentImageWidth + 11), y: 0, width: commentImageWidth, height: commentImageHeight))
+            imageView.sd_crope_imageView(url: images[index], imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
+                
+            }
+            imageView.tag = index + 1000
+            imageView.isUserInteractionEnabled = true
+            _ = imageView.newTapGesture { (gesture) in
+                gesture.numberOfTapsRequired = 1
+                gesture.numberOfTouchesRequired = 1
+                }.whenTaped(handler: { (tap) in
+                    if self.postDetailContentTableViewCellImageClickClouse != nil {
+                        if browser != nil {
+                            self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
+                        }
+                    }
+                })
+            imageView.layer.cornerRadius = 5
+            imageView.layer.masksToBounds = true
+            self.imageContentView.addSubview(imageView)
+        }
+        imageContentView.snp.updateConstraints{ (make) in
+            make.height.equalTo(commentImageHeight)
+        }
+    }
+    
+    func showImageDetail(images:[String]){
+        var browser:SKPhotoBrowser? = nil
+        if images.count >= 1 {
+            browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
+        }
+        var count = 0
+        //图片存在缓存问题是
+        
+        for index in 0...images.count - 1 {
+            let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
+            imageView.tag = index + 10000
+            imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), imageSize: nil, placeholderImage: nil) { (image, error, cacheType, url) in
+                if image != nil {
+                    let size = image!.size
+                    if size.width > SCREENWIDTH - 60 {
+                        let height = size.height * (SCREENWIDTH - 30) / size.width
+                        let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 60, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
+                        count = count + 1
+                        imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.imageHeight + 10), size: finistImage!.size)
+                        self.imageHeight = finistImage!.size.height + self.imageHeight + 10
+                        
+                        imageView.image = finistImage
+                    }else{
+                        count = count + 1
+                        imageView.frame = CGRect.init(origin: CGPoint.init(x: (SCREENWIDTH - 60 - size.width) / 2, y: self.imageHeight + 10), size: size)
+                        self.imageHeight = size.height + self.imageHeight + 10
+                        imageView.image = image
+                    }
+                    
+                }
+            }
+            imageView.tag = index + 1000
+            imageView.isUserInteractionEnabled = true
+            _ = imageView.newTapGesture { (gesture) in
+                gesture.numberOfTapsRequired = 1
+                gesture.numberOfTouchesRequired = 1
+                }.whenTaped(handler: { (tap) in
+                    if self.postDetailContentTableViewCellImageClickClouse != nil {
+                        if browser != nil {
+                            self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
+                        }
+                    }
+                })
+            imageView.layer.masksToBounds = true
+            self.imageContentView.addSubview(imageView)
+        }
+        imageContentView.snp.remakeConstraints { (make) in
+            make.left.equalTo(self.contentView.snp.left).offset(44)
+            make.right.equalTo(self.contentView.snp.right).offset(-15)
+            make.top.equalTo(self.contentLabel.snp.bottom).offset(8)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
         }
     }
     
@@ -300,6 +329,10 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func hiddenLineLabel(ret:Bool){
+        lineLabel.isHidden = ret
     }
     
     

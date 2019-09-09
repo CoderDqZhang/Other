@@ -10,24 +10,21 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
 
-    let scoreVC = ScoreViewController()
+    let scoreVC = ScoreSegementViewController()
+    let newVC = NewsViewController()
     let segmentVC = SegmentViewController()
-    let squareVC = SquareViewController()
     let mineVC = MineViewController()
     var mineNavigaitonVC : UINavigationController!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let str = "api_v=v1&c_time=1541709593&imei=359355041886388&os=1&os_v=12"
-        let lock = NSString.aes128Encrypt(str, key:"6Z*d02wRE43IRNJ^")
-        print(lock)
-        
         let scoreNavigaitonVC = UINavigationController.init(rootViewController: scoreVC)
         self.setNavigationVC(vc: scoreNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "比分")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "比分_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "比分")
-        let categoryNavigaitonVC = UINavigationController.init(rootViewController: segmentVC)
-        self.setNavigationVC(vc: categoryNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "部落")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "部落_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "部落")
-        let squareNavigaitonVC = UINavigationController.init(rootViewController: squareVC)
-        self.setNavigationVC(vc: squareNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "广场")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "广场_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "广场")
+
+        let newNavigaitonVC = UINavigationController.init(rootViewController: newVC)
+        self.setNavigationVC(vc: newNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "部落")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "部落_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "部落")
+        let squareNavigaitonVC = UINavigationController.init(rootViewController: segmentVC)
+        self.setNavigationVC(vc: squareNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "广场")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "广场_seelect")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "广场")
         
         mineNavigaitonVC = UINavigationController.init(rootViewController: mineVC)
         self.setNavigationVC(vc: mineNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "我的")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "我的_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "我的")
@@ -35,23 +32,33 @@ class MainTabBarController: UITabBarController {
         
         
         mineNavigaitonVC.navigationBar.isHidden = true
-        self.viewControllers = [scoreNavigaitonVC,categoryNavigaitonVC,squareNavigaitonVC,mineNavigaitonVC]
+        self.viewControllers = [scoreNavigaitonVC,newNavigaitonVC,squareNavigaitonVC,mineNavigaitonVC]
         
         AuthorityManager.setUpAuthorityManager(controller: scoreVC)
         
         
+        //推送通知跳转详情
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: NOTIFICATIOINSPUSHCONTROLLER), object: nil, queue: OperationQueue.main) { (userInfo) in
             let model = NotificationModel.init(fromDictionary: userInfo.userInfo as! [String : Any])
             self.pushViewController(model: model)
         }
+        
+        
+        
+//        SocketManager.getSharedInstance().connect()
         // Do any additional setup after loading the view.
     }
     
     func setNavigationVC(vc:UINavigationController, itemTitle:String?,normalImage:UIImage?,selectImage:UIImage?, toobarTitle:String){
         vc.navigationItem.title = itemTitle
         vc.title = toobarTitle
+        vc.toolbar.border(for: App_Theme_F6F6F6_Color!, borderWidth: 1, borderType: .top)
         vc.tabBarItem =  UITabBarItem.init(title: toobarTitle, image: normalImage, selectedImage: selectImage)
+        //调整文字b偏移量
+        vc.tabBarItem.titlePositionAdjustment = UIOffset.init(horizontal: 0, vertical: -2)
     }
+    
+    
     
     
     func upateUnreadMessage(){
