@@ -19,32 +19,34 @@ class InviteUserViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
-        let followButton = AnimationButton.init(type: .custom)
-        followButton.frame = CGRect.init(x: SCREENWIDTH - 100, y: 0, width: 61, height: 27)
-        followButton.cornerRadius = 14
-        followButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
-        followButton.setTitle("邀请规则", for: .normal)
-        followButton.layer.masksToBounds = false
-        followButton.isHidden = false
-        if #available(iOS 11.0, *) {
-            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "", rightButton: followButton, click: { (type) in
-                if type == .backBtn{
-                    self.navigationController?.popViewController()
-                }
-            })
-        } else {
-            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "", rightButton: followButton, click: { (type) in
-                if type == .backBtn{
-                    self.navigationController?.popViewController()
-                }
-            })
-            // Fallback on earlier versions
-        }
-        
-        gloableNavigationBar.rightButtonClouse = { status in
-            NavigationPushView(self, toConroller: InviteRuleViewController())
-        }
-        self.view.addSubview(gloableNavigationBar)
+        self.setNavigationItemBack()
+        self.navigationItem.title = "邀请好友"
+//        let followButton = AnimationButton.init(type: .custom)
+//        followButton.frame = CGRect.init(x: SCREENWIDTH - 100, y: 0, width: 61, height: 27)
+//        followButton.cornerRadius = 14
+//        followButton.titleLabel?.font = App_Theme_PinFan_R_14_Font
+//        followButton.setTitle("邀请规则", for: .normal)
+//        followButton.layer.masksToBounds = false
+//        followButton.isHidden = false
+//        if #available(iOS 11.0, *) {
+//            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: -NAV_HEIGHT/2, width: SCREENWIDTH, height: 64 + NAV_HEIGHT), title: "", rightButton: followButton, click: { (type) in
+//                if type == .backBtn{
+//                    self.navigationController?.popViewController()
+//                }
+//            })
+//        } else {
+//            gloableNavigationBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), title: "", rightButton: followButton, click: { (type) in
+//                if type == .backBtn{
+//                    self.navigationController?.popViewController()
+//                }
+//            })
+//            // Fallback on earlier versions
+//        }
+//
+//        gloableNavigationBar.rightButtonClouse = { status in
+//            NavigationPushView(self, toConroller: InviteRuleViewController())
+//        }
+//        self.view.addSubview(gloableNavigationBar)
     }
     
 
@@ -79,7 +81,7 @@ class InviteUserViewController: BaseViewController {
         
         
         let backView = UIView.init()
-        backView.backgroundColor = App_Theme_F65449_Color
+        backView.backgroundColor = App_Theme_AC0013_Color
         inveterView.addSubview(backView)
         backView.tag = 2000
         backView.snp.makeConstraints { (make) in
@@ -200,8 +202,8 @@ class InviteUserViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.fd_prefersNavigationBarHidden = true
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.fd_prefersNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

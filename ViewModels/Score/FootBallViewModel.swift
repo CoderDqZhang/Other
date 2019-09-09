@@ -50,7 +50,6 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func saveCollectModel(_ type:ScoreListCollectType, _ model:FootBallModel){
-        
         DispatchQueue.global(qos: .default).sync {
             var selectArray:NSMutableArray!
             if CacheManager.getSharedInstance().getFootBallMatchCollectModel() != nil{
@@ -209,40 +208,50 @@ class FootBallViewModel: BaseViewModel {
         DispatchQueue.global(qos: .default).sync {
             self.footBallArray.removeAllObjects()
             let selectEvent:NSMutableArray = NSMutableArray.init()
+            var select_array:NSMutableArray = NSMutableArray.init()
             let ids = NSMutableArray.init()
             if CacheManager.getSharedInstance().getFootBallMatchCollectModel() != nil {
-                let select_array = CacheManager.getSharedInstance().getFootBallMatchCollectModel()!
-                
+                select_array = CacheManager.getSharedInstance().getFootBallMatchCollectModel()!
                 for model in select_array {
                     ids.add((model as! FootBallModel).id!)
                 }
-                if self.viewDesc == .attention {
-                    self.footBallArray = select_array.mutableCopy() as! NSMutableArray
-                    self.hiddenMJLoadMoreData(resultData: self.footBallArray)
-                }
             }
             
-            if CacheManager.getSharedInstance().getFootBallEventSelectModel() != nil {
-                for str in CacheManager.getSharedInstance().getFootBallEventSelectModel()!.allKeys{
-                    let array = CacheManager.getSharedInstance().getFootBallEventSelectModel()!.object(forKey: str) as! NSArray
-                    for temp in array {
-                        selectEvent.add((temp as! NSDictionary).object(forKey: "id")!)
+            if self.viewDesc == .attention {
+                self.footBallArray = select_array.mutableCopy() as! NSMutableArray
+                self.hiddenMJLoadMoreData(resultData: self.footBallArray)
+            }else{
+                if CacheManager.getSharedInstance().getFootBallEventSelectModel() != nil {
+                    for str in CacheManager.getSharedInstance().getFootBallEventSelectModel()!.allKeys{
+                        let array = CacheManager.getSharedInstance().getFootBallEventSelectModel()!.object(forKey: str) as! NSArray
+                        for temp in array {
+                            selectEvent.add((temp as! NSDictionary).object(forKey: "id")!)
+                        }
                     }
                 }
-            }
-            
-            for item in self.allFootBallArray {
-                let isContains = selectEvent.contains((item as! FootBallModel).eventInfo.id as Any)
-                if isContains || selectEvent.count == 0 {
-                    
-                    let ret = ids.contains((item as! FootBallModel).id!)
-                    (item as! FootBallModel).isSelect = ret
-                    //控制在进行中是不加入已完场赛事
-                    if self.viewDesc == .underway && (item as! FootBallModel).status == 8 {
-                        continue
+                
+                for item in self.allFootBallArray {
+                    let isContains = selectEvent.contains((item as! FootBallModel).eventInfo.id as Any)
+                    if isContains || selectEvent.count == 0 {
+                        
+                        let ret = ids.contains((item as! FootBallModel).id!)
+                        (item as! FootBallModel).isSelect = ret
+                        //替换收藏模型数据
+                        if select_array.count > 0 {
+                            for index in 0...select_array.count - 1{
+                                if (select_array[index] as! FootBallModel).id == (item as! FootBallModel).id! {
+                                    select_array.replaceObject(at: index, with: item)
+                                }
+                            }
+                        }
+                        //控制在进行中是不加入已完场赛事
+                        if self.viewDesc == .underway && (item as! FootBallModel).status == 8 {
+                            continue
+                        }
+                        self.footBallArray.add(item)
                     }
-                    self.footBallArray.add(item)
                 }
+                CacheManager.getSharedInstance().saveFootBallMatchCollectModel(point: select_array)
             }
             DispatchQueue.main.async {
                 self.isRefreshData = false
@@ -253,7 +262,10 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func socketUpdateData(match:NSArray, model:FootBallModel){
-        if !self.isCollectSelect || !self.isRefreshData{
+        if !self.isCollectSelect && !self.isRefreshData{
+            if model.status == 8 {
+                return
+            }
             model.status = (match[1] as! Int)
             model.teamA.score = ((match[2] as! NSArray)[2] as! Int)
             model.teamA.cornerBall = ((match[2] as! NSArray)[6] as! Int)
@@ -283,7 +295,7 @@ extension FootBallViewModel: UITableViewDelegate {
         if (viewDesc == ScoreDetailTypeVC.competition || viewDesc == ScoreDetailTypeVC.amidithion) && section == 0 {
             return 0.00001
         }
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

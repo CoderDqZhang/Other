@@ -226,14 +226,14 @@ extension MineViewModel: UITableViewDelegate {
         case 0:
             return 223
         case 1:
-            return 70
+            return 75
         case 2:
-            return 47
+            return 48
         default:
             if indexPath.row == 0 {
                 return 30
             }
-            return 70
+            return 75
         }
     }
     

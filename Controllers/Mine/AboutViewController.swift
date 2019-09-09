@@ -10,6 +10,7 @@ import UIKit
 
 class AboutViewController: BaseViewController {
 
+    let aboutViewModel = AboutViewModel.init()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +22,11 @@ class AboutViewController: BaseViewController {
         self.setNavigationItemBack()
     }
 
+    override func setUpView() {
+        self.bindViewModel(viewModel: aboutViewModel, controller: self)
+        self.setUpTableView(style: .plain, cells: [AboutTableViewCell.self,AboutInfoTableViewCell.self,TitleLableAndDetailLabelDescRight.self], controller: self)
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -97,6 +97,12 @@ class  PostDetailContentTableViewCell : UITableViewCell {
 
         if model.content != "" {
             _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contnetLabel)
+        }else{
+            imageContentView.snp.remakeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.titleLabel.snp.bottom).offset(15)
+            }
         }
 
         var tempImges:[String] = model.image.components(separatedBy: ",")
@@ -119,12 +125,12 @@ class  PostDetailContentTableViewCell : UITableViewCell {
                             let height = size.height * (SCREENWIDTH - 30) / size.width
                             let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 30, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
                             count = count + 1
-                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: imageHeight + 10), size: finistImage!.size)
+                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: imageHeight), size: finistImage!.size)
                             imageHeight = finistImage!.size.height + imageHeight + 10
                             imageView.image = finistImage
                         }else{
                             count = count + 1
-                            imageView.frame = CGRect.init(origin: CGPoint.init(x: (SCREENWIDTH - 30 - size.width) / 2, y: imageHeight + 10), size: size)
+                            imageView.frame = CGRect.init(origin: CGPoint.init(x: (SCREENWIDTH - 30 - size.width) / 2, y: imageHeight), size: size)
                             imageHeight = size.height + imageHeight + 10
                             imageView.image = image
                         }
@@ -211,14 +217,14 @@ class  PostDetailContentTableViewCell : UITableViewCell {
             contnetLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
+                make.top.equalTo(self.titleLabel.snp.bottom).offset(15)
                 make.height.equalTo(0.0001)
             }
 
             imageContentView.snp.makeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.top.equalTo(self.contnetLabel.snp.bottom).offset(25)
+                make.top.equalTo(self.contnetLabel.snp.bottom).offset(15)
             }
 
             likeButtonView.snp.makeConstraints { (make) in

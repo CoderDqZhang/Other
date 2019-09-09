@@ -76,9 +76,17 @@ class PostDetailCommentTableViewCell: UITableViewCell {
     
     func cellSetData(model:CommentModel, isCommentDetail:Bool, isShowRepli:Bool){
         
-        
-        _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
-        
+        if model.content != nil {
+            _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contentLabel)
+        }else{
+            imageContentView.snp.makeConstraints { (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(44)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.contentView.snp.top).offset(5)
+                make.height.equalTo(contentImageHeight)
+            }
+        }
+    
         var images:[String] = model.img.nsString.components(separatedBy: ",")
         self.setImageContentView(images.removeAll(""),isCommentDetail)
         

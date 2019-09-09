@@ -111,7 +111,11 @@ class PostViewController: BaseViewController {
             photoPickerVC = TZImagePickerController.init(maxImagesCount: maxImagesCount, columnNumber: 4, delegate: self, pushPhotoPickerVc: true)
             photoPickerVC.notScaleImage = true
             photoPickerVC?.autoDismiss = true
+            photoPickerVC.barItemTextColor = App_Theme_06070D_Color
+            photoPickerVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:App_Theme_PinFan_R_17_Font!,NSAttributedString.Key.foregroundColor:App_Theme_06070D_Color ?? ""]
+            photoPickerVC.setNavigationItemBack()
             photoPickerVC!.showSelectedIndex = true
+            photoPickerVC.statusBarStyle = .default
             photoPickerVC?.showPhotoCannotSelectLayer = true
             photoPickerVC!.sortAscendingByModificationDate = true
             photoPickerVC.selectedAssets = self.postViewModel.selectAssets

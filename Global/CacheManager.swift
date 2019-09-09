@@ -262,7 +262,7 @@ class CacheManager: NSObject {
         if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: FOOTBALLMATCHCOLLECTMODEL))! {
             let item = (CacheManager._sharedInstance.otherCache?.object(forKey: FOOTBALLMATCHCOLLECTMODEL))!
             let resultArray = (item as! NSMutableArray).filter({ (dic) -> Bool in
-                return (dic as! FootBallModel).status != 8
+                return Date.init().hoursSince(Date.init(timeIntervalSince1970: (dic as! FootBallModel).startTime.double)) < 12
             })
             return  NSMutableArray.init(array: resultArray)
         }

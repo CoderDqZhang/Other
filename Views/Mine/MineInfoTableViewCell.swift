@@ -370,7 +370,7 @@ class MineInfoTableViewCell: UITableViewCell {
         }
         toolsView.cornerRadius = 15
         toolsView.backgroundColor = App_Theme_FFFFFF_Color
-        toolsView.setShadowWithCornerRadius(corners: 10, shadowColor: App_Theme_B5B5B5_Color!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
+        toolsView.setShadowWithCornerRadius(corners: 10, shadowColor: UIColor.init(hexString: "B5B5B5", transparency: 0.1)!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
         self.contentView.addSubview(toolsView)
         
         self.updateConstraints()

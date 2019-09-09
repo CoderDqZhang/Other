@@ -109,9 +109,13 @@ class OtherMineViewController: BaseViewController {
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
         
+        //增加底部边框
+        segmentedView.border(for: App_Theme_F6F6F6_Color!, borderWidth: 1, borderType: UIBorderSideType.bottom)
+        
         let lineView = JXSegmentedIndicatorLineView()
         lineView.indicatorColor = App_Theme_FFD512_Color!
-        lineView.indicatorWidth = 26
+        lineView.indicatorWidth = 30
+        lineView.verticalOffset = 4
         segmentedView.indicators = [lineView]
         
         pagingView = JXPagingView(delegate: self)

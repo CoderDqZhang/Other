@@ -47,7 +47,8 @@ class BaseScoreSegmentViewController: BaseViewController {
         
         let lineView = JXSegmentedIndicatorLineView()
         lineView.indicatorColor = App_Theme_FFD512_Color!
-        lineView.indicatorWidth = 26
+        lineView.indicatorWidth = 44
+        lineView.verticalOffset = 4
         segmentedView.indicators = [lineView]
         
         segmentedView.delegate = self

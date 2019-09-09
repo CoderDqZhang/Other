@@ -183,40 +183,53 @@ class BasketBallViewModel: BaseViewModel {
          DispatchQueue.global(qos: .default).sync {
             self.basketBallArray.removeAllObjects()
             let selectEvent:NSMutableArray = NSMutableArray.init()
+            var select_array:NSMutableArray = NSMutableArray.init()
             let ids = NSMutableArray.init()
             if CacheManager.getSharedInstance().getBasketBallMatchCollectModel() != nil {
-                let select_array = CacheManager.getSharedInstance().getBasketBallMatchCollectModel()!
+                select_array = CacheManager.getSharedInstance().getBasketBallMatchCollectModel()!
                 
                 for model in select_array {
                     ids.add((model as! BasketBallModel).id!)
                 }
-                if self.viewDesc == .attention {
-                    self.basketBallArray = select_array.mutableCopy() as! NSMutableArray
-                    self.hiddenMJLoadMoreData(resultData: self.basketBallArray)
-                }
             }
             
-            if CacheManager.getSharedInstance().getBasketBallEventSelectModel() != nil {
-                for str in CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.allKeys{
-                    let array = CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.object(forKey: str) as! NSArray
-                    for temp in array {
-                        selectEvent.add((temp as! NSDictionary).object(forKey: "id")!)
+            if self.viewDesc == .attention {
+                self.basketBallArray = select_array.mutableCopy() as! NSMutableArray
+                self.hiddenMJLoadMoreData(resultData: self.basketBallArray)
+            }else{
+                if CacheManager.getSharedInstance().getBasketBallEventSelectModel() != nil {
+                    for str in CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.allKeys{
+                        let array = CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.object(forKey: str) as! NSArray
+                        for temp in array {
+                            selectEvent.add((temp as! NSDictionary).object(forKey: "id")!)
+                        }
                     }
                 }
+                
+                for item in self.allBasketBallArray {
+                    let isContains = selectEvent.contains((item as! BasketBallModel).basketballEvent.id as Any)
+                    if isContains || selectEvent.count == 0 {
+                        let ret = ids.contains((item as! BasketBallModel).id!)
+                        (item as! BasketBallModel).isSelect = ret
+                        //替换收藏模型数据
+                        if select_array.count > 0 {
+                            for index in 0...select_array.count - 1{
+                                if (select_array[index] as! BasketBallModel).id == (item as! BasketBallModel).id! {
+                                    select_array.replaceObject(at: index, with: item)
+                                }
+                            }
+                        }
+                        //控制在进行中是不加入已完场赛事
+                        if self.viewDesc == .underway && (item as! BasketBallModel).status == 10 {
+                            continue
+                        }
+                        self.basketBallArray.add(item)
+                    }
+                }
+                CacheManager.getSharedInstance().saveBasketBallMatchCollectModel(point: select_array)
             }
             
-            for item in self.allBasketBallArray {
-                let isContains = selectEvent.contains((item as! BasketBallModel).basketballEvent.id as Any)
-                if isContains || selectEvent.count == 0 {
-                    let ret = ids.contains((item as! BasketBallModel).id!)
-                    (item as! BasketBallModel).isSelect = ret
-                    //控制在进行中是不加入已完场赛事
-                    if self.viewDesc == .underway && (item as! BasketBallModel).status == 10 {
-                        continue
-                    }
-                    self.basketBallArray.add(item)
-                }
-            }
+            
             DispatchQueue.main.async {
                 self.isRefrshData = false
                 self.reloadTableViewData()
@@ -226,7 +239,10 @@ class BasketBallViewModel: BaseViewModel {
     
     //socket更新数据
     func socketUpdateData(match:NSArray, model:BasketBallModel){
-        if !self.isCollectSelect || !self.isRefrshData{
+        if !self.isCollectSelect && !self.isRefrshData{
+            if model.status == 10 {
+                return
+            }
             model.status = (match[1] as! Int)
             model.allSecond = (match[2] as! Int)
             if self.collectModel != nil {

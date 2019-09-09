@@ -11,7 +11,7 @@ import UIKit
 
 class SettingViewModel: BaseViewModel {
     
-    let titles = [["基本资料","修改密码", "管理提现账号"],["关于我们","服务协议","清除缓存","用户反馈"],["退出登录"]]
+    let titles = [["基本资料","修改密码"],["关于我们","清除缓存","用户反馈"],["退出登录"]]
     var bankLiskArray = NSMutableArray.init()
     override init() {
         super.init()
@@ -47,16 +47,16 @@ class SettingViewModel: BaseViewModel {
             if indexPath.row == 0 {
                 NavigationPushView(self.controller!, toConroller: AboutViewController())
             }else if indexPath.row == 1 {
-                let controllerVC = ProtocolViewViewController()
-                controllerVC.loadRequest(url: RegisterLoginUrl)
-                NavigationPushView(self.controller!, toConroller: controllerVC)
-            }else if indexPath.row == 2 {
                 
             }else{
                 NavigationPushView(self.controller!, toConroller: FeedBackViewController())
             }
         default:
-            self.logoutNet()
+            UIAlertController.showAlertControl(self.controller!, style: .alert, title: "是否退出？", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                
+            }) {
+               self.logoutNet()
+            }
             break
         }
     }

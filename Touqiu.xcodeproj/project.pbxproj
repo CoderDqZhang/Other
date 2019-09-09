@@ -107,6 +107,9 @@
 		1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */; };
 		1FAF55FD231D14B100716FB3 /* CommentContenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAF55FC231D14B100716FB3 /* CommentContenTableViewCell.swift */; };
 		1FAF5600231E141E00716FB3 /* UIView+BorderLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAF55FF231E141E00716FB3 /* UIView+BorderLine.m */; };
+		1FAF56022325EBE300716FB3 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAF56012325EBE200716FB3 /* AboutViewModel.swift */; };
+		1FAF56042325EC4200716FB3 /* AboutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAF56032325EC4100716FB3 /* AboutTableViewCell.swift */; };
+		1FAF56062325EE8C00716FB3 /* AboutInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAF56052325EE8C00716FB3 /* AboutInfoTableViewCell.swift */; };
 		1FBD7700230F950500852B4D /* ArticleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD76FF230F950500852B4D /* ArticleDetailViewModel.swift */; };
 		1FBD7702230F96D400852B4D /* ArticleDetailContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */; };
 		1FBD7704230FE3AD00852B4D /* StoreInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD7703230FE3AD00852B4D /* StoreInfoModel.swift */; };
@@ -481,6 +484,9 @@
 		1FAF55FC231D14B100716FB3 /* CommentContenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContenTableViewCell.swift; sourceTree = "<group>"; };
 		1FAF55FE231E141E00716FB3 /* UIView+BorderLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+BorderLine.h"; sourceTree = "<group>"; };
 		1FAF55FF231E141E00716FB3 /* UIView+BorderLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+BorderLine.m"; sourceTree = "<group>"; };
+		1FAF56012325EBE200716FB3 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
+		1FAF56032325EC4100716FB3 /* AboutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewCell.swift; sourceTree = "<group>"; };
+		1FAF56052325EE8C00716FB3 /* AboutInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1FBD76FF230F950500852B4D /* ArticleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewModel.swift; sourceTree = "<group>"; };
 		1FBD7701230F96D400852B4D /* ArticleDetailContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailContentTableViewCell.swift; sourceTree = "<group>"; };
 		1FBD7703230FE3AD00852B4D /* StoreInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoModel.swift; sourceTree = "<group>"; };
@@ -1519,6 +1525,8 @@
 				1F1C1B4F22A0B61B008031F4 /* BankTableViewCell.swift */,
 				1F1C1B5322A0E930008031F4 /* NotificationTableViewCell.swift */,
 				1FEDB026230E89EA00024985 /* StoreInfoCollectionViewCell.swift */,
+				1FAF56032325EC4100716FB3 /* AboutTableViewCell.swift */,
+				1FAF56052325EE8C00716FB3 /* AboutInfoTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1599,6 +1607,7 @@
 				1F1C1B4D22A0B5CB008031F4 /* BankListViewModel.swift */,
 				1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */,
 				1FF1E52B22AF567400BB9A50 /* DailyViewModel.swift */,
+				1FAF56012325EBE200716FB3 /* AboutViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2210,6 +2219,7 @@
 				1FE5BF5B228583C000C9137C /* AnimationView.swift in Sources */,
 				1FF1E53122B0D95700BB9A50 /* DailyModel.swift in Sources */,
 				1FEB98E322F129040038B49F /* BasKetBallViewController.swift in Sources */,
+				1FAF56042325EC4200716FB3 /* AboutTableViewCell.swift in Sources */,
 				1FE5BEB42282866300C9137C /* TAPageControl.m in Sources */,
 				1F1C1B2E229E9FF4008031F4 /* TopUpTableViewCell.swift in Sources */,
 				1FEDB01D230E755500024985 /* ArticleTypeModel.swift in Sources */,
@@ -2243,6 +2253,7 @@
 				1F6BA9D722F7C0710090A1D5 /* NetWorkListManager.swift in Sources */,
 				1FE8DA95228D721900DCED01 /* MineViewModel.swift in Sources */,
 				1F1C1B34229EA052008031F4 /* TopUpConfirmTableViewCell.swift in Sources */,
+				1FAF56022325EBE300716FB3 /* AboutViewModel.swift in Sources */,
 				1FE8DB1D2294E4EA00DCED01 /* FindViewModel.swift in Sources */,
 				1FE5BF192282D18D00C9137C /* CategoryContentTableViewCell.swift in Sources */,
 				1FE8DAA6228EA91200DCED01 /* ChangeInfoViewController.swift in Sources */,
@@ -2256,6 +2267,7 @@
 				1FE8DA98228E8EC500DCED01 /* UIView+ESAddTapGestureRecognizer.m in Sources */,
 				1F395CC3229542E000781C0C /* UserInfoModel.swift in Sources */,
 				1FE5BF62228A5C5700C9137C /* CommentPostViewModel.swift in Sources */,
+				1FAF56062325EE8C00716FB3 /* AboutInfoTableViewCell.swift in Sources */,
 				1FE8DAE82292830600DCED01 /* RecommendViewModel.swift in Sources */,
 				1F91C3CA230569E20030916F /* SquareViewModel.swift in Sources */,
 				1FE5BF4E22853E9500C9137C /* CategoryHeaderTableViewCell.swift in Sources */,

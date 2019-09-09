@@ -500,10 +500,8 @@ class LoginView: UIView {
         
         phoneTextField = UITextField.init()
         phoneTextField.keyboardType = .numberPad
-        phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         phoneTextField.textColor = App_Theme_FFFFFF_Color
-        phoneTextField.placeholder = "请输入手机号"
-        phoneTextField.placeholderColor = App_Theme_FFFFFF_Color!
+        phoneTextField.setPlaceholder(str: "请输入手机号", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
         centenView.addSubview(phoneTextField)
         
         
@@ -533,11 +531,8 @@ class LoginView: UIView {
             passwordTextField.rightView = rightImageView
             passwordTextField.rightViewMode = .always
             passwordTextField.isSecureTextEntry = true
-            passwordTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
             passwordTextField.textColor = App_Theme_FFFFFF_Color
-            passwordTextField.placeholder = "请输入密码"
-            passwordTextField.placeholderColor = App_Theme_FFFFFF_Color!
-            
+            passwordTextField.setPlaceholder(str: "请输入密码", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
             centenView.addSubview(passwordTextField)
             
             
@@ -562,10 +557,8 @@ class LoginView: UIView {
             }
         }else{
             codeTextField = UITextField.init()
-            codeTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
             codeTextField.textColor = App_Theme_FFFFFF_Color
-            codeTextField.placeholder = "请输入验证码"
-            codeTextField.placeholderColor = App_Theme_FFFFFF_Color!
+            codeTextField.setPlaceholder(str: "请输入验证码", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
             centenView.addSubview(codeTextField)
             
             let codeTextFieldSignal = codeTextField.reactive.continuousTextValues.map { (str) -> Bool in
@@ -838,10 +831,8 @@ class RegisterView: UIView {
         
         phoneTextField = UITextField.init()
         phoneTextField.keyboardType = .numberPad
-        phoneTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         phoneTextField.textColor = App_Theme_FFFFFF_Color
-        phoneTextField.placeholder = "请输入手机号"
-        phoneTextField.placeholderColor = App_Theme_FFFFFF_Color!
+        phoneTextField.setPlaceholder(str: "请输入手机号", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
         centenView.addSubview(phoneTextField)
         
         
@@ -869,11 +860,8 @@ class RegisterView: UIView {
         passwordTextField.rightView = rightImageView
         passwordTextField.rightViewMode = .always
         passwordTextField.isSecureTextEntry = true
-        passwordTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         passwordTextField.textColor = App_Theme_FFFFFF_Color
-        passwordTextField.placeholder = "请输入密码"
-        passwordTextField.placeholderColor = App_Theme_FFFFFF_Color!
-        
+        passwordTextField.setPlaceholder(str: "请输入密码", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
         centenView.addSubview(passwordTextField)
         
         
@@ -887,12 +875,9 @@ class RegisterView: UIView {
         
         
         codeTextField = UITextField.init()
-        codeTextField.placeholderFont = App_Theme_PinFan_M_15_Font!
         codeTextField.textColor = App_Theme_FFFFFF_Color
-        codeTextField.placeholder = "请输入验证码"
-        codeTextField.placeholderColor = App_Theme_FFFFFF_Color!
         centenView.addSubview(codeTextField)
-        
+        codeTextField.setPlaceholder(str: "请输入验证码", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
         let codeTextFieldSignal = codeTextField.reactive.continuousTextValues.map { (str) -> Bool in
             return str.count > 0
         }

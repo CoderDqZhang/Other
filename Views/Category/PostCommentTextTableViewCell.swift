@@ -29,9 +29,9 @@ class PostCommentTextTableViewCell: UITableViewCell {
         textView.delegate = self
         textView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
         textView.isScrollEnabled = false
-        textView.font = App_Theme_PinFan_R_14_Font
-        textView.placeholderFont = App_Theme_PinFan_M_14_Font
-        textView.placeholderTextColor = App_Theme_999999_Color
+        textView.font = App_Theme_PinFan_M_15_Font
+        textView.placeholderTextColor = App_Theme_B5B5B5_Color!
+        textView.placeholderFont = App_Theme_PinFan_R_14_Font!
         textView.textColor = App_Theme_06070D_Color
         textView.placeholderText = "在这里发表你的想法..."
         textView.keyboardType = .default
@@ -87,12 +87,18 @@ class PostCommentTextTableViewCell: UITableViewCell {
 
 extension PostCommentTextTableViewCell : YYTextViewDelegate {
     func textView(_ textView: YYTextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-
-        if (textView.text.count > MaxTextViewCount) {
+        
+        if textView.text.count > MaxTextViewCount {
             textView.text = textView.text.nsString.substring(to: MaxTextViewCount)
+            return true
         }
         if self.postCommentTextTableViewCellTextClouse != nil {
-            self.postCommentTextTableViewCellTextClouse("\(String(describing: textView.text.nsString.replacingCharacters(in: range, with: "")))\(text)")
+            var temp_rang = range
+            if range.length > MaxTextViewCount {
+                temp_rang = NSRange.init(location: 0, length: MaxTextViewCount)
+            }
+            let str = "\(String(describing: textView.text.nsString.replacingCharacters(in: temp_rang, with: "")))\(text)"
+            self.postCommentTextTableViewCellTextClouse(str)
         }
         return true
     }

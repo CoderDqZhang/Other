@@ -26,7 +26,8 @@ class UserInfoView: UIView {
     
     func setUpView(){
         avatarImage = UIImageView.init()
-        
+        avatarImage.layer.borderColor = App_Theme_F6F6F6_Color!.cgColor
+        avatarImage.borderWidth = 1
         avatarImage.layer.cornerRadius = 11
         avatarImage.layer.masksToBounds = true
         self.addSubview(avatarImage)

@@ -90,6 +90,9 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
             imageContentView.isHidden = false
             imageContentView.removeSubviews()
             for index in 0...images.count - 1 {
+                if index >= 3 {
+                    break
+                }
                 let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
                 imageView.sd_crope_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
                     

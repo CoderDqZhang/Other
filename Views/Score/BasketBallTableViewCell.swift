@@ -408,9 +408,9 @@ class BasketBallTableViewCell: UITableViewCell {
             }
             
             attentionButton.snp.makeConstraints { (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(5)
                 make.centerY.equalToSuperview()
-                make.size.equalTo(CGSize.init(width: 33, height: 33))
+                make.size.equalTo(CGSize.init(width: 40, height: 40))
             }
             
             didMakeConstraints = true

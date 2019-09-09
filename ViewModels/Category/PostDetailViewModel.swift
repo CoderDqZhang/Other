@@ -314,7 +314,7 @@ class PostDetailViewModel: BaseViewModel {
         if self.tipDetailModel != nil {
             imageHeight = self.imageContentHeight(image: self.tipDetailModel.image, contentWidth: SCREENWIDTH - 30)
         }
-        return titleSize.textBoundingSize.height + contentSize.textBoundingSize.height + 120 + imageHeight
+        return titleSize.textBoundingSize.height + contentSize.textBoundingSize.height + 132 + imageHeight - (contentSize.textBoundingSize.height == 0 ? 20 : 0)
     }
     
 }

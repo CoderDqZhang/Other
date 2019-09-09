@@ -24,7 +24,7 @@ class PostImageSelectView:UIView {
     init(frame: CGRect, image:UIImage) {
         super.init(frame: frame)
         imageView = UIImageView.init()
-        imageView.image = image
+        imageView.image = UIImageMaxCroped.cropeImage(image: image, imageViewSize:  CGSize.init(width: PostImageSelectViewWidth, height: PostImageSelectViewHeight))
         self.addSubview(imageView)
         
         deleteButton = UIButton.init(type: .custom)
@@ -49,8 +49,12 @@ class PostImageSelectView:UIView {
     }
 }
 
+enum CommentImages {
+    case delete
+    case image
+}
 typealias PostCommentImageAddButtonClouse = (_ button:UIButton) ->Void
-typealias PostCommentImageImageButtonClouse = (_ tag:Int) ->Void
+typealias PostCommentImageImageButtonClouse = (_ tag:Int, _ type:CommentImages) ->Void
 class PostCommentImagesTableViewCell: UITableViewCell {
 
     var snapshotView:UIView!
@@ -99,9 +103,14 @@ class PostCommentImagesTableViewCell: UITableViewCell {
                     gesture.numberOfTapsRequired = 1
                     }.whenTaped { (tap) in
                         if self.postCommentImageImageButtonClouse != nil {
-                            self.postCommentImageImageButtonClouse(postImageView.tag - 10000)
+                            self.postCommentImageImageButtonClouse(postImageView.tag - 10000,.image)
                         }
                 }
+                postImageView.deleteButton.addAction({ (button) in
+                    if self.postCommentImageImageButtonClouse != nil {
+                        self.postCommentImageImageButtonClouse(postImageView.tag - 10000, .delete)
+                    }
+                }, for: UIControl.Event.touchUpInside)
                 snapshotView.addSubview(postImageView)
             }
             if images.count == 3 {

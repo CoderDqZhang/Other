@@ -98,17 +98,19 @@ class BaseViewModel: NSObject {
         let images = image.split(separator: ",")
         if images.count >= 1 {
             for index in 0...images.count - 1 {
+                if (images[index] as NSString) == "" {
+                    continue
+                }
                 var imageStrs = (images[index] as NSString).components(separatedBy: "_")
-                if imageStrs.count > 2 {
-                    let tempWidth = Int(imageStrs[imageStrs.count - 2].nsString.substring(with: NSRange.init(location: 1, length: imageStrs[imageStrs.count - 2].count - 1)))
-                    let tempHeigth = Int(imageStrs[imageStrs.count - 1].nsString.components(separatedBy: ".")[0].nsString.substring(with: NSRange.init(location: 1, length: imageStrs[imageStrs.count - 1].nsString.components(separatedBy: ".")[0].count - 1)))
-                    if CGFloat(tempWidth!) > contentWidth {
-                        imageHeight = CGFloat(tempHeigth!) * contentWidth / CGFloat(tempWidth!) + imageHeight + 20
-                    }else{
-                        imageHeight = imageHeight + CGFloat(tempHeigth!) + 20
-                    }
+                if imageStrs.count < 2 {
+                    return imageHeight
+                }
+                let tempWidth = Int(imageStrs[imageStrs.count - 2].nsString.substring(with: NSRange.init(location: 1, length: imageStrs[imageStrs.count - 2].count - 1)))
+                let tempHeigth = Int(imageStrs[imageStrs.count - 1].nsString.components(separatedBy: ".")[0].nsString.substring(with: NSRange.init(location: 1, length: imageStrs[imageStrs.count - 1].nsString.components(separatedBy: ".")[0].count - 1)))
+                if CGFloat(tempWidth!) > contentWidth {
+                    imageHeight = CGFloat(tempHeigth!) * contentWidth / CGFloat(tempWidth!) + imageHeight + 10
                 }else{
-                    imageHeight = imageHeight + 250 + 20
+                    imageHeight = imageHeight + CGFloat(tempHeigth!) + 10
                 }
             }
             return imageHeight - 20

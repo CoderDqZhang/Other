@@ -49,10 +49,18 @@ class BaseWebViewController: UIViewController {
     
     func setUpView() -> () {
         
-        self.wkWebView.frame = CGRect(x: 0
-            , y: 0
-            , width: SCREENWIDTH
-            , height: SCREENHEIGHT)
+        if #available(iOS 11.0, *) {
+            self.wkWebView.frame = CGRect(x: 0
+                , y: 0
+                , width: SCREENWIDTH
+                , height: SCREENHEIGHT - 64 - NAV_HEIGHT)
+        } else {
+            // Fallback on earlier versions
+            self.wkWebView.frame = CGRect(x: 0
+                , y: 0
+                , width: SCREENWIDTH
+                , height: SCREENHEIGHT - 64)
+        }
         
         wkWebView.navigationDelegate = self
         self.view.addSubview(self.wkWebView)

@@ -65,11 +65,9 @@ class WithDrawMuchTableViewCell: UITableViewCell {
         muchTextFiled.textAlignment = .left
         muchTextFiled.font = App_Theme_PinFan_M_15_Font
         muchTextFiled.textColor = App_Theme_06070D_Color
-        muchTextFiled.placeholder = "请输入金额"
         muchTextFiled.delegate = self
         muchTextFiled.keyboardType = .decimalPad
-        muchTextFiled.placeholderColor = App_Theme_B5B5B5_Color!
-        muchTextFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
+        muchTextFiled.setPlaceholder(str: "请输入金额", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_B5B5B5_Color!)
         self.contentView.addSubview(muchTextFiled)
         
         

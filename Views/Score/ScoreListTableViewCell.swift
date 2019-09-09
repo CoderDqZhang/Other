@@ -83,7 +83,7 @@ class ScoreListTableViewCell: UITableViewCell {
         self.contentView.addSubview(timeLabel)
         
         teamA = YYLabel.init()
-        teamA.textAlignment = .left
+        teamA.numberOfLines = 1
         teamA.font = App_Theme_PinFan_M_12_Font
         teamA.textColor = App_Theme_06070D_Color
         teamA.text = "广州恒大哈哈哈哈哈"
@@ -92,6 +92,7 @@ class ScoreListTableViewCell: UITableViewCell {
         teamB = YYLabel.init()
         teamB.textAlignment = .left
         teamB.font = App_Theme_PinFan_M_12_Font
+        teamB.lineBreakMode = .byTruncatingTail
         teamB.textColor = App_Theme_06070D_Color
         teamB.text = "广州恒大"
         self.contentView.addSubview(teamB)
@@ -202,12 +203,17 @@ class ScoreListTableViewCell: UITableViewCell {
             scoreStatus.text = "完场"
             scoreStatus.textColor = App_Theme_FF4343_Color
         }else if model.status < 7 {
-            let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.time.double))
-            scoreStatus.text = String(format: "%.0f“", double + (model.status == 4 ? 45.00 : 0.00))
-            if scoreStatus.layer.animation(forKey: "animation") == nil {
-                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+            if model.status == 3 {
+                 scoreStatus.text = "中场"
+            }else{
+                let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.time.double))
+                scoreStatus.text = String(format: "%.0f“", double + (model.status == 4 ? 45.00 : 0.00))
+                if scoreStatus.layer.animation(forKey: "animation") == nil {
+                    scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+                }
             }
             scoreStatus.textColor = App_Theme_FFAC1B_Color
+
         }else{
             scoreStatus.text = "延迟"
             scoreStatus.textColor = App_Theme_999999_Color
@@ -338,7 +344,7 @@ class ScoreListTableViewCell: UITableViewCell {
         scoreInfo3.isHidden = true
         
         if model.teamB.cornerBall == -1 || model.teamA.cornerBall == -1{
-            scoreInfos.text = "半:--- 角:---"
+            scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:---"
         }else{
            scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:\(String(describing: model.teamA.cornerBall!))-\(String(describing: model.teamB.cornerBall!))"
         }
@@ -372,7 +378,7 @@ class ScoreListTableViewCell: UITableViewCell {
             }
             
             teamA.snp.makeConstraints { (make) in
-                make.width.lessThanOrEqualTo(93)
+                make.width.lessThanOrEqualTo(103)
                 make.right.equalTo(self.contentView.snp.centerX).offset(-18)
                 make.top.equalTo(self.contentView.snp.top).offset(26)
             }
@@ -419,9 +425,9 @@ class ScoreListTableViewCell: UITableViewCell {
             }
             
             attentionButton.snp.makeConstraints { (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(5)
                 make.centerY.equalToSuperview()
-                make.size.equalTo(CGSize.init(width: 33, height: 33))
+                make.size.equalTo(CGSize.init(width: 40, height: 40))
             }
             
             scoreLabel.snp.makeConstraints { (make) in

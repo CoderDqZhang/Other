@@ -73,13 +73,11 @@ class ChangeInfoViewController: BaseViewController {
             self.view.addSubview(changeView)
             
             changeText = UITextField.init()
-            changeText.placeholderFont = App_Theme_PinFan_R_14_Font!
             changeText.font = App_Theme_PinFan_R_14_Font
             changeText.delegate = self
             changeText.textColor = App_Theme_06070D_Color
             changeText.becomeFirstResponder()
             changeView.addSubview(changeText)
-            
             
             detailLable = YYLabel.init()
             detailLable.textAlignment = .right
@@ -154,7 +152,7 @@ class ChangeInfoViewController: BaseViewController {
     
     func changeInfoType(text:String,type:ChangeInfoType, placeholder:String){
         self.initView()
-        changeText.placeholder = placeholder
+        changeText.setPlaceholder(str: placeholder, font: App_Theme_PinFan_R_14_Font!, textColor: App_Theme_B5B5B5_Color!)
         changeText.text = text
         self.type = type
         switch type {

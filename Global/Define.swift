@@ -78,8 +78,6 @@ func versionCheck() -> String{
 //    let appDisplayName:AnyObject? = infoDictionary!["CFBundleDisplayName"] as AnyObject? //程序名称
     let majorVersion :AnyObject? = infoDictionary! ["CFBundleShortVersionString"] as AnyObject?//主程序版本号
 //    let minorVersion :AnyObject? = infoDictionary! ["CFBundleVersion"] as AnyObject?//版本号（内部标示）
-//    //设备信息
-//    let iosVersion : NSString = UIDevice.current.systemVersion as NSString //ios版本
 //    let identifierNumber = UIDevice.current.identifierForVendor //设备udid
 //    let systemName = UIDevice.current.systemName //设备名称
 //    let model = UIDevice.current.model //设备型号
@@ -87,6 +85,24 @@ func versionCheck() -> String{
     
     let appVersion = majorVersion as! String
     return appVersion
+}
+
+
+func udidString() ->String {
+    let identifierNumber = UIDevice.current.identifierForVendor
+    return identifierNumber as! String
+}
+
+func iosVersion() ->String {
+    let iosVersion : NSString = UIDevice.current.systemVersion as NSString
+    return iosVersion as String
+}
+
+func disPlayName() ->String{
+    let infoDictionary = Bundle.main.infoDictionary
+    let appDisplayName:AnyObject? = infoDictionary!["CFBundleDisplayName"] as AnyObject? //程序名称
+    let disPlayName = appDisplayName as! String
+    return disPlayName
 }
 
 func AppCallViewShow(_ view:UIView, phone:String) {

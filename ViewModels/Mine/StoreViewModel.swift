@@ -55,7 +55,7 @@ extension StoreViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.0001
+        return 5
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -84,6 +84,7 @@ extension StoreViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CoinsDetailTableViewCell.description(), for: indexPath)
         self.tableViewCoinsDetailTableViewCellSetData(indexPath, cell: cell as! CoinsDetailTableViewCell)
+        (cell as! CoinsDetailTableViewCell).hiddendLineLabel(ret: indexPath.row - 1 == detailArray.count ? true : false)
         return cell
     }
 }

@@ -18,6 +18,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     
     var rightImageView:UIImageView!
     var leftImageView:UIImageView!
+    var detailImageView:UIImageView!
     
     var rightButtonView:BadgeValueButton!
 
@@ -26,7 +27,9 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
-        self.accessoryType = .disclosureIndicator
+        
+        
+//        self.accessoryType = .disclosureIndicator
     }
     
     func setUpView(){
@@ -52,6 +55,9 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         leftImageView  = UIImageView.init()
         leftImageView.layer.masksToBounds = true
         self.contentView.addSubview(leftImageView)
+        
+        detailImageView = UIImageView.init(image: UIImage.init(named: "cell_right"))
+        self.contentView.addSubview(detailImageView)
         
         _ = rightImageView.newPanGesture(config: { (config) in
         }).whenBegan(handler: { (guest) in
@@ -108,7 +114,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
             rightButtonView.layer.cornerRadius = 7
             let strHeight = showStr.nsString.width(with: App_Theme_PinFan_R_12_Font, constrainedToHeight: 14)
             rightButtonView.snp.makeConstraints({ (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(-9)
+                make.right.equalTo(self.detailImageView.snp.left).offset(-9)
                 make.centerY.equalToSuperview()
                 make.size.equalTo(CGSize.init(width: strHeight + 8, height: 14))
             })
@@ -153,13 +159,13 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
             }
             
             descLabel.snp.makeConstraints { (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(-9)
+                make.right.equalTo(self.detailImageView.snp.left).offset(-9)
                 make.width.equalTo(200)
                 make.centerY.equalToSuperview()
             }
             
             rightImageView.snp.makeConstraints { (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(-9)
+                make.right.equalTo(self.detailImageView.snp.left).offset(-9)
                 make.size.equalTo(CGSize.init(width: 34, height: 34))
                 make.centerY.equalToSuperview()
             }
@@ -174,6 +180,11 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
                 make.right.equalToSuperview()
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-1)
                 make.height.equalTo(1)
+            }
+            
+            detailImageView.snp.makeConstraints { (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(-1)
             }
             
             didMakeConstraints = true
@@ -386,8 +397,6 @@ class GloabelTextFieldAndTitleTableViewCell : UITableViewCell {
         textFiled.font = App_Theme_PinFan_M_15_Font
         textFiled.textColor = App_Theme_06070D_Color
         textFiled.placeholder = ""
-        textFiled.placeholderColor = App_Theme_B5B5B5_Color!
-        textFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
         self.contentView.addSubview(textFiled)
         
         
@@ -397,7 +406,7 @@ class GloabelTextFieldAndTitleTableViewCell : UITableViewCell {
     
     func cellSetData(title:String, placeholder:String){
         titleLabel.text = title
-        textFiled.placeholder = placeholder
+        textFiled.setPlaceholder(str: placeholder, font: App_Theme_PinFan_R_14_Font!, textColor: App_Theme_B5B5B5_Color!)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -466,8 +475,6 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
         textFiled.font = App_Theme_PinFan_M_15_Font
         textFiled.textColor = App_Theme_06070D_Color
         textFiled.placeholder = ""
-        textFiled.placeholderColor = App_Theme_B5B5B5_Color!
-        textFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
         self.contentView.addSubview(textFiled)
         
         
@@ -476,7 +483,7 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
     }
     
     func cellSetData(placeholder:String){
-        textFiled.placeholder = placeholder
+        textFiled.setPlaceholder(str: placeholder, font: App_Theme_PinFan_R_14_Font!, textColor: App_Theme_B5B5B5_Color!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -568,7 +575,7 @@ class GloabelTextViewTableViewCell : UITableViewCell,YYTextViewDelegate {
             
             textView.snp.makeConstraints { (make) in
                 make.top.equalTo(self.contentView.snp.top).offset(15)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-15)
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
             }
@@ -598,9 +605,14 @@ class GloabelTextViewTableViewCell : UITableViewCell,YYTextViewDelegate {
         detailLabel.text = "\(textView.text.count)/255"
         if textView.text.count > 255 {
             textView.text = textView.text.nsString.substring(to: 255)
+            return true
         }
         if self.gloabelTextViewTableViewCellClouse != nil {
-            let str = "\(String(describing: textView.text.nsString.replacingCharacters(in: range, with: "")))\(text)"
+            var temp_rang = range
+            if range.length > 255 {
+                temp_rang = NSRange.init(location: 0, length: 255)
+            }
+            let str = "\(String(describing: textView.text.nsString.replacingCharacters(in: temp_rang, with: "")))\(text)"
             self.gloabelTextViewTableViewCellClouse(str,str.count > 0 ? true : false)
         }
         return true
@@ -720,8 +732,6 @@ class GloabelTextFieldButtonTableViewCell : UITableViewCell {
         textFiled.font = App_Theme_PinFan_M_15_Font
         textFiled.textColor = App_Theme_06070D_Color
         textFiled.placeholder = ""
-        textFiled.placeholderColor = App_Theme_B5B5B5_Color!
-        textFiled.placeholderFont = App_Theme_PinFan_M_15_Font!
         self.contentView.addSubview(textFiled)
         
         
@@ -731,7 +741,7 @@ class GloabelTextFieldButtonTableViewCell : UITableViewCell {
     
     func cellSetData(title:String, placeholder:String){
         titleLabel.text = title
-        textFiled.placeholder = placeholder
+        textFiled.setPlaceholder(str: placeholder, font: App_Theme_PinFan_R_14_Font!, textColor: App_Theme_B5B5B5_Color!)
     }
     
     func timeDone(){

@@ -259,7 +259,7 @@ class StoreView: UIView {
         centerView.backgroundColor = .red
         self.addSubview(centerView)
         centerView.backgroundColor = App_Theme_FFFFFF_Color
-        centerView.setShadowWithCornerRadius(corners: 8, shadowColor: App_Theme_8E8E8E_Color!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
+        centerView.setShadowWithCornerRadius(corners: 8, shadowColor: UIColor.init(hexString: "B5B5B5", transparency: 0.1)!, shadowOffset: CGSize.init(width: 2, height: 2), shadowOpacity: 1)
         
         storeLabel = YYLabel.init()
         storeLabel.textAlignment = .left
