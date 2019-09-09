@@ -142,8 +142,8 @@ class FootBallViewModel: BaseViewModel {
     func footBallBindText(_ dic:NSArray){
         self.allFootBallArray.removeAllObjects()
          DispatchQueue.global(qos: .default).sync {
-            for match in dic{
-                let temp_array = (match as! NSArray)
+            for index in 0...dic.count - 1{
+                let temp_array = (dic[index] as! NSArray)
                 //去除阶段为0 错误
                 let north_sigle:NSDictionary = (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
                 let lottery:NSDictionary = (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]

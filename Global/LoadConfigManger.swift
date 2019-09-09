@@ -36,6 +36,7 @@ class LoadConfigManger: NSObject {
         self.loadConfigUrl()
         self.loadUnreadUrl()
         self.loadPointdUrl()
+        self.getDailyStatus()
         //获取球队信息
         self.loadFootBallScorEvent()
         self.loadBasketBallScorEvent()
@@ -59,6 +60,29 @@ class LoadConfigManger: NSObject {
                     CacheManager.getSharedInstance().saveUnreadModel(category: model)
                     (KWindow.rootViewController as! MainTabBarController).upateUnreadMessage()
                 }
+            }
+        }
+    }
+    
+    func getDailyStatus(){
+        if CacheManager.getSharedInstance().isLogin() {
+            BaseNetWorke.getSharedInstance().postUrlWithString(PersonsignStatusInUrl, parameters: nil).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    let model = DailyModel.init(fromDictionary: resultDic.value as! [String : Any])
+                    if model.status != 1 {
+                        KWindow.addSubview(GloableSignView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), img: model.img, click:{
+                            self.sign()
+                        }))
+                    }
+                }
+            }
+        }
+    }
+    
+    func sign(){
+        BaseNetWorke.getSharedInstance().getUrlWithString(PersonsignInUrl, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+               
             }
         }
     }

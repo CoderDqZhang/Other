@@ -32,6 +32,8 @@ class ScoreSegementViewController: BaseViewController,UIScrollViewDelegate {
         
         self.createSegementController()
         self.createNavigationItem()
+        
+       
         // Do any additional setup after loading the view.
     }
     

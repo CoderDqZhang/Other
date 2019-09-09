@@ -1428,3 +1428,97 @@ class FilterBottomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+typealias GloableSignViewClick = () ->Void
+
+class GloableSignView: UIView {
+    var backView:UIView!
+    var imageView:UIImageView!
+    var closeView:UIImageView!
+    var gloableSignViewClick:GloableSignViewClick!
+    
+    init(frame: CGRect, img:String, click:@escaping GloableSignViewClick) {
+        super.init(frame: frame)
+        self.gloableSignViewClick = click
+        self.backgroundColor = .clear
+        self.setUpView(img:img)
+    }
+    
+    func setUpView(img:String){
+        backView = UIView.init()
+        backView.backgroundColor = UIColor.init(hexString: "000000", transparency: 0.6)
+        backView.isUserInteractionEnabled = true
+        backView.newTapGesture { (tap) in
+            tap.numberOfTapsRequired = 1
+            tap.numberOfTouchesRequired = 1
+            }.whenTaped { (tap) in
+                self.disMissView()
+        }
+        
+        self.addSubview(backView)
+        
+        imageView = UIImageView.init()
+        imageView.newTapGesture { (tap) in
+            tap.numberOfTapsRequired = 1
+            tap.numberOfTouchesRequired = 1
+            }.whenTaped { (tap) in
+                if self.gloableSignViewClick != nil {
+                    self.gloableSignViewClick()
+                    self.disMissView()
+                }
+        }
+        imageView.sd_crope_imageView_withMaxWidth(url: img, imageSize: nil, placeholderImage: nil) { (image, error, cacheType, url) in
+            if error == nil {
+                self.imageView.image = image
+            }
+        }
+        imageView.image = UIImage.init(named: "sign")
+        self.addSubview(imageView)
+        
+        
+        closeView = UIImageView.init()
+        closeView.image = UIImage.init(named: "clouse")
+        closeView.isUserInteractionEnabled = true
+        closeView.newTapGesture { (tap) in
+            tap.numberOfTapsRequired = 1
+            tap.numberOfTouchesRequired = 1
+            }.whenTaped { (tap) in
+                self.disMissView()
+        }
+        self.addSubview(closeView)
+        self.updateConstraints()
+    }
+    
+    func viewCellData(imageUrl:String){
+        
+    }
+    
+    func disMissView(){
+        self.removeFromSuperview()
+    }
+    
+    override func updateConstraints() {
+        super.updateConstraints()
+        backView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+        }
+        
+        imageView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
+        closeView.snp.makeConstraints { (make) in
+            make.right.equalTo(self.imageView.snp.right).offset(0)
+            make.bottom.equalTo(self.imageView.snp.top).offset(0)
+        }
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
