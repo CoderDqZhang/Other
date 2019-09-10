@@ -172,7 +172,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Category/NewsViewModel.swift"
-            timestampString = "589087806.39683"
+            timestampString = "589772744.9978991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
@@ -188,7 +188,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Category/NewsViewModel.swift"
-            timestampString = "589087806.397155"
+            timestampString = "589772744.997965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "85"
@@ -460,7 +460,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Category/CommentPostViewModel.swift"
-            timestampString = "589704897.326526"
+            timestampString = "589773152.530628"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "61"
@@ -508,7 +508,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Category/CommentPostViewModel.swift"
-            timestampString = "589704897.326772"
+            timestampString = "589773152.530733"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
@@ -524,7 +524,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Category/CommentPostViewModel.swift"
-            timestampString = "589704897.327549"
+            timestampString = "589773152.531484"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
@@ -540,11 +540,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Category/PostDetailCommentTableViewCell.swift"
-            timestampString = "589704897.327847"
+            timestampString = "589773152.53167"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "showImageDetail(images:)"
             landmarkType = "7">
             <Locations>
@@ -556,12 +556,12 @@
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Views/Category/PostDetailCommentTableViewCell.swift"
-                  timestampString = "589704898.093161"
+                  timestampString = "589773153.435029"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "288"
-                  endingLineNumber = "288"
-                  offsetFromSymbolStart = "2306">
+                  startingLineNumber = "286"
+                  endingLineNumber = "286"
+                  offsetFromSymbolStart = "1888">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -571,12 +571,12 @@
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Views/Category/PostDetailCommentTableViewCell.swift"
-                  timestampString = "589704898.095395"
+                  timestampString = "589773153.438243"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "289"
-                  endingLineNumber = "289"
-                  offsetFromSymbolStart = "110">
+                  startingLineNumber = "287"
+                  endingLineNumber = "287"
+                  offsetFromSymbolStart = "104">
                </Location>
             </Locations>
          </BreakpointContent>

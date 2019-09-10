@@ -46,11 +46,15 @@ extension UIImageView {
     
     func sd_crope_imageView(url:String, imageView:UIImageView, placeholderImage:UIImage?, completedBlock:YYWebImageCompletionBlock?){
         let size = imageView.size
+        var temp_placholderImage = placeholderImage
+        if temp_placholderImage == nil {
+            temp_placholderImage = UIImageMaxCroped.cropeImage(image: normalImage!, imageViewSize:  CGSize.init(width: size.width, height: size.height))
+        }
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-            self.yy_setImage(with: URL.init(string:url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder:normalImage!.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill), options: [.setImageWithFadeAnimation, .progressiveBlur, .showNetworkActivity,.allowBackgroundTask], manager: nil, progress: { (start, end) in
+            self.yy_setImage(with: URL.init(string:url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder:temp_placholderImage, options: [.setImageWithFadeAnimation, .progressiveBlur, .showNetworkActivity,.allowBackgroundTask], manager: nil, progress: { (start, end) in
                 
             }, transform: { (image, url) -> UIImage? in
-                return image.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill)
+                return UIImageMaxCroped.cropeImage(image: image, imageViewSize:  CGSize.init(width: size.width, height: size.height))
             }) { (image, url, type, state, error) in
                 completedBlock!(image, url, type, state, error)
             }
@@ -58,9 +62,20 @@ extension UIImageView {
     }
     
     func sd_crope_imageView_withMaxWidth(url:String, imageSize:CGSize?, placeholderImage:UIImage?, completedBlock:SDExternalCompletionBlock?) {
-        self.sd_setImage(with:  URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: normalImage, options: [.retryFailed, .avoidAutoSetImage]) { (image, error, cacheType, url) in
+        
+        var temp_placholderImage = placeholderImage
+        if temp_placholderImage == nil {
+            if imageSize == nil {
+                temp_placholderImage = normalImage
+            }else{
+                temp_placholderImage = UIImageMaxCroped.cropeImage(image: normalImage!, imageViewSize:  CGSize.init(width: imageSize!.width, height: imageSize!.height))
+            }
+        }
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+            self.sd_setImage(with:  URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: temp_placholderImage, options: [.retryFailed, .avoidAutoSetImage]) { (image, error, cacheType, url) in
             
-            completedBlock!(image,error,cacheType,url)
+                completedBlock!(image,error,cacheType,url)
+            }
         }
     }
     

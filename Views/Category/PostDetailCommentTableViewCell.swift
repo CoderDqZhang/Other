@@ -63,8 +63,6 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         allCommentLabel.font = App_Theme_PinFan_M_10_Font
         secondeContent.addSubview(allCommentLabel)
         
-        
-        
         imageContentView.isHidden = true
         secondeContent.isHidden = true
         allCommentLabel.isHidden = true

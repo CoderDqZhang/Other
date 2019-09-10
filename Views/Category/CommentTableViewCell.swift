@@ -108,7 +108,20 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:TipModel){
-        commentView.crateContent(time: model.createTime, like: model.favor.string, comment: model.commentTotal.string, status: 0)
+        var favorStr = ""
+        if model.favor > 1000 {
+            favorStr = model.favor.kFormatted
+        }else{
+            favorStr = model.favor.string
+        }
+        
+        var commentStr = ""
+        if model.commentTotal > 1000 {
+            commentStr = model.commentTotal.kFormatted
+        }else{
+            commentStr = model.commentTotal.string
+        }
+        commentView.crateContent(time: model.createTime, like: favorStr, comment: commentStr, status: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {

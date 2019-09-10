@@ -231,7 +231,7 @@ class CommentViewModel: BaseViewModel {
         if self.commentData != nil {
             imageHeight = self.imageContentHeight(image: self.commentData.img, contentWidth: SCREENWIDTH - 30)
         }
-        return contentSize.textBoundingSize.height + imageHeight + 25
+        return contentSize.textBoundingSize.height + imageHeight + 45
     }
 }
 
@@ -305,7 +305,7 @@ extension CommentViewModel: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ReplyContentTableViewCell.description(), for: indexPath)
         self.tableViewReplyContentTableViewCellSetData(indexPath, cell: cell as! ReplyContentTableViewCell)
         cell.selectionStyle = .none
-        if indexPath.section == 0 {
+        if indexPath.section == 0 || indexPath.section == replistList.count {
             (cell as! ReplyContentTableViewCell).lineLabel.isHidden = true
         }
         return cell

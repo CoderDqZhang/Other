@@ -48,6 +48,16 @@ class CategoryContentTableViewCell: UITableViewCell {
         
         imageContentView = UIView.init()
         self.contentView.addSubview(imageContentView)
+        
+        
+        for index in 0...3 {
+            let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
+            imageView.tag = index + 1000
+            imageView.layer.cornerRadius = 5
+            imageView.layer.masksToBounds = true
+            self.imageContentView.addSubview(imageView)
+        }
+        
         self.contentView.addSubview(lineLabel)
         self.updateConstraints()
     }
@@ -59,22 +69,16 @@ class CategoryContentTableViewCell: UITableViewCell {
         let images = tipmodel.image.split(separator: ",")
 
         if images.count >= 1 {
-            imageContentView.removeSubviews()
-            for index in 0...images.count - 1 {
-                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
-                
-//                imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageSize: CGSize.init(width: contentImageWidth, height: contentImageHeight), placeholderImage: nil) { (image, error, cacheType, url) in
-//                    if error == nil {
-//                        let imageSize = UIImageMaxCroped.cropeImage(image: image!, imageViewSize:  CGSize.init(width: contentImageWidth, height: contentImageHeight))
-//                        imageView.image = imageSize
-//                    }
-//                }
-                imageView.sd_crope_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
+            for index in 0...3 {
+                let imageView = (imageContentView.viewWithTag(index + 1000) as! UIImageView)
+                if images.count <= index {
+                    imageView.isHidden = true
+                }else{
+                    imageView.isHidden = false
+                    imageView.sd_crope_imageView(url: String(images[index]).nsString.replacingOccurrences(of: " ", with: ""), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
+                        
+                    }
                 }
-                imageView.tag = index + 1000
-                imageView.layer.cornerRadius = 5
-                imageView.layer.masksToBounds = true
-                self.imageContentView.addSubview(imageView)
             }
             imageContentView.isHidden = false
             imageContentView.snp.updateConstraints{ (make) in
