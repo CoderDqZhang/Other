@@ -353,6 +353,12 @@ class FilterViewModel: BaseViewModel {
     
     func saveEvent(){
         if (self.controller as! FilterViewController).filterViewControllerSaveClouse != nil {
+            if self.viewType == .football {
+                UserDefaults.standard.set(self.filterType.rawValue, forKey: RELOADCOLLECTFOOTBALLTYPEMODEL)
+            }else{
+                UserDefaults.standard.set(self.filterType.rawValue, forKey: CLICKRELOADBASKETBALLEVENTYPETDATA)
+            }
+            self.clickCollectItemSave()
             (self.controller as! FilterViewController).filterViewControllerSaveClouse()
         }
     }

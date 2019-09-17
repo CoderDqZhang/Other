@@ -16,7 +16,7 @@ class FootBallIndexModel : NSObject, NSCoding{
     var id : Int!
     var isSelect : Bool!
     var issueNum : String!
-    var matchId : Int!
+    var matchId : String!
     var matchTime : Int!
     var eventsName : String!
     
@@ -31,7 +31,7 @@ class FootBallIndexModel : NSObject, NSCoding{
         id = dictionary["id"] as? Int
         isSelect = dictionary["is_select"] as? Bool
         issueNum = dictionary["issue_num"] as? String
-        matchId = dictionary["match_id"] as? Int
+        matchId = dictionary["match_id"] as? String
         matchTime = dictionary["match_time"] as? Int
     }
     
@@ -84,7 +84,7 @@ class FootBallIndexModel : NSObject, NSCoding{
         id = aDecoder.decodeObject(forKey: "id") as? Int
         isSelect = aDecoder.decodeObject(forKey: "is_select") as? Bool
         issueNum = aDecoder.decodeObject(forKey: "issue_num") as? String
-        matchId = aDecoder.decodeObject(forKey: "match_id") as? Int
+        matchId = aDecoder.decodeObject(forKey: "match_id") as? String
         matchTime = aDecoder.decodeObject(forKey: "match_time") as? Int
         
     }

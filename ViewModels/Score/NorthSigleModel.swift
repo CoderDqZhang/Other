@@ -18,7 +18,7 @@ class NorthSigleModel : NSObject, NSCoding{
     var id : Int!
     var issue : Int!
     var issueNum : Int!
-    var matchId : Int!
+    var matchId : String!
     var matchTime : Int!
     
     
@@ -34,7 +34,7 @@ class NorthSigleModel : NSObject, NSCoding{
         isSelect = dictionary["is_select"] as? Bool
         issue = dictionary["issue"] as? Int
         issueNum = dictionary["issue_num"] as? Int
-        matchId = dictionary["match_id"] as? Int
+        matchId = dictionary["match_id"] as? String
         matchTime = dictionary["match_time"] as? Int
     }
     
@@ -91,7 +91,7 @@ class NorthSigleModel : NSObject, NSCoding{
         id = aDecoder.decodeObject(forKey: "id") as? Int
         issue = aDecoder.decodeObject(forKey: "issue") as? Int
         issueNum = aDecoder.decodeObject(forKey: "issue_num") as? Int
-        matchId = aDecoder.decodeObject(forKey: "match_id") as? Int
+        matchId = aDecoder.decodeObject(forKey: "match_id") as? String
         matchTime = aDecoder.decodeObject(forKey: "match_time") as? Int
         
     }

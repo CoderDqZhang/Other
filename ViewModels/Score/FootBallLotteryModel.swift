@@ -15,8 +15,8 @@ class FootBallLotteryModel : NSObject, NSCoding{
     var home : String!
     var id : Int!
     var isSelect : Bool!
-    var issue : Int!
-    var matchId : Int!
+    var issueNum : String!
+    var matchId : String!
     var matchTime : Int!
     var result : String!
     var eventsName : String!
@@ -32,8 +32,8 @@ class FootBallLotteryModel : NSObject, NSCoding{
         eventsName = dictionary["eventsName"] as? String
         id = dictionary["id"] as? Int
         isSelect = dictionary["is_select"] as? Bool
-        issue = dictionary["issue"] as? Int
-        matchId = dictionary["match_id"] as? Int
+        issueNum = dictionary["issue_num"] as? String
+        matchId = dictionary["match_id"] as? String
         matchTime = dictionary["match_time"] as? Int
         result = dictionary["result"] as? String
     }
@@ -62,8 +62,8 @@ class FootBallLotteryModel : NSObject, NSCoding{
         if isSelect != nil{
             dictionary["is_select"] = isSelect
         }
-        if issue != nil{
-            dictionary["issue"] = issue
+        if issueNum != nil{
+            dictionary["issue_num"] = issueNum
         }
         if matchId != nil{
             dictionary["match_id"] = matchId
@@ -89,8 +89,8 @@ class FootBallLotteryModel : NSObject, NSCoding{
         eventsName = aDecoder.decodeObject(forKey: "eventsName") as? String
         id = aDecoder.decodeObject(forKey: "id") as? Int
         isSelect = aDecoder.decodeObject(forKey: "is_select") as? Bool
-        issue = aDecoder.decodeObject(forKey: "issue") as? Int
-        matchId = aDecoder.decodeObject(forKey: "match_id") as? Int
+        issueNum = aDecoder.decodeObject(forKey: "issue_num") as? String
+        matchId = aDecoder.decodeObject(forKey: "match_id") as? String
         matchTime = aDecoder.decodeObject(forKey: "match_time") as? Int
         result = aDecoder.decodeObject(forKey: "result") as? String
         
@@ -120,8 +120,8 @@ class FootBallLotteryModel : NSObject, NSCoding{
         if isSelect != nil{
             aCoder.encode(isSelect, forKey: "is_select")
         }
-        if issue != nil{
-            aCoder.encode(issue, forKey: "issue")
+        if issueNum != nil{
+            aCoder.encode(issueNum, forKey: "issue_num")
         }
         if matchId != nil{
             aCoder.encode(matchId, forKey: "match_id")

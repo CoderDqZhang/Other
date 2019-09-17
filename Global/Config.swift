@@ -57,6 +57,7 @@ let CLICKRELOADFOOTBALLEVENTDATA = "ClickReloadFootEventData" //点击更新其�
 let ALLFOOTBALLMACTH = "AllFootBallMacth" //所有赛程数
 let RELOADFILTERFOOTBALLMODEL = "ReloadFilterFootModel" //更新列表页模型数据通知
 let RELOADCOLLECTFOOTBALLMODEL = "ReloadCollectFootModel" //更新列表页模型数据通知
+let RELOADCOLLECTFOOTBALLTYPEMODEL = "ReloadCollectFootTypeModel" //更新列表页模型数据通知
 //助球队信息
 let BASKETBALLINFOMODEL = "BasketBallInfoModel" //保存足球队信息 已移除
 let BASKETBALLEVENTODEL = "BasketBallEventModel" //保存足球赛事信息
@@ -65,7 +66,8 @@ let BASKETBALLEVENTLEVELMODEL = "BasketBallEventLevelModel" //保存足球一级
 let BASKETBALLINDEXMODEL = "BasketBallIndex" //保存竞彩数据
 let BASKETBALLMATCHCOLLECTMODEL = "BasketBallMatchCollectModel" //保存竞彩数据
 let RELOADBASKETBALLEVENTDATA = "ReloadBaketBallEventData" ///更新足球赛事信息
-let CLICKRELOADBASKETBALLEVENTDATA = "ClickReloadBasketBallEventData" //点击更新其他j界面的赛事选择
+let CLICKRELOADBASKETBALLEVENTDATA = "ClickReloadBasketBallEventData"
+let CLICKRELOADBASKETBALLEVENTYPETDATA = "ClickReloadBasketBallEventTypeData"//点击更新其他j界面的赛事选择
 let ALLBASKETBALLMACTH = "AllBasketBallMacth" //所有赛程数
 let RELOADFILTERBASKETBALLMODEL = "ReloadFilterBasketBallModel" //更新列表页模型数据通知
 let RELOADCOLLECTRBASKETBALLMODEL = "ReloadCollectBasketBallModel" //更新列表页模型数据通知

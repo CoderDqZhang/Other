@@ -103,9 +103,19 @@ class OtherMineViewController: BaseViewController {
         segmentedViewDataSource.isTitleZoomEnabled = false
         segmentedViewDataSource.reloadData(selectedIndex: 1)
         
+//        segmentedViewDataSource = JXSegmentedTitleDataSource(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: CGFloat(JXheightForHeaderInSection)))
+//        segmentedViewDataSource.titles = titles
+//        segmentedViewDataSource.backgroundColor = UIColor.white
+//        segmentedViewDataSource.titleSelectedColor = UIColor(red: 105/255, green: 144/255, blue: 239/255, alpha: 1)
+//        segmentedViewDataSource.titleColor = UIColor.black
+//        segmentedViewDataSource.isTitleColorGradientEnabled = true
+//        segmentedViewDataSource.isTitleLabelZoomEnabled = true
+//        segmentedViewDataSource.delegate = self
+        
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = App_Theme_FFFFFF_Color
         segmentedView.defaultSelectedIndex = 1
+        segmentedView.delegate = self
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
         
@@ -119,6 +129,12 @@ class OtherMineViewController: BaseViewController {
         segmentedView.indicators = [lineView]
         
         pagingView = JXPagingView(delegate: self)
+        
+        //扣边返回处理，下面的代码要加上
+        pagingView.listContainerView.collectionView.panGestureRecognizer.require(toFail: self.navigationController!.interactivePopGestureRecognizer!)
+        pagingView.mainTableView.panGestureRecognizer.require(toFail: self.navigationController!.interactivePopGestureRecognizer!)
+        
+         pagingView.mainTableView.gestureDelegate = self
         
         self.view.addSubview(pagingView)
         
@@ -146,12 +162,30 @@ class OtherMineViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = segmentedView.selectedIndex == 0
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
    
 }
 
+
+extension OtherMineViewController : JXSegmentedViewDelegate {
+    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
+        //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
+    }
+
+    func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {
+        //传递scrollingFrom事件给listContainerView，必须调用！！！
+
+    }
+}
 
 extension OtherMineViewController: JXPagingViewDelegate {
     
@@ -205,5 +239,45 @@ extension OtherMineViewController: JXPagingViewDelegate {
         gloableNavigationBar.rigthButton.isHidden = scrollView.contentOffset.y > 40 ? false : true
 
         self.gloableNavigationBar.changeBackGroundColor(transparency: alpa > 1 ? 1 :alpa)
+    }
+}
+
+//extension OtherMineViewController: JXCategoryViewDelegate {
+//    func categoryView(_ categoryView: JXCategoryBaseView!, didSelectedItemAt index: Int) {
+//        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = (index == 0)
+//    }
+//
+//    func categoryView(_ categoryView: JXCategoryBaseView!, didClickedItemContentScrollViewTransitionTo index: Int){
+//        //请务必实现该方法
+//        //因为底层触发列表加载是在代理方法：`- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath`回调里面
+//        //所以，如果当前有5个item，当前在第1个，用于点击了第5个。categoryView默认是通过设置contentOffset.x滚动到指定的位置，这个时候有个问题，就会触发中间2、3、4的cellForItemAtIndexPath方法。
+//        //如此一来就丧失了延迟加载的功能
+//        //所以，如果你想规避这样的情况发生，那么务必按照这里的方法处理滚动。
+//        self.pagingView.listContainerView.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: false)
+//
+//
+//        //如果你想相邻的两个item切换时，通过有动画滚动实现。未相邻的两个item直接切换，可以用下面这段代码
+//        /*
+//         let diffIndex = abs(categoryView.selectedIndex - index)
+//         if diffIndex > 1 {
+//         self.pagingView.listContainerView.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: false)
+//         }else {
+//         self.pagingView.listContainerView.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
+//         }
+//         */
+//    }
+//}
+
+extension OtherMineViewController: JXPagingMainTableViewGestureDelegate {
+    func mainTableViewGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        //禁止Nest嵌套效果的时候，上下和左右都可以滚动
+//        if otherGestureRecognizer.view == nestContentScrollView {
+//            return false
+//        }
+//        //禁止categoryView左右滑动的时候，上下和左右都可以滚动
+//        if otherGestureRecognizer == categoryView?.collectionView.panGestureRecognizer {
+//            return false
+//        }
+        return gestureRecognizer.isKind(of: UIPanGestureRecognizer.classForCoder()) && otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.classForCoder())
     }
 }

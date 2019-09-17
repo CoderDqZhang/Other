@@ -226,6 +226,9 @@ class BasketBallViewModel: BaseViewModel {
                         self.basketBallArray.add(item)
                     }
                 }
+                if self.viewDesc == .amidithion {
+                    self.basketBallArray =  NSMutableArray.init(array: self.basketBallArray.reversed())
+                }
                 CacheManager.getSharedInstance().saveBasketBallMatchCollectModel(point: select_array)
             }
             

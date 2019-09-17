@@ -201,29 +201,53 @@ class ScoreListTableViewCell: UITableViewCell {
             scoreStatus.textColor = App_Theme_999999_Color
         }else if model.status == 8 {
             scoreStatus.text = "完场"
-            scoreStatus.textColor = App_Theme_FF4343_Color
+            scoreStatus.textColor = App_Theme_999999_Color
         }else if model.status < 7 {
             if model.status == 3 {
                  scoreStatus.text = "中场"
             }else{
                 let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.time.double))
-                scoreStatus.text = String(format: "%.0f“", double + (model.status == 4 ? 45.00 : 0.00))
+                scoreStatus.text = String(format: "%.0f“", double + (model.status == 4 ? 46.00 : 0.00))
                 if scoreStatus.layer.animation(forKey: "animation") == nil {
                     scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
                 }
             }
             scoreStatus.textColor = App_Theme_FFAC1B_Color
-
         }else{
             scoreStatus.text = "延迟"
             scoreStatus.textColor = App_Theme_999999_Color
         }
         
-        if model.northSigle.issueNum != nil {
-            timeLabel.text = "北单 \(model.northSigle.issueNum!)"
-        }else{
-            timeLabel.isHidden = true
+        var showType = 0
+        
+        if UserDefaults.standard.bool(forKey: RELOADCOLLECTFOOTBALLTYPEMODEL){
+            showType = UserDefaults.standard.integer(forKey: RELOADCOLLECTFOOTBALLTYPEMODEL)
         }
+        
+        if [0,1].contains(showType){
+            if model.indexes.issueNum != nil{
+                let str =  DateTools.getSharedInstance().intConvertStringWeek(str: model.indexes.issueNum.first!.string)
+                timeLabel.text = "\(str) \(String.init(format: "%03d", model.indexes.issueNum.slice(at: 1).int!))"
+            }else if model.footballLottery.issueNum != nil{
+                timeLabel.text = "足彩 \(String.init(format: "%03d", model.footballLottery.issueNum.int!))"
+            }else if model.northSigle.issueNum != nil {
+                timeLabel.text = "北单 \(String.init(format: "%03d", model.northSigle.issueNum!))"
+            }else{
+                timeLabel.text = ""
+            }
+        }else{
+            if showType == 3 {
+                let str =  DateTools.getSharedInstance().intConvertStringWeek(str: model.indexes.issueNum.first!.string)
+                timeLabel.text = "\(str) \(String.init(format: "%03d", model.indexes.issueNum.slice(at: 1).int!))"
+            }
+            if showType == 4 {
+                timeLabel.text = "足彩 \(String.init(format: "%03d", model.footballLottery.issueNum.int!))"
+            }
+            if showType == 2 {
+                timeLabel.text = "北单 \(String.init(format: "%03d", model.northSigle.issueNum!))"
+            }
+        }
+        
         
         if model.status == 8 {
             attentionButton.isHidden = true
@@ -300,8 +324,8 @@ class ScoreListTableViewCell: UITableViewCell {
             redTeamB.isHidden = true
         }
         
-        if model.teamA.halfYellow != 0 {
-            yellowTeamA.text = model.teamB.halfYellow.string
+        if model.teamA.halfYellow != 0 && model.teamA.halfYellow > 0{
+            yellowTeamA.text = model.teamA.halfYellow.string
             yellowTeamA.isHidden = false
         }else{
             yellowTeamA.isHidden = true
@@ -333,18 +357,18 @@ class ScoreListTableViewCell: UITableViewCell {
             }
         }
         
-        if  model.status > 1 && model.status < 7 {
-            scoreLabel.text = "\(String(describing: model.teamA.score!))-\(String(describing: model.teamB.score!))"
-        }else{
-            scoreLabel.text = "VS"
-        }
         
+        if model.status == 1 || model.status == 0{
+            scoreLabel.text = "VS"
+        }else{
+            scoreLabel.text = "\(String(describing: model.teamA.score!))-\(String(describing: model.teamB.score!))"
+        }
         
         scoreInfo.isHidden = true
         scoreInfo3.isHidden = true
         
         if model.teamB.cornerBall == -1 || model.teamA.cornerBall == -1{
-            scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:---"
+            scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:-"
         }else{
            scoreInfos.text = "半:\(String(describing: model.teamA.halfScore!))-\(String(describing: model.teamB.halfScore!)) 角:\(String(describing: model.teamA.cornerBall!))-\(String(describing: model.teamB.cornerBall!))"
         }

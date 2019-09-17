@@ -233,7 +233,7 @@ class BasketBallTableViewCell: UITableViewCell {
             scoreStatus.textColor = App_Theme_999999_Color
         }else if model.status == 10 {
             scoreStatus.text = "完场"
-            scoreStatus.textColor = App_Theme_FF4343_Color
+            scoreStatus.textColor = App_Theme_999999_Color
         }else if model.status >= 2 && model.status < 9 {
             let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.time.double))
             scoreStatus.text = String(format: "%.0f“", double)

@@ -13,6 +13,7 @@ class FootBallModel : NSObject, NSCoding{
     var eventInfo : FootBallEventModel!
     var northSigle : NorthSigleModel!
     var footballLottery : FootBallLotteryModel!
+    var indexes : FootBallIndexModel!
     var id : Int!
     var remark : Remark!
     var season : Season!
@@ -37,6 +38,9 @@ class FootBallModel : NSObject, NSCoding{
         }
         if let footballLotteryData = dictionary["lottery"] as? [String:Any]{
             footballLottery = FootBallLotteryModel(fromDictionary: footballLotteryData)
+        }
+        if let footballIndexData = dictionary["indexes"] as? [String:Any]{
+            indexes = FootBallIndexModel(fromDictionary: footballIndexData)
         }
         id = dictionary["id"] as? Int
         if let remarkData = dictionary["remark"] as? [String:Any]{
@@ -74,6 +78,9 @@ class FootBallModel : NSObject, NSCoding{
         }
         if footballLottery != nil{
             dictionary["lottery"] = footballLottery.toDictionary()
+        }
+        if indexes != nil{
+            dictionary["indexes"] = indexes.toDictionary()
         }
         if id != nil{
             dictionary["id"] = id
@@ -117,6 +124,7 @@ class FootBallModel : NSObject, NSCoding{
         eventInfo = aDecoder.decodeObject(forKey: "event_info") as? FootBallEventModel
         northSigle = aDecoder.decodeObject(forKey: "north_sigle") as? NorthSigleModel
         footballLottery = aDecoder.decodeObject(forKey: "lottery") as? FootBallLotteryModel
+        indexes = aDecoder.decodeObject(forKey: "indexes") as? FootBallIndexModel
         id = aDecoder.decodeObject(forKey: "id") as? Int
         isSelect = aDecoder.decodeObject(forKey: "is_select") as? Bool
         remark = aDecoder.decodeObject(forKey: "remark") as? Remark
@@ -141,6 +149,9 @@ class FootBallModel : NSObject, NSCoding{
         }
         if footballLottery != nil{
             aCoder.encode(footballLottery, forKey: "lottery")
+        }
+        if indexes != nil{
+            aCoder.encode(indexes, forKey: "indexes")
         }
         if isSelect != nil{
             aCoder.encode(isSelect, forKey: "is_select")

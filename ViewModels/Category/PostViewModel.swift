@@ -86,11 +86,13 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     }
     
     func postTirbeNet(){
+        (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = false
         if self.selectPhotos.count > 0 {
             AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
                 let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
+                        (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = true
                         let model = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
                         if (self.controller as! PostViewController).postViewControllerDataClouse != nil {
                             (self.controller as! PostViewController).postViewControllerDataClouse(model.toDictionary() as NSDictionary)
@@ -109,6 +111,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":""] as [String : Any]
             BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
+                    (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = true
                     let model = TipModel.init(fromDictionary: resultDic.value as! [String : Any])
                     if (self.controller as! PostViewController).postViewControllerDataClouse != nil {
                         (self.controller as! PostViewController).postViewControllerDataClouse(model.toDictionary() as NSDictionary)

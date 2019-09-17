@@ -89,6 +89,7 @@ class StoreSegementViewController: BaseViewController {
         segmentedViewDataSource.reloadData(selectedIndex: 1)
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
+        segmentedView.delegate = self
         segmentedView.backgroundColor = App_Theme_FFFFFF_Color
         segmentedView.defaultSelectedIndex = 1
         segmentedView.dataSource = segmentedViewDataSource
@@ -120,6 +121,17 @@ class StoreSegementViewController: BaseViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
+}
+
+extension StoreSegementViewController : JXSegmentedViewDelegate {
+    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
+        //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
+    }
+    
+    func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {
+        //传递scrollingFrom事件给listContainerView，必须调用！！！
+        
+    }
 }
 
 extension StoreSegementViewController: JXPagingViewDelegate {

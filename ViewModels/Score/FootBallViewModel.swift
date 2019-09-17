@@ -142,11 +142,18 @@ class FootBallViewModel: BaseViewModel {
     func footBallBindText(_ dic:NSArray){
         self.allFootBallArray.removeAllObjects()
          DispatchQueue.global(qos: .default).sync {
+            if dic.count <= 0 {
+                return
+            }
             for index in 0...dic.count - 1{
                 let temp_array = (dic[index] as! NSArray)
                 //去除阶段为0 错误
                 let north_sigle:NSDictionary = (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
                 let lottery:NSDictionary = (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
+                let indexes:NSDictionary = (footballDic.object(forKey: "indexes") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "indexes") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
+                if temp_array[0] as! Int == 2709381 {
+                    print("")
+                }
                 let model = FootBallModel.init(fromDictionary: [
                     "id": temp_array[0] as! Int,
                     "event_info": (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])") == nil ? [:] : (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])")!,
@@ -191,6 +198,7 @@ class FootBallViewModel: BaseViewModel {
                     ],
                     "north_sigle":north_sigle,
                     "lottery":lottery,
+                    "indexes":indexes,
                     "stage": [
                         "stage_info": [],
                         "number_row": 0,
@@ -230,6 +238,11 @@ class FootBallViewModel: BaseViewModel {
                     }
                 }
                 
+                var showType = 0
+                if UserDefaults.standard.bool(forKey: RELOADCOLLECTFOOTBALLTYPEMODEL){
+                    showType = UserDefaults.standard.integer(forKey: RELOADCOLLECTFOOTBALLTYPEMODEL)
+                }
+                
                 for item in self.allFootBallArray {
                     let isContains = selectEvent.contains((item as! FootBallModel).eventInfo.id as Any)
                     if isContains || selectEvent.count == 0 {
@@ -248,8 +261,27 @@ class FootBallViewModel: BaseViewModel {
                         if self.viewDesc == .underway && (item as! FootBallModel).status == 8 {
                             continue
                         }
+                        
+                        if showType == 2 {
+                            if (item as! FootBallModel).northSigle.issueNum == nil {
+                                continue
+                            }
+                        }
+                        if showType == 4 {
+                            if (item as! FootBallModel).footballLottery.issueNum == nil {
+                                continue
+                            }
+                        }
+                        if showType == 3 {
+                            if (item as! FootBallModel).indexes.issueNum == nil {
+                                continue
+                            }
+                        }
                         self.footBallArray.add(item)
                     }
+                }
+                if self.viewDesc == .amidithion {
+                    self.footBallArray =  NSMutableArray.init(array: self.footBallArray.reversed())
                 }
                 CacheManager.getSharedInstance().saveFootBallMatchCollectModel(point: select_array)
             }
@@ -267,16 +299,16 @@ class FootBallViewModel: BaseViewModel {
                 return
             }
             model.status = (match[1] as! Int)
-            model.teamA.score = ((match[2] as! NSArray)[2] as! Int)
-            model.teamA.cornerBall = ((match[2] as! NSArray)[6] as! Int)
-            model.teamA.halfScore = ((match[2] as! NSArray)[3] as! Int)
-            model.teamA.halfRed = ((match[2] as! NSArray)[4] as! Int)
-            model.teamA.halfYellow = ((match[2] as! NSArray)[5] as! Int)
-            model.teamB.score = ((match[3] as! NSArray)[2] as! Int)
-            model.teamB.cornerBall = ((match[3] as! NSArray)[6] as! Int)
-            model.teamB.halfScore = ((match[3] as! NSArray)[3] as! Int)
-            model.teamB.halfRed = ((match[3] as! NSArray)[4] as! Int)
-            model.teamB.halfYellow = ((match[3] as! NSArray)[5] as! Int)
+            model.teamA.score = ((match[2] as! NSArray)[0] as! Int)
+            model.teamA.cornerBall = ((match[2] as! NSArray)[4] as! Int)
+            model.teamA.halfScore = ((match[2] as! NSArray)[1] as! Int)
+            model.teamA.halfRed = ((match[2] as! NSArray)[2] as! Int)
+            model.teamA.halfYellow = ((match[2] as! NSArray)[3] as! Int)
+            model.teamB.score = ((match[3] as! NSArray)[0] as! Int)
+            model.teamB.cornerBall = ((match[3] as! NSArray)[4] as! Int)
+            model.teamB.halfScore = ((match[3] as! NSArray)[1] as! Int)
+            model.teamB.halfRed = ((match[3] as! NSArray)[2] as! Int)
+            model.teamB.halfYellow = ((match[3] as! NSArray)[3] as! Int)
             if (match[1] as! Int) == 8 {
                 self.isRefreshData = true
                 (self.controller! as! FootBallViewController).refreshData()
@@ -328,14 +360,8 @@ extension FootBallViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let dic = self.footBallArray[section]
-        var model:FootBallModel!
-        if dic is NSDictionary {
-            model = FootBallModel.init(fromDictionary: dic as! [String : Any])
-        }
-        if model == nil {
-            return 1
-        }
+        let model:FootBallModel! = (self.footBallArray[section] as! FootBallModel)
+        
         return model.remark.remarkDetail == "" ? 1 : 2
     }
     

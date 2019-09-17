@@ -90,7 +90,7 @@ class PostDetailViewModel: BaseViewModel {
                             if tag == 0 {
                                 self.tableViewDidSelect(tableView: self.controller!.tableView, indexPath: indexPath)
                             }else{
-                                UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定删除举报该条评论?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                                UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定举报该条评论?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
                                     
                                 }, doneAction: {
                                     let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])

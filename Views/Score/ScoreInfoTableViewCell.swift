@@ -39,7 +39,7 @@ class ScoreInfoTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:FootBallModel){
-        
+        scoreDesc.text = model.remark.remarkDetail
     }
     
     override func updateConstraints() {
