@@ -23,6 +23,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
     }
     
     func setUpView(){
+        
         titleLabel = YYLabel.init()
         titleLabel.textAlignment = .left
         titleLabel.font = App_Theme_PinFan_M_12_Font

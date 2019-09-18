@@ -9,6 +9,7 @@
 import UIKit
 import SDWebImage
 import YYWebImage
+
 typealias DownLoadImageCompletionBlock = (_ image:UIImage?, _ error:Error?, _ url:URL) -> Void
 typealias ImageDownLoadImageCompletionBlock = (_ image:UIImage?, _ data:Data?,  _ error:Error?, _ ret:Bool) ->Void
 
@@ -47,8 +48,20 @@ extension UIImageView {
     func sd_crope_imageView(url:String, imageView:UIImageView, placeholderImage:UIImage?, completedBlock:YYWebImageCompletionBlock?){
         let size = imageView.size
         var temp_placholderImage = placeholderImage
+        //展位图缓存
         if temp_placholderImage == nil {
-            temp_placholderImage = UIImageMaxCroped.cropeImage(image: normalImage!, imageViewSize:  CGSize.init(width: size.width, height: size.height))
+            var placholderImage = CacheManager.getSharedInstance().getPlacholderImage()
+            if placholderImage == nil || placholderImage!.object(forKey: "\(size.width.int)\(size.height.int)") == nil {
+                temp_placholderImage = normalImage!.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill)
+                if placholderImage == nil {
+                    placholderImage = NSMutableDictionary.init(dictionary: ["\(size.width.int)\(size.height.int)":temp_placholderImage as Any])
+                }else{
+                    placholderImage?.setValue(temp_placholderImage, forKey: "\(size.width.int)\(size.height.int)")
+                }
+                CacheManager.getSharedInstance().savePlacholderImage(point: placholderImage!)
+            }else{
+                temp_placholderImage = (placholderImage?.object(forKey: "\(size.width.int)\(size.height.int)") as! UIImage)
+            }
         }
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
             self.yy_setImage(with: URL.init(string:url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder:temp_placholderImage, options: [.setImageWithFadeAnimation, .progressiveBlur, .showNetworkActivity,.allowBackgroundTask], manager: nil, progress: { (start, end) in

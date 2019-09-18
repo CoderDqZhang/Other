@@ -36,7 +36,7 @@ class LoadConfigManger: NSObject {
         self.loadConfigUrl()
         self.loadUnreadUrl()
         self.loadPointdUrl()
-        self.getDailyStatus()
+        self.getAdView()
         //获取球队信息
         self.loadFootBallScorEvent()
         self.loadBasketBallScorEvent()
@@ -60,6 +60,18 @@ class LoadConfigManger: NSObject {
                     CacheManager.getSharedInstance().saveUnreadModel(category: model)
                     (KWindow.rootViewController as! MainTabBarController).upateUnreadMessage()
                 }
+            }
+        }
+    }
+    
+    func getAdView(){
+        let parameters = ["typeId":"3"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let model = AdModel.init(fromDictionary: NSMutableArray.init(array: resultDic.value as! Array)[0] as! [String : Any])
+                KWindow.addSubview(GloableAdView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), image: model.image, compley: {
+                    self.getDailyStatus()
+                }))
             }
         }
     }
@@ -265,7 +277,7 @@ class LoadConfigManger: NSObject {
             }else{
                 let date = Date.init().string(withFormat: "yyyyMMdd")
                 if UserDefaults.standard.value(forKey: UPDATEBASKETBALLSELECTEVENT) == nil || UserDefaults.standard.value(forKey: UPDATEBASKETBALLSELECTEVENT) as! String != date {
-                    CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: dic)
+                    CacheManager.getSharedInstance().saveBasketBallEventSelectModel(point: dic)
                     UserDefaults.standard.set(date, forKey: UPDATEBASKETBALLSELECTEVENT)
                 }
             }

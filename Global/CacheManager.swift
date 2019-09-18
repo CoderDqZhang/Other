@@ -155,6 +155,19 @@ class CacheManager: NSObject {
         return nil
     }
     
+    
+    func savePlacholderImage(point:NSMutableDictionary){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: PLACHOLDERIMAGE)
+    }
+    
+    func getPlacholderImage() ->NSMutableDictionary?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: PLACHOLDERIMAGE))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: PLACHOLDERIMAGE))!
+            return item as? NSMutableDictionary
+        }
+        return nil
+    }
+    
     func savePointModel(point:NSMutableArray){
         CacheManager._sharedInstance.otherCache?.setObject(point, forKey: CACHEMANAPointModel)
     }

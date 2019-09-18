@@ -14,7 +14,10 @@ class AdModel : NSObject, NSCoding{
     var id : Int!
     var image : String!
     var params : String!
+    var position : Int!
+    var secondType : Int!
     var status : String!
+    var title : AnyObject!
     var typeId : Int!
     var url : String!
     
@@ -27,7 +30,10 @@ class AdModel : NSObject, NSCoding{
         id = dictionary["id"] as? Int
         image = dictionary["image"] as? String
         params = dictionary["params"] as? String
+        position = dictionary["position"] as? Int
+        secondType = dictionary["secondType"] as? Int
         status = dictionary["status"] as? String
+        title = dictionary["title"] as? AnyObject
         typeId = dictionary["typeId"] as? Int
         url = dictionary["url"] as? String
     }
@@ -50,8 +56,17 @@ class AdModel : NSObject, NSCoding{
         if params != nil{
             dictionary["params"] = params
         }
+        if position != nil{
+            dictionary["position"] = position
+        }
+        if secondType != nil{
+            dictionary["secondType"] = secondType
+        }
         if status != nil{
             dictionary["status"] = status
+        }
+        if title != nil{
+            dictionary["title"] = title
         }
         if typeId != nil{
             dictionary["typeId"] = typeId
@@ -72,7 +87,10 @@ class AdModel : NSObject, NSCoding{
         id = aDecoder.decodeObject(forKey: "id") as? Int
         image = aDecoder.decodeObject(forKey: "image") as? String
         params = aDecoder.decodeObject(forKey: "params") as? String
+        position = aDecoder.decodeObject(forKey: "position") as? Int
+        secondType = aDecoder.decodeObject(forKey: "secondType") as? Int
         status = aDecoder.decodeObject(forKey: "status") as? String
+        title = aDecoder.decodeObject(forKey: "title") as? AnyObject
         typeId = aDecoder.decodeObject(forKey: "typeId") as? Int
         url = aDecoder.decodeObject(forKey: "url") as? String
         
@@ -96,8 +114,17 @@ class AdModel : NSObject, NSCoding{
         if params != nil{
             aCoder.encode(params, forKey: "params")
         }
+        if position != nil{
+            aCoder.encode(position, forKey: "position")
+        }
+        if secondType != nil{
+            aCoder.encode(secondType, forKey: "secondType")
+        }
         if status != nil{
             aCoder.encode(status, forKey: "status")
+        }
+        if title != nil{
+            aCoder.encode(title, forKey: "title")
         }
         if typeId != nil{
             aCoder.encode(typeId, forKey: "typeId")

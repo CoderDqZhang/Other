@@ -43,6 +43,7 @@ let CACHEMANAUNREADMESSAGEMODEL = "UnreadMessageModel"
 let ADMODEL = "ADModel"
 let APPACTIVEMODEL = "APPActiveModel"
 let CACHEMANAPointModel = "PointModel"
+let PLACHOLDERIMAGE = "PlacholderImage"
 //助球队信息
 let FOOTBALLINFOMODEL = "FootBallInfoModel" //保存足球队信息 已移除
 let FOOTBALLEVENTODEL = "FootBallEventModel" //保存足球赛事信息

@@ -1522,3 +1522,62 @@ class GloableSignView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+typealias GloableAdViewComplet = () ->Void
+class GloableAdView: UIView {
+    
+    var imageView:UIImageView!
+    var buttomImageView:UIImageView!
+    var disMissBtn:UIButton!
+    var gloableAdViewComplet:GloableAdViewComplet!
+    
+    init(frame: CGRect, image:String, compley:GloableAdViewComplet!) {
+        super.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        self.setUpView(image: image)
+        self.gloableAdViewComplet = compley
+        disMissBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 15 - 70, y: SCREENHEIGHT - 95 - 30, width: 70, height: 30))
+        
+        disMissBtn.addAction({ (button) in
+            self.disMissView()
+        }, for: UIControl.Event.touchUpInside)
+        var count = 3
+        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
+            self.disMissBtn.setTitle("跳过 \(count)s", for: .normal)
+            count = count - 1
+            if count == 0 {
+                self.disMissView()
+            }
+        })
+        self.addSubview(disMissBtn)
+    }
+    
+    func disMissView() {
+//        self.removeFromSuperview()
+//        if self.gloableAdViewComplet != nil {
+//            self.gloableAdViewComplet()
+//        }
+    }
+    
+    func setUpView(image:String){
+        imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 95))
+        imageView.sd_crope_imageView(url: image, imageView: imageView, placeholderImage: nil) { (image, url, type, stage, error) in
+            
+        }
+        self.addSubview(imageView)
+        
+        let bottomView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 95))
+        bottomView.backgroundColor = .white
+        let image = UIImage.init(named: "ad_logo")
+        buttomImageView = UIImageView.init(frame:CGRect.zero)
+        buttomImageView.image = image
+        bottomView.addSubview(buttomImageView)
+        buttomImageView.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        self.addSubview(bottomView)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
