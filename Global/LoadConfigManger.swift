@@ -262,6 +262,12 @@ class LoadConfigManger: NSObject {
             CacheManager.getSharedInstance().saveBasketBallEventModel(point: dic)
             if CacheManager.getSharedInstance().getBasketBallEventSelectModel() == nil {
                 CacheManager.getSharedInstance().saveBasketBallEventSelectModel(point: dic)
+            }else{
+                let date = Date.init().string(withFormat: "yyyyMMdd")
+                if UserDefaults.standard.value(forKey: UPDATEBASKETBALLSELECTEVENT) == nil || UserDefaults.standard.value(forKey: UPDATEBASKETBALLSELECTEVENT) as! String != date {
+                    CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: dic)
+                    UserDefaults.standard.set(date, forKey: UPDATEBASKETBALLSELECTEVENT)
+                }
             }
         case .index:
             CacheManager.getSharedInstance().saveBasketBallIndexModel(point: dic)
@@ -303,8 +309,16 @@ class LoadConfigManger: NSObject {
         switch type {
         case .event:
             CacheManager.getSharedInstance().saveFootBallEventModel(point: dic)
+            
+            //保存筛选赛事数据，隔天更新
             if CacheManager.getSharedInstance().getFootBallEventSelectModel() == nil {
                 CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: dic)
+            }else{
+                let date = Date.init().string(withFormat: "yyyyMMdd")
+                if UserDefaults.standard.value(forKey: UPDATEFOOTBALLSELECTEVENT) == nil || UserDefaults.standard.value(forKey: UPDATEFOOTBALLSELECTEVENT) as! String != date {
+                    CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: dic)
+                    UserDefaults.standard.set(date, forKey: UPDATEFOOTBALLSELECTEVENT)
+                }
             }
         case .index:
             CacheManager.getSharedInstance().saveFootBallIndexModel(point: dic)

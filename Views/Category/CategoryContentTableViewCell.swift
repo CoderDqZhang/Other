@@ -12,7 +12,7 @@ import SKPhotoBrowser
 // 108 / 77
 let contentWidth:CGFloat = SCREENWIDTH - 30
 let contentImageWidth:CGFloat = (SCREENWIDTH - 30 - 11 * 2) / 3
-let contentImageHeight:CGFloat = contentImageWidth * 77 / 108
+let contentImageHeight:CGFloat = contentImageWidth
 
 class CategoryContentTableViewCell: UITableViewCell {
 

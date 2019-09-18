@@ -54,7 +54,9 @@ extension UIImageView {
             self.yy_setImage(with: URL.init(string:url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder:temp_placholderImage, options: [.setImageWithFadeAnimation, .progressiveBlur, .showNetworkActivity,.allowBackgroundTask], manager: nil, progress: { (start, end) in
                 
             }, transform: { (image, url) -> UIImage? in
-                return UIImageMaxCroped.cropeImage(image: image, imageViewSize:  CGSize.init(width: size.width, height: size.height))
+                return image.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill)
+                
+//                return UIImageMaxCroped.cropeImage(image: image, imageViewSize:  CGSize.init(width: size.width, height: size.height))
             }) { (image, url, type, state, error) in
                 completedBlock!(image, url, type, state, error)
             }

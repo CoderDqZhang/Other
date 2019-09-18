@@ -220,7 +220,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Score/FilterViewModel.swift"
-            timestampString = "590407186.531872"
+            timestampString = "590482773.220109"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "274"
@@ -316,7 +316,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Score/BasketBallViewModel.swift"
-            timestampString = "590407186.532371"
+            timestampString = "590482773.221127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
@@ -332,7 +332,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Score/BasketBallViewModel.swift"
-            timestampString = "590407186.532639"
+            timestampString = "590482773.22173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
@@ -348,77 +348,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Score/BasketBallViewModel.swift"
-            timestampString = "590407186.5327049"
+            timestampString = "590482773.221863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
             endingLineNumber = "64"
             landmarkName = "saveCollectModel(_:_:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Global/CacheManager.swift"
-            timestampString = "590407186.532781"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
-            landmarkName = "saveBasketBallMatchCollectModel(point:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Global/CacheManager.swift"
-            timestampString = "590407186.5330009"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
-            landmarkName = "saveBasketBallMatchCollectModel(point:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Touqiu.CacheManager.saveBasketBallMatchCollectModel(point: __C.NSMutableArray) -&gt; ()"
-                  moduleName = "Touqiu"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/Touqiu/Global/CacheManager.swift"
-                  timestampString = "589086808.430799"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "333"
-                  endingLineNumber = "333"
-                  offsetFromSymbolStart = "51">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Any) -&gt; Swift.Bool in Touqiu.CacheManager.saveBasketBallMatchCollectModel(point: __C.NSMutableArray) -&gt; ()"
-                  moduleName = "Touqiu"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/Touqiu/Global/CacheManager.swift"
-                  timestampString = "589086808.432905"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "334"
-                  endingLineNumber = "334"
-                  offsetFromSymbolStart = "29">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -508,7 +444,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Category/PostDetailCommentTableViewCell.swift"
-            timestampString = "590407186.5331171"
+            timestampString = "590482773.222263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "286"
@@ -524,7 +460,7 @@
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Views/Category/PostDetailCommentTableViewCell.swift"
-                  timestampString = "590407187.150481"
+                  timestampString = "590482773.891453"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "286"
@@ -539,7 +475,7 @@
                   moduleName = "Touqiu"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/Touqiu/Views/Category/PostDetailCommentTableViewCell.swift"
-                  timestampString = "590407187.152756"
+                  timestampString = "590482773.894224"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "287"
@@ -620,7 +556,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/LoadConfigManger.swift"
-            timestampString = "589793029.6616009"
+            timestampString = "590482773.222963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "204"
@@ -636,7 +572,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Score/FootBallViewModel.swift"
-            timestampString = "590407186.534148"
+            timestampString = "590482773.2239799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "155"
@@ -652,7 +588,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/OtherMineViewController.swift"
-            timestampString = "590407186.534602"
+            timestampString = "590482773.224509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "186"
@@ -668,7 +604,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Score/FootBallViewModel.swift"
-            timestampString = "590407186.535184"
+            timestampString = "590482773.225086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "365"
@@ -748,7 +684,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Score/FootBallViewModel.swift"
-            timestampString = "590407186.535356"
+            timestampString = "590482773.225343"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "312"
@@ -764,7 +700,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Score/FootBallViewModel.swift"
-            timestampString = "590407186.5354199"
+            timestampString = "590482773.225517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "302"
@@ -780,7 +716,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Score/ScoreListTableViewCell.swift"
-            timestampString = "590407186.535486"
+            timestampString = "590482773.225723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "337"
@@ -828,7 +764,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Score/ScoreListTableViewCell.swift"
-            timestampString = "590407186.536207"
+            timestampString = "590482773.2262551"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "345"
@@ -844,7 +780,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Score/ScoreListTableViewCell.swift"
-            timestampString = "590407186.53652"
+            timestampString = "590482773.226404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "328"
@@ -860,7 +796,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Score/FootBallViewModel.swift"
-            timestampString = "590407186.536779"
+            timestampString = "590482773.226607"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "298"
@@ -876,7 +812,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Score/ScoreListTableViewCell.swift"
-            timestampString = "590407186.536847"
+            timestampString = "590482773.2267309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "327"
@@ -892,7 +828,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Score/ScoreListTableViewCell.swift"
-            timestampString = "590407186.537109"
+            timestampString = "590482773.226936"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "298"
@@ -952,59 +888,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Utility/Tools/DateTools.swift"
-            timestampString = "590407186.537393"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "getFutureSevenDays()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Utility/Tools/DateTools.swift"
-            timestampString = "590407186.53802"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "getFutureSevenDays()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Utility/Tools/DateTools.swift"
-            timestampString = "590407186.538071"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "getFutureSevenDays()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Utility/Tools/DateTools.swift"
-            timestampString = "590407186.538146"
+            timestampString = "590482773.227172"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
@@ -1016,27 +904,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Utility/Tools/DateTools.swift"
-            timestampString = "590407186.538195"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "getPassSevenDays()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Score/ScoreListTableViewCell.swift"
-            timestampString = "590407214.23412"
+            timestampString = "590482773.22751"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "239"
@@ -1052,7 +924,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Score/ScoreListTableViewCell.swift"
-            timestampString = "590407215.032418"
+            timestampString = "590482773.227621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "243"
@@ -1068,12 +940,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Score/ScoreListTableViewCell.swift"
-            timestampString = "590407228.465573"
+            timestampString = "590482773.227741"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "241"
             endingLineNumber = "241"
             landmarkName = "cellSetData(model:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Utility/Tools/UIImageMaxCrope.swift"
+            timestampString = "590478834.004741"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "cropeImage(image:imageViewSize:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Utility/Tools/UIImageMaxCrope.swift"
+            timestampString = "590478834.0049191"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "cropeImage(image:imageViewSize:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Score/FootBallViewModel.swift"
+            timestampString = "590482773.2278889"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "filterArray()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

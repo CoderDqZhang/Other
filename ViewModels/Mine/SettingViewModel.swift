@@ -47,7 +47,7 @@ class SettingViewModel: BaseViewModel {
             if indexPath.row == 0 {
                 NavigationPushView(self.controller!, toConroller: AboutViewController())
             }else if indexPath.row == 1 {
-                
+                ThirdPartCacheManager.getSharedInstance().cleanCache()
             }else{
                 NavigationPushView(self.controller!, toConroller: FeedBackViewController())
             }
