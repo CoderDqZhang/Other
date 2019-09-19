@@ -59,7 +59,7 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
         timeLabel.text = "2019-05-06 17:30"
         self.addSubview(timeLabel)
         
-        likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "category_detail_like")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
+        likeButton = CustomViewButtonTopImageAndBottomLabel.init( frame: CGRect.init(x: 0, y: 0, width: 34, height: 64), title: "666", image: UIImage.init(named: "like_select")!, tag: 1, titleColor: App_Theme_B5B5B5_Color!, spacing: 7, font: App_Theme_PinFan_R_12_Font!, click: {
             
             if CacheManager.getSharedInstance().isLogin() {
                 self.likeButtonClick()
@@ -82,19 +82,19 @@ class PostDetailCommentUserTableViewCell: UITableViewCell {
     
     func changeLikeButtonStatus(status:Int) ->UIImage{
         if status == 0 {
-            return UIImage.init(named: "category_detail_like")!
+            return UIImage.init(named: "like")!
         }else{
-            return UIImage.init(named: "loveinred")!
+            return UIImage.init(named: "like_select")!
         }
     }
     
     func likeButtonClick(){
-        if UIImage.init(named: "loveinred") == self.likeButton.imageView.image {
-            self.likeButton.imageView.image = UIImage.init(named: "category_detail_like")
-            self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
-        }else{
-            self.likeButton.imageView.image = UIImage.init(named: "loveinred")
+        if UIImage.init(named: "like") == self.likeButton.imageView.image {
+            self.likeButton.imageView.image = UIImage.init(named: "like_select")
             self.likeButton.changeContent(str: (self.likeButton.label.text!.int! + 1).string, image: nil)
+        }else{
+            self.likeButton.imageView.image = UIImage.init(named: "like")
+            self.likeButton.changeContent(str: (self.likeButton.label.text!.int! - 1).string, image: nil)
         }
         
         if self.postDetailCommentUserTableViewCellClouse != nil {

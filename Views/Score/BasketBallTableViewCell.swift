@@ -228,21 +228,64 @@ class BasketBallTableViewCell: UITableViewCell {
         scoreType.text = model.basketballEvent.nameZh
         scoreTime.text = Date.init(timeIntervalSince1970: model.time.double).string(withFormat: "HH:mm")
         
-        if model.status == 1 || model.status == 0{
+        let minute = String.init(format: "%02d", model.allSecond / 60)
+        let second = String.init(format: "%02d",model.allSecond % 60)
+        switch model.status {
+        case 0:
+            scoreStatus.text = "比赛异常"
+            scoreStatus.textColor = App_Theme_999999_Color
+        case 1:
             scoreStatus.text = "未开赛"
             scoreStatus.textColor = App_Theme_999999_Color
-        }else if model.status == 10 {
-            scoreStatus.text = "完场"
-            scoreStatus.textColor = App_Theme_999999_Color
-        }else if model.status >= 2 && model.status < 9 {
-            let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.time.double))
-            scoreStatus.text = String(format: "%.0f“", double)
+        case 2:
             if scoreStatus.layer.animation(forKey: "animation") == nil {
                 scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
             }
             scoreStatus.textColor = App_Theme_FFAC1B_Color
-        }else{
-            scoreStatus.text = "延迟"
+            scoreStatus.text = "第一节 \(minute):\(second)"
+        case 3:
+            scoreStatus.text = "第一节完"
+        case 4:
+            if scoreStatus.layer.animation(forKey: "animation") == nil {
+                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+            }
+            scoreStatus.textColor = App_Theme_FFAC1B_Color
+            scoreStatus.text = "第二节 \(minute):\(second)"
+        case 5:
+            scoreStatus.text = "第二节完"
+        case 6:
+            if scoreStatus.layer.animation(forKey: "animation") == nil {
+                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+            }
+            scoreStatus.textColor = App_Theme_FFAC1B_Color
+            scoreStatus.text = "第三节 \(minute):\(second)"
+        case 7:
+            scoreStatus.text = "第三节完"
+        case 8:
+            if scoreStatus.layer.animation(forKey: "animation") == nil {
+                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+            }
+            scoreStatus.textColor = App_Theme_FFAC1B_Color
+            scoreStatus.text = "第四节 \(minute):\(second)"
+        case 9:
+            scoreStatus.text = "第四节完"
+        case 10:
+            scoreStatus.text = "完场"
+            scoreStatus.textColor = App_Theme_999999_Color
+        case 11:
+            scoreStatus.text = "中断"
+            scoreStatus.textColor = App_Theme_999999_Color
+        case 12:
+            scoreStatus.text = "取消"
+            scoreStatus.textColor = App_Theme_999999_Color
+        case 13:
+            scoreStatus.text = "延期"
+            scoreStatus.textColor = App_Theme_999999_Color
+        case 14:
+            scoreStatus.text = "腰斩"
+            scoreStatus.textColor = App_Theme_999999_Color
+        default:
+            scoreStatus.text = "待定"
             scoreStatus.textColor = App_Theme_999999_Color
         }
         
@@ -263,16 +306,16 @@ class BasketBallTableViewCell: UITableViewCell {
             whiteTeamB.isHidden = true
         }
         
-        oneTeamA.text = model.basketBallTeamA.first.string
-        oneTeamB.text = model.basketballTeamB.first.string
-        twoTeamA.text = model.basketBallTeamA.second.string
-        twoTeamB.text = model.basketballTeamB.second.string
-        threeTeamA.text = model.basketBallTeamA.third.string
-        threeTeamB.text = model.basketballTeamB.third.string
-        fourTeamA.text = model.basketBallTeamA.four.string
-        fourTeamB.text = model.basketballTeamB.four.string
-        fiveTeamA.text = model.basketBallTeamA.overtime.string
-        fiveTeamB.text = model.basketballTeamB.overtime.string
+        oneTeamA.text = model.basketBallTeamA.first == 0 ? "-" : model.basketBallTeamA.first.string
+        oneTeamB.text = model.basketballTeamB.first == 0 ? "-" : model.basketballTeamB.first.string
+        twoTeamA.text = model.basketBallTeamA.second == 0 ? "-" : model.basketBallTeamA.second.string
+        twoTeamB.text = model.basketballTeamB.second == 0 ? "-" : model.basketballTeamB.second.string
+        threeTeamA.text = model.basketBallTeamA.third == 0 ? "-" : model.basketBallTeamA.third.string
+        threeTeamB.text = model.basketballTeamB.third == 0 ? "-" : model.basketballTeamB.third.string
+        fourTeamA.text = model.basketBallTeamA.four == 0 ? "-" : model.basketBallTeamA.four.string
+        fourTeamB.text = model.basketballTeamB.four == 0 ? "-" : model.basketballTeamB.four.string
+        fiveTeamA.text = model.basketBallTeamA.overtime == 0 ? "-" : model.basketBallTeamA.overtime.string
+        fiveTeamB.text = model.basketballTeamB.overtime == 0 ? "-" : model.basketballTeamB.overtime.string
         let all_score_a = model.basketBallTeamA.first + model.basketBallTeamA.second + model.basketBallTeamA.third + model.basketBallTeamA.four + Int(model.basketBallTeamA.overtime)
         allTeamA.text = all_score_a.string
         let all_score_b = model.basketballTeamB.first + model.basketballTeamB.second + model.basketballTeamB.third + model.basketballTeamB.four +  Int(model.basketballTeamB.overtime)

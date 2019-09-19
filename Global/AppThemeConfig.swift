@@ -13,7 +13,7 @@ import IQKeyboardManagerSwift
 class AppleThemeTool {
     class func setUpToolBarColor() {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:App_Theme_999999_Color ?? ""], for: UIControl.State())
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:App_Theme_FFCB1B_Color ?? ""], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:App_Theme_FF7800_Color ?? ""], for: .selected)
         UITabBar.appearance().tintColor = App_Theme_FFCB00_Color
         UITabBar.appearance().backgroundColor = App_Theme_FFFFFF_Color
         

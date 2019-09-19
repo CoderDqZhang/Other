@@ -22,7 +22,7 @@ class MainTabBarController: UITabBarController {
         self.setNavigationVC(vc: scoreNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "比分")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "比分_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "比分")
 
         let newNavigaitonVC = UINavigationController.init(rootViewController: newVC)
-        self.setNavigationVC(vc: newNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "部落")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "部落_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "部落")
+        self.setNavigationVC(vc: newNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "部落")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "部落_select")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "圈子")
         let squareNavigaitonVC = UINavigationController.init(rootViewController: segmentVC)
         self.setNavigationVC(vc: squareNavigaitonVC, itemTitle: nil, normalImage: UIImage.init(named: "广场")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), selectImage: UIImage.init(named: "广场_seelect")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), toobarTitle: "广场")
         

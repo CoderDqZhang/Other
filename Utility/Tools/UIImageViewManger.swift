@@ -83,22 +83,65 @@ extension UIImageView {
             if imageSize == nil {
                 temp_placholderImage = normalImage
             }else{
-                temp_placholderImage = UIImageMaxCroped.cropeImage(image: normalImage!, imageViewSize:  CGSize.init(width: imageSize!.width, height: imageSize!.height))
+                var placholderImage = CacheManager.getSharedInstance().getPlacholderImage()
+                if placholderImage == nil || placholderImage!.object(forKey: "\(size.width.int)\(size.height.int)") == nil {
+                    temp_placholderImage = normalImage!.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill)
+                    if placholderImage == nil {
+                        placholderImage = NSMutableDictionary.init(dictionary: ["\(size.width.int)\(size.height.int)":temp_placholderImage as Any])
+                    }else{
+                        placholderImage?.setValue(temp_placholderImage, forKey: "\(size.width.int)\(size.height.int)")
+                    }
+                    CacheManager.getSharedInstance().savePlacholderImage(point: placholderImage!)
+                }else{
+                    temp_placholderImage = (placholderImage?.object(forKey: "\(size.width.int)\(size.height.int)") as! UIImage)
+                }
             }
         }
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-            self.sd_setImage(with:  URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: temp_placholderImage, options: [.retryFailed, .avoidAutoSetImage]) { (image, error, cacheType, url) in
+            self.sd_setImage(with:  URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: temp_placholderImage, options: [.retryFailed, .avoidAutoSetImage, .highPriority,.refreshCached]) { (image, error, cacheType, url) in
             
                 completedBlock!(image,error,cacheType,url)
             }
         }
     }
     
-    func sd_downImage(url:String, placeholderImage:UIImage?, completedBlock: SDWebImage.SDWebImageDownloaderCompletedBlock? = nil) {
+    func sd_downImageTools(url:String, imageSize:CGSize?, placeholderImage:UIImage?, completedBlock: SDWebImage.SDWebImageDownloaderCompletedBlock? = nil) {
         
-        SDWebImageDownloader.shared.downloadImage(with: URL.init(string: "\(ImageRootURL)\(url)"), options: .continueInBackground, progress: { (pro, end, url) in
-        }, completed: completedBlock)
+        var temp_placholderImage = placeholderImage
+        if temp_placholderImage == nil {
+            if imageSize == nil {
+                temp_placholderImage = normalImage
+            }else{
+                var placholderImage = CacheManager.getSharedInstance().getPlacholderImage()
+                if placholderImage == nil || placholderImage!.object(forKey: "\(size.width.int)\(size.height.int)") == nil {
+                    temp_placholderImage = normalImage!.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill)
+                    if placholderImage == nil {
+                        placholderImage = NSMutableDictionary.init(dictionary: ["\(size.width.int)\(size.height.int)":temp_placholderImage as Any])
+                    }else{
+                        placholderImage?.setValue(temp_placholderImage, forKey: "\(size.width.int)\(size.height.int)")
+                    }
+                    CacheManager.getSharedInstance().savePlacholderImage(point: placholderImage!)
+                }else{
+                    temp_placholderImage = (placholderImage?.object(forKey: "\(size.width.int)\(size.height.int)") as! UIImage)
+                }
+            }
+        }
+        
+        let cacheImage = SDImageCache.shared.imageFromDiskCache(forKey: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url))
+        if cacheImage != nil {
+            completedBlock!(cacheImage,cacheImage?.jpegData(compressionQuality: 1), nil, true)
+            return
+        }
+        
+        SDWebImageDownloader.shared.downloadImage(with: URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), options: [.continueInBackground, .highPriority], progress: { (start, end, url) in
+            
+        }) { (image, data, error, ret) in
+            if error == nil {
+                SDImageCache.shared.store(image, imageData: data, forKey: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url), toDisk: true, completion: {
+                    
+                })
+                completedBlock!(image,data,error,ret)
+            }
+        }
     }
-    
-    
 }

@@ -90,7 +90,6 @@ class FootBallViewModel: BaseViewModel {
                                 let footBall = self.footBallArray.filter({ (model) -> Bool in
                                     return (model as! FootBallModel).id! == ((match as! NSArray)[0] as! Int)
                                 })
-                               
                                 if footBall.count > 0 {
                                     self.socketUpdateData(match: match as! NSArray, model: footBall[0] as! FootBallModel)
                                 }
@@ -327,7 +326,7 @@ extension FootBallViewModel: UITableViewDelegate {
         if (viewDesc == ScoreDetailTypeVC.competition || viewDesc == ScoreDetailTypeVC.amidithion) && section == 0 {
             return 0.00001
         }
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -336,7 +335,7 @@ extension FootBallViewModel: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 64
+            return 80
         }
         return 20
     }

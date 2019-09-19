@@ -295,7 +295,7 @@ class MineInfoTableViewCell: UITableViewCell {
     func setUpView(){
         backImageView = UIImageView.init()
         imageViewFrame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 185)
-        backImageView.backgroundColor = App_Theme_FFCB00_Color
+        backImageView.image = UIImage.init(named: "mine_bg")
         self.contentView.addSubview(backImageView)
         
         avatarImageView = UIImageView.init()
@@ -471,7 +471,7 @@ class MineInfoTableViewCell: UITableViewCell {
             daylyButton.snp.makeConstraints { (make) in
                 make.right.equalToSuperview()
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(-3)
-                make.size.equalTo(CGSize.init(width: 80, height: 24))
+                make.size.equalTo(CGSize.init(width: 87, height: 28))
             }
             
             toolsView.snp.makeConstraints { (make) in

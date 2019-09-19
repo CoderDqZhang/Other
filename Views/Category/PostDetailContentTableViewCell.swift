@@ -118,16 +118,15 @@ class  PostDetailContentTableViewCell : UITableViewCell {
             imageContentView.removeSubviews()
             for index in 0...images.count - 1 {
                 let imageView = UIImageView.init()
-                imageView.sd_crope_imageView_withMaxWidth(url: String(images[index]), imageSize: nil, placeholderImage: nil) { (image, error, cacheType, url) in
+                imageView.sd_downImageTools(url: String(images[index]), imageSize: nil, placeholderImage: nil) { (image, data, error, ret) in
                     if image != nil {
                         let size = image!.size
                         if size.width > SCREENWIDTH - 30 {
                             let height = size.height * (SCREENWIDTH - 30) / size.width
-                            let finistImage = image!.yy_imageByResize(to: CGSize.init(width: SCREENWIDTH - 30, height: height), contentMode: UIView.ContentMode.scaleAspectFill)
                             count = count + 1
-                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: imageHeight), size: finistImage!.size)
-                            imageHeight = finistImage!.size.height + imageHeight + 10
-                            imageView.image = finistImage
+                            imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: imageHeight), size: CGSize.init(width: SCREENWIDTH - 30, height: height))
+                            imageHeight = height + imageHeight + 10
+                            imageView.image = image
                         }else{
                             count = count + 1
                             imageView.frame = CGRect.init(origin: CGPoint.init(x: (SCREENWIDTH - 30 - size.width) / 2, y: imageHeight), size: size)
@@ -136,6 +135,7 @@ class  PostDetailContentTableViewCell : UITableViewCell {
                         }
                     }
                 }
+                
                 imageView.tag = index + 1000
                 imageView.isUserInteractionEnabled = true
                 _ = imageView.newTapGesture { (gesture) in

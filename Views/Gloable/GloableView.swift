@@ -1535,8 +1535,11 @@ class GloableAdView: UIView {
         super.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
         self.setUpView(image: image)
         self.gloableAdViewComplet = compley
-        disMissBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 15 - 70, y: SCREENHEIGHT - 95 - 30, width: 70, height: 30))
         
+        
+        disMissBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 15 - 70, y: SCREENHEIGHT - 95 - 30, width: 70, height: 30))
+        disMissBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
+        disMissBtn.layer.cornerRadius = 15
         disMissBtn.addAction({ (button) in
             self.disMissView()
         }, for: UIControl.Event.touchUpInside)
@@ -1548,14 +1551,15 @@ class GloableAdView: UIView {
                 self.disMissView()
             }
         })
+        disMissBtn.backgroundColor = UIColor.init(hexString: "FFFFFF", transparency: 0.1)
         self.addSubview(disMissBtn)
     }
     
     func disMissView() {
-//        self.removeFromSuperview()
-//        if self.gloableAdViewComplet != nil {
-//            self.gloableAdViewComplet()
-//        }
+        self.removeFromSuperview()
+        if self.gloableAdViewComplet != nil {
+            self.gloableAdViewComplet()
+        }
     }
     
     func setUpView(image:String){
@@ -1565,7 +1569,7 @@ class GloableAdView: UIView {
         }
         self.addSubview(imageView)
         
-        let bottomView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 95))
+        let bottomView = UIView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 95, width: SCREENWIDTH, height: 95))
         bottomView.backgroundColor = .white
         let image = UIImage.init(named: "ad_logo")
         buttomImageView = UIImageView.init(frame:CGRect.zero)
