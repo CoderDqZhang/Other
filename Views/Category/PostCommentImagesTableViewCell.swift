@@ -38,9 +38,9 @@ class PostImageSelectView:UIView {
         }
         
         deleteButton.snp.makeConstraints { (make) in
-            make.right.equalTo(self.snp.right).offset(10)
-            make.top.equalTo(self.snp.top).offset(-10)
-            make.size.equalTo(CGSize.init(width: 20, height: 20))
+            make.right.equalTo(self.snp.right).offset(20)
+            make.top.equalTo(self.snp.top).offset(-20)
+            make.size.equalTo(CGSize.init(width: 40, height: 40))
         }
     }
     

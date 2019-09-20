@@ -63,13 +63,12 @@ extension UIImageView {
                 temp_placholderImage = (placholderImage?.object(forKey: "\(size.width.int)\(size.height.int)") as! UIImage)
             }
         }
+        
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
             self.yy_setImage(with: URL.init(string:url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholder:temp_placholderImage, options: [.setImageWithFadeAnimation, .progressiveBlur, .showNetworkActivity,.allowBackgroundTask], manager: nil, progress: { (start, end) in
                 
             }, transform: { (image, url) -> UIImage? in
                 return image.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill)
-                
-//                return UIImageMaxCroped.cropeImage(image: image, imageViewSize:  CGSize.init(width: size.width, height: size.height))
             }) { (image, url, type, state, error) in
                 completedBlock!(image, url, type, state, error)
             }
@@ -99,7 +98,6 @@ extension UIImageView {
         }
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
             self.sd_setImage(with:  URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: temp_placholderImage, options: [.retryFailed, .avoidAutoSetImage, .highPriority,.refreshCached]) { (image, error, cacheType, url) in
-            
                 completedBlock!(image,error,cacheType,url)
             }
         }

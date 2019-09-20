@@ -126,9 +126,20 @@ class BaseViewController: UIViewController {
     
     func setUpRefreshData(refresh:@escaping MJRefreshComponentRefreshingBlock){
         if self.tableView != nil {
-            self.tableView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
+            let header = MJRefreshGifHeader.init {
                 refresh()
-            })
+            }
+            var download:[UIImage] = []
+            for index in 1...12 {
+                download.append(UIImage.init(named: "ic_baodian_downloading\(index)")!)
+            }
+            header?.lastUpdatedTimeLabel.isHidden = true
+            header?.stateLabel.isHidden = true
+            header?.setImages(download, duration: 0.5, for: MJRefreshState.idle)
+//            header?.setImages(download, for: MJRefreshState.pulling)
+            header?.setImages(download, duration: 0.5, for: MJRefreshState.pulling)
+//            header?.setImages(download, for: MJRefreshState.refreshing)
+            self.tableView.mj_header = header
         }
         
     }

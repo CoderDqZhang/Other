@@ -77,6 +77,7 @@
 		1F6BA9D322F280960090A1D5 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9D222F280960090A1D5 /* FilterCollectionViewCell.swift */; };
 		1F6BA9D522F2CB830090A1D5 /* FootBallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9D422F2CB830090A1D5 /* FootBallModel.swift */; };
 		1F6BA9D722F7C0710090A1D5 /* NetWorkListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9D622F7C0700090A1D5 /* NetWorkListManager.swift */; };
+		1F6E69F12334DF79006A9C2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F6E69F02334DF79006A9C2B /* Assets.xcassets */; };
 		1F91C39E22F95E8F0030916F /* NextGrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C39A22F95E8F0030916F /* NextGrowingTextView.swift */; };
 		1F91C39F22F95E8F0030916F /* NextGrowingInternalTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C39C22F95E8F0030916F /* NextGrowingInternalTextView.swift */; };
 		1F91C3A422FA6C710030916F /* DateTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F91C3A322FA6C700030916F /* DateTools.swift */; };
@@ -120,7 +121,6 @@
 		1FD6DD2D22E00CEF0090318E /* UIDeviceExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6DD2C22E00CEF0090318E /* UIDeviceExtentions.swift */; };
 		1FE5BDB12281788E00C9137C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB02281788E00C9137C /* AppDelegate.swift */; };
 		1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB42281788E00C9137C /* Main.storyboard */; };
-		1FE5BDB82281789100C9137C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB72281789100C9137C /* Assets.xcassets */; };
 		1FE5BDBB2281789100C9137C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5BDB92281789100C9137C /* LaunchScreen.storyboard */; };
 		1FE5BDC62281789100C9137C /* TouqiuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDC52281789100C9137C /* TouqiuTests.swift */; };
 		1FE5BDD12281789100C9137C /* TouqiuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5BDD02281789100C9137C /* TouqiuUITests.swift */; };
@@ -454,6 +454,7 @@
 		1F6BA9D222F280960090A1D5 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F6BA9D422F2CB830090A1D5 /* FootBallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallModel.swift; sourceTree = "<group>"; };
 		1F6BA9D622F7C0700090A1D5 /* NetWorkListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkListManager.swift; sourceTree = "<group>"; };
+		1F6E69F02334DF79006A9C2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F91C39A22F95E8F0030916F /* NextGrowingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextGrowingTextView.swift; sourceTree = "<group>"; };
 		1F91C39C22F95E8F0030916F /* NextGrowingInternalTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextGrowingInternalTextView.swift; sourceTree = "<group>"; };
 		1F91C3A322FA6C700030916F /* DateTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTools.swift; sourceTree = "<group>"; };
@@ -499,7 +500,6 @@
 		1FE5BDAD2281788E00C9137C /* Touqiu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Touqiu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5BDB02281788E00C9137C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE5BDB52281788E00C9137C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1FE5BDB72281789100C9137C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FE5BDBA2281789100C9137C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FE5BDBC2281789100C9137C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FE5BDC12281789100C9137C /* TouqiuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TouqiuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1055,8 +1055,8 @@
 				1FF025AE22D719EC005E2ED2 /* Touqiu.entitlements */,
 				1FE5BDB02281788E00C9137C /* AppDelegate.swift */,
 				1F1C1B3F229FA151008031F4 /* BankName.json */,
+				1F6E69F02334DF79006A9C2B /* Assets.xcassets */,
 				1FE5BDB42281788E00C9137C /* Main.storyboard */,
-				1FE5BDB72281789100C9137C /* Assets.xcassets */,
 				1FE5BDB92281789100C9137C /* LaunchScreen.storyboard */,
 				1FE5BDBC2281789100C9137C /* Info.plist */,
 			);
@@ -1941,11 +1941,11 @@
 				1FE5BEEC2282887400C9137C /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				1FE5BDBB2281789100C9137C /* LaunchScreen.storyboard in Resources */,
 				1F1C1B40229FA151008031F4 /* BankName.json in Resources */,
-				1FE5BDB82281789100C9137C /* Assets.xcassets in Resources */,
 				1F395CA222951D4200781C0C /* UMCommonLog.bundle in Resources */,
 				1FE5BDB62281788E00C9137C /* Main.storyboard in Resources */,
 				1F91C3AE22FC26CA0030916F /* loading.gif in Resources */,
 				1F395CA822951D4200781C0C /* UMSocialSDKResources.bundle in Resources */,
+				1F6E69F12334DF79006A9C2B /* Assets.xcassets in Resources */,
 				1FE5BEE72282868200C9137C /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

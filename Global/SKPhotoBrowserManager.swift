@@ -71,5 +71,6 @@ class SKPhotoBrowserManager: NSObject {
         SKPhotoBrowserOptions.displayAction = false                               // action button will be hidden
         SKPhotoBrowserOptions.displayHorizontalScrollIndicator = false            // horizontal scroll bar will be hidden
         SKPhotoBrowserOptions.displayVerticalScrollIndicator = false              // vertical scroll bar will be hidden
+        SKPhotoBrowserOptions.enableSingleTapDismiss = true
     }
 }

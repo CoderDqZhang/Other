@@ -254,7 +254,10 @@ class LoadConfigManger: NSObject {
                     var title = ""
                     switch type {
                     case .event,.level:
-                        title = self.getFirstLetterFromString(aString: ((dic as! NSDictionary).object(forKey: "name_zh") as! String))
+                        if (dic as! NSDictionary).object(forKey: "short_name_zh") != nil{
+                            (dic as! NSDictionary).setValue((dic as! NSDictionary).object(forKey: "short_name_zh"), forKey: "name_zh")
+                        }
+                        title = self.getFirstLetterFromString(aString: (dic as! NSDictionary).object(forKey: "name_zh") as! String)
                     default:
                         title = self.getFirstLetterFromString(aString: ((dic as! NSDictionary).object(forKey: "eventsName") as! String))
                     }
@@ -265,7 +268,15 @@ class LoadConfigManger: NSObject {
                     return  title == name as! String
                 }
                 if array.count > 0 {
-                    dic.setValue(array, forKey: name as! String)
+                    let temp_aray = NSMutableArray.init()
+                    for dic in array {
+                        if (dic as! NSDictionary).object(forKey: "short_name_zh") != nil{
+                            (dic as! NSDictionary).setValue((dic as! NSDictionary).object(forKey: "short_name_zh"), forKey: "name_zh")
+                        }
+                        temp_aray.add(dic)
+                    }
+                    
+                    dic.setValue(temp_aray, forKey: name as! String)
                 }
             }
         }

@@ -238,35 +238,54 @@ class BasketBallTableViewCell: UITableViewCell {
             scoreStatus.text = "未开赛"
             scoreStatus.textColor = App_Theme_999999_Color
         case 2:
-            if scoreStatus.layer.animation(forKey: "animation") == nil {
-                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
-            }
+            
             scoreStatus.textColor = App_Theme_FFAC1B_Color
-            scoreStatus.text = "第一节 \(minute):\(second)"
+            if model.allSecond == 0 {
+                scoreStatus.text = "第一节"
+            }else{
+                if scoreStatus.layer.animation(forKey: "animation") == nil {
+                    scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+                }
+                scoreStatus.text = "第一节 \(minute):\(second)"
+            }
         case 3:
             scoreStatus.text = "第一节完"
         case 4:
-            if scoreStatus.layer.animation(forKey: "animation") == nil {
-                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
-            }
+            
             scoreStatus.textColor = App_Theme_FFAC1B_Color
-            scoreStatus.text = "第二节 \(minute):\(second)"
+            if model.allSecond == 0 {
+                scoreStatus.text = "第二节"
+            }else{
+                if scoreStatus.layer.animation(forKey: "animation") == nil {
+                    scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+                }
+                scoreStatus.text = "第二节 \(minute):\(second)"
+            }
         case 5:
             scoreStatus.text = "第二节完"
         case 6:
-            if scoreStatus.layer.animation(forKey: "animation") == nil {
-                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
-            }
+            
             scoreStatus.textColor = App_Theme_FFAC1B_Color
-            scoreStatus.text = "第三节 \(minute):\(second)"
+            if model.allSecond == 0 {
+                scoreStatus.text = "第三节"
+            }else{
+                if scoreStatus.layer.animation(forKey: "animation") == nil {
+                    scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+                }
+                scoreStatus.text = "第三节 \(minute):\(second)"
+            }
         case 7:
             scoreStatus.text = "第三节完"
         case 8:
-            if scoreStatus.layer.animation(forKey: "animation") == nil {
-                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
-            }
             scoreStatus.textColor = App_Theme_FFAC1B_Color
-            scoreStatus.text = "第四节 \(minute):\(second)"
+            if model.allSecond == 0 {
+                scoreStatus.text = "第四节"
+            }else{
+                if scoreStatus.layer.animation(forKey: "animation") == nil {
+                    scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+                }
+                scoreStatus.text = "第四节 \(minute):\(second)"
+            }
         case 9:
             scoreStatus.text = "第四节完"
         case 10:
@@ -317,9 +336,9 @@ class BasketBallTableViewCell: UITableViewCell {
         fiveTeamA.text = model.basketBallTeamA.overtime == 0 ? "-" : model.basketBallTeamA.overtime.string
         fiveTeamB.text = model.basketballTeamB.overtime == 0 ? "-" : model.basketballTeamB.overtime.string
         let all_score_a = model.basketBallTeamA.first + model.basketBallTeamA.second + model.basketBallTeamA.third + model.basketBallTeamA.four + Int(model.basketBallTeamA.overtime)
-        allTeamA.text = all_score_a.string
+        allTeamA.text = all_score_a == 0 ? "-" : all_score_a.string
         let all_score_b = model.basketballTeamB.first + model.basketballTeamB.second + model.basketballTeamB.third + model.basketballTeamB.four +  Int(model.basketballTeamB.overtime)
-        allTeamB.text = all_score_b.string
+        allTeamB.text = all_score_b == 0 ? "-" : all_score_b.string
         
         attentionButton.tag = model.isSelect ? 2000 : 1000
         attentionButton.setImage(UIImage.init(named: model.isSelect ? "score_select_attention" : "score_normal_attention"), for: .normal)
