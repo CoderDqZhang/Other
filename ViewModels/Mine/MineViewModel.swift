@@ -15,11 +15,16 @@ class MineViewModel: BaseViewModel {
     let leftImage = [["realname","message","setting"],[nil]]
     var desc:[[String]]!
     
+    var adArray:NSMutableArray!
+    
     var userInfo:UserInfoModel!
     var accountInfo:AccountInfoModel!
     override init() {
         super.init()
+        self.getAdView()
     }
+    
+    
     
     func tableViewMineInfoTableViewCellSetData(_ indexPath:IndexPath, cell:MineInfoTableViewCell) {
         cell.cellSetData(model: userInfo, acount: self.accountInfo)
@@ -83,7 +88,12 @@ class MineViewModel: BaseViewModel {
     }
     
     func tableViewAdTableViewCellSetData(_ indexPath:IndexPath, cell:AdTableViewCell) {
-        
+        if indexPath.section == 1 && self.adArray.count > 0 {
+            cell.cellSetData(model: AdModel.init(fromDictionary: self.adArray![0] as! [String : Any]))
+        }
+        if indexPath.section == 4 && self.adArray.count > 1 {
+            cell.cellSetData(model: AdModel.init(fromDictionary: self.adArray![1] as! [String : Any]))
+        }
     }
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
@@ -201,6 +211,17 @@ class MineViewModel: BaseViewModel {
             }
         }
     }
+    
+    
+    func getAdView(){
+        let parameters = ["typeId":"1"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.adArray = NSMutableArray.init(array: resultDic.value as! Array)
+                self.reloadTableViewData()
+            }
+        }
+    }
 }
 
 
@@ -226,14 +247,20 @@ extension MineViewModel: UITableViewDelegate {
         case 0:
             return 223
         case 1:
-            return 75
+            if self.adArray.count > 0{
+                return 75
+            }
+            return 0.0001
         case 2:
             return 48
         default:
             if indexPath.row == 0 {
                 return 30
             }
-            return 75
+            if self.adArray.count > 1{
+                return 75
+            }
+            return 0.0001
         }
     }
     

@@ -20,7 +20,7 @@ class FootBallLotteryModel : NSObject, NSCoding{
     var matchTime : Int!
     var result : String!
     var eventsName : String!
-    
+    var matchIds : [String]!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -36,6 +36,7 @@ class FootBallLotteryModel : NSObject, NSCoding{
         matchId = dictionary["match_id"] as? String
         matchTime = dictionary["match_time"] as? Int
         result = dictionary["result"] as? String
+        matchIds = [dictionary["match_ids"]] as? [String]
     }
     
     /**
@@ -74,6 +75,9 @@ class FootBallLotteryModel : NSObject, NSCoding{
         if result != nil{
             dictionary["result"] = result
         }
+        if matchIds != nil{
+            dictionary["match_ids"] = matchIds
+        }
         return dictionary
     }
     
@@ -93,7 +97,7 @@ class FootBallLotteryModel : NSObject, NSCoding{
         matchId = aDecoder.decodeObject(forKey: "match_id") as? String
         matchTime = aDecoder.decodeObject(forKey: "match_time") as? Int
         result = aDecoder.decodeObject(forKey: "result") as? String
-        
+        matchIds = aDecoder.decodeObject(forKey: "match_ids") as? [String]
     }
     
     /**
@@ -131,6 +135,9 @@ class FootBallLotteryModel : NSObject, NSCoding{
         }
         if result != nil{
             aCoder.encode(result, forKey: "result")
+        }
+        if matchIds != nil{
+            aCoder.encode(matchIds, forKey: "match_ids")
         }
         
     }

@@ -24,7 +24,7 @@ class BasketBallEventModel : NSObject, NSCoding{
     var type : Int!
     var isSelect : Bool!
     var titleName : String!
-    
+    var matchIds : [String]!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -43,6 +43,7 @@ class BasketBallEventModel : NSObject, NSCoding{
         type = dictionary["type"] as? Int
         isSelect = dictionary["is_select"] as? Bool
         titleName = dictionary["title_name"] as? String
+        matchIds = [dictionary["match_ids"]] as? [String]
     }
     
     /**
@@ -93,6 +94,9 @@ class BasketBallEventModel : NSObject, NSCoding{
         if type != nil{
             dictionary["type"] = type
         }
+        if matchIds != nil{
+            dictionary["match_ids"] = matchIds
+        }
         return dictionary
     }
     
@@ -116,7 +120,7 @@ class BasketBallEventModel : NSObject, NSCoding{
         shortNameZht = aDecoder.decodeObject(forKey: "short_name_zht") as? String
         type = aDecoder.decodeObject(forKey: "type") as? Int
         titleName = aDecoder.decodeObject(forKey: "title_name") as? String
-        
+        matchIds = aDecoder.decodeObject(forKey: "match_ids") as? [String]
     }
     
     /**
@@ -166,6 +170,9 @@ class BasketBallEventModel : NSObject, NSCoding{
         }
         if titleName != nil{
             aCoder.encode(titleName, forKey: "title_name")
+        }
+        if matchIds != nil{
+            aCoder.encode(matchIds, forKey: "match_ids")
         }
         
     }

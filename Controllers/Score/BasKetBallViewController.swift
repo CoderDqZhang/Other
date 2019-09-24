@@ -25,7 +25,7 @@ class BasKetBallViewController: BaseViewController {
     
     func initSView(type:Int, titles:String?) {
         self.bindViewModel(viewModel: basketBallViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [BasketBallTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [BasketBallTableViewCell.self,AdTableViewCell.self], controller: self)
         if titles != nil {
             dateTime = titles
         }
@@ -52,10 +52,12 @@ class BasKetBallViewController: BaseViewController {
         }
         if self.viewDesc != .amidithion {
             NotificationCenter.default.addObserver(self.basketBallViewModel, selector: #selector(self.basketBallViewModel.filterArray), name: NSNotification.Name.init(RELOADCOLLECTRBASKETBALLMODEL), object: nil)
+            //进入后台后重新进入刷新数据
+            NotificationCenter.default.addObserver(self, selector: #selector(self.refreshData), name: NSNotification.Name.init(RELOADBASKETBALLENTERACTIVE), object: nil)
         }
     }
     
-    func getNetWorkData(){
+    @objc func getNetWorkData(){
         var date:String!
         if self.viewDesc == .underway || self.viewDesc == .timely{
             date = Date.init().string(withFormat: "yyyyMMdd")
@@ -66,7 +68,7 @@ class BasKetBallViewController: BaseViewController {
         self.basketBallViewModel.getBasketInfoBallNet(type:self.viewDesc.rawValue.string, date: date)
     }
     
-    func refreshData(){
+    @objc func refreshData(){
         if self.viewDesc != .attention {
             self.getNetWorkData()
         }else{

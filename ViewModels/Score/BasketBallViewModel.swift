@@ -24,14 +24,16 @@ class BasketBallViewModel: BaseViewModel {
     var isCollectSelect:Bool = false
     var isRefrshData:Bool! = false
     
+     var adArray = NSMutableArray.init()
     override init() {
         super.init()
+        self.getAdView()
         NotificationCenter.default.addObserver(self, selector: #selector(self.filterArray), name: NSNotification.Name.init(RELOADFILTERBASKETBALLMODEL), object: nil)
     }
     
     func tableViewBasketBallTableViewCellSetData(_ indexPath:IndexPath, cell:BasketBallTableViewCell) {
-        if self.basketBallArray.count > 0 {
-            cell.cellSetData(model:  self.basketBallArray[indexPath.section] as! BasketBallModel)
+        if self.basketBallArray.count > 0 && self.basketBallArray.count > indexPath.section {
+            cell.cellSetData(model:  self.basketBallArray[indexPath.section] as! BasketBallModel, viewDesc: self.viewDesc)
             cell.basketBallTableViewCellClouse = { type,model in
                 self.isCollectSelect = true
                 self.saveCollectModel(type, model)
@@ -40,6 +42,12 @@ class BasketBallViewModel: BaseViewModel {
                 self.collectModel = model
                 self.isCollectSelect = false
             }
+        }
+    }
+    
+    func tableViewAdTableViewCellSetData(_ indexPath:IndexPath, cell:AdTableViewCell) {
+        if indexPath.section == 2 && self.adArray.count > 0 {
+            cell.cellSetData(model: AdModel.init(fromDictionary: self.adArray[0] as! [String : Any]))
         }
     }
     
@@ -71,6 +79,16 @@ class BasketBallViewModel: BaseViewModel {
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func getAdView(){
+        let parameters = ["typeId":"2"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.adArray = NSMutableArray.init(array: resultDic.value as! Array)
+                self.reloadTableViewData()
+            }
+        }
     }
     
     func socketData(){
@@ -240,12 +258,18 @@ class BasketBallViewModel: BaseViewModel {
         }
     }
     
+    //移除完场后数据
+    func removeDoneMatch(model:BasketBallModel){
+        if self.viewDesc != .attention {
+            self.basketBallArray.remove(model)
+            self.reloadTableViewData()
+        }
+        
+    }
+    
     //socket更新数据
     func socketUpdateData(match:NSArray, model:BasketBallModel){
         if !self.isCollectSelect && !self.isRefrshData{
-            if model.status == 10 {
-                return
-            }
             model.status = (match[1] as! Int)
             model.allSecond = (match[2] as! Int)
             if self.collectModel != nil {
@@ -265,7 +289,7 @@ class BasketBallViewModel: BaseViewModel {
             model.basketballTeamB.overtime = ((match[4] as! NSArray)[4] as! Int)
             if (match[1] as! Int) == 10 {
                 self.isRefrshData = true
-                (self.controller! as! BasKetBallViewController).refreshData()
+                self.removeDoneMatch(model: model)
             }
         }
     }
@@ -289,6 +313,9 @@ extension BasketBallViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.adArray.count > 0 && indexPath.section == 2 {
+            return 75
+        }
         return 64
     }
     
@@ -304,7 +331,7 @@ extension BasketBallViewModel: UITableViewDelegate {
 
 extension BasketBallViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.basketBallArray.count
+        return self.basketBallArray.count + self.adArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -312,6 +339,12 @@ extension BasketBallViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if self.adArray.count > 0 && indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: AdTableViewCell.description(), for: indexPath)
+            self.tableViewAdTableViewCellSetData(indexPath, cell: cell as! AdTableViewCell)
+            cell.selectionStyle = .none
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: BasketBallTableViewCell.description(), for: indexPath)
         self.tableViewBasketBallTableViewCellSetData(indexPath, cell: cell as! BasketBallTableViewCell)
         cell.selectionStyle = .none

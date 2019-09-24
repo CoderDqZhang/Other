@@ -61,8 +61,12 @@ class RegiseViewController: BaseViewController {
         }
         self.view.addSubview(regisViewCenteView)
         
+        if IPHONE6 {
+            thirdLogin = GloableThirdLogin.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 172 + (IPHONE6 ? 40 : 0), width: SCREENWIDTH, height: 91))
+        }else{
+            thirdLogin = GloableThirdLogin.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 172 + (IPHONE5 ? 70 : 0), width: SCREENWIDTH, height: 91))
+        }
         
-        thirdLogin = GloableThirdLogin.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 172 + (IPHONE5 ? 70 : 0), width: SCREENWIDTH, height: 91))
         thirdLogin.gloableThirdLoginClouse = { type in
             //消除定时器
             self.regisViewCenteView.relaseTimer()

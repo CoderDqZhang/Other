@@ -20,7 +20,6 @@ class AdTableViewCell: UITableViewCell {
     
     func setUpView(){
         adImageView = UIImageView.init()
-        adImageView.backgroundColor = .red
         self.contentView.addSubview(adImageView)
         self.updateConstraints()
     }
@@ -29,6 +28,12 @@ class AdTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    func cellSetData(model:AdModel) {
+        adImageView.sd_crope_imageView(url: model.image, imageView: adImageView, placeholderImage: nil) { (image, url, type, stage, error) in
+            
+        }
+    }
     
     override func updateConstraints() {
         if !didMakeConstraints {

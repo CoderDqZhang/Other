@@ -17,8 +17,18 @@ class PostDetailViewModel: BaseViewModel {
     var page:Int = 0
     var imageHeight:CGFloat = 0
     var isUpDataHeight:Bool = false
+    
+    var adArray = NSMutableArray.init()
+    
     override init() {
         super.init()
+        self.getAdView()
+    }
+    
+    func tableViewAdTableViewCellSetData(_ indexPath:IndexPath, cell:AdTableViewCell) {
+        if self.adArray.count > 0 {
+            cell.cellSetData(model: AdModel.init(fromDictionary: self.adArray[0] as! [String : Any]))
+        }
     }
     
     func tableViewPostDetailUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailUserInfoTableViewCell) {
@@ -68,7 +78,7 @@ class PostDetailViewModel: BaseViewModel {
     
     func tableViewPostDetailCommentTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentTableViewCell) {
         if self.commentListArray.count > 0 {
-            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), isCommentDetail: false, isShowRepli: true)
+            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 3] as! [String : Any]), isCommentDetail: false, isShowRepli: true)
             cell.postDetailCommentTableViewCellClouse = { model in
                 if CacheManager.getSharedInstance().isLogin() {
                     if model.user.id.string == CacheManager.getSharedInstance().getUserId() {
@@ -79,7 +89,7 @@ class PostDetailViewModel: BaseViewModel {
                                 UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定删除该条评论?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
                                     
                                 }, doneAction: {
-                                     let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+                                     let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 3] as! [String : Any])
                                     self.deleteComment(commentId: model.id.string, model: model, indexPath: indexPath)
                                 })
                             }
@@ -93,7 +103,7 @@ class PostDetailViewModel: BaseViewModel {
                                 UIAlertController.showAlertControl(self.controller!, style: .alert, title: "确定举报该条评论?", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
                                     
                                 }, doneAction: {
-                                    let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+                                    let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 3] as! [String : Any])
                                     self.reportCommentNet(commentId:  model.id.string, model: model, indexPath: indexPath)
                                 })
                             }
@@ -108,15 +118,15 @@ class PostDetailViewModel: BaseViewModel {
     func tableViewPostDetailCommentUserTableViewCellSetData(_ indexPath:IndexPath, cell:PostDetailCommentUserTableViewCell){
         
         if self.commentListArray.count > 0 {
-            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]), indexPath: indexPath)
+            cell.cellSetData(model: CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 3] as! [String : Any]), indexPath: indexPath)
         }
         
         cell.postDetailCommentUserTableViewCellClouse = { indexPath, type in
             if type == .like {
-                let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+                let model = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 3] as! [String : Any])
                 self.likeCommentNet(commentId: model.id.string, model:model, indexPath: indexPath)
             }else if type == .user{
-                let dic:NSDictionary = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any]).user.toDictionary() as NSDictionary
+                let dic:NSDictionary = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 3] as! [String : Any]).user.toDictionary() as NSDictionary
                 let otherMineVC = OtherMineViewController()
                 otherMineVC.postData = dic
                 NavigationPushView(self.controller!, toConroller: otherMineVC)
@@ -139,9 +149,9 @@ class PostDetailViewModel: BaseViewModel {
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if indexPath.section != 0 && indexPath.section != 1 {
             let commentVC = CommentViewController()
-            commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 2] as! [String : Any])
+            commentVC.commentData = CommentModel.init(fromDictionary: self.commentListArray[indexPath.section - 3] as! [String : Any])
             commentVC.commentViewControllerApproveClouse = { model in
-                self.commentListArray.replaceObject(at: indexPath.section - 2, with: model)
+                self.commentListArray.replaceObject(at: indexPath.section - 3, with: model)
                self.controller?.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
             NavigationPushView(self.controller!, toConroller: commentVC)
@@ -154,7 +164,7 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func scrollerTableViewToPoint(){
-        self.tableViewScrollToPoint(nil, IndexPath.init(row: 0, section: 2))
+        self.tableViewScrollToPoint(nil, IndexPath.init(row: 0, section: 3))
     }
     
     func getTipDetail(id:String){
@@ -230,7 +240,7 @@ class PostDetailViewModel: BaseViewModel {
                     model.isFollow = 1
                     model.approveNum = model.approveNum + 1
                 }
-                self.commentListArray.replaceObject(at: indexPath.section - 2, with: model.toDictionary())
+                self.commentListArray.replaceObject(at: indexPath.section - 3, with: model.toDictionary())
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -244,7 +254,7 @@ class PostDetailViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 model.content = "评论以删除"
                 model.status = "1" //自己删除
-                self.commentListArray.replaceObject(at: indexPath.section - 2, with: model.toDictionary())
+                self.commentListArray.replaceObject(at: indexPath.section - 3, with: model.toDictionary())
                 self.reloadTableViewData()
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "操作成功", autoHidder: true)
             }else{
@@ -307,6 +317,16 @@ class PostDetailViewModel: BaseViewModel {
         }
     }
     
+    func getAdView(){
+        let parameters = ["typeId":"1"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.adArray = NSMutableArray.init(array: resultDic.value as! Array)
+                self.reloadTableViewData()
+            }
+        }
+    }
+    
     func getContentHeight() ->CGFloat{
         let titleSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.tipDetailModel.title, yyLabel: YYLabel.init())
         
@@ -350,14 +370,18 @@ extension PostDetailViewModel: UITableViewDelegate {
                 return self.getContentHeight()
             }
             return 60
-            
         case 1:
+            if self.adArray.count > 0 {
+                return 75
+            }
+            return 0.0001
+        case 2:
             return 32
         default:
             if indexPath.row == 0 {
                 return 56
             }
-            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheByKey: (self.commentListArray[indexPath.section - 2] as! NSCopying), configuration: { (cell) in
+            return tableView.fd_heightForCell(withIdentifier: PostDetailCommentTableViewCell.description(), cacheByKey: (self.commentListArray[indexPath.section - 3] as! NSCopying), configuration: { (cell) in
                 self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell  as! PostDetailCommentTableViewCell)
             })
         }
@@ -387,11 +411,11 @@ extension PostDetailViewModel: UITableViewDelegate {
 
 extension PostDetailViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return commentListArray.count + 2
+        return commentListArray.count + 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 {
+        if section == 1 || section == 2 {
             return 1
         }
         return 2
@@ -411,6 +435,11 @@ extension PostDetailViewModel: UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: AdTableViewCell.description(), for: indexPath)
+            self.tableViewAdTableViewCellSetData(indexPath, cell: cell as! AdTableViewCell)
+            cell.selectionStyle = .none
+            return cell
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: HotDetailTableViewCell.description(), for: indexPath)
             self.tableViewHotDetailTableViewCellSetData(indexPath, cell: cell as! HotDetailTableViewCell)
             cell.selectionStyle = .none
@@ -424,7 +453,7 @@ extension PostDetailViewModel: UITableViewDataSource {
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: PostDetailCommentTableViewCell.description(), for: indexPath)
             self.tableViewPostDetailCommentTableViewCellSetData(indexPath, cell: cell as! PostDetailCommentTableViewCell)
-            (cell as! PostDetailCommentTableViewCell).hiddenLineLabel(ret: self.commentListArray.count - 1 == indexPath.section - 2 ? true : false)
+            (cell as! PostDetailCommentTableViewCell).hiddenLineLabel(ret: self.commentListArray.count - 1 == indexPath.section - 3 ? true : false)
             cell.selectionStyle = .none
             return cell
         }

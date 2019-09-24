@@ -19,7 +19,7 @@ class BasketBallIndexModel : NSObject, NSCoding{
     var matchId : Int!
     var matchTime : Int!
     var eventsName : String!
-    
+    var matchIds : [String]!
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
@@ -33,6 +33,7 @@ class BasketBallIndexModel : NSObject, NSCoding{
         issueNum = dictionary["issue_num"] as? String
         matchId = dictionary["match_id"] as? Int
         matchTime = dictionary["match_time"] as? Int
+        matchIds = [dictionary["match_ids"]] as? [String]
     }
     
     /**
@@ -68,6 +69,9 @@ class BasketBallIndexModel : NSObject, NSCoding{
         if matchTime != nil{
             dictionary["match_time"] = matchTime
         }
+        if matchIds != nil{
+            dictionary["match_ids"] = matchIds
+        }
         return dictionary
     }
     
@@ -86,7 +90,7 @@ class BasketBallIndexModel : NSObject, NSCoding{
         issueNum = aDecoder.decodeObject(forKey: "issue_num") as? String
         matchId = aDecoder.decodeObject(forKey: "match_id") as? Int
         matchTime = aDecoder.decodeObject(forKey: "match_time") as? Int
-        
+        matchIds = aDecoder.decodeObject(forKey: "match_ids") as? [String]
     }
     
     /**
@@ -121,6 +125,9 @@ class BasketBallIndexModel : NSObject, NSCoding{
         }
         if matchTime != nil{
             aCoder.encode(matchTime, forKey: "match_time")
+        }
+        if matchIds != nil{
+            aCoder.encode(matchIds, forKey: "match_ids")
         }
         
     }

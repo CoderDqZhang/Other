@@ -60,7 +60,7 @@ let RELOADFILTERFOOTBALLMODEL = "ReloadFilterFootModel" //更新列表页模型�
 let RELOADCOLLECTFOOTBALLMODEL = "ReloadCollectFootModel" //更新列表页模型数据通知
 let RELOADCOLLECTFOOTBALLTYPEMODEL = "ReloadCollectFootTypeModel" //更新列表页模型数据通知
 let UPDATEFOOTBALLSELECTEVENT = "UpdateFootBallSelectEvent" //更新列表页模型数据通知
-
+let RELOADFOOTBALLENTERACTIVE = "ReloadFootBallEnterActive" //进入后台后重新加载模型数据
 //助球队信息
 let BASKETBALLINFOMODEL = "BasketBallInfoModel" //保存足球队信息 已移除
 let BASKETBALLEVENTODEL = "BasketBallEventModel" //保存足球赛事信息
@@ -75,6 +75,7 @@ let ALLBASKETBALLMACTH = "AllBasketBallMacth" //所有赛程数
 let RELOADFILTERBASKETBALLMODEL = "ReloadFilterBasketBallModel" //更新列表页模型数据通知
 let RELOADCOLLECTRBASKETBALLMODEL = "ReloadCollectBasketBallModel" //更新列表页模型数据通知
 let UPDATEBASKETBALLSELECTEVENT = "UpdateBasketBallSelectEvent" //更新列表页模型数据通知
+let RELOADBASKETBALLENTERACTIVE = "ReloadBasketBallEnterActive" //进入后台后重新加载模型数据
 
 let JPUSHALIAS = "touqiu_"
 let NOTIFICATIOINSPUSHCONTROLLER = "NOTIFICATIOINSPUSHCONTROLLER"

@@ -223,7 +223,7 @@ class BasketBallTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func cellSetData(model:BasketBallModel){
+    func cellSetData(model:BasketBallModel, viewDesc:ScoreDetailTypeVC){
         self.model = model
         scoreType.text = model.basketballEvent.nameZh
         scoreTime.text = Date.init(timeIntervalSince1970: model.time.double).string(withFormat: "HH:mm")

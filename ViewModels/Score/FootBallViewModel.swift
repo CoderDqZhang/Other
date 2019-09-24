@@ -23,9 +23,13 @@ class FootBallViewModel: BaseViewModel {
     var footBallArray = NSMutableArray.init()
     var allFootBallArray =  NSMutableArray.init()
     
+    var adArray = NSMutableArray.init()
+    
     override init() {
         super.init()
+        self.getAdView()
         NotificationCenter.default.addObserver(self, selector: #selector(self.filterArray), name: NSNotification.Name.init(RELOADFILTERFOOTBALLMODEL), object: nil)
+        
     }
     
     func tableViewScoreInfoTableViewCellSetData(_ indexPath:IndexPath, cell:ScoreInfoTableViewCell) {
@@ -35,13 +39,19 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func tableViewScoreListTableViewCellSetData(_ indexPath:IndexPath, cell:ScoreListTableViewCell) {
-        if self.footBallArray.count > 0 {
-            cell.cellSetData(model:  self.footBallArray[indexPath.section] as! FootBallModel)
+        if self.footBallArray.count > 0 && self.footBallArray.count > indexPath.section {
+            cell.cellSetData(model:  self.footBallArray[indexPath.section] as! FootBallModel, viewDesc: self.viewDesc)
             cell.scoreListTableViewCellClouse = { type,model in
                 self.isCollectSelect = true
                 self.saveCollectModel(type, model)
                 self.isCollectSelect = false
             }
+        }
+    }
+    
+    func tableViewAdTableViewCellSetData(_ indexPath:IndexPath, cell:AdTableViewCell) {
+        if indexPath.section == 2 && self.adArray.count > 0 {
+            cell.cellSetData(model: AdModel.init(fromDictionary: self.adArray[0] as! [String : Any]))
         }
     }
     
@@ -102,6 +112,16 @@ class FootBallViewModel: BaseViewModel {
         }
     }
     
+    func getAdView(){
+        let parameters = ["typeId":"2"]
+        BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.adArray = NSMutableArray.init(array: resultDic.value as! Array)
+                self.reloadTableViewData()
+            }
+        }
+    }
+    
     func getFootBallNet(type:String, date:String){
         let parameters = ["type":type, "date":date] as [String : Any]
         BaseNetWorke.getSharedInstance().getUrlWithString(FootBallMatchUrl, parameters: parameters as AnyObject).observe { (resultDic) in
@@ -150,9 +170,7 @@ class FootBallViewModel: BaseViewModel {
                 let north_sigle:NSDictionary = (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
                 let lottery:NSDictionary = (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
                 let indexes:NSDictionary = (footballDic.object(forKey: "indexes") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "indexes") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
-                if temp_array[0] as! Int == 2709381 {
-                    print("")
-                }
+                
                 let model = FootBallModel.init(fromDictionary: [
                     "id": temp_array[0] as! Int,
                     "event_info": (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])") == nil ? [:] : (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])")!,
@@ -266,12 +284,12 @@ class FootBallViewModel: BaseViewModel {
                                 continue
                             }
                         }
-                        if showType == 4 {
+                        if showType == 3 {
                             if (item as! FootBallModel).footballLottery.issueNum == nil {
                                 continue
                             }
                         }
-                        if showType == 3 {
+                        if showType == 4 {
                             if (item as! FootBallModel).indexes.issueNum == nil {
                                 continue
                             }
@@ -289,14 +307,19 @@ class FootBallViewModel: BaseViewModel {
                 self.reloadTableViewData()
             }
         }
+    }
+    
+    //移除完场后数据
+    func removeDoneMatch(model:FootBallModel){
+        if self.viewDesc != .attention {
+            self.footBallArray.remove(model)
+            self.reloadTableViewData()
+        }
         
     }
     
     func socketUpdateData(match:NSArray, model:FootBallModel){
         if !self.isCollectSelect && !self.isRefreshData{
-            if model.status == 8 {
-                return
-            }
             model.status = (match[1] as! Int)
             model.teamA.score = ((match[2] as! NSArray)[0] as! Int)
             model.teamA.cornerBall = ((match[2] as! NSArray)[4] as! Int)
@@ -310,7 +333,7 @@ class FootBallViewModel: BaseViewModel {
             model.teamB.halfYellow = ((match[3] as! NSArray)[3] as! Int)
             if (match[1] as! Int) == 8 {
                 self.isRefreshData = true
-                (self.controller! as! FootBallViewController).refreshData()
+                self.removeDoneMatch(model: model)
             }
         }
     }
@@ -334,6 +357,9 @@ extension FootBallViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.adArray.count > 0 && indexPath.section == 2 {
+            return 75
+        }
         if indexPath.row == 0 {
             return 80
         }
@@ -342,7 +368,7 @@ extension FootBallViewModel: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 64
+            return 80
         }
         return 20
     }
@@ -355,16 +381,33 @@ extension FootBallViewModel: UITableViewDelegate {
 
 extension FootBallViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return footBallArray.count
+        return footBallArray.count + self.adArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let model:FootBallModel! = (self.footBallArray[section] as! FootBallModel)
-        
-        return model.remark.remarkDetail == "" ? 1 : 2
+        if self.adArray.count > 0 && section == 2 {
+            return 1
+        }
+        if self.footBallArray.count == 0 {
+            return 1
+        }
+        var model:FootBallModel?
+        if self.adArray.count > 0 && section > 2{
+            model = (self.footBallArray[section - 1] as! FootBallModel)
+        }else{
+            model = (self.footBallArray[section] as! FootBallModel)
+        }
+
+        return model!.remark.remarkDetail == "" ? 1 : 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if self.adArray.count > 0 && indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: AdTableViewCell.description(), for: indexPath)
+            self.tableViewAdTableViewCellSetData(indexPath, cell: cell as! AdTableViewCell)
+            cell.selectionStyle = .none
+            return cell
+        }
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: ScoreListTableViewCell.description(), for: indexPath)
             self.tableViewScoreListTableViewCellSetData(indexPath, cell: cell as! ScoreListTableViewCell)

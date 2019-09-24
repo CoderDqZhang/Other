@@ -103,14 +103,14 @@ class FilterViewModel: BaseViewModel {
             if self.viewType == .football {
                 for name in footBalleventsList!.allKeys {
                     for dic in (footBalleventsList!.object(forKey: name) as! NSArray) {
-                        (dic as! NSDictionary).setValue(false, forKey: "is_select")
+                        (dic as! NSDictionary).setValue(!((dic as! NSDictionary).object(forKey: "is_select") as! Bool), forKey: "is_select")
                     }
                 }
                 self.clickCollectItemSave()
             }else{
                 for name in basketBalleventsList!.allKeys {
                     for dic in (basketBalleventsList!.object(forKey: name) as! NSArray) {
-                        (dic as! NSDictionary).setValue(false, forKey: "is_select")
+                        (dic as! NSDictionary).setValue(!((dic as! NSDictionary).object(forKey: "is_select") as! Bool), forKey: "is_select")
                     }
                 }
                 self.clickCollectItemSave()
@@ -206,6 +206,7 @@ class FilterViewModel: BaseViewModel {
                         }
                         (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
                     }
+                    UserDefaults.standard.set(allNumber, forKey: ALLFOOTBALLMACTH)
                 }
             case .level1:
                 for str in self.footBalleventsList.allKeys {
@@ -227,7 +228,7 @@ class FilterViewModel: BaseViewModel {
                         
                         let isContains = selectTitles.contains(name as Any)
                         if isContains {
-                            number = number + 1
+                            number = number + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
                         }
                         (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
                     }
@@ -239,7 +240,7 @@ class FilterViewModel: BaseViewModel {
                         let name = (array[index] as! NSDictionary).object(forKey: "eventsName")
                         let isContains = selectTitles.contains(name as Any)
                         if isContains {
-                            number = number + 1
+                            number = number + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
                         }
                         (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
                     }
@@ -251,23 +252,23 @@ class FilterViewModel: BaseViewModel {
                         let name = (array[index] as! NSDictionary).object(forKey: "eventsName")
                         let isContains = selectTitles.contains(name as Any)
                         if isContains {
-                            number = number + 1
+                            number = number + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
                         }
                         (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
                     }
                 }
             }
-            if (self.controller! as! FilterViewController).buttomView != nil {
-                if !UserDefaults.standard.bool(forKey: ALLFOOTBALLMACTH) {
-                    UserDefaults.standard.set(allNumber, forKey: ALLFOOTBALLMACTH)
-                }
-                DispatchQueue.main.async {
-                    if self.filterType! == .all {
-                        (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: number.string)
-                    }else{
-                        let all_number = UserDefaults.standard.object(forKey: ALLFOOTBALLMACTH) as! Int
-                        (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: (all_number - number).string)
-                    }
+            if (self.controller! as! FilterViewController).buttomView == nil {
+                (self.controller! as! FilterViewController).addBootomView()
+            }
+            
+            DispatchQueue.main.async {
+                if self.filterType! == .all {
+                    (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: number.string)
+                }else{
+                    
+                    let all_number = UserDefaults.standard.object(forKey: ALLFOOTBALLMACTH) as! Int
+                    (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: (all_number - number).string)
                 }
             }
             
@@ -303,6 +304,7 @@ class FilterViewModel: BaseViewModel {
                         allNumber = allNumber + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
                         (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
                     }
+                    UserDefaults.standard.set(allNumber, forKey: ALLBASKETBALLMACTH)
                 }
             case .level1:
                 for str in self.basketBalleventsList.allKeys {
@@ -323,23 +325,22 @@ class FilterViewModel: BaseViewModel {
                         let name = (array[index] as! NSDictionary).object(forKey: "eventsName")
                         let isContains = selectTitles.contains(name as Any)
                         if isContains {
-                            number = number + 1
+                            number = number + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
                         }
                         (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
                     }
                 }
             }
-            if (self.controller! as! FilterViewController).buttomView != nil {
-                if UserDefaults.standard.bool(forKey: ALLBASKETBALLMACTH) {
-                    UserDefaults.standard.set(allNumber, forKey: ALLBASKETBALLMACTH)
-                }
-                DispatchQueue.main.async {
-                    if self.filterType! == .all {
-                        (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: number.string)
-                    }else{
-                        let all_number = UserDefaults.standard.object(forKey: ALLBASKETBALLMACTH) as! Int
-                        (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: (all_number - number).string)
-                    }
+            
+            if (self.controller! as! FilterViewController).buttomView == nil {
+                (self.controller! as! FilterViewController).addBootomView()
+            }
+            DispatchQueue.main.async {
+                if self.filterType! == .all {
+                    (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: number.string)
+                }else{
+                    let all_number = UserDefaults.standard.object(forKey: ALLBASKETBALLMACTH) as! Int
+                    (self.controller! as! FilterViewController).buttomView.changeSelectLabelText(number: (all_number - number).string)
                 }
             }
             

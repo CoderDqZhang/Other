@@ -18,7 +18,7 @@ class OtherMineViewController: BaseViewController {
     var userHeaderContainerView: UIView!
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
-    let titles = ["推荐", "发表", "竞猜"]
+    let titles = [ "发表",]
     var tableHeaderViewHeight: CGFloat = 148
     var heightForHeaderInSection: Int = 44
     
@@ -212,8 +212,10 @@ extension OtherMineViewController: JXPagingViewDelegate {
     func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
         switch index {
         case 0:
-            recommendVC.initSView(dic: self.postData)
-            return recommendVC
+            otherPostVC.initSView(dic: self.postData)
+            return otherPostVC
+//            recommendVC.initSView(dic: self.postData)
+//            return recommendVC
         case 1:
             otherPostVC.initSView(dic: self.postData)
             return otherPostVC

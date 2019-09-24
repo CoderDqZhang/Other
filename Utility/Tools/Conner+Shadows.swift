@@ -16,5 +16,5 @@ func setMutiBorderRoundingCorners(_ view:AnyObject,corner:CGFloat,byRoundingCorn
     let maskLayer = CAShapeLayer()
     maskLayer.frame = view.bounds
     maskLayer.path = maskPath.cgPath
-    view.layer.mask = maskLayer
+    (view as! UIView).layer.mask = maskLayer
 }

@@ -24,8 +24,8 @@ enum FilterViewControllerType:Int {
     case all = 0
     case level1 = 1
     case northsigle = 2
-    case index = 3
-    case lottery = 4
+    case lottery = 3
+    case index = 4
 }
 
 class FilterViewController: BaseViewController {

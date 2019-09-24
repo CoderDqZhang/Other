@@ -24,6 +24,7 @@ class FootBallEventModel : NSObject, NSCoding{
     var type : Int!
     var isSelect : Bool!
     var titleName : String!
+    var matchIds : [String]!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -43,6 +44,7 @@ class FootBallEventModel : NSObject, NSCoding{
         type = dictionary["type"] as? Int
         isSelect = dictionary["is_select"] as? Bool
         titleName = dictionary["title_name"] as? String
+        matchIds = dictionary["match_ids"] as? [String]
     }
     
     /**
@@ -62,6 +64,9 @@ class FootBallEventModel : NSObject, NSCoding{
         }
         if level != nil{
             dictionary["level"] = level
+        }
+        if matchIds != nil{
+            dictionary["match_ids"] = matchIds
         }
         if isSelect != nil{
             dictionary["is_select"] = isSelect
@@ -93,6 +98,7 @@ class FootBallEventModel : NSObject, NSCoding{
         if type != nil{
             dictionary["type"] = type
         }
+        
         return dictionary
     }
     
@@ -116,7 +122,7 @@ class FootBallEventModel : NSObject, NSCoding{
         shortNameZht = aDecoder.decodeObject(forKey: "short_name_zht") as? String
         type = aDecoder.decodeObject(forKey: "type") as? Int
         titleName = aDecoder.decodeObject(forKey: "title_name") as? String
-        
+        matchIds = aDecoder.decodeObject(forKey: "match_ids") as? [String]
     }
     
     /**
@@ -136,6 +142,9 @@ class FootBallEventModel : NSObject, NSCoding{
         }
         if level != nil{
             aCoder.encode(level, forKey: "level")
+        }
+        if matchIds != nil{
+            aCoder.encode(matchIds, forKey: "match_ids")
         }
         if logo != nil{
             aCoder.encode(logo, forKey: "logo")

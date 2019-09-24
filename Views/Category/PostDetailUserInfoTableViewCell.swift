@@ -44,14 +44,14 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
         self.addSubview(avatarImage)
         
         userName = YYLabel.init()
-        userName.text = "name"
+        userName.text = ""
         userName.textColor = App_Theme_2A2F34_Color
         userName.font = App_Theme_PinFan_M_15_Font
         self.addSubview(userName)
         
         
         timeLabel = YYLabel.init()
-        timeLabel.text = "category"
+        timeLabel.text = ""
         timeLabel.textColor = App_Theme_B5B5B5_Color
         timeLabel.font = App_Theme_PinFan_R_12_Font
         self.addSubview(timeLabel)
@@ -131,12 +131,12 @@ class PostDetailUserInfoTableViewCell: UITableViewCell {
             }
             
             userName.snp.makeConstraints { (make) in
-                make.top.equalTo(self.snp.top).offset(18)
+                make.top.equalTo(self.snp.top).offset(12)
                 make.left.equalTo(self.avatarImage.snp.right).offset(14)
             }
             
             timeLabel.snp.makeConstraints { (make) in
-                make.top.equalTo(self.userName.snp.bottom).offset(5)
+                make.top.equalTo(self.userName.snp.bottom).offset(0)
                 make.left.equalTo(self.avatarImage.snp.right).offset(14)
             }
             

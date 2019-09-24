@@ -122,6 +122,7 @@ class LoadConfigManger: NSObject {
     func loadFootBallScorEvent(){
         let date = Date.init().string(withFormat: "yyyyMMdd")
         let parameters = ["date":date] as [String : Any]
+//        let parameters = ["date":"20190921"] as [String : Any]
         var temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
 //        if temp_dic == nil || temp_dic?.object(forKey: date) == nil || CacheManager.getSharedInstance().getFootBallEventSelectModel() == nil {
             BaseNetWorke.getSharedInstance().getUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
@@ -201,7 +202,7 @@ class LoadConfigManger: NSObject {
                 let con = temp_array.contains((item as! NSDictionary).object(forKey: "id")!)
                 if !con {
                     temp_array.add((item as! NSDictionary).object(forKey: "id")!)
-                    result_array.add(item)
+                    result_array.add(NSMutableDictionary.init(dictionary: item as! NSDictionary))
                 }
             }
         default:
@@ -209,7 +210,22 @@ class LoadConfigManger: NSObject {
                 let com = temp_array.contains((item as! NSDictionary).object(forKey: "eventsName")!)
                 if !com {
                     temp_array.add((item as! NSDictionary).object(forKey: "eventsName")!)
-                    result_array.add(item)
+                    let temp = NSMutableDictionary.init(dictionary: item as! NSDictionary)
+                    temp.setValue([(item as! NSDictionary).object(forKey: "match_id") as! String], forKey: "match_ids")
+                    result_array.add(temp)
+                }else{
+                    for temp_dic in result_array {
+                        if ((temp_dic as! NSMutableDictionary).object(forKey: "eventsName") as! String) == (item as! NSDictionary).object(forKey: "eventsName") as! String {
+                            print(temp_dic)
+                            var strs:[String] = []
+                            if (item as! NSDictionary).object(forKey: "match_ids") == nil {
+                                strs.append((item as! NSDictionary).object(forKey: "match_id") as! String)
+                            }
+                            strs.append((temp_dic as! NSDictionary).object(forKey: "match_id") as! String)
+                            (temp_dic as! NSMutableDictionary).setValue(strs, forKey: "match_ids")
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -225,7 +241,7 @@ class LoadConfigManger: NSObject {
                 let con = temp_array.contains((item as! NSDictionary).object(forKey: "id")!)
                 if !con {
                     temp_array.add((item as! NSDictionary).object(forKey: "id")!)
-                    result_array.add(item)
+                    result_array.add(NSMutableDictionary.init(dictionary: item as! NSDictionary))
                 }
             }
         default:
@@ -233,7 +249,22 @@ class LoadConfigManger: NSObject {
                 let com = temp_array.contains((item as! NSDictionary).object(forKey: "eventsName")!)
                 if !com {
                     temp_array.add((item as! NSDictionary).object(forKey: "eventsName")!)
-                    result_array.add(item)
+                    let temp = NSMutableDictionary.init(dictionary: item as! NSDictionary)
+                    temp.setValue([(item as! NSDictionary).object(forKey: "match_id") as! String], forKey: "match_ids")
+                    result_array.add(temp)
+                }else{
+                    for temp_dic in result_array {
+                        if ((temp_dic as! NSMutableDictionary).object(forKey: "eventsName") as! String) == (item as! NSDictionary).object(forKey: "eventsName") as! String {
+                            print(temp_dic)
+                            var strs:[String] = []
+                            if (item as! NSDictionary).object(forKey: "match_ids") == nil {
+                                strs.append((item as! NSDictionary).object(forKey: "match_id") as! String)
+                            }
+                            strs.append((temp_dic as! NSDictionary).object(forKey: "match_id") as! String)
+                            (temp_dic as! NSMutableDictionary).setValue(strs, forKey: "match_ids")
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -356,6 +387,7 @@ class LoadConfigManger: NSObject {
     
     // MARK: - 获取联系人姓名首字母(传入汉字字符串, 返回大写拼音首字母)
     func getFirstLetterFromString(aString: String) -> (String) {
+        
         
         // 注意,这里一定要转换成可变字符串
         let mutableString = NSMutableString.init(string: aString)

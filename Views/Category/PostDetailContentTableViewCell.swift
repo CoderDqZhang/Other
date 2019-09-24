@@ -96,7 +96,7 @@ class  PostDetailContentTableViewCell : UITableViewCell {
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.title, yyLabel: titleLabel)
 
         if model.content != "" {
-            _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contnetLabel)
+            _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_R_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contnetLabel)
         }else{
             imageContentView.snp.remakeConstraints { (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(15)

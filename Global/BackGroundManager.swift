@@ -39,7 +39,8 @@ class BackGroundManager: NSObject {
                 LoadConfigManger.getSharedInstance().setUpADView(controller: current() as! BaseViewController, model: CacheManager.getSharedInstance().getADModel()!)
             }
         }
-        
+        NotificationCenter.default.post(name: NSNotification.Name.init(RELOADFOOTBALLENTERACTIVE), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name.init(RELOADBASKETBALLENTERACTIVE), object: nil)
         SocketManager.getSharedInstance().reConnect()
     }
 }

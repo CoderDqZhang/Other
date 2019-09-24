@@ -15,7 +15,7 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
     var titleLabel:YYLabel!
     var originLabel:YYLabel!
     var timeInfoLabel:YYLabel!
-    var webView:UIWebView!
+    var webView:WKWebView!
     
     var reloadWebViewContentSize:ReloadWebViewContentSize!
     
@@ -48,7 +48,15 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
         originLabel.text = ""
         self.contentView.addSubview(originLabel)
         
-        webView = UIWebView.init()
+        
+        //创建网页配置对象
+        let config = WKWebViewConfiguration.init()
+        let preference = WKPreferences.init()
+        preference.minimumFontSize = 40
+        config.preferences = preference
+        
+        webView = WKWebView.init(frame: CGRect.zero, configuration: config)
+        webView.navigationDelegate = self
         webView.scrollView.isScrollEnabled = false
         self.contentView.addSubview(webView)
         
@@ -63,8 +71,9 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
         titleLabel.text = model.title
         originLabel.text = "来源:\(String(describing: model.origin!))"
         timeInfoLabel.text = model.createTime
-        
-        webView.loadHTMLString(model.descriptionField, baseURL: nil)
+        let headerString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header> + \(String(describing: model.descriptionField!))";
+
+        webView.loadHTMLString(headerString, baseURL: nil)
     }
     
     
@@ -108,6 +117,30 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+
+extension ArticleDetailContentTableViewCell : WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        webView.evaluateJavaScript("var script = document.createElement('script');''document.body.style.fontSize=28.0;'//设置字体大小
+//            'script.type = 'text/javascript';'
+//            'script.text = \'function ResizeImages() { '
+//            'var myimg,oldwidth;'
+//            'var maxwidth = window.innerWidth;' // UIWebView中显示的图片宽度
+//            'for(i=1;i <document.images.length;i++){'
+//            'myimg = document.images[i];'
+//            'oldwidth = myimg.width;'
+//            'myimg.width = maxwidth;'
+//            '}'
+//            '}\';'
+//        "document.getElementsByTagName('head')[0].appendChild(script);ResizeImages();") { (ret, error) in
+//            
+//        }
+        
+    }
 }
 
 

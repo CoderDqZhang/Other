@@ -1551,7 +1551,7 @@ class GloableAdView: UIView {
                 self.disMissView()
             }
         })
-        disMissBtn.backgroundColor = UIColor.init(hexString: "FFFFFF", transparency: 0.1)
+        disMissBtn.backgroundColor = UIColor.init(hexString: "666666", transparency: 0.1)
         self.addSubview(disMissBtn)
     }
     

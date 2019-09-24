@@ -55,7 +55,7 @@ class PostDetailViewController: BaseViewController {
     override func setUpView() {
         self.bindViewModel(viewModel: postDetailViewModel, controller: self)
         self.postDetailViewModel.postType = self.postType
-        self.setUpTableView(style: .grouped, cells: [PostDetailUserInfoTableViewCell.self,PostDetailCommentTableViewCell.self,PostDetailCommentUserTableViewCell.self,PostDetailContentTableViewCell.self,HotDetailTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [PostDetailUserInfoTableViewCell.self,PostDetailCommentTableViewCell.self,PostDetailCommentUserTableViewCell.self,PostDetailContentTableViewCell.self,HotDetailTableViewCell.self,AdTableViewCell.self], controller: self)
 
         self.updateTableViewConstraints()
 

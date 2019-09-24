@@ -49,7 +49,7 @@ extension UIImageView {
         let size = imageView.size
         var temp_placholderImage = placeholderImage
         //展位图缓存
-        if temp_placholderImage == nil {
+        if temp_placholderImage == nil || size.width == 0 {
             var placholderImage = CacheManager.getSharedInstance().getPlacholderImage()
             if placholderImage == nil || placholderImage!.object(forKey: "\(size.width.int)\(size.height.int)") == nil {
                 temp_placholderImage = normalImage!.yy_imageByResize(to: size, contentMode: UIView.ContentMode.scaleAspectFill)
@@ -60,7 +60,9 @@ extension UIImageView {
                 }
                 CacheManager.getSharedInstance().savePlacholderImage(point: placholderImage!)
             }else{
-                temp_placholderImage = (placholderImage?.object(forKey: "\(size.width.int)\(size.height.int)") as! UIImage)
+                if placholderImage?.object(forKey: "\(size.width.int)\(size.height.int)") is UIImage {
+                    temp_placholderImage = (placholderImage?.object(forKey: "\(size.width.int)\(size.height.int)") as! UIImage)
+                }
             }
         }
         

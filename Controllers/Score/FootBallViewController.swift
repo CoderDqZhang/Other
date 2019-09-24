@@ -33,7 +33,7 @@ class FootBallViewController: BaseViewController {
     
     func initSView(type:Int, titles:String?) {
         self.bindViewModel(viewModel: footBallViewModel, controller: self)
-        self.setUpTableView(style: .grouped, cells: [ScoreInfoTableViewCell.self,ScoreListTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [ScoreInfoTableViewCell.self,ScoreListTableViewCell.self,AdTableViewCell.self], controller: self)
         if titles != nil {
             dateTime = titles
         }
@@ -66,10 +66,12 @@ class FootBallViewController: BaseViewController {
         
         if self.viewDesc != .amidithion {
             NotificationCenter.default.addObserver(self.footBallViewModel, selector: #selector(self.footBallViewModel.filterArray), name: NSNotification.Name.init(RELOADCOLLECTFOOTBALLMODEL), object: nil)
+            //进入后台后重新进入刷新数据
+            NotificationCenter.default.addObserver(self, selector: #selector(self.refreshData), name: NSNotification.Name.init(RELOADFOOTBALLENTERACTIVE), object: nil)
         }
     }
     
-    func getNetWorkData(){
+    @objc func getNetWorkData(){
         var date:String!
         if self.viewDesc == .underway || self.viewDesc == .timely {
             date = Date.init().string(withFormat: "yyyyMMdd")
@@ -79,7 +81,7 @@ class FootBallViewController: BaseViewController {
         self.footBallViewModel.getFootInfoBallNet(type:self.viewDesc.rawValue.string, date: date)
     }
     
-    func refreshData(){
+    @objc func refreshData(){
         if self.viewDesc != .attention {
             self.getNetWorkData()
         }else{

@@ -20,7 +20,7 @@ class NorthSigleModel : NSObject, NSCoding{
     var issueNum : Int!
     var matchId : String!
     var matchTime : Int!
-    
+    var matchIds : [String]!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -36,6 +36,7 @@ class NorthSigleModel : NSObject, NSCoding{
         issueNum = dictionary["issue_num"] as? Int
         matchId = dictionary["match_id"] as? String
         matchTime = dictionary["match_time"] as? Int
+        matchIds = [dictionary["match_ids"]] as? [String]
     }
     
     /**
@@ -71,6 +72,9 @@ class NorthSigleModel : NSObject, NSCoding{
         if matchId != nil{
             dictionary["match_id"] = matchId
         }
+        if matchIds != nil{
+            dictionary["match_ids"] = matchIds
+        }
         if matchTime != nil{
             dictionary["match_time"] = matchTime
         }
@@ -93,7 +97,7 @@ class NorthSigleModel : NSObject, NSCoding{
         issueNum = aDecoder.decodeObject(forKey: "issue_num") as? Int
         matchId = aDecoder.decodeObject(forKey: "match_id") as? String
         matchTime = aDecoder.decodeObject(forKey: "match_time") as? Int
-        
+        matchIds = aDecoder.decodeObject(forKey: "match_ids") as? [String]
     }
     
     /**
@@ -131,6 +135,9 @@ class NorthSigleModel : NSObject, NSCoding{
         }
         if matchTime != nil{
             aCoder.encode(matchTime, forKey: "match_time")
+        }
+        if matchIds != nil{
+            aCoder.encode(matchIds, forKey: "match_ids")
         }
         
     }

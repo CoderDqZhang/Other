@@ -199,7 +199,7 @@ class ScoreListTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func cellSetData(model:FootBallModel){
+    func cellSetData(model:FootBallModel, viewDesc:ScoreDetailTypeVC){
         self.model = model
         scoreType.text = model.eventInfo.shortNameZh
         scoreTime.text = Date.init(timeIntervalSince1970: model.startTime.double).string(withFormat: "HH:mm")
@@ -232,7 +232,7 @@ class ScoreListTableViewCell: UITableViewCell {
             showType = UserDefaults.standard.integer(forKey: RELOADCOLLECTFOOTBALLTYPEMODEL)
         }
         
-        if [0,1].contains(showType){
+        if [0,1].contains(showType) || viewDesc == .attention {
             if model.indexes.issueNum != nil{
                 let str =  DateTools.getSharedInstance().intConvertStringWeek(str: model.indexes.issueNum.first!.string)
                 timeLabel.text = "\(str) \(String.init(format: "%03d", model.indexes.issueNum.slice(at: 1).int!))"
@@ -244,11 +244,11 @@ class ScoreListTableViewCell: UITableViewCell {
                 timeLabel.text = ""
             }
         }else{
-            if showType == 3 {
+            if showType == 4 {
                 let str =  DateTools.getSharedInstance().intConvertStringWeek(str: model.indexes.issueNum.first!.string)
                 timeLabel.text = "\(str) \(String.init(format: "%03d", model.indexes.issueNum.slice(at: 1).int!))"
             }
-            if showType == 4 {
+            if showType == 3 {
                 timeLabel.text = "足彩 \(String.init(format: "%03d", model.footballLottery.issueNum.int!))"
             }
             if showType == 2 {
