@@ -15,7 +15,7 @@ class MineViewModel: BaseViewModel {
     let leftImage = [["realname","message","setting"],[nil]]
     var desc:[[String]]!
     
-    var adArray:NSMutableArray!
+    var adArray:NSMutableArray = NSMutableArray.init()
     
     var userInfo:UserInfoModel!
     var accountInfo:AccountInfoModel!
@@ -89,10 +89,10 @@ class MineViewModel: BaseViewModel {
     
     func tableViewAdTableViewCellSetData(_ indexPath:IndexPath, cell:AdTableViewCell) {
         if indexPath.section == 1 && self.adArray.count > 0 {
-            cell.cellSetData(model: AdModel.init(fromDictionary: self.adArray![0] as! [String : Any]))
+            cell.cellSetData(model: AdModel.init(fromDictionary: self.adArray[0] as! [String : Any]))
         }
         if indexPath.section == 4 && self.adArray.count > 1 {
-            cell.cellSetData(model: AdModel.init(fromDictionary: self.adArray![1] as! [String : Any]))
+            cell.cellSetData(model: AdModel.init(fromDictionary: self.adArray[1] as! [String : Any]))
         }
     }
     
@@ -247,7 +247,7 @@ extension MineViewModel: UITableViewDelegate {
         case 0:
             return 223
         case 1:
-            if self.adArray.count > 0{
+            if self.adArray != nil && self.adArray.count > 0{
                 return 75
             }
             return 0.0001
@@ -257,7 +257,7 @@ extension MineViewModel: UITableViewDelegate {
             if indexPath.row == 0 {
                 return 30
             }
-            if self.adArray.count > 1{
+            if self.adArray != nil && self.adArray.count > 1 {
                 return 75
             }
             return 0.0001

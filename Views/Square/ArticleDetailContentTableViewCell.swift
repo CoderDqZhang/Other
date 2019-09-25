@@ -8,6 +8,8 @@
 
 import UIKit
 import WebKit
+import JavaScriptCore
+
 typealias ReloadWebViewContentSize = (_ size:CGSize) ->Void
 
 class ArticleDetailContentTableViewCell: UITableViewCell {
@@ -52,7 +54,7 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
         //创建网页配置对象
         let config = WKWebViewConfiguration.init()
         let preference = WKPreferences.init()
-        preference.minimumFontSize = 40
+//        preference.minimumFontSize = 33
         config.preferences = preference
         
         webView = WKWebView.init(frame: CGRect.zero, configuration: config)
@@ -125,20 +127,36 @@ extension ArticleDetailContentTableViewCell : WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        webView.evaluateJavaScript("var script = document.createElement('script');''document.body.style.fontSize=28.0;'//设置字体大小
-//            'script.type = 'text/javascript';'
-//            'script.text = \'function ResizeImages() { '
-//            'var myimg,oldwidth;'
-//            'var maxwidth = window.innerWidth;' // UIWebView中显示的图片宽度
-//            'for(i=1;i <document.images.length;i++){'
-//            'myimg = document.images[i];'
-//            'oldwidth = myimg.width;'
-//            'myimg.width = maxwidth;'
-//            '}'
-//            '}\';'
-//        "document.getElementsByTagName('head')[0].appendChild(script);ResizeImages();") { (ret, error) in
-//            
+//        let context = webView.value(forKeyPath: "documentView.webView.mainFrame.javaScriptContext") as? JSContext
+//        let context = JSContext()
+////        webView.j
+        let js = "document.getElementsByName('img')[0].attributes['style']"
+        webView.evaluateJavaScript(js) { (response, error) in
+              print("response:", response ?? "No Response", "\n", "error:", error ?? "No Error")
+        }
+//        var js = "var script = document.createElement('script');script.type = 'text/javascript';script.text = \"function ResizeImages() {var myimg,oldwidth;var maxwidth = %f;for(i=0;i <document.images.length;i++){myimg = document.images[i];if(myimg.width > maxwidth){oldwidth = myimg.width;myimg.width = %f;}}};document.getElementsByTagName('head')[0].appendChild(script);"
+//
+//        js = String.init(format: js, SCREENWIDTH.int,(SCREENWIDTH - 30).int)
+////        context!.evaluateScript("js")
+////        context!.evaluateScript("ResizeImages();")
+//
+//        webView.evaluateJavaScript(js) { (any, error) in
+//            if error != nil {
+//                print(error)
+//            }
 //        }
+        
+//        let js = "document.getElementsByTagName('h2')[0].innerText = '我是ios原生为h5注入的方法'"
+//        let script = WKUserScript.init(source: js, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+//        self.webView.configuration.userContentController.addUserScript(script)
+        
+//        let jScript = "var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);"
+//        let wkUScript = WKUserScript.init(source: jScript, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
+//        let wkUController = WKUserContentController.init()
+//        wkUController.addUserScript(wkUScript)
+//        let wkWebConfig = WKWebViewConfiguration.init()
+//        wkWebConfig.userContentController = wkUController
+//        self.webView = WKWebView.init(frame: CGRect.zero, configuration: wkWebConfig)
         
     }
 }

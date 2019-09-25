@@ -193,3 +193,24 @@ extension UIImage {
 }
 
 
+extension UIImage {
+   
+    /// 通过图片url获取图片尺寸
+    ///
+    /// - Parameter url: 图片路径
+    /// - Returns: 返回图片尺寸，有可能为zero
+    class func getImageSizeWithURL(url:String?) -> CGSize {
+        var imageSize:CGSize = .zero
+        guard let imageUrlStr = url else { return imageSize }
+        guard imageUrlStr != "" else {return imageSize}
+        guard let imageUrl = URL(string: imageUrlStr) else { return imageSize }
+
+        guard let imageSourceRef = CGImageSourceCreateWithURL(imageUrl as CFURL, nil) else {return imageSize}
+        guard let imagePropertie = CGImageSourceCopyPropertiesAtIndex(imageSourceRef, 0, nil)  as? Dictionary<String,Any> else {return imageSize }
+        imageSize.width = CGFloat((imagePropertie[kCGImagePropertyPixelWidth as String] as! NSNumber).floatValue)
+        imageSize.height = CGFloat((imagePropertie[kCGImagePropertyPixelHeight as String] as! NSNumber).floatValue)
+        return imageSize
+    }
+}
+
+

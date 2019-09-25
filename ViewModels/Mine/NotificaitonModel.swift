@@ -20,6 +20,7 @@ class NotificaitonModel : NSObject, NSCoding{
     var type : String!
     var userId : Int!
     var user : UserInfoModel!
+    var tipStatus : Int!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -37,6 +38,7 @@ class NotificaitonModel : NSObject, NSCoding{
         title = dictionary["title"] as? String
         type = dictionary["type"] as? String
         userId = dictionary["userId"] as? Int
+        tipStatus = dictionary["tipStatus"] as? Int
     }
     
     /**
@@ -75,6 +77,9 @@ class NotificaitonModel : NSObject, NSCoding{
         if userId != nil{
             dictionary["userId"] = userId
         }
+        if tipStatus != nil{
+            dictionary["tipStatus"] = tipStatus
+        }
         return dictionary
     }
     
@@ -94,7 +99,8 @@ class NotificaitonModel : NSObject, NSCoding{
         title = aDecoder.decodeObject(forKey: "title") as? String
         type = aDecoder.decodeObject(forKey: "type") as? String
         userId = aDecoder.decodeObject(forKey: "userId") as? Int
-        
+        tipStatus = aDecoder.decodeObject(forKey: "tipStatus") as? Int
+
     }
     
     /**
@@ -133,7 +139,9 @@ class NotificaitonModel : NSObject, NSCoding{
         if userId != nil{
             aCoder.encode(userId, forKey: "userId")
         }
-        
+        if tipStatus != nil{
+            aCoder.encode(tipStatus, forKey: "tipStatus")
+        }
     }
     
 }

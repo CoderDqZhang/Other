@@ -43,4 +43,11 @@ class BackGroundManager: NSObject {
         NotificationCenter.default.post(name: NSNotification.Name.init(RELOADBASKETBALLENTERACTIVE), object: nil)
         SocketManager.getSharedInstance().reConnect()
     }
+    
+    //每隔10分钟更新数据
+    func reloadTime(){
+        _ = Timer.scheduledTimer(withTimeInterval: 10 * 60, repeats: true, block: { (time) in
+            LoadConfigManger.getSharedInstance().reloadData()
+        })
+    }
 }

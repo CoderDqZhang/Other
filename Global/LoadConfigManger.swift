@@ -42,11 +42,18 @@ class LoadConfigManger: NSObject {
         self.loadBasketBallScorEvent()
     }
     
+    func reloadData(){
+        self.loadFootBallScorEvent()
+        self.loadBasketBallScorEvent()
+    }
+    
     func loadConfigUrl(){
         BaseNetWorke.getSharedInstance().getUrlWithString(CommentgetTimetUrl, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
-                let model = ConfigModel.init(fromDictionary: resultDic.value as! [String : Any])
-                CacheManager.getSharedInstance().saveConfigModel(category: model)
+                if resultDic.value is NSDictionary {
+                    let model = ConfigModel.init(fromDictionary: resultDic.value as! [String : Any])
+                    CacheManager.getSharedInstance().saveConfigModel(category: model)
+                }
             }
         }
     }

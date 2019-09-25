@@ -128,6 +128,7 @@ class NotificationTableViewCell: UITableViewCell {
             descLabel.snp.makeConstraints { (make) in
                 make.top.equalTo(self.titleLabel.snp.bottom).offset(1)
                 make.left.equalTo(self.conisImageView.snp.right).offset(11)
+                make.right.lessThanOrEqualTo(self.contentView.snp.centerX).offset(0)
             }
             
             isUnread.snp.makeConstraints { (make) in

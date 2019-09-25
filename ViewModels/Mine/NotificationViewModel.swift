@@ -43,6 +43,10 @@ class NotificationViewModel: BaseViewModel {
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         if self.type != .system {
             let dicData:NSDictionary = NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any]).toDictionary() as NSDictionary
+            if dicData.object(forKey: "tipStatus") as! Int == 1 {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "帖子已删除", autoHidder: true)
+                return
+            }
             let mutDic = NSMutableDictionary.init(dictionary: dicData)
             mutDic.setObject(dicData.object(forKey: "params")!, forKey: "id" as NSCopying)
             if (self.controller as! NotificationViewController).postDetailDataClouse != nil {
