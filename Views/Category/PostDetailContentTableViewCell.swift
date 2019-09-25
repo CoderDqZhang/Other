@@ -107,10 +107,6 @@ class  PostDetailContentTableViewCell : UITableViewCell {
 
         var tempImges:[String] = model.image.components(separatedBy: ",")
         let images = tempImges.removeAll("")
-        var browser:SKPhotoBrowser? = nil
-        if images.count >= 1 {
-            browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
-        }
         if images.count >= 1 {
             var imageHeight:CGFloat = 0
             var count = 0
@@ -143,15 +139,12 @@ class  PostDetailContentTableViewCell : UITableViewCell {
                     gesture.numberOfTouchesRequired = 1
                     }.whenTaped(handler: { (tap) in
                         if self.postDetailContentTableViewCellImageClickClouse != nil {
-                            if browser != nil {
-                                self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
-                            }
+                            self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: tap.view!.tag - 1000))
                         }
                     })
                 imageView.layer.masksToBounds = true
                 self.imageContentView.addSubview(imageView)
             }
-           
         }else{
             self.collectButtonView.isHidden = false
             self.likeButtonView.isHidden = false

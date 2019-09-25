@@ -50,15 +50,12 @@ class CommentContenTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contentView.snp.top).offset(5)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
             }
         }
         
         var tempImges:[String] = model.img.components(separatedBy: ",")
         let images = tempImges.removeAll("")
-        var browser:SKPhotoBrowser? = nil
-        if images.count >= 1 {
-            browser = SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: 0)
-        }
         if images.count >= 1 {
             var imageHeight:CGFloat = 0
             var count = 0
@@ -83,7 +80,7 @@ class CommentContenTableViewCell: UITableViewCell {
                         }
                     }
                 }
-
+                
                 imageView.tag = index + 1000
                 imageView.isUserInteractionEnabled = true
                 _ = imageView.newTapGesture { (gesture) in
@@ -91,9 +88,7 @@ class CommentContenTableViewCell: UITableViewCell {
                     gesture.numberOfTouchesRequired = 1
                     }.whenTaped(handler: { (tap) in
                         if self.postDetailContentTableViewCellImageClickClouse != nil {
-                            if browser != nil {
-                                self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,browser!)
-                            }
+                            self.postDetailContentTableViewCellImageClickClouse(tap.view!.tag,SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: images, selectPageIndex: tap.view!.tag - 1000))
                         }
                     })
                 imageView.layer.masksToBounds = true
@@ -130,6 +125,7 @@ class CommentContenTableViewCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.top.equalTo(self.contnetLabel.snp.bottom).offset(25)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
             }
             
             didMakeConstraints = true

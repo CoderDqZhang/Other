@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Bugly
 #if DEBUG
 import CocoaDebug
 #endif
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
+        
+        Bugly.start(withAppId: BuglyAppId)
         
         //加载配置
         LoadConfigManger.getSharedInstance().setUp()

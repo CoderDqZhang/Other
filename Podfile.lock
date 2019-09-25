@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.8.2)
   - AliyunOSSiOS (2.10.7)
   - BDKCollectionIndexView (2.2.2)
+  - Bugly (2.5.0)
   - CocoaAsyncSocket (7.6.3)
   - CocoaDebug (0.8.2)
   - DZNEmptyDataSet (1.8.1)
@@ -67,6 +68,7 @@ DEPENDENCIES:
   - Alamofire
   - AliyunOSSiOS
   - BDKCollectionIndexView
+  - Bugly
   - CocoaAsyncSocket
   - CocoaDebug
   - DZNEmptyDataSet
@@ -100,6 +102,7 @@ SPEC REPOS:
     - Alamofire
     - AliyunOSSiOS
     - BDKCollectionIndexView
+    - Bugly
     - CocoaAsyncSocket
     - CocoaDebug
     - DZNEmptyDataSet
@@ -135,6 +138,7 @@ SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AliyunOSSiOS: 602b6a4e70e62a5f0a6431c20496343141d7e66f
   BDKCollectionIndexView: 489a0c57d27fafe6944ef61e5a4192902148ea84
+  Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   CocoaDebug: 23e784cfe240ffa8e14e6c0cce9e793034e6f944
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
@@ -166,6 +170,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: a748ee96e7b24ad00909242ce5063abec5ba61ed
+PODFILE CHECKSUM: e8a43633e21745a03d0a236eafc5e60e679ae03e
 
 COCOAPODS: 1.6.1

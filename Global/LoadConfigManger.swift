@@ -313,7 +313,7 @@ class LoadConfigManger: NSObject {
                         }
                         temp_aray.add(dic)
                     }
-                    
+                    self.updateSelectBasketEvent(array: temp_aray as! [Any], name: name as! String)
                     dic.setValue(temp_aray, forKey: name as! String)
                 }
             }
@@ -321,6 +321,7 @@ class LoadConfigManger: NSObject {
         switch type {
         case .event:
             CacheManager.getSharedInstance().saveBasketBallEventModel(point: dic)
+            NotificationCenter.default.post(name: NSNotification.Name.init(RELOADBASKETBALLMATCHEVENT), object: nil)
             if CacheManager.getSharedInstance().getBasketBallEventSelectModel() == nil {
                 CacheManager.getSharedInstance().saveBasketBallEventSelectModel(point: dic)
             }else{
@@ -339,6 +340,7 @@ class LoadConfigManger: NSObject {
     
     func saveFootData(type:FootBallSaveType, models:NSMutableArray) {
         let dic = NSMutableDictionary.init()
+        
         if models.count > 0 {
             for index in 0...models.count - 1 {
                 let temp_dic = NSMutableDictionary.init(dictionary: models[index] as! NSDictionary)
@@ -361,7 +363,9 @@ class LoadConfigManger: NSObject {
                     }
                     return  title == name as! String
                 }
+                
                 if array.count > 0 {
+                    self.updateSelectFootEvent(array: array, name: name as! String)
                     dic.setValue(array, forKey: name as! String)
                 }
             }
@@ -370,7 +374,7 @@ class LoadConfigManger: NSObject {
         switch type {
         case .event:
             CacheManager.getSharedInstance().saveFootBallEventModel(point: dic)
-            
+            NotificationCenter.default.post(name: NSNotification.Name.init(RELOADFOOTBALLMATCHEVENT), object: nil)
             //保存筛选赛事数据，隔天更新
             if CacheManager.getSharedInstance().getFootBallEventSelectModel() == nil {
                 CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: dic)
@@ -389,6 +393,49 @@ class LoadConfigManger: NSObject {
             CacheManager.getSharedInstance().saveFootBallLotteryModel(point: dic)
         default:
             CacheManager.getSharedInstance().saveFootBallEventLevelModel(point: dic)
+        }
+    }
+    
+    
+    func updateSelectFootEvent(array:[Any], name:String){
+        if CacheManager.getSharedInstance().getFootBallEventModel() == nil || CacheManager.getSharedInstance().getFootBallEventSelectModel() == nil  {
+            return
+        }
+        DispatchQueue.global().async {
+            let old_array = NSMutableArray.init(array: CacheManager.getSharedInstance().getFootBallEventModel()!.object(forKey: name) == nil ? [] : CacheManager.getSharedInstance().getFootBallEventModel()!.object(forKey: name) as! NSArray)
+            let event = CacheManager.getSharedInstance().getFootBallEventSelectModel()
+            let event_array =  NSMutableArray.init(array:CacheManager.getSharedInstance().getFootBallEventSelectModel()?.object(forKey: name) == nil ? [] : CacheManager.getSharedInstance().getFootBallEventSelectModel()?.object(forKey: name) as! NSArray)
+            
+            for item in array {
+                let contains = old_array.contains(item)
+                if !contains {
+                    (item as! NSDictionary).setValue(true, forKey: "is_select")
+                    event_array.add(item)
+                }
+            }
+            event?.setValue(event_array, forKey: name)
+            CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: event!)
+        }
+    }
+    
+    func updateSelectBasketEvent(array:[Any], name:String){
+        if CacheManager.getSharedInstance().getBasketBallEventModel() == nil || CacheManager.getSharedInstance().getBasketBallEventSelectModel() == nil{
+            return
+        }
+        DispatchQueue.global().async {
+            let old_array = NSMutableArray.init(array: CacheManager.getSharedInstance().getBasketBallEventModel()!.object(forKey: name) == nil ? [] : CacheManager.getSharedInstance().getBasketBallEventModel()!.object(forKey: name) as! NSArray)
+            let event = CacheManager.getSharedInstance().getBasketBallEventSelectModel()
+            let event_array =  NSMutableArray.init(array:CacheManager.getSharedInstance().getBasketBallEventSelectModel()?.object(forKey: name) == nil ? []  : CacheManager.getSharedInstance().getBasketBallEventSelectModel()?.object(forKey: name) as! NSArray)
+            
+            for item in array {
+                let contains = old_array.contains(item)
+                if !contains {
+                    (item as! NSDictionary).setValue(true, forKey: "is_select")
+                    event_array.add(item)
+                }
+            }
+            event?.setValue(event_array, forKey: name)
+            CacheManager.getSharedInstance().saveBasketBallEventSelectModel(point: event!)
         }
     }
     

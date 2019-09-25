@@ -87,7 +87,7 @@ class NotificationViewModel: BaseViewModel {
                 self.updateUnreadNumber()
                 messageModel.status = "1"
                 self.detailArray.replaceObject(at: indexPath.section, with: messageModel.toDictionary())
-                _ = Tools.shareInstance.showMessage(self.controller!.view, msg: "标记成功", autoHidder: true)
+//                _ = Tools.shareInstance.showMessage(self.controller!.view, msg: "标记成功", autoHidder: true)
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

@@ -36,6 +36,7 @@ target 'Touqiu' do
   pod 'BDKCollectionIndexView'
   pod 'RSKGrowingTextView'
   pod 'CocoaDebug', :configurations => ['Debug']
+  pod 'Bugly'
   
   target 'TouqiuTests' do
     inherit! :search_paths

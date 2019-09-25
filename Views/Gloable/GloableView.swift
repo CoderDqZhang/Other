@@ -1543,15 +1543,8 @@ class GloableAdView: UIView {
         disMissBtn.addAction({ (button) in
             self.disMissView()
         }, for: UIControl.Event.touchUpInside)
-        var count = 3
-        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
-            self.disMissBtn.setTitle("跳过 \(count)s", for: .normal)
-            count = count - 1
-            if count == 0 {
-                self.disMissView()
-            }
-        })
-        disMissBtn.backgroundColor = UIColor.init(hexString: "666666", transparency: 0.1)
+        
+        
         self.addSubview(disMissBtn)
     }
     
@@ -1565,7 +1558,15 @@ class GloableAdView: UIView {
     func setUpView(image:String){
         imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 95))
         imageView.sd_crope_imageView(url: image, imageView: imageView, placeholderImage: nil) { (image, url, type, stage, error) in
-            
+            self.disMissBtn.backgroundColor = UIColor.init(hexString: "666666", transparency: 0.1)
+            var count = 3
+            _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
+                self.disMissBtn.setTitle("跳过 \(count)s", for: .normal)
+                count = count - 1
+                if count == 0 {
+                    self.disMissView()
+                }
+            })
         }
         self.addSubview(imageView)
         

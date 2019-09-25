@@ -68,6 +68,8 @@ class FootBallViewController: BaseViewController {
             NotificationCenter.default.addObserver(self.footBallViewModel, selector: #selector(self.footBallViewModel.filterArray), name: NSNotification.Name.init(RELOADCOLLECTFOOTBALLMODEL), object: nil)
             //进入后台后重新进入刷新数据
             NotificationCenter.default.addObserver(self, selector: #selector(self.refreshData), name: NSNotification.Name.init(RELOADFOOTBALLENTERACTIVE), object: nil)
+            //更新赛事刷新数据
+            NotificationCenter.default.addObserver(self, selector: #selector(self.refreshData), name: NSNotification.Name.init(RELOADBASKETBALLMATCHEVENT), object: nil)
         }
     }
     

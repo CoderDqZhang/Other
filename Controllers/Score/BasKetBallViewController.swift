@@ -54,6 +54,8 @@ class BasKetBallViewController: BaseViewController {
             NotificationCenter.default.addObserver(self.basketBallViewModel, selector: #selector(self.basketBallViewModel.filterArray), name: NSNotification.Name.init(RELOADCOLLECTRBASKETBALLMODEL), object: nil)
             //进入后台后重新进入刷新数据
             NotificationCenter.default.addObserver(self, selector: #selector(self.refreshData), name: NSNotification.Name.init(RELOADBASKETBALLENTERACTIVE), object: nil)
+            //更新赛事刷新数据
+            NotificationCenter.default.addObserver(self, selector: #selector(self.refreshData), name: NSNotification.Name.init(RELOADFOOTBALLMATCHEVENT), object: nil)
         }
     }
     

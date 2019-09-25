@@ -61,6 +61,8 @@ let RELOADCOLLECTFOOTBALLMODEL = "ReloadCollectFootModel" //更新列表页模�
 let RELOADCOLLECTFOOTBALLTYPEMODEL = "ReloadCollectFootTypeModel" //更新列表页模型数据通知
 let UPDATEFOOTBALLSELECTEVENT = "UpdateFootBallSelectEvent" //更新列表页模型数据通知
 let RELOADFOOTBALLENTERACTIVE = "ReloadFootBallEnterActive" //进入后台后重新加载模型数据
+let RELOADFOOTBALLMATCHEVENT = "ReloadFootBallMatchEvent" //增加赛事更新数据
+
 //助球队信息
 let BASKETBALLINFOMODEL = "BasketBallInfoModel" //保存足球队信息 已移除
 let BASKETBALLEVENTODEL = "BasketBallEventModel" //保存足球赛事信息
@@ -69,6 +71,9 @@ let BASKETBALLEVENTLEVELMODEL = "BasketBallEventLevelModel" //保存足球一级
 let BASKETBALLINDEXMODEL = "BasketBallIndex" //保存竞彩数据
 let BASKETBALLMATCHCOLLECTMODEL = "BasketBallMatchCollectModel" //保存竞彩数据
 let RELOADBASKETBALLEVENTDATA = "ReloadBaketBallEventData" ///更新足球赛事信息
+let RELOADBASKETBALLMATCHEVENT = "ReloadBasketBallMatchEvent" //增加赛事更新数据
+
+
 let CLICKRELOADBASKETBALLEVENTDATA = "ClickReloadBasketBallEventData"
 let CLICKRELOADBASKETBALLEVENTYPETDATA = "ClickReloadBasketBallEventTypeData"//点击更新其他j界面的赛事选择
 let ALLBASKETBALLMACTH = "AllBasketBallMacth" //所有赛程数
@@ -79,9 +84,6 @@ let RELOADBASKETBALLENTERACTIVE = "ReloadBasketBallEnterActive" //进入后台�
 
 let JPUSHALIAS = "touqiu_"
 let NOTIFICATIOINSPUSHCONTROLLER = "NOTIFICATIOINSPUSHCONTROLLER"
-
-let holderImage = UIImage.init(named: "")
-
 
 //QQ开发平台
 let QQAPPID  = "1109440727"
@@ -95,6 +97,9 @@ let WeiboRedirectUrl = "http://sns.whalecloud.com/sina2/callback"
 
 let WeiXinAppID = "wxc12aa2683cd59692"
 let WeiXinAppSecret = "7de854c8c6a50165fe7f46cc4060b00e"
+
+let BuglyAppId = "7e5fac7a69"
+let BuglyScrec = "8e80f3ea-a553-438d-8d3a-3141ca81b896"
 
 func getNoLoginUserModel()->UserInfoModel{
     let userInfo = UserInfoModel.init(fromDictionary: ["id": 8,
