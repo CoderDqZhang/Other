@@ -132,7 +132,8 @@ class DailyViewController: BaseViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(inveterBtn.snp.bottom).offset(15)
         }
-        
+        // MARK: 签到规则暂时不用
+        /*
         let signTitleRuleLabel = YYLabel.init()
         signTitleRuleLabel.frame = CGRect.init(x: 0, y: imageHeight + 127, width: SCREENWIDTH, height: 20)
         signTitleRuleLabel.textAlignment = .center
@@ -164,6 +165,7 @@ class DailyViewController: BaseViewController {
         signRuleLabel.frame = CGRect.init(x: 15, y: signTitleRuleLabel.frame.maxY + 21, width: SCREENWIDTH - 30, height: 55)
         signRuleLabel.text = "签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则签到规则"
         scrollowView.addSubview(signRuleLabel)
+         */
         
     }
     
@@ -213,7 +215,7 @@ class DailyViewController: BaseViewController {
             make.top.equalTo(detailLabel.snp.bottom).offset(5)
         }
         
-        let image = UIImage.init(color: App_Theme_FFD512_Color!, size: CGSize.init(width: 23, height: 23))
+        let image = UIImage.init(color: App_Theme_FFAC1B_Color!, size: CGSize.init(width: 23, height: 23))
         let textImage = UIImage.circleImage(withName:   UIImage.init(text: "20", textFont: 10, textColor: App_Theme_FFFFFF_Color!, textFrame: CGRect.init(x: 5, y: 5, width: 23, height: 23), originImage: image, imageLocationViewFrame: CGRect.init(x: 0, y: 0, width: 23, height: 23)), borderWidth: 1, borderColor: UIColor.clear)
         
         slidView = UISlider.init(frame: CGRect.init(x: 15, y: 69, width: frame.size.width - 30, height: 4))
@@ -221,7 +223,7 @@ class DailyViewController: BaseViewController {
         slidView.minimumValue = 0
         slidView.isEnabled = false
         slidView.value = 50
-        slidView.minimumTrackTintColor = App_Theme_E34D31_Color
+        slidView.minimumTrackTintColor = App_Theme_FFD512_Color
         slidView.maximumTrackTintColor = App_Theme_EDEDED_Color
         slidView.setThumbImage(textImage, for: .normal)
         dailyView.addSubview(slidView)

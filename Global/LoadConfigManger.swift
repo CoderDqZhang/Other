@@ -428,10 +428,12 @@ class LoadConfigManger: NSObject {
             let event_array =  NSMutableArray.init(array:CacheManager.getSharedInstance().getBasketBallEventSelectModel()?.object(forKey: name) == nil ? []  : CacheManager.getSharedInstance().getBasketBallEventSelectModel()?.object(forKey: name) as! NSArray)
             
             for item in array {
-                let contains = old_array.contains(item)
-                if !contains {
-                    (item as! NSDictionary).setValue(true, forKey: "is_select")
-                    event_array.add(item)
+                do{
+                    let contains = old_array.contains(item)
+                    if !contains {
+                        (item as! NSDictionary).setValue(true, forKey: "is_select")
+                        event_array.add(item)
+                    }
                 }
             }
             event?.setValue(event_array, forKey: name)

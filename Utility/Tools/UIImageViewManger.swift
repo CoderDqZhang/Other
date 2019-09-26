@@ -99,7 +99,7 @@ extension UIImageView {
             }
         }
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-            self.sd_setImage(with:  URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: temp_placholderImage, options: [.retryFailed, .avoidAutoSetImage, .highPriority,.refreshCached]) { (image, error, cacheType, url) in
+            self.sd_setImage(with:  URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: temp_placholderImage, options: [.retryFailed, .avoidAutoSetImage, .highPriority]) { (image, error, cacheType, url) in
                 completedBlock!(image,error,cacheType,url)
             }
         }
@@ -142,6 +142,12 @@ extension UIImageView {
                 })
                 completedBlock!(image,data,error,ret)
             }
+        }
+    }
+    
+    func sd_without_crope_image(url:String, completedBlock:SDExternalCompletionBlock?){
+        self.sd_setImage(with:  URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), placeholderImage: nil, options: [.retryFailed]) { (image, error, cacheType, url) in
+            completedBlock!(image,error,cacheType,url)
         }
     }
 }

@@ -1458,6 +1458,7 @@ class GloableSignView: UIView {
         self.addSubview(backView)
         
         imageView = UIImageView.init()
+        imageView.isUserInteractionEnabled = true
         imageView.newTapGesture { (tap) in
             tap.numberOfTapsRequired = 1
             tap.numberOfTouchesRequired = 1
@@ -1472,7 +1473,6 @@ class GloableSignView: UIView {
                 self.imageView.image = image
             }
         }
-        imageView.image = UIImage.init(named: "sign")
         self.addSubview(imageView)
         
         
@@ -1509,6 +1509,7 @@ class GloableSignView: UIView {
         imageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
+            make.size.lessThanOrEqualTo(CGSize.init(width: 256, height: 266))
         }
         
         closeView.snp.makeConstraints { (make) in
@@ -1556,19 +1557,29 @@ class GloableAdView: UIView {
     }
     
     func setUpView(image:String){
-        imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 95))
-        imageView.sd_crope_imageView(url: image, imageView: imageView, placeholderImage: nil) { (image, url, type, stage, error) in
-            self.disMissBtn.backgroundColor = UIColor.init(hexString: "666666", transparency: 0.1)
-            var count = 3
-            _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
-                self.disMissBtn.setTitle("跳过 \(count)s", for: .normal)
-                count = count - 1
-                if count == 0 {
-                    self.disMissView()
-                }
-            })
-        }
+        imageView = UIImageView.init(frame: CGRect.zero)
+        imageView.backgroundColor = .red
+//        imageView.image = UIImage.init(named: "Advertising Page")
+        imageView.sd_crope_imageView_withMaxWidth(url: image, imageSize: CGSize.init(width: SCREENWIDTH, height: SCREENHEIGHT - 95), placeholderImage: nil, completedBlock: { (image, error, cacheType, url) in
+            if image != nil {
+                self.imageView.image = image?.scaled(toWidth: SCREENWIDTH)
+                var count = 3
+                self.disMissBtn.backgroundColor = UIColor.init(hexString: "666666", transparency: 0.1)
+                _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
+                    self.disMissBtn.setTitle("跳过 \(count)s", for: .normal)
+                    count = count - 1
+                    if count == 0 {
+                        self.disMissView()
+                    }
+                })
+            }
+        })
         self.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+        }
         
         let bottomView = UIView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 95, width: SCREENWIDTH, height: 95))
         bottomView.backgroundColor = .white

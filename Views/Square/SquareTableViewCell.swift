@@ -65,8 +65,8 @@ class SquareTableViewCell: UITableViewCell {
         
         postImageView.sd_crope_imageView_withMaxWidth(url: model.image, imageSize: CGSize.init(width: 108, height: 75), placeholderImage: nil) { (image, error, cacheType, url) in
             if error == nil {
-                let imageSize = UIImageMaxCroped.cropeImage(image: image!, imageViewSize:  CGSize.init(width: 108, height: 75))
-                self.postImageView.image = imageSize
+                let resultImage = UIImageMaxCroped.cropeImage(image: image!, imageViewSize:  CGSize.init(width: 108, height: 75))
+                self.postImageView.image = resultImage
             }
         }
     

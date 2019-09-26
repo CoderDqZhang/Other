@@ -331,7 +331,7 @@ class FootBallViewModel: BaseViewModel {
             model.teamB.halfScore = ((match[3] as! NSArray)[1] as! Int)
             model.teamB.halfRed = ((match[3] as! NSArray)[2] as! Int)
             model.teamB.halfYellow = ((match[3] as! NSArray)[3] as! Int)
-            model.remark.remarkDetail = ((match[4] as! NSArray)[1] as! String)
+            model.remark.remarkDetail = (match[5] as! String)
             if (match[1] as! Int) == 8 {
                 self.isRefreshData = true
                 self.removeDoneMatch(model: model)

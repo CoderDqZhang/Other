@@ -243,6 +243,7 @@ class ScoreListTableViewCell: UITableViewCell {
             if scoreStatus.layer.animation(forKey: "animation") == nil {
                 scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
             }
+            scoreStatus.textColor = App_Theme_FFAC1B_Color
         }
         
         var showType = 0

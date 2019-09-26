@@ -13,7 +13,8 @@ class UIImageMaxCroped: NSObject {
         let imageScral = String(format:"%.2f",image.size.width/image.size.height)
         let imageViewScral = String(format:"%.2f",imageViewSize.width/imageViewSize.height)
         if imageScral > imageViewScral {
-            let cgrect = CGRect.init(x: (image.size.width - (image.size.height - 20) * imageViewSize.width / imageViewSize.height) / 2, y: 10, width: (image.size.height - 20) * imageViewSize.width / imageViewSize.height, height: (image.size.height - 20))
+            let cgrect = CGRect.init(x: (image.size.width - (image.size.height - 20) * imageViewSize.width / imageViewSize.height) / 2, y: 0, width: (image.size.height - 20) * imageViewSize.width / imageViewSize.height, height: (image.size.height - 20) * imageViewSize.width / imageViewSize.height / imageViewScral.cgFloat()!)
+            
             return image.fixOrientation().cropped(to: cgrect)
         }else if imageViewScral ==  imageScral {
             return image
@@ -21,6 +22,10 @@ class UIImageMaxCroped: NSObject {
             let cgrect = CGRect.init(x: 10, y: (image.size.height - (image.size.width - 20) * imageViewSize.height / imageViewSize.width) / 2, width: (image.size.width - 20), height: (image.size.width - 20) * imageViewSize.height / imageViewSize.width)
             return image.fixOrientation().cropped(to: cgrect)
         }
+    }
+    
+    class func cropeImageWidth(image:UIImage, width:CGFloat){
+//        let cgrect = CGRect.init(x: <#T##CGFloat#>, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
     }
 }
 

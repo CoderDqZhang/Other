@@ -393,8 +393,11 @@ class MineInfoTableViewCell: UITableViewCell {
             attentionsLabel.text = "关注 \(showModel!.followNum.string)"
         }
         descLabel.text = showModel!.descriptionField == "" ? "还没有个人简介" : showModel!.descriptionField
-        avatarImageView.sd_crope_imageView(url: showModel!.img, imageView: avatarImageView, placeholderImage: nil) { (image, url, type, state, error) in
-            
+        avatarImageView.sd_crope_imageView_withMaxWidth(url: showModel!.img, imageSize: CGSize.init(width: 62, height: 62), placeholderImage: nil) { (image, error, cacheType, url) in
+            if error == nil {
+                let resultImage = UIImageMaxCroped.cropeImage(image: image!, imageViewSize:  CGSize.init(width: 62, height: 62))
+                self.avatarImageView.image = resultImage
+            }
         }
         
         var showAccountModel = acount
