@@ -204,26 +204,45 @@ class ScoreListTableViewCell: UITableViewCell {
         scoreType.text = model.eventInfo.shortNameZh
         scoreTime.text = Date.init(timeIntervalSince1970: model.startTime.double).string(withFormat: "HH:mm")
         
-        if model.status == 1 || model.status == 0{
+        if model.status == 0 {
+            scoreStatus.text = "比赛异常"
+            scoreStatus.textColor = App_Theme_999999_Color
+        }else if model.status == 1 {
             scoreStatus.text = "未开赛"
             scoreStatus.textColor = App_Theme_999999_Color
+        }else if model.status == 3 {
+            scoreStatus.text = "中场"
+            scoreStatus.textColor = App_Theme_FFAC1B_Color
+        }else if model.status == 5 {
+            scoreStatus.text = "加时赛"
+            scoreStatus.textColor = App_Theme_FFAC1B_Color
+        }else if model.status == 7 {
+            scoreStatus.text = "点球对决"
+            scoreStatus.textColor = App_Theme_FFAC1B_Color
         }else if model.status == 8 {
             scoreStatus.text = "完场"
             scoreStatus.textColor = App_Theme_999999_Color
-        }else if model.status < 7 {
-            if model.status == 3 {
-                 scoreStatus.text = "中场"
-            }else{
-                let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.time.double))
-                scoreStatus.text = String(format: "%.0f“", double + (model.status == 4 ? 46.00 : 0.00))
-                if scoreStatus.layer.animation(forKey: "animation") == nil {
-                    scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
-                }
-            }
-            scoreStatus.textColor = App_Theme_FFAC1B_Color
-        }else{
-            scoreStatus.text = "延迟"
+        }else if model.status == 9 {
+            scoreStatus.text = "推迟"
             scoreStatus.textColor = App_Theme_999999_Color
+        }else if model.status == 10 {
+            scoreStatus.text = "中断"
+            scoreStatus.textColor = App_Theme_999999_Color
+        }else if model.status == 11 {
+            scoreStatus.text = "腰斩"
+            scoreStatus.textColor = App_Theme_999999_Color
+        }else if model.status == 12 {
+            scoreStatus.text = "取消"
+            scoreStatus.textColor = App_Theme_999999_Color
+        }else if model.status == 13 {
+            scoreStatus.text = "待定"
+            scoreStatus.textColor = App_Theme_999999_Color
+        }else{
+            let double = Date.init().minutesSince(Date.init(timeIntervalSince1970: model.time.double))
+            scoreStatus.text = String(format: "%.0f“", double + (model.status == 4 ? 46.00 : 0.00))
+            if scoreStatus.layer.animation(forKey: "animation") == nil {
+                scoreStatus.layer.add(AnimationTools.getSharedInstance().opacityForever_Animation(), forKey: "animation")
+            }
         }
         
         var showType = 0
