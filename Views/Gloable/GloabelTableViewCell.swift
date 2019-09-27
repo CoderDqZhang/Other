@@ -267,6 +267,7 @@ class GloabelFansTableViewCell : UITableViewCell {
         toolsButton.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
         toolsButton.addAction({ (button) in
             if self.gloabelFansTableViewCellClouse != nil {
+                self.changeToolsButtonType(followed: self.toolsButton.tag == 1 ? false : true)
                 self.gloabelFansTableViewCellClouse(GloabelButtonType.init(rawValue: self.toolsButton.tag)!, self.indexPath)
             }
         }, for: .touchUpInside)

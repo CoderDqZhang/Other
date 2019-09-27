@@ -46,7 +46,7 @@ class BackGroundManager: NSObject {
     
     //每隔10分钟更新数据
     func reloadTime(){
-        _ = Timer.scheduledTimer(withTimeInterval: 10 * 60, repeats: true, block: { (time) in
+        _ = Timer.scheduledTimer(withTimeInterval: 5 * 60, repeats: true, block: { (time) in
             LoadConfigManger.getSharedInstance().reloadData()
         })
     }

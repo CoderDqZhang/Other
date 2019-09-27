@@ -211,13 +211,15 @@ class FilterViewModel: BaseViewModel {
             case .level1:
                 for str in self.footBalleventsList.allKeys {
                     let array = self.footBalleventsList.object(forKey: str) as! NSArray
-                    for index in 0...array.count - 1 {
-                        let name = (array[index] as! NSDictionary).object(forKey: "short_name_zh")
-                        let isContains = selectTitles.contains(name as Any)
-                        if isContains {
-                            number = number + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
+                    if array.count > 0 {
+                        for index in 0...array.count - 1 {
+                            let name = (array[index] as! NSDictionary).object(forKey: "short_name_zh")
+                            let isContains = selectTitles.contains(name as Any)
+                            if isContains {
+                                number = number + ((array[index] as! NSDictionary).object(forKey: "match_ids") as! NSArray).count
+                            }
+                            (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
                         }
-                        (array[index] as! NSDictionary).setValue(isContains, forKey: "is_select")
                     }
                 }
             case .index:

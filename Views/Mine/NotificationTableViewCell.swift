@@ -34,6 +34,8 @@ class NotificationTableViewCell: UITableViewCell {
     func setUpView(){
         conisImageView = UIImageView.init()
         conisImageView.cornerRadius = 17
+        conisImageView.layer.borderColor = App_Theme_F6F6F6_Color!.cgColor
+        conisImageView.borderWidth = 1
         conisImageView.layer.masksToBounds = true
         conisImageView.image = UIImage.init(named: "norification")
         self.contentView.addSubview(conisImageView)

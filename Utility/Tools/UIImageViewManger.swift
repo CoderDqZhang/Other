@@ -94,7 +94,12 @@ extension UIImageView {
                     }
                     CacheManager.getSharedInstance().savePlacholderImage(point: placholderImage!)
                 }else{
-                    temp_placholderImage = (placholderImage?.object(forKey: "\(size.width.int)\(size.height.int)") as! UIImage)
+                    if placholderImage?.object(forKey: "\(size.width.int)\(size.height.int)") is UIImage {
+                        temp_placholderImage = (placholderImage?.object(forKey: "\(size.width.int)\(size.height.int)") as! UIImage)
+                    }else{
+                        temp_placholderImage = normalImage
+                    }
+                    
                 }
             }
         }

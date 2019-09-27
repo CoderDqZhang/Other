@@ -61,7 +61,7 @@ class PostDetailViewController: BaseViewController {
 
         self.setUpLoadMoreDataClouse = {
             self.setUpLoadMoreData {
-                self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
+//                self.postDetailViewModel.getComments(id: (self.postData.object(forKey: "id") as! Int).string)
             }
         }
         

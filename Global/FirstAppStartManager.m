@@ -22,17 +22,13 @@
     
     /*
      方式一:
-     
-     CGSize size = [UIScreen mainScreen].bounds.size;
-     
-     KSGuaidManager.dismissButtonImage = [UIImage imageNamed:@"hidden"];
-     
-     KSGuaidManager.dismissButtonCenter = CGPointMake(size.width / 2, size.height - 80);
      */
-    
+     CGSize size = [UIScreen mainScreen].bounds.size;
+     KSGuaidManager.dismissButtonImage = [UIImage imageNamed:@"立即体验"];
+     KSGuaidManager.dismissButtonCenter = CGPointMake(size.width / 2, size.height - 38);
     //方式二:
     
-    KSGuaidManager.shouldDismissWhenDragging = YES;
+//    KSGuaidManager.shouldDismissWhenDragging = YES;
     
     [KSGuaidManager begin];
 }

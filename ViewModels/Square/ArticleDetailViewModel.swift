@@ -81,6 +81,22 @@ class ArticleDetailViewModel: BaseViewModel {
             }
         }
     }
+    
+    func getNetWorkData(type:String){
+        page = page + 1
+        let parameters = ["page":page.string, "limit":LIMITNUMBER, "type":type] as [String : Any]
+        BaseNetWorke.getSharedInstance().getUrlWithString(ArticleListUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.page != 1 {
+                    self.articleListArray.addObjects(from: NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array) as! [Any])
+                }else{
+                    self.articleListArray = NSMutableArray.init(array: (resultDic.value as! NSDictionary).object(forKey: "records") as! Array)
+                }
+                self.reloadTableViewData()
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
 }
 
 

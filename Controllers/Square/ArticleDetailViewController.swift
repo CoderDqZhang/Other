@@ -26,7 +26,9 @@ class ArticleDetailViewController: BaseViewController {
     
     override func bindViewModelLogic() {
         self.articleDetailViewModel.articleId = (self.articleData.object(forKey: "id") as! Int).string
+        
         self.articleDetailViewModel.getArticleNet()
+        self.articleDetailViewModel.getNetWorkData(type:(self.articleData.object(forKey: "type") as! Int).string)
     }
     
     override func setUpViewNavigationItem() {
