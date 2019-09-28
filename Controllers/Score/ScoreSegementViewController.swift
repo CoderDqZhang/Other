@@ -53,7 +53,7 @@ class ScoreSegementViewController: BaseViewController,UIScrollViewDelegate {
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = .clear
         
-        segmentedView.contentEdgeInsetRight = 72
+        segmentedView.contentEdgeInsetRight = 112
         segmentedView.contentEdgeInsetLeft = 72
         segmentedView.defaultSelectedIndex = 0
         segmentedView.dataSource = segmentedViewDataSource
@@ -92,7 +92,7 @@ class ScoreSegementViewController: BaseViewController,UIScrollViewDelegate {
     }
     
     func createNavigationItem(){
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "ic_more")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.rightBarItemClick))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "ic_more")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.rightBarItemClick))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "ic_filte")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.leftBarItemClick))
         self.navigationItem.titleView = self.segmentedView
     }

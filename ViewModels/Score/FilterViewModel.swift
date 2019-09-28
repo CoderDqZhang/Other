@@ -123,6 +123,7 @@ class FilterViewModel: BaseViewModel {
         if self.viewType == .football {
             let tempDic = NSMutableDictionary.init(dictionary: self.footBalleventsList.mutableCopy() as! NSDictionary)
             let eventDic = NSMutableDictionary.init(dictionary: CacheManager.getSharedInstance().getFootBallEventModel()!.mutableCopy() as! NSDictionary)
+            let select_event_id = NSMutableArray.init()
             for str in tempDic.allKeys {
                 let temp_array = NSMutableArray.init(array: tempDic.object(forKey: str as! String) as! NSArray)
                 let event_array = NSMutableArray.init(array:eventDic.object(forKey: str as! String) as! NSArray)
@@ -134,10 +135,12 @@ class FilterViewModel: BaseViewModel {
                                 for indexs in 0...event_array.count - 1 {
                                     if (event_array[indexs] as! NSDictionary).object(forKey: "short_name_zh") as! String == (temp_array[index] as! NSDictionary).object(forKey: "eventsName") as! String {
                                         result_array.add(event_array[indexs])
+                                        select_event_id.add((event_array[indexs] as! NSDictionary).object(forKey: "id")!)
                                         break
                                     }
                                 }
                             }else{
+                                select_event_id.add((temp_array[index] as! NSDictionary).object(forKey: "id")!)
                                 result_array.add(temp_array[index])
                             }
                         }
@@ -146,11 +149,13 @@ class FilterViewModel: BaseViewModel {
                 tempDic.setValue(result_array, forKey: str as! String)
             }
             self.selecFootBallDic = tempDic
+            CacheManager.getSharedInstance().saveFootBallEventIdModel(point: select_event_id)
             CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: self.selecFootBallDic)
             NotificationCenter.default.post(name: NSNotification.Name.init(CLICKRELOADFOOTBALLEVENTDATA), object: self, userInfo: nil)
         }else{
             let tempDic = NSMutableDictionary.init(dictionary: self.basketBalleventsList.mutableCopy() as! NSDictionary)
             let eventDic = NSMutableDictionary.init(dictionary: CacheManager.getSharedInstance().getBasketBallEventModel()!.mutableCopy() as! NSDictionary)
+            let select_event_id = NSMutableArray.init()
             for str in tempDic.allKeys {
                 let temp_array = NSMutableArray.init(array: tempDic.object(forKey: str as! String) as! NSArray)
                 let event_array = NSMutableArray.init(array: eventDic.object(forKey: str as! String) as! NSArray)
@@ -162,10 +167,12 @@ class FilterViewModel: BaseViewModel {
                                 for indexs in 0...event_array.count - 1 {
                                     if (event_array[indexs] as! NSDictionary).object(forKey: "name_zh") as! String == (temp_array[index] as! NSDictionary).object(forKey: "eventsName") as! String {
                                         result_array.add(event_array[indexs])
+                                        select_event_id.add((temp_array[index] as! NSDictionary).object(forKey: "id")!)
                                         break
                                     }
                                 }
                             }else{
+                                select_event_id.add((temp_array[index] as! NSDictionary).object(forKey: "id")!)
                                 result_array.add(temp_array[index])
                             }
                         }
@@ -174,6 +181,7 @@ class FilterViewModel: BaseViewModel {
                 tempDic.setValue(result_array, forKey: str as! String)
             }
             self.selecBasketBallDic = tempDic
+            CacheManager.getSharedInstance().saveBasketBallEventIdModel(point: select_event_id)
             CacheManager.getSharedInstance().saveBasketBallEventSelectModel(point: self.selecBasketBallDic)
             NotificationCenter.default.post(name: NSNotification.Name.init(CLICKRELOADBASKETBALLEVENTDATA), object: self, userInfo: nil)
         }

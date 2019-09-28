@@ -204,6 +204,18 @@ class CacheManager: NSObject {
         return nil
     }
     
+    func saveFootBallEventIdModel(point:NSMutableArray){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: FOOTBALLEVENTIDMODEL)
+    }
+    
+    func getFootBallEventIdModel() ->NSMutableArray?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: FOOTBALLEVENTIDMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: FOOTBALLEVENTIDMODEL))!
+            return item as? NSMutableArray
+        }
+        return nil
+    }
+    
     func saveFootBallEventSelectModel(point:NSDictionary){
         CacheManager._sharedInstance.otherCache?.setObject(point, forKey: FOOTBALLEVENTSELECTMODEL)
     }
@@ -303,6 +315,18 @@ class CacheManager: NSObject {
         if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: BASKETBALLEVENTODEL))! {
             let item = (CacheManager._sharedInstance.otherCache?.object(forKey: BASKETBALLEVENTODEL))!
             return item as? NSDictionary
+        }
+        return nil
+    }
+    
+    func saveBasketBallEventIdModel(point:NSMutableArray){
+        CacheManager._sharedInstance.otherCache?.setObject(point, forKey: BASKETBALLEVENTIDMODEL)
+    }
+    
+    func getBasketBallEventIdModel() ->NSMutableArray?{
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: BASKETBALLEVENTIDMODEL))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: BASKETBALLEVENTIDMODEL))!
+            return item as? NSMutableArray
         }
         return nil
     }

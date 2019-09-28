@@ -122,7 +122,7 @@ extension BaseScoreSegmentViewController: JXSegmentedListContainerViewDataSource
             if index == 2 || index == 3{
                 let footBallVC = FootBallScoreSegmentViewController()
                 footBallVC.viewType = self.viewType
-                footBallVC.titles = index == 2 ? DateTools.getSharedInstance().getFutureSevenDays() : DateTools.getSharedInstance().getPassSevenDays()
+                footBallVC.titles = index == 2 ? DateTools.getSharedInstance().getFutureSevenDays() : DateTools.getSharedInstance().getPassSevenDays().reversed()
                 footBallVC.initSView(type: index)
                 return footBallVC
             }
@@ -135,7 +135,7 @@ extension BaseScoreSegmentViewController: JXSegmentedListContainerViewDataSource
             if index == 2 || index == 3{
                 let basketBallVC = BasketBallScoreSegmentViewController()
                 basketBallVC.viewType = self.viewType
-                basketBallVC.titles = index == 2 ? DateTools.getSharedInstance().getFutureSevenDays() : DateTools.getSharedInstance().getPassSevenDays()
+                basketBallVC.titles = index == 2 ? DateTools.getSharedInstance().getFutureSevenDays() : DateTools.getSharedInstance().getPassSevenDays().reversed()
                 basketBallVC.initSView(type: index)
                 return basketBallVC
             }

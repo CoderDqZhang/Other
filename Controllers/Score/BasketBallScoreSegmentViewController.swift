@@ -38,11 +38,11 @@ class BasketBallScoreSegmentViewController: BaseViewController {
         segmentedViewDataSource.titleSelectedFont = App_Theme_PinFan_M_10_Font!
         segmentedViewDataSource.isTitleColorGradientEnabled = true
         segmentedViewDataSource.isTitleZoomEnabled = false
-        segmentedViewDataSource.reloadData(selectedIndex: 0)
+        segmentedViewDataSource.reloadData(selectedIndex: type == 3 ? 6 : 0)
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(heightForHeaderInSection)))
         segmentedView.backgroundColor = App_Theme_F1F1F1_Color
-        segmentedView.defaultSelectedIndex = 0
+        segmentedView.defaultSelectedIndex = type == 3 ? 6 : 0
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
         
@@ -68,12 +68,12 @@ class BasketBallScoreSegmentViewController: BaseViewController {
         segmentedView.contentScrollView = listContainerView.scrollView
         
         //6、将listContainerView.scrollView和segmentedView.contentScrollVi
-        
+        listContainerView.didClickSelectedItem(at: type == 3 ? 6 : 0)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        listContainerView.frame = CGRect(x: 0, y: 33, width: view.bounds.size.width, height: view.bounds.size.height - 50)
+        listContainerView.frame = CGRect(x: 0, y: 33, width: view.bounds.size.width, height: view.bounds.size.height - 33)
     }
     /*
      // MARK: - Navigation

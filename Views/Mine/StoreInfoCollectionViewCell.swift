@@ -67,13 +67,14 @@ class StoreInfoCollectionViewCell: UICollectionViewCell {
         storeLabel.snp.makeConstraints { (make) in
             
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(self.buttonLabel.snp.top).offset(-8)
+            make.bottom.equalTo(self.buttonLabel.snp.top).offset(0)
         }
         
         titleLabel.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.bottom.equalTo(self.storeLabel.snp.top).offset(-6)
+            make.bottom.equalTo(self.storeLabel.snp.top).offset(0)
+            
         }
         
     }

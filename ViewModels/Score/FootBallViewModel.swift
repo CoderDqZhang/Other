@@ -137,17 +137,18 @@ class FootBallViewModel: BaseViewModel {
     
     func getFootInfoBallNet(type:String, date:String){
         let parameters = ["date":date] as [String : Any]
-        var temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
+//        var temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
 //        if temp_dic == nil || temp_dic?.object(forKey: date) == nil {
             BaseNetWorke.getSharedInstance().getUrlWithString(FootBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
-                    if temp_dic == nil {
-                        temp_dic = NSMutableDictionary.init(dictionary:  [date:resultDic.value as! NSDictionary])
-                    }else{
-                        temp_dic?.setValue(resultDic.value , forKey: date)
-                    }
-                    CacheManager.getSharedInstance().saveFootBallInfoModel(point: temp_dic!)
-                    self.footballDic = NSDictionary.init(dictionary:(temp_dic?.object(forKey: date) as! NSDictionary))
+//                    if temp_dic == nil {
+//                        temp_dic = NSMutableDictionary.init(dictionary:  [date:resultDic.value as! NSDictionary])
+//                    }else{
+//                        temp_dic?.setValue(resultDic.value , forKey: date)
+//                    }
+//                    CacheManager.getSharedInstance().saveFootBallInfoModel(point: temp_dic!)
+                    self.footballDic = NSDictionary.init(dictionary: resultDic.value as! NSDictionary)
+//                    self.footballDic = NSDictionary.init(dictionary:(temp_dic?.object(forKey: date) as! NSDictionary))
                     self.getFootBallNet(type: type, date: date)
                 }
             }
@@ -232,7 +233,6 @@ class FootBallViewModel: BaseViewModel {
     @objc func filterArray(){
         DispatchQueue.global(qos: .default).sync {
             self.footBallArray.removeAllObjects()
-            let selectEvent:NSMutableArray = NSMutableArray.init()
             var select_array:NSMutableArray = NSMutableArray.init()
             let ids = NSMutableArray.init()
             if CacheManager.getSharedInstance().getFootBallMatchCollectModel() != nil {
@@ -246,15 +246,8 @@ class FootBallViewModel: BaseViewModel {
                 self.footBallArray = select_array.mutableCopy() as! NSMutableArray
                 self.hiddenMJLoadMoreData(resultData: self.footBallArray)
             }else{
-                if CacheManager.getSharedInstance().getFootBallEventSelectModel() != nil {
-                    for str in CacheManager.getSharedInstance().getFootBallEventSelectModel()!.allKeys{
-                        let array = CacheManager.getSharedInstance().getFootBallEventSelectModel()!.object(forKey: str) as! NSArray
-                        for temp in array {
-                            selectEvent.add((temp as! NSDictionary).object(forKey: "id")!)
-                        }
-                    }
-                }
-                
+                let selectEvent = CacheManager.getSharedInstance().getFootBallEventIdModel() == nil ? NSMutableArray.init() : CacheManager.getSharedInstance().getFootBallEventIdModel()!
+
                 var showType = 0
                 if UserDefaults.standard.bool(forKey: RELOADCOLLECTFOOTBALLTYPEMODEL){
                     showType = UserDefaults.standard.integer(forKey: RELOADCOLLECTFOOTBALLTYPEMODEL)

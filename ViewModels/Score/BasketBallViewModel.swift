@@ -129,17 +129,18 @@ class BasketBallViewModel: BaseViewModel {
     //加载篮球赛程数据，不保存前后7天数据
     func getBasketInfoBallNet(type:String, date:String){
         let parameters = ["date":date] as [String : Any]
-        var temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
+//        var temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
 //        if temp_dic == nil || temp_dic?.object(forKey: date) == nil {
             BaseNetWorke.getSharedInstance().getUrlWithString(BasketBallInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
-                    if temp_dic == nil {
-                        temp_dic = NSMutableDictionary.init(dictionary:  [date:resultDic.value as! NSDictionary])
-                    }else{
-                        temp_dic?.setValue(resultDic.value , forKey: date)
-                    }
-                    CacheManager.getSharedInstance().saveBasketBallInfoModel(point: temp_dic!)
-                    self.basketballDic = NSDictionary.init(dictionary:(temp_dic?.object(forKey: date) as! NSDictionary))
+//                    if temp_dic == nil {
+//                        temp_dic = NSMutableDictionary.init(dictionary:  [date:resultDic.value as! NSDictionary])
+//                    }else{
+//                        temp_dic?.setValue(resultDic.value , forKey: date)
+//                    }
+//                    CacheManager.getSharedInstance().saveBasketBallInfoModel(point: temp_dic!)
+                    self.basketballDic = NSDictionary.init(dictionary:resultDic.value as! NSDictionary)
+//                    self.basketballDic = NSDictionary.init(dictionary:(temp_dic?.object(forKey: date) as! NSDictionary))
                     self.getbasketBallNet(type: type, date: date)
                 }
             }
@@ -200,7 +201,6 @@ class BasketBallViewModel: BaseViewModel {
     @objc func filterArray(){
          DispatchQueue.global(qos: .default).sync {
             self.basketBallArray.removeAllObjects()
-            let selectEvent:NSMutableArray = NSMutableArray.init()
             var select_array:NSMutableArray = NSMutableArray.init()
             let ids = NSMutableArray.init()
             if CacheManager.getSharedInstance().getBasketBallMatchCollectModel() != nil {
@@ -215,14 +215,7 @@ class BasketBallViewModel: BaseViewModel {
                 self.basketBallArray = select_array.mutableCopy() as! NSMutableArray
                 self.hiddenMJLoadMoreData(resultData: self.basketBallArray)
             }else{
-                if CacheManager.getSharedInstance().getBasketBallEventSelectModel() != nil {
-                    for str in CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.allKeys{
-                        let array = CacheManager.getSharedInstance().getBasketBallEventSelectModel()!.object(forKey: str) as! NSArray
-                        for temp in array {
-                            selectEvent.add((temp as! NSDictionary).object(forKey: "id")!)
-                        }
-                    }
-                }
+                let selectEvent = CacheManager.getSharedInstance().getBasketBallEventIdModel() == nil ? NSMutableArray.init() : CacheManager.getSharedInstance().getBasketBallEventIdModel()!
                 
                 for item in self.allBasketBallArray {
                     let isContains = selectEvent.contains((item as! BasketBallModel).basketballEvent.id as Any)

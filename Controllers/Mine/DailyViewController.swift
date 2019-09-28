@@ -73,12 +73,13 @@ class DailyViewController: BaseViewController {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.top.equalToSuperview()
+            make.top.equalTo(self.view.snp.top).offset(-20)
             make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: imageHeight))
         }
         
         
         let layerView = UIView()
-        layerView.frame = CGRect(x: 0, y: imageHeight, width: SCREENWIDTH, height: SCREENHEIGHT - imageHeight)
+        layerView.frame = CGRect(x: 0, y: imageHeight - 40, width: SCREENWIDTH, height: SCREENHEIGHT - imageHeight + 40)
         // layerFillCode
         let layer = CALayer()
         layer.frame = layerView.bounds
@@ -97,9 +98,9 @@ class DailyViewController: BaseViewController {
         
         let inveterView = UIView.init()
         if #available(iOS 11.0, *) {
-            inveterView.frame = CGRect.init(x: 0, y: SCREENHEIGHT - (415 + TABBAR_HEIGHT), width: SCREENWIDTH, height: 415 + TABBAR_HEIGHT)
+            inveterView.frame = CGRect.init(x: 0, y: SCREENHEIGHT - (455 + TABBAR_HEIGHT), width: SCREENWIDTH, height: 455 + TABBAR_HEIGHT)
         } else {
-            inveterView.frame = CGRect.init(x: 0, y: SCREENHEIGHT - 415, width: SCREENWIDTH, height: 415)
+            inveterView.frame = CGRect.init(x: 0, y: SCREENHEIGHT - 455, width: SCREENWIDTH, height: 455)
             // Fallback on earlier versions
         }
         inveterView.tag = 1000

@@ -323,6 +323,7 @@ extension MineViewModel: UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: TitleLableAndDetailLabelDescRight.description(), for: indexPath)
                 self.tableViewTitleLableAndDetailLabelDescRightSetData(indexPath, cell: cell as! TitleLableAndDetailLabelDescRight)
                 cell.selectionStyle = .none
+                (cell as! TitleLableAndDetailLabelDescRight).lineLableHidden()
                 return cell
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: AdTableViewCell.description(), for: indexPath)

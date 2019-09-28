@@ -48,6 +48,7 @@ let PLACHOLDERIMAGE = "PlacholderImage"
 let FOOTBALLINFOMODEL = "FootBallInfoModel" //保存足球队信息 已移除
 let FOOTBALLEVENTODEL = "FootBallEventModel" //保存足球赛事信息
 let FOOTBALLEVENTSELECTMODEL = "FootBallEventSelectModel" //保存足球筛选中赛事数据
+let FOOTBALLEVENTIDMODEL = "FootBallEventIDModel" //保存足球筛选中赛事数据
 let FOOTBALLEVENTLEVELMODEL = "FootBallEventLevelModel" //保存足球一级赛事信息
 let FOOTBALLNORTHSIGLEMODEL = "FootBallNorthSigle" //保存北单数据
 let FOOTBALLLOTTERYMODEL = "FootBallLottery" //保存足彩数据
@@ -66,6 +67,7 @@ let RELOADFOOTBALLMATCHEVENT = "ReloadFootBallMatchEvent" //增加赛事更新�
 //助球队信息
 let BASKETBALLINFOMODEL = "BasketBallInfoModel" //保存足球队信息 已移除
 let BASKETBALLEVENTODEL = "BasketBallEventModel" //保存足球赛事信息
+let BASKETBALLEVENTIDMODEL = "BasketBallEventIDModel" //保存足球筛选中赛事数据
 let BASKETBALLEVENTSELECTMODEL = "BasketBallEventSelectModel" //保存足球筛选中赛事数据
 let BASKETBALLEVENTLEVELMODEL = "BasketBallEventLevelModel" //保存足球一级赛事信息
 let BASKETBALLINDEXMODEL = "BasketBallIndex" //保存竞彩数据

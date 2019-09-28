@@ -277,7 +277,7 @@ class ScoreListTableViewCell: UITableViewCell {
         }
         
         
-        if model.status == 8 {
+        if viewDesc == .amidithion {
             attentionButton.isHidden = true
         }else{
             attentionButton.isHidden = false

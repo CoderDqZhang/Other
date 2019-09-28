@@ -340,6 +340,11 @@ class BasketBallTableViewCell: UITableViewCell {
         let all_score_b = model.basketballTeamB.first + model.basketballTeamB.second + model.basketballTeamB.third + model.basketballTeamB.four +  Int(model.basketballTeamB.overtime)
         allTeamB.text = all_score_b == 0 ? "-" : all_score_b.string
         
+        if viewDesc == .amidithion {
+            attentionButton.isHidden = true
+        }else{
+            attentionButton.isHidden = false
+        }
         attentionButton.tag = model.isSelect ? 2000 : 1000
         attentionButton.setImage(UIImage.init(named: model.isSelect ? "score_select_attention" : "score_normal_attention"), for: .normal)
     }

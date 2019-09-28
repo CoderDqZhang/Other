@@ -66,7 +66,6 @@ class BasKetBallViewController: BaseViewController {
         }else{
             date = DateTools.getSharedInstance().getDateTime(str: self.dateTime)
         }
-        //            self.footBallViewModel.getFoot1BallNet(date: date)
         self.basketBallViewModel.getBasketInfoBallNet(type:self.viewDesc.rawValue.string, date: date)
     }
     
