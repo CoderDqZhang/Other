@@ -12,12 +12,17 @@ import JavaScriptCore
 
 typealias ReloadWebViewContentSize = (_ size:CGSize) ->Void
 
+
+
+
 class ArticleDetailContentTableViewCell: UITableViewCell {
 
     var titleLabel:YYLabel!
     var originLabel:YYLabel!
     var timeInfoLabel:YYLabel!
     var webView:WKWebView!
+    
+    var contentHeight:CGFloat = 0
     
     var reloadWebViewContentSize:ReloadWebViewContentSize!
     
@@ -62,8 +67,60 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
         webView.scrollView.isScrollEnabled = false
         self.contentView.addSubview(webView)
         
+        
         self.updateConstraints()
     }
+    
+//    func htmlToLabel(html:String){
+//        let strs = html.nsString.replacingOccurrences(of: "</p>", with: "").components(separatedBy: "<p>")
+//        for i in strs {
+//            let temp_str = NSString.init(string: i)
+//            if temp_str.length > 3 {
+//                if temp_str.substring(to: 4) == "<img" {
+//                    let urls = temp_str.components(separatedBy: "\"")
+//                    self.createImageView(url: urls[1])
+//                }else{
+//                    let result = temp_str.replacingOccurrences(of: "&nbsp;", with: "")
+//                    self.createLabel(str: result)
+//                }
+//            }else{
+//                temp_str.replacingOccurrences(of: "&nbsp;", with: "")
+//            }
+//        }
+//    }
+//
+//
+//    func createLabel(str:String){
+//        let textSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: str, yyLabel: YYLabel.init())
+//        let titleLabel = YYLabel.init(frame: CGRect.init(x: 0, y: contentHeight, width: SCREENWIDTH - 30, height: textSize.textBoundingSize.height))
+//        self.contentHeight = self.contentHeight + textSize.textBoundingSize.height
+//        titleLabel.textAlignment = .left
+//        titleLabel.font = App_Theme_PinFan_M_18_Font
+//        titleLabel.textColor = App_Theme_06070D_Color
+//        titleLabel.text = str
+//        titleLabel.numberOfLines = 0
+//        self.contentView.addSubview(titleLabel)
+//    }
+//
+//    func createImageView(url:String) {
+//        let imageView = UIImageView.init()
+//        imageView.sd_downImageTools(url: url, imageSize: nil, placeholderImage: nil) { (image, data, error, ret) in
+//            if image != nil {
+//                let size = image!.size
+//                if size.width > SCREENWIDTH - 30 {
+//                    let height = size.height * (SCREENWIDTH - 30) / size.width
+//                    imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.contentHeight), size: CGSize.init(width: SCREENWIDTH - 30, height: height))
+//                    self.contentHeight = height + self.contentHeight + 10
+//                    imageView.image = image
+//                }else{
+//                    imageView.frame = CGRect.init(origin: CGPoint.init(x: (SCREENWIDTH - 30 - size.width) / 2, y: self.contentHeight), size: size)
+//                    self.contentHeight = size.height + imageHeight + 10
+//                    imageView.image = image
+//                }
+//            }
+//        }
+//    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -73,9 +130,27 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
         titleLabel.text = model.title
         originLabel.text = "来源:\(String(describing: model.origin!))"
         timeInfoLabel.text = model.createTime
-        let headerString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header> + \(String(describing: model.descriptionField!))";
-
-        webView.loadHTMLString(headerString, baseURL: nil)
+        let resutl_str = self.converHtml(str: model.descriptionField!)
+        webView.loadHTMLString("<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>\(resutl_str)", baseURL: nil)
+    }
+    
+    func converHtml(str:String) ->String{
+        let temp_str = NSString.init(string: str)
+        let left_width = temp_str.components(separatedBy: "width:")
+        if left_width.count > 1 {
+            let width = left_width[1].components(separatedBy: "p")[0]
+            let left_height = temp_str.components(separatedBy: "height:")
+            let right_str = left_height[1].components(separatedBy: "x;")[1]
+            let height = left_height[1].components(separatedBy: "p")[0]
+            var result_height:CGFloat = 0
+            if width.cgFloat()! > SCREENWIDTH {
+                result_height = SCREENWIDTH * height.cgFloat()! / width.cgFloat()!
+            }
+            return "\(left_width[0])width:\(SCREENWIDTH);height:\(result_height);\(right_str)"
+        }else{
+            return str
+        }
+        
     }
     
     
@@ -127,37 +202,8 @@ extension ArticleDetailContentTableViewCell : WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        let context = webView.value(forKeyPath: "documentView.webView.mainFrame.javaScriptContext") as? JSContext
-//        let context = JSContext()
-////        webView.j
-        let js = "document.getElementsByName('img')[0].attributes['style']"
-        webView.evaluateJavaScript(js) { (response, error) in
-              print("response:", response ?? "No Response", "\n", "error:", error ?? "No Error")
-        }
-//        var js = "var script = document.createElement('script');script.type = 'text/javascript';script.text = \"function ResizeImages() {var myimg,oldwidth;var maxwidth = %f;for(i=0;i <document.images.length;i++){myimg = document.images[i];if(myimg.width > maxwidth){oldwidth = myimg.width;myimg.width = %f;}}};document.getElementsByTagName('head')[0].appendChild(script);"
-//
-//        js = String.init(format: js, SCREENWIDTH.int,(SCREENWIDTH - 30).int)
-////        context!.evaluateScript("js")
-////        context!.evaluateScript("ResizeImages();")
-//
-//        webView.evaluateJavaScript(js) { (any, error) in
-//            if error != nil {
-//                print(error)
-//            }
-//        }
-        
-//        let js = "document.getElementsByTagName('h2')[0].innerText = '我是ios原生为h5注入的方法'"
-//        let script = WKUserScript.init(source: js, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-//        self.webView.configuration.userContentController.addUserScript(script)
-        
-//        let jScript = "var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);"
-//        let wkUScript = WKUserScript.init(source: jScript, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true)
-//        let wkUController = WKUserContentController.init()
-//        wkUController.addUserScript(wkUScript)
-//        let wkWebConfig = WKWebViewConfiguration.init()
-//        wkWebConfig.userContentController = wkUController
-//        self.webView = WKWebView.init(frame: CGRect.zero, configuration: wkWebConfig)
-        
+
+    
     }
 }
 

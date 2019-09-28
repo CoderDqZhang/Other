@@ -29,8 +29,8 @@ let OSS_BUCKET_PRIVATE: String = "tq-baodian"
 let OSS_ENDPOINT: String = "oss-cn-hangzhou.aliyuncs.com"
 let OSS_MULTIPART_UPLOADKEY: String = "multipart"
 let OSS_RESUMABLE_UPLOADKEY: String = "resumable"
-let OSS_CALLBACK_URL: String = "https://oss-demo.aliyuncs.com:23450"
-let OSS_CNAME_URL: String = "https://www.cnametest.com/"
+let OSS_CALLBACK_URL: String = "http://oss-demo.aliyuncs.com:23450"
+let OSS_CNAME_URL: String = "http://www.cnametest.com/"
 let OSS_STSTOKEN_URL: String = "https://*.*.*.*.****/sts/getsts"
 
 

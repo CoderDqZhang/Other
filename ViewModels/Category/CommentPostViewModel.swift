@@ -56,7 +56,11 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             return
         }
         if self.selectPhotos.count > 0 {
-            AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
+            AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs,sucess   in
+                if sucess == false {
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "图片上传失败", autoHidder: true)
+                    return
+                }
                 let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"img":strs] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {

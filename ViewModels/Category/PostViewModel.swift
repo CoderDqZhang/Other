@@ -87,8 +87,17 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     
     func postTirbeNet(){
         (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = false
+        let loading = Tools.shareInstance.showLoading(KWindow, msg: "发帖中")
         if self.selectPhotos.count > 0 {
-            AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs  in
+            AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs,sucess  in
+                if sucess == false {
+                    DispatchQueue.main.async {
+                        (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = true
+                        _ = Tools.shareInstance.showMessage(KWindow, msg: "图片上传失败", autoHidder: true)
+                        loading.hide(animated: true)
+                        return
+                    }
+                }
                 let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
@@ -97,6 +106,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                         if (self.controller as! PostViewController).postViewControllerDataClouse != nil {
                             (self.controller as! PostViewController).postViewControllerDataClouse(model.toDictionary() as NSDictionary)
                         }
+                        loading.hide(animated: true)
                         _ = Tools.shareInstance.showMessage(KWindow, msg: "发帖成功", autoHidder: true)
                         self.controller?.dismiss(animated: true, completion: {
                             CacheManager.getSharedInstance().removePostModel()
@@ -116,6 +126,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                     if (self.controller as! PostViewController).postViewControllerDataClouse != nil {
                         (self.controller as! PostViewController).postViewControllerDataClouse(model.toDictionary() as NSDictionary)
                     }
+                    loading.hide(animated: true)
                     _ = Tools.shareInstance.showMessage(KWindow, msg: "发帖成功", autoHidder: true)
                     self.controller?.dismiss(animated: true, completion: {
                         CacheManager.getSharedInstance().removePostModel()

@@ -95,7 +95,11 @@ extension MineInfoViewController : UIImagePickerControllerDelegate {
             cell.rightImageView.image = selectedImage
         })
 
-        AliPayManager.getSharedInstance().uploadFile(images: [selectedImage], type: .user) { (imgs,str) in
+        AliPayManager.getSharedInstance().uploadFile(images: [selectedImage], type: .user) { (imgs,str,sucess) in
+            if sucess == false {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "图片上传失败", autoHidder: true)
+                return
+            }
             self.mineInfoViewModel.updateuserInfo(key: "img", value: "\(imgs[0])")
             self.mineInfoViewModel.userInfo.img = "\(imgs[0])"
             CacheManager.getSharedInstance().getUserInfo()?.img = "\(imgs[0])"

@@ -16,7 +16,7 @@ enum AliPayManagerType {
     case comment
 }
 
-typealias AliPayManagerSuccess = (_ images:[String],_ strs:String) ->Void
+typealias AliPayManagerSuccess = (_ images:[String],_ strs:String, _ success:Bool) ->Void
 
 class AliPayManager: NSObject {
 
@@ -50,12 +50,12 @@ class AliPayManager: NSObject {
         let count = MutableProperty<Int>(0)
         
         for index in 0...images.count - 1 {
-            AliPayManager.getSharedInstance().uploadFileImage(images: images[index] as! UIImage, type: type) { (str, _)  in
+            AliPayManager.getSharedInstance().uploadFileImage(images: images[index] as! UIImage, type: type) { (str, _, success)  in
                 count.value = count.value + 1
                 resultStrs.append(str[0])
                 resultString = "\(resultString)\(str[0]),"
                 if count.value == images.count {
-                    result(resultStrs,resultString)
+                    result(resultStrs,resultString,success)
                 }
             }
         }
@@ -87,12 +87,13 @@ class AliPayManager: NSObject {
             if (task ).error == nil {
                 switch type{
                 case .post:
-                    result(["/post/\(imageKey)"],"")
+                    result(["/post/\(imageKey)"],"",true)
                 default:
-                    result(["/user/\(imageKey)"],"")
+                    result(["/user/\(imageKey)"],"",true)
                 }
                 print("upload object success")
             }else{
+                result(["/user/\(imageKey)"],"",false)
                 print("upload object fail:\((task).error ?? "" as! Error)")
             }
             return nil

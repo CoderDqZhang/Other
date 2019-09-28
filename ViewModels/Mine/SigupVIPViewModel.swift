@@ -113,7 +113,14 @@ class SigupVIPViewModel: BaseViewModel {
             _ = Tools.shareInstance.showMessage(KWindow, msg: "请上传图片", autoHidder: true)
             return
         }
-        AliPayManager.getSharedInstance().uploadFile(images: [fontImage!,backImage!,takeHandImage!], type: .user) { imgs,strs  in
+        AliPayManager.getSharedInstance().uploadFile(images: [fontImage!,backImage!,takeHandImage!], type: .user) { imgs,strs,sucess  in
+            
+            if sucess == false {
+                DispatchQueue.main.async {
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "图片上传失败", autoHidder: true)
+                    return
+                }
+            }
             let parameters = ["username":self.username,"idNumber":self.idnumber,imgs:strs] as [AnyHashable : String]
             BaseNetWorke.getSharedInstance().postUrlWithString(PersonapplyMasterUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {

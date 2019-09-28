@@ -54,7 +54,7 @@ class ScoreSegementViewController: BaseViewController,UIScrollViewDelegate {
         segmentedView.backgroundColor = .clear
         
         segmentedView.contentEdgeInsetRight = 112
-        segmentedView.contentEdgeInsetLeft = 72
+        segmentedView.contentEdgeInsetLeft = 112
         segmentedView.defaultSelectedIndex = 0
         segmentedView.dataSource = segmentedViewDataSource
         segmentedView.isContentScrollViewClickTransitionAnimationEnabled = true
