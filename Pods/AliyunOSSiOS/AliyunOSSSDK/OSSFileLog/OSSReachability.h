@@ -12,10 +12,10 @@
 
 
 typedef enum : NSInteger {
-	OSSNotReachable = 0,
-	OSSReachableViaWiFi,
-	OSSReachableViaWWAN
-} OSSNetworkStatus;
+	NotReachable = 0,
+	ReachableViaWiFi,
+	ReachableViaWWAN
+} NetworkStatus;
 
 #pragma mark IPv6 Support
 //Reachability fully support IPv6.  For full details, see ReadMe.md.
@@ -52,7 +52,7 @@ extern NSString *ossReachabilityChangedNotification;
 - (BOOL)startNotifier;
 - (void)stopNotifier;
 
-- (OSSNetworkStatus)currentReachabilityStatus;
+- (NetworkStatus)currentReachabilityStatus;
 
 /*!
  * WWAN may be available, but not active until a connection has been established. WiFi may require a connection for VPN on Demand.

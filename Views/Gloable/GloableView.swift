@@ -59,7 +59,11 @@ class GLoabelNavigaitonBar:UIView {
         }
         
         backButton = UIButton.init(type: .custom)
-        backButton.setImage(UIImage.init(named: "back_bar"), for: .normal)
+        if title == "登录" || title == "注册"{
+            backButton.setImage(UIImage.init(named: "ic_baodian_denru_fanhui"), for: .normal)
+        }else{
+            backButton.setImage(UIImage.init(named: "back_bar"), for: .normal)
+        }
         backButton.addTarget(self, action: #selector(self.backButtonClick), for: .touchUpInside)
         self.addSubview(backButton)
         

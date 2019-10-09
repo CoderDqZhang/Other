@@ -12,23 +12,21 @@ import JavaScriptCore
 
 typealias ReloadWebViewContentSize = (_ size:CGSize) ->Void
 
-
-
-
 class ArticleDetailContentTableViewCell: UITableViewCell {
 
     var titleLabel:YYLabel!
     var originLabel:YYLabel!
     var timeInfoLabel:YYLabel!
     var webView:WKWebView!
-    
-    var contentHeight:CGFloat = 0
+    var model:ArticleInfoModel!
+    var webViewDone:Bool = false
     
     var reloadWebViewContentSize:ReloadWebViewContentSize!
     
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     
@@ -71,57 +69,6 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-//    func htmlToLabel(html:String){
-//        let strs = html.nsString.replacingOccurrences(of: "</p>", with: "").components(separatedBy: "<p>")
-//        for i in strs {
-//            let temp_str = NSString.init(string: i)
-//            if temp_str.length > 3 {
-//                if temp_str.substring(to: 4) == "<img" {
-//                    let urls = temp_str.components(separatedBy: "\"")
-//                    self.createImageView(url: urls[1])
-//                }else{
-//                    let result = temp_str.replacingOccurrences(of: "&nbsp;", with: "")
-//                    self.createLabel(str: result)
-//                }
-//            }else{
-//                temp_str.replacingOccurrences(of: "&nbsp;", with: "")
-//            }
-//        }
-//    }
-//
-//
-//    func createLabel(str:String){
-//        let textSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: str, yyLabel: YYLabel.init())
-//        let titleLabel = YYLabel.init(frame: CGRect.init(x: 0, y: contentHeight, width: SCREENWIDTH - 30, height: textSize.textBoundingSize.height))
-//        self.contentHeight = self.contentHeight + textSize.textBoundingSize.height
-//        titleLabel.textAlignment = .left
-//        titleLabel.font = App_Theme_PinFan_M_18_Font
-//        titleLabel.textColor = App_Theme_06070D_Color
-//        titleLabel.text = str
-//        titleLabel.numberOfLines = 0
-//        self.contentView.addSubview(titleLabel)
-//    }
-//
-//    func createImageView(url:String) {
-//        let imageView = UIImageView.init()
-//        imageView.sd_downImageTools(url: url, imageSize: nil, placeholderImage: nil) { (image, data, error, ret) in
-//            if image != nil {
-//                let size = image!.size
-//                if size.width > SCREENWIDTH - 30 {
-//                    let height = size.height * (SCREENWIDTH - 30) / size.width
-//                    imageView.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.contentHeight), size: CGSize.init(width: SCREENWIDTH - 30, height: height))
-//                    self.contentHeight = height + self.contentHeight + 10
-//                    imageView.image = image
-//                }else{
-//                    imageView.frame = CGRect.init(origin: CGPoint.init(x: (SCREENWIDTH - 30 - size.width) / 2, y: self.contentHeight), size: size)
-//                    self.contentHeight = size.height + imageHeight + 10
-//                    imageView.image = image
-//                }
-//            }
-//        }
-//    }
-    
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -132,6 +79,11 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
         timeInfoLabel.text = model.createTime
         let resutl_str = self.converHtml(str: model.descriptionField!)
         webView.loadHTMLString("<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>\(resutl_str)", baseURL: nil)
+        if self.model != nil {
+            
+            self.model = model
+        }
+        
     }
     
     func converHtml(str:String) ->String{
@@ -202,8 +154,7 @@ extension ArticleDetailContentTableViewCell : WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-
-    
+        webViewDone = true
     }
 }
 

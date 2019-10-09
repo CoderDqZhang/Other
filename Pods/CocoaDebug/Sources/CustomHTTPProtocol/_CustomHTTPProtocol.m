@@ -310,7 +310,7 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
 - (void)dealloc
 {
     // can be called on any thread
-    
+
     //assert(self->_task == nil);                     // we should have cleared it by now
     //assert(self->_pendingChallenge == nil);         // we should have cancelled it by now
     //assert(self->_pendingChallengeCompletionHandler == nil);    // we should have cancelled it by now

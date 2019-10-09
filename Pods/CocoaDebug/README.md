@@ -20,11 +20,11 @@
 
 - [x] Application memory usage and *FPS*.
 
-- [x] List all `print()` and `NSLog()` messages which have been written by developer in Xcode. (**optional**)
+- [x] List all `print()` and `NSLog()` messages which have been written by developer in Xcode.
 
-- [x] List of all the network requests sent by the application. (**optional**)
+- [x] List of all the network requests sent by the application.
 
-- [x] List crash errors. (**optional**)
+- [x] List crash errors.
 
 - [x] Share network details via email or copy to clipboard when you are in the *Network Details* page.
 
@@ -36,7 +36,7 @@
 
 - [x] List all sandbox folders and files, supporting to preview and edit.
 
-- [x] List HTML logs, including `console.log()`,`console.debug()`,`console.warn()`,`console.error()`,`console. info()`. (support both `WKWebView` and `UIWebView`). (**optional**)
+- [x] List HTML logs, including `console.log()`,`console.debug()`,`console.warn()`,`console.error()`,`console. info()`. (support both `WKWebView` and `UIWebView`).
 
 - [x] Support `JSON` and Google's `Protocol buffers`
 
@@ -45,9 +45,6 @@
 ### CocoaPods
 
 ```ruby
-platform :ios, '8.0'
-use_frameworks!
-
 target 'YourTargetName' do
     pod 'CocoaDebug', :configurations => ['Debug']
 end
@@ -59,23 +56,26 @@ end
 github "CocoaDebug/CocoaDebug"
 ```
 
+### Framework
+
+[Download](https://github.com/CocoaDebug/CocoaDebug/raw/master/CocoaDebug.framework.zip)
+
 > WARNING: Don't submit `.ipa` to AppStore which has been linked with the `CocoaDebug.framework`. This [Integration Guide](https://github.com/CocoaDebug/CocoaDebug/wiki/Integration-Guide) outline a way to use build configurations to isolate linking the framework to `Debug` builds only.
 
 ## Usage
 
 ### Swift
 	
-    //Step 1. (AppDelegate.swift)
+	//AppDelegate.swift
+	 
     #if DEBUG
         import CocoaDebug
     #endif
 	
-    //Step 2. (AppDelegate.swift)
     #if DEBUG
         CocoaDebug.enable()
     #endif
 
-    //Step 3. (AppDelegate.swift)
     public func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
         #if DEBUG
             swiftLog(file, function, line, message, color, false)
@@ -85,12 +85,12 @@ github "CocoaDebug/CocoaDebug"
 
 ### Objective-C
 	
-    //Step 1. (AppDelegate.m)
+	//AppDelegate.m
+	 
     #ifdef DEBUG
         @import CocoaDebug;
     #endif
 	
-    //Step 2. (AppDelegate.m)
     #ifdef DEBUG
         [CocoaDebug enable];
     #endif

@@ -32,8 +32,6 @@ $ sh ./buildFramework.sh
 $ cd Products && ls
 ```
 
-注意：buildFramework.sh脚本生成的framework是支持i386,x86_64,armv7,arm64架构的版本，所以当您需要archive product时，需要直接使用工程文件生成只支持真机的framework版本。
-
 在Xcode中，直接把framework拖入您对应的Target下即可，在弹出框勾选`Copy items if needed`。
 
 ### Pod依赖
@@ -41,7 +39,7 @@ $ cd Products && ls
 如果工程是通过pod管理依赖，那么在Podfile中加入以下依赖即可，不需要再导入framework：
 
 ```
-pod 'AliyunOSSiOS'
+pod 'AliyunOSSiOS', '~> 2.8.0'
 ```
 
 CocoaPods是一个非常优秀的依赖管理工具，推荐参考官方文档: [CocoaPods安装和使用教程](http://code4app.com/article/cocoapods-install-usage)。
@@ -198,16 +196,6 @@ SDK提供进阶的上传、下载功能、断点续传，以及文件管理、Bu
 ## API文档
 
 [点击查看](http://aliyun.github.io/aliyun-oss-ios-sdk/)
-
-## 常见问题
-
-1.工程编译出来的iOS库怎么没有支持armv7s的架构？
-
-​	Xcode9中默认支持的架构是armv7/arm64,由于arm是向下兼容的，armv7的库在需要支持armv7s的app中也是适用的，如果仍然需要针对armv7s进行优化，那么需要如下图进行设置
-
-![list1](https://github.com/aliyun/aliyun-oss-ios-sdk/blob/master/Images/list1.png)
-
-
 
 ## License
 

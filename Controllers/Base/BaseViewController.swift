@@ -162,7 +162,6 @@ class BaseViewController: UIViewController {
     func getViewModel(){
         
     }
-    
 
     /*
     // MARK: - Navigation
@@ -173,6 +172,18 @@ class BaseViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        } else {
+            // Fallback on earlier versions
+            return .default
+        }
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
 
 }
 

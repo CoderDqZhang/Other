@@ -110,17 +110,6 @@ int32_t const CHUNK_SIZE = 8 * 1024;
     return [body dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-+ (NSData *)constructHttpBodyForDeleteMultipleObjects:(NSArray<NSString *> *)keys quiet:(BOOL)quiet {
-    NSMutableString * body = [NSMutableString stringWithString:@"<Delete>\n"];
-    [body appendFormat:@"<Quiet>%@</Quiet>\n",quiet?@"true":@"false"];
-    [keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
-        [body appendFormat:@"<Object>\n<Key>%@</Key>\n</Object>\n", key];
-    }];
-    [body appendString:@"</Delete>\n"];
-    OSSLogVerbose(@"constucted delete multiple objects body:\n%@", body);
-    return [body dataUsingEncoding:NSUTF8StringEncoding];
-}
-
 + (NSData *)constructHttpBodyForCreateBucketWithLocation:(NSString *)location {
     NSString * body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                        @"<CreateBucketConfiguration>\n"
@@ -271,13 +260,6 @@ int32_t const CHUNK_SIZE = 8 * 1024;
 }
 
 + (NSString *)fileMD5String:(NSString *)path {
-    BOOL isDirectory = NO;
-    BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
-    if (isDirectory || !isExist) {
-        OSSLogWarn(@"a file doesn't exists at a specified path(%@)", path);
-        return nil;
-    }
-
     unsigned char * md5Bytes = (unsigned char *)[[self fileMD5:path] bytes];
     return [self convertMd5Bytes2String:md5Bytes];
 }
@@ -287,7 +269,7 @@ int32_t const CHUNK_SIZE = 8 * 1024;
         return nil;
     }
     NSData * data = [NSData dataWithBytes:input length:length];
-    return [data base64EncodedStringWithOptions: NSDataBase64Encoding64CharacterLineLength];
+    return [data base64EncodedStringWithOptions:0];
 }
 
 + (BOOL)isSubresource:(NSString *)param {
@@ -301,7 +283,7 @@ int32_t const CHUNK_SIZE = 8 * 1024;
             @"tagging", @"objectMeta", @"uploadId", @"partNumber", @"security-token", @"position", @"img", @"style",
             @"styleName", @"replication", @"replicationProgress", @"replicationLocation", @"cname", @"bucketInfo", @"comp",
             @"qos", @"live", @"status", @"vod", @"startTime", @"endTime", @"symlink", @"x-oss-process", @"response-content-type",
-            @"response-content-language", @"response-expires", @"response-cache-control", @"response-content-disposition", @"response-content-encoding",@"restore"
+            @"response-content-language", @"response-expires", @"response-cache-control", @"response-content-disposition", @"response-content-encoding"
             ];
     });
     /****************************************************************/
@@ -397,7 +379,7 @@ int32_t const CHUNK_SIZE = 8 * 1024;
             @"mets": @"application/mets+xml",
             @"mods": @"application/mods+xml",
             @"m21": @"application/mp21",
-            @"mp4": @"video/mp4",
+            @"mp4": @"application/mp4",
             @"doc": @"application/msword",
             @"mxf": @"application/mxf",
             @"bin": @"application/octet-stream",
@@ -1051,15 +1033,15 @@ int32_t const CHUNK_SIZE = 8 * 1024;
         extention = [filePath pathExtension];
     }
 
-    if (![extention oss_isNotEmpty] && uploadName) {
+    if ((!extention || [extention isEqualToString:@""]) && uploadName) {
         extention = [uploadName pathExtension];
     }
 
-    if (![extention oss_isNotEmpty]) {
+    if (!extention || [extention isEqualToString:@""]) {
         return @"application/octet-stream";
     }
 
-    NSString * mimeType = [mimeMap objectForKey:extention.lowercaseString];
+    NSString * mimeType = [mimeMap objectForKey:extention];
     return mimeType ? mimeType : @"application/octet-stream";
 }
 
@@ -1078,10 +1060,10 @@ int32_t const CHUNK_SIZE = 8 * 1024;
     OSSReachability *reach=[OSSReachability reachabilityWithHostName:@"www.apple.com"];
     if(reach){
         switch([reach currentReachabilityStatus]){
-            case OSSReachableViaWWAN:
+            case ReachableViaWWAN:
                 tempMessage = @"[network_state]: connected";
                 break;
-            case OSSReachableViaWiFi:
+            case ReachableViaWiFi:
                 tempMessage = @"[network_state]: connected";
                 break;
             default:
@@ -1121,128 +1103,6 @@ int32_t const CHUNK_SIZE = 8 * 1024;
     return aos_crc64_combine(crc1, crc2, len2);
 }
 
-+ (NSString *)sha1WithString:(NSString *)string
-{
-    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-    return [self sha1WithData:data];
-}
-
-+ (NSString *)sha1WithData:(NSData *)data
-{
-    unsigned char *digest = NULL;
-    
-    // Malloc a buffer to hold hash.
-    digest = malloc(CC_SHA1_DIGEST_LENGTH * sizeof(unsigned char));
-    memset(digest, 0x0, CC_SHA1_DIGEST_LENGTH);
-    CC_SHA1(data.bytes, (CC_LONG)data.length, digest);
-    
-    NSString *result = [self sha1WithDigest:digest];
-    if (digest) {
-        free(digest);
-    }
-    
-    return result;
-}
-
-+ (NSString *)sha1WithDigest:(const unsigned char *)digest
-{
-    if (!digest) {
-        return nil;
-    }
-    NSMutableString *result = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * sizeof(unsigned char)];
-    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
-        [result appendFormat:@"%02x",digest[i]];
-    }
-    
-    return result;
-}
-
-+ (NSString *)sha1WithFilePath:(NSString *)filePath
-{
-    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
-    if(!handle) {
-        return nil;
-    }
-    CC_SHA1_CTX sha1;
-    CC_SHA1_Init(&sha1);
-    BOOL done = NO;
-    unsigned char *digest = NULL;
-    
-    while(!done) {
-        @autoreleasepool{
-            NSData* fileData = [handle readDataOfLength: CHUNK_SIZE];
-            if(fileData.length == 0) {
-                break;
-            }
-            // Malloc a buffer to hold hash.
-            digest = malloc(CC_SHA1_DIGEST_LENGTH * sizeof(unsigned char));
-            memset(digest, 0x0, CC_SHA1_DIGEST_LENGTH);
-
-            CC_SHA1_Update(&sha1, fileData.bytes, (CC_LONG)[fileData length]);
-        }
-    }
-    
-    // Malloc a buffer to hold hash.
-    digest = malloc(CC_SHA1_DIGEST_LENGTH * sizeof(unsigned char));
-    memset(digest, 0x0, CC_SHA1_DIGEST_LENGTH);
-    CC_SHA1_Final(digest, &sha1);
-    
-    NSString *result = [self sha1WithDigest:digest];
-    if (digest) {
-        free(digest);
-    }
-    
-    return result;
-}
-
-+ (NSData *)constructHttpBodyForTriggerCallback:(NSString *)callbackParams callbackVaribles:(NSString *)callbackVaribles
-{
-    NSMutableString *bodyString = [NSMutableString string];
-    
-    [bodyString appendString:@"x-oss-process=trigger/callback,callback_"];
-    if ([callbackParams oss_isNotEmpty])
-    {
-        [bodyString appendString:callbackParams];
-    }
-    
-    [bodyString appendString:@",callback-var_"];
-    if ([callbackVaribles oss_isNotEmpty])
-    {
-        [bodyString appendString:callbackVaribles];
-    }
-    
-    return [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-}
-
-+ (NSData *)constructHttpBodyForImagePersist:(NSString *)action toBucket:(NSString *)toBucket toObjectKey:(NSString *)toObjectKey
-{
-    /*
-     * parameter has checked before
-     */
-    NSMutableString *bodyString = [NSMutableString string];
-    [bodyString appendString:@"x-oss-process="];
-    if ([action rangeOfString:@"image/"].location == NSNotFound)
-    {
-        [bodyString appendString:@"image/"];
-        
-    }
-    [bodyString appendString:action];
-    [bodyString appendString:@"|sys/"];
-    
-    
-    NSString * bucket_base64 = [[toBucket dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
-    
-    NSString * objectkey_base64 = [[toObjectKey dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
-    
-    [bodyString appendString:@"saveas,o_"];
-    [bodyString appendString:objectkey_base64];
-    [bodyString appendString:@",b_"];
-    [bodyString appendString:bucket_base64];
-
-    return [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-}
-
-
 @end
 
 @implementation NSString (OSS)
@@ -1273,16 +1133,6 @@ int32_t const CHUNK_SIZE = 8 * 1024;
         documentDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
     });
     return documentDirectory;
-}
-
-- (NSString *)oss_urlEncodedString {
-    static NSCharacterSet *allowCharacterSet = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        allowCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?#[]"] invertedSet];
-    });
-    
-    return [self stringByAddingPercentEncodingWithAllowedCharacters:allowCharacterSet];
 }
 
 @end

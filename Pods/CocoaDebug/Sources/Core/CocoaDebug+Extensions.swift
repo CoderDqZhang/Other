@@ -145,23 +145,22 @@ extension Data {
 
 extension Data {
     func dataToPrettyPrintString() -> String? {
-        
         //1.pretty json
         if let str = self.dataToDictionary()?.dictionaryToString() {
             return str
         } else {
             //2.protobuf
-//            if let message = try? _GPBMessage.parse(from: self) {
-//                if message.serializedSize() > 0 {
-//                    return message.description
-//                } else {
-//                    //3.utf-8 string
-//                    return String(data: self, encoding: .utf8)
-//                }
-//            } else {
+            if let message = try? _GPBMessage.parse(from: self) {
+                if message.serializedSize() > 0 {
+                    return message.description
+                } else {
+                    //3.utf-8 string
+                    return String(data: self, encoding: .utf8)
+                }
+            } else {
                 //3.utf-8 string
                 return String(data: self, encoding: .utf8)
-//            }
+            }
         }
     }
 }
@@ -356,7 +355,7 @@ extension CocoaDebug {
         _NetworkHelper.shared().disable()
         _LogHelper.shared.enable = false
         _OCLogHelper.shared()?.enable = false
-        _CrashLogger.shared.enable = false
+        CrashLogger.shared.enable = false
         CocoaDebugSettings.shared.responseShake = false
 //        CocoaDebugSettings.shared.responseShakeNetworkDetail = false
     }

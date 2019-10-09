@@ -84,7 +84,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             NavigationPushView(self.controller!, toConroller: categoryChoosVC)
         }
     }
-    
+
     func postTirbeNet(){
         (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = false
         let loading = Tools.shareInstance.showLoading(KWindow, msg: "发帖中")
@@ -98,6 +98,10 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                         return
                     }
                 }
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "上传成功", autoHidder: true)
+                self.controller?.dismiss(animated: true, completion: {
+
+                })
                 let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
@@ -116,7 +120,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                     }
                 }
             }
-            
+
         }else{
             let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":""] as [String : Any]
             BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in

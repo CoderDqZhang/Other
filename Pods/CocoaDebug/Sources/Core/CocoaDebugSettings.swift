@@ -36,9 +36,9 @@ import Foundation
             UserDefaults.standard.synchronize()
             
             if disableCrashRecording == false {
-                _CrashLogger.shared.enable = true
+                CrashLogger.shared.enable = true
             }else{
-                _CrashStoreManager.shared.resetCrashs()
+                CrashStoreManager.shared.resetCrashs()
             }
         }
     }

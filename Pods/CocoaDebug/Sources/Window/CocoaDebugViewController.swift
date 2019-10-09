@@ -10,7 +10,7 @@ import UIKit
 
 class CocoaDebugViewController: UIViewController {
 
-    var bubble = _Bubble(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: _Bubble.size))
+    var bubble = Bubble(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: Bubble.size))
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -23,7 +23,7 @@ class CocoaDebugViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.bubble.center = _Bubble.originalPosition
+        self.bubble.center = Bubble.originalPosition
         self.bubble.delegate = self
         self.view.backgroundColor = .clear
     }
@@ -46,8 +46,9 @@ extension CocoaDebugViewController: BubbleDelegate {
     
     func didTapBubble() {
         _WindowHelper.shared.displayedList = true
-        let storyboard = UIStoryboard(name: "_Manager", bundle: Bundle(for: CocoaDebugViewController.self))
+        let storyboard = UIStoryboard(name: "Manager", bundle: Bundle(for: CocoaDebug.self))
         guard let vc = storyboard.instantiateInitialViewController() else {return}
+        if #available(iOS 13, *) {vc.modalPresentationStyle = .fullScreen}
         self.present(vc, animated: true, completion: nil)
     }
 }

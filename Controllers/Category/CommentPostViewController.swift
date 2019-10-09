@@ -109,6 +109,9 @@ class CommentPostViewController: BaseViewController {
         photoPickerVC!.showSelectedIndex = true
         photoPickerVC?.showPhotoCannotSelectLayer = true
         photoPickerVC!.sortAscendingByModificationDate = true
+        photoPickerVC!.barItemTextColor = App_Theme_06070D_Color
+        photoPickerVC!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:App_Theme_PinFan_R_17_Font!,NSAttributedString.Key.foregroundColor:App_Theme_06070D_Color ?? ""]
+        photoPickerVC!.setNavigationItemBack()
         photoPickerVC?.didFinishPickingPhotosHandle = { photos, assets, isSelectOriginalPhoto in
             self.commentPostViewModel.selectPhotos = NSMutableArray.init(array: photos!)
             self.commentPostViewModel.selectAssets = NSMutableArray.init(array: assets!)

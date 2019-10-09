@@ -47,8 +47,10 @@ class FilterViewModel: BaseViewModel {
                 cell.cellSetFootBallIndexData(indexPath, model: FootBallIndexModel.init(fromDictionary: array[indexPath.row] as! [String : Any]))
             case .northsigle:
                 cell.cellSetNorthSigleData(indexPath, model: NorthSigleModel.init(fromDictionary: array[indexPath.row] as! [String : Any]))
-            default:
+            case .lottery:
                 cell.cellSetFootBallLotteryData(indexPath, model: FootBallLotteryModel.init(fromDictionary: array[indexPath.row] as! [String : Any]))
+            default:
+                break;
             }
         }else{
             let array = basketBalleventsList?.object(forKey: titles[indexPath.section]) as! NSArray
@@ -136,7 +138,7 @@ class FilterViewModel: BaseViewModel {
                                     if (event_array[indexs] as! NSDictionary).object(forKey: "short_name_zh") as! String == (temp_array[index] as! NSDictionary).object(forKey: "eventsName") as! String {
                                         result_array.add(event_array[indexs])
                                         select_event_id.add((event_array[indexs] as! NSDictionary).object(forKey: "id")!)
-                                        break
+                                        
                                     }
                                 }
                             }else{

@@ -28,15 +28,16 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
         cell.postCommentImageAddButtonClouse = { btn in
             (self.controller as! CommentPostViewController).setUpAlerViewController()
         }
-        cell.postCommentImageImageButtonClouse = { tag, type in
+        
+        cell.postCommentImageImageButtonClouse = { tag,type in
             if type == .image {
-                (self.controller as! CommentPostViewController).setUpPrewImagePickerBrowser(index: tag)
+                (self.controller as! PostViewController).setUpPrewImagePickerBrowser(index: tag)
             }else{
                 self.selectAssets.removeObject(at: tag)
                 self.selectPhotos.removeObject(at: tag)
+                self.reloadTableView()
             }
         }
-        
     }
     
     func tableViewPostCommentTextTableViewCellSetData(_ indexPath:IndexPath, cell:PostCommentTextTableViewCell) {

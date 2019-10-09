@@ -289,6 +289,7 @@ class MineInfoTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     
@@ -378,7 +379,7 @@ class MineInfoTableViewCell: UITableViewCell {
     
     func cellSetData(model:UserInfoModel?,acount:AccountInfoModel?){
         var showModel = model
-        if showModel == nil {
+        if showModel == nil || !CacheManager.getSharedInstance().isLogin() {
             showModel = getNoLoginUserModel()
         }
         userNameLabel.text = showModel!.nickname

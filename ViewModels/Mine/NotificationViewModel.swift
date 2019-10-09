@@ -172,6 +172,7 @@ extension NotificationViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NotificationTableViewCell.description(), for: indexPath)
         self.tableViewNotificationTableViewCellSetData(indexPath, cell: cell as! NotificationTableViewCell)
+        cell.selectionStyle = .none
         (cell as! NotificationTableViewCell).hiddenLineLabel(ret: self.detailArray.count - 1 == indexPath.section ? true : false)
         return cell
     }

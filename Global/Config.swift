@@ -33,6 +33,13 @@ let OSS_CALLBACK_URL: String = "http://oss-demo.aliyuncs.com:23450"
 let OSS_CNAME_URL: String = "http://www.cnametest.com/"
 let OSS_STSTOKEN_URL: String = "https://*.*.*.*.****/sts/getsts"
 
+let OSS_IMAGE_KEY: String = "testImage.png"
+let OSS_CRC64_ENABLE: Bool = true
+let OSS_CONTENT_TYPE: String = "Content-Type"
+let OSS_CONTENT_LENGTH: String = "Content-Length"
+let OSS_TEST_CONTENT_TYPE: String = "application/special"
+let OSS_APPEND_OBJECT_KEY: String = "appendObject"
+
 
 let CACHEMANAGERCATEGORYMODELS = "CategoryModels"
 let CACHEMANAPSOTMODEL = "PostModel"

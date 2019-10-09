@@ -46,7 +46,9 @@
         _images = [NSMutableArray array];
         for (int i = 1; i < 9; i++) {
             UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%d", i]];
-            [_images addObject:image];
+            if (image != nil) {
+                [_images addObject:image];
+            }
         }
     }
     

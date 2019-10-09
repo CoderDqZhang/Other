@@ -36,7 +36,7 @@ class AppleThemeTool {
 //        UINavigationBar.appearance().barTintColor = App_Theme_FFCB00_Color
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font:App_Theme_PinFan_R_17_Font!,NSAttributedString.Key.foregroundColor:App_Theme_06070D_Color ?? ""]
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font:App_Theme_PinFan_R_15_Font!,NSAttributedString.Key.foregroundColor:App_Theme_06070D_Color ?? ""], for: UIControl.State())
-        UIApplication.shared.statusBarStyle = .lightContent
+        UIApplication.shared.statusBarStyle = .default
         UINavigationBar.appearance().shadowImage = UIImage.init()
         UINavigationBar.appearance().isTranslucent = false
 

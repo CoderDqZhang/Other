@@ -16,7 +16,7 @@ class ArticleDetailViewModel: BaseViewModel {
     var articleId:String!
 
     var articleModel:ArticleInfoModel!
-    var contentSize:CGSize!
+    var numberCount:Int = 0
     var webView:WKWebView!
     
     var contentHeight:CGFloat = 0
@@ -48,28 +48,55 @@ class ArticleDetailViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        //        let dicData = NSDictionary.init(dictionary: ["contentStrs":contentStrs[indexPath.section],"translateStrs":translateStrs[indexPath.section],"images":images[indexPath.section]], copyItems: true)
-        //        (self.controller! as! OutFallViewController).postDetailDataClouse(dicData,.OutFall)
+       let controllerVC = ArticleDetailViewController.init()
+        controllerVC.articleData = (self.articleListArray[indexPath.row] as! NSDictionary)
+       NavigationPushView(self.controller!, toConroller: controllerVC)
     }
     
     func calculateWebHeight(html:String) {
-        var htmlString = html
-        if htmlString.contains("<img") {
-            htmlString = htmlString.replacingOccurrences(of: "<img", with: "<img style='max-width: 100%; vertical-align:middle;'")
-        }
-        // 注意：这里webView高度不能为0，如果设置为0webView在加载完成后使用sizeToFit()得不到真实高度
-        webView = WKWebView.init(frame: CGRect.init(x: 10, y: 0, width: SCREENWIDTH - 20, height: 1))
+        //创建网页配置对象
+        let config = WKWebViewConfiguration.init()
+        let preference = WKPreferences.init()
+        config.preferences = preference
+        
+        webView = WKWebView.init(frame: CGRect.zero, configuration: config)
         webView.navigationDelegate = self
-        webView.sizeToFit()
-        webView.backgroundColor = UIColor.clear
-        webView.isOpaque = false
         webView.scrollView.isScrollEnabled = false
-        webView.scrollView.showsVerticalScrollIndicator = false
-        webView.scrollView.showsHorizontalScrollIndicator = false
-        webView.isUserInteractionEnabled = false
-        webView.loadHTMLString(htmlString, baseURL: nil)
+        let resutl_str = self.converHtml(str: html)
+        webView.loadHTMLString("<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>\(resutl_str)", baseURL: nil)
+        webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "contentSize" {
+            numberCount = numberCount + 1
+            print(self.webView.scrollView.contentSize.height)
+            if numberCount == 3 {
+                self.contentHeight = self.webView.scrollView.contentSize.height
+                self.reloadTableViewData()
+            }
+        }
+    }
+    
+    
+    func converHtml(str:String) ->String{
+        let temp_str = NSString.init(string: str)
+        let left_width = temp_str.components(separatedBy: "width:")
+        if left_width.count > 1 {
+            let width = left_width[1].components(separatedBy: "p")[0]
+            let left_height = temp_str.components(separatedBy: "height:")
+            let right_str = left_height[1].components(separatedBy: "x;")[1]
+            let height = left_height[1].components(separatedBy: "p")[0]
+            var result_height:CGFloat = 0
+            if width.cgFloat()! > SCREENWIDTH {
+                result_height = SCREENWIDTH * height.cgFloat()! / width.cgFloat()!
+            }
+            return "\(left_width[0])width:\(SCREENWIDTH);height:\(result_height);\(right_str)"
+        }else{
+            return str
+        }
+        
+    }
     
     
     func getArticleNet(){
@@ -118,7 +145,7 @@ extension ArticleDetailViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return contentHeight
+            return self.contentHeight
         case 1:
             return 32
         default:
@@ -152,7 +179,7 @@ extension ArticleDetailViewModel: UITableViewDataSource {
         case 0,1:
             return articleModel == nil ? 0 : 1
         default:
-            return articleListArray.count
+            return self.contentHeight == 0 ? 0 : articleListArray.count
         }
     }
     
@@ -181,13 +208,6 @@ extension ArticleDetailViewModel: UITableViewDataSource {
 
 extension ArticleDetailViewModel : WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.sizeToFit()
-        self.webView.evaluateJavaScript("document.body.scrollHeight") { (dic, error) in
-            print(dic)
-            let titleSize = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: self.articleModel.title, yyLabel: YYLabel.init())
-            self.contentHeight = (dic as! Int).cgFloat + titleSize.textBoundingSize.height
-            self.reloadTableViewData()
-        }
         
     }
 }

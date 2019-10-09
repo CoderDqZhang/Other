@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //加载配置
         LoadConfigManger.getSharedInstance().setUp()
         //阿里云库
-        AliPayManager.getSharedInstance().ossSetUp()
+//        AliPayManager.getSharedInstance().ossSetUp()
         //友盟推送显示
         UMengManager.getSharedInstance().setUpUMengManger(application, didFinishLaunchingWithOptions: launchOptions)
         //通知详情

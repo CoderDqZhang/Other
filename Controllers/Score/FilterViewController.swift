@@ -60,28 +60,37 @@ class FilterViewController: BaseViewController {
         self.filterViewModel.filterType = FilterViewControllerType.init(rawValue: type)
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
             if self.viewType == .football {
-                let temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
-                if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
+                if CacheManager.getSharedInstance().getFootBallEventModel() == nil {
                     LoadConfigManger.getSharedInstance().loadFootBallScorEvent()
-                    NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADFOOTBALLEVENTDATA), object: nil)
-                }else{
-                    if CacheManager.getSharedInstance().getFootBallEventModel() == nil {
-                        LoadConfigManger.getSharedInstance().saveFootBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
-                    }
-                    self.loadData()
+//                    LoadConfigManger.getSharedInstance().saveFootBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
                 }
-                
+                self.loadData()
+//                let temp_dic =  CacheManager.getSharedInstance().getFootBallInfoModel()
+//                if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
+//                    LoadConfigManger.getSharedInstance().loadFootBallScorEvent()
+//                    NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADFOOTBALLEVENTDATA), object: nil)
+//                }else{
+//                    if CacheManager.getSharedInstance().getFootBallEventModel() == nil {
+//                        LoadConfigManger.getSharedInstance().saveFootBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
+//                    }
+//                    self.loadData()
+//                }
             }else{
-                let temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
-                if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
+                if CacheManager.getSharedInstance().getBasketBallEventModel() == nil {
                     LoadConfigManger.getSharedInstance().loadBasketBallScorEvent()
-                    NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADBASKETBALLEVENTDATA), object: nil)
-                }else{
-                    if CacheManager.getSharedInstance().getBasketBallEventModel() == nil {
-                        LoadConfigManger.getSharedInstance().saveBasketBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
-                    }
-                    self.loadData()
+//                    LoadConfigManger.getSharedInstance().saveBasketBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
                 }
+                self.loadData()
+//                let temp_dic =  CacheManager.getSharedInstance().getBasketBallInfoModel()
+//                if temp_dic == nil || temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd")) == nil {
+//                    LoadConfigManger.getSharedInstance().loadBasketBallScorEvent()
+//                    NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: NSNotification.Name.init(RELOADBASKETBALLEVENTDATA), object: nil)
+//                }else{
+//                    if CacheManager.getSharedInstance().getBasketBallEventModel() == nil {
+//                        LoadConfigManger.getSharedInstance().saveBasketBallEventDic(dic: temp_dic?.object(forKey: Date.init().string(withFormat: "yyyyMMdd"))! as! NSDictionary)
+//                    }
+//                    self.loadData()
+//                }
             }
         }
         

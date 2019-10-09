@@ -51,7 +51,7 @@ class ScoreListTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     
@@ -321,14 +321,14 @@ class ScoreListTableViewCell: UITableViewCell {
             whiteTeamA.isHidden = false
             redTeamA.snp.remakeConstraints { (make) in
                 make.right.equalTo(self.whiteTeamA.snp.left).offset(-2)
-                make.top.equalTo(self.whiteTeamA.snp.top).offset(2)
+                make.top.equalTo(self.whiteTeamA.snp.top).offset(3)
                 make.size.equalTo(CGSize.init(width: 10, height: 9))
             }
         }else{
             whiteTeamA.isHidden = true
             redTeamA.snp.remakeConstraints { (make) in
                 make.right.equalTo(self.teamAInfo.snp.right).offset(-2)
-                make.top.equalTo(self.whiteTeamA.snp.top).offset(2)
+                make.top.equalTo(self.whiteTeamA.snp.top).offset(3)
                 make.size.equalTo(CGSize.init(width: 10, height: 9))
             }
         }
@@ -338,14 +338,14 @@ class ScoreListTableViewCell: UITableViewCell {
             whiteTeamB.isHidden = false
             yellowTeamB.snp.remakeConstraints { (make) in
                 make.left.equalTo(self.whiteTeamB.snp.right).offset(2)
-                make.top.equalTo(self.whiteTeamB.snp.top).offset(2)
+                make.top.equalTo(self.whiteTeamB.snp.top).offset(3)
                 make.size.equalTo(CGSize.init(width: 10, height: 9))
             }
         }else{
             whiteTeamB.isHidden = true
             yellowTeamB.snp.remakeConstraints { (make) in
                 make.left.equalTo(self.teamBInfo.snp.left).offset(2)
-                make.top.equalTo(self.whiteTeamB.snp.top).offset(2)
+                make.top.equalTo(self.whiteTeamB.snp.top).offset(3)
                 make.size.equalTo(CGSize.init(width: 10, height: 9))
             }
         }
@@ -355,7 +355,7 @@ class ScoreListTableViewCell: UITableViewCell {
             redTeamA.isHidden = false
             yellowTeamA.snp.remakeConstraints { (make) in
                 make.right.equalTo(self.redTeamA.snp.left).offset(-2)
-                make.top.equalTo(self.whiteTeamA.snp.top).offset(2)
+                make.top.equalTo(self.whiteTeamA.snp.top).offset(3)
                 make.size.equalTo(CGSize.init(width: 10, height: 9))
             }
         }else{
@@ -363,13 +363,13 @@ class ScoreListTableViewCell: UITableViewCell {
             if model.teamA.sort == ""{
                 yellowTeamA.snp.remakeConstraints { (make) in
                     make.right.equalTo(self.teamAInfo.snp.right).offset(0)
-                    make.top.equalTo(self.whiteTeamA.snp.top).offset(2)
+                    make.top.equalTo(self.whiteTeamA.snp.top).offset(3)
                     make.size.equalTo(CGSize.init(width: 10, height: 9))
                 }
             }else{
                 yellowTeamA.snp.remakeConstraints { (make) in
                     make.right.equalTo(self.whiteTeamA.snp.left).offset(-2)
-                    make.top.equalTo(self.whiteTeamA.snp.top).offset(2)
+                    make.top.equalTo(self.whiteTeamA.snp.top).offset(3)
                     make.size.equalTo(CGSize.init(width: 10, height: 9))
                 }
             }
@@ -394,7 +394,7 @@ class ScoreListTableViewCell: UITableViewCell {
             yellowTeamB.isHidden = false
             redTeamB.snp.remakeConstraints { (make) in
                 make.left.equalTo(self.yellowTeamB.snp.right).offset(2)
-                make.top.equalTo(self.whiteTeamB.snp.top).offset(2)
+                make.top.equalTo(self.whiteTeamB.snp.top).offset(3)
                 make.size.equalTo(CGSize.init(width: 10, height: 9))
                 
             }
@@ -403,13 +403,13 @@ class ScoreListTableViewCell: UITableViewCell {
             if model.teamB.sort == "" {
                 redTeamB.snp.remakeConstraints { (make) in
                     make.left.equalTo(self.teamBInfo.snp.left).offset(2)
-                    make.top.equalTo(self.whiteTeamB.snp.top).offset(2)
+                    make.top.equalTo(self.whiteTeamB.snp.top).offset(3)
                     make.size.equalTo(CGSize.init(width: 10, height: 9))
                 }
             }else{
                 redTeamB.snp.remakeConstraints { (make) in
-                    make.left.equalTo(self.yellowTeamB.snp.right).offset(2)
-                    make.top.equalTo(self.whiteTeamB.snp.top).offset(2)
+                    make.left.equalTo(self.whiteTeamB.snp.right).offset(2)
+                    make.top.equalTo(self.whiteTeamB.snp.top).offset(3)
                     make.size.equalTo(CGSize.init(width: 10, height: 9))
                 }
             }

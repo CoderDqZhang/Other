@@ -51,6 +51,7 @@ class BasketBallTableViewCell: UITableViewCell {
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     

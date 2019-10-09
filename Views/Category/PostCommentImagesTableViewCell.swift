@@ -38,7 +38,7 @@ class PostImageSelectView:UIView {
         }
         
         deleteButton.snp.makeConstraints { (make) in
-            make.right.equalTo(self.snp.right).offset(20)
+            make.right.equalTo(self.snp.right).offset(0)
             make.top.equalTo(self.snp.top).offset(-20)
             make.size.equalTo(CGSize.init(width: 40, height: 40))
         }
@@ -65,6 +65,7 @@ class PostCommentImagesTableViewCell: UITableViewCell {
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     
@@ -96,7 +97,7 @@ class PostCommentImagesTableViewCell: UITableViewCell {
         snapshotView.addSubview(addButton)
         if images.count > 0 {
             for index in 0...images.count - 1 {
-                let postImageView = PostImageSelectView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (PostImageSelectViewWidth + PostImageSelectViewMargetWidth), y: 0, width: PostImageSelectViewWidth, height: PostImageSelectViewHeight), image: images[index] as! UIImage)
+                let postImageView = PostImageSelectView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (PostImageSelectViewWidth + PostImageSelectViewMargetWidth), y: 0, width: PostImageSelectViewWidth + 20, height: PostImageSelectViewHeight + 20), image: images[index] as! UIImage)
                 postImageView.tag = index + 10000
                 _  = postImageView.newTapGesture { (gesture) in
                     gesture.numberOfTouchesRequired = 1

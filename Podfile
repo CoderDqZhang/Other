@@ -17,7 +17,7 @@ target 'Touqiu' do
   pod 'YTKKeyValueStore' #database save
   pod 'Alamofire'
   pod 'SnapKit', '~> 5.0.0'
-  pod 'SDWebImage'
+  pod 'SDWebImage', '~> 5.2.2'
   pod 'SKPhotoBrowser'
   pod 'ReactiveSwift'
   pod 'ReactiveCocoa'
@@ -28,8 +28,8 @@ target 'Touqiu' do
   pod 'UITableView+FDTemplateLayoutCell'
   pod 'TYPagerController',:inhibit_warnings => true
   pod 'TZImagePickerController'
-  pod 'JXSegmentedView'
-  pod 'AliyunOSSiOS'
+  pod 'JXSegmentedView','~> 0.0.21'
+  pod 'AliyunOSSiOS', '~>2.8.0'
   pod 'JPush'
   pod 'CocoaAsyncSocket'
   pod 'KSGuaidView'

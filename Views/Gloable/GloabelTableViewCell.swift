@@ -26,6 +26,7 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
     var didMakeConstraints = false
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
         
         
@@ -230,6 +231,7 @@ class GloabelFansTableViewCell : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     
@@ -380,6 +382,7 @@ class GloabelTextFieldAndTitleTableViewCell : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     
@@ -466,6 +469,7 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     
@@ -539,6 +543,7 @@ class GloabelTextViewTableViewCell : UITableViewCell,YYTextViewDelegate {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     
@@ -628,6 +633,7 @@ class GloabelConfirmTableViewCell : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
         self.backgroundColor = App_Theme_F6F6F6_Color
     }
@@ -706,7 +712,7 @@ class GloabelTextFieldButtonTableViewCell : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        self.contentView.backgroundColor = App_Theme_FFFFFF_Color
         self.setUpView()
     }
     

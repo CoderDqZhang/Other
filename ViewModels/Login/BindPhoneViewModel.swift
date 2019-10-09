@@ -60,7 +60,10 @@ class BindPhoneViewModel: BaseViewModel {
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
                 NotificationManager.getSharedInstance().addAlias(alias: userInfo.id.string)
                 UserDefaults.init().set(userInfo.token, forKey: CACHEMANAUSERTOKEN)
-                (self.controller as! BindPhoneViewController).navigationController?.popToRootViewController(animated: true)
+                let contoller = ResetPasViewController.init()
+                contoller.phone = self.phone
+                NavigationPushView(self.controller!, toConroller: contoller)
+//                (self.controller as! BindPhoneViewController).navigationController?.popToRootViewController(animated: true)
                 //登录成功后读取未读消息数量
                 LoadConfigManger.getSharedInstance().loadUnreadUrl()
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

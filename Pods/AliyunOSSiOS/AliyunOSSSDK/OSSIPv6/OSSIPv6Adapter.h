@@ -73,14 +73,14 @@
 /**
  *	@brief	Checks if it's a IPv6-only network. If it's true, it's IPv6-only.
  *
- *	@return return YES for IPv6-only network,otherWise return NO
+ *	@return
  */
 - (BOOL)isIPv6OnlyNetwork;
 
 /**
  *	@brief	Refresh the IPV6-only check
  *
- *	@return return YES for IPv6-only network,otherWise return NO
+ *	@return
  */
 - (BOOL)reResolveIPv6OnlyStatus;
 
@@ -89,23 +89,22 @@
  *          For example:
                 42.156.220.114 -> 64:ff9b::2a9c:dc72
  *	@param 	addr
- *          ip address
  *
- *	@return return an IPv6 address
+ *	@return
  */
 - (NSString *)handleIpv4Address:(NSString *)addr;
 
 /**
  *	@brief	Checks if it's an IPv4 address.
  *
- *	@return return YES while addr is an IPv4 address,otherwise return NO
+ *	@return
  */
 - (BOOL)isIPv4Address:(NSString *)addr;
 
 /**
  *	@brief	Checks if it's an IPv6 address
  *
- *	@return return YES while addr is an IPv6 address,otherwise return NO
+ *	@return
  */
 - (BOOL)isIPv6Address:(NSString *)addr;
 
