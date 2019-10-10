@@ -288,7 +288,7 @@ class BasketBallTableViewCell: UITableViewCell {
                 scoreStatus.text = "第四节 \(minute):\(second)"
             }
         case 9:
-            scoreStatus.text = "第四节完"
+            scoreStatus.text = "加时"
         case 10:
             scoreStatus.text = "完场"
             scoreStatus.textColor = App_Theme_999999_Color

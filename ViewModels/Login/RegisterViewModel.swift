@@ -37,11 +37,7 @@ class RegisterViewModel: BaseViewModel {
         let parameters = ["phone":phone]
         BaseNetWorke.getSharedInstance().postUrlWithString(UsersendCodeUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                let userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
-                CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo)
-                NotificationManager.getSharedInstance().addAlias(alias: userInfo.id.string)
-                UserDefaults.init().set(userInfo.token, forKey: CACHEMANAUSERTOKEN)
-                self.controller?.navigationController?.popToRootViewController(animated: true)
+                
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }

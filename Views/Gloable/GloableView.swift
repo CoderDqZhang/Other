@@ -503,13 +503,21 @@ class LoginView: UIView {
         self.addSubview(logoImage)
         
         phoneTextField = UITextField.init()
-        phoneTextField.keyboardType = .numberPad
+        phoneTextField.keyboardType = .phonePad
         phoneTextField.textColor = App_Theme_FFFFFF_Color
         phoneTextField.setPlaceholder(str: "请输入手机号", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
         centenView.addSubview(phoneTextField)
         
-        
-        let phoneTextFieldSignal = phoneTextField.reactive.continuousTextValues.map { (str) -> Bool in
+        var tempPhone:String = ""
+        let phoneTextFieldSignal = phoneTextField.reactive.continuousTextValues.filter({ (str) -> Bool in
+            if str.count == 11 {
+                tempPhone = str
+            }else if str.count > 11 {
+                self.phoneTextField.text = tempPhone
+            }
+            return str.count <= 11
+        }).map { (str) -> Bool in
+            self.phoneTextField.text = str
             return str.isNumeric && str.count > 0
         }
         
@@ -811,7 +819,7 @@ class RegisterView: UIView {
     
     var isCheckBoolProperty = MutableProperty<Bool>(false)
     
-    var count:Int = 15
+    var count:Int = 60
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -840,7 +848,16 @@ class RegisterView: UIView {
         centenView.addSubview(phoneTextField)
         
         
-        let phoneTextFieldSignal = phoneTextField.reactive.continuousTextValues.map { (str) -> Bool in
+        var tempPhone:String = ""
+        let phoneTextFieldSignal = phoneTextField.reactive.continuousTextValues.filter({ (str) -> Bool in
+            if str.count == 11 {
+                tempPhone = str
+            }else if str.count > 11 {
+                self.phoneTextField.text = tempPhone
+            }
+            return str.count <= 11
+        }).map { (str) -> Bool in
+            self.phoneTextField.text = str
             return str.isNumeric && str.count > 0
         }
         
@@ -881,6 +898,7 @@ class RegisterView: UIView {
         codeTextField = UITextField.init()
         codeTextField.textColor = App_Theme_FFFFFF_Color
         centenView.addSubview(codeTextField)
+        codeTextField.keyboardType = .numberPad
         codeTextField.setPlaceholder(str: "请输入验证码", font: App_Theme_PinFan_M_15_Font!, textColor: App_Theme_FFFFFF_Color!)
         let codeTextFieldSignal = codeTextField.reactive.continuousTextValues.map { (str) -> Bool in
             return str.count > 0
@@ -907,7 +925,7 @@ class RegisterView: UIView {
         senderCode.titleLabel?.font = App_Theme_PinFan_M_14_Font
         senderCode.setTitleColor(App_Theme_FFFFFF_Color, for: .normal)
         senderCode.addAction({ (button) in
-            self.count = 15
+            self.count = 60
             self.timeDone()
             if self.registerViewButtonClouse != nil {
                 self.registerViewButtonClouse(.senderCode)

@@ -161,7 +161,13 @@ class ChangeInfoViewController: BaseViewController {
             infoLable.isHidden = true
             infoLable.text = ""
             changeText.keyboardType = .default
+            var tempPhone = ""
             changeText.reactive.continuousTextValues.filter({ (str) -> Bool in
+                if str.count == 16 {
+                    tempPhone = str
+                }else if str.count > 16 {
+                    self.changeText.text = tempPhone
+                }
                 return str.count < 16
             }).observeValues({ (str) in
                 self.detailLable.text = "\(str.count)/16"

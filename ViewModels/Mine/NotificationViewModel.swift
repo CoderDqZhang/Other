@@ -22,7 +22,7 @@ class NotificationViewModel: BaseViewModel {
     
     
     func tableViewNotificationTableViewCellSetData(_ indexPath:IndexPath, cell:NotificationTableViewCell) {
-        cell.cellSetData(model: NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any]), indexPath: indexPath)
+        cell.cellSetData(model: NotificaitonModel.init(fromDictionary: self.detailArray[indexPath.section] as! [String : Any]), type: type, indexPath: indexPath)
         cell.notificationTableViewCellClouse = { indexPath in
             let alerController = UIAlertController.init(title: "操作", message: "", preferredStyle: .actionSheet)
             alerController.addAction(title: "标记已读", style: .default, isEnabled: true, handler: { (read) in

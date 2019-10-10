@@ -15,6 +15,7 @@ enum TopUpViewClickType {
     case follow
     case fans
     case daily
+    case avater
 }
 
 typealias TopUpViewTypeClouse = (_ type:TopUpViewClickType) ->Void
@@ -301,6 +302,7 @@ class MineInfoTableViewCell: UITableViewCell {
         
         avatarImageView = UIImageView.init()
         avatarImageView.cornerRadius = 31
+        avatarImageView.isUserInteractionEnabled = true
         avatarImageView.layer.masksToBounds = true
         self.contentView.addSubview(avatarImageView)
         
@@ -398,6 +400,15 @@ class MineInfoTableViewCell: UITableViewCell {
             if error == nil {
                 let resultImage = UIImageMaxCroped.cropeImage(image: image!, imageViewSize:  CGSize.init(width: 62, height: 62))
                 self.avatarImageView.image = resultImage
+                
+            }
+        }
+        _ = self.avatarImageView.newTapGesture { (config) in
+            config.numberOfTouchesRequired = 1
+            config.numberOfTapsRequired = 1
+        }.whenTaped { (tap) in
+            if self.mineInfoTableViewCellClouse != nil {
+                self.mineInfoTableViewCellClouse(.avater)
             }
         }
         

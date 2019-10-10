@@ -71,6 +71,9 @@ class LoadConfigManger: NSObject {
                 if !resultDic.isCompleted {
                     let model = UnreadMessageModel.init(fromDictionary: resultDic.value as! [String : Any])
                     CacheManager.getSharedInstance().saveUnreadModel(category: model)
+                    let rootVC = MainTabBarController.init()
+                    KWindow.rootViewController = rootVC
+                    KWindow.makeKeyAndVisible()
                     (KWindow.rootViewController as! MainTabBarController).upateUnreadMessage()
                 }
             }

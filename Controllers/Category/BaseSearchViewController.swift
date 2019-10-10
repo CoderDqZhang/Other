@@ -34,6 +34,7 @@ class BaseSearchViewController: UISearchController {
     
     func setUpView(){
         // 设置背景颜色
+        self.navigationController?.navigationBar.barTintColor = App_Theme_FFCB00_Color
         self.view.backgroundColor = App_Theme_F6F6F6_Color
         self.searchBar.barTintColor = App_Theme_F6F6F6_Color
         self.searchBar.layer.borderColor = App_Theme_F6F6F6_Color?.cgColor

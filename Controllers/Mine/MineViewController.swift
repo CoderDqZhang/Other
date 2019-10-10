@@ -37,6 +37,7 @@ class MineViewController: BaseViewController {
     }
     
     override func setUpView() {
+        self.view.backgroundColor = App_Theme_FFCD0D_Color
         self.bindViewModel(viewModel: mineViewModel, controller: self)
         self.setUpTableView(style: .grouped, cells: [MineInfoTableViewCell.self, MineToolsTableViewCell.self, AdTableViewCell.self,TitleLableAndDetailLabelDescRight.self], controller: self)
         self.updateTableViewConstraints()

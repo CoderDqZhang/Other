@@ -65,6 +65,9 @@ class TagerUserTableViewCell: UITableViewCell {
     func cellSetFansData(model:FansFlowwerModel){
         userNameLabel.text = model.nickname
         descLabel.text = model.descriptionField
+        avatarImageView.sd_crope_imageView(url: model.img, imageView: avatarImageView, placeholderImage: nil) { (image, url, type, state, error) in
+            
+        }
     }
     
 //    func cellSetData(name:String, desc:String) {

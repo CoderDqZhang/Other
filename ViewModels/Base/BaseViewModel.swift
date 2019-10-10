@@ -101,18 +101,20 @@ class BaseViewModel: NSObject {
                 if (images[index] as NSString) == "" {
                     continue
                 }
-                let imageStrs = (images[index] as NSString).components(separatedBy: "_")
+                var imageStrs = (images[index] as NSString).components(separatedBy: "_")
                 if imageStrs.count < 2 {
                     return imageHeight
                 }
+                
+                if imageStrs[imageStrs.count - 1].count == 4 {
+                    imageStrs.remove(at: imageStrs.count - 1)
+                }
+                
                 var tempWidth = Int(imageStrs[imageStrs.count - 2].nsString.substring(with: NSRange.init(location: 1, length: imageStrs[imageStrs.count - 2].count - 1)))
                 var tempHeigth = Int(imageStrs[imageStrs.count - 1].nsString.components(separatedBy: ".")[0].nsString.substring(with: NSRange.init(location: 1, length: imageStrs[imageStrs.count - 1].nsString.components(separatedBy: ".")[0].count - 1)))
                 if tempWidth == nil {
                     tempWidth = 0
                     tempHeigth = 0
-//                    let size:CGSize = UIImage.getImageSizeWithURL(url: UIImageViewManger.getSharedInstance().appendImageUrl(url: image))
-//                    tempWidth = size.width.int
-//                    tempHeigth = size.height.int
                 }
                 
                 if CGFloat(tempWidth!) > contentWidth {

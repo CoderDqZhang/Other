@@ -61,6 +61,12 @@ class PostViewController: BaseViewController {
         self.postViewModel.postModel.tribe = tribe
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:App_Theme_333333_Color ?? ""], for: UIControl.State())
+        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:App_Theme_333333_Color ?? ""], for: UIControl.State())
+    }
+    
     func setUpAlerViewController(){
         let alerController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         alerController.addAction(title: "相册", style: .default, isEnabled: true, handler: { (ret) in
@@ -114,6 +120,7 @@ class PostViewController: BaseViewController {
             photoPickerVC.barItemTextColor = App_Theme_06070D_Color
             photoPickerVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:App_Theme_PinFan_R_17_Font!,NSAttributedString.Key.foregroundColor:App_Theme_06070D_Color ?? ""]
             photoPickerVC.setNavigationItemBack()
+            photoPickerVC.preferredLanguage = "zh-Hans"
             photoPickerVC!.showSelectedIndex = true
             photoPickerVC.statusBarStyle = .default
             photoPickerVC?.showPhotoCannotSelectLayer = true
@@ -181,13 +188,13 @@ extension PostViewController : UIImagePickerControllerDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true) {
-            
+            self.navigationController?.navigationBar.barTintColor = App_Theme_FFCB00_Color
         }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true) {
-            
+            self.navigationController?.navigationBar.barTintColor = App_Theme_FFCB00_Color
         }
         let image = (info as NSDictionary).object(forKey: UIImagePickerController.InfoKey.originalImage)
         let type = (info as NSDictionary).object(forKey: UIImagePickerController.InfoKey.mediaType)

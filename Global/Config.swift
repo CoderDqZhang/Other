@@ -42,6 +42,7 @@ let OSS_APPEND_OBJECT_KEY: String = "appendObject"
 
 
 let CACHEMANAGERCATEGORYMODELS = "CategoryModels"
+let CACHEMANATARGETMODELS = "TargetModels"
 let CACHEMANAPSOTMODEL = "PostModel"
 let CACHEMANAUSERINFO = "userInfo"
 let CACHEMANAUSERTOKEN = "UserToken"

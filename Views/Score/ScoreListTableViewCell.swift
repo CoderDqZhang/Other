@@ -283,7 +283,7 @@ class ScoreListTableViewCell: UITableViewCell {
             attentionButton.isHidden = false
         }
         
-        let size = model.teamA.teamName.nsString.height(with: App_Theme_PinFan_M_12_Font, constraintToWidth: (SCREENWIDTH / 2) - 90)
+        let size = model.teamA.teamName.nsString.height(with: App_Theme_PinFan_M_12_Font, constrainedToWidth: (SCREENWIDTH / 2) - 90)
         teamA.text = model.teamA.teamName
         if size > 20 {
             teamAInfo.snp.remakeConstraints({ (make) in
@@ -300,7 +300,7 @@ class ScoreListTableViewCell: UITableViewCell {
         }
         
         
-        let sizeB = model.teamB.teamName.nsString.height(with: App_Theme_PinFan_M_12_Font, constraintToWidth: (SCREENWIDTH / 2) - 90)
+        let sizeB = model.teamB.teamName.nsString.height(with: App_Theme_PinFan_M_12_Font, constrainedToWidth: (SCREENWIDTH / 2) - 90)
         if sizeB > 20 {
             teamBInfo.snp.remakeConstraints({ (make) in
                 make.top.equalTo(self.teamB.snp.bottom).offset(7)

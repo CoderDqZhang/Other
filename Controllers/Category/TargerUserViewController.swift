@@ -25,6 +25,7 @@ class TargerUserViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
+        self.navigationItem.title = "我要@"
     }
     
     override func setUpView() {
@@ -43,6 +44,7 @@ class TargerUserViewController: BaseViewController {
         }
         searchController = BaseSearchViewController.init(searchResultsController: targerVC)
         searchController.rootController = self
+        searchController.searchType = .follows
         searchController.searchBar.delegate = searchController
         searchController.setUpView()
         self.tableView.tableHeaderView = searchController.searchBar

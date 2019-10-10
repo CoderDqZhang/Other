@@ -23,8 +23,8 @@ class CategorySearchViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        if (self.controller as!  TargerUserSearchViewController).resultDicClouse != nil {
-            (self.controller as!  TargerUserSearchViewController).resultDicClouse(reslutArray[indexPath.row] as! NSDictionary)
+        if (self.controller as!  CategoryChoosSearchViewController).resultDicClouse != nil {
+            (self.controller as!  CategoryChoosSearchViewController).resultDicClouse(reslutArray[indexPath.row] as! NSDictionary)
         }
     }
     

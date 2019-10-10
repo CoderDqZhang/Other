@@ -55,6 +55,8 @@ class BaseViewController: UIViewController {
         //处于第一个Item 允许返回
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         // Do any additional setup after loading the view.
+        self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:App_Theme_333333_Color ?? ""], for: UIControl.State())
+        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:App_Theme_333333_Color ?? ""], for: UIControl.State())
     }
     
     func setupBaseViewForDismissKeyboard(){

@@ -65,7 +65,11 @@ class ResetPasViewModel: BaseViewModel {
         let parameters = ["phone":self.phone, "password":AddAESKeyPassword(str: self.newPas)]
         BaseNetWorke.getSharedInstance().postUrlWithString(SurePasswordUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.controller?.navigationController?.popToRootViewController(animated: true)
+                for vc in (self.controller?.navigationController!.viewControllers)! {
+                    if vc.isKind(of: LoginViewController.self) {
+                        self.controller?.navigationController?.popToViewController(vc, animated: true)
+                    }
+                }
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }
@@ -114,6 +118,9 @@ extension ResetPasViewModel: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldAndTitleTableViewCell.description(), for: indexPath)
         self.tableViewGloabelTextFieldAndTitleTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldAndTitleTableViewCell)
+        if indexPath.row == 1 {
+            (cell as! GloabelTextFieldAndTitleTableViewCell).hiddenLineLabel()
+        }
         return cell
     }
 }

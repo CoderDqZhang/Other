@@ -8,9 +8,9 @@
 
 import UIKit
 import Bugly
-#if DEBUG
-import CocoaDebug
-#endif
+//#if DEBUG
+//import CocoaDebug
+//#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //加载配置
         LoadConfigManger.getSharedInstance().setUp()
         //阿里云库
-//        AliPayManager.getSharedInstance().ossSetUp()
+        AliPayManager.getSharedInstance().ossSetUp()
         //友盟推送显示
         UMengManager.getSharedInstance().setUpUMengManger(application, didFinishLaunchingWithOptions: launchOptions)
         //通知详情
@@ -39,23 +39,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //FirstAppStart
         FirstAppStartManager.init().setUpStartApp()
 
-        let rootVC = MainTabBarController.init()
-        self.window?.rootViewController = rootVC
-        self.window?.makeKeyAndVisible()
         
-        #if DEBUG
-        CocoaDebug.enable()
-        #endif
+        
+//        #if DEBUG
+//        CocoaDebug.enable()
+//        #endif
         
         return true
     }
     
     //Step 3. (AppDelegate.swift)
-    public func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
-        #if DEBUG
-        swiftLog(file, function, line, message, color, false)
-        #endif
-    }
+//    public func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
+//        #if DEBUG
+//        swiftLog(file, function, line, message, color, false)
+//        #endif
+//    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

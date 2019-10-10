@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 let MaxTextViewCount = 250
 typealias PostCommentTextTableViewCellTextClouse = (_ str:String) ->Void
+typealias PostCommentTextTableViewCellClick = () ->Void
 
 class PostCommentTextTableViewCell: UITableViewCell {
 
@@ -19,6 +21,8 @@ class PostCommentTextTableViewCell: UITableViewCell {
     var postCommentTextTableViewCellTextClouse:PostCommentTextTableViewCellTextClouse!
     var keyboardToobarClouse:KeyboardToobarClouse!
     var didMakeConstraints = false
+    var postCommentTextTableViewCellClick:PostCommentTextTableViewCellClick!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.backgroundColor = App_Theme_FFFFFF_Color
@@ -26,7 +30,14 @@ class PostCommentTextTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
+        
+        let item = IQBarButtonItemConfiguration.init(image: UIImage.init(named: "@")!, action: #selector(self.leftClick))
         textView = YYTextView.init()
+        let toolbar = IQToolbar.init()
+        toolbar.items = [UIBarButtonItem.init(image: UIImage.init(named: "@")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(leftClick))]
+        textView.inputAccessoryView = toolbar
+            
+        textView.inputAccessoryView?.addKeyboardToolbarWithTarget(target: self, titleText: nil, rightBarButtonConfiguration: nil, previousBarButtonConfiguration: item, nextBarButtonConfiguration: nil)
         textView.delegate = self
         textView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
         textView.isScrollEnabled = false
@@ -50,6 +61,12 @@ class PostCommentTextTableViewCell: UITableViewCell {
         textCountLabel.text = "0/250"
         self.contentView.addSubview(textCountLabel)
         self.updateConstraints()
+    }
+    
+    @objc func leftClick(){
+        if postCommentTextTableViewCellClick != nil {
+            self.postCommentTextTableViewCellClick()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

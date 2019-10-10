@@ -19,10 +19,9 @@ class CategoryChoosViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-    
     
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()

@@ -46,6 +46,8 @@ class MineViewModel: BaseViewModel {
                     }
                 case.daily:
                     NavigationPushView(self.controller!, toConroller: DailyViewController())
+                case .avater:
+                    NavigaiontPresentView(self.controller!, toController: SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithStrUrl(urls: [self.userInfo.img], selectPageIndex: 0))
                 default:
                     NavigationPushView(self.controller!, toConroller: StoreSegementViewController())
                 }

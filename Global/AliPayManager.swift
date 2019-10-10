@@ -9,6 +9,7 @@
 import UIKit
 import ReactiveCocoa
 import ReactiveSwift
+import MBProgressHUD
 
 enum AliPayManagerType {
     case user
@@ -31,9 +32,6 @@ class AliPayManager: NSObject {
     private override init() {} // 私有化init方法
     
     func ossSetUp()->Void {
-//        let credential = OSSPlainTextAKSKPairCredentialProvider.init(plainTextAccessKey: OSS_ACCESSKEY_ID, secretKey: OSS_SECRETKEY_ID)
-            
-            
         let credential = OSSCustomSignerCredentialProvider.init { (sign, error) -> String? in
             let signature = OSSUtil.calBase64Sha1(withData: sign, withSecret: OSS_SECRETKEY_ID)
             if signature != nil {
@@ -44,24 +42,30 @@ class AliPayManager: NSObject {
                 return "出现错误"
             }
         }
-        
-        
         client = OSSClient.init(endpoint: OSS_ENDPOINT, credentialProvider: credential!)
     }
     
     func uploadFile(images:NSMutableArray,type:AliPayManagerType, result:@escaping AliPayManagerSuccess){
-            
+        var loading:MBProgressHUD!
+        DispatchQueue.main.async {
+            loading = Tools.shareInstance.showLoading(KWindow, msg: "图片上传")
+        }
         var resultStrs:[String] = []
         var resultString = ""
         let count = MutableProperty<Int>(0)
-
-        for index in 0...images.count - 1 {
-            AliPayManager.getSharedInstance().uploadFileImage(images: images[index] as! UIImage, type: type) { (str, _, success)  in
-                count.value = count.value + 1
-                resultStrs.append(str[0])
-                resultString = "\(resultString)\(str[0]),"
-                if count.value == images.count {
-                    result(resultStrs,resultString,success)
+        DispatchQueue.global().async {
+            for index in 0...images.count - 1 {
+                AliPayManager.getSharedInstance().uploadFileImage(images: images[index] as! UIImage, type: type) { (str, _, success)  in
+                    count.value = count.value + 1
+                    resultStrs.append(str[0])
+                    resultString = "\(resultString)\(str[0]),"
+                    if count.value == images.count {
+                        DispatchQueue.main.async {
+                            loading.hide(animated: true)
+                            _ = Tools.shareInstance.showMessage(KWindow, msg: "上传成功", autoHidder: true)
+                        }
+                        result(resultStrs,resultString,success)
+                    }
                 }
             }
         }
@@ -73,7 +77,7 @@ class AliPayManager: NSObject {
         put.bucketName = OSS_BUCKET_PUBLIC
         let date = Date.init()
         let phone:String = (CacheManager.getSharedInstance().getUserInfo()?.id.string)!
-        let imageKey = "\(Date().string(withFormat: "yyyy/MM/dd"))/\(phone)_\(date.nanosecond)_w\(Int(images.size.width))_h\(Int(images.size.height))_i.png"
+        let imageKey = "\(Date().string(withFormat: "yyyy/MM/dd"))/\(phone)_\(date.nanosecond)_i_w\(Int(images.size.width))_h\(Int(images.size.height)).png"
 
 
         switch type{
@@ -89,22 +93,7 @@ class AliPayManager: NSObject {
             print("ttalbytesexpected:\(ttalbytesexpected)")
         }
 
-        let credential = OSSCustomSignerCredentialProvider.init { (sign, error) -> String? in
-            let signature = OSSUtil.calBase64Sha1(withData: sign, withSecret: OSS_SECRETKEY_ID)
-            if signature != nil {
-                let str = "OSS \(OSS_ACCESSKEY_ID):\(signature!)"
-                return str
-
-            }else{
-                return "出现错误"
-            }
-        }
-        
-        
-        let client = OSSClient.init(endpoint: OSS_ENDPOINT, credentialProvider: credential!)
-        
-        let putTask = client.putObject(put)
-        putTask.continue(successBlock: { (task) -> Any? in
+        AliPayManager.getSharedInstance().client.putObject(put).continue(successBlock: { (task) -> Any? in
             if (task ).error == nil {
                 switch type{
                 case .post:
@@ -112,7 +101,6 @@ class AliPayManager: NSObject {
                 default:
                     result(["/user/\(imageKey)"],"",true)
                 }
-                putTask.waitUntilFinished()
                 print("upload object success")
             }else{
                 result(["/user/\(imageKey)"],"",false)

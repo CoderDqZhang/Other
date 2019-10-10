@@ -23,6 +23,7 @@ class BindPhoneViewModel: BaseViewModel {
     }
     
     func tableViewGloabelTextFieldAndTitleTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldAndTitleTableViewCell) {
+        cell.cellSetTextFieldCount(number: 11)
         phoneSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
             self.phone = str
             return str.count > 0

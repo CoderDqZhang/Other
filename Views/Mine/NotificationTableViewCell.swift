@@ -77,7 +77,7 @@ class NotificationTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func cellSetData(model:NotificaitonModel, indexPath:IndexPath){
+    func cellSetData(model:NotificaitonModel, type:NotificationType, indexPath:IndexPath){
         _ = self.newLongpressGesture().whenBegan { (re) in
             print("长按点击")
             }.whenEnded { (re) in
@@ -86,21 +86,28 @@ class NotificationTableViewCell: UITableViewCell {
                 }
         }
         self.indexPath = indexPath
-        if model.user != nil && model.type != "0" {
-            titleLabel.text = "\(String(describing: model.user.nickname!))\(String(describing: model.title!))"
-            if model.user.img != nil {
-                conisImageView.sd_crope_imageView(url:  model.user.img, imageView: conisImageView, placeholderImage: nil) { (image, url, tyoe, statge, error) in
-                    
+        if type == .system {
+            if model.user != nil && model.type != "0" {
+                titleLabel.text = "\(String(describing: model.user.nickname!))\(String(describing: model.title!))"
+                if model.user.img != nil {
+                    conisImageView.sd_crope_imageView(url:  model.user.img, imageView: conisImageView, placeholderImage: nil) { (image, url, tyoe, statge, error) in
+                        
+                    }
+                }else{
+                    conisImageView.image = UIImage.init(named: "norification")
                 }
             }else{
-                conisImageView.image = UIImage.init(named: "norification")
+                titleLabel.text = model.title
             }
+            
+            
+            descLabel.text = model.descriptionField
         }else{
-            titleLabel.text = model.title
+            titleLabel.text = model.descriptionField
+            descLabel.text = model.title
         }
         
         timeLabel.text = model.createTime
-        descLabel.text = model.descriptionField
         isUnread.isHidden = model.status == "1" ? true : false
     }
     

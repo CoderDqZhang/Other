@@ -412,6 +412,17 @@ class GloabelTextFieldAndTitleTableViewCell : UITableViewCell {
         titleLabel.text = title
         textFiled.setPlaceholder(str: placeholder, font: App_Theme_PinFan_R_14_Font!, textColor: App_Theme_B5B5B5_Color!)
     }
+    
+    func cellSetTextFieldCount(number:Int){
+        var tempStr = ""
+        textFiled.reactive.continuousTextValues.observeValues({ (str) in
+            if str.count == number {
+                tempStr = str
+            }else if str.count > number {
+                self.textFiled.text = tempStr
+            }
+        })
+    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -458,6 +469,7 @@ class GloabelTextFieldAndTitleTableViewCell : UITableViewCell {
         // Configure the view for the selected state
     }
 }
+import IQKeyboardManagerSwift
 
 class GloabelTextFieldTableViewCell : UITableViewCell {
     
@@ -489,6 +501,17 @@ class GloabelTextFieldTableViewCell : UITableViewCell {
     
     func cellSetData(placeholder:String){
         textFiled.setPlaceholder(str: placeholder, font: App_Theme_PinFan_R_14_Font!, textColor: App_Theme_B5B5B5_Color!)
+    }
+    
+    func cellSetTextFieldCount(number:Int){
+        var tempStr = ""
+        textFiled.reactive.continuousTextValues.observeValues({ (str) in
+            if str.count == number {
+                tempStr = str
+            }else if str.count > number {
+                self.textFiled.text = tempStr
+            }
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -705,7 +728,7 @@ class GloabelTextFieldButtonTableViewCell : UITableViewCell {
     var titleLabel:YYLabel!
     
     var time:Timer!
-    var count:Int =  15
+    var count:Int =  60
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
     
     var didMakeConstraints = false
@@ -729,7 +752,7 @@ class GloabelTextFieldButtonTableViewCell : UITableViewCell {
         senderCode.titleLabel?.font = App_Theme_PinFan_M_14_Font
         senderCode.setTitleColor(App_Theme_FFAC1B_Color, for: .normal)
         senderCode.addAction({ (button) in
-            self.count = 15
+            self.count = 60
             self.timeDone()
         }, for: .touchUpInside)
         self.addSubview(senderCode)

@@ -31,7 +31,7 @@ class CacheManager: NSObject {
         return (CacheManager.getSharedInstance().getUserInfo()?.id.string)!
     }
     
-    func saveNormaltModel(category:CategoryModel){
+    func saveCategoryModel(category:CategoryModel){
         var array = NSMutableArray.init()
         if (CacheManager.getSharedInstance().otherCache?.containsObject(forKey: CACHEMANAGERCATEGORYMODELS))! {
             let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANAGERCATEGORYMODELS))!
@@ -52,6 +52,33 @@ class CacheManager: NSObject {
     func getCategoryModels() ->NSMutableArray? {
         if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: CACHEMANAGERCATEGORYMODELS))! {
             let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANAGERCATEGORYMODELS))!
+            return item as? NSMutableArray
+        }
+        return nil
+    }
+    
+    func saveTargetModel(category:FansFlowwerModel){
+        var array = NSMutableArray.init()
+        if (CacheManager.getSharedInstance().otherCache?.containsObject(forKey: CACHEMANATARGETMODELS))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANATARGETMODELS))!
+            array = NSMutableArray.init(array: item as! [Any])
+        }
+        for model in array {
+            if category.id == FansFlowwerModel.init(fromDictionary: model as! [String : Any]).id {
+                return
+            }
+        }
+        array.add(category.toDictionary())
+        if array.count > 4 {
+            array.removeObject(at: 0)
+        }
+        CacheManager._sharedInstance.otherCache?.setObject(array, forKey: CACHEMANATARGETMODELS)
+    }
+    
+    
+    func getTargetModels() ->NSMutableArray? {
+        if (CacheManager._sharedInstance.otherCache?.containsObject(forKey: CACHEMANATARGETMODELS))! {
+            let item = (CacheManager._sharedInstance.otherCache?.object(forKey: CACHEMANATARGETMODELS))!
             return item as? NSMutableArray
         }
         return nil

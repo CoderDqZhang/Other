@@ -35,7 +35,7 @@ target 'Touqiu' do
   pod 'KSGuaidView'
   pod 'BDKCollectionIndexView'
   pod 'RSKGrowingTextView'
-  pod 'CocoaDebug', :configurations => ['Debug']
+#  pod 'CocoaDebug', :configurations => ['Debug']
   pod 'Bugly'
   
   target 'TouqiuTests' do
