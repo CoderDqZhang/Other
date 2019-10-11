@@ -17,7 +17,7 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
     var titleLabel:YYLabel!
     var originLabel:YYLabel!
     var timeInfoLabel:YYLabel!
-    var webView:WKWebView!
+//    var webView:WKWebView!
     var model:ArticleInfoModel!
     var webViewDone:Bool = false
     
@@ -55,15 +55,15 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
         
         
         //创建网页配置对象
-        let config = WKWebViewConfiguration.init()
-        let preference = WKPreferences.init()
-//        preference.minimumFontSize = 33
-        config.preferences = preference
-        
-        webView = WKWebView.init(frame: CGRect.zero, configuration: config)
-        webView.navigationDelegate = self
-        webView.scrollView.isScrollEnabled = false
-        self.contentView.addSubview(webView)
+//        let config = WKWebViewConfiguration.init()
+//        let preference = WKPreferences.init()
+////        preference.minimumFontSize = 33
+//        config.preferences = preference
+//
+//        webView = WKWebView.init(frame: CGRect.zero, configuration: config)
+//        webView.navigationDelegate = self
+//        webView.scrollView.isScrollEnabled = false
+//        self.contentView.addSubview(webView)
         
         
         self.updateConstraints()
@@ -73,17 +73,17 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func cellSetData(model:ArticleInfoModel){
+    func cellSetData(model:ArticleInfoModel, webView:WKWebView){
         titleLabel.text = model.title
         originLabel.text = "来源:\(String(describing: model.origin!))"
         timeInfoLabel.text = model.createTime
-        let resutl_str = self.converHtml(str: model.descriptionField!)
-        webView.loadHTMLString("<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>\(resutl_str)", baseURL: nil)
-        if self.model != nil {
-            
-            self.model = model
+        self.contentView.addSubview(webView)
+        webView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.originLabel.snp.bottom).offset(20)
+            make.left.equalTo(self.contentView.snp.left).offset(15)
+            make.right.equalTo(self.contentView.snp.right).offset(-15)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
         }
-        
     }
     
     func converHtml(str:String) ->String{
@@ -124,12 +124,7 @@ class ArticleDetailContentTableViewCell: UITableViewCell {
                 make.top.equalTo(self.originLabel.snp.top).offset(0)
             }
             
-            webView.snp.makeConstraints { (make) in
-                make.top.equalTo(self.originLabel.snp.bottom).offset(20)
-                make.left.equalTo(self.contentView.snp.left).offset(15)
-                make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
-            }
+            
             didMakeConstraints = true
         }
         super.updateConstraints()

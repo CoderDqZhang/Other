@@ -28,7 +28,7 @@ class ArticleDetailViewModel: BaseViewModel {
     
     func tableViewArticleDetailContentTableViewCellSetData(_ indexPath:IndexPath, cell:ArticleDetailContentTableViewCell) {
         if articleModel != nil {
-            cell.cellSetData(model: articleModel)
+            cell.cellSetData(model: articleModel, webView: webView)
         }
     }
     
@@ -59,7 +59,7 @@ class ArticleDetailViewModel: BaseViewModel {
         let preference = WKPreferences.init()
         config.preferences = preference
         
-        webView = WKWebView.init(frame: CGRect.zero, configuration: config)
+        webView = WKWebView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH - 30, height: SCREENHEIGHT), configuration: config)
         webView.navigationDelegate = self
         webView.scrollView.isScrollEnabled = false
         let resutl_str = self.converHtml(str: html)
@@ -71,7 +71,7 @@ class ArticleDetailViewModel: BaseViewModel {
         if keyPath == "contentSize" {
             numberCount = numberCount + 1
             print(self.webView.scrollView.contentSize.height)
-            if numberCount == 3 {
+            if self.contentHeight != self.webView.scrollView.contentSize.height {
                 self.contentHeight = self.webView.scrollView.contentSize.height
                 self.reloadTableViewData()
             }
@@ -145,7 +145,7 @@ extension ArticleDetailViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return self.contentHeight
+            return self.contentHeight + 100
         case 1:
             return 32
         default:

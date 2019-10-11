@@ -41,6 +41,19 @@ class UIImageViewManger: NSObject {
         return "\(ImageRootURL)\(url)"
     }
     
+    func downloadImage(url:String, completedBlock:SDWebImage.SDWebImageDownloaderCompletedBlock? = nil){
+        SDWebImageDownloader.shared.downloadImage(with: URL.init(string: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url)), options: [.continueInBackground, .highPriority], progress: { (start, end, url) in
+            
+        }) { (image, data, error, ret) in
+            if error == nil {
+                SDImageCache.shared.store(image, imageData: data, forKey: url.contains("http") ? url : UIImageViewManger.getSharedInstance().appendImageUrl(url: url), toDisk: true, completion: {
+                    
+                })
+                completedBlock!(image,data,error,ret)
+            }
+        }
+    }
+    
 }
 
 extension UIImageView {

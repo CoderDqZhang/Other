@@ -53,5 +53,6 @@
 #import "NSDate+LSCore.h"
 
 #import "UIView+BorderLine.h"
+#import "YYTextBindManager.h"
 
 #endif /* Touqiu_Bridging_Header_h */

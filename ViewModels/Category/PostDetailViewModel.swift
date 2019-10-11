@@ -318,7 +318,7 @@ class PostDetailViewModel: BaseViewModel {
     }
     
     func getAdView(){
-        let parameters = ["typeId":"1"]
+        let parameters = ["typeId":"4"]
         BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.adArray = NSMutableArray.init(array: resultDic.value as! Array)

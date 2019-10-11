@@ -8,8 +8,10 @@
 
 import UIKit
 import ReactiveSwift
+import SKPhotoBrowser
 
 typealias TransButtonClickClouse = (_ indexPath:IndexPath) -> Void
+typealias OutFallCategoryContentImageClick  = (_ tag:Int, _ photoBrowser:SKPhotoBrowser) ->Void
 
 
 class OutFallCategoryContentTableViewCell: UITableViewCell {
@@ -21,6 +23,7 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
     var indexPath:IndexPath!
     var transButtonClickClouse:TransButtonClickClouse!
     
+    var outFallCategoryContentImageClick:OutFallCategoryContentImageClick!
 //    var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 1))
     
     var didMakeConstraints = false
@@ -90,19 +93,26 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
             imageContentView.isHidden = false
             imageContentView.removeSubviews()
             for index in 0...images.count - 1 {
-                if index >= 3 {
-                    break
-                }
-                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index) * (contentImageWidth + 11), y: 0, width: contentImageWidth, height: contentImageHeight))
+                let imageView = UIImageView.init(frame: CGRect.init(x: 0 + CGFloat(index % 3) * (contentImageWidth + 11), y: 0 + (contentImageHeight + 10) * CGFloat((index / 3)), width: contentImageWidth, height: contentImageHeight))
                 imageView.sd_crope_imageView(url: String(images[index]), imageView: imageView, placeholderImage: nil) { (image, url, type, state, error) in
                     
                 }
                 imageView.layer.cornerRadius = 5
                 imageView.layer.masksToBounds = true
+                imageView.tag = index + 1000
+                imageView.isUserInteractionEnabled = true
+                _ = imageView.newTapGesture { (gesture) in
+                    gesture.numberOfTapsRequired = 1
+                    gesture.numberOfTouchesRequired = 1
+                    }.whenTaped(handler: { (tap) in
+                        if self.outFallCategoryContentImageClick != nil {
+                            self.outFallCategoryContentImageClick(tap.view!.tag,SKPhotoBrowserManager.getSharedInstance().setUpBrowserWithUrl(urls: images, selectPageIndex: tap.view!.tag - 1000))
+                        }
+                    })
                 self.imageContentView.addSubview(imageView)
             }
             imageContentView.snp.updateConstraints{ (make) in
-                make.height.equalTo(contentImageHeight)
+                make.height.equalTo(contentImageHeight + (contentImageHeight + 10) * CGFloat((images.count / 4)))
             }
         }else{
             imageContentView.isHidden = true

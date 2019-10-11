@@ -17,6 +17,9 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     var isSelectOriginalPhoto:Bool!
     var contentText = NSMutableAttributedString.init()
     
+    var notifiArray:NSMutableArray = NSMutableArray.init()
+    var selectNotif:NSMutableArray = NSMutableArray.init()
+    
     var postModel = CacheManager.getSharedInstance().getPostModel() ?? PostModel.init(fromDictionary: ["content":"","title":""])
     
     override init() {
@@ -47,10 +50,26 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
         cell.postCommentTextTableViewCellTextClouse = { (str) in
             self.postModel.content = str
         }
+        
+        cell.postCommentTextTableViewCellDeleteTage = { str in
+            for user in self.notifiArray {
+                if str.contains((user as! NSDictionary).object(forKey: "nickname") as! String){
+                    self.notifiArray.remove(user)
+                }
+            }
+        }
+        
         cell.postCommentTextTableViewCellClick = {
             let targetUser = TargerUserViewController.init()
             targetUser.targerUserViewControllerClouse = { dic in
-                print(dic)
+                for user in self.notifiArray {
+                    if (dic.object(forKey: "nickname") as! String).contains((user as! NSDictionary).object(forKey: "nickname") as! String){
+                        return
+                    }
+                }
+                self.notifiArray.add(dic)
+                let str = cell.textView.text
+                cell.textView.text = "\(String(describing: str!)) [@\(String(describing: dic.object(forKey: "nickname")!))] "
             }
             NavigationPushView(self.controller!, toConroller: targetUser)
         }
@@ -93,6 +112,11 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     }
 
     func postTirbeNet(){
+        var tag_id = ""
+        for user in self.notifiArray {
+            tag_id = "\(tag_id)\((user as! NSDictionary).object(forKey: "id") as! Int)"
+            CacheManager.getSharedInstance().saveTargetModel(category: FansFlowwerModel.init(fromDictionary: user as! [String : Any]))
+        }
         (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = false
         if self.selectPhotos.count > 0 {
             AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs,sucess  in
@@ -103,7 +127,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                         return
                     }
                 }
-                let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs] as [String : Any]
+                let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":strs,"noticeId":tag_id] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = true
@@ -121,7 +145,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                 }
             }
         }else{
-            let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":""] as [String : Any]
+            let parameters = ["content":self.postModel.content == nil ? "" : self.postModel.content!, "title":self.postModel.title!, "tribeId":self.postModel.tribe.id.string,"image":"","noticeId":tag_id] as [String : Any]
             BaseNetWorke.getSharedInstance().postUrlWithString(TippublishTipUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = true

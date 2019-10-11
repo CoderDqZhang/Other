@@ -18,7 +18,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     
     var commentContent:String = ""
     var postData:NSDictionary!
-    
+    var notifiArray:NSMutableArray = NSMutableArray.init()
     override init() {
         super.init()
     }
@@ -44,6 +44,29 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
         cell.postCommentTextTableViewCellTextClouse = { str in
             self.commentContent = str
         }
+        
+        cell.postCommentTextTableViewCellDeleteTage = { str in
+            for user in self.notifiArray {
+                if str.contains((user as! NSDictionary).object(forKey: "nickname") as! String){
+                    self.notifiArray.remove(user)
+                }
+            }
+        }
+        
+        cell.postCommentTextTableViewCellClick = {
+            let targetUser = TargerUserViewController.init()
+            targetUser.targerUserViewControllerClouse = { dic in
+                for user in self.notifiArray {
+                    if (dic.object(forKey: "nickname") as! String).contains((user as! NSDictionary).object(forKey: "nickname") as! String){
+                        return
+                    }
+                }
+                self.notifiArray.add(dic)
+                let str = cell.textView.text
+                cell.textView.text = "\(String(describing: str!)) [@\(String(describing: dic.object(forKey: "nickname")!))] "
+            }
+            NavigationPushView(self.controller!, toConroller: targetUser)
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
@@ -52,6 +75,11 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     
     
     func postTCommentNet(){
+        var tag_id = ""
+        for user in self.notifiArray {
+            tag_id = "\(tag_id)\((user as! NSDictionary).object(forKey: "id") as! Int)"
+            CacheManager.getSharedInstance().saveTargetModel(category: FansFlowwerModel.init(fromDictionary: user as! [String : Any]))
+        }
         if self.commentContent == "" && self.selectPhotos.count == 0 {
             _ = Tools.shareInstance.showMessage(KWindow, msg: "请输入内容", autoHidder: true)
             return
@@ -62,7 +90,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                     _ = Tools.shareInstance.showMessage(KWindow, msg: "图片上传失败", autoHidder: true)
                     return
                 }
-                let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"img":strs] as [String : Any]
+                let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"img":strs,"noticeId":tag_id] as [String : Any]
                 BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         let model = CommentModel.init(fromDictionary: resultDic.value as! [String : Any])
@@ -80,7 +108,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             }
             
         }else{
-            let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":""] as [String : Any]
+            let parameters = ["content":self.commentContent, "tipId":(self.postData.object(forKey: "id") as! Int).string,"image":"","noticeId":tag_id] as [String : Any]
             BaseNetWorke.getSharedInstance().postUrlWithString(CommentcommentUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     let model = CommentModel.init(fromDictionary: resultDic.value as! [String : Any])

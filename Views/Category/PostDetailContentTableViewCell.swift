@@ -52,7 +52,7 @@ class  PostDetailContentTableViewCell : UITableViewCell {
         
         self.contentView.addSubview(titleLabel)
         
-        contnetLabel = YYLabel.init()
+        contnetLabel = YYLabel.init(frame: CGRect.init(x: 15, y: 10, width: SCREENWIDTH - 30, height: 300))
         contnetLabel.numberOfLines = 0
         contnetLabel.textColor = App_Theme_2A2F34_Color
         contnetLabel.font = App_Theme_PinFan_M_15_Font
@@ -95,7 +95,6 @@ class  PostDetailContentTableViewCell : UITableViewCell {
     
     func cellSetData(model:TipModel){
         _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_18_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.title, yyLabel: titleLabel)
-
         if model.content != "" {
             _ = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_R_15_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.content, yyLabel: contnetLabel)
         }else{

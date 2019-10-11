@@ -70,6 +70,7 @@
 		1F395CDB229797D400781C0C /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F395CDA229797D400781C0C /* PostModel.swift */; };
 		1F567F5E234EFDE900FD1532 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F567F60234EFDE900FD1532 /* Main.storyboard */; };
 		1F567F61234EFDF100FD1532 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F567F63234EFDF100FD1532 /* Launch Screen.storyboard */; };
+		1F567F6A2350283C00FD1532 /* YYTextBindManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F567F692350283C00FD1532 /* YYTextBindManager.m */; };
 		1F6BA9C722F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9C622F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift */; };
 		1F6BA9C922F189660090A1D5 /* BasketBallScoreSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9C822F189660090A1D5 /* BasketBallScoreSegmentViewController.swift */; };
 		1F6BA9CB22F18A530090A1D5 /* BasketBallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9CA22F18A530090A1D5 /* BasketBallTableViewCell.swift */; };
@@ -449,6 +450,8 @@
 		1F395CDA229797D400781C0C /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		1F567F5F234EFDE900FD1532 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Main.storyboard"; sourceTree = "<group>"; };
 		1F567F62234EFDF100FD1532 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		1F567F682350283B00FD1532 /* YYTextBindManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextBindManager.h; sourceTree = "<group>"; };
+		1F567F692350283C00FD1532 /* YYTextBindManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextBindManager.m; sourceTree = "<group>"; };
 		1F6BA9C622F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallScoreSegmentViewController.swift; sourceTree = "<group>"; };
 		1F6BA9C822F189660090A1D5 /* BasketBallScoreSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallScoreSegmentViewController.swift; sourceTree = "<group>"; };
 		1F6BA9CA22F18A530090A1D5 /* BasketBallTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallTableViewCell.swift; sourceTree = "<group>"; };
@@ -1284,6 +1287,8 @@
 				1FF1E54022C3627100BB9A50 /* UIImageMaxCrope.swift */,
 				1FD6DD2A22E00AD70090318E /* AppInfomationsTools.swift */,
 				1F91C3A322FA6C700030916F /* DateTools.swift */,
+				1F567F682350283B00FD1532 /* YYTextBindManager.h */,
+				1F567F692350283C00FD1532 /* YYTextBindManager.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -2353,6 +2358,7 @@
 				1F991777229E6EF400C8FDD5 /* OtherGuessViewController.swift in Sources */,
 				1F91C3A622FAB1D50030916F /* BasketBallModel.swift in Sources */,
 				1F991752229B784800C8FDD5 /* CoinsDetailTableViewCell.swift in Sources */,
+				1F567F6A2350283C00FD1532 /* YYTextBindManager.m in Sources */,
 				1FE5BE21228285FA00C9137C /* NSString+Utils.m in Sources */,
 				1FE5BDE822817B8500C9137C /* RequestURL.swift in Sources */,
 				1F91C3C8230569D30030916F /* SquareSegemtViewModel.swift in Sources */,

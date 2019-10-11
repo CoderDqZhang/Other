@@ -116,6 +116,9 @@ class BaseViewModel: NSObject {
                     tempWidth = 0
                     tempHeigth = 0
                 }
+                if tempHeigth == nil {
+                    tempHeigth = 100
+                }
                 
                 if CGFloat(tempWidth!) > contentWidth {
                     imageHeight = CGFloat(tempHeigth!) * contentWidth / CGFloat(tempWidth!) + imageHeight + 10

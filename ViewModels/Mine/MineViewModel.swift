@@ -249,7 +249,7 @@ extension MineViewModel: UITableViewDelegate {
         case 0:
             return 223
         case 1:
-            if self.adArray != nil && self.adArray.count > 0{
+            if self.adArray.count > 0{
                 return 75
             }
             return 0.0001
@@ -259,7 +259,7 @@ extension MineViewModel: UITableViewDelegate {
             if indexPath.row == 0 {
                 return 30
             }
-            if self.adArray != nil && self.adArray.count > 1 {
+            if self.adArray.count > 1 {
                 return 75
             }
             return 0.0001

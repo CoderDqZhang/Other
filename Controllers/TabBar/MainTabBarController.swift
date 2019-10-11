@@ -43,8 +43,6 @@ class MainTabBarController: UITabBarController {
             self.pushViewController(model: model)
         }
         
-        
-        
 //        SocketManager.getSharedInstance().connect()
         // Do any additional setup after loading the view.
     }

@@ -40,6 +40,7 @@ let OSS_CONTENT_LENGTH: String = "Content-Length"
 let OSS_TEST_CONTENT_TYPE: String = "application/special"
 let OSS_APPEND_OBJECT_KEY: String = "appendObject"
 
+let ADIMAGE = "idImage"
 
 let CACHEMANAGERCATEGORYMODELS = "CategoryModels"
 let CACHEMANATARGETMODELS = "TargetModels"

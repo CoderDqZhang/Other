@@ -30,7 +30,7 @@ class ScoreSegmentViewModel: BaseViewModel {
     }
     
     func loadADUrl(){
-        let parameters = ["typeId" : "3"]
+        let parameters = ["typeId" : "5"]
         BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let array = NSMutableArray.init(array: (resultDic.value as! Array))

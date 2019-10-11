@@ -12,7 +12,7 @@ import IQKeyboardManagerSwift
 let MaxTextViewCount = 250
 typealias PostCommentTextTableViewCellTextClouse = (_ str:String) ->Void
 typealias PostCommentTextTableViewCellClick = () ->Void
-
+typealias PostCommentTextTableViewCellDeleteTage = (_ str:String) ->Void
 class PostCommentTextTableViewCell: UITableViewCell {
 
     var textView:YYTextView!
@@ -22,6 +22,7 @@ class PostCommentTextTableViewCell: UITableViewCell {
     var keyboardToobarClouse:KeyboardToobarClouse!
     var didMakeConstraints = false
     var postCommentTextTableViewCellClick:PostCommentTextTableViewCellClick!
+    var postCommentTextTableViewCellDeleteTage:PostCommentTextTableViewCellDeleteTage!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,11 +37,11 @@ class PostCommentTextTableViewCell: UITableViewCell {
         let toolbar = IQToolbar.init()
         toolbar.items = [UIBarButtonItem.init(image: UIImage.init(named: "@")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal), style: UIBarButtonItem.Style.plain, target: self, action: #selector(leftClick))]
         textView.inputAccessoryView = toolbar
-            
         textView.inputAccessoryView?.addKeyboardToolbarWithTarget(target: self, titleText: nil, rightBarButtonConfiguration: nil, previousBarButtonConfiguration: item, nextBarButtonConfiguration: nil)
         textView.delegate = self
         textView.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
         textView.isScrollEnabled = false
+        textView.textParser = YYTextBindManager.init()
         textView.font = App_Theme_PinFan_M_15_Font
         textView.placeholderTextColor = App_Theme_B5B5B5_Color!
         textView.placeholderFont = App_Theme_PinFan_R_14_Font!
@@ -112,6 +113,13 @@ extension PostCommentTextTableViewCell : YYTextViewDelegate {
         }
         if self.postCommentTextTableViewCellTextClouse != nil {
             var temp_rang = range
+            //删除Tag而
+            if range.length > 1 && range.location != 0 {
+                let nickname = textView.text.nsString.substring(with: temp_rang)
+                if postCommentTextTableViewCellDeleteTage != nil {
+                    self.postCommentTextTableViewCellDeleteTage(nickname)
+                }
+            }
             if range.length > MaxTextViewCount {
                 temp_rang = NSRange.init(location: 0, length: MaxTextViewCount)
             }

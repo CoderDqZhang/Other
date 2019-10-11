@@ -1554,19 +1554,27 @@ class GloableAdView: UIView {
     var disMissBtn:UIButton!
     var gloableAdViewComplet:GloableAdViewComplet!
     
-    init(frame: CGRect, image:String, compley:GloableAdViewComplet!) {
+    init(frame: CGRect, image:UIImage, compley:GloableAdViewComplet!) {
         super.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
         self.setUpView(image: image)
         self.gloableAdViewComplet = compley
         
         
-        disMissBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 15 - 70, y: SCREENHEIGHT - 95 - 30, width: 70, height: 30))
+        disMissBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 15 - 70, y: SCREENHEIGHT - 95 - 30 - 20, width: 70, height: 30))
         disMissBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
         disMissBtn.layer.cornerRadius = 15
         disMissBtn.addAction({ (button) in
             self.disMissView()
         }, for: UIControl.Event.touchUpInside)
-        
+        var count = 6
+        self.disMissBtn.backgroundColor = UIColor.init(hexString: "666666", transparency: 0.1)
+        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
+            self.disMissBtn.setTitle("跳过 \(count)s", for: .normal)
+            count = count - 1
+            if count == -1 {
+                self.disMissView()
+            }
+        })
         
         self.addSubview(disMissBtn)
     }
@@ -1578,24 +1586,11 @@ class GloableAdView: UIView {
         }
     }
     
-    func setUpView(image:String){
+    func setUpView(image:UIImage){
         imageView = UIImageView.init(frame: CGRect.zero)
         imageView.backgroundColor = .red
-//        imageView.image = UIImage.init(named: "Advertising Page")
-        imageView.sd_crope_imageView_withMaxWidth(url: image, imageSize: CGSize.init(width: SCREENWIDTH, height: SCREENHEIGHT - 95), placeholderImage: nil, completedBlock: { (image, error, cacheType, url) in
-            if image != nil {
-                self.imageView.image = image?.scaled(toWidth: SCREENWIDTH)
-                var count = 3
-                self.disMissBtn.backgroundColor = UIColor.init(hexString: "666666", transparency: 0.1)
-                _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
-                    self.disMissBtn.setTitle("跳过 \(count)s", for: .normal)
-                    count = count - 1
-                    if count == 0 {
-                        self.disMissView()
-                    }
-                })
-            }
-        })
+        self.imageView.image = image.scaled(toWidth: SCREENWIDTH)
+        
         self.addSubview(imageView)
         imageView.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
@@ -1603,7 +1598,7 @@ class GloableAdView: UIView {
             make.right.equalToSuperview()
         }
         
-        let bottomView = UIView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 95, width: SCREENWIDTH, height: 95))
+        let bottomView = UIView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 95 - 20, width: SCREENWIDTH, height: 95))
         bottomView.backgroundColor = .white
         let image = UIImage.init(named: "ad_logo")
         buttomImageView = UIImageView.init(frame:CGRect.zero)
