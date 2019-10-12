@@ -250,9 +250,18 @@ class ChangeInfoViewController: BaseViewController {
             let keyboardinfo = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey]
             let keyboardheight:CGFloat = ((keyboardinfo as AnyObject).cgRectValue.size.height)
             if #available(iOS 11.0, *) {
-                self.anmationButton.frame = CGRect.init(x: 15, y: self.view.bounds.size.height - keyboardheight - NAV_HEIGHT / 2 - 47 - 30, width: SCREENWIDTH - 30, height: 47)
+                var framY:CGFloat = 0
+                if IPHONE5 || IPHONE6 {
+                    framY = 50
+                }
+                self.anmationButton.frame = CGRect.init(x: 15, y: self.view.bounds.size.height - keyboardheight - NAV_HEIGHT / 2 - 47 - 30 - framY, width: SCREENWIDTH - 30, height: 47)
             } else {
-                self.anmationButton.frame = CGRect.init(x: 15, y: self.view.bounds.size.height - keyboardheight - 47 - 30, width: SCREENWIDTH - 30, height: 47)
+                var framY:CGFloat = 0
+                if IPHONE5 || IPHONE6 {
+                    framY = 50
+                }
+                
+                self.anmationButton.frame = CGRect.init(x: 15, y: self.view.bounds.size.height - keyboardheight - 47 - 30 - framY, width: SCREENWIDTH - 30, height: 47)
                 // Fallback on earlier versions
             }
         }

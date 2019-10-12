@@ -84,18 +84,21 @@ class LoadConfigManger: NSObject {
         KWindow.rootViewController = rootVC
         KWindow.makeKeyAndVisible()
         (KWindow.rootViewController as! MainTabBarController).upateUnreadMessage()
-        KWindow.addSubview(GloableAdView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), image: (UserDefaults.standard.object(forKey: ADIMAGE) == nil ? UIImage.init(named: "logo1024")! : UIImage.init(data: UserDefaults.standard.object(forKey: ADIMAGE)! as! Data))!, compley: {
+        KWindow.addSubview(GloableAdView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), image: (UserDefaults.standard.object(forKey: ADIMAGE) == nil ? UIImage.init(named: "Advertising Page")! : UIImage.init(data: UserDefaults.standard.object(forKey: ADIMAGE)! as! Data))!, compley: {
             
             self.getDailyStatus()
         }))
         BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                let model = AdModel.init(fromDictionary: NSMutableArray.init(array: resultDic.value as! Array)[0] as! [String : Any])
-                UIImageViewManger.getSharedInstance().downloadImage(url: model.image) { (image, data, error, ret) in
-                    if data != nil {
-                        UserDefaults.standard.setValue(data, forKeyPath: ADIMAGE)
+                if (resultDic.value as! NSArray).count > 0 {
+                    let model = AdModel.init(fromDictionary: NSMutableArray.init(array: resultDic.value as! Array)[0] as! [String : Any])
+                    UIImageViewManger.getSharedInstance().downloadImage(url: model.image) { (image, data, error, ret) in
+                        if data != nil {
+                            UserDefaults.standard.setValue(data, forKeyPath: ADIMAGE)
+                        }
                     }
                 }
+                
             }
         }
     }

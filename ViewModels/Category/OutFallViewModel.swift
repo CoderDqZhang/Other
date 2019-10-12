@@ -70,10 +70,15 @@ class OutFallViewModel: BaseViewModel {
             transHeight = YYLaoutTextGloabelManager.getSharedInstance().setYYLabelTextBound(font: App_Theme_PinFan_M_14_Font!, size: CGSize.init(width: SCREENWIDTH - 30, height: 1000), str: model.cnContent, yyLabel: YYLabel.init()).textBoundingSize.height
         }
         let images = model.image.split(separator: ",")
-        if images.count > 0 {
-            return transHeight + titleHeight + contentImageHeight + ((contentImageHeight + 10) * CGFloat(images.count / 4)) + 70
+        var countStr:CGFloat = 0
+        if model.content == "" {
+            countStr = 50
         }
-        return titleHeight + transHeight + 50
+        if images.count > 0 {
+            
+            return transHeight + titleHeight + contentImageHeight + ((contentImageHeight + 10) * CGFloat(images.count / 4)) + 70 - countStr
+        }
+        return titleHeight + transHeight + 50 - countStr
 
     }
     

@@ -153,7 +153,9 @@ class InviteUserViewController: BaseViewController {
         inveterBtn.titleLabel?.font = App_Theme_PinFan_M_18_Font
         inveterBtn.setBackgroundImage(UIImage.init(named: "invete_btn"), for: .normal)
         inveterBtn.addAction({ (button) in
-            
+            let controllerVC = InviteWebViewController()
+            controllerVC.loadRequest(url: InviteUrl)
+            NavigationPushView(self, toConroller: controllerVC)
         }, for: UIControl.Event.touchUpInside)
         inveterView.addSubview(inveterBtn)
         inveterView.bringSubviewToFront(inveterBtn)

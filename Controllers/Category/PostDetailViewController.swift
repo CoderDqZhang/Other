@@ -68,7 +68,9 @@ class PostDetailViewController: BaseViewController {
         if #available(iOS 11.0, *) {
             gloableCommentView = CustomViewCommentTextField.init(frame: CGRect.init(x: 0, y:SCREENHEIGHT - 44 - TABBAR_HEIGHT, width: SCREENWIDTH, height: 44 + TABBAR_HEIGHT), placeholderString: "留下你的精彩评论...",isEdit:false, click: {
                 if CacheManager.getSharedInstance().isLogin() {
-                    self.clickComentVC()
+                    if RealNameTools.getSharedInstance().setRealNameCheck(controller: self) {
+                        self.clickComentVC()
+                    }
                 }else{
                     let loginVC = LoginViewController.init()
                     loginVC.loginDoneClouse = {

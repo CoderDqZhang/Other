@@ -49,13 +49,15 @@ class NewsViewController: BaseViewController {
             newsPostView.setImage(UIImage.init(named: "new_add"), for: .normal)
             newsPostView.reactive.controlEvents(.touchUpInside).observeValues { (button) in
                 if CacheManager.getSharedInstance().isLogin() {
-                    let postVC = PostViewController()
-                    postVC.postViewControllerDataClouse = { dic in
-                        self.newsViewModel.tipListArray.insert(dic, at: 0)
-                        self.newsViewModel.reloadTableViewData()
+                    if RealNameTools.getSharedInstance().setRealNameCheck(controller: self) {
+                        let postVC = PostViewController()
+                        postVC.postViewControllerDataClouse = { dic in
+                            self.newsViewModel.tipListArray.insert(dic, at: 0)
+                            self.newsViewModel.reloadTableViewData()
+                        }
+                        let postNavigationController = UINavigationController.init(rootViewController: postVC)
+                        NavigaiontPresentView(self, toController: postNavigationController)
                     }
-                    let postNavigationController = UINavigationController.init(rootViewController: postVC)
-                    NavigaiontPresentView(self, toController: postNavigationController)
                 }else{
                     NavigationPushView(self, toConroller: LoginViewController())
                 }

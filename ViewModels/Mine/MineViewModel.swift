@@ -214,7 +214,6 @@ class MineViewModel: BaseViewModel {
         }
     }
     
-    
     func getAdView(){
         let parameters = ["typeId":"1"]
         BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in

@@ -61,6 +61,9 @@ class RealNameViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(PersonnameAuthUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "提交成功，等待审核", autoHidder: true)
+                let userInfo = CacheManager.getSharedInstance().getUserInfo()
+                userInfo?.isMember = "1"
+                CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo!)
                 self.controller?.navigationController?.popViewController()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -125,6 +128,9 @@ extension RealNameViewModel: UITableViewDataSource {
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldAndTitleTableViewCell.description(), for: indexPath)
         self.tableViewGloabelTextFieldAndTitleTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldAndTitleTableViewCell)
+        if indexPath.row == 1 {
+            (cell as! GloabelTextFieldAndTitleTableViewCell).hiddenLineLabel()
+        }
         return cell
     }
 }

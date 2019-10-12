@@ -27,7 +27,7 @@ class CategoryHeaderTableViewCell: UITableViewCell {
         self.contentView.addSubview(backImageView)
         
         logoImageView = UIImageView.init()
-        logoImageView.layer.cornerRadius = 26
+        logoImageView.layer.cornerRadius = 28
         logoImageView.borderColor = App_Theme_F6F6F6_Color
         logoImageView.borderWidth = 2
         logoImageView.layer.masksToBounds = true
@@ -56,9 +56,7 @@ class CategoryHeaderTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:CategoryModel){
-        
-        logoImageView.sd_crope_imageView(url: model.tribeImg.nsString.replacingOccurrences(of: " ", with: ""), imageView: logoImageView, placeholderImage: nil) { (image, url, type, state, error) in
-            
+        logoImageView.sd_crope_imageView_withMaxWidth(url: model.tribeImg.nsString.replacingOccurrences(of: " ", with: ""), imageSize: CGSize.init(width: 56, height: 56), placeholderImage: nil) { (image, error, cacheType, url) in
             if error == nil {
                 self.logoImageView.image = image
                 self.backImageView.image = image
@@ -66,6 +64,15 @@ class CategoryHeaderTableViewCell: UITableViewCell {
 
             }
         }
+//        logoImageView.sd_crope_imageView(url: model.tribeImg.nsString.replacingOccurrences(of: " ", with: ""), imageView: logoImageView, placeholderImage: nil) { (image, url, type, state, error) in
+//            
+//            if error == nil {
+//                self.logoImageView.image = image
+//                self.backImageView.image = image
+//                self.backImageView.blur(withStyle: UIBlurEffect.Style.light)
+//
+//            }
+//        }
         categoryName.text = model.tribeName
         categoryDetailLabel.text = model.descriptionField
     }

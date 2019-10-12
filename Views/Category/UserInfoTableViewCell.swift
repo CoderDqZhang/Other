@@ -132,7 +132,7 @@ class UserInfoTableViewCell: UITableViewCell {
     
     func cellSetData(model:TipModel){
         if model.user != nil {
-            userView.createContent(avatar: model.user.img, name: model.user.nickname, category: model.tribe.tribeName)
+            userView.createContent(avatar: model.user.img, name: model.user.nickname, category: model.tribe == nil ? "数据为空" : model.tribe.tribeName)
         }
     }
     

@@ -106,6 +106,9 @@ class TitleLableAndDetailLabelDescRight:UITableViewCell {
         if str.int! > 99 {
             showStr = "99+"
         }
+        if str.int! < 0 {
+            showStr = "1"
+        }
         if rightButtonView == nil {
             rightButtonView = BadgeValueButton.init()
             self.contentView.addSubview(rightButtonView)
@@ -721,6 +724,8 @@ class GloabelConfirmTableViewCell : UITableViewCell {
 }
 
 
+typealias GloabelTextFieldButtonTableViewCellSendCode = () ->Void
+
 class GloabelTextFieldButtonTableViewCell : UITableViewCell {
     
     var textFiled:UITextField!
@@ -730,7 +735,7 @@ class GloabelTextFieldButtonTableViewCell : UITableViewCell {
     var time:Timer!
     var count:Int =  60
     var lineLabel = GloableLineLabel.createLineLabel(frame: CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: SCREENWIDTH, height: 1)))
-    
+    var gloabelTextFieldButtonTableViewCellSendCode:GloabelTextFieldButtonTableViewCellSendCode!
     var didMakeConstraints = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -753,6 +758,9 @@ class GloabelTextFieldButtonTableViewCell : UITableViewCell {
         senderCode.setTitleColor(App_Theme_FFAC1B_Color, for: .normal)
         senderCode.addAction({ (button) in
             self.count = 60
+            if self.gloabelTextFieldButtonTableViewCellSendCode != nil {
+                self.gloabelTextFieldButtonTableViewCellSendCode()
+            }
             self.timeDone()
         }, for: .touchUpInside)
         self.addSubview(senderCode)

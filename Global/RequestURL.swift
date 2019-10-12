@@ -11,10 +11,11 @@ import Foundation
 
 //ZKFgTvUb5BXiuD7KK2iuFiOUintS6mLgFi+ukIPiol801JlCola+lkGcFGN886nd
 //ZKFgTvUb5BXiuD7KK2iuFtphhrg2uQu1kTJ0q4cnRothrdDXMpq+CNSo2UaDlDuI
-let RootIPAddress:String = "192.168.3.4"
-//let RootIPAddress:String = "192.168.0.172"
+//let RootIPAddress:String = "192.168.3.4"
+let RootIPAddress:String = "bdtyapp.com"
 let SocketPort:Int = 4162
-let RootUrl = "http://\(RootIPAddress):10020/social/"
+let RootUrl = "https://\(RootIPAddress)/api/social/"
+//let RootUrl = "http://\(RootIPAddress):10020/social/"
 
 let UserforgetPasswordUrl = "\(RootUrl)user/forgetPassword"
 let UserBindPhoneUrl = "\(RootUrl)user/bindPhone"

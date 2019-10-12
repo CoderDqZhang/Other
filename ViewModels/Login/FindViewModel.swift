@@ -34,6 +34,9 @@ class FindViewModel: BaseViewModel {
     
     func tableViewGloabelTextFieldButtonTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelTextFieldButtonTableViewCell) {
         cell.textFiled.keyboardType = .numberPad
+        cell.gloabelTextFieldButtonTableViewCellSendCode = {
+            self.sendCodeNetWork(phone: self.phone)
+        }
         codeSingle = cell.textFiled.reactive.continuousTextValues.map { (str) -> Bool in
             self.code = str
             return str.count > 0
@@ -48,12 +51,24 @@ class FindViewModel: BaseViewModel {
                 self.controller!.navigationItem.rightBarButtonItem?.isEnabled = false
             }
         })
+        
+        
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
     }
     
+    func sendCodeNetWork(phone:String){
+        let parameters = ["phone":phone]
+        BaseNetWorke.getSharedInstance().postUrlWithString(UsersendCodeUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
     
     func forgetNetWork(){
         let parameters = ["phone":self.phone, "code":self.code]

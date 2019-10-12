@@ -86,7 +86,7 @@ class NotificationTableViewCell: UITableViewCell {
                 }
         }
         self.indexPath = indexPath
-        if type == .system {
+        if type != .system {
             if model.user != nil && model.type != "0" {
                 titleLabel.text = "\(String(describing: model.user.nickname!))\(String(describing: model.title!))"
                 if model.user.img != nil {
@@ -99,8 +99,6 @@ class NotificationTableViewCell: UITableViewCell {
             }else{
                 titleLabel.text = model.title
             }
-            
-            
             descLabel.text = model.descriptionField
         }else{
             titleLabel.text = model.descriptionField

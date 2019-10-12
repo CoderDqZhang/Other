@@ -71,8 +71,8 @@ class MineInfoViewModel: BaseViewModel {
             }
             
         default:
+            self.loginThirdPard()
             
-            break
         }
     }
     
@@ -104,10 +104,17 @@ class MineInfoViewModel: BaseViewModel {
     }
     
     func bindPhone(model:ThirdLoginModel){
-        let parameters = ["phone":userInfo.phone, "code":"123456", "openId":model.openId]
-        BaseNetWorke.getSharedInstance().postUrlWithString(UserLoginBindPhoneUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        let parameters = ["openId":model.openId, "type":model.type,"nickname":model.nickname,"img":model.img,"description":model.descriptions]
+        BaseNetWorke.getSharedInstance().postUrlWithString(UserLoginThirdPartyUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+                if resultDic.value != nil {
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "绑定成功", autoHidder: true)
+                    self.desc[1][0] = "已绑定"
+                    self.userInfo.openId = "0"
+                    self.reloadTableViewData()
+                    
+                }
+                
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }

@@ -78,7 +78,7 @@ class BaseWebViewController: UIViewController {
             , y: 0
             , width: SCREENWIDTH
             , height: 2)
-        progressView.progressTintColor = UIColor.blue
+        progressView.progressTintColor = App_Theme_FF7800_Color
         progressView.trackTintColor = UIColor.clear
         self.view.addSubview(self.progressView)
     }

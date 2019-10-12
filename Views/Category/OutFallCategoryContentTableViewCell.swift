@@ -84,6 +84,11 @@ class OutFallCategoryContentTableViewCell: UITableViewCell {
 
         }
         
+        if model.content == "" {
+            translateButton.isHidden = true
+        }else{
+            translateButton.isHidden = false
+        }
         
         self.indexPath = indexPath
         

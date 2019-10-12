@@ -33,7 +33,7 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func tableViewScoreInfoTableViewCellSetData(_ indexPath:IndexPath, cell:ScoreInfoTableViewCell) {
-        if self.footBallArray.count > 0 {
+        if self.footBallArray.count > 0 && self.footBallArray.count > indexPath.section{
             cell.cellSetData(model:  self.footBallArray[indexPath.section] as! FootBallModel)
         }
     }
@@ -91,6 +91,7 @@ class FootBallViewModel: BaseViewModel {
     
     func socketData(){
         SocketManager.getSharedInstance().single?.observe { (dic) in
+            print("接收到Socket数据")
             if dic.value is NSDictionary {
                 if (dic.value as! NSDictionary).object(forKey: "type") != nil && (dic.value as! NSDictionary).object(forKey: "type") as! Int == 2 {
                     let matchs = (dic.value as! NSDictionary).object(forKey: "data")
@@ -102,6 +103,7 @@ class FootBallViewModel: BaseViewModel {
                                 })
                                 if footBall.count > 0 {
                                     self.socketUpdateData(match: match as! NSArray, model: footBall[0] as! FootBallModel)
+                                    
                                 }
                             }
                         }
@@ -117,7 +119,7 @@ class FootBallViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.adArray = NSMutableArray.init(array: resultDic.value as! Array)
-                self.reloadTableViewData()
+//                self.reloadTableViewData()
             }
         }
     }
@@ -171,10 +173,6 @@ class FootBallViewModel: BaseViewModel {
                 let north_sigle:NSDictionary = (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "northOdd") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
                 let lottery:NSDictionary = (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
                 let indexes:NSDictionary = (footballDic.object(forKey: "indexes") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "indexes") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
-                
-                if (temp_array[0] as! Int) == 2741106 {
-                    print(index)
-                }
                 
                 let model = FootBallModel.init(fromDictionary: [
                     "id": temp_array[0] as! Int,
@@ -316,6 +314,7 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func socketUpdateData(match:NSArray, model:FootBallModel){
+        
         if !self.isCollectSelect && !self.isRefreshData{
             model.status = (match[1] as! Int)
             model.teamA.score = ((match[2] as! NSArray)[0] as! Int)

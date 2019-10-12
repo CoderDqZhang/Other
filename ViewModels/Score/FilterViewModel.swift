@@ -373,6 +373,7 @@ class FilterViewModel: BaseViewModel {
     
     func saveEvent(){
         if (self.controller as! FilterViewController).filterViewControllerSaveClouse != nil {
+            self.clickCollectItemSave()
             if self.viewType == .football {
                 if !isSelectFootBallDic{
                     _ = Tools.shareInstance.showMessage(KWindow, msg: "请选择赛事", autoHidder: true)
@@ -386,8 +387,6 @@ class FilterViewModel: BaseViewModel {
                 }
                 UserDefaults.standard.set(self.filterType.rawValue, forKey: CLICKRELOADBASKETBALLEVENTYPETDATA)
             }
-            self.clickCollectItemSave()
-            
             (self.controller as! FilterViewController).filterViewControllerSaveClouse()
         }
     }

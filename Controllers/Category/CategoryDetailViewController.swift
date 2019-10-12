@@ -92,9 +92,16 @@ class CategoryDetailViewController: BaseViewController {
             categoryPostView.tag = 10000
             categoryPostView.setImage(UIImage.init(named: "category_post"), for: .normal)
             categoryPostView.reactive.controlEvents(.touchUpInside).observeValues { (button) in
-                let categoryVC = PostViewController()
-                categoryVC.bindCategoryModel(tribe: CategoryModel.init(fromDictionary: self.categoryData as! [String : Any]))
-                NavigaiontPresentView(self, toController: UINavigationController.init(rootViewController: categoryVC))
+                if CacheManager.getSharedInstance().isLogin() {
+                    if RealNameTools.getSharedInstance().setRealNameCheck(controller: self) {
+                        let categoryVC = PostViewController()
+                        categoryVC.bindCategoryModel(tribe: CategoryModel.init(fromDictionary: self.categoryData as! [String : Any]))
+                        NavigaiontPresentView(self, toController: UINavigationController.init(rootViewController: categoryVC))
+                    }
+                }else{
+                    NavigationPushView(self, toConroller: LoginViewController())
+                }
+                
             }
             KWindow.addSubview(categoryPostView)
             

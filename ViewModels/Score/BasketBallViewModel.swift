@@ -86,13 +86,14 @@ class BasketBallViewModel: BaseViewModel {
         BaseNetWorke.getSharedInstance().postUrlWithString(ADvertiseUsableAdvertise, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.adArray = NSMutableArray.init(array: resultDic.value as! Array)
-                self.reloadTableViewData()
+//                self.reloadTableViewData()
             }
         }
     }
     
     func socketData(){
         SocketManager.getSharedInstance().single?.observe { (dic) in
+            print("接收到Socket数据")
             if (dic.value is NSDictionary) {
                 if (dic.value as! NSDictionary).object(forKey: "type") != nil && (dic.value as! NSDictionary).object(forKey: "type") as! Int == 3 {
                     let matchs = (dic.value as! NSDictionary).object(forKey: "data")
@@ -262,6 +263,7 @@ class BasketBallViewModel: BaseViewModel {
     
     //socket更新数据
     func socketUpdateData(match:NSArray, model:BasketBallModel){
+        print("接收到篮球数据")
         if !self.isCollectSelect && !self.isRefrshData{
             model.status = (match[1] as! Int)
             model.allSecond = (match[2] as! Int)

@@ -46,10 +46,27 @@ class BindPhoneViewModel: BaseViewModel {
                 self.controller!.navigationItem.rightBarButtonItem?.isEnabled = false
             }
         })
+        
+        cell.gloabelTextFieldButtonTableViewCellSendCode = {
+            self.sendCodeNetWork(phone: self.phone)
+        }
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
         
+    }
+    
+    func sendCodeNetWork(phone:String){
+        let parameters = ["phone":phone]
+        BaseNetWorke.getSharedInstance().postUrlWithString(UsersendCodeUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "发送验证码成功", autoHidder: true)
+                //                let userInfo = UserInfoModel.yy_model(with: (resultDic.value as! [AnyHashable : Any]))
+                
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
     }
     
     
