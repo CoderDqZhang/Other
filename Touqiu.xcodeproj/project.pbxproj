@@ -71,6 +71,7 @@
 		1F567F5E234EFDE900FD1532 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F567F60234EFDE900FD1532 /* Main.storyboard */; };
 		1F567F61234EFDF100FD1532 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F567F63234EFDF100FD1532 /* Launch Screen.storyboard */; };
 		1F567F6A2350283C00FD1532 /* YYTextBindManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F567F692350283C00FD1532 /* YYTextBindManager.m */; };
+		1F567F6F2351BB0000FD1532 /* StoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F567F6E2351BB0000FD1532 /* StoreDetailViewModel.swift */; };
 		1F6BA9C722F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9C622F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift */; };
 		1F6BA9C922F189660090A1D5 /* BasketBallScoreSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9C822F189660090A1D5 /* BasketBallScoreSegmentViewController.swift */; };
 		1F6BA9CB22F18A530090A1D5 /* BasketBallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BA9CA22F18A530090A1D5 /* BasketBallTableViewCell.swift */; };
@@ -452,6 +453,7 @@
 		1F567F62234EFDF100FD1532 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		1F567F682350283B00FD1532 /* YYTextBindManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextBindManager.h; sourceTree = "<group>"; };
 		1F567F692350283C00FD1532 /* YYTextBindManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextBindManager.m; sourceTree = "<group>"; };
+		1F567F6E2351BB0000FD1532 /* StoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewModel.swift; sourceTree = "<group>"; };
 		1F6BA9C622F17AB00090A1D5 /* FootBallScoreSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootBallScoreSegmentViewController.swift; sourceTree = "<group>"; };
 		1F6BA9C822F189660090A1D5 /* BasketBallScoreSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallScoreSegmentViewController.swift; sourceTree = "<group>"; };
 		1F6BA9CA22F18A530090A1D5 /* BasketBallTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketBallTableViewCell.swift; sourceTree = "<group>"; };
@@ -1418,41 +1420,41 @@
 		1FE5BF022282A43D00C9137C /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				1FE5BDFC2282750900C9137C /* MineViewController.swift */,
-				1FE8DA99228E958700DCED01 /* MineInfoViewController.swift */,
-				1FE8DA9D228E981B00DCED01 /* FansViewController.swift */,
-				1FE8DA9F228E982800DCED01 /* FollowsViewController.swift */,
-				1FE8DAA5228EA91200DCED01 /* ChangeInfoViewController.swift */,
-				1FE8DAAB228EBC9100DCED01 /* SettingViewController.swift */,
-				1FE8DAAD228EC7CB00DCED01 /* RealNameViewController.swift */,
-				1FE8DAAF228EC7D800DCED01 /* SingUpVIPViewController.swift */,
-				1F1C1B5122A0E6C6008031F4 /* MessageSegementViewController.swift */,
-				1FE8DAB1228EC7E300DCED01 /* NotificationViewController.swift */,
-				1FE8DAB3228EC7F200DCED01 /* InviteUserViewController.swift */,
-				1FF1E52922AF55F700BB9A50 /* DailyViewController.swift */,
-				1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */,
-				1FE8DABD228ECABC00DCED01 /* ChangePasswordViewController.swift */,
 				1FE8DABF228ECAE800DCED01 /* AboutViewController.swift */,
-				1FE8DAC1228ECAF400DCED01 /* FeedBackViewController.swift */,
-				1FE8DAD622926AE900DCED01 /* OtherMineViewController.swift */,
-				1FE8DAE32292817400DCED01 /* RecommendViewController.swift */,
-				1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */,
-				1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */,
-				1FE8DAFA2292C1E900DCED01 /* PostSegementViewController.swift */,
-				1FE8DAF62292C15C00DCED01 /* MyPostViewController.swift */,
-				1FE8DAF82292C1D200DCED01 /* MyCommentViewController.swift */,
-				1FE8DB002292C5DC00DCED01 /* MycollectViewController.swift */,
-				1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */,
+				1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */,
+				1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */,
+				1FE8DAA5228EA91200DCED01 /* ChangeInfoViewController.swift */,
+				1FE8DABD228ECABC00DCED01 /* ChangePasswordViewController.swift */,
 				1F99174B229B74AC00C8FDD5 /* CoinsDetailViewController.swift */,
+				1F99174D229B74B900C8FDD5 /* ConinsSegementViewController.swift */,
+				1FF1E52922AF55F700BB9A50 /* DailyViewController.swift */,
+				1FE8DA9D228E981B00DCED01 /* FansViewController.swift */,
+				1FE8DAC1228ECAF400DCED01 /* FeedBackViewController.swift */,
+				1FE8DA9F228E982800DCED01 /* FollowsViewController.swift */,
+				1FF1E52722AF52F000BB9A50 /* InviteRuleViewController.swift */,
+				1FE8DAB3228EC7F200DCED01 /* InviteUserViewController.swift */,
+				1F1C1B5122A0E6C6008031F4 /* MessageSegementViewController.swift */,
+				1FE8DA99228E958700DCED01 /* MineInfoViewController.swift */,
+				1FE5BDFC2282750900C9137C /* MineViewController.swift */,
+				1FE8DB002292C5DC00DCED01 /* MycollectViewController.swift */,
+				1FE8DAF82292C1D200DCED01 /* MyCommentViewController.swift */,
+				1FE8DAF62292C15C00DCED01 /* MyPostViewController.swift */,
+				1FE8DAB1228EC7E300DCED01 /* NotificationViewController.swift */,
+				1F991776229E6EF400C8FDD5 /* OtherGuessViewController.swift */,
+				1FE8DAD622926AE900DCED01 /* OtherMineViewController.swift */,
+				1F991774229E6EC300C8FDD5 /* OtherPostViewController.swift */,
+				1FE8DAFA2292C1E900DCED01 /* PostSegementViewController.swift */,
+				1F38664C22E58C680076C580 /* ProtocolViewViewController.swift */,
+				1FE8DAAD228EC7CB00DCED01 /* RealNameViewController.swift */,
+				1FE8DAE32292817400DCED01 /* RecommendViewController.swift */,
+				1FE8DAAB228EBC9100DCED01 /* SettingViewController.swift */,
+				1F91C3A722FAC8550030916F /* SingUpVipProtoViewController.swift */,
+				1FE8DAAF228EC7D800DCED01 /* SingUpVIPViewController.swift */,
+				1FEDB022230E88A300024985 /* StoreInfoViewController.swift */,
 				1F1C1B5522A0F56D008031F4 /* StoreSegementViewController.swift */,
 				1F991753229B92BB00C8FDD5 /* StoreViewController.swift */,
-				1FEDB022230E88A300024985 /* StoreInfoViewController.swift */,
-				1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */,
 				1F991759229BC16D00C8FDD5 /* TopUpViewController.swift */,
-				1F1C1B3B229F6CC4008031F4 /* BindWithdrawViewController.swift */,
-				1F1C1B4B22A0B58F008031F4 /* BindBankListViewController.swift */,
-				1F38664C22E58C680076C580 /* ProtocolViewViewController.swift */,
-				1F91C3A722FAC8550030916F /* SingUpVipProtoViewController.swift */,
+				1F991755229B944A00C8FDD5 /* WithdrawViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1624,6 +1626,7 @@
 				1FF1E52322AF45F600BB9A50 /* InveterViewModel.swift */,
 				1FF1E52B22AF567400BB9A50 /* DailyViewModel.swift */,
 				1FAF56012325EBE200716FB3 /* AboutViewModel.swift */,
+				1F567F6E2351BB0000FD1532 /* StoreDetailViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2020,6 +2023,7 @@
 				"${BUILT_PRODUCTS_DIR}/TYPagerController/TYPagerController.framework",
 				"${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework",
 				"${BUILT_PRODUCTS_DIR}/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework",
+				"${BUILT_PRODUCTS_DIR}/WKWebViewJavascriptBridge/WKWebViewJavascriptBridge.framework",
 				"${BUILT_PRODUCTS_DIR}/YTKKeyValueStore/YTKKeyValueStore.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
@@ -2055,6 +2059,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TYPagerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZImagePickerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITableView_FDTemplateLayoutCell.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WKWebViewJavascriptBridge.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YTKKeyValueStore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
@@ -2190,6 +2195,7 @@
 				1FE5BFAE228BE19A00C9137C /* TargerUserInfoTableViewCell.swift in Sources */,
 				1FEDB025230E897600024985 /* StoreInfoViewModel.swift in Sources */,
 				1F91C3C02304049E0030916F /* NorthSigleModel.swift in Sources */,
+				1F567F6F2351BB0000FD1532 /* StoreDetailViewModel.swift in Sources */,
 				1FF1E52422AF45F600BB9A50 /* InveterViewModel.swift in Sources */,
 				1FAF56122331FF6F00716FB3 /* ThirdPartCacheManager.swift in Sources */,
 				1FE8DAD722926AE900DCED01 /* OtherMineViewController.swift in Sources */,

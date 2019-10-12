@@ -24,7 +24,11 @@ class FollowsViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
-        self.navigationItem.title = "我的关注"
+        if CacheManager.getSharedInstance().isLogin() {
+            self.navigationItem.title = self.userId == nil ? "我的关注" : "他的关注"
+        }else{
+            self.navigationItem.title = "他的关注"
+        }
     }
     
     override func setUpView() {

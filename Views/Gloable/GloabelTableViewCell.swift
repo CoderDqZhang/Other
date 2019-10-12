@@ -310,8 +310,8 @@ class GloabelFansTableViewCell : UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func lineLableHidden(){
-        self.lineLabel.isHidden = true
+    func lineLableHidden(ret:Bool){
+        self.lineLabel.isHidden = ret
     }
     
     

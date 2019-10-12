@@ -11,7 +11,7 @@
 
 - (instancetype)init {
     self = [super init];
-    NSString *pattern = @"\\[[^\\]]*\\] ";
+    NSString *pattern = @"@[-_a-zA-Z0-9\u4E00-\u9FA5]+[,，]";
     self.regex = [[NSRegularExpression alloc] initWithPattern:pattern options:kNilOptions error:nil];
     return self;
 }

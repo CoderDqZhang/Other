@@ -31,14 +31,14 @@ class AboutTableViewCell: UITableViewCell {
         versionLabel.textAlignment = .center
         versionLabel.font = App_Theme_PinFan_R_14_Font
         versionLabel.textColor = App_Theme_999999_Color
-        versionLabel.text = versionCheck()
+        versionLabel.text = "version: \(versionCheck())"
         self.contentView.addSubview(versionLabel)
         
         appName = YYLabel.init()
         appName.textAlignment = .center
         appName.font = App_Theme_PinFan_R_15_Font
         appName.textColor = App_Theme_06070D_Color
-        appName.text = "version: \(disPlayName())"
+        appName.text = disPlayName()
         self.contentView.addSubview(appName)
         
         self.updateConstraints()

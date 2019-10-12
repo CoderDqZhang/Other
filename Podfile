@@ -35,6 +35,7 @@ target 'Touqiu' do
   pod 'KSGuaidView'
   pod 'BDKCollectionIndexView'
   pod 'RSKGrowingTextView'
+  pod 'WKWebViewJavascriptBridge'
 #  pod 'CocoaDebug', :configurations => ['Debug']
   pod 'Bugly'
   

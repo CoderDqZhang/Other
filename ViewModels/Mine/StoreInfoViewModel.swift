@@ -25,7 +25,9 @@ class StoreInfoViewModel: BaseViewModel {
     
     func collectionViewDidSelect(collectView: UICollectionView, indexPath: IndexPath) {
         let stroreDetailVC = StoreDetailViewController()
-        stroreDetailVC.loadRequestPost(url: "www.baidu.com")
+        let model = StoreInfoModel.init(fromDictionary: self.storeList[indexPath.row] as! [String : Any])
+        stroreDetailVC.goodsId = model.id.string
+        stroreDetailVC.loadPage(url: "http://\(RootIPAddress)/bdty/exchange.html?id=\(model.id!)")
         NavigationPushView(self.controller!, toConroller: stroreDetailVC)
     }
     

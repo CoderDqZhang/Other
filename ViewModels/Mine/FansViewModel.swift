@@ -20,8 +20,8 @@ class FansViewModel: BaseViewModel {
     
     func tableViewGloabelFansTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelFansTableViewCell) {
         cell.cellSetData(model: FansFlowwerModel.init(fromDictionary: fansArray[indexPath.row] as! [String : Any]), indexPath: indexPath)
-        if indexPath.row == 9 {
-            cell.lineLableHidden()
+        if fansArray.count > 1 {
+            cell.lineLableHidden(ret: fansArray.count - 1 == indexPath.row ? true : false)
         }
         cell.gloabelFansTableViewCellClouse = { type, indexPath in
             self.followNet(type: type, indexPath: indexPath)
@@ -123,6 +123,7 @@ extension FansViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GloabelFansTableViewCell.description(), for: indexPath)
         self.tableViewGloabelFansTableViewCellSetData(indexPath, cell: cell as! GloabelFansTableViewCell)
+        (cell as! GloabelFansTableViewCell).lineLableHidden(ret: indexPath.row == self.fansArray.count - 1 ? true : false)
         cell.selectionStyle = .none
         return cell
     }

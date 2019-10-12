@@ -47,7 +47,10 @@ class SettingViewModel: BaseViewModel {
             if indexPath.row == 0 {
                 NavigationPushView(self.controller!, toConroller: AboutViewController())
             }else if indexPath.row == 1 {
+                let loading = Tools.shareInstance.showLoading(KWindow, msg: "清除中")
                 ThirdPartCacheManager.getSharedInstance().cleanCache()
+                loading.hide(animated: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "清除成功", autoHidder: true)
             }else{
                 NavigationPushView(self.controller!, toConroller: FeedBackViewController())
             }

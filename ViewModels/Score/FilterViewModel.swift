@@ -17,6 +17,9 @@ class FilterViewModel: BaseViewModel {
     var selecFootBallDic:NSMutableDictionary!
     var selecBasketBallDic:NSMutableDictionary!
     
+    var isSelectFootBallDic:Bool = false
+    var isSelectBasketBallDic:Bool = false
+    
     var viewType:ScoreDetailVC!
     
     var filterType:FilterViewControllerType!
@@ -123,6 +126,7 @@ class FilterViewModel: BaseViewModel {
     //更新选中数据
     func clickCollectItemSave(){
         if self.viewType == .football {
+            isSelectFootBallDic = false
             let tempDic = NSMutableDictionary.init(dictionary: self.footBalleventsList.mutableCopy() as! NSDictionary)
             let eventDic = NSMutableDictionary.init(dictionary: CacheManager.getSharedInstance().getFootBallEventModel()!.mutableCopy() as! NSDictionary)
             let select_event_id = NSMutableArray.init()
@@ -133,6 +137,7 @@ class FilterViewModel: BaseViewModel {
                 if temp_array.count > 0 {
                     for index in 0...temp_array.count - 1{
                         if ((temp_array[index] as! NSDictionary).object(forKey: "is_select")! as! Bool){
+                            isSelectFootBallDic = true
                             if (temp_array[index] as! NSDictionary).object(forKey: "short_name_zh") == nil {
                                 for indexs in 0...event_array.count - 1 {
                                     if (event_array[indexs] as! NSDictionary).object(forKey: "short_name_zh") as! String == (temp_array[index] as! NSDictionary).object(forKey: "eventsName") as! String {
@@ -155,6 +160,7 @@ class FilterViewModel: BaseViewModel {
             CacheManager.getSharedInstance().saveFootBallEventSelectModel(point: self.selecFootBallDic)
             NotificationCenter.default.post(name: NSNotification.Name.init(CLICKRELOADFOOTBALLEVENTDATA), object: self, userInfo: nil)
         }else{
+            isSelectBasketBallDic = false
             let tempDic = NSMutableDictionary.init(dictionary: self.basketBalleventsList.mutableCopy() as! NSDictionary)
             let eventDic = NSMutableDictionary.init(dictionary: CacheManager.getSharedInstance().getBasketBallEventModel()!.mutableCopy() as! NSDictionary)
             let select_event_id = NSMutableArray.init()
@@ -165,6 +171,7 @@ class FilterViewModel: BaseViewModel {
                 if temp_array.count > 0 {
                     for index in 0...temp_array.count - 1{
                         if ((temp_array[index] as! NSDictionary).object(forKey: "is_select")! as! Bool){
+                            isSelectBasketBallDic = true
                             if (temp_array[index] as! NSDictionary).object(forKey: "name_zh") == nil {
                                 for indexs in 0...event_array.count - 1 {
                                     if (event_array[indexs] as! NSDictionary).object(forKey: "name_zh") as! String == (temp_array[index] as! NSDictionary).object(forKey: "eventsName") as! String {
@@ -367,11 +374,20 @@ class FilterViewModel: BaseViewModel {
     func saveEvent(){
         if (self.controller as! FilterViewController).filterViewControllerSaveClouse != nil {
             if self.viewType == .football {
+                if !isSelectFootBallDic{
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "请选择赛事", autoHidder: true)
+                    return
+                }
                 UserDefaults.standard.set(self.filterType.rawValue, forKey: RELOADCOLLECTFOOTBALLTYPEMODEL)
             }else{
+                if !isSelectBasketBallDic{
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "请选择赛事", autoHidder: true)
+                    return
+                }
                 UserDefaults.standard.set(self.filterType.rawValue, forKey: CLICKRELOADBASKETBALLEVENTYPETDATA)
             }
             self.clickCollectItemSave()
+            
             (self.controller as! FilterViewController).filterViewControllerSaveClouse()
         }
     }

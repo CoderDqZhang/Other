@@ -10,6 +10,8 @@ import UIKit
 import WebKit
 import ReactiveCocoa
 import ReactiveSwift
+import WKWebViewJavascriptBridge
+
 /**
  IOS7 以后才可以使用的
  超出WebView大小的View,展示形式
@@ -31,13 +33,15 @@ import ReactiveSwift
     case rightToLeft
  }
 
+typealias BaseWebViewControllerJsCallBack = (_ dic:NSDictionary) ->Void
+
 class BaseWebViewController: UIViewController {
 
     // wkWebView
     lazy var wkWebView = WKWebView()
     // 进度条
     lazy var progressView = UIProgressView()
-    
+    var bridge:WKWebViewJavascriptBridge!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = App_Theme_F6F6F6_Color
@@ -74,7 +78,7 @@ class BaseWebViewController: UIViewController {
             , y: 0
             , width: SCREENWIDTH
             , height: 2)
-        progressView.progressTintColor = UIColor.red
+        progressView.progressTintColor = UIColor.blue
         progressView.trackTintColor = UIColor.clear
         self.view.addSubview(self.progressView)
     }
@@ -90,6 +94,14 @@ class BaseWebViewController: UIViewController {
         let request = URLRequest.init(url: URL.init(string: url)!)
         self.setUpView()
         wkWebView.load(request)
+        bridge = WKWebViewJavascriptBridge(webView: self.wkWebView)
+        // setup bridge
+        bridge.isLogEnable = true
+        bridge.register(handlerName: "testiOSCallback") { (paramters, callback) in
+            print("testiOSCallback called: \(String(describing: paramters))")
+            callback?("Response from testiOSCallback")
+        }
+        bridge.call(handlerName: "testJavascriptHandler", data: ["foo": "before ready"], callback: nil)
     }
 
 

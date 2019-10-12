@@ -92,6 +92,7 @@ extension AboutViewModel: UITableViewDataSource {
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: AboutInfoTableViewCell.description(), for: indexPath)
             cell.contentView.backgroundColor = App_Theme_F6F6F6_Color
+            cell.selectionStyle = .none
             return cell
         }
     }

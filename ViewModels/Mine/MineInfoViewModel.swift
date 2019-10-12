@@ -89,6 +89,30 @@ class MineInfoViewModel: BaseViewModel {
             }
         }
     }
+    
+    func loginThirdPard(){
+        UMengManager.getSharedInstance().loginWithPlatform(type: UMSocialPlatformType.wechatSession, controller: self.controller!, loginType: .weichat)
+        UMengManager.getSharedInstance().umengManagerUserInfoResponse = { response,type in
+            let model = ThirdLoginModel()
+            model.openId = response.openid
+            model.nickname = ((response.originalResponse as! NSDictionary).object(forKey: "nickname") as! String)
+            model.img = ((response.originalResponse as! NSDictionary).object(forKey: "headimgurl") as! String)
+            model.type = "0"
+            model.descriptions = ""
+            self.bindPhone(model:model)
+        }
+    }
+    
+    func bindPhone(model:ThirdLoginModel){
+        let parameters = ["phone":userInfo.phone, "code":"123456", "openId":model.openId]
+        BaseNetWorke.getSharedInstance().postUrlWithString(UserLoginBindPhoneUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
 }
 
 

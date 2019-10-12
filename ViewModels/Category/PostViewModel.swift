@@ -43,9 +43,9 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
     }
     
     func tableViewPostCommentTextTableViewCellSetData(_ indexPath:IndexPath, cell:PostCommentTextTableViewCell) {
-        if self.postModel.content != nil {
-            cell.textView.text = self.postModel.content
-        }
+//        if self.postModel.content != nil {
+//            cell.textView.text = self.postModel.content
+//        }
         
         cell.postCommentTextTableViewCellTextClouse = { (str) in
             self.postModel.content = str
@@ -69,7 +69,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                 }
                 self.notifiArray.add(dic)
                 let str = cell.textView.text
-                cell.textView.text = "\(String(describing: str!)) [@\(String(describing: dic.object(forKey: "nickname")!))] "
+                cell.textView.text = "\(String(describing: str!))@\(String(describing: dic.object(forKey: "nickname")!)), "
             }
             NavigationPushView(self.controller!, toConroller: targetUser)
         }

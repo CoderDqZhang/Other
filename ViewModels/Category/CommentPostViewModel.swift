@@ -63,7 +63,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
                 }
                 self.notifiArray.add(dic)
                 let str = cell.textView.text
-                cell.textView.text = "\(String(describing: str!)) [@\(String(describing: dic.object(forKey: "nickname")!))] "
+                cell.textView.text = "\(String(describing: str!))@\(String(describing: dic.object(forKey: "nickname")!)), "
             }
             NavigationPushView(self.controller!, toConroller: targetUser)
         }

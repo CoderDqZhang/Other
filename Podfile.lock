@@ -53,6 +53,7 @@ PODS:
   - TYPagerController (2.1.2)
   - TZImagePickerController (3.2.4)
   - "UITableView+FDTemplateLayoutCell (1.6)"
+  - WKWebViewJavascriptBridge (1.2.0)
   - YTKKeyValueStore (0.1.2):
     - FMDB (~> 2.0)
   - YYCache (1.0.4)
@@ -90,6 +91,7 @@ DEPENDENCIES:
   - TYPagerController
   - TZImagePickerController
   - "UITableView+FDTemplateLayoutCell"
+  - WKWebViewJavascriptBridge
   - YTKKeyValueStore
   - YYCache
   - YYImage
@@ -126,6 +128,7 @@ SPEC REPOS:
     - TYPagerController
     - TZImagePickerController
     - "UITableView+FDTemplateLayoutCell"
+    - WKWebViewJavascriptBridge
     - YTKKeyValueStore
     - YYCache
     - YYImage
@@ -161,6 +164,7 @@ SPEC CHECKSUMS:
   TYPagerController: 262556ecef99986d26ed77fb1288a198ed42f4af
   TZImagePickerController: d259369c5c2cc96299e53da868ae5be1b24353cd
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
+  WKWebViewJavascriptBridge: 43c5948c08c29b8777530d512d02eb921ca0881f
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
@@ -168,6 +172,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: fb764ed6634a11826568de66cd91169b24425e84
+PODFILE CHECKSUM: 9f6da2a936e1e9effc1c9fdd18ec59925aa5d6ed
 
 COCOAPODS: 1.6.1

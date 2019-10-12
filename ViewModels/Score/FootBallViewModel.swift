@@ -172,6 +172,10 @@ class FootBallViewModel: BaseViewModel {
                 let lottery:NSDictionary = (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "footballLottery") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
                 let indexes:NSDictionary = (footballDic.object(forKey: "indexes") as! NSDictionary).object(forKey: "\(temp_array[0])") != nil ? (footballDic.object(forKey: "indexes") as! NSDictionary).object(forKey: "\(temp_array[0])") as! NSDictionary : [:]
                 
+                if (temp_array[0] as! Int) == 2741106 {
+                    print(index)
+                }
+                
                 let model = FootBallModel.init(fromDictionary: [
                     "id": temp_array[0] as! Int,
                     "event_info": (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])") == nil ? [:] : (footballDic.object(forKey: "events") as! NSDictionary).object(forKey: "\(temp_array[1])")!,

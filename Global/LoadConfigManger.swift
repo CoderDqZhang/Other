@@ -137,7 +137,7 @@ class LoadConfigManger: NSObject {
     func setUpADView(controller:BaseViewController, model:AdModel){
         let adView = AdView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), url: model.image) {
             let controllerVC = AdViewController.init()
-            controllerVC.loadRequest(url: model.url) 
+            controllerVC.loadRequest(url: model.url)
             NavigationPushView(controller, toConroller: controllerVC)
         }
         KWindow.addSubview(adView)
@@ -336,7 +336,7 @@ class LoadConfigManger: NSObject {
                 let array = dic.object(forKey: title) == nil ? NSMutableArray.init() : dic.object(forKey: title)
                 if !all_event_id.contains((item as! NSDictionary).object(forKey: "id")!) {
                     update_event = true
-                    select_event_id?.add((item as! NSDictionary).object(forKey: "id"))
+                    select_event_id?.add((item as! NSDictionary).object(forKey: "id")!)
                     self.updateSelectBasketEvent(item: (item as! NSDictionary), select_event: select_event, name: title)
                 }
                 //一级筛选
@@ -347,11 +347,13 @@ class LoadConfigManger: NSObject {
                     }
                 }else{
                     (array as! NSMutableArray).add(item)
+                    dic.setValue(array, forKey: title)
                 }
             }
         }
         switch type {
         case .event:
+            CacheManager.getSharedInstance().saveBasketBallEventModel(point: dic)
             if update_event {
                 CacheManager.getSharedInstance().saveBasketBallEventModel(point: dic)
                 let date = Date.init().string(withFormat: "yyyyMMdd")

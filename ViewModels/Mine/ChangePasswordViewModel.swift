@@ -139,10 +139,14 @@ extension ChangePasswordViewModel: UITableViewDataSource {
             self.tableViewGloabelConfirmTableViewCellSetData(indexPath, cell: cell as! GloabelConfirmTableViewCell)
             cell.contentView.backgroundColor = .clear
             cell.backgroundColor = .clear
+            
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: GloabelTextFieldAndTitleTableViewCell.description(), for: indexPath)
         self.tableViewGloabelTextFieldAndTitleTableViewCellSetData(indexPath, cell: cell as! GloabelTextFieldAndTitleTableViewCell)
+        if indexPath.row == 2 {
+            (cell as! GloabelTextFieldAndTitleTableViewCell).hiddenLineLabel()
+        }
         return cell
     }
 }

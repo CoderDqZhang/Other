@@ -20,7 +20,11 @@ class FansViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.setNavigationItemBack()
-        self.navigationItem.title = "我的粉丝"
+        if CacheManager.getSharedInstance().isLogin() {
+            self.navigationItem.title = self.userId == nil ? "我的粉丝" : "他的粉丝"
+        }else{
+            self.navigationItem.title = "他的粉丝"
+        }
     }
     
     override func setUpView() {

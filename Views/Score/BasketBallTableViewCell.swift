@@ -226,7 +226,7 @@ class BasketBallTableViewCell: UITableViewCell {
     
     func cellSetData(model:BasketBallModel, viewDesc:ScoreDetailTypeVC){
         self.model = model
-        scoreType.text = model.basketballEvent.nameZh
+        scoreType.text = model.basketballEvent.shortNameZh == nil ? model.basketballEvent.nameZh : model.basketballEvent.shortNameZh
         scoreTime.text = Date.init(timeIntervalSince1970: model.time.double).string(withFormat: "HH:mm")
         
         let minute = String.init(format: "%02d", model.allSecond / 60)

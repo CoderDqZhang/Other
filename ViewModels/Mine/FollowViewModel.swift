@@ -23,8 +23,8 @@ class FollowViewModel: BaseViewModel {
     
     func tableViewGloabelFansTableViewCellSetData(_ indexPath:IndexPath, cell:GloabelFansTableViewCell) {
         cell.cellSetData(model: FansFlowwerModel.init(fromDictionary: self.followArray[indexPath.row] as! [String : Any]), indexPath: indexPath)
-        if indexPath.row == 9 {
-            cell.lineLableHidden()
+        if followArray.count > 1 {
+            cell.lineLableHidden(ret: followArray.count - 1 == indexPath.row ? true : false)
         }
         cell.gloabelFansTableViewCellClouse = { type, indexPath in
             self.followNet(type: type, indexPath: indexPath)
@@ -126,6 +126,7 @@ extension FollowViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GloabelFansTableViewCell.description(), for: indexPath)
         self.tableViewGloabelFansTableViewCellSetData(indexPath, cell: cell as! GloabelFansTableViewCell)
+        (cell as! GloabelFansTableViewCell).lineLableHidden(ret: indexPath.row == self.followArray.count - 1 ? true : false)
         cell.selectionStyle = .none
         return cell
     }

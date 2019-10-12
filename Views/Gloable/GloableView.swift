@@ -1559,8 +1559,14 @@ class GloableAdView: UIView {
         self.setUpView(image: image)
         self.gloableAdViewComplet = compley
         
+        if #available(iOS 11.0, *) {
+            let number:CGFloat = INTERFACE_IS_IPHONEX ? 20 : 0
+            disMissBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 15 - 70, y: SCREENHEIGHT - 95 - 30 - number, width: 70, height: 30))
+        } else {
+            disMissBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 15 - 70, y: SCREENHEIGHT - 95 - 30, width: 70, height: 30))
+            // Fallback on earlier versions
+        }
         
-        disMissBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 15 - 70, y: SCREENHEIGHT - 95 - 30 - 20, width: 70, height: 30))
         disMissBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
         disMissBtn.layer.cornerRadius = 15
         disMissBtn.addAction({ (button) in
@@ -1597,8 +1603,14 @@ class GloableAdView: UIView {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
-        
-        let bottomView = UIView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 95 - 20, width: SCREENWIDTH, height: 95))
+        var bottomView:UIView!
+        if #available(iOS 11.0, *) {
+            let number:CGFloat = INTERFACE_IS_IPHONEX ? 20 : 0
+            bottomView = UIView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 95 - number, width: SCREENWIDTH, height: 95))
+        } else {
+            bottomView = UIView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 95, width: SCREENWIDTH, height: 95))
+            // Fallback on earlier versions
+        }
         bottomView.backgroundColor = .white
         let image = UIImage.init(named: "ad_logo")
         buttomImageView = UIImageView.init(frame:CGRect.zero)

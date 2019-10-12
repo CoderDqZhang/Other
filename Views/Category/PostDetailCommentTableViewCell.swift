@@ -21,6 +21,7 @@ typealias PostDetailCommentTableViewCellClouse = (_ model:CommentModel) ->Void
 class PostDetailCommentTableViewCell: UITableViewCell {
 
     var contentLabel:YYLabel!
+    var contentLabel1:YYLabel!
     var imageContentView:UIView!
     var secondeContent:UIView!
     
@@ -44,8 +45,8 @@ class PostDetailCommentTableViewCell: UITableViewCell {
         
         contentLabel = YYLabel.init()
         contentLabel.numberOfLines = 3
-        contentLabel.text = "鲁尼也是一代红魔传说"
         contentLabel.textAlignment = .left
+        contentLabel.textParser = YYTextBindManager.init()
         contentLabel.font = App_Theme_PinFan_M_14_Font
         contentLabel.textColor = App_Theme_06070D_Color
         self.contentView.addSubview(contentLabel)
@@ -104,20 +105,20 @@ class PostDetailCommentTableViewCell: UITableViewCell {
             contentLabel.textColor = App_Theme_06070D_Color
             if isShowRepli {
                 _ = self.contentView.newLongpressGesture { (longPress) in
-                    
+
                     }.whenBegan { (longPress) in
-                        
+
                     }.whenEnded { (longPress) in
                         if self.postDetailCommentTableViewCellClouse != nil {
                             self.postDetailCommentTableViewCellClouse(model)
                         }
                 }
             }
-           
+
         }else{
             let attributed = NSMutableAttributedString.init(string: model.content)
             attributed.yy_textStrikethrough = YYTextDecoration.init(style: .single)
-            attributed.yy_color = App_Theme_999999_Color
+//            attributed.yy_color = App_Theme_999999_Color
             contentLabel.attributedText = attributed
         }
         
