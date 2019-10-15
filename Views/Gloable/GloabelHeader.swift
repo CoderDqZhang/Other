@@ -235,7 +235,7 @@ class StoreView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpView()
-
+        self.backgroundColor = App_Theme_F6F6F6_Color
     }
     
     func setUpView(){

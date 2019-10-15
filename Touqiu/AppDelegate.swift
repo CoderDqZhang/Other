@@ -11,6 +11,8 @@ import Bugly
 //#if DEBUG
 //import CocoaDebug
 //#endif
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
+        Fabric.with([Crashlytics.self])
+        // TODO: Move this to where you establish a user session
+        self.logUser()
+
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
         
@@ -48,6 +54,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func logUser() {
+        // TODO: Use the current user's information
+        // You can call any combination of these three methods
+        Crashlytics.sharedInstance().setUserEmail("zhangdequan76983@gmail.com")
+        if CacheManager.getSharedInstance().isLogin() {
+            Crashlytics.sharedInstance().setUserIdentifier(CacheManager.getSharedInstance().getUserId())
+            Crashlytics.sharedInstance().setUserName(CacheManager.getSharedInstance().getUserInfo()?.nickname)
+        }else{
+            Crashlytics.sharedInstance().setUserIdentifier("999999")
+            Crashlytics.sharedInstance().setUserName("Test User")
+        }
+    }
+
     //Step 3. (AppDelegate.swift)
 //    public func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
 //        #if DEBUG

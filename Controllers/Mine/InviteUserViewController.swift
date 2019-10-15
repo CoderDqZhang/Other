@@ -153,9 +153,18 @@ class InviteUserViewController: BaseViewController {
         inveterBtn.titleLabel?.font = App_Theme_PinFan_M_18_Font
         inveterBtn.setBackgroundImage(UIImage.init(named: "invete_btn"), for: .normal)
         inveterBtn.addAction({ (button) in
-            let controllerVC = InviteWebViewController()
-            controllerVC.loadRequest(url: InviteUrl)
-            NavigationPushView(self, toConroller: controllerVC)
+            UMengUI.getSharedInstance().createPlatForm(block: { platform,userInfo in
+                switch platform {
+                case .dingDing:
+                    UMengManager.getSharedInstance().sharePlatformImage(type: platform, thumImage: UIImage.init(named: "category_post")!, image_url: "", controller: self, completion: { (ret, error) in
+                        
+                    })
+                default:
+                    UMengManager.getSharedInstance().sharePlatformWeb(type: platform, title: "邀请注册", descr: "赶快来注册吧", thumImage: UIImage.init(named: "logo1024")!, web_url: InviteUrl, controller: self, completion: { (ret, error) in
+                        
+                    })
+                }
+            })
         }, for: UIControl.Event.touchUpInside)
         inveterView.addSubview(inveterBtn)
         inveterView.bringSubviewToFront(inveterBtn)

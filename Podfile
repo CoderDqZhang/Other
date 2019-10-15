@@ -38,6 +38,8 @@ target 'Touqiu' do
   pod 'WKWebViewJavascriptBridge'
 #  pod 'CocoaDebug', :configurations => ['Debug']
   pod 'Bugly'
+  pod 'Fabric'
+  pod 'Crashlytics'
   
   target 'TouqiuTests' do
     inherit! :search_paths

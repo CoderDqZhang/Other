@@ -4,7 +4,10 @@ PODS:
   - BDKCollectionIndexView (2.2.2)
   - Bugly (2.5.0)
   - CocoaAsyncSocket (7.6.3)
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
   - DZNEmptyDataSet (1.8.1)
+  - Fabric (1.10.2)
   - FDFullscreenPopGesture (1.1)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -72,7 +75,9 @@ DEPENDENCIES:
   - BDKCollectionIndexView
   - Bugly
   - CocoaAsyncSocket
+  - Crashlytics
   - DZNEmptyDataSet
+  - Fabric
   - FDFullscreenPopGesture
   - IQKeyboardManagerSwift
   - JPush
@@ -106,7 +111,9 @@ SPEC REPOS:
     - BDKCollectionIndexView
     - Bugly
     - CocoaAsyncSocket
+    - Crashlytics
     - DZNEmptyDataSet
+    - Fabric
     - FDFullscreenPopGesture
     - FMDB
     - IQKeyboardManagerSwift
@@ -142,7 +149,9 @@ SPEC CHECKSUMS:
   BDKCollectionIndexView: 489a0c57d27fafe6944ef61e5a4192902148ea84
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   IQKeyboardManagerSwift: 9ac7524fad9f9fe9a3b98c927e7772471ca546d2
@@ -172,6 +181,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 9f6da2a936e1e9effc1c9fdd18ec59925aa5d6ed
+PODFILE CHECKSUM: 9105513bd4b664059d0ff0223e4f4e64ea2c5f75
 
 COCOAPODS: 1.6.1

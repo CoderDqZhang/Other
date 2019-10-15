@@ -69,7 +69,7 @@ class StoreSegementViewController: BaseViewController {
             // Fallback on earlier versions
              userHeaderContainerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: CGFloat(tableHeaderViewHeight)))
         }
-
+        userHeaderContainerView.backgroundColor = App_Theme_F6F6F6_Color
         userHeader = StoreView(frame: userHeaderContainerView.bounds)
         //设置数据
         storeViewModel.controller = self

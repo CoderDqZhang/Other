@@ -8,6 +8,7 @@
 
 import UIKit
 import MJRefresh
+import Crashlytics
 
 class NewsViewController: BaseViewController {
 
@@ -36,6 +37,7 @@ class NewsViewController: BaseViewController {
         self.setUpLoadMoreData {
             self.newsViewModel.getTribeListNet()
         }
+        
     }
     
     override func setUpViewNavigationItem() {

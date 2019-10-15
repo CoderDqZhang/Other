@@ -69,5 +69,6 @@ extension StoreDetailViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("webViewDidFinishLoad")
+        self.navigationItem.title = self.webView.title
     }
 }

@@ -60,7 +60,7 @@ class RealNameViewModel: BaseViewModel {
         let parameters = ["username":self.username,"idNumber":self.idnumber]
         BaseNetWorke.getSharedInstance().postUrlWithString(PersonnameAuthUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWindow, msg: "提交成功，等待审核", autoHidder: true)
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "提交成功", autoHidder: true)
                 let userInfo = CacheManager.getSharedInstance().getUserInfo()
                 userInfo?.isMember = "1"
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: userInfo!)

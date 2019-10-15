@@ -33,9 +33,10 @@ class FootBallViewModel: BaseViewModel {
     }
     
     func tableViewScoreInfoTableViewCellSetData(_ indexPath:IndexPath, cell:ScoreInfoTableViewCell) {
-        if self.footBallArray.count > 0 && self.footBallArray.count > indexPath.section{
-            cell.cellSetData(model:  self.footBallArray[indexPath.section] as! FootBallModel)
-        }
+        cell.cellSetData(model:  self.footBallArray[indexPath.section] as! FootBallModel)
+
+//        if self.footBallArray.count > 0 && self.footBallArray.count > indexPath.section{
+//        }
     }
     
     func tableViewScoreListTableViewCellSetData(_ indexPath:IndexPath, cell:ScoreListTableViewCell) {
