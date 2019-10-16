@@ -109,10 +109,10 @@ class CommentTableViewCell: UITableViewCell {
     
     func cellSetData(model:TipModel){
         var favorStr = ""
-        if model.favor > 1000 {
-            favorStr = model.favor.kFormatted
+        if model.fork > 1000 {
+            favorStr = model.fork.kFormatted
         }else{
-            favorStr = model.favor.string
+            favorStr = model.fork.string
         }
         
         var commentStr = ""

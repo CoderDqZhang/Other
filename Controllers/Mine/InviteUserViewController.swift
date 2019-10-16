@@ -160,7 +160,7 @@ class InviteUserViewController: BaseViewController {
                         
                     })
                 default:
-                    UMengManager.getSharedInstance().sharePlatformWeb(type: platform, title: "邀请注册", descr: "赶快来注册吧", thumImage: UIImage.init(named: "logo1024")!, web_url: InviteUrl, controller: self, completion: { (ret, error) in
+                    UMengManager.getSharedInstance().sharePlatformWeb(type: platform, title: "邀请注册", descr: "赶快来注册吧", thumImage: UIImage.init(named: "logo1024")!, web_url: "\(InviteUrl)?uid=\(CacheManager.getSharedInstance().getUserId())", controller: self, completion: { (ret, error) in
                         
                     })
                 }

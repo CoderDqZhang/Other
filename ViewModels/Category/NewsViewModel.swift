@@ -77,9 +77,11 @@ class NewsViewModel: BaseViewModel {
                     }
                 }else{
                     if status == .add {
-                        muDic.setValue(dicData["favor"] as! Int + 1, forKey: "favor")
+                        muDic.setValue(1, forKey: "iSFork")
+                        muDic.setValue(dicData["fork"] as! Int + 1, forKey: "fork")
                     }else{
-                        muDic.setValue(dicData["favor"] as! Int - 1, forKey: "favor")
+                        muDic.setValue(0, forKey: "iSFork")
+                        muDic.setValue(dicData["fork"] as! Int - 1, forKey: "fork")
                     }
                 }
                 self.tipListArray.replaceObject(at: indexPath.section - 2, with: muDic)
