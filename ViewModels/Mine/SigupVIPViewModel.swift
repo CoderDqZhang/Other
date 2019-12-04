@@ -113,7 +113,7 @@ class SigupVIPViewModel: BaseViewModel {
             _ = Tools.shareInstance.showMessage(KWindow, msg: "请上传图片", autoHidder: true)
             return
         }
-        AliPayManager.getSharedInstance().uploadFile(images: [fontImage!,backImage!,takeHandImage!], type: .user) { imgs,strs,sucess  in
+        AliManager.getSharedInstance().uploadFile(images: [fontImage!,backImage!,takeHandImage!], type: .user) { imgs,strs,sucess  in
             
             if sucess == false {
                 DispatchQueue.main.async {

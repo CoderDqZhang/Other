@@ -10,7 +10,7 @@ import UIKit
 
 class AboutViewModel: BaseViewModel {
 
-    let titles = ["","服务协议","隐私政策",""]
+    let titles = ["","使用协议","隐私政策",""]
     
     override init() {
         super.init()

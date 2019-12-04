@@ -11,8 +11,8 @@ import UIKit
 
 class MineViewModel: BaseViewModel {
     
-    let titles = [["实名认证","消息","设置"],["邀请好友"]]
-    let leftImage = [["realname","message","setting"],[nil]]
+    let titles = [["实名认证","消息","设置","屏蔽"],["邀请好友"]]
+    let leftImage = [["realname","message","setting","shield"],[nil]]
     var desc:[[String]]!
     
     var adArray:NSMutableArray = NSMutableArray.init()
@@ -37,13 +37,7 @@ class MineViewModel: BaseViewModel {
                 case .follow:
                     NavigationPushView(self.controller!, toConroller: FollowsViewController())
                 case .topUp:
-                    if self.userInfo.isMember == "1" {
-                        let touUpVC = TopUpViewController()
-                        touUpVC.accountInfo = self.accountInfo
-                        NavigationPushView(self.controller!, toConroller: touUpVC)
-                    }else{
-                        _ = Tools.shareInstance.showMessage(KWindow, msg: "请先实名认证", autoHidder: true)
-                    }
+                    break
                 case.daily:
                     NavigationPushView(self.controller!, toConroller: DailyViewController())
                 case .avater:
@@ -124,7 +118,17 @@ class MineViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
-        if CacheManager.getSharedInstance().isLogin() {
+        if indexPath.section == 2 && indexPath.row == 2 {
+            let settinVC = SettingViewController()
+            settinVC.logoutClouse = {
+                self.userInfo = nil
+                self.accountInfo = nil
+                self.desc = [["","","","",""],[""]]
+                CacheManager.getSharedInstance().logout()
+                self.reloadTableViewData()
+            }
+            NavigationPushView(self.controller!, toConroller: settinVC)
+        }else if CacheManager.getSharedInstance().isLogin() {
             switch indexPath.section {
             case 0:
                 if indexPath.row == 0 {
@@ -140,29 +144,21 @@ class MineViewModel: BaseViewModel {
                     }
                     NavigationPushView(self.controller!, toConroller: RealNameViewController())
                 }else if indexPath.row == 3{
-                    if self.userInfo != nil  {
-                        if (self.userInfo!.isMaster == "1"){
-                            _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经是大神用户", autoHidder: true)
-                            return
-                        }
-                        if (self.userInfo!.isMaster == "2") {
-                            _ = Tools.shareInstance.showMessage(KWindow, msg: "正在审核中", autoHidder: true)
-                            return
-                        }
-                    }
-                    NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
+                    let shieldVC = ShieldViewController()
+                    NavigationPushView(self.controller!, toConroller: shieldVC)
+//                    if self.userInfo != nil  {
+//                        if (self.userInfo!.isMaster == "1"){
+//                            _ = Tools.shareInstance.showMessage(KWindow, msg: "您已经是大神用户", autoHidder: true)
+//                            return
+//                        }
+//                        if (self.userInfo!.isMaster == "2") {
+//                            _ = Tools.shareInstance.showMessage(KWindow, msg: "正在审核中", autoHidder: true)
+//                            return
+//                        }
+//                    }
+//                    NavigationPushView(self.controller!, toConroller: SingUpVIPViewController())
                 }else if indexPath.row == 1{
                     NavigationPushView(self.controller!, toConroller: MessageSegementViewController())
-                }else if indexPath.row == 2{
-                    let settinVC = SettingViewController()
-                    settinVC.logoutClouse = {
-                        self.userInfo = nil
-                        self.accountInfo = nil
-                        self.desc = [["","","",""],[""]]
-                        CacheManager.getSharedInstance().logout()
-                        self.reloadTableViewData()
-                    }
-                    NavigationPushView(self.controller!, toConroller: settinVC)
                 }
             case 3:
                 NavigationPushView(self.controller!, toConroller: InviteUserViewController())
@@ -181,7 +177,7 @@ class MineViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
-                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证", "",""],["推广标语推广标语"]]
+                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证", "","",""],["推广标语推广标语"]]
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
@@ -195,7 +191,7 @@ class MineViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.userInfo = UserInfoModel.init(fromDictionary: resultDic.value as! [String : Any])
                 CacheManager.getSharedInstance().saveUserInfo(userInfo: self.userInfo)
-                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证","",""],["推广标语推广标语"]]
+                self.desc = [[self.userInfo.isMember == "1" ? "已认证" : "点击实名认证","","",""],["推广标语推广标语"]]
                 self.reloadTableViewData()
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])

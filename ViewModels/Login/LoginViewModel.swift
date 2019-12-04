@@ -77,6 +77,7 @@ class LoginViewModel: BaseViewModel {
     
     func loginThirdPlathom(model:ThirdLoginModel){
         let parameters = ["openId":model.openId, "type":model.type,"nickname":model.nickname,"img":model.img,"description":model.descriptions]
+        UserDefaults.init().set("", forKey: CACHEMANAUSERTOKEN)
         BaseNetWorke.getSharedInstance().postUrlWithString(UserLoginThirdPartyUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if resultDic.value != nil {

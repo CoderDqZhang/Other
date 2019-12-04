@@ -28,6 +28,10 @@ class CacheManager: NSObject {
     
     
     func getUserId() ->String{
+        if CacheManager.getSharedInstance().getUserInfo() == nil {
+            CacheManager.getSharedInstance().logout()
+            return ""
+        }
         return (CacheManager.getSharedInstance().getUserInfo()?.id.string)!
     }
     

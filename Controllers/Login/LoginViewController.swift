@@ -9,6 +9,7 @@
 import UIKit
 import ReactiveCocoa
 import ReactiveSwift
+import AuthenticationServices
 
 typealias LoginDoneClouse = () ->Void
 
@@ -24,7 +25,6 @@ class LoginViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
@@ -52,7 +52,12 @@ class LoginViewController: BaseViewController {
     override func setUpView() {
         self.setUpBackImage()
         self.loginViewModel.controller = self
-        loginCenteView = LoginView.init(frame:  CGRect.init(x: 23, y: (SCREENHEIGHT - 305) / 2 - 37.5, width: SCREENWIDTH - 46, height: 305 + 37.5), type: .password)
+        if #available(iOS 13.0, *) {
+            loginCenteView = LoginView.init(frame:  CGRect.init(x: 23, y: (SCREENHEIGHT - 305) / 2 - 37.5 - 47, width: SCREENWIDTH - 46, height: 305 + 37.5 + 47), type: .password)
+        } else {
+            loginCenteView = LoginView.init(frame:  CGRect.init(x: 23, y: (SCREENHEIGHT - 305) / 2 - 37.5, width: SCREENWIDTH - 46, height: 305 + 37.5), type: .password)
+            // Fallback on earlier versions
+        }
         loginCenteView.loginViewButtonClouse = { type in
             switch type {
             case .forgetPas:
@@ -61,6 +66,8 @@ class LoginViewController: BaseViewController {
                 NavigationPushView(self, toConroller: RegiseViewController())
             case .senderCode:
                 self.loginViewModel.sendCodeNetWork(phone: self.loginCenteView.phoneTextField.text!)
+            case .loginApp:
+                self.handleAuthorizationAppleIDButtonPress()
             default:
                 self.loginViewModel.loginPasswordNetWork(phone: self.loginCenteView.phoneTextField.text!, password: self.loginCenteView.passwordTextField.text!)
             }
@@ -92,7 +99,7 @@ class LoginViewController: BaseViewController {
                     model.descriptions = ((response.originalResponse as! NSDictionary).object(forKey: "nickname") as! String)
                     break
                 case .weibo:
-                    model.openId = response.openid
+                    model.openId = response.openid != nil ? response.openid : response.uid
                     model.nickname = ((response.originalResponse as! NSDictionary).object(forKey: "name") as! String)
                     model.img = ((response.originalResponse as! NSDictionary).object(forKey: "avatar_large") as! String)
                     model.type = "2"
@@ -154,7 +161,9 @@ class LoginViewController: BaseViewController {
         }
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
+        performExistingAccountSetupFlows()
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
@@ -168,5 +177,107 @@ class LoginViewController: BaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    /// Prompts the user if an existing iCloud Keychain credential or Apple ID credential is found.
+    func performExistingAccountSetupFlows() {
+        // Prepare requests for both Apple ID and password providers.
+        if #available(iOS 13.0, *) {
+            let requests = [ASAuthorizationAppleIDProvider().createRequest(),
+                            ASAuthorizationPasswordProvider().createRequest()]
+            let authorizationController = ASAuthorizationController(authorizationRequests: requests)
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        // Create an authorization controller with the given requests.
+        
+    }
+    
+    @objc
+    func handleAuthorizationAppleIDButtonPress() {
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
+        } else {
+            // Fallback on earlier versions
+        }
+        
+    }
 
 }
+
+@available(iOS 13.0, *)
+extension LoginViewController: ASAuthorizationControllerDelegate {
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            
+            let model = ThirdLoginModel()
+            model.openId = appleIDCredential.user
+            model.nickname = "苹果登录"
+            model.img = "/user/default.png"
+            model.type = "3"
+            model.descriptions = ""
+            self.loginViewModel.loginThirdPlathom(model: model)
+            // Create an account in your system.
+            // For the purpose of this demo app, store the userIdentifier in the keychain.
+//            do {
+//                try KeychainItem(service: "com.example.apple-samplecode.touqiu", account: "userIdentifier").saveItem(userIdentifier)
+//            } catch {
+//                print("Unable to save userIdentifier to keychain.")
+//            }
+//
+//            // For the purpose of this demo app, show the Apple ID credential information in the ResultViewController.
+//            if let viewController = self.presentingViewController as? ResultViewController {
+//                DispatchQueue.main.async {
+//                    viewController.userIdentifierLabel.text = userIdentifier
+//                    if let givenName = fullName?.givenName {
+//                        viewController.givenNameLabel.text = givenName
+//                    }
+//                    if let familyName = fullName?.familyName {
+//                        viewController.familyNameLabel.text = familyName
+//                    }
+//                    if let email = email {
+//                        viewController.emailLabel.text = email
+//                    }
+//                    self.dismiss(animated: true, completion: nil)
+//                }
+//            }
+//        } else if let passwordCredential = authorization.credential as? ASPasswordCredential {
+//            // Sign in using an existing iCloud Keychain credential.
+//            let username = passwordCredential.user
+//            let password = passwordCredential.password
+//
+//            // For the purpose of this demo app, show the password credential as an alert.
+//            DispatchQueue.main.async {
+//                let message = "The app has received your selected credential from the keychain. \n\n Username: \(username)\n Password: \(password)"
+//                let alertController = UIAlertController(title: "Keychain Credential Received",
+//                                                        message: message,
+//                                                        preferredStyle: .alert)
+//                alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+//                self.present(alertController, animated: true, completion: nil)
+//            }
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // Handle error.
+    }
+}
+
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    @available(iOS 13.0, *)
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+}
+

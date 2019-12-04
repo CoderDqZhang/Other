@@ -14,6 +14,16 @@ class OtherMineViewModel: BaseViewModel {
         super.init()
     }
     
+    func shieldUserNet(userId:String){
+        let parameters = ["userId":userId]
+        BaseNetWorke.getSharedInstance().postUrlWithString(PersonAddShieldUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWindow, msg: "屏蔽成功", autoHidder: true)
+            }else{
+                self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
+            }
+        }
+    }
     
     func getUserInfoNet(userId:String){
         let parameters = ["userId":userId]

@@ -80,6 +80,7 @@ class BindPhoneViewModel: BaseViewModel {
                 UserDefaults.init().set(userInfo.token, forKey: CACHEMANAUSERTOKEN)
                 let contoller = ResetPasViewController.init()
                 contoller.phone = self.phone
+                contoller.bindPhone = true
                 NavigationPushView(self.controller!, toConroller: contoller)
 //                (self.controller as! BindPhoneViewController).navigationController?.popToRootViewController(animated: true)
                 //登录成功后读取未读消息数量

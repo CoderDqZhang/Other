@@ -9,13 +9,14 @@
 import UIKit
 
 typealias GloabelHeaderClouse = (_ bool:Bool) ->Void
-
+typealias ShieldClickCellClounse = () ->Void
 class GloabelHeader: UIView {
 
     var backImageView:UIImageView!
     var avatarImageView:UIImageView!
     var vImageView:UIImageView!
     var userNameLabel:YYLabel!
+    var shieldLabel:YYLabel!
     var descLabel:YYLabel!
     var followLabel:YYLabel!
     var attentionsLabel:YYLabel!
@@ -27,6 +28,7 @@ class GloabelHeader: UIView {
     var followButton:AnimationButton!
     var mineInfoTableViewCellClouse:MineInfoTableViewCellClouse!
     var gloabelHeaderClouse:GloabelHeaderClouse!
+    var shieldClickCellClounse:ShieldClickCellClounse!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,6 +55,18 @@ class GloabelHeader: UIView {
         userNameLabel.textColor = App_Theme_06070D_Color
         userNameLabel.text = "中超小迪"
         self.addSubview(userNameLabel)
+        
+        shieldLabel = YYLabel.init()
+        shieldLabel.textAlignment = .left
+        shieldLabel.font = App_Theme_PinFan_R_10_Font
+        shieldLabel.textColor = App_Theme_C7A417_Color
+        shieldLabel.text = "屏蔽"
+        shieldLabel.addTapGestureRecognizer(withDelegate: self) { (tag) in
+            if self.shieldClickCellClounse != nil {
+                self.shieldClickCellClounse()
+            }
+        }
+        self.addSubview(shieldLabel)
         
         descLabel = YYLabel.init()
         descLabel.textAlignment = .left
@@ -173,6 +187,12 @@ class GloabelHeader: UIView {
             make.left.equalTo(self.avatarImageView.snp.right).offset(18)
             make.top.equalTo(self.avatarImageView.snp.top)
         }
+        
+        shieldLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.userNameLabel.snp.right).offset(5)
+            make.bottom.equalTo(self.userNameLabel.snp.bottom).offset(-5)
+        }
+        
         
         descLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self.avatarImageView.snp.right).offset(18)

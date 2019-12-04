@@ -22,10 +22,10 @@ let UMengKey = "5ce3c7b5570df31299000416"
 
 let OSS_ACCESSKEY_ID: String = "LTAIFreEhG934EtV"
 let OSS_SECRETKEY_ID: String = "fDma5kP0VpOqrEz15OPJA2xnXjIRIq"
-//let OSS_BUCKET_PUBLIC: String = "tq-baodian"
-//let OSS_BUCKET_PRIVATE: String = "tq-baodian"
-let OSS_BUCKET_PUBLIC: String = "tq-baodian-prd"
-let OSS_BUCKET_PRIVATE: String = "tq-baodian-prd"
+let OSS_BUCKET_PUBLIC: String = "tq-baodian"
+let OSS_BUCKET_PRIVATE: String = "tq-baodian"
+//let OSS_BUCKET_PUBLIC: String = "tq-baodian-test"
+//let OSS_BUCKET_PRIVATE: String = "tq-baodian-test"
 let OSS_ENDPOINT: String = "oss-cn-hangzhou.aliyuncs.com"
 let OSS_MULTIPART_UPLOADKEY: String = "multipart"
 let OSS_RESUMABLE_UPLOADKEY: String = "resumable"
@@ -107,7 +107,7 @@ let WeiboRedirectUrl = "http://sns.whalecloud.com/sina2/callback"
 
 
 let WeiXinAppID = "wxc12aa2683cd59692"
-let WeiXinAppSecret = "7de854c8c6a50165fe7f46cc4060b00e"
+let WeiXinAppSecret = "d899447aefba4f095598e84280c011bb"
 
 let BuglyAppId = "7e5fac7a69"
 let BuglyScrec = "8e80f3ea-a553-438d-8d3a-3141ca81b896"

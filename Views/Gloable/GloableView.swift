@@ -436,6 +436,7 @@ class TableViewHeaderView: UIView {
 
 enum LoginButtonType {
     case login
+    case loginApp
     case forgetPas
     case regise
     case senderCode
@@ -447,6 +448,7 @@ enum LoginType {
 }
 
 typealias LoginViewButtonClouse = (_ type:LoginButtonType) ->Void
+import AuthenticationServices
 
 class LoginView: UIView {
     
@@ -477,7 +479,6 @@ class LoginView: UIView {
     var loginViewButtonClouse:LoginViewButtonClouse!
     
     var isCheckBoolProperty = MutableProperty<Bool>(false)
-
     
     var count:Int = 15
     
@@ -619,7 +620,18 @@ class LoginView: UIView {
         }, for: .touchUpInside)
         centenView.addSubview(loginButton)
         
-        
+        if #available(iOS 13.0, *) {
+            let authorizationButton = ASAuthorizationAppleIDButton.init(authorizationButtonType: .signIn, authorizationButtonStyle: .white)
+            authorizationButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
+            self.addSubview(authorizationButton)
+            authorizationButton.snp.makeConstraints { (make) in
+                make.left.equalTo(centenView.snp.left).offset(24)
+                make.right.equalTo(centenView.snp.right).offset(-24)
+                make.top.equalTo(self.loginButton.snp.bottom).offset(11.5)
+                make.bottom.equalTo(centenView.snp.bottom).offset(-17)
+                make.size.equalTo(47)
+            }
+        }
         
         forgetButton = AnimationButton.init(type: .custom)
         forgetButton.setTitleColor(UIColor.init(hexString: "FFFFFF", transparency: 0.5), for: .normal)
@@ -649,6 +661,13 @@ class LoginView: UIView {
         centenView.addSubview(lineLabel1)
         
         self.updateConstraints()
+    }
+    
+    @objc
+    func handleAuthorizationAppleIDButtonPress(){
+        if self.loginViewButtonClouse != nil {
+            self.loginViewButtonClouse(.loginApp)
+        }
     }
     
     func timeDone(){
@@ -719,6 +738,8 @@ class LoginView: UIView {
             make.height.equalTo(1)
         }
         
+        
+        
         if self.type == .password {
             passwordTextField.snp.makeConstraints { (make) in
                 make.left.equalTo(centenView.snp.left).offset(24)
@@ -765,6 +786,8 @@ class LoginView: UIView {
             make.bottom.equalTo(centenView.snp.bottom).offset(-45)
             make.size.equalTo(47)
         }
+        
+        
         
         forgetButton.snp.makeConstraints { (make) in
             make.left.equalTo(loginButton.snp.left).offset(0)

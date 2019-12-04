@@ -65,11 +65,16 @@ class ResetPasViewModel: BaseViewModel {
         let parameters = ["phone":self.phone, "password":AddAESKeyPassword(str: self.newPas)]
         BaseNetWorke.getSharedInstance().postUrlWithString(SurePasswordUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                for vc in (self.controller?.navigationController!.viewControllers)! {
-                    if vc.isKind(of: LoginViewController.self) {
-                        self.controller?.navigationController?.popToViewController(vc, animated: true)
+                if (self.controller as! ResetPasViewController).bindPhone {
+                     self.controller?.navigationController?.popToRootViewController(animated: true)
+                }else{
+                    for vc in (self.controller?.navigationController!.viewControllers)! {
+                        if vc.isKind(of: LoginViewController.self) {
+                            self.controller?.navigationController?.popToViewController(vc, animated: true)
+                        }
                     }
                 }
+                
             }else{
                 self.hiddenMJLoadMoreData(resultData: resultDic.value ?? [])
             }

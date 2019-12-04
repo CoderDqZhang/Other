@@ -85,7 +85,7 @@ class CommentPostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
             return
         }
         if self.selectPhotos.count > 0 {
-            AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs,sucess   in
+            AliManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs,sucess   in
                 if sucess == false {
                     _ = Tools.shareInstance.showMessage(KWindow, msg: "图片上传失败", autoHidder: true)
                     return

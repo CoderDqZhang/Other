@@ -1,5 +1,5 @@
 //
-//  AliPayManager.swift
+//  AliManager.swift
 //  Touqiu
 //
 //  Created by Zhang on 2019/5/23.
@@ -11,21 +11,21 @@ import ReactiveCocoa
 import ReactiveSwift
 import MBProgressHUD
 
-enum AliPayManagerType {
+enum AliManagerType {
     case user
     case post
     case comment
 }
 
-typealias AliPayManagerSuccess = (_ images:[String],_ strs:String, _ success:Bool) ->Void
+typealias AliManagerSuccess = (_ images:[String],_ strs:String, _ success:Bool) ->Void
 
-class AliPayManager: NSObject {
+class AliManager: NSObject {
 
     var client:OSSClient!
     
-    private static let _sharedInstance = AliPayManager()
+    private static let _sharedInstance = AliManager()
     
-    class func getSharedInstance() -> AliPayManager {
+    class func getSharedInstance() -> AliManager {
         return _sharedInstance
     }
     
@@ -45,7 +45,7 @@ class AliPayManager: NSObject {
         client = OSSClient.init(endpoint: OSS_ENDPOINT, credentialProvider: credential!)
     }
     
-    func uploadFile(images:NSMutableArray,type:AliPayManagerType, result:@escaping AliPayManagerSuccess){
+    func uploadFile(images:NSMutableArray,type:AliManagerType, result:@escaping AliManagerSuccess){
         var loading:MBProgressHUD!
         DispatchQueue.main.async {
             loading = Tools.shareInstance.showLoading(KWindow, msg: "图片上传")
@@ -55,7 +55,7 @@ class AliPayManager: NSObject {
         let count = MutableProperty<Int>(0)
         DispatchQueue.global().async {
             for index in 0...images.count - 1 {
-                AliPayManager.getSharedInstance().uploadFileImage(images: images[index] as! UIImage, type: type) { (str, _, success)  in
+                AliManager.getSharedInstance().uploadFileImage(images: images[index] as! UIImage, type: type) { (str, _, success)  in
                     count.value = count.value + 1
                     resultStrs.append(str[0])
                     resultString = "\(resultString)\(str[0]),"
@@ -71,7 +71,7 @@ class AliPayManager: NSObject {
         }
     }
     
-    func uploadFileImage(images:UIImage,type:AliPayManagerType, result:@escaping AliPayManagerSuccess){
+    func uploadFileImage(images:UIImage,type:AliManagerType, result:@escaping AliManagerSuccess){
 
         let put = OSSPutObjectRequest.init()
         put.bucketName = OSS_BUCKET_PUBLIC
@@ -93,7 +93,7 @@ class AliPayManager: NSObject {
             print("ttalbytesexpected:\(ttalbytesexpected)")
         }
 
-        AliPayManager.getSharedInstance().client.putObject(put).continue(successBlock: { (task) -> Any? in
+        AliManager.getSharedInstance().client.putObject(put).continue(successBlock: { (task) -> Any? in
             if (task ).error == nil {
                 switch type{
                 case .post:

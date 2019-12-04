@@ -11,11 +11,11 @@ import UIKit
 
 class SettingViewModel: BaseViewModel {
     
-    let titles = [["基本资料","修改密码"],["关于我们","清除缓存","用户反馈"],["退出登录"]]
+    let titles = [["基本资料","修改密码"],["关于豹典体育","清除缓存","用户反馈"],["退出登录"]]
     var bankLiskArray = NSMutableArray.init()
     override init() {
         super.init()
-        self.getAccountInfoList()
+//        self.getAccountInfoList()
     }
     
     func tableViewTitleLableAndDetailLabelDescRightSetData(_ indexPath:IndexPath, cell:TitleLableAndDetailLabelDescRight) {
@@ -31,18 +31,19 @@ class SettingViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:IndexPath){
+        
         switch indexPath.section {
         case 0:
-            if indexPath.row == 0 {
-                NavigationPushView(self.controller!, toConroller: MineInfoViewController())
-            }else if indexPath.row == 1{
-                NavigationPushView(self.controller!, toConroller: ChangePasswordViewController())
+            if CacheManager.getSharedInstance().isLogin() {
+                if indexPath.row == 0 {
+                    NavigationPushView(self.controller!, toConroller: MineInfoViewController())
+                }else if indexPath.row == 1{
+                    NavigationPushView(self.controller!, toConroller: ChangePasswordViewController())
+                }
             }else{
-                let bindWithVC = BindBankListViewController()
-                bindWithVC.bankListk = self.bankLiskArray
-                
-                NavigationPushView(self.controller!, toConroller: bindWithVC)
+                 NavigationPushView(self.controller!, toConroller: LoginViewController())
             }
+            
         case 1:
             if indexPath.row == 0 {
                 NavigationPushView(self.controller!, toConroller: AboutViewController())
@@ -52,13 +53,21 @@ class SettingViewModel: BaseViewModel {
                 loading.hide(animated: true)
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "清除成功", autoHidder: true)
             }else{
-                NavigationPushView(self.controller!, toConroller: FeedBackViewController())
+                if CacheManager.getSharedInstance().isLogin() {
+                    NavigationPushView(self.controller!, toConroller: FeedBackViewController())
+                }else{
+                   NavigationPushView(self.controller!, toConroller: LoginViewController())
+                }
             }
         default:
-            UIAlertController.showAlertControl(self.controller!, style: .alert, title: "是否退出？", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+            if CacheManager.getSharedInstance().isLogin() {
+                UIAlertController.showAlertControl(self.controller!, style: .alert, title: "是否退出？", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
                 
-            }) {
-               self.logoutNet()
+                }) {
+                    self.logoutNet()
+                }
+            }else{
+                NavigationPushView(self.controller!, toConroller: LoginViewController())
             }
             break
         }

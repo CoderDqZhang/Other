@@ -13,7 +13,7 @@ class ResetPasViewController: BaseViewController {
     let resetViewMode = ResetPasViewModel.init()
     
     var phone:String!
-    
+    var bindPhone:Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
 

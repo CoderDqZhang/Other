@@ -27,7 +27,7 @@ class StoreInfoViewModel: BaseViewModel {
         let stroreDetailVC = StoreDetailViewController()
         let model = StoreInfoModel.init(fromDictionary: self.storeList[indexPath.row] as! [String : Any])
         stroreDetailVC.goodsId = model.id.string
-        stroreDetailVC.loadPage(url: "http://\(RootIPAddress)/bdty/exchange.html?id=\(model.id!)")
+        stroreDetailVC.loadPage(url: "\(StoreUrl)\(model.id!)")
         NavigationPushView(self.controller!, toConroller: stroreDetailVC)
     }
     

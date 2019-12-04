@@ -95,7 +95,7 @@ extension MineInfoViewController : UIImagePickerControllerDelegate {
             cell.rightImageView.image = selectedImage
         })
 
-        AliPayManager.getSharedInstance().uploadFile(images: [selectedImage], type: .user) { (imgs,str,sucess) in
+        AliManager.getSharedInstance().uploadFile(images: [selectedImage], type: .user) { (imgs,str,sucess) in
             if sucess == false {
                 _ = Tools.shareInstance.showMessage(KWindow, msg: "图片上传失败", autoHidder: true)
                 return

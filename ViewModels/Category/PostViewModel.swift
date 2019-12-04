@@ -119,7 +119,7 @@ class PostViewModel: BaseViewModel,UIImagePickerControllerDelegate {
         }
         (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = false
         if self.selectPhotos.count > 0 {
-            AliPayManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs,sucess  in
+            AliManager.getSharedInstance().uploadFile(images: self.selectPhotos, type: .post) { imgs,strs,sucess  in
                 if sucess == false {
                     DispatchQueue.main.async {
                         (self.controller! as! PostViewController).navigationItem.rightBarButtonItem?.isEnabled = true

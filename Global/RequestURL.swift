@@ -42,6 +42,10 @@ let AccountUsersurePasswordUrl = "\(RootUrl)account/updatePassword"
 let AccountFindCashAccountUrl = "\(RootUrl)account/getCashAccount"
 let AccountDeleteAccountUrl = "\(RootUrl)account/delCashAccount"
 
+let PersonAddShieldUrl = "\(RootUrl)person/addShield"
+let PersonDeleteShielUrl = "\(RootUrl)person/delShield"
+let PersonGetShielUrl = "\(RootUrl)person/getShieldList"
+
 let CommentcommentUrl = "\(RootUrl)comment/addComment"
 let CommentcommentApprovetUrl = "\(RootUrl)comment/addApproveComment"
 let CommentcommentDetailUrl = "\(RootUrl)comment/addCommentDetail"
@@ -109,6 +113,7 @@ let InviteUrl = "http://www.bdtyapp.com/bdty/register.html"
 let ShareUrl = "http://www.bdtyapp.com/bdty/invite.html"
 let MasterUrl = "http://www.bdtyapp.com/bdty/master.html"
 let SecretUrl="http://www.bdtyapp.com/bdty/secret.html"
+let StoreUrl="http://\(RootIPAddress)/bdty/exchange.html?id="
 
 let FootBallEVENTUrl = "https://open.sportnanoapi.com/api/sports/football/matchevent/list?user=xmtq&secret=2f9e2c9e7426285ed"
 

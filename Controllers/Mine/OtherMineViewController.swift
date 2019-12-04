@@ -74,7 +74,11 @@ class OtherMineViewController: BaseViewController {
             // Fallback on earlier versions
         }
         userHeader = GloabelHeader(frame: userHeaderContainerView.bounds)
-        //设置数据
+        //用户屏蔽
+        userHeader.shieldClickCellClounse = {
+            print("用户屏蔽")
+            self.otherViewModel.shieldUserNet(userId: (self.postData.object(forKey: "id") as! Int).string)
+        }
         otherViewModel.getUserInfoNet(userId: (postData.object(forKey: "id") as! Int).string)
         userHeader.changeToolsButtonType(followed: true)
         userHeader.gloabelHeaderClouse = { status in
