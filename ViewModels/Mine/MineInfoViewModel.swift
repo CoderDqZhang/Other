@@ -23,7 +23,7 @@ class MineInfoViewModel: BaseViewModel {
             if userInfo == nil {
                 userInfo = CacheManager.getSharedInstance().getUserInfo()!
             }
-            desc = [["",userInfo.nickname,userInfo.descriptionField,userInfo.phone,userInfo.email],[userInfo.openId == "0" ? "已绑定" : "未绑定"]]
+            desc = [["",userInfo.nickname,userInfo.descriptionField,CacheManager.getSharedInstance().getConfigModel()?.configuration.ipAuditStatus == 0 ? "苹果登录无法绑定" : userInfo.phone,userInfo.email],[userInfo.openId == "0" ? "已绑定" : "未绑定"]]
         }
     }
     
@@ -68,6 +68,10 @@ class MineInfoViewModel: BaseViewModel {
                 }
                 changeInfo.changeInfoType(text: "", type: .email, placeholder: "更改邮箱")
                 NavigaiontPresentView(self.controller!, toController: UINavigationController.init(rootViewController: changeInfo))
+            }else if indexPath.row == 3 {
+                if CacheManager.getSharedInstance().getConfigModel()?.configuration.ipAuditStatus == 0 {
+                    _ = Tools.shareInstance.showMessage(KWindow, msg: "苹果登录无法绑定手机号", autoHidder: true)
+                }
             }
             
         default:

@@ -130,7 +130,9 @@ extension SettingViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+        if (section == 0 && CacheManager.getSharedInstance().getConfigModel()?.configuration.ipAuditStatus == 0){
+            return 1
+        }
         return titles[section].count
     }
     
